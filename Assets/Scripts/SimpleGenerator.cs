@@ -12,10 +12,10 @@ public class SimpleGenerator : ScriptableObject
 
     public void Generate()
     {
-        Vector3 position = Vector3.zero;
+        Vector3 startPosition = Vector3.zero;
         for (int i = 0; i < cellLimit; i++)
         {
-            position += Vector3.forward * cellSize;
+            Vector3 position = startPosition + Vector3.forward * i;
             Instantiate(cellPrefab, position, Quaternion.identity);
         }
     }
