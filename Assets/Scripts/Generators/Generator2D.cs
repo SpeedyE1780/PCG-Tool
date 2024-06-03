@@ -62,9 +62,21 @@ public class Generator2D : Generator
         }
     }
 
-    private Vector3 GetNextDirection()
+    private List<Vector3> GetNextPositions(Vector3 currentPosition)
     {
-        return directions[Random.Range(0, directions.Count)];
+        List<Vector3> positions = new List<Vector3>();
+
+        foreach (Vector3 direction in directions)
+        {
+            Vector3 nextPosition = currentPosition + direction;
+
+            if (!cellPositions.Contains(nextPosition))
+            {
+                positions.Add(nextPosition);
+            }
+        }
+
+        return positions;
     }
 
     public override void Generate(in GeneratorData data)
@@ -86,16 +98,15 @@ public class Generator2D : Generator
 
             SpawnCell(data.cell, position);
 
+            List<Vector3> nextPositions = GetNextPositions(position);
 
-            Vector3 tempPosition = position;
-
-            do
+            if (nextPositions.Count == 0)
             {
-                tempPosition = position;
-                tempPosition += GetNextDirection() * data.size;
-            } while (cellPositions.Contains(tempPosition));
+                Debug.LogWarning("No more available position without overlapping ending generation early");
+                return;
+            }
 
-            position = tempPosition;
+            position = nextPositions[Random.Range(0, nextPositions.Count)];
         }
     }
 }
