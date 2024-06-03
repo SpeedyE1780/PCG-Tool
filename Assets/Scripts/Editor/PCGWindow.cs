@@ -72,6 +72,6 @@ public class PCGWindow : EditorWindow
             return;
         }
 
-        generator.Generate();
+        generator.Generate(new GeneratorData(cell, limit, size, startPosition));
     }
 }
