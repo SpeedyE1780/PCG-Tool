@@ -1,5 +1,5 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <Style src="project://database/Assets/Scripts/Editor/PCGWindow.uss?fileID=7433441132597879392&amp;guid=43412664f3961f647b0957ebfdffa8b9&amp;type=3#PCGWindow" />
-    <editor:ObjectField label="Object Field" name="GameObject" />
+    <editor:ObjectField label="Generator" name="GameObject" type="SimpleGenerator, Assembly-CSharp" />
     <engine:Button text="Spawn Object" tooltip="Spawn GameObject in scene" name="Spawn" />
 </engine:UXML>

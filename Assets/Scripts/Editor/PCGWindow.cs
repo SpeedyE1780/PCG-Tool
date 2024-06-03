@@ -8,7 +8,7 @@ public class PCGWindow : EditorWindow
     [SerializeField]
     private VisualTreeAsset m_VisualTreeAsset = default;
 
-    private ObjectField gameObjectField;
+    private ObjectField generatorField;
 
     [MenuItem("PCG/Open Window")]
     public static void OpenWindow()
@@ -27,28 +27,21 @@ public class PCGWindow : EditorWindow
         root.Add(labelFromUXML);
 
         var spawnButton = root.Q<Button>("Spawn");
-        gameObjectField = root.Q<ObjectField>("GameObject");
+        generatorField = root.Q<ObjectField>("GameObject");
 
         spawnButton.clicked += SpawnObject;
     }
 
     private void SpawnObject()
     {
-        GameObject go = gameObjectField.value as GameObject;
+        SimpleGenerator generator = generatorField.value as SimpleGenerator;
 
-        if (go == null)
+        if (generator == null)
         {
-            Debug.LogWarning("GameObject not set");
+            Debug.LogWarning("Generator not set");
             return;
         }
 
-        if (PrefabUtility.IsPartOfAnyPrefab(go))
-        {
-            PrefabUtility.InstantiatePrefab(go);
-        }
-        else
-        {
-            Instantiate(go);
-        }
+        generator.Generate();
     }
 }
