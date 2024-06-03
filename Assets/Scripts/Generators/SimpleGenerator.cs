@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SimpleGenerator", menuName = "Scriptable Objects/PCG/SimpleGenerator")]
-public class SimpleGenerator : ScriptableObject
+public class SimpleGenerator : Generator
 {
     private enum Axis
     {
@@ -50,7 +50,7 @@ public class SimpleGenerator : ScriptableObject
         Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
     }
 
-    public void Generate(in GeneratorData data)
+    public override void Generate(in GeneratorData data)
     {
         Vector3 direction = GetDirection();
 

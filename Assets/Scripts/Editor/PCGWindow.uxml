@@ -1,6 +1,6 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <Style src="project://database/Assets/Scripts/Editor/PCGWindow.uss?fileID=7433441132597879392&amp;guid=43412664f3961f647b0957ebfdffa8b9&amp;type=3#PCGWindow" />
-    <editor:ObjectField label="Generator" name="Generator" type="SimpleGenerator, Assembly-CSharp" allow-scene-objects="false" />
+    <editor:ObjectField label="Generator" name="Generator" type="Generator, Assembly-CSharp" allow-scene-objects="false" />
     <editor:ObjectField label="Cell" name="Cell" type="UnityEngine.GameObject, UnityEngine.CoreModule" allow-scene-objects="true" />
     <engine:UnsignedIntegerField label="Cell Limit" value="0" name="CellLimit" />
     <engine:FloatField label="Cell Size" value="42.2" name="CellSize" />
