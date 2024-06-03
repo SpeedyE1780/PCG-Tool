@@ -9,6 +9,10 @@ public class PCGWindow : EditorWindow
     private VisualTreeAsset m_VisualTreeAsset = default;
 
     private ObjectField generatorField;
+    private ObjectField cellField;
+    private UnsignedIntegerField cellLimitField;
+    private FloatField cellSizeField;
+    private Vector3Field startPositionField;
 
     [MenuItem("PCG/Open Window")]
     public static void OpenWindow()
@@ -26,19 +30,45 @@ public class PCGWindow : EditorWindow
         VisualElement labelFromUXML = m_VisualTreeAsset.Instantiate();
         root.Add(labelFromUXML);
 
-        var spawnButton = root.Q<Button>("Spawn");
-        generatorField = root.Q<ObjectField>("GameObject");
+        generatorField = root.Q<ObjectField>("Generator");
+        cellField = root.Q<ObjectField>("Cell");
+        cellLimitField = root.Q<UnsignedIntegerField>("CellLimit");
+        cellSizeField = root.Q<FloatField>("CellSize");
+        startPositionField = root.Q<Vector3Field>("StartPosition");
 
-        spawnButton.clicked += SpawnObject;
+        var generateButton = root.Q<Button>("GenerateButton");
+        generateButton.clicked += SpawnObject;
     }
 
     private void SpawnObject()
     {
         SimpleGenerator generator = generatorField.value as SimpleGenerator;
+        GameObject cell = cellField.value as GameObject;
+        uint limit = cellLimitField.value;
+        float size = cellSizeField.value;
+        Vector3 startPosition = startPositionField.value;
 
         if (generator == null)
         {
             Debug.LogWarning("Generator not set");
+            return;
+        }
+
+        if (cell == null)
+        {
+            Debug.LogWarning("Cell not set");
+            return;
+        }
+
+        if (limit == 0)
+        {
+            Debug.LogWarning("Limit is zero nothing to generate");
+            return;
+        }
+
+        if (size == 0)
+        {
+            Debug.LogWarning("Cell size is 0 object will spawn on top of one another");
             return;
         }
 
