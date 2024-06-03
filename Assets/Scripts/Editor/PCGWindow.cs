@@ -42,6 +42,13 @@ public class PCGWindow : EditorWindow
             return;
         }
 
-        Instantiate(go);
+        if (PrefabUtility.IsPartOfAnyPrefab(go))
+        {
+            PrefabUtility.InstantiatePrefab(go);
+        }
+        else
+        {
+            Instantiate(go);
+        }
     }
 }
