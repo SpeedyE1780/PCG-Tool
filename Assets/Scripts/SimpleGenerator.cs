@@ -4,6 +4,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SimpleGenerator", menuName = "Scriptable Objects/PCG/SimpleGenerator")]
 public class SimpleGenerator : ScriptableObject
 {
+    private enum Axis
+    {
+        x,
+        y,
+        z
+    }
+
+    [SerializeField]
+    private Axis axis;
+
     private void SpawnCell(GameObject cell, Vector3 position)
     {
         GameObject go = null;
