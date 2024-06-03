@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,6 +7,8 @@ public class PCGWindow : EditorWindow
 {
     [SerializeField]
     private VisualTreeAsset m_VisualTreeAsset = default;
+
+    private ObjectField gameObjectField;
 
     [MenuItem("PCG/Open Window")]
     public static void OpenWindow()
@@ -24,12 +27,28 @@ public class PCGWindow : EditorWindow
         root.Add(labelFromUXML);
 
         var spawnButton = root.Q<Button>("Spawn");
+        gameObjectField = root.Q<ObjectField>("GameObject");
 
         spawnButton.clicked += SpawnObject;
     }
 
     private void SpawnObject()
     {
-        GameObject.CreatePrimitive(PrimitiveType.Cube);
+        GameObject go = gameObjectField.value as GameObject;
+
+        if (go == null)
+        {
+            Debug.LogWarning("GameObject not set");
+            return;
+        }
+
+        if (PrefabUtility.IsPartOfAnyPrefab(go))
+        {
+            PrefabUtility.InstantiatePrefab(go);
+        }
+        else
+        {
+            Instantiate(go);
+        }
     }
 }
