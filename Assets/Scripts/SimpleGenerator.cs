@@ -3,20 +3,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SimpleGenerator", menuName = "Scriptable Objects/PCG/SimpleGenerator")]
 public class SimpleGenerator : ScriptableObject
 {
-    [SerializeField]
-    private GameObject cellPrefab;
-    [SerializeField]
-    private int cellLimit;
-    [SerializeField]
-    private float cellSize;
-
-    public void Generate()
+    public void Generate(in GeneratorData data)
     {
-        Vector3 startPosition = Vector3.zero;
-        for (int i = 0; i < cellLimit; i++)
+        for (int i = 0; i < data.limit; i++)
         {
-            Vector3 position = startPosition + Vector3.forward * i;
-            Instantiate(cellPrefab, position, Quaternion.identity);
+            Vector3 position = data.startPosition + data.size * i * Vector3.forward;
+            Instantiate(data.cell, position, Quaternion.identity);
         }
     }
 }
