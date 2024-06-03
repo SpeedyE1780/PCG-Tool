@@ -5,7 +5,7 @@ public class Generator2D : Generator
 {
     private Vector3 GetNextDirection()
     {
-        int number = Random.Range(0, 5);
+        int number = Random.Range(0, 4);
 
         return number switch
         {
