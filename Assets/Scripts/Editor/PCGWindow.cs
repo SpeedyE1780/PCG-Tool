@@ -42,7 +42,7 @@ public class PCGWindow : EditorWindow
 
     private void SpawnObject()
     {
-        SimpleGenerator generator = generatorField.value as SimpleGenerator;
+        Generator generator = generatorField.value as Generator;
         GameObject cell = cellField.value as GameObject;
         uint limit = cellLimitField.value;
         float size = cellSizeField.value;
