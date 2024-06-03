@@ -13,8 +13,11 @@ public class Generator2D : Generator
 
     [SerializeField]
     private Plane plane;
+    [SerializeField]
+    private bool disableOverlap;
 
     private List<Vector3> directions;
+    private HashSet<Vector3> cellPositions;
 
     private void InitializeDirections()
     {
@@ -66,13 +69,33 @@ public class Generator2D : Generator
 
     public override void Generate(in GeneratorData data)
     {
+        if (disableOverlap)
+        {
+            cellPositions = new HashSet<Vector3>();
+        }
+
         InitializeDirections();
         Vector3 position = data.startPosition;
 
         for (int i = 0; i < data.limit; i++)
         {
+            if (disableOverlap)
+            {
+                cellPositions.Add(position);
+            }
+
             SpawnCell(data.cell, position);
-            position += GetNextDirection() * data.size;
+
+
+            Vector3 tempPosition = position;
+
+            do
+            {
+                tempPosition = position;
+                tempPosition += GetNextDirection() * data.size;
+            } while (cellPositions.Contains(tempPosition));
+
+            position = tempPosition;
         }
     }
 }
