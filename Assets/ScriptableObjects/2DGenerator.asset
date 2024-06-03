@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc370f3f62205e1478db2c5ccdfadb98, type: 3}
   m_Name: 2DGenerator
   m_EditorClassIdentifier: 
-  plane: 0
+  plane: 1
+  disableOverlap: 1
