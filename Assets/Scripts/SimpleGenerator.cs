@@ -11,8 +11,16 @@ public class SimpleGenerator : ScriptableObject
         z
     }
 
+    private enum Direction
+    {
+        positive,
+        negative
+    }
+
     [SerializeField]
     private Axis axis;
+    [SerializeField]
+    private Direction direction;
 
     private void SpawnCell(GameObject cell, Vector3 position)
     {
