@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -33,7 +34,7 @@ public class SimpleGenerator : Generator
         };
     }
 
-    public override void Generate(in GeneratorData data)
+    public override IEnumerator Generate(GeneratorData data)
     {
         Vector3 direction = GetDirection();
 
@@ -41,6 +42,7 @@ public class SimpleGenerator : Generator
         {
             Vector3 position = data.startPosition + data.size * i * direction;
             SpawnCell(data.cell, position);
+            yield return null;
         }
     }
 }
