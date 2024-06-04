@@ -1,3 +1,4 @@
+using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -76,6 +77,6 @@ public class PCGWindow : EditorWindow
         }
 
         Random.InitState(seed);
-        generator.Generate(new GeneratorData(cell, limit, size, startPosition));
+        EditorCoroutineUtility.StartCoroutine(generator.Generate(new GeneratorData(cell, limit, size, startPosition)), this);
     }
 }

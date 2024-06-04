@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,5 +21,5 @@ public abstract class Generator : ScriptableObject
         Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
     }
 
-    public abstract void Generate(in GeneratorData data);
+    public abstract IEnumerator Generate(GeneratorData data);
 }

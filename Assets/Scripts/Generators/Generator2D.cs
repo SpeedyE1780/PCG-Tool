@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -79,7 +80,7 @@ public class Generator2D : Generator
         return positions;
     }
 
-    public override void Generate(in GeneratorData data)
+    public override IEnumerator Generate(GeneratorData data)
     {
         if (disableOverlap)
         {
@@ -103,10 +104,11 @@ public class Generator2D : Generator
             if (nextPositions.Count == 0)
             {
                 Debug.LogWarning("No more available position without overlapping ending generation early");
-                return;
+                yield break;
             }
 
             position = nextPositions[Random.Range(0, nextPositions.Count)];
+            yield return null;
         }
     }
 }
