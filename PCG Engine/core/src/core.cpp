@@ -7,7 +7,7 @@ namespace pcg::engine::core
         return x + y;
     }
 
-    void simpleGeneration(std::function<void(float, float, float)> callback)
+    void simpleGeneration(addPointCallback callback)
     {
         float x = 0;
         float y = 0;

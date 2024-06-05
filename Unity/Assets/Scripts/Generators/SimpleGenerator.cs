@@ -1,5 +1,5 @@
 using System.Collections;
-using UnityEditor;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SimpleGenerator", menuName = "Scriptable Objects/PCG/SimpleGenerator")]
@@ -36,12 +36,16 @@ public class SimpleGenerator : Generator
 
     public override IEnumerator Generate(GeneratorData data)
     {
-        Vector3 direction = GetDirection();
+        List<Vector3> points = new List<Vector3>();
 
-        for (int i = 0; i < data.limit; i++)
+        PCGEngine2Unity.SimpleGenerator((x, y, z) =>
         {
-            Vector3 position = data.startPosition + data.size * i * direction;
-            SpawnCell(data.cell, position);
+            points.Add(new Vector3(x, y, z));
+        });
+
+        foreach (Vector3 point in points)
+        {
+            SpawnCell(data.cell, point);
             yield return null;
         }
     }
