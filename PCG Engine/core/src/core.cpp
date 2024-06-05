@@ -6,4 +6,17 @@ namespace pcg::engine::core
     {
         return x + y;
     }
+
+    void simpleGeneration(std::function<void(float, float, float)> callback)
+    {
+        float x = 0;
+        float y = 0;
+        float z = 0;
+
+        for (int i = 0; i < 10; i++)
+        {
+            callback(x, y, z);
+            z += 1;
+        }
+    }
 }
