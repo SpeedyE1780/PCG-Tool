@@ -45,9 +45,9 @@ public class SimpleGenerator : Generator
             startPoint = PCGEngine2Unity.Unity2PCGEngineVector(data.startPosition)
         };
 
-        PCGEngine2Unity.SimpleGenerator(ref generator, (x, y, z) =>
+        PCGEngine2Unity.SimpleGenerator(ref generator, (vector) =>
         {
-            points.Add(new Vector3(x, y, z));
+            points.Add(PCGEngine2Unity.PCGEngineVectorToUnity(vector));
         });
 
         foreach (Vector3 point in points)

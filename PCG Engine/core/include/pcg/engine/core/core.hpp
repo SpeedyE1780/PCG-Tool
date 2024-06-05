@@ -5,14 +5,14 @@
 
 namespace pcg::engine::core
 {
-    typedef void (*addPointCallback)(float x, float y, float z);
-
     struct Vector3
     {
         float x;
         float y;
         float z;
     };
+
+    typedef void (*addPointCallback)(Vector3 vector);
 
     struct GenerationData
     {

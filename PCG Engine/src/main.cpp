@@ -3,25 +3,25 @@
 
 #include <vector>
 
-std::vector<float> points{};
+using namespace pcg::engine::core;
 
-void addPoints(float x, float y, float z)
+std::vector<Vector3> points{};
+
+void addPoints(Vector3 point)
 {
-    points.push_back(x);
-    points.push_back(y);
-    points.push_back(z);
+    points.push_back(point);
 }
 
 int main()
 {
     std::cout << "Hello World!" << std::endl;
-    std::cout << "Add 1 + 5 = " << pcg::engine::core::add(1, 5) << std::endl;
-    pcg::engine::core::GenerationData data{ 10, 1, {0,0,0} };
-    pcg::engine::core::simpleGeneration(&data, addPoints);
+    std::cout << "Add 1 + 5 = " << add(1, 5) << std::endl;
+    GenerationData data{ 10, 1, {0,0,0} };
+    simpleGeneration(&data, addPoints);
 
     for (auto& p : points)
     {
-        std::cout << "P:" << p << std::endl;
+        std::cout << "P:" << p.x << "," <<p.y << "," << p.z << std::endl;
     }
 
     return 0;

@@ -9,14 +9,12 @@ namespace pcg::engine::core
 
     void simpleGeneration(GenerationData* data, addPointCallback callback)
     {
-        float x = data->startPoint.x;
-        float y = data->startPoint.y;
-        float z = data->startPoint.z;
+        Vector3 position = data->startPoint;
 
         for (int i = 0; i < data->limit; i++)
         {
-            callback(x, y, z);
-            z += data->size;
+            callback(position);
+            position.z += data->size;
         }
     }
 }
