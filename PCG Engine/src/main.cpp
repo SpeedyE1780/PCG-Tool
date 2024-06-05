@@ -16,7 +16,8 @@ int main()
 {
     std::cout << "Hello World!" << std::endl;
     std::cout << "Add 1 + 5 = " << pcg::engine::core::add(1, 5) << std::endl;
-    pcg::engine::core::simpleGeneration(addPoints);
+    pcg::engine::core::GenerationData data{ 10, 1, {0,0,0} };
+    pcg::engine::core::simpleGeneration(&data, addPoints);
 
     for (auto& p : points)
     {

@@ -7,16 +7,16 @@ namespace pcg::engine::core
         return x + y;
     }
 
-    void simpleGeneration(addPointCallback callback)
+    void simpleGeneration(GenerationData* data, addPointCallback callback)
     {
-        float x = 0;
-        float y = 0;
-        float z = 0;
+        float x = data->startPoint.x;
+        float y = data->startPoint.y;
+        float z = data->startPoint.z;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < data->limit; i++)
         {
             callback(x, y, z);
-            z += 1;
+            z += data->size;
         }
     }
 }

@@ -38,7 +38,14 @@ public class SimpleGenerator : Generator
     {
         List<Vector3> points = new List<Vector3>();
 
-        PCGEngine2Unity.SimpleGenerator((x, y, z) =>
+        PCGEngine2Unity.GeneratorData generator = new PCGEngine2Unity.GeneratorData()
+        {
+            limit = data.limit,
+            size = data.size,
+            startPoint = PCGEngine2Unity.Unity2PCGEngineVector(data.startPosition)
+        };
+
+        PCGEngine2Unity.SimpleGenerator(ref generator, (x, y, z) =>
         {
             points.Add(new Vector3(x, y, z));
         });
