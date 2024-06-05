@@ -23,6 +23,12 @@ public class PCGWindow : EditorWindow
         wnd.titleContent = new GUIContent("PCG Window");
     }
 
+    [MenuItem("PCG/Call Native C++")]
+    public static void CallNativeCpp()
+    {
+        Debug.Log(PCGEngine2Unity.Add(1, 5));
+    }
+
     public void CreateGUI()
     {
         // Each editor window contains a root VisualElement object
