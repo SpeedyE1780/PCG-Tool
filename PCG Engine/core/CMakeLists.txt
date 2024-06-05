@@ -1,0 +1,19 @@
+project(PCG-Engine-Core)
+
+enable_testing()
+
+add_library(${PROJECT_NAME} SHARED)
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE PCG_ENGINE_CORE_EXPORT)
+
+target_sources(${PROJECT_NAME} PRIVATE
+#CPP
+"src/core.cpp"
+
+#HPP
+"include/pcg/engine/core/config.hpp"
+"include/pcg/engine/core/core.hpp"
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include/)
+
