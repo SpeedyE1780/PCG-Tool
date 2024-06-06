@@ -6,13 +6,6 @@
 
 namespace pcg::engine::core
 {
-    static const math::Vector3 right{ 1, 0, 0 };
-    static const math::Vector3 left{ -1, 0, 0 };
-    static const math::Vector3 up{ 0, 1, 0 };
-    static const math::Vector3 down{ 0, -1, 0 };
-    static const math::Vector3 forward{ 0, 0 ,1 };
-    static const math::Vector3 backward{ 0, 0, -1 };
-
     int add(int x, int y)
     {
         return x + y;
@@ -122,13 +115,13 @@ namespace pcg::engine::core
         switch (plane)
         {
         case math::Plane::xy:
-            directions.insert(begin(directions), { &right, &left, &up, &down });
+            directions.insert(begin(directions), { &math::Vector3::right, &math::Vector3::left, &math::Vector3::up, &math::Vector3::down });
             break;
         case math::Plane::xz:
-            directions.insert(begin(directions), { &right, &left, &forward, &backward });
+            directions.insert(begin(directions), { &math::Vector3::right, &math::Vector3::left, &math::Vector3::forward, &math::Vector3::backward });
             break;
         case math::Plane::yz:
-            directions.insert(begin(directions), { &up, &down, &forward, &backward });
+            directions.insert(begin(directions), { &math::Vector3::up, &math::Vector3::down, &math::Vector3::forward, &math::Vector3::backward });
             break;
         default:
             break;
@@ -139,7 +132,7 @@ namespace pcg::engine::core
 
     void generation3D(GenerationData* data, bool disableOverlap, addPointCallback callback)
     {
-        static const std::vector<const math::Vector3*> directions{ {&right, &left, &up, &down, &forward, &backward} };
+        static const std::vector<const math::Vector3*> directions{ {&math::Vector3::right, &math::Vector3::left, &math::Vector3::up, &math::Vector3::down, &math::Vector3::forward, &math::Vector3::backward} };
         multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 }

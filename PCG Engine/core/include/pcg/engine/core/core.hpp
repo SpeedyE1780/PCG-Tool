@@ -16,7 +16,7 @@ namespace pcg::engine::core
         float size;
         math::Vector3 startPoint;
     };
-    
+
     PCG_ENGINE_CORE_API int add(int x, int y);
     PCG_ENGINE_CORE_API void setSeed(unsigned int seed);
     PCG_ENGINE_CORE_API void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback);

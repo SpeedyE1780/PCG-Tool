@@ -7,11 +7,18 @@ namespace pcg::engine::math
 {
     struct Vector3
     {
+        void operator+=(const Vector3& rhs);
+
+        static const Vector3 right;
+        static const Vector3 left;
+        static const Vector3 up;
+        static const Vector3 down;
+        static const Vector3 forward;
+        static const Vector3 backward;
+
         float x;
         float y;
         float z;
-
-        void operator+=(const Vector3& rhs);
     };
 
     struct Vector3Hash
