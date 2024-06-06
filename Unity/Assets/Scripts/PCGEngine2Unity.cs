@@ -65,4 +65,6 @@ public static class PCGEngine2Unity
     public static extern void Generator2D(ref GeneratorData data, Plane plane, bool disableOverlap, AddPosition createVector);
     [DllImport("PCG-Engine-Core", EntryPoint = "?generation3D@core@engine@pcg@@YAXPEAUGenerationData@123@_NP6AXUVector3@123@@Z@Z")]
     public static extern void Generator3D(ref GeneratorData data, bool disableOverlap, AddPosition createVector);
+    [DllImport("PCG-Engine-Core", EntryPoint = "?setSeed@core@engine@pcg@@YAXI@Z")]
+    public static extern void UpdateSeed(uint seed);
 }
