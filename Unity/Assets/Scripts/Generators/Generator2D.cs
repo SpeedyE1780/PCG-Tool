@@ -5,15 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "2DGenerator", menuName = "Scriptable Objects/PCG/2DGenerator")]
 public class Generator2D : Generator
 {
-    private enum Plane
-    {
-        xy,
-        xz,
-        yz
-    }
-
     [SerializeField]
-    private Plane plane;
+    private PCGEngine2Unity.Plane plane;
     [SerializeField]
     private bool disableOverlap;
 
@@ -24,7 +17,7 @@ public class Generator2D : Generator
     {
         switch (plane)
         {
-            case Plane.xy:
+            case PCGEngine2Unity.Plane.XY:
                 {
                     directions = new List<Vector3>()
                     {
@@ -36,7 +29,7 @@ public class Generator2D : Generator
 
                     break;
                 }
-            case Plane.xz:
+            case PCGEngine2Unity.Plane.XZ:
                 {
                     directions = new List<Vector3>()
                     {
@@ -48,7 +41,7 @@ public class Generator2D : Generator
 
                     break;
                 }
-            case Plane.yz:
+            case PCGEngine2Unity.Plane.YZ:
                 {
                     directions = new List<Vector3>()
                     {
@@ -82,32 +75,23 @@ public class Generator2D : Generator
 
     public override IEnumerator Generate(GeneratorData data)
     {
-        if (disableOverlap)
+        List<Vector3> points = new List<Vector3>();
+
+        PCGEngine2Unity.GeneratorData generator = new PCGEngine2Unity.GeneratorData()
         {
-            cellPositions = new HashSet<Vector3>();
-        }
+            limit = data.limit,
+            size = data.size,
+            startPoint = PCGEngine2Unity.Unity2PCGEngineVector(data.startPosition)
+        };
 
-        InitializeDirections();
-        Vector3 position = data.startPosition;
-
-        for (int i = 0; i < data.limit; i++)
+        PCGEngine2Unity.Generator2D(ref generator, plane, disableOverlap, (vector) =>
         {
-            if (disableOverlap)
-            {
-                cellPositions.Add(position);
-            }
+            points.Add(PCGEngine2Unity.PCGEngineVectorToUnity(vector));
+        });
 
-            SpawnCell(data.cell, position);
-
-            List<Vector3> nextPositions = GetNextPositions(position);
-
-            if (nextPositions.Count == 0)
-            {
-                Debug.LogWarning("No more available position without overlapping ending generation early");
-                yield break;
-            }
-
-            position = nextPositions[Random.Range(0, nextPositions.Count)];
+        foreach (Vector3 point in points)
+        {
+            SpawnCell(data.cell, point);
             yield return null;
         }
     }
