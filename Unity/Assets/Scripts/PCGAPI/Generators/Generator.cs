@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PCGAPI.Generators
@@ -7,6 +8,42 @@ namespace PCGAPI.Generators
     {
         public delegate void Spawn(Vector3 position);
 
-        public abstract IEnumerator Generate(GeneratorData data, Spawn spawnFunction);
+        private readonly List<Vector3> spawnPoints = new List<Vector3>();
+
+        protected void AddSpawnPoint(PCGEngine.Vector3 position)
+        {
+            spawnPoints.Add(PCGEngine2Unity.PCGEngineVectorToUnity(position));
+        }
+
+        protected abstract void GenerateWithEngine(ref PCGEngine.GenerationParameters parameters);
+
+        private void GenerateLevel(ref PCGEngine.GenerationParameters parameters)
+        {
+            spawnPoints.Clear();
+            GenerateWithEngine(ref parameters);
+        }
+
+        public void GenerateOneShot(GeneratorData data, Spawn spawnFunction)
+        {
+            PCGEngine.GenerationParameters parameters = PCGEngine2Unity.GeneratorDataToPCGEngineGenerationParameters(data);
+            GenerateLevel(ref parameters);
+
+            foreach (Vector3 point in spawnPoints)
+            {
+                spawnFunction(point);
+            }
+        }
+
+        public IEnumerator GenerateFrameByFrame(GeneratorData data, Spawn spawnFunction)
+        {
+            PCGEngine.GenerationParameters parameters = PCGEngine2Unity.GeneratorDataToPCGEngineGenerationParameters(data);
+            GenerateLevel(ref parameters);
+
+            foreach (Vector3 point in spawnPoints)
+            {
+                spawnFunction(point);
+                yield return null;
+            }
+        }
     }
 }

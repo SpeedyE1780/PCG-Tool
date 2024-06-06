@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PCGAPI.Generators
@@ -12,22 +10,9 @@ namespace PCGAPI.Generators
         [SerializeField]
         private PCGEngine.Direction direction;
 
-        public override IEnumerator Generate(GeneratorData data, Spawn spawnFunction)
+        protected override void GenerateWithEngine(ref PCGEngine.GenerationParameters parameters)
         {
-            List<Vector3> points = new List<Vector3>();
-
-            PCGEngine.GenerationParameters parameters = PCGEngine2Unity.GeneratorDataToPCGEngineGenerationParameters(data);
-
-            PCGEngine.SimpleGenerator(ref parameters, axis, direction, (vector) =>
-            {
-                points.Add(PCGEngine2Unity.PCGEngineVectorToUnity(vector));
-            });
-
-            foreach (Vector3 point in points)
-            {
-                spawnFunction(point);
-                yield return null;
-            }
+            PCGEngine.SimpleGenerator(ref parameters, axis, direction, AddSpawnPoint);
         }
     }
 }

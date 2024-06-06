@@ -6,5 +6,6 @@
     <engine:UnsignedIntegerField label="Cell Limit" value="0" name="CellLimit" />
     <engine:FloatField label="Cell Size" value="0" name="CellSize" />
     <engine:Vector3Field label="Start Position" name="StartPosition" />
+    <engine:Toggle label="Frame by Frame" name="FrameToggle" tooltip="Spawn one gameObject by frame" />
     <engine:Button text="Generate" tooltip="Spawn GameObject in scene" name="GenerateButton" />
 </engine:UXML>

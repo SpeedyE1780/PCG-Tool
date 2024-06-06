@@ -18,6 +18,7 @@ namespace PCGAPI.Editor
         private UnsignedIntegerField cellLimitField;
         private FloatField cellSizeField;
         private Vector3Field startPositionField;
+        private Toggle frameToggle;
 
         [MenuItem("PCG/Open Window")]
         public static void OpenWindow()
@@ -41,6 +42,7 @@ namespace PCGAPI.Editor
             cellLimitField = root.Q<UnsignedIntegerField>("CellLimit");
             cellSizeField = root.Q<FloatField>("CellSize");
             startPositionField = root.Q<Vector3Field>("StartPosition");
+            frameToggle = root.Q<Toggle>("FrameToggle");
 
             var generateButton = root.Q<Button>("GenerateButton");
             generateButton.clicked += SpawnObject;
@@ -98,7 +100,14 @@ namespace PCGAPI.Editor
                 Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
             }
 
-            EditorCoroutineUtility.StartCoroutine(generator.Generate(new GeneratorData(limit, size, startPosition), SpawnFunction), this);
+            if (frameToggle.value)
+            {
+                EditorCoroutineUtility.StartCoroutine(generator.GenerateFrameByFrame(new GeneratorData(limit, size, startPosition), SpawnFunction), this); 
+            }
+            else
+            {
+                generator.GenerateOneShot(new GeneratorData(limit, size, startPosition), SpawnFunction);
+            }
         }
     }
 }
