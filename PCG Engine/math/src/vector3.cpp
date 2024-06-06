@@ -1,5 +1,7 @@
 #include <pcg/engine/math/vector3.hpp>
 
+#include <unordered_set>
+
 namespace pcg::engine::math
 {
     void Vector3::operator+=(const Vector3& rhs)
@@ -7,6 +9,15 @@ namespace pcg::engine::math
         x += rhs.x;
         y += rhs.y;
         z += rhs.z;
+    }
+
+    std::size_t Vector3Hash::operator()(const Vector3& vector) const noexcept
+    {
+        std::size_t x = std::hash<float>{}(vector.x);
+        std::size_t y = std::hash<float>{}(vector.y);
+        std::size_t z = std::hash<float>{}(vector.z);
+
+        return x ^ (y << 1) ^ (z << 2);
     }
 
     Vector3 operator+(const Vector3& lhs, const Vector3& rhs)

@@ -68,19 +68,7 @@ namespace pcg::engine::core
         }
     }
 
-    struct Vector3Hash
-    {
-        std::size_t operator()(const math::Vector3& vector) const noexcept
-        {
-            std::size_t x = std::hash<float>{}(vector.x);
-            std::size_t y = std::hash<float>{}(vector.y);
-            std::size_t z = std::hash<float>{}(vector.z);
-
-            return x ^ (y << 1) ^ (z << 2);
-        }
-    };
-
-    static std::optional<math::Vector3> getNextPosition(std::unordered_set<math::Vector3, Vector3Hash>& positions, const math::Vector3& currentPosition, const std::vector<const math::Vector3*>& directions, float offset)
+    static std::optional<math::Vector3> getNextPosition(std::unordered_set<math::Vector3, math::Vector3Hash>& positions, const math::Vector3& currentPosition, const std::vector<const math::Vector3*>& directions, float offset)
     {
         std::vector<math::Vector3> availablePositions{};
 
@@ -104,7 +92,7 @@ namespace pcg::engine::core
 
     static void multiDimensionalGeneration(GenerationData* data, const std::vector<const math::Vector3*>& directions, bool disableOverlap, addPointCallback callback)
     {
-        std::unordered_set<math::Vector3, Vector3Hash> positions{};
+        std::unordered_set<math::Vector3, math::Vector3Hash> positions{};
         math::Vector3 position = data->startPoint;
 
         for (int i = 0; i < data->limit; i++)
