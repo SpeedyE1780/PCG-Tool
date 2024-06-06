@@ -11,7 +11,7 @@ public class PCGWindow : EditorWindow
 
     private ObjectField generatorField;
     private ObjectField cellField;
-    private IntegerField seedField;
+    private UnsignedIntegerField seedField;
     private UnsignedIntegerField cellLimitField;
     private FloatField cellSizeField;
     private Vector3Field startPositionField;
@@ -40,7 +40,7 @@ public class PCGWindow : EditorWindow
 
         generatorField = root.Q<ObjectField>("Generator");
         cellField = root.Q<ObjectField>("Cell");
-        seedField = root.Q<IntegerField>("Seed");
+        seedField = root.Q<UnsignedIntegerField>("Seed");
         cellLimitField = root.Q<UnsignedIntegerField>("CellLimit");
         cellSizeField = root.Q<FloatField>("CellSize");
         startPositionField = root.Q<Vector3Field>("StartPosition");
@@ -53,7 +53,7 @@ public class PCGWindow : EditorWindow
     {
         Generator generator = generatorField.value as Generator;
         GameObject cell = cellField.value as GameObject;
-        int seed = seedField.value;
+        uint seed = seedField.value;
         uint limit = cellLimitField.value;
         float size = cellSizeField.value;
         Vector3 startPosition = startPositionField.value;
@@ -82,7 +82,7 @@ public class PCGWindow : EditorWindow
             return;
         }
 
-        Random.InitState(seed);
+        PCGEngine2Unity.UpdateSeed(seed);
         EditorCoroutineUtility.StartCoroutine(generator.Generate(new GeneratorData(cell, limit, size, startPosition)), this);
     }
 }
