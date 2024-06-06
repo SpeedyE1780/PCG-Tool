@@ -24,5 +24,14 @@ int main()
         std::cout << "P:" << p.x << "," << p.y << "," << p.z << std::endl;
     }
 
+    points.clear();
+
+    generation2D(&data, addPoints);
+
+    for (auto& p : points)
+    {
+        std::cout << "P:" << p.x << "," << p.y << "," << p.z << std::endl;
+    }
+
     return 0;
 }

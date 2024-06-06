@@ -10,6 +10,8 @@ namespace pcg::engine::core
         float x;
         float y;
         float z;
+
+        void operator+=(const Vector3& rhs);
     };
 
     typedef void (*addPointCallback)(Vector3 vector);
@@ -33,9 +35,13 @@ namespace pcg::engine::core
         float size;
         Vector3 startPoint;
     };
+    
+    Vector3 operator*(const Vector3& vector, float scalar);
+
 
     PCG_ENGINE_CORE_API int add(int x, int y);
     PCG_ENGINE_CORE_API void simpleGeneration(GenerationData* data, Axis axis, Direction direction, addPointCallback callback);
+    PCG_ENGINE_CORE_API void generation2D(GenerationData* data, addPointCallback callback);
 }
 
 #endif // PCG_ENGINE_CORE_CORE_HPP
