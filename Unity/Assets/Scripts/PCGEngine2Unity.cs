@@ -14,6 +14,19 @@ public static class PCGEngine2Unity
         return new UnityEngine.Vector3(vector.x, vector.y, vector.z);
     }
 
+    public enum Axis
+    {
+        x = 0,
+        y = 1,
+        z = 2
+    }
+
+    public enum Direction
+    {
+        positive = 0,
+        negative = 1
+    }
+
     [StructLayout(LayoutKind.Sequential)]
     public struct Vector3
     {
@@ -40,5 +53,5 @@ public static class PCGEngine2Unity
     [DllImport("PCG-Engine-Core", EntryPoint = "?add@core@engine@pcg@@YAHHH@Z")]
     public static extern int Add(int x, int y);
     [DllImport("PCG-Engine-Core", EntryPoint = "?simpleGeneration@core@engine@pcg@@YAXPEAUGenerationData@123@W4Axis@123@W4Direction@123@P6AXUVector3@123@@Z@Z")]
-    public static extern void SimpleGenerator(ref GeneratorData data, SimpleGenerator.Axis axis, SimpleGenerator.Direction direction, AddPosition createVector);
+    public static extern void SimpleGenerator(ref GeneratorData data, Axis axis, Direction direction, AddPosition createVector);
 }

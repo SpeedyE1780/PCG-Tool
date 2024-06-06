@@ -5,34 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SimpleGenerator", menuName = "Scriptable Objects/PCG/SimpleGenerator")]
 public class SimpleGenerator : Generator
 {
-    public enum Axis
-    {
-        x = 0,
-        y = 1,
-        z = 2
-    }
-
-    public enum Direction
-    {
-        positive = 0,
-        negative = 1
-    }
-
     [SerializeField]
-    private Axis axis;
+    private PCGEngine2Unity.Axis axis;
     [SerializeField]
-    private Direction direction;
-
-    private Vector3 GetDirection()
-    {
-        return axis switch
-        {
-            Axis.x => direction == Direction.positive ? Vector3.right : Vector3.left,
-            Axis.y => direction == Direction.positive ? Vector3.up : Vector3.down,
-            Axis.z => direction == Direction.positive ? Vector3.forward : Vector3.back,
-            _ => Vector3.zero,
-        };
-    }
+    private PCGEngine2Unity.Direction direction;
 
     public override IEnumerator Generate(GeneratorData data)
     {
