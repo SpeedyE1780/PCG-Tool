@@ -10,7 +10,7 @@ namespace PCGAPI.Generators
         [SerializeField]
         private bool disableOverlap;
 
-        public override IEnumerator Generate(GeneratorData data)
+        public override IEnumerator Generate(GeneratorData data, Spawn spawnFunction)
         {
             List<Vector3> points = new List<Vector3>();
 
@@ -23,7 +23,7 @@ namespace PCGAPI.Generators
 
             foreach (Vector3 point in points)
             {
-                SpawnCell(data.cell, point);
+                spawnFunction(point);
                 yield return null;
             }
         }

@@ -80,7 +80,25 @@ namespace PCGAPI.Editor
             }
 
             PCGEngine.UpdateSeed(seed);
-            EditorCoroutineUtility.StartCoroutine(generator.Generate(new GeneratorData(cell, limit, size, startPosition)), this);
+
+            void SpawnFunction(Vector3 position)
+            {
+                GameObject go = null;
+
+                if (PrefabUtility.IsPartOfAnyPrefab(cell))
+                {
+                    go = PrefabUtility.InstantiatePrefab(cell) as GameObject;
+                    go.transform.position = position;
+                }
+                else
+                {
+                    go = Instantiate(cell, position, Quaternion.identity);
+                }
+
+                Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
+            }
+
+            EditorCoroutineUtility.StartCoroutine(generator.Generate(new GeneratorData(limit, size, startPosition), SpawnFunction), this);
         }
     }
 }
