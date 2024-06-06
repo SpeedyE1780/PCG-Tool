@@ -8,7 +8,7 @@ namespace PCGAPI.Generators
     public class Generator2D : Generator
     {
         [SerializeField]
-        private PCGEngine2Unity.Plane plane;
+        private PCGEngine.Plane plane;
         [SerializeField]
         private bool disableOverlap;
 
@@ -16,14 +16,9 @@ namespace PCGAPI.Generators
         {
             List<Vector3> points = new List<Vector3>();
 
-            PCGEngine2Unity.GeneratorData generator = new PCGEngine2Unity.GeneratorData()
-            {
-                limit = data.limit,
-                size = data.size,
-                startPoint = PCGEngine2Unity.Unity2PCGEngineVector(data.startPosition)
-            };
+            PCGEngine.GenerationParameters parameters = PCGEngine2Unity.GeneratorDataToPCGEngineGenerationParameters(data);
 
-            PCGEngine2Unity.Generator2D(ref generator, plane, disableOverlap, (vector) =>
+            PCGEngine.Generator2D(ref parameters, plane, disableOverlap, (vector) =>
             {
                 points.Add(PCGEngine2Unity.PCGEngineVectorToUnity(vector));
             });

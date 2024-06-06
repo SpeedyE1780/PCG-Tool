@@ -79,7 +79,7 @@ namespace PCGAPI.Editor
                 return;
             }
 
-            PCGEngine2Unity.UpdateSeed(seed);
+            PCGEngine.UpdateSeed(seed);
             EditorCoroutineUtility.StartCoroutine(generator.Generate(new GeneratorData(cell, limit, size, startPosition)), this);
         }
     }

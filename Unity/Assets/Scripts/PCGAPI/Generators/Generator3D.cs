@@ -14,14 +14,9 @@ namespace PCGAPI.Generators
         {
             List<Vector3> points = new List<Vector3>();
 
-            PCGEngine2Unity.GeneratorData generator = new PCGEngine2Unity.GeneratorData()
-            {
-                limit = data.limit,
-                size = data.size,
-                startPoint = PCGEngine2Unity.Unity2PCGEngineVector(data.startPosition)
-            };
+            PCGEngine.GenerationParameters parameters = PCGEngine2Unity.GeneratorDataToPCGEngineGenerationParameters(data);
 
-            PCGEngine2Unity.Generator3D(ref generator, disableOverlap, (vector) =>
+            PCGEngine.Generator3D(ref parameters, disableOverlap, (vector) =>
             {
                 points.Add(PCGEngine2Unity.PCGEngineVectorToUnity(vector));
             });
