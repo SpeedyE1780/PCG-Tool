@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6447c98d0283eda4ebb0b5853c6a4dd9, type: 3}
   m_Name: SimpleGenerator
   m_EditorClassIdentifier: 
-  axis: 0
+  axis: 1
   direction: 0

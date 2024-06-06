@@ -1,47 +1,34 @@
 using System.Collections;
-using UnityEditor;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SimpleGenerator", menuName = "Scriptable Objects/PCG/SimpleGenerator")]
 public class SimpleGenerator : Generator
 {
-    private enum Axis
-    {
-        x,
-        y,
-        z
-    }
-
-    private enum Direction
-    {
-        positive,
-        negative
-    }
-
     [SerializeField]
-    private Axis axis;
+    private PCGEngine2Unity.Axis axis;
     [SerializeField]
-    private Direction direction;
-
-    private Vector3 GetDirection()
-    {
-        return axis switch
-        {
-            Axis.x => direction == Direction.positive ? Vector3.right : Vector3.left,
-            Axis.y => direction == Direction.positive ? Vector3.up : Vector3.down,
-            Axis.z => direction == Direction.positive ? Vector3.forward : Vector3.back,
-            _ => Vector3.zero,
-        };
-    }
+    private PCGEngine2Unity.Direction direction;
 
     public override IEnumerator Generate(GeneratorData data)
     {
-        Vector3 direction = GetDirection();
+        List<Vector3> points = new List<Vector3>();
 
-        for (int i = 0; i < data.limit; i++)
+        PCGEngine2Unity.GeneratorData generator = new PCGEngine2Unity.GeneratorData()
         {
-            Vector3 position = data.startPosition + data.size * i * direction;
-            SpawnCell(data.cell, position);
+            limit = data.limit,
+            size = data.size,
+            startPoint = PCGEngine2Unity.Unity2PCGEngineVector(data.startPosition)
+        };
+
+        PCGEngine2Unity.SimpleGenerator(ref generator, axis, direction, (vector) =>
+        {
+            points.Add(PCGEngine2Unity.PCGEngineVectorToUnity(vector));
+        });
+
+        foreach (Vector3 point in points)
+        {
+            SpawnCell(data.cell, point);
             yield return null;
         }
     }
