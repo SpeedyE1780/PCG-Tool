@@ -4,6 +4,7 @@
 #include <vector>
 
 using namespace pcg::engine::core;
+using namespace pcg::engine::math;
 
 std::vector<Vector3> points{};
 

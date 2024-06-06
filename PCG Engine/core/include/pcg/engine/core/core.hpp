@@ -3,6 +3,8 @@
 
 #include <pcg/engine/core/config.hpp>
 
+#include <pcg/engine/math/enums.hpp>
+
 namespace pcg::engine::core
 {
     struct Vector3
@@ -15,26 +17,6 @@ namespace pcg::engine::core
     };
 
     typedef void (*addPointCallback)(Vector3 vector);
-
-    enum class Axis
-    {
-        x = 0,
-        y = 1,
-        z = 2
-    };
-
-    enum class Direction
-    {
-        positive = 0,
-        negative = 1
-    };
-
-    enum class Plane
-    {
-        xy = 0,
-        xz = 1,
-        yz = 2
-    };
 
     struct GenerationData
     {
@@ -49,8 +31,8 @@ namespace pcg::engine::core
 
     PCG_ENGINE_CORE_API int add(int x, int y);
     PCG_ENGINE_CORE_API void setSeed(unsigned int seed);
-    PCG_ENGINE_CORE_API void simpleGeneration(GenerationData* data, Axis axis, Direction direction, addPointCallback callback);
-    PCG_ENGINE_CORE_API void generation2D(GenerationData* data, Plane plane, bool disableOverlap, addPointCallback callback);
+    PCG_ENGINE_CORE_API void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback);
+    PCG_ENGINE_CORE_API void generation2D(GenerationData* data, math::Plane plane, bool disableOverlap, addPointCallback callback);
     PCG_ENGINE_CORE_API void generation3D(GenerationData* data, bool disableOverlap, addPointCallback callback);
 }
 

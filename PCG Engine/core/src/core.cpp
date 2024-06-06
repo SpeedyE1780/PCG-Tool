@@ -23,15 +23,15 @@ namespace pcg::engine::core
         srand(seed);
     }
 
-    void simpleGeneration(GenerationData* data, Axis axis, Direction direction, addPointCallback callback)
+    void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)
     {
         std::function<void()> updatePosition;
         Vector3 position = data->startPoint;
-        float offset = direction == Direction::positive ? data->size : -data->size;
+        float offset = direction == math::Direction::positive ? data->size : -data->size;
 
         switch (axis)
         {
-        case Axis::x:
+        case math::Axis::x:
         {
             updatePosition = [&position, offset]()
                 {
@@ -39,7 +39,7 @@ namespace pcg::engine::core
                 };
             break;
         }
-        case Axis::y:
+        case math::Axis::y:
         {
             updatePosition = [&position, offset]()
                 {
@@ -47,7 +47,7 @@ namespace pcg::engine::core
                 };
             break;
         }
-        case Axis::z:
+        case math::Axis::z:
         {
             updatePosition = [&position, offset]()
                 {
@@ -157,19 +157,19 @@ namespace pcg::engine::core
         }
     }
 
-    void generation2D(GenerationData* data, Plane plane, bool disableOverlap, addPointCallback callback)
+    void generation2D(GenerationData* data, math::Plane plane, bool disableOverlap, addPointCallback callback)
     {
         std::vector<const Vector3*> directions{};
 
         switch (plane)
         {
-        case Plane::xy:
+        case math::Plane::xy:
             directions.insert(begin(directions), { &right, &left, &up, &down });
             break;
-        case Plane::xz:
+        case math::Plane::xz:
             directions.insert(begin(directions), { &right, &left, &forward, &backward });
             break;
-        case Plane::yz:
+        case math::Plane::yz:
             directions.insert(begin(directions), { &up, &down, &forward, &backward });
             break;
         default:
