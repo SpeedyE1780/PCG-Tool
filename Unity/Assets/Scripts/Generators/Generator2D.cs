@@ -84,7 +84,7 @@ public class Generator2D : Generator
             startPoint = PCGEngine2Unity.Unity2PCGEngineVector(data.startPosition)
         };
 
-        PCGEngine2Unity.Generator2D(ref generator, plane, (vector) =>
+        PCGEngine2Unity.Generator2D(ref generator, plane, disableOverlap, (vector) =>
         {
             points.Add(PCGEngine2Unity.PCGEngineVectorToUnity(vector));
         });
@@ -94,34 +94,5 @@ public class Generator2D : Generator
             SpawnCell(data.cell, point);
             yield return null;
         }
-
-        //if (disableOverlap)
-        //{
-        //    cellPositions = new HashSet<Vector3>();
-        //}
-
-        //InitializeDirections();
-        //Vector3 position = data.startPosition;
-
-        //for (int i = 0; i < data.limit; i++)
-        //{
-        //    if (disableOverlap)
-        //    {
-        //        cellPositions.Add(position);
-        //    }
-
-        //    SpawnCell(data.cell, position);
-
-        //    List<Vector3> nextPositions = GetNextPositions(position);
-
-        //    if (nextPositions.Count == 0)
-        //    {
-        //        Debug.LogWarning("No more available position without overlapping ending generation early");
-        //        yield break;
-        //    }
-
-        //    position = nextPositions[Random.Range(0, nextPositions.Count)];
-        //    yield return null;
-        //}
     }
 }

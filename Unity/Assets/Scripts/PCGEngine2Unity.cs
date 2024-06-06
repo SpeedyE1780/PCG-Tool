@@ -61,6 +61,6 @@ public static class PCGEngine2Unity
     public static extern int Add(int x, int y);
     [DllImport("PCG-Engine-Core", EntryPoint = "?simpleGeneration@core@engine@pcg@@YAXPEAUGenerationData@123@W4Axis@123@W4Direction@123@P6AXUVector3@123@@Z@Z")]
     public static extern void SimpleGenerator(ref GeneratorData data, Axis axis, Direction direction, AddPosition createVector);
-    [DllImport("PCG-Engine-Core", EntryPoint = "?generation2D@core@engine@pcg@@YAXPEAUGenerationData@123@W4Plane@123@P6AXUVector3@123@@Z@Z")]
-    public static extern void Generator2D(ref GeneratorData data, Plane plane, AddPosition createVector);
+    [DllImport("PCG-Engine-Core", EntryPoint = "?generation2D@core@engine@pcg@@YAXPEAUGenerationData@123@W4Plane@123@_NP6AXUVector3@123@@Z@Z")]
+    public static extern void Generator2D(ref GeneratorData data, Plane plane, bool disableOverlap, AddPosition createVector);
 }
