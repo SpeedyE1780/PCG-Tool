@@ -57,14 +57,12 @@ public static class PCGEngine2Unity
         public Vector3 startPoint;
     }
 
-    [DllImport("PCG-Engine-Core", EntryPoint = "?add@core@engine@pcg@@YAHHH@Z")]
-    public static extern int Add(int x, int y);
-    [DllImport("PCG-Engine-Core", EntryPoint = "?simpleGeneration@core@engine@pcg@@YAXPEAUGenerationData@123@W4Axis@123@W4Direction@123@P6AXUVector3@123@@Z@Z")]
+    [DllImport("PCG-Engine-Core", EntryPoint = "simpleGeneration")]
     public static extern void SimpleGenerator(ref GeneratorData data, Axis axis, Direction direction, AddPosition createVector);
-    [DllImport("PCG-Engine-Core", EntryPoint = "?generation2D@core@engine@pcg@@YAXPEAUGenerationData@123@W4Plane@123@_NP6AXUVector3@123@@Z@Z")]
+    [DllImport("PCG-Engine-Core", EntryPoint = "generation2D")]
     public static extern void Generator2D(ref GeneratorData data, Plane plane, bool disableOverlap, AddPosition createVector);
-    [DllImport("PCG-Engine-Core", EntryPoint = "?generation3D@core@engine@pcg@@YAXPEAUGenerationData@123@_NP6AXUVector3@123@@Z@Z")]
+    [DllImport("PCG-Engine-Core", EntryPoint = "generation3D")]
     public static extern void Generator3D(ref GeneratorData data, bool disableOverlap, AddPosition createVector);
-    [DllImport("PCG-Engine-Core", EntryPoint = "?setSeed@core@engine@pcg@@YAXI@Z")]
+    [DllImport("PCG-Engine-Core", EntryPoint = "setSeed")]
     public static extern void UpdateSeed(uint seed);
 }
