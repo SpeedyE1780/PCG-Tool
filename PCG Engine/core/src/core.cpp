@@ -6,12 +6,12 @@
 
 namespace pcg::engine::core
 {
-    static const Vector3 right{ 1, 0, 0 };
-    static const Vector3 left{ -1, 0, 0 };
-    static const Vector3 up{ 0, 1, 0 };
-    static const Vector3 down{ 0, -1, 0 };
-    static const Vector3 forward{ 0, 0 ,1 };
-    static const Vector3 backward{ 0, 0, -1 };
+    static const math::Vector3 right{ 1, 0, 0 };
+    static const math::Vector3 left{ -1, 0, 0 };
+    static const math::Vector3 up{ 0, 1, 0 };
+    static const math::Vector3 down{ 0, -1, 0 };
+    static const math::Vector3 forward{ 0, 0 ,1 };
+    static const math::Vector3 backward{ 0, 0, -1 };
 
     int add(int x, int y)
     {
@@ -26,7 +26,7 @@ namespace pcg::engine::core
     void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)
     {
         std::function<void()> updatePosition;
-        Vector3 position = data->startPoint;
+        math::Vector3 position = data->startPoint;
         float offset = direction == math::Direction::positive ? data->size : -data->size;
 
         switch (axis)
@@ -68,39 +68,9 @@ namespace pcg::engine::core
         }
     }
 
-    void Vector3::operator+=(const Vector3& rhs)
-    {
-        x += rhs.x;
-        y += rhs.y;
-        z += rhs.z;
-    }
-
-    Vector3 operator*(const Vector3& vector, float scalar)
-    {
-        Vector3 scaledVector = vector;
-        scaledVector.x *= scalar;
-        scaledVector.y *= scalar;
-        scaledVector.z *= scalar;
-        return scaledVector;
-    }
-
-    Vector3 operator+(const Vector3& lhs, const Vector3& rhs)
-    {
-        Vector3 result{};
-        result.x = lhs.x + rhs.x;
-        result.y = lhs.y + rhs.y;
-        result.z = lhs.z + rhs.z;
-        return result;
-    }
-
-    bool operator==(const Vector3& lhs, const Vector3& rhs)
-    {
-        return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
-    }
-
     struct Vector3Hash
     {
-        std::size_t operator()(const Vector3& vector) const noexcept
+        std::size_t operator()(const math::Vector3& vector) const noexcept
         {
             std::size_t x = std::hash<float>{}(vector.x);
             std::size_t y = std::hash<float>{}(vector.y);
@@ -110,13 +80,13 @@ namespace pcg::engine::core
         }
     };
 
-    static std::optional<Vector3> getNextPosition(std::unordered_set<Vector3, Vector3Hash>& positions, const Vector3& currentPosition, const std::vector<const Vector3*>& directions, float offset)
+    static std::optional<math::Vector3> getNextPosition(std::unordered_set<math::Vector3, Vector3Hash>& positions, const math::Vector3& currentPosition, const std::vector<const math::Vector3*>& directions, float offset)
     {
-        std::vector<Vector3> availablePositions{};
+        std::vector<math::Vector3> availablePositions{};
 
         for (const auto* direction : directions)
         {
-            Vector3 position = currentPosition + *direction * offset;
+            math::Vector3 position = currentPosition + *direction * offset;
 
             if (positions.find(position) == end(positions))
             {
@@ -132,10 +102,10 @@ namespace pcg::engine::core
         return availablePositions[rand() % availablePositions.size()];
     }
 
-    static void multiDimensionalGeneration(GenerationData* data, const std::vector<const Vector3*>& directions, bool disableOverlap, addPointCallback callback)
+    static void multiDimensionalGeneration(GenerationData* data, const std::vector<const math::Vector3*>& directions, bool disableOverlap, addPointCallback callback)
     {
-        std::unordered_set<Vector3, Vector3Hash> positions{};
-        Vector3 position = data->startPoint;
+        std::unordered_set<math::Vector3, Vector3Hash> positions{};
+        math::Vector3 position = data->startPoint;
 
         for (int i = 0; i < data->limit; i++)
         {
@@ -159,7 +129,7 @@ namespace pcg::engine::core
 
     void generation2D(GenerationData* data, math::Plane plane, bool disableOverlap, addPointCallback callback)
     {
-        std::vector<const Vector3*> directions{};
+        std::vector<const math::Vector3*> directions{};
 
         switch (plane)
         {
@@ -181,7 +151,7 @@ namespace pcg::engine::core
 
     void generation3D(GenerationData* data, bool disableOverlap, addPointCallback callback)
     {
-        static const std::vector<const Vector3*> directions{ {&right, &left, &up, &down, &forward, &backward} };
+        static const std::vector<const math::Vector3*> directions{ {&right, &left, &up, &down, &forward, &backward} };
         multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 }
