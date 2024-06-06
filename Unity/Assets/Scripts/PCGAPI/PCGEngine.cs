@@ -50,11 +50,11 @@ namespace PCGAPI
         }
 
         [DllImport("PCG-Engine-Core", EntryPoint = "simpleGeneration")]
-        public static extern void SimpleGenerator(ref GenerationParameters data, Axis axis, Direction direction, AddPosition createVector);
+        public static extern void SimpleGenerator(ref GenerationParameters data, Axis axis, Direction direction, AddPosition addPosition);
         [DllImport("PCG-Engine-Core", EntryPoint = "generation2D")]
-        public static extern void Generator2D(ref GenerationParameters data, Plane plane, bool disableOverlap, AddPosition createVector);
+        public static extern void Generator2D(ref GenerationParameters data, Plane plane, bool disableOverlap, AddPosition addPosition);
         [DllImport("PCG-Engine-Core", EntryPoint = "generation3D")]
-        public static extern void Generator3D(ref GenerationParameters data, bool disableOverlap, AddPosition createVector);
+        public static extern void Generator3D(ref GenerationParameters data, bool disableOverlap, AddPosition addPosition);
         [DllImport("PCG-Engine-Core", EntryPoint = "setSeed")]
         public static extern void UpdateSeed(uint seed);
     }
