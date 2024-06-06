@@ -14,6 +14,13 @@ namespace pcg::engine::core
 
     typedef void (*addPointCallback)(Vector3 vector);
 
+    enum class Axis
+    {
+        x = 0,
+        y = 1,
+        z = 2
+    };
+
     struct GenerationData
     {
         unsigned int limit;
@@ -22,7 +29,7 @@ namespace pcg::engine::core
     };
 
     PCG_ENGINE_CORE_API int add(int x, int y);
-    PCG_ENGINE_CORE_API void simpleGeneration(GenerationData* data, addPointCallback callback);
+    PCG_ENGINE_CORE_API void simpleGeneration(GenerationData* data, Axis axis, addPointCallback callback);
 }
 
 #endif // PCG_ENGINE_CORE_CORE_HPP
