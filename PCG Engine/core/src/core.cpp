@@ -6,11 +6,6 @@
 
 namespace pcg::engine::core
 {
-    int add(int x, int y)
-    {
-        return x + y;
-    }
-
     void setSeed(unsigned int seed)
     {
         srand(seed);
