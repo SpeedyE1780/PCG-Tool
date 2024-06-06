@@ -2,24 +2,27 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
-public abstract class Generator : ScriptableObject
+namespace PCGAPI.Generators
 {
-    protected void SpawnCell(GameObject cell, Vector3 position)
+    public abstract class Generator : ScriptableObject
     {
-        GameObject go = null;
-
-        if (PrefabUtility.IsPartOfAnyPrefab(cell))
+        protected void SpawnCell(GameObject cell, Vector3 position)
         {
-            go = PrefabUtility.InstantiatePrefab(cell) as GameObject;
-            go.transform.position = position;
-        }
-        else
-        {
-            go = Instantiate(cell, position, Quaternion.identity);
+            GameObject go = null;
+
+            if (PrefabUtility.IsPartOfAnyPrefab(cell))
+            {
+                go = PrefabUtility.InstantiatePrefab(cell) as GameObject;
+                go.transform.position = position;
+            }
+            else
+            {
+                go = Instantiate(cell, position, Quaternion.identity);
+            }
+
+            Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
         }
 
-        Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
+        public abstract IEnumerator Generate(GeneratorData data);
     }
-
-    public abstract IEnumerator Generate(GeneratorData data);
 }

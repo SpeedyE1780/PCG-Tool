@@ -2,34 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SimpleGenerator", menuName = "Scriptable Objects/PCG/SimpleGenerator")]
-public class SimpleGenerator : Generator
+namespace PCGAPI.Generators
 {
-    [SerializeField]
-    private PCGEngine2Unity.Axis axis;
-    [SerializeField]
-    private PCGEngine2Unity.Direction direction;
-
-    public override IEnumerator Generate(GeneratorData data)
+    [CreateAssetMenu(fileName = "SimpleGenerator", menuName = "Scriptable Objects/PCG/SimpleGenerator")]
+    public class SimpleGenerator : Generator
     {
-        List<Vector3> points = new List<Vector3>();
+        [SerializeField]
+        private PCGEngine2Unity.Axis axis;
+        [SerializeField]
+        private PCGEngine2Unity.Direction direction;
 
-        PCGEngine2Unity.GeneratorData generator = new PCGEngine2Unity.GeneratorData()
+        public override IEnumerator Generate(GeneratorData data)
         {
-            limit = data.limit,
-            size = data.size,
-            startPoint = PCGEngine2Unity.Unity2PCGEngineVector(data.startPosition)
-        };
+            List<Vector3> points = new List<Vector3>();
 
-        PCGEngine2Unity.SimpleGenerator(ref generator, axis, direction, (vector) =>
-        {
-            points.Add(PCGEngine2Unity.PCGEngineVectorToUnity(vector));
-        });
+            PCGEngine2Unity.GeneratorData generator = new PCGEngine2Unity.GeneratorData()
+            {
+                limit = data.limit,
+                size = data.size,
+                startPoint = PCGEngine2Unity.Unity2PCGEngineVector(data.startPosition)
+            };
 
-        foreach (Vector3 point in points)
-        {
-            SpawnCell(data.cell, point);
-            yield return null;
+            PCGEngine2Unity.SimpleGenerator(ref generator, axis, direction, (vector) =>
+            {
+                points.Add(PCGEngine2Unity.PCGEngineVectorToUnity(vector));
+            });
+
+            foreach (Vector3 point in points)
+            {
+                SpawnCell(data.cell, point);
+                yield return null;
+            }
         }
     }
 }
