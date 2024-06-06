@@ -18,6 +18,11 @@ namespace pcg::engine::core
         return x + y;
     }
 
+    void setSeed(unsigned int seed)
+    {
+        srand(seed);
+    }
+
     void simpleGeneration(GenerationData* data, Axis axis, Direction direction, addPointCallback callback)
     {
         std::function<void()> updatePosition;
