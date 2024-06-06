@@ -44,11 +44,12 @@ namespace pcg::engine::core
     };
     
     Vector3 operator*(const Vector3& vector, float scalar);
-
+    Vector3 operator+(const Vector3& lhs, const Vector3& rhs);
+    bool operator==(const Vector3& lhs, const Vector3& rhs);
 
     PCG_ENGINE_CORE_API int add(int x, int y);
     PCG_ENGINE_CORE_API void simpleGeneration(GenerationData* data, Axis axis, Direction direction, addPointCallback callback);
-    PCG_ENGINE_CORE_API void generation2D(GenerationData* data, Plane plane, addPointCallback callback);
+    PCG_ENGINE_CORE_API void generation2D(GenerationData* data, Plane plane, bool disableOverlap, addPointCallback callback);
 }
 
 #endif // PCG_ENGINE_CORE_CORE_HPP

@@ -1,6 +1,8 @@
 #include <pcg/engine/core/core.hpp>
 
 #include <functional>
+#include <optional>
+#include <unordered_set>
 
 namespace pcg::engine::core
 {
@@ -70,7 +72,55 @@ namespace pcg::engine::core
         return scaledVector;
     }
 
-    void generation2D(GenerationData* data, Plane plane, addPointCallback callback)
+    Vector3 operator+(const Vector3& lhs, const Vector3& rhs)
+    {
+        Vector3 result{};
+        result.x = lhs.x + rhs.x;
+        result.y = lhs.y + rhs.y;
+        result.z = lhs.z + rhs.z;
+        return result;
+    }
+
+    bool operator==(const Vector3& lhs, const Vector3& rhs)
+    {
+        return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
+    }
+
+    struct Vector3Hash
+    {
+        std::size_t operator()(const Vector3& vector) const noexcept
+        {
+            std::size_t x = std::hash<float>{}(vector.x);
+            std::size_t y = std::hash<float>{}(vector.y);
+            std::size_t z = std::hash<float>{}(vector.z);
+
+            return x ^ (y << 1) ^ (z << 2);
+        }
+    };
+
+    static std::optional<Vector3> getNextPosition(std::unordered_set<Vector3, Vector3Hash>& positions, const Vector3& currentPosition, const std::vector<const Vector3*>& directions, float offset)
+    {
+        std::vector<Vector3> availablePositions{};
+
+        for (const auto* direction : directions)
+        {
+            Vector3 position = currentPosition + *direction * offset;
+
+            if (positions.find(position) == end(positions))
+            {
+                availablePositions.emplace_back(std::move(position));
+            }
+        }
+
+        if (availablePositions.size() == 0)
+        {
+            return std::nullopt;
+        }
+
+        return availablePositions[rand() % availablePositions.size()];
+    }
+
+    void generation2D(GenerationData* data, Plane plane, bool disableOverlap, addPointCallback callback)
     {
         static const Vector3 right{ 1, 0, 0 };
         static const Vector3 left{ -1, 0, 0 };
@@ -80,6 +130,7 @@ namespace pcg::engine::core
         static const Vector3 backward{ 0, 0, -1 };
 
         std::vector<const Vector3*> directions{};
+        std::unordered_set<Vector3, Vector3Hash> positions{};
 
         switch (plane)
         {
@@ -101,8 +152,20 @@ namespace pcg::engine::core
         for (int i = 0; i < data->limit; i++)
         {
             callback(position);
-            const auto* nextDirection = directions[rand() % directions.size()];
-            position += *nextDirection * data->size;
+
+            if (disableOverlap)
+            {
+                positions.insert(position);
+            }
+
+            auto nextPosition = getNextPosition(positions, position, directions, data->size);
+
+            if (!nextPosition.has_value())
+            {
+                return;
+            }
+
+            position = nextPosition.value();
         }
     }
 }
