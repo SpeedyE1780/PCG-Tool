@@ -16,12 +16,12 @@ int main()
 {
     std::cout << "Hello World!" << std::endl;
     std::cout << "Add 1 + 5 = " << add(1, 5) << std::endl;
-    GenerationData data{ 10, 1, {0,0,0} };
-    simpleGeneration(&data, Axis::x, addPoints);
+    GenerationData data{ 10, 1, { 0, 0, 0 } };
+    simpleGeneration(&data, Axis::x, Direction::negative, addPoints);
 
     for (auto& p : points)
     {
-        std::cout << "P:" << p.x << "," <<p.y << "," << p.z << std::endl;
+        std::cout << "P:" << p.x << "," << p.y << "," << p.z << std::endl;
     }
 
     return 0;

@@ -12,10 +12,10 @@ public class SimpleGenerator : Generator
         z = 2
     }
 
-    private enum Direction
+    public enum Direction
     {
-        positive,
-        negative
+        positive = 0,
+        negative = 1
     }
 
     [SerializeField]
@@ -45,7 +45,7 @@ public class SimpleGenerator : Generator
             startPoint = PCGEngine2Unity.Unity2PCGEngineVector(data.startPosition)
         };
 
-        PCGEngine2Unity.SimpleGenerator(ref generator, axis, (vector) =>
+        PCGEngine2Unity.SimpleGenerator(ref generator, axis, direction, (vector) =>
         {
             points.Add(PCGEngine2Unity.PCGEngineVectorToUnity(vector));
         });

@@ -21,6 +21,12 @@ namespace pcg::engine::core
         z = 2
     };
 
+    enum class Direction
+    {
+        positive = 0,
+        negative = 1
+    };
+
     struct GenerationData
     {
         unsigned int limit;
@@ -29,7 +35,7 @@ namespace pcg::engine::core
     };
 
     PCG_ENGINE_CORE_API int add(int x, int y);
-    PCG_ENGINE_CORE_API void simpleGeneration(GenerationData* data, Axis axis, addPointCallback callback);
+    PCG_ENGINE_CORE_API void simpleGeneration(GenerationData* data, Axis axis, Direction direction, addPointCallback callback);
 }
 
 #endif // PCG_ENGINE_CORE_CORE_HPP

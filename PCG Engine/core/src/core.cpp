@@ -9,11 +9,11 @@ namespace pcg::engine::core
         return x + y;
     }
 
-    void simpleGeneration(GenerationData* data, Axis axis, addPointCallback callback)
+    void simpleGeneration(GenerationData* data, Axis axis, Direction direction, addPointCallback callback)
     {
         std::function<void()> updatePosition;
         Vector3 position = data->startPoint;
-        float offset = data->size;
+        float offset = direction == Direction::positive ? data->size : -data->size;
 
         switch (axis)
         {
