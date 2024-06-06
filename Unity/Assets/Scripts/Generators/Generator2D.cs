@@ -5,15 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "2DGenerator", menuName = "Scriptable Objects/PCG/2DGenerator")]
 public class Generator2D : Generator
 {
-    private enum Plane
-    {
-        xy,
-        xz,
-        yz
-    }
-
     [SerializeField]
-    private Plane plane;
+    private PCGEngine2Unity.Plane plane;
     [SerializeField]
     private bool disableOverlap;
 
@@ -24,7 +17,7 @@ public class Generator2D : Generator
     {
         switch (plane)
         {
-            case Plane.xy:
+            case PCGEngine2Unity.Plane.XY:
                 {
                     directions = new List<Vector3>()
                     {
@@ -36,7 +29,7 @@ public class Generator2D : Generator
 
                     break;
                 }
-            case Plane.xz:
+            case PCGEngine2Unity.Plane.XZ:
                 {
                     directions = new List<Vector3>()
                     {
@@ -48,7 +41,7 @@ public class Generator2D : Generator
 
                     break;
                 }
-            case Plane.yz:
+            case PCGEngine2Unity.Plane.YZ:
                 {
                     directions = new List<Vector3>()
                     {
@@ -91,7 +84,7 @@ public class Generator2D : Generator
             startPoint = PCGEngine2Unity.Unity2PCGEngineVector(data.startPosition)
         };
 
-        PCGEngine2Unity.Generator2D(ref generator, (vector) =>
+        PCGEngine2Unity.Generator2D(ref generator, plane, (vector) =>
         {
             points.Add(PCGEngine2Unity.PCGEngineVectorToUnity(vector));
         });

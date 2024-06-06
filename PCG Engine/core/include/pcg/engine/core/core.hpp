@@ -29,6 +29,13 @@ namespace pcg::engine::core
         negative = 1
     };
 
+    enum class Plane
+    {
+        xy = 0,
+        xz = 1,
+        yz = 2
+    };
+
     struct GenerationData
     {
         unsigned int limit;
@@ -41,7 +48,7 @@ namespace pcg::engine::core
 
     PCG_ENGINE_CORE_API int add(int x, int y);
     PCG_ENGINE_CORE_API void simpleGeneration(GenerationData* data, Axis axis, Direction direction, addPointCallback callback);
-    PCG_ENGINE_CORE_API void generation2D(GenerationData* data, addPointCallback callback);
+    PCG_ENGINE_CORE_API void generation2D(GenerationData* data, Plane plane, addPointCallback callback);
 }
 
 #endif // PCG_ENGINE_CORE_CORE_HPP

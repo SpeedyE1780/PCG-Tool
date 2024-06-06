@@ -26,7 +26,7 @@ int main()
 
     points.clear();
 
-    generation2D(&data, addPoints);
+    generation2D(&data, Plane::yz, addPoints);
 
     for (auto& p : points)
     {

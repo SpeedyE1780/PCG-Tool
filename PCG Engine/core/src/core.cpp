@@ -70,14 +70,31 @@ namespace pcg::engine::core
         return scaledVector;
     }
 
-    void generation2D(GenerationData* data, addPointCallback callback)
+    void generation2D(GenerationData* data, Plane plane, addPointCallback callback)
     {
         static const Vector3 right{ 1, 0, 0 };
         static const Vector3 left{ -1, 0, 0 };
+        static const Vector3 up{ 0, 1, 0 };
+        static const Vector3 down{ 0, -1, 0 };
         static const Vector3 forward{ 0, 0 ,1 };
         static const Vector3 backward{ 0, 0, -1 };
 
-        std::vector<const Vector3*> directions{ { &right, &left, &forward, &backward } };
+        std::vector<const Vector3*> directions{};
+
+        switch (plane)
+        {
+        case Plane::xy:
+            directions.insert(begin(directions), { &right, &left, &up, &down });
+            break;
+        case Plane::xz:
+            directions.insert(begin(directions), { &right, &left, &forward, &backward });
+            break;
+        case Plane::yz:
+            directions.insert(begin(directions), { &up, &down, &forward, &backward });
+            break;
+        default:
+            break;
+        }
 
         Vector3 position = data->startPoint;
 
