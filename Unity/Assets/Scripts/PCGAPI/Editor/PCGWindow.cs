@@ -4,79 +4,82 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PCGWindow : EditorWindow
+namespace PCGAPI.Editor
 {
-    [SerializeField]
-    private VisualTreeAsset m_VisualTreeAsset = default;
-
-    private ObjectField generatorField;
-    private ObjectField cellField;
-    private UnsignedIntegerField seedField;
-    private UnsignedIntegerField cellLimitField;
-    private FloatField cellSizeField;
-    private Vector3Field startPositionField;
-
-    [MenuItem("PCG/Open Window")]
-    public static void OpenWindow()
+    public class PCGWindow : EditorWindow
     {
-        PCGWindow wnd = GetWindow<PCGWindow>();
-        wnd.titleContent = new GUIContent("PCG Window");
-    }
+        [SerializeField]
+        private VisualTreeAsset m_VisualTreeAsset = default;
 
-    public void CreateGUI()
-    {
-        // Each editor window contains a root VisualElement object
-        VisualElement root = rootVisualElement;
+        private ObjectField generatorField;
+        private ObjectField cellField;
+        private UnsignedIntegerField seedField;
+        private UnsignedIntegerField cellLimitField;
+        private FloatField cellSizeField;
+        private Vector3Field startPositionField;
 
-        // Instantiate UXML
-        VisualElement labelFromUXML = m_VisualTreeAsset.Instantiate();
-        root.Add(labelFromUXML);
-
-        generatorField = root.Q<ObjectField>("Generator");
-        cellField = root.Q<ObjectField>("Cell");
-        seedField = root.Q<UnsignedIntegerField>("Seed");
-        cellLimitField = root.Q<UnsignedIntegerField>("CellLimit");
-        cellSizeField = root.Q<FloatField>("CellSize");
-        startPositionField = root.Q<Vector3Field>("StartPosition");
-
-        var generateButton = root.Q<Button>("GenerateButton");
-        generateButton.clicked += SpawnObject;
-    }
-
-    private void SpawnObject()
-    {
-        Generator generator = generatorField.value as Generator;
-        GameObject cell = cellField.value as GameObject;
-        uint seed = seedField.value;
-        uint limit = cellLimitField.value;
-        float size = cellSizeField.value;
-        Vector3 startPosition = startPositionField.value;
-
-        if (generator == null)
+        [MenuItem("PCG/Open Window")]
+        public static void OpenWindow()
         {
-            Debug.LogWarning("Generator not set");
-            return;
+            PCGWindow wnd = GetWindow<PCGWindow>();
+            wnd.titleContent = new GUIContent("PCG Window");
         }
 
-        if (cell == null)
+        public void CreateGUI()
         {
-            Debug.LogWarning("Cell not set");
-            return;
+            // Each editor window contains a root VisualElement object
+            VisualElement root = rootVisualElement;
+
+            // Instantiate UXML
+            VisualElement labelFromUXML = m_VisualTreeAsset.Instantiate();
+            root.Add(labelFromUXML);
+
+            generatorField = root.Q<ObjectField>("Generator");
+            cellField = root.Q<ObjectField>("Cell");
+            seedField = root.Q<UnsignedIntegerField>("Seed");
+            cellLimitField = root.Q<UnsignedIntegerField>("CellLimit");
+            cellSizeField = root.Q<FloatField>("CellSize");
+            startPositionField = root.Q<Vector3Field>("StartPosition");
+
+            var generateButton = root.Q<Button>("GenerateButton");
+            generateButton.clicked += SpawnObject;
         }
 
-        if (limit == 0)
+        private void SpawnObject()
         {
-            Debug.LogWarning("Limit is zero nothing to generate");
-            return;
-        }
+            Generator generator = generatorField.value as Generator;
+            GameObject cell = cellField.value as GameObject;
+            uint seed = seedField.value;
+            uint limit = cellLimitField.value;
+            float size = cellSizeField.value;
+            Vector3 startPosition = startPositionField.value;
 
-        if (size == 0)
-        {
-            Debug.LogWarning("Cell size is 0 object will spawn on top of one another");
-            return;
-        }
+            if (generator == null)
+            {
+                Debug.LogWarning("Generator not set");
+                return;
+            }
 
-        PCGEngine2Unity.UpdateSeed(seed);
-        EditorCoroutineUtility.StartCoroutine(generator.Generate(new GeneratorData(cell, limit, size, startPosition)), this);
+            if (cell == null)
+            {
+                Debug.LogWarning("Cell not set");
+                return;
+            }
+
+            if (limit == 0)
+            {
+                Debug.LogWarning("Limit is zero nothing to generate");
+                return;
+            }
+
+            if (size == 0)
+            {
+                Debug.LogWarning("Cell size is 0 object will spawn on top of one another");
+                return;
+            }
+
+            PCGEngine2Unity.UpdateSeed(seed);
+            EditorCoroutineUtility.StartCoroutine(generator.Generate(new GeneratorData(cell, limit, size, startPosition)), this);
+        }
     }
 }
