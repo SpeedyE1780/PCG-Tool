@@ -26,9 +26,17 @@ int main()
     }
 
     points.clear();
-
     std::cout << "2D Generation" << std::endl;
     generation2D(&data, Plane::yz, true, addPoints);
+
+    for (auto& p : points)
+    {
+        std::cout << "P:" << p.x << "," << p.y << "," << p.z << std::endl;
+    }
+
+    points.clear();
+    std::cout << "3D Generation" << std::endl;
+    generation3D(&data, true, addPoints);
 
     for (auto& p : points)
     {

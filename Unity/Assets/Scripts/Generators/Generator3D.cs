@@ -7,68 +7,26 @@ public class Generator3D : Generator
 {
     [SerializeField]
     private bool disableOverlap;
-
-    private List<Vector3> directions;
-    private HashSet<Vector3> cellPositions;
-
-    private void InitializeDirections()
-    {
-        directions = new List<Vector3>()
-                    {
-                        Vector3.right,
-                        Vector3.left,
-                        Vector3.up,
-                        Vector3.down,
-                        Vector3.forward,
-                        Vector3.back
-                    };
-    }
-
-    private List<Vector3> GetNextPositions(Vector3 currentPosition)
-    {
-        List<Vector3> positions = new List<Vector3>();
-
-        foreach (Vector3 direction in directions)
-        {
-            Vector3 nextPosition = currentPosition + direction;
-
-            if (!cellPositions.Contains(nextPosition))
-            {
-                positions.Add(nextPosition);
-            }
-        }
-
-        return positions;
-    }
-
+    
     public override IEnumerator Generate(GeneratorData data)
     {
-        if (disableOverlap)
+        List<Vector3> points = new List<Vector3>();
+
+        PCGEngine2Unity.GeneratorData generator = new PCGEngine2Unity.GeneratorData()
         {
-            cellPositions = new HashSet<Vector3>();
-        }
+            limit = data.limit,
+            size = data.size,
+            startPoint = PCGEngine2Unity.Unity2PCGEngineVector(data.startPosition)
+        };
 
-        InitializeDirections();
-        Vector3 position = data.startPosition;
-
-        for (int i = 0; i < data.limit; i++)
+        PCGEngine2Unity.Generator3D(ref generator, disableOverlap, (vector) =>
         {
-            if (disableOverlap)
-            {
-                cellPositions.Add(position);
-            }
+            points.Add(PCGEngine2Unity.PCGEngineVectorToUnity(vector));
+        });
 
-            SpawnCell(data.cell, position);
-
-            List<Vector3> nextPositions = GetNextPositions(position);
-
-            if (nextPositions.Count == 0)
-            {
-                Debug.LogWarning("No more available position without overlapping ending generation early");
-                yield break;
-            }
-
-            position = nextPositions[Random.Range(0, nextPositions.Count)];
+        foreach (Vector3 point in points)
+        {
+            SpawnCell(data.cell, point);
             yield return null;
         }
     }

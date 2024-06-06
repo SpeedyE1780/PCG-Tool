@@ -6,6 +6,13 @@
 
 namespace pcg::engine::core
 {
+    static const Vector3 right{ 1, 0, 0 };
+    static const Vector3 left{ -1, 0, 0 };
+    static const Vector3 up{ 0, 1, 0 };
+    static const Vector3 down{ 0, -1, 0 };
+    static const Vector3 forward{ 0, 0 ,1 };
+    static const Vector3 backward{ 0, 0, -1 };
+
     int add(int x, int y)
     {
         return x + y;
@@ -120,33 +127,9 @@ namespace pcg::engine::core
         return availablePositions[rand() % availablePositions.size()];
     }
 
-    void generation2D(GenerationData* data, Plane plane, bool disableOverlap, addPointCallback callback)
+    static void multiDimensionalGeneration(GenerationData* data, const std::vector<const Vector3*>& directions, bool disableOverlap, addPointCallback callback)
     {
-        static const Vector3 right{ 1, 0, 0 };
-        static const Vector3 left{ -1, 0, 0 };
-        static const Vector3 up{ 0, 1, 0 };
-        static const Vector3 down{ 0, -1, 0 };
-        static const Vector3 forward{ 0, 0 ,1 };
-        static const Vector3 backward{ 0, 0, -1 };
-
-        std::vector<const Vector3*> directions{};
         std::unordered_set<Vector3, Vector3Hash> positions{};
-
-        switch (plane)
-        {
-        case Plane::xy:
-            directions.insert(begin(directions), { &right, &left, &up, &down });
-            break;
-        case Plane::xz:
-            directions.insert(begin(directions), { &right, &left, &forward, &backward });
-            break;
-        case Plane::yz:
-            directions.insert(begin(directions), { &up, &down, &forward, &backward });
-            break;
-        default:
-            break;
-        }
-
         Vector3 position = data->startPoint;
 
         for (int i = 0; i < data->limit; i++)
@@ -167,5 +150,33 @@ namespace pcg::engine::core
 
             position = nextPosition.value();
         }
+    }
+
+    void generation2D(GenerationData* data, Plane plane, bool disableOverlap, addPointCallback callback)
+    {
+        std::vector<const Vector3*> directions{};
+
+        switch (plane)
+        {
+        case Plane::xy:
+            directions.insert(begin(directions), { &right, &left, &up, &down });
+            break;
+        case Plane::xz:
+            directions.insert(begin(directions), { &right, &left, &forward, &backward });
+            break;
+        case Plane::yz:
+            directions.insert(begin(directions), { &up, &down, &forward, &backward });
+            break;
+        default:
+            break;
+        }
+
+        multiDimensionalGeneration(data, directions, disableOverlap, callback);
+    }
+
+    void generation3D(GenerationData* data, bool disableOverlap, addPointCallback callback)
+    {
+        static const std::vector<const Vector3*> directions{ {&right, &left, &up, &down, &forward, &backward} };
+        multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 }
