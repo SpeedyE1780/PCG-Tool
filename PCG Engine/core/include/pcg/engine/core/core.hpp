@@ -50,6 +50,7 @@ namespace pcg::engine::core
     PCG_ENGINE_CORE_API int add(int x, int y);
     PCG_ENGINE_CORE_API void simpleGeneration(GenerationData* data, Axis axis, Direction direction, addPointCallback callback);
     PCG_ENGINE_CORE_API void generation2D(GenerationData* data, Plane plane, bool disableOverlap, addPointCallback callback);
+    PCG_ENGINE_CORE_API void generation3D(GenerationData* data, bool disableOverlap, addPointCallback callback);
 }
 
 #endif // PCG_ENGINE_CORE_CORE_HPP
