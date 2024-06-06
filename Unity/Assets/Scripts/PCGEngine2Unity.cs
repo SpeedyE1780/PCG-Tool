@@ -39,6 +39,6 @@ public static class PCGEngine2Unity
 
     [DllImport("PCG-Engine-Core", EntryPoint = "?add@core@engine@pcg@@YAHHH@Z")]
     public static extern int Add(int x, int y);
-    [DllImport("PCG-Engine-Core", EntryPoint = "?simpleGeneration@core@engine@pcg@@YAXPEAUGenerationData@123@P6AXUVector3@123@@Z@Z")]
-    public static extern void SimpleGenerator(ref GeneratorData data, AddPosition createVector);
+    [DllImport("PCG-Engine-Core", EntryPoint = "?simpleGeneration@core@engine@pcg@@YAXPEAUGenerationData@123@W4Axis@123@P6AXUVector3@123@@Z@Z")]
+    public static extern void SimpleGenerator(ref GeneratorData data, SimpleGenerator.Axis axis, AddPosition createVector);
 }

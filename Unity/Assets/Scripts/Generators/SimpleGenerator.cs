@@ -5,11 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SimpleGenerator", menuName = "Scriptable Objects/PCG/SimpleGenerator")]
 public class SimpleGenerator : Generator
 {
-    private enum Axis
+    public enum Axis
     {
-        x,
-        y,
-        z
+        x = 0,
+        y = 1,
+        z = 2
     }
 
     private enum Direction
@@ -45,7 +45,7 @@ public class SimpleGenerator : Generator
             startPoint = PCGEngine2Unity.Unity2PCGEngineVector(data.startPosition)
         };
 
-        PCGEngine2Unity.SimpleGenerator(ref generator, (vector) =>
+        PCGEngine2Unity.SimpleGenerator(ref generator, axis, (vector) =>
         {
             points.Add(PCGEngine2Unity.PCGEngineVectorToUnity(vector));
         });
