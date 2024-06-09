@@ -50,6 +50,12 @@ namespace PCGAPI.Editor
 
         private void SpawnObject()
         {
+            void Log(string msg)
+            {
+                Debug.Log(msg);
+            }
+
+            PCGEngine.SetLoggingFunction(Log);
             Generator generator = generatorField.value as Generator;
             GameObject cell = cellField.value as GameObject;
             uint seed = seedField.value;

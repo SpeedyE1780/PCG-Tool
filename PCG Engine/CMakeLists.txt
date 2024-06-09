@@ -24,5 +24,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY $
 
 add_subdirectory(core)
 add_subdirectory(math)
+add_subdirectory(utility)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE PCG-Engine-Core)
