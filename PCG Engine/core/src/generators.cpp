@@ -4,6 +4,7 @@
 #include <functional>
 #include <optional>
 #include <unordered_set>
+#include <sstream>
 
 #include <stack>
 
@@ -160,23 +161,37 @@ namespace pcg::engine::core
 
     static void pushNode(std::stack<Node>& stack, std::unordered_set<math::Vector3, math::Vector3Hash>& set, math::Vector3 value)
     {
+        std::ostringstream oss{};
+
+        oss << "Node: " << value.x << " " << value.y << " " << value.z << " ";
+
         if (set.find(value) == set.end())
         {
             stack.push({ value, 0 });
             set.insert(value);
+            oss << "added";
+            utility::logInfo(oss.str());
+            return;
         }
+
+        oss << "already addded";
+        utility::logWarning(oss.str());
     }
 
     void waveFunctionCollapse(GenerationData* data, addWFCPointCallback callback)
     {
+        utility::logInfo("WFC Started");
         std::stack<Node> pushedNodes{};
         std::unordered_set<math::Vector3, math::Vector3Hash> spawnedNodes{};
         pushNode(pushedNodes, spawnedNodes, data->startPoint);
 
         while (!pushedNodes.empty())
         {
+            std::ostringstream oss{};
             Node current = pushedNodes.top();
             pushedNodes.pop();
+            oss << "Current: " << current.position.x << " " << current.position.y << " " << current.position.z;
+            utility::logInfo(oss.str());
 
             if (spawnedNodes.size() < data->limit)
             {
@@ -223,5 +238,6 @@ namespace pcg::engine::core
         }
 
         utility::logInfo("Wave Function Collapsed Spawned: " + std::to_string(spawnedNodes.size()));
+        utility::logInfo("WFC Ended");
     }
 }
