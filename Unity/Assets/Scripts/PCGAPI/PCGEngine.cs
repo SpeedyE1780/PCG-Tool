@@ -5,6 +5,8 @@ namespace PCGAPI
     public static class PCGEngine
     {
         public delegate void AddPosition(Vector3 position);
+        public delegate void SetSeed(uint seed);
+        public delegate int GenerateNumber(int min, int max);
 
         public enum Axis
         {
@@ -57,5 +59,7 @@ namespace PCGAPI
         public static extern void Generator3D(ref GenerationParameters data, bool disableOverlap, AddPosition addPosition);
         [DllImport("PCG-Engine-Core", EntryPoint = "setSeed")]
         public static extern void UpdateSeed(uint seed);
+        [DllImport("PCG-Engine-Core", EntryPoint = "setRandomGenerator")]
+        public static extern void SetRandomGenerators(SetSeed setSeed, GenerateNumber generate);
     }
 }
