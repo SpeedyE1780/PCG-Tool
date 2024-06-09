@@ -165,9 +165,8 @@ namespace pcg::engine::core
     {
         std::stack<math::Vector3> pushedNodes{};
         std::unordered_set<math::Vector3, math::Vector3Hash> spawnedNodes{};
-        math::Vector3 start{ 0, 0, 0 };
-        pushedNodes.push(start);
-        spawnedNodes.insert(start);
+        pushedNodes.push(data->startPoint);
+        spawnedNodes.insert(data->startPoint);
 
         while (!pushedNodes.empty())
         {
@@ -181,32 +180,32 @@ namespace pcg::engine::core
 
                 if (neighbors & Neighbors::left)
                 {
-                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::left);
+                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::left * data->size);
                 }
 
                 if (neighbors & Neighbors::right)
                 {
-                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::right);
+                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::right * data->size);
                 }
 
                 if (neighbors & Neighbors::forward)
                 {
-                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::forward);
+                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::forward * data->size);
                 }
 
                 if (neighbors & Neighbors::backward)
                 {
-                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::backward);
+                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::backward * data->size);
                 }
 
                 if (neighbors & Neighbors::up)
                 {
-                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::up);
+                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::up * data->size);
                 }
 
                 if (neighbors & Neighbors::down)
                 {
-                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::down);
+                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::down * data->size);
                 }
             }
         }
