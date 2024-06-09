@@ -25,4 +25,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void GenerateLevel();
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSubclassOf<AActor> levelBlock;
 };

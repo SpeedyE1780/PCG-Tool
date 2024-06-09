@@ -28,5 +28,6 @@ void ASimpleLevelGenerator::Tick(float DeltaTime)
 void ASimpleLevelGenerator::GenerateLevel()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, "TEST");
+	GetWorld()->SpawnActor(levelBlock);
 }
 
