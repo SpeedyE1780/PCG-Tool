@@ -14,16 +14,6 @@ namespace pcg::engine::core
 
     void setRandomGenerator(math::setSeed seed, math::generateNumber generate)
     {
-        if (generate == nullptr)
-        {
-            generate = rand;
-        }
-
-        if (seed == nullptr)
-        {
-            seed = srand;
-        }
-
         math::initializeRandom(seed, generate);
     }
 
@@ -91,7 +81,7 @@ namespace pcg::engine::core
             return std::nullopt;
         }
 
-        return availablePositions[math::Random::generate() % availablePositions.size()];
+        return availablePositions[math::Random::generate(0, availablePositions.size())];
     }
 
     static void multiDimensionalGeneration(GenerationData* data, const std::vector<const math::Vector3*>& directions, bool disableOverlap, addPointCallback callback)

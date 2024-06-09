@@ -4,7 +4,7 @@
 namespace pcg::engine::math
 {
     typedef void (*setSeed)(unsigned int seed);
-    typedef int (*generateNumber)();
+    typedef int (*generateNumber)(int minimum, int maximum);
 
     struct Random
     {
