@@ -152,63 +152,74 @@ namespace pcg::engine::core
         multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    static void pushNode(std::stack<math::Vector3>& stack, std::unordered_set<math::Vector3, math::Vector3Hash>& set, math::Vector3 value)
+    struct Node
+    {
+        math::Vector3 position;
+        int neighbors = 0;
+    };
+
+    static void pushNode(std::stack<Node>& stack, std::unordered_set<math::Vector3, math::Vector3Hash>& set, math::Vector3 value)
     {
         if (set.find(value) == set.end())
         {
-            stack.push(value);
+            stack.push({ value, 0 });
             set.insert(value);
         }
     }
 
     void waveFunctionCollapse(GenerationData* data, addWFCPointCallback callback)
     {
-        std::stack<math::Vector3> pushedNodes{};
+        std::stack<Node> pushedNodes{};
         std::unordered_set<math::Vector3, math::Vector3Hash> spawnedNodes{};
         pushNode(pushedNodes, spawnedNodes, data->startPoint);
 
         while (!pushedNodes.empty())
         {
-            math::Vector3 current = pushedNodes.top();
+            Node current = pushedNodes.top();
             pushedNodes.pop();
-            int neighbors = 0;
 
             if (spawnedNodes.size() < data->limit)
             {
-                neighbors = math::Random::generate(0, 32);
+                current.neighbors |= math::Random::generate(0, 32);
 
-                if (neighbors & Neighbors::left)
+                if (current.neighbors & Neighbors::left)
                 {
-                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::left * data->size);
+                    pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::left * data->size);
+                    pushedNodes.top().neighbors |= Neighbors::right;
                 }
 
-                if (neighbors & Neighbors::right)
+                if (current.neighbors & Neighbors::right)
                 {
-                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::right * data->size);
+                    pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::right * data->size);
+                    pushedNodes.top().neighbors |= Neighbors::left;
                 }
 
-                if (neighbors & Neighbors::forward)
+                if (current.neighbors & Neighbors::forward)
                 {
-                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::forward * data->size);
+                    pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::forward * data->size);
+                    pushedNodes.top().neighbors |= Neighbors::backward;
                 }
 
-                if (neighbors & Neighbors::backward)
+                if (current.neighbors & Neighbors::backward)
                 {
-                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::backward * data->size);
+                    pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::backward * data->size);
+                    pushedNodes.top().neighbors |= Neighbors::forward;
                 }
 
-                if (neighbors & Neighbors::up)
+                if (current.neighbors & Neighbors::up)
                 {
-                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::up * data->size);
+                    pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::up * data->size);
+                    pushedNodes.top().neighbors |= Neighbors::down;
                 }
 
-                if (neighbors & Neighbors::down)
+                if (current.neighbors & Neighbors::down)
                 {
-                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::down * data->size);
+                    pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::down * data->size);
+                    pushedNodes.top().neighbors |= Neighbors::up;
                 }
             }
 
-            callback(current, neighbors);
+            callback(current.position, current.neighbors);
         }
     }
 }
