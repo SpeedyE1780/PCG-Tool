@@ -6,10 +6,12 @@ add_library(${PROJECT_NAME} STATIC)
 
 target_sources(${PROJECT_NAME} PRIVATE
 #CPP
+"src/random.cpp"
 "src/vector3.cpp"
 
 #HPP
 "include/pcg/engine/math/enums.hpp"
+"include/pcg/engine/math/random.hpp"
 "include/pcg/engine/math/vector3.hpp"
 )
 
