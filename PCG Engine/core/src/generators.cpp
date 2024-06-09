@@ -1,4 +1,5 @@
 #include <pcg/engine/core/generators.hpp>
+#include <pcg/engine/math/random.hpp>
 
 #include <functional>
 #include <optional>
@@ -8,7 +9,7 @@ namespace pcg::engine::core
 {
     void setSeed(unsigned int seed)
     {
-        srand(seed);
+        math::Random::seed(seed);
     }
 
     void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)
@@ -75,7 +76,7 @@ namespace pcg::engine::core
             return std::nullopt;
         }
 
-        return availablePositions[rand() % availablePositions.size()];
+        return availablePositions[math::Random::generate() % availablePositions.size()];
     }
 
     static void multiDimensionalGeneration(GenerationData* data, const std::vector<const math::Vector3*>& directions, bool disableOverlap, addPointCallback callback)
