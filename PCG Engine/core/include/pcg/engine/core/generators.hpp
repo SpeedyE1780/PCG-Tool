@@ -12,6 +12,7 @@
 namespace pcg::engine::core
 {
     typedef void (*addPointCallback)(math::Vector3 vector);
+    typedef void (*addWFCPointCallback)(math::Vector3 vector, int neighbors);
 
     struct GenerationData
     {
@@ -36,7 +37,7 @@ namespace pcg::engine::core
     PCG_ENGINE_CORE_API void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback);
     PCG_ENGINE_CORE_API void generation2D(GenerationData* data, math::Plane plane, bool disableOverlap, addPointCallback callback);
     PCG_ENGINE_CORE_API void generation3D(GenerationData* data, bool disableOverlap, addPointCallback callback);
-    PCG_ENGINE_CORE_API void waveFunctionCollapse(GenerationData* data, addPointCallback callback);
+    PCG_ENGINE_CORE_API void waveFunctionCollapse(GenerationData* data, addWFCPointCallback callback);
 }
 
 #endif // PCG_ENGINE_CORE_CORE_HPP

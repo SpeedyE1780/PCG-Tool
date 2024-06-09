@@ -13,6 +13,44 @@ namespace
         std::cout << "Point:" << point.x << "," << point.y << "," << point.z << std::endl;
     }
 
+    void addWFCPoints(Vector3 point, int neighbors)
+    {
+        std::cout << "Point:" << point.x << "," << point.y << "," << point.z << std::endl;
+        std::cout << "Neighbors: ";
+
+        if (neighbors & Neighbors::left)
+        {
+            std::cout << "L";
+        }
+
+        if (neighbors & Neighbors::right)
+        {
+            std::cout << "R";
+        }
+
+        if (neighbors & Neighbors::forward)
+        {
+            std::cout << "F";
+        }
+
+        if (neighbors & Neighbors::backward)
+        {
+            std::cout << "B";
+        }
+
+        if (neighbors & Neighbors::up)
+        {
+            std::cout << "U";
+        }
+
+        if (neighbors & Neighbors::down)
+        {
+            std::cout << "D";
+        }
+
+        std::cout << std::endl;
+    }
+
     void logMessage(const char* message)
     {
         std::cout << message << std::endl;
@@ -33,7 +71,7 @@ int main()
     generation3D(&data, true, addPoints);
 
     std::cout << "Wave Function Collapse" << std::endl;
-    waveFunctionCollapse(&data, addPoints);
+    waveFunctionCollapse(&data, addWFCPoints);
 
     return 0;
 }

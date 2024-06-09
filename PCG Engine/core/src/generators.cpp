@@ -161,22 +161,21 @@ namespace pcg::engine::core
         }
     }
 
-    void waveFunctionCollapse(GenerationData* data, addPointCallback callback)
+    void waveFunctionCollapse(GenerationData* data, addWFCPointCallback callback)
     {
         std::stack<math::Vector3> pushedNodes{};
         std::unordered_set<math::Vector3, math::Vector3Hash> spawnedNodes{};
-        pushedNodes.push(data->startPoint);
-        spawnedNodes.insert(data->startPoint);
+        pushNode(pushedNodes, spawnedNodes, data->startPoint);
 
         while (!pushedNodes.empty())
         {
             math::Vector3 current = pushedNodes.top();
             pushedNodes.pop();
-            callback(current);
+            int neighbors = 0;
 
             if (spawnedNodes.size() < data->limit)
             {
-                int neighbors = math::Random::generate(0, 32);
+                neighbors = math::Random::generate(0, 32);
 
                 if (neighbors & Neighbors::left)
                 {
@@ -208,6 +207,8 @@ namespace pcg::engine::core
                     pushNode(pushedNodes, spawnedNodes, current + math::Vector3::down * data->size);
                 }
             }
+
+            callback(current, neighbors);
         }
     }
 }
