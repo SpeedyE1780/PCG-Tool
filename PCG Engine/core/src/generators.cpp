@@ -221,5 +221,7 @@ namespace pcg::engine::core
 
             callback(current.position, current.neighbors);
         }
+
+        utility::logInfo("Wave Function Collapsed Spawned: " + std::to_string(spawnedNodes.size()));
     }
 }
