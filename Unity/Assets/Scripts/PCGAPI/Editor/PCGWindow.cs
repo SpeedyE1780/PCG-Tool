@@ -81,6 +81,19 @@ namespace PCGAPI.Editor
                 return;
             }
 
+            void SetSeed(uint seed)
+            {
+                Debug.Log("SET SEED");
+                Random.InitState((int)seed);
+            }
+
+            int Generate(int min, int max)
+            {
+                Debug.Log("GENERATING");
+                return Random.Range(min, max);
+            }
+
+            PCGEngine.SetRandomGenerators(SetSeed, Generate);
             PCGEngine.UpdateSeed(seed);
 
             void SpawnFunction(Vector3 position)
