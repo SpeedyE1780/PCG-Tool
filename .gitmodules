@@ -1,0 +1,3 @@
+[submodule "PCG Engine/3rd-party/game-engine"]
+	path = PCG Engine/3rd-party/game-engine
+	url = https://github.com/SpeedyE1780/GAM703-Engine.git

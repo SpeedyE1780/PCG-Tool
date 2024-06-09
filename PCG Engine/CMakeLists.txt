@@ -22,6 +22,8 @@ target_sources(${PROJECT_NAME} PRIVATE "src/main.cpp")
 
 set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIG>)
 
+add_subdirectory(3rd-party/game-engine)
+
 add_subdirectory(core)
 add_subdirectory(math)
 add_subdirectory(utility)
