@@ -12,6 +12,21 @@ namespace pcg::engine::core
         math::Random::seed(seed);
     }
 
+    void setRandomGenerator(math::setSeed seed, math::generateNumber generate)
+    {
+        if (generate == nullptr)
+        {
+            generate = rand;
+        }
+
+        if (seed == nullptr)
+        {
+            seed = srand;
+        }
+
+        math::initializeRandom(seed, generate);
+    }
+
     void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)
     {
         std::function<void()> updatePosition;
