@@ -17,8 +17,14 @@ namespace pcg::engine::core
         math::initializeRandom(seed, generate);
     }
 
+    void setLoggingFunction(utility::logMessage logFunction)
+    {
+        utility::setLoggingFunction(logFunction);
+    }
+
     void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)
     {
+        utility::logInfo("Simple Generation Started");
         std::function<void()> updatePosition;
         math::Vector3 position = data->startPoint;
         float offset = direction == math::Direction::positive ? data->size : -data->size;
@@ -60,6 +66,8 @@ namespace pcg::engine::core
             callback(position);
             updatePosition();
         }
+
+        utility::logInfo("Simple Generation Ended");
     }
 
     static std::optional<math::Vector3> getNextPosition(std::unordered_set<math::Vector3, math::Vector3Hash>& positions, const math::Vector3& currentPosition, const std::vector<const math::Vector3*>& directions, float offset)
@@ -86,6 +94,8 @@ namespace pcg::engine::core
 
     static void multiDimensionalGeneration(GenerationData* data, const std::vector<const math::Vector3*>& directions, bool disableOverlap, addPointCallback callback)
     {
+        utility::logInfo("Multi-Dimension Generation Started");
+
         std::unordered_set<math::Vector3, math::Vector3Hash> positions{};
         math::Vector3 position = data->startPoint;
 
@@ -102,11 +112,14 @@ namespace pcg::engine::core
 
             if (!nextPosition.has_value())
             {
+                utility::logInfo("Multi-Dimension Generation Ended Early");
                 return;
             }
 
             position = nextPosition.value();
         }
+
+        utility::logInfo("Multi-Dimension Generation Ended");
     }
 
     void generation2D(GenerationData* data, math::Plane plane, bool disableOverlap, addPointCallback callback)

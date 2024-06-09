@@ -15,7 +15,7 @@ namespace pcg::engine::utility
 
     logMessage logger = nullptr;
 
-    void setLogginFunction(logMessage logFunction)
+    void setLoggingFunction(logMessage logFunction)
     {
         logger = logFunction;
     }

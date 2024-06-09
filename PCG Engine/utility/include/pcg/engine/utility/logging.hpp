@@ -7,7 +7,7 @@ namespace pcg::engine::utility
 {
     typedef void (*logMessage)(const std::string& message);
 
-    void setLogginFunction(logMessage logFunction);
+    void setLoggingFunction(logMessage logFunction);
     void logInfo(const std::string& message);
     void logWarning(const std::string& message);
     void logError(const std::string& message);
