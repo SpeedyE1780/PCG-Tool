@@ -5,6 +5,8 @@
 #include <optional>
 #include <unordered_set>
 
+#include <stack>
+
 namespace pcg::engine::core
 {
     void setSeed(unsigned int seed)
@@ -148,5 +150,65 @@ namespace pcg::engine::core
     {
         static const std::vector<const math::Vector3*> directions{ {&math::Vector3::right, &math::Vector3::left, &math::Vector3::up, &math::Vector3::down, &math::Vector3::forward, &math::Vector3::backward} };
         multiDimensionalGeneration(data, directions, disableOverlap, callback);
+    }
+
+    static void pushNode(std::stack<math::Vector3>& stack, std::unordered_set<math::Vector3, math::Vector3Hash>& set, math::Vector3 value)
+    {
+        if (set.find(value) == set.end())
+        {
+            stack.push(value);
+            set.insert(value);
+        }
+    }
+
+    void waveFunctionCollapse(GenerationData* data, addPointCallback callback)
+    {
+        std::stack<math::Vector3> pushedNodes{};
+        std::unordered_set<math::Vector3, math::Vector3Hash> spawnedNodes{};
+        math::Vector3 start{ 0, 0, 0 };
+        pushedNodes.push(start);
+        spawnedNodes.insert(start);
+
+        while (!pushedNodes.empty())
+        {
+            math::Vector3 current = pushedNodes.top();
+            pushedNodes.pop();
+            callback(current);
+
+            if (spawnedNodes.size() < data->limit)
+            {
+                int neighbors = math::Random::generate(0, 32);
+
+                if (neighbors & Neighbors::left)
+                {
+                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::left);
+                }
+
+                if (neighbors & Neighbors::right)
+                {
+                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::right);
+                }
+
+                if (neighbors & Neighbors::forward)
+                {
+                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::forward);
+                }
+
+                if (neighbors & Neighbors::backward)
+                {
+                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::backward);
+                }
+
+                if (neighbors & Neighbors::up)
+                {
+                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::up);
+                }
+
+                if (neighbors & Neighbors::down)
+                {
+                    pushNode(pushedNodes, spawnedNodes, current + math::Vector3::down);
+                }
+            }
+        }
     }
 }

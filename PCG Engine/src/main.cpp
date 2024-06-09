@@ -32,5 +32,8 @@ int main()
     std::cout << "3D Generation" << std::endl;
     generation3D(&data, true, addPoints);
 
+    std::cout << "Wave Function Collapse" << std::endl;
+    waveFunctionCollapse(&data, addPoints);
+
     return 0;
 }
