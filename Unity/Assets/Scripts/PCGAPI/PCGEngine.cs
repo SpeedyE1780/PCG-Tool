@@ -64,5 +64,7 @@ namespace PCGAPI
         public static extern void SetRandomGenerators(SetSeed setSeed, GenerateNumber generate);
         [DllImport("PCG-Engine-Core", EntryPoint = "setLoggingFunction")]
         public static extern void SetLoggingFunction(LogFunction logFunction);
+        [DllImport("PCG-Engine-Core", EntryPoint = "waveFunctionCollapse")]
+        public static extern void WaveFunctionCollapse(ref GenerationParameters data, AddPosition addPosition);
     }
 }
