@@ -8,13 +8,22 @@ using namespace pcg::engine::math;
 
 std::vector<Vector3> points{};
 
-void addPoints(Vector3 point)
+namespace
 {
-    points.push_back(point);
+    void addPoints(Vector3 point)
+    {
+        points.push_back(point);
+    }
+
+    void logMessage(const std::string& message)
+    {
+        std::cout << message << std::endl;
+    }
 }
 
 int main()
 {
+    setLoggingFunction(logMessage);
     std::cout << "Simple Generation" << std::endl;
     GenerationData data{ 10, 1, { 0, 0, 0 } };
     simpleGeneration(&data, Axis::x, Direction::negative, addPoints);
