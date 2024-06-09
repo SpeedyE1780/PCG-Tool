@@ -16,14 +16,10 @@ else()
 set(COPY_DIRECTORY_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIG>)
 endif()
 
-add_executable(${PROJECT_NAME})
-
-target_sources(${PROJECT_NAME} PRIVATE "src/main.cpp")
-
-set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIG>)
+add_subdirectory(3rd-party/game-engine)
 
 add_subdirectory(core)
+add_subdirectory(demos/console)
+add_subdirectory(demos/gam703-engine)
 add_subdirectory(math)
 add_subdirectory(utility)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE PCG-Engine-Core)
