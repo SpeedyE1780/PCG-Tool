@@ -102,7 +102,7 @@ namespace PCGAPI.Editor
             PCGEngine.SetRandomGenerators(SetSeed, Generate);
             PCGEngine.UpdateSeed(seed);
 
-            void SpawnFunction(Vector3 position)
+            GameObject SpawnFunction(Vector3 position)
             {
                 GameObject go = null;
 
@@ -117,6 +117,7 @@ namespace PCGAPI.Editor
                 }
 
                 Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
+                return go;
             }
 
             if (frameToggle.value)

@@ -5,6 +5,7 @@ namespace PCGAPI
     public static class PCGEngine
     {
         public delegate void AddPosition(Vector3 position);
+        public delegate void AddWFCPosition(Vector3 position, int neighbors);
         public delegate void SetSeed(uint seed);
         public delegate int GenerateNumber(int min, int max);
         public delegate void LogFunction(string message);
@@ -65,6 +66,6 @@ namespace PCGAPI
         [DllImport("PCG-Engine-Core", EntryPoint = "setLoggingFunction")]
         public static extern void SetLoggingFunction(LogFunction logFunction);
         [DllImport("PCG-Engine-Core", EntryPoint = "waveFunctionCollapse")]
-        public static extern void WaveFunctionCollapse(ref GenerationParameters data, AddPosition addPosition);
+        public static extern void WaveFunctionCollapse(ref GenerationParameters data, AddWFCPosition addPosition);
     }
 }

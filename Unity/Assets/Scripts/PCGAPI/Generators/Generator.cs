@@ -6,9 +6,11 @@ namespace PCGAPI.Generators
 {
     public abstract class Generator : ScriptableObject
     {
-        public delegate void Spawn(Vector3 position);
+        public delegate GameObject Spawn(Vector3 position);
 
         private readonly List<Vector3> spawnPoints = new List<Vector3>();
+
+        protected Spawn SpawnFunction { get; private set; }
 
         protected void AddSpawnPoint(PCGEngine.Vector3 position)
         {
@@ -23,25 +25,32 @@ namespace PCGAPI.Generators
             GenerateWithEngine(ref parameters);
         }
 
+        protected virtual GameObject SpawnThing(Vector3 position)
+        {
+            return SpawnFunction(position);
+        }
+
         public void GenerateOneShot(GeneratorData data, Spawn spawnFunction)
         {
             PCGEngine.GenerationParameters parameters = PCGEngine2Unity.GeneratorDataToPCGEngineGenerationParameters(data);
+            SpawnFunction = spawnFunction;
             GenerateLevel(ref parameters);
 
             foreach (Vector3 point in spawnPoints)
             {
-                spawnFunction(point);
+                SpawnThing(point);
             }
         }
 
         public IEnumerator GenerateFrameByFrame(GeneratorData data, Spawn spawnFunction)
         {
             PCGEngine.GenerationParameters parameters = PCGEngine2Unity.GeneratorDataToPCGEngineGenerationParameters(data);
+            SpawnFunction = spawnFunction;
             GenerateLevel(ref parameters);
 
             foreach (Vector3 point in spawnPoints)
             {
-                spawnFunction(point);
+                SpawnThing(point);
                 yield return null;
             }
         }
