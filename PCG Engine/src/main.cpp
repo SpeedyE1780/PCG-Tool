@@ -13,7 +13,7 @@ namespace
         std::cout << "Point:" << point.x << "," << point.y << "," << point.z << std::endl;
     }
 
-    void logMessage(const std::string& message)
+    void logMessage(const char* message)
     {
         std::cout << message << std::endl;
     }

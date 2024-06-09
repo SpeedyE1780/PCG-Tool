@@ -8,7 +8,7 @@ namespace pcg::engine::utility
         {
             if (logger)
             {
-                logger(message);
+                logger(message.c_str());
             }
         }
     }
