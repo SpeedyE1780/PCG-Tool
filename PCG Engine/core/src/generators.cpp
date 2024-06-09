@@ -159,7 +159,7 @@ namespace pcg::engine::core
         int neighbors = 0;
     };
 
-    static void pushNode(std::stack<Node>& stack, std::unordered_set<math::Vector3, math::Vector3Hash>& set, math::Vector3 value)
+    static bool pushNode(std::stack<Node>& stack, std::unordered_set<math::Vector3, math::Vector3Hash>& set, math::Vector3 value)
     {
         std::ostringstream oss{};
 
@@ -171,11 +171,12 @@ namespace pcg::engine::core
             set.insert(value);
             oss << "added";
             utility::logInfo(oss.str());
-            return;
+            return true;
         }
 
         oss << "already addded";
         utility::logWarning(oss.str());
+        return false;
     }
 
     void waveFunctionCollapse(GenerationData* data, addWFCPointCallback callback)
@@ -196,40 +197,52 @@ namespace pcg::engine::core
             if (spawnedNodes.size() < data->limit)
             {
                 current.neighbors |= math::Random::generate(0, 32);
+            }
 
-                if (current.neighbors & Neighbors::left)
+            if (current.neighbors & Neighbors::left)
+            {
+                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::left * data->size))
                 {
-                    pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::left * data->size);
                     pushedNodes.top().neighbors |= Neighbors::right;
                 }
+            }
 
-                if (current.neighbors & Neighbors::right)
+            if (current.neighbors & Neighbors::right)
+            {
+                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::right * data->size))
                 {
-                    pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::right * data->size);
                     pushedNodes.top().neighbors |= Neighbors::left;
                 }
+            }
 
-                if (current.neighbors & Neighbors::forward)
+            if (current.neighbors & Neighbors::forward)
+            {
+                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::forward * data->size))
                 {
-                    pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::forward * data->size);
                     pushedNodes.top().neighbors |= Neighbors::backward;
                 }
+            }
 
-                if (current.neighbors & Neighbors::backward)
+            if (current.neighbors & Neighbors::backward)
+            {
+                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::backward * data->size))
                 {
-                    pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::backward * data->size);
                     pushedNodes.top().neighbors |= Neighbors::forward;
                 }
+            }
 
-                if (current.neighbors & Neighbors::up)
+            if (current.neighbors & Neighbors::up)
+            {
+                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::up * data->size))
                 {
-                    pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::up * data->size);
                     pushedNodes.top().neighbors |= Neighbors::down;
                 }
+            }
 
-                if (current.neighbors & Neighbors::down)
+            if (current.neighbors & Neighbors::down)
+            {
+                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::down * data->size))
                 {
-                    pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::down * data->size);
                     pushedNodes.top().neighbors |= Neighbors::up;
                 }
             }
