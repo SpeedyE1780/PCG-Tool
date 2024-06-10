@@ -26,6 +26,7 @@ public class MyPCG : ModuleRules
 			new string[]
 			{
 				"Core",
+                "PCGEngine"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
