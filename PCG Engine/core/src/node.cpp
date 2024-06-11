@@ -4,6 +4,15 @@
 
 namespace pcg::engine::core
 {
+    Node::Node(const math::Vector3& position) :position(position), neighbors()
+    {
+    }
+
+    int Neighbors::getIntegerRepresentation() const
+    {
+        return neighbors.to_ulong();
+    }
+
     bool Neighbors::hasNeighbor(int neighbor) const
     {
         return (neighbors & std::bitset<count>(neighbor)).any();
@@ -19,8 +28,8 @@ namespace pcg::engine::core
         neighbors &= ~neighbor;
     }
 
-    int Neighbors::generateNeighbors()
+    void Neighbors::generateNeighbors()
     {
-        return math::Random::generate(0, count);
+        neighbors |= math::Random::generate(0, combinationCount);
     }
 }

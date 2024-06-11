@@ -1,5 +1,6 @@
 #include <iostream>>
 #include <pcg/engine/core/generators.hpp>
+#include <pcg/engine/core/node.hpp>
 
 #include <vector>
 

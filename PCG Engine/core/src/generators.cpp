@@ -1,4 +1,6 @@
 #include <pcg/engine/core/generators.hpp>
+#include <pcg/engine/core/node.hpp>
+
 #include <pcg/engine/math/random.hpp>
 
 #include <functional>
@@ -153,22 +155,16 @@ namespace pcg::engine::core
         multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    struct Node
-    {
-        math::Vector3 position;
-        int neighbors = 0;
-    };
-
-    static bool pushNode(std::stack<Node>& stack, std::unordered_set<math::Vector3, math::Vector3Hash>& set, math::Vector3 value)
+    static bool pushNode(std::stack<Node>& stack, std::unordered_set<math::Vector3, math::Vector3Hash>& set, const math::Vector3& position)
     {
         std::ostringstream oss{};
 
-        oss << "Node: " << value.x << " " << value.y << " " << value.z << " ";
+        oss << "Node: " << position.x << " " << position.y << " " << position.z << " ";
 
-        if (set.find(value) == set.end())
+        if (set.find(position) == set.end())
         {
-            stack.push({ value, 0 });
-            set.insert(value);
+            stack.push(Node(position));
+            set.insert(position);
             oss << "added";
             utility::logInfo(oss.str());
             return true;
@@ -191,63 +187,64 @@ namespace pcg::engine::core
             std::ostringstream oss{};
             Node current = pushedNodes.top();
             pushedNodes.pop();
-            oss << "Current: " << current.position.x << " " << current.position.y << " " << current.position.z;
+            const math::Vector3& position = current.getPosition();
+            oss << "Current: " << position.x << " " << position.y << " " << position.z;
             utility::logInfo(oss.str());
 
             if (spawnedNodes.size() < data->limit)
             {
-                current.neighbors |= math::Random::generate(0, 32);
+                current.getNeighbors().generateNeighbors();
             }
 
-            if (current.neighbors & Neighbors::left)
+            if (current.getNeighbors().hasNeighbor(Neighbors::left))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::left * data->size))
+                if (pushNode(pushedNodes, spawnedNodes, current.getPosition() + math::Vector3::left * data->size))
                 {
-                    pushedNodes.top().neighbors |= Neighbors::right;
+                    pushedNodes.top().getNeighbors().addNeighbor(Neighbors::right);
                 }
             }
 
-            if (current.neighbors & Neighbors::right)
+            if (current.getNeighbors().hasNeighbor(Neighbors::right))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::right * data->size))
+                if (pushNode(pushedNodes, spawnedNodes, current.getPosition() + math::Vector3::right * data->size))
                 {
-                    pushedNodes.top().neighbors |= Neighbors::left;
+                    pushedNodes.top().getNeighbors().addNeighbor(Neighbors::left);
                 }
             }
 
-            if (current.neighbors & Neighbors::forward)
+            if (current.getNeighbors().hasNeighbor(Neighbors::forward))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::forward * data->size))
+                if (pushNode(pushedNodes, spawnedNodes, current.getPosition() + math::Vector3::forward * data->size))
                 {
-                    pushedNodes.top().neighbors |= Neighbors::backward;
+                    pushedNodes.top().getNeighbors().addNeighbor(Neighbors::backward);
                 }
             }
 
-            if (current.neighbors & Neighbors::backward)
+            if (current.getNeighbors().hasNeighbor(Neighbors::backward))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::backward * data->size))
+                if (pushNode(pushedNodes, spawnedNodes, current.getPosition() + math::Vector3::backward * data->size))
                 {
-                    pushedNodes.top().neighbors |= Neighbors::forward;
+                    pushedNodes.top().getNeighbors().addNeighbor(Neighbors::forward);
                 }
             }
 
-            if (current.neighbors & Neighbors::up)
+            if (current.getNeighbors().hasNeighbor(Neighbors::up))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::up * data->size))
+                if (pushNode(pushedNodes, spawnedNodes, current.getPosition() + math::Vector3::up * data->size))
                 {
-                    pushedNodes.top().neighbors |= Neighbors::down;
+                    pushedNodes.top().getNeighbors().addNeighbor(Neighbors::down);
                 }
             }
 
-            if (current.neighbors & Neighbors::down)
+            if (current.getNeighbors().hasNeighbor(Neighbors::down))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::down * data->size))
+                if (pushNode(pushedNodes, spawnedNodes, current.getPosition() + math::Vector3::down * data->size))
                 {
-                    pushedNodes.top().neighbors |= Neighbors::up;
+                    pushedNodes.top().getNeighbors().addNeighbor(Neighbors::up);
                 }
             }
 
-            callback(current.position, current.neighbors);
+            callback(current.getPosition(), current.getNeighbors().getIntegerRepresentation());
         }
 
         utility::logInfo("Wave Function Collapsed Spawned: " + std::to_string(spawnedNodes.size()));

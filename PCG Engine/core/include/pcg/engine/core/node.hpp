@@ -11,6 +11,7 @@ namespace pcg::engine::core
     {
     public:
         static constexpr int count = 6;
+        static constexpr int combinationCount = 1 << count;
         static constexpr int left = 1 << 0;
         static constexpr int right = 1 << 1;
         static constexpr int forward = 1 << 2;
@@ -21,16 +22,18 @@ namespace pcg::engine::core
         bool hasNeighbor(int neighbor) const;
         void addNeighbor(int neighbor);
         void removeNeighbor(int neighbor);
+        int getIntegerRepresentation() const;
 
-        static int generateNeighbors();
+        void generateNeighbors();
 
     private:
-        std::bitset<count> neighbors;
+        std::bitset<count> neighbors = 0;
     };
 
     class Node
     {
     public:
+        Node(const math::Vector3& position);
         const math::Vector3& getPosition() const { return position; }
         void setPosition(const math::Vector3& position) { this->position = position; }
 
