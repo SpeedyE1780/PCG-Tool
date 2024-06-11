@@ -6,50 +6,58 @@
 
 namespace pcg::engine::core
 {
+    namespace
+    {
+        std::function<void(math::Vector3& position, float offset)> getUpdatePositionFunction(math::Axis axis)
+        {
+            switch (axis)
+            {
+            case math::Axis::x:
+            {
+                return [](math::Vector3& position, float offset)
+                    {
+                        position.x += offset;
+                    };
+            }
+            case math::Axis::y:
+            {
+                return [](math::Vector3& position, float offset)
+                    {
+                        position.y += offset;
+                    };
+            }
+            case math::Axis::z:
+            {
+                return [](math::Vector3& position, float offset)
+                    {
+                        position.z += offset;
+                    };
+            }
+            default:
+            {
+                utility::logError("Can't interpret axis returning with no generation");
+                return nullptr;
+            }
+            }
+        }
+    }
+
     void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)
     {
         utility::logInfo("Simple Generation Started");
-        std::function<void()> updatePosition;
+        std::function<void(math::Vector3& position, float offset)> updatePosition = getUpdatePositionFunction(axis);
         math::Vector3 position = data->startPoint;
         const float offset = direction == math::Direction::positive ? data->size : -data->size;
 
-        switch (axis)
+        if (!updatePosition)
         {
-        case math::Axis::x:
-        {
-            updatePosition = [&position, offset]()
-                {
-                    position.x += offset;
-                };
-            break;
-        }
-        case math::Axis::y:
-        {
-            updatePosition = [&position, offset]()
-                {
-                    position.y += offset;
-                };
-            break;
-        }
-        case math::Axis::z:
-        {
-            updatePosition = [&position, offset]()
-                {
-                    position.z += offset;
-                };
-            break;
-        }
-        default:
-        {
-            utility::logError("Wrong Axis given");
             return;
-        }
         }
 
         for (int i = 0; i < data->limit; ++i)
         {
             callback(position);
-            updatePosition();
+            updatePosition(position, offset);
         }
 
         utility::logInfo("Simple Generation Ended");
