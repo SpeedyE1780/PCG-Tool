@@ -88,7 +88,8 @@ int main()
     std::cout << "Choose Option: " << std::endl;
     std::cout << "1 Simple Generation along Z Axis" << std::endl;
     std::cout << "2 2D Generation on XZ Plane" << std::endl;
-    std::cout << "3 Wave Function Collapse" << std::endl;
+    std::cout << "3 DFS Wave Function Collapse" << std::endl;
+    std::cout << "4 BFS Wave Function Collapse" << std::endl;
     int choice = 0;
     std::cin >> choice;
 
@@ -127,7 +128,13 @@ int main()
     case 3:
     {
         data.limit = 100;
-        pcg::engine::core::waveFunctionCollapse(&data, addWFCPoints);
+        pcg::engine::core::waveFunctionCollapse(&data, pcg::engine::core::ExpansionMode::DFS, addWFCPoints);
+        break;
+    }
+    case 4:
+    {
+        data.limit = 100;
+        pcg::engine::core::waveFunctionCollapse(&data, pcg::engine::core::ExpansionMode::BFS, addWFCPoints);
         break;
     }
     default:
@@ -136,6 +143,7 @@ int main()
         return 1;
     }
     }
+
     engine.start();
 
     return 0;

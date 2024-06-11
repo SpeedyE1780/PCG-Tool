@@ -71,9 +71,11 @@ int main()
     std::cout << "3D Generation" << std::endl;
     generation3D(&data, true, addPoints);
 
-    std::cout << "Wave Function Collapse" << std::endl;
+    std::cout << "Wave Function Collapse DFS" << std::endl;
     data.limit = 115;
-    waveFunctionCollapse(&data, addWFCPoints);
+    waveFunctionCollapse(&data, ExpansionMode::DFS, addWFCPoints);
+    std::cout << "Wave Function Collapse BFS" << std::endl;
+    waveFunctionCollapse(&data, ExpansionMode::BFS, addWFCPoints);
 
     return 0;
 }
