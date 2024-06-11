@@ -9,6 +9,7 @@ Unity/[Bb]uild/
 Unity/[Bb]uilds/
 Unity/[Ll]ogs/
 Unity/[Uu]ser[Ss]ettings/
+!Unity/[Aa]ssets/**/*.meta
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
