@@ -6,6 +6,9 @@ namespace PCGAPI.Generators
     [CreateAssetMenu(fileName = "WaveFunctionCollapse", menuName = "Scriptable Objects/PCG/WaveFunctionCollapse")]
     public class WaveFunctionCollapse : Generator
     {
+        [SerializeField]
+        private PCGEngine.ExpansionMode mode;
+
         List<int> neighbours = new List<int>();
         int currentIndex = 0;
 
@@ -50,7 +53,7 @@ namespace PCGAPI.Generators
         {
             neighbours.Clear();
             currentIndex = 0;
-            PCGEngine.WaveFunctionCollapse(ref parameters, AddPoint);
+            PCGEngine.WaveFunctionCollapse(ref parameters, mode, AddPoint);
         }
     }
 }
