@@ -8,7 +8,7 @@
 #include <game/components/FollowTarget.hpp>
 #include <game/components/MovementController.hpp>
 
-#include <pcg/engine/core/generators.hpp>
+#include <pcg/engine/core/api.hpp>
 #include <pcg/engine/core/node.hpp>
 
 #include <iostream>
