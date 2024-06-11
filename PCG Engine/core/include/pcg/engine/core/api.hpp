@@ -2,8 +2,10 @@
 #define PCG_ENGINE_CORE_API_HPP
 
 #include <pcg/engine/core/config.hpp>
+#include <pcg/engine/core/GenerationData.hpp>
 #include <pcg/engine/core/generators.hpp>
 
+#include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/random.hpp>
 #include <pcg/engine/math/vector3.hpp>
 

@@ -15,6 +15,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 #HPP
 "include/pcg/engine/core/api.hpp"
 "include/pcg/engine/core/config.hpp"
+"include/pcg/engine/core/GenerationData.hpp"
 "include/pcg/engine/core/generators.hpp"
 "include/pcg/engine/core/node.hpp"
 )
