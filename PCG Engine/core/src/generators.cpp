@@ -191,19 +191,18 @@ namespace pcg::engine::core
             std::ostringstream oss{};
             std::size_t currentIndex = pushedNodes.top();
             pushedNodes.pop();
-            Node& current = spawnedNodes.at(currentIndex);
-            const math::Vector3& position = current.getPosition();
+            const math::Vector3& position = spawnedNodes.at(currentIndex).getPosition();
             oss << "Current: " << position.x << " " << position.y << " " << position.z;
             utility::logInfo(oss.str());
 
             if (spawnedNodes.size() < data->limit)
             {
-                current.getNeighbors().generateNeighbors();
+                spawnedNodes.at(currentIndex).getNeighbors().generateNeighbors();
             }
 
-            if (current.getNeighbors().hasNeighbor(Neighbors::left))
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::left))
             {
-                math::Vector3 neighborPosition = current.getPosition() + math::Vector3::left * data->size;
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::left * data->size;
 
                 if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
@@ -218,14 +217,14 @@ namespace pcg::engine::core
 
                     if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::right))
                     {
-                        current.getNeighbors().removeNeighbor(Neighbors::left);
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::left);
                     }
                 }
             }
 
-            if (current.getNeighbors().hasNeighbor(Neighbors::right))
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::right))
             {
-                math::Vector3 neighborPosition = current.getPosition() + math::Vector3::right * data->size;
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::right * data->size;
 
                 if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
@@ -240,14 +239,14 @@ namespace pcg::engine::core
 
                     if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::left))
                     {
-                        current.getNeighbors().removeNeighbor(Neighbors::right);
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::right);
                     }
                 }
             }
 
-            if (current.getNeighbors().hasNeighbor(Neighbors::forward))
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::forward))
             {
-                math::Vector3 neighborPosition = current.getPosition() + math::Vector3::forward * data->size;
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::forward * data->size;
 
                 if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
@@ -262,14 +261,14 @@ namespace pcg::engine::core
 
                     if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::backward))
                     {
-                        current.getNeighbors().removeNeighbor(Neighbors::forward);
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::forward);
                     }
                 }
             }
 
-            if (current.getNeighbors().hasNeighbor(Neighbors::backward))
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::backward))
             {
-                math::Vector3 neighborPosition = current.getPosition() + math::Vector3::backward * data->size;
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::backward * data->size;
 
                 if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
@@ -284,14 +283,14 @@ namespace pcg::engine::core
 
                     if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::forward))
                     {
-                        current.getNeighbors().removeNeighbor(Neighbors::backward);
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::backward);
                     }
                 }
             }
 
-            if (current.getNeighbors().hasNeighbor(Neighbors::up))
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::up))
             {
-                math::Vector3 neighborPosition = current.getPosition() + math::Vector3::up * data->size;
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::up * data->size;
 
                 if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
@@ -306,14 +305,14 @@ namespace pcg::engine::core
 
                     if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::down))
                     {
-                        current.getNeighbors().removeNeighbor(Neighbors::up);
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::up);
                     }
                 }
             }
 
-            if (current.getNeighbors().hasNeighbor(Neighbors::down))
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::down))
             {
-                math::Vector3 neighborPosition = current.getPosition() + math::Vector3::down * data->size;
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::down * data->size;
 
                 if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
@@ -328,12 +327,12 @@ namespace pcg::engine::core
 
                     if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::up))
                     {
-                        current.getNeighbors().removeNeighbor(Neighbors::down);
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::down);
                     }
                 }
             }
 
-            callback(current.getPosition(), current.getNeighbors().getIntegerRepresentation());
+            callback(spawnedNodes.at(currentIndex).getPosition(), spawnedNodes.at(currentIndex).getNeighbors().getIntegerRepresentation());
         }
 
         utility::logInfo("Wave Function Collapsed Spawned: " + std::to_string(spawnedNodes.size()));
