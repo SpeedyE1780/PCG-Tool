@@ -1,12 +1,14 @@
 #include <pcg/engine/core/generators.hpp>
+#include <pcg/engine/core/node.hpp>
+
 #include <pcg/engine/math/random.hpp>
 
 #include <functional>
 #include <optional>
-#include <unordered_set>
-#include <sstream>
-
+#include <queue>
 #include <stack>
+#include <sstream>
+#include <unordered_set>
 
 namespace pcg::engine::core
 {
@@ -153,22 +155,21 @@ namespace pcg::engine::core
         multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    struct Node
-    {
-        math::Vector3 position;
-        int neighbors = 0;
-    };
-
-    static bool pushNode(std::stack<Node>& stack, std::unordered_set<math::Vector3, math::Vector3Hash>& set, math::Vector3 value)
+    template<typename collection>
+    static bool pushNode(collection& nodeCollection, std::vector<Node>& vector, const math::Vector3& position)
     {
         std::ostringstream oss{};
 
-        oss << "Node: " << value.x << " " << value.y << " " << value.z << " ";
+        oss << "Node: " << position.x << " " << position.y << " " << position.z << " ";
+        auto nodeIterator = std::find_if(begin(vector), end(vector), [&position](const Node& node)
+            {
+                return node.getPosition() == position;
+            });
 
-        if (set.find(value) == set.end())
+        if (nodeIterator == vector.end())
         {
-            stack.push({ value, 0 });
-            set.insert(value);
+            nodeCollection.push(vector.size());
+            vector.emplace_back(Node(position));
             oss << "added";
             utility::logInfo(oss.str());
             return true;
@@ -179,78 +180,337 @@ namespace pcg::engine::core
         return false;
     }
 
-    void waveFunctionCollapse(GenerationData* data, addWFCPointCallback callback)
+    static void waveFunctionCollapseDFS(GenerationData* data, addWFCPointCallback callback)
     {
         utility::logInfo("WFC Started");
-        std::stack<Node> pushedNodes{};
-        std::unordered_set<math::Vector3, math::Vector3Hash> spawnedNodes{};
+        std::stack<std::size_t> pushedNodes{};
+        std::vector<Node> spawnedNodes{};
+        spawnedNodes.reserve(data->limit);
         pushNode(pushedNodes, spawnedNodes, data->startPoint);
 
         while (!pushedNodes.empty())
         {
             std::ostringstream oss{};
-            Node current = pushedNodes.top();
+            std::size_t currentIndex = pushedNodes.top();
             pushedNodes.pop();
-            oss << "Current: " << current.position.x << " " << current.position.y << " " << current.position.z;
+            const math::Vector3& position = spawnedNodes.at(currentIndex).getPosition();
+            oss << "Current: " << position.x << " " << position.y << " " << position.z;
             utility::logInfo(oss.str());
 
             if (spawnedNodes.size() < data->limit)
             {
-                current.neighbors |= math::Random::generate(0, 32);
+                spawnedNodes.at(currentIndex).getNeighbors().generateNeighbors();
             }
 
-            if (current.neighbors & Neighbors::left)
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::left))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::left * data->size))
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::left * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
-                    pushedNodes.top().neighbors |= Neighbors::right;
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::right);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::right))
+                    {
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::left);
+                    }
                 }
             }
 
-            if (current.neighbors & Neighbors::right)
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::right))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::right * data->size))
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::right * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
-                    pushedNodes.top().neighbors |= Neighbors::left;
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::left);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::left))
+                    {
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::right);
+                    }
                 }
             }
 
-            if (current.neighbors & Neighbors::forward)
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::forward))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::forward * data->size))
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::forward * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
-                    pushedNodes.top().neighbors |= Neighbors::backward;
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::backward);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::backward))
+                    {
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::forward);
+                    }
                 }
             }
 
-            if (current.neighbors & Neighbors::backward)
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::backward))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::backward * data->size))
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::backward * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
-                    pushedNodes.top().neighbors |= Neighbors::forward;
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::forward);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::forward))
+                    {
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::backward);
+                    }
                 }
             }
 
-            if (current.neighbors & Neighbors::up)
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::up))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::up * data->size))
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::up * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
-                    pushedNodes.top().neighbors |= Neighbors::down;
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::down);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::down))
+                    {
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::up);
+                    }
                 }
             }
 
-            if (current.neighbors & Neighbors::down)
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::down))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.position + math::Vector3::down * data->size))
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::down * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
-                    pushedNodes.top().neighbors |= Neighbors::up;
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::up);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::up))
+                    {
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::down);
+                    }
                 }
             }
 
-            callback(current.position, current.neighbors);
+            callback(spawnedNodes.at(currentIndex).getPosition(), spawnedNodes.at(currentIndex).getNeighbors().getIntegerRepresentation());
         }
 
         utility::logInfo("Wave Function Collapsed Spawned: " + std::to_string(spawnedNodes.size()));
         utility::logInfo("WFC Ended");
+    }
+
+    static void waveFunctionCollapseBFS(GenerationData* data, addWFCPointCallback callback)
+    {
+        utility::logInfo("WFC Started");
+        std::queue<std::size_t> pushedNodes{};
+        std::vector<Node> spawnedNodes{};
+        spawnedNodes.reserve(data->limit);
+        pushNode(pushedNodes, spawnedNodes, data->startPoint);
+
+        while (!pushedNodes.empty())
+        {
+            std::ostringstream oss{};
+            std::size_t currentIndex = pushedNodes.front();
+            pushedNodes.pop();
+            const math::Vector3& position = spawnedNodes.at(currentIndex).getPosition();
+            oss << "Current: " << position.x << " " << position.y << " " << position.z;
+            utility::logInfo(oss.str());
+
+            if (spawnedNodes.size() < data->limit)
+            {
+                spawnedNodes.at(currentIndex).getNeighbors().generateNeighbors();
+            }
+
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::left))
+            {
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::left * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
+                {
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::right);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::right))
+                    {
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::left);
+                    }
+                }
+            }
+
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::right))
+            {
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::right * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
+                {
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::left);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::left))
+                    {
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::right);
+                    }
+                }
+            }
+
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::forward))
+            {
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::forward * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
+                {
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::backward);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::backward))
+                    {
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::forward);
+                    }
+                }
+            }
+
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::backward))
+            {
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::backward * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
+                {
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::forward);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::forward))
+                    {
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::backward);
+                    }
+                }
+            }
+
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::up))
+            {
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::up * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
+                {
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::down);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::down))
+                    {
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::up);
+                    }
+                }
+            }
+
+            if (spawnedNodes.at(currentIndex).getNeighbors().hasNeighbor(Neighbors::down))
+            {
+                math::Vector3 neighborPosition = spawnedNodes.at(currentIndex).getPosition() + math::Vector3::down * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
+                {
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::up);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::up))
+                    {
+                        spawnedNodes.at(currentIndex).getNeighbors().removeNeighbor(Neighbors::down);
+                    }
+                }
+            }
+
+            callback(spawnedNodes.at(currentIndex).getPosition(), spawnedNodes.at(currentIndex).getNeighbors().getIntegerRepresentation());
+        }
+
+        utility::logInfo("Wave Function Collapsed Spawned: " + std::to_string(spawnedNodes.size()));
+        utility::logInfo("WFC Ended");
+    }
+
+    void waveFunctionCollapse(GenerationData* data, ExpansionMode mode, addWFCPointCallback callback)
+    {
+        if (mode == ExpansionMode::DFS)
+        {
+            waveFunctionCollapseDFS(data, callback);
+        }
+        else if (mode == ExpansionMode::BFS)
+        {
+            waveFunctionCollapseBFS(data, callback);
+        }
     }
 }

@@ -53,6 +53,12 @@ namespace PCGAPI
             public Vector3 startPoint;
         }
 
+        public enum ExpansionMode
+        {
+            BFS,
+            DFS
+        };
+
         [DllImport("PCG-Engine-Core", EntryPoint = "simpleGeneration")]
         public static extern void SimpleGenerator(ref GenerationParameters data, Axis axis, Direction direction, AddPosition addPosition);
         [DllImport("PCG-Engine-Core", EntryPoint = "generation2D")]
@@ -66,6 +72,6 @@ namespace PCGAPI
         [DllImport("PCG-Engine-Core", EntryPoint = "setLoggingFunction")]
         public static extern void SetLoggingFunction(LogFunction logFunction);
         [DllImport("PCG-Engine-Core", EntryPoint = "waveFunctionCollapse")]
-        public static extern void WaveFunctionCollapse(ref GenerationParameters data, AddWFCPosition addPosition);
+        public static extern void WaveFunctionCollapse(ref GenerationParameters data, ExpansionMode mode, AddWFCPosition addPosition);
     }
 }

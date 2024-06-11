@@ -23,7 +23,7 @@ namespace pcg::engine::math
 
     struct Vector3Hash
     {
-        std::size_t operator()(const math::Vector3& vector) const noexcept;
+        std::size_t operator()(const Vector3& vector) const noexcept;
     };
 
     Vector3 operator+(const Vector3& lhs, const Vector3& rhs);
