@@ -1,8 +1,12 @@
 #include <pcg/engine/core/api.hpp>
 #include <pcg/engine/core/generators.hpp>
+#include <pcg/engine/core/GenerationData.hpp>
 #include <pcg/engine/core/node.hpp>
 
+#include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/utility/logging.hpp>
 
 #include <functional>
 #include <optional>
@@ -13,54 +17,6 @@
 
 namespace pcg::engine::core
 {
-    void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)
-    {
-        utility::logInfo("Simple Generation Started");
-        std::function<void()> updatePosition;
-        math::Vector3 position = data->startPoint;
-        float offset = direction == math::Direction::positive ? data->size : -data->size;
-
-        switch (axis)
-        {
-        case math::Axis::x:
-        {
-            updatePosition = [&position, offset]()
-                {
-                    position.x += offset;
-                };
-            break;
-        }
-        case math::Axis::y:
-        {
-            updatePosition = [&position, offset]()
-                {
-                    position.y += offset;
-                };
-            break;
-        }
-        case math::Axis::z:
-        {
-            updatePosition = [&position, offset]()
-                {
-                    position.z += offset;
-                };
-            break;
-        }
-        default:
-        {
-            break;
-        }
-        }
-
-        for (int i = 0; i < data->limit; i++)
-        {
-            callback(position);
-            updatePosition();
-        }
-
-        utility::logInfo("Simple Generation Ended");
-    }
-
     static std::optional<math::Vector3> getNextPosition(std::unordered_set<math::Vector3, math::Vector3Hash>& positions, const math::Vector3& currentPosition, const std::vector<const math::Vector3*>& directions, float offset)
     {
         std::vector<math::Vector3> availablePositions{};

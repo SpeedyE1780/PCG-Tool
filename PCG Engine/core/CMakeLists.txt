@@ -11,6 +11,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 "src/api.cpp"
 "src/generators.cpp"
 "src/node.cpp"
+"src/SimpleGeneration.cpp"
 
 #HPP
 "include/pcg/engine/core/api.hpp"
@@ -18,6 +19,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 "include/pcg/engine/core/GenerationData.hpp"
 "include/pcg/engine/core/generators.hpp"
 "include/pcg/engine/core/node.hpp"
+"include/pcg/engine/core/SimpleGeneration.hpp"
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include/)

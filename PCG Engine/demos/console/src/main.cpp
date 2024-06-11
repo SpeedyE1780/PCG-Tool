@@ -63,7 +63,7 @@ int main()
     setLoggingFunction(logMessage);
     std::cout << "Simple Generation" << std::endl;
     GenerationData data{ 10, 1, { 0, 0, 0 } };
-    simpleGeneration(&data, Axis::x, Direction::negative, addPoints);
+    generation1D(&data, Axis::x, Direction::negative, addPoints);
 
     std::cout << "2D Generation" << std::endl;
     generation2D(&data, Plane::yz, true, addPoints);

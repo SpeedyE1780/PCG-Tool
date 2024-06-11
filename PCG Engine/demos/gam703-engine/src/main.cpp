@@ -117,7 +117,7 @@ int main()
     {
     case 1:
     {
-        pcg::engine::core::simpleGeneration(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, addPoints);
+        pcg::engine::core::generation1D(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, addPoints);
         break;
     }
     case 2:

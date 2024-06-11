@@ -5,6 +5,8 @@
 
 namespace pcg::engine::core
 {
+    typedef void (*addPointCallback)(math::Vector3 vector);
+
     struct GenerationData
     {
         unsigned int limit;
