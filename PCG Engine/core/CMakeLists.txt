@@ -10,6 +10,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 #CPP
 "src/api.cpp"
 "src/generators.cpp"
+"src/MultiDimensionalGeneration.cpp"
 "src/node.cpp"
 "src/SimpleGeneration.cpp"
 
@@ -18,6 +19,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 "include/pcg/engine/core/config.hpp"
 "include/pcg/engine/core/GenerationData.hpp"
 "include/pcg/engine/core/generators.hpp"
+"include/pcg/engine/core/MultiDimensionalGeneration.hpp"
 "include/pcg/engine/core/node.hpp"
 "include/pcg/engine/core/SimpleGeneration.hpp"
 )
