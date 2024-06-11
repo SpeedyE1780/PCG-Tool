@@ -184,6 +184,7 @@ namespace pcg::engine::core
         utility::logInfo("WFC Started");
         std::stack<std::size_t> pushedNodes{};
         std::vector<Node> spawnedNodes{};
+        spawnedNodes.reserve(data->limit);
         pushNode(pushedNodes, spawnedNodes, data->startPoint);
 
         while (!pushedNodes.empty())
