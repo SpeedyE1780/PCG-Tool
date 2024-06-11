@@ -6,6 +6,13 @@
 namespace pcg::engine::core
 {
     typedef void (*addPointCallback)(math::Vector3 vector);
+    typedef void (*addWFCPointCallback)(math::Vector3 vector, int neighbors);
+
+    enum class ExpansionMode
+    {
+        BFS,
+        DFS
+    };
 
     struct GenerationData
     {

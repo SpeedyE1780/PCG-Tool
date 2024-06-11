@@ -3,7 +3,6 @@
 
 #include <pcg/engine/core/config.hpp>
 #include <pcg/engine/core/GenerationData.hpp>
-#include <pcg/engine/core/WaveFunctionCollapse.hpp>
 
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/random.hpp>
