@@ -1,5 +1,7 @@
 #include <pcg/engine/math/vector3.hpp>
 
+#include <pcg/engine/utility/logging.hpp>
+
 #include <unordered_set>
 
 namespace pcg::engine::math
@@ -48,5 +50,31 @@ namespace pcg::engine::math
         scaledVector.y *= scalar;
         scaledVector.z *= scalar;
         return scaledVector;
+    }
+
+    std::vector<const Vector3*> getPlaneUnitVectors(Plane plane)
+    {
+        switch (plane)
+        {
+        case Plane::xy:
+        {
+            return { { &Vector3::right, &Vector3::left, &Vector3::up, &Vector3::down } };
+        }
+        case Plane::xz:
+        {
+            return { { &Vector3::right, &Vector3::left, &Vector3::forward, &Vector3::backward } };
+            break;
+        }
+        case Plane::yz:
+        {
+            return { { &Vector3::up, &Vector3::down, &Vector3::forward, &Vector3::backward } };
+            break;
+        }
+        default:
+        {
+            utility::logError("Can't interpret plane returning with no generation");
+            return {};
+        }
+        }
     }
 }

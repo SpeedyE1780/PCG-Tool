@@ -1,5 +1,5 @@
 #include <iostream>>
-#include <pcg/engine/core/generators.hpp>
+#include <pcg/engine/core/api.hpp>
 #include <pcg/engine/core/node.hpp>
 
 #include <vector>
@@ -63,7 +63,7 @@ int main()
     setLoggingFunction(logMessage);
     std::cout << "Simple Generation" << std::endl;
     GenerationData data{ 10, 1, { 0, 0, 0 } };
-    simpleGeneration(&data, Axis::x, Direction::negative, addPoints);
+    generation1D(&data, Axis::x, Direction::negative, addPoints);
 
     std::cout << "2D Generation" << std::endl;
     generation2D(&data, Plane::yz, true, addPoints);
@@ -73,9 +73,9 @@ int main()
 
     std::cout << "Wave Function Collapse DFS" << std::endl;
     data.limit = 115;
-    waveFunctionCollapse(&data, ExpansionMode::DFS, addWFCPoints);
+    waveFunctionCollapseGeneration(&data, ExpansionMode::DFS, addWFCPoints);
     std::cout << "Wave Function Collapse BFS" << std::endl;
-    waveFunctionCollapse(&data, ExpansionMode::BFS, addWFCPoints);
+    waveFunctionCollapseGeneration(&data, ExpansionMode::BFS, addWFCPoints);
 
     return 0;
 }

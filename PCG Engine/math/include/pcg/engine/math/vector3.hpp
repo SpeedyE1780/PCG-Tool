@@ -1,7 +1,10 @@
 #ifndef PCG_ENGINE_MATH_VECTOR3_HPP
 #define PCG_ENGINE_MATH_VECTOR3_HPP
 
+#include <pcg/engine/math/enums.hpp>
+
 #include <cstddef>
+#include<vector>
 
 namespace pcg::engine::math
 {
@@ -29,6 +32,8 @@ namespace pcg::engine::math
     Vector3 operator+(const Vector3& lhs, const Vector3& rhs);
     bool operator==(const Vector3& lhs, const Vector3& rhs);
     Vector3 operator*(const Vector3& vector, float scalar);
+
+    std::vector<const Vector3*> getPlaneUnitVectors(Plane plane);
 }
 
 #endif // PCG_ENGINE_MATH_VECTOR3_HPP

@@ -8,7 +8,7 @@
 #include <game/components/FollowTarget.hpp>
 #include <game/components/MovementController.hpp>
 
-#include <pcg/engine/core/generators.hpp>
+#include <pcg/engine/core/api.hpp>
 #include <pcg/engine/core/node.hpp>
 
 #include <iostream>
@@ -117,7 +117,7 @@ int main()
     {
     case 1:
     {
-        pcg::engine::core::simpleGeneration(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, addPoints);
+        pcg::engine::core::generation1D(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, addPoints);
         break;
     }
     case 2:
@@ -128,13 +128,13 @@ int main()
     case 3:
     {
         data.limit = 100;
-        pcg::engine::core::waveFunctionCollapse(&data, pcg::engine::core::ExpansionMode::DFS, addWFCPoints);
+        pcg::engine::core::waveFunctionCollapseGeneration(&data, pcg::engine::core::ExpansionMode::DFS, addWFCPoints);
         break;
     }
     case 4:
     {
         data.limit = 100;
-        pcg::engine::core::waveFunctionCollapse(&data, pcg::engine::core::ExpansionMode::BFS, addWFCPoints);
+        pcg::engine::core::waveFunctionCollapseGeneration(&data, pcg::engine::core::ExpansionMode::BFS, addWFCPoints);
         break;
     }
     default:
