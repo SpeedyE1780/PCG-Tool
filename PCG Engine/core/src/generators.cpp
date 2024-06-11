@@ -155,16 +155,20 @@ namespace pcg::engine::core
         multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    static bool pushNode(std::stack<Node>& stack, std::unordered_set<math::Vector3, math::Vector3Hash>& set, const math::Vector3& position)
+    static bool pushNode(std::stack<std::size_t>& stack, std::vector<Node>& vector, const math::Vector3& position)
     {
         std::ostringstream oss{};
 
         oss << "Node: " << position.x << " " << position.y << " " << position.z << " ";
+        auto nodeIterator = std::find_if(begin(vector), end(vector), [&position](const Node& node)
+            {
+                return node.getPosition() == position;
+            });
 
-        if (set.find(position) == set.end())
+        if (nodeIterator == vector.end())
         {
-            stack.push(Node(position));
-            set.insert(position);
+            stack.push(vector.size());
+            vector.emplace_back(Node(position));
             oss << "added";
             utility::logInfo(oss.str());
             return true;
@@ -178,15 +182,16 @@ namespace pcg::engine::core
     void waveFunctionCollapse(GenerationData* data, addWFCPointCallback callback)
     {
         utility::logInfo("WFC Started");
-        std::stack<Node> pushedNodes{};
-        std::unordered_set<math::Vector3, math::Vector3Hash> spawnedNodes{};
+        std::stack<std::size_t> pushedNodes{};
+        std::vector<Node> spawnedNodes{};
         pushNode(pushedNodes, spawnedNodes, data->startPoint);
 
         while (!pushedNodes.empty())
         {
             std::ostringstream oss{};
-            Node current = pushedNodes.top();
+            std::size_t currentIndex = pushedNodes.top();
             pushedNodes.pop();
+            Node& current = spawnedNodes.at(currentIndex);
             const math::Vector3& position = current.getPosition();
             oss << "Current: " << position.x << " " << position.y << " " << position.z;
             utility::logInfo(oss.str());
@@ -198,49 +203,133 @@ namespace pcg::engine::core
 
             if (current.getNeighbors().hasNeighbor(Neighbors::left))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.getPosition() + math::Vector3::left * data->size))
+                math::Vector3 neighborPosition = current.getPosition() + math::Vector3::left * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
-                    pushedNodes.top().getNeighbors().addNeighbor(Neighbors::right);
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::right);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::right))
+                    {
+                        current.getNeighbors().removeNeighbor(Neighbors::left);
+                    }
                 }
             }
 
             if (current.getNeighbors().hasNeighbor(Neighbors::right))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.getPosition() + math::Vector3::right * data->size))
+                math::Vector3 neighborPosition = current.getPosition() + math::Vector3::right * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
-                    pushedNodes.top().getNeighbors().addNeighbor(Neighbors::left);
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::left);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::left))
+                    {
+                        current.getNeighbors().removeNeighbor(Neighbors::right);
+                    }
                 }
             }
 
             if (current.getNeighbors().hasNeighbor(Neighbors::forward))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.getPosition() + math::Vector3::forward * data->size))
+                math::Vector3 neighborPosition = current.getPosition() + math::Vector3::forward * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
-                    pushedNodes.top().getNeighbors().addNeighbor(Neighbors::backward);
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::backward);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::backward))
+                    {
+                        current.getNeighbors().removeNeighbor(Neighbors::forward);
+                    }
                 }
             }
 
             if (current.getNeighbors().hasNeighbor(Neighbors::backward))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.getPosition() + math::Vector3::backward * data->size))
+                math::Vector3 neighborPosition = current.getPosition() + math::Vector3::backward * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
-                    pushedNodes.top().getNeighbors().addNeighbor(Neighbors::forward);
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::forward);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::forward))
+                    {
+                        current.getNeighbors().removeNeighbor(Neighbors::backward);
+                    }
                 }
             }
 
             if (current.getNeighbors().hasNeighbor(Neighbors::up))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.getPosition() + math::Vector3::up * data->size))
+                math::Vector3 neighborPosition = current.getPosition() + math::Vector3::up * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
-                    pushedNodes.top().getNeighbors().addNeighbor(Neighbors::down);
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::down);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::down))
+                    {
+                        current.getNeighbors().removeNeighbor(Neighbors::up);
+                    }
                 }
             }
 
             if (current.getNeighbors().hasNeighbor(Neighbors::down))
             {
-                if (pushNode(pushedNodes, spawnedNodes, current.getPosition() + math::Vector3::down * data->size))
+                math::Vector3 neighborPosition = current.getPosition() + math::Vector3::down * data->size;
+
+                if (pushNode(pushedNodes, spawnedNodes, neighborPosition))
                 {
-                    pushedNodes.top().getNeighbors().addNeighbor(Neighbors::up);
+                    spawnedNodes.back().getNeighbors().addNeighbor(Neighbors::up);
+                }
+                else
+                {
+                    auto nodeIterator = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&neighborPosition](const Node& node)
+                        {
+                            return node.getPosition() == neighborPosition;
+                        });
+
+                    if (!nodeIterator->getNeighbors().hasNeighbor(Neighbors::up))
+                    {
+                        current.getNeighbors().removeNeighbor(Neighbors::down);
+                    }
                 }
             }
 

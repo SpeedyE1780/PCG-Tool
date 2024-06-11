@@ -72,6 +72,7 @@ int main()
     generation3D(&data, true, addPoints);
 
     std::cout << "Wave Function Collapse" << std::endl;
+    data.limit = 115;
     waveFunctionCollapse(&data, addWFCPoints);
 
     return 0;

@@ -9,6 +9,7 @@
 #include <game/components/MovementController.hpp>
 
 #include <pcg/engine/core/generators.hpp>
+#include <pcg/engine/core/node.hpp>
 
 #include <iostream>
 #include <format>
@@ -22,10 +23,20 @@ engine::core::Engine* pxEngine = nullptr;
 
 glm::vec3 white{ 1, 1, 1 };
 glm::vec3 black{ 0, 0, 0 };
+glm::vec3 red{ 1, 0, 0 };
+glm::vec3 blue{ 0, 0, 1 };
 int index = 0;
 
 namespace
 {
+    void addNeighbor(pcg::engine::math::Vector3 point)
+    {
+        auto* cubeModel = pxEngine->getResourceManager().getModel("resources/Models/cube/cube.obj");
+        auto* cubeTransform = pxEngine->getScene().addTransform(glm::vec3(point.x, point.y, point.z));
+        auto* renderer = cubeTransform->addComponent<engine::components::Renderer>(cubeModel);
+        renderer->getMaterial().setColor(index % 2 == 0 ? red : blue);
+    }
+
     void addPoints(pcg::engine::math::Vector3 point)
     {
         auto* cubeModel = pxEngine->getResourceManager().getModel("resources/Models/cube/cube.obj");
@@ -37,6 +48,36 @@ namespace
 
     void addWFCPoints(pcg::engine::math::Vector3 point, int neighbors)
     {
+        if (neighbors & pcg::engine::core::Neighbors::left)
+        {
+            addNeighbor(point + pcg::engine::math::Vector3::left);
+        }
+
+        if (neighbors & pcg::engine::core::Neighbors::right)
+        {
+            addNeighbor(point + pcg::engine::math::Vector3::right);
+        }
+
+        if (neighbors & pcg::engine::core::Neighbors::forward)
+        {
+            addNeighbor(point + pcg::engine::math::Vector3::forward);
+        }
+
+        if (neighbors & pcg::engine::core::Neighbors::backward)
+        {
+            addNeighbor(point + pcg::engine::math::Vector3::backward);
+        }
+
+        if (neighbors & pcg::engine::core::Neighbors::up)
+        {
+            addNeighbor(point + pcg::engine::math::Vector3::up);
+        }
+
+        if (neighbors & pcg::engine::core::Neighbors::down)
+        {
+            addNeighbor(point + pcg::engine::math::Vector3::down);
+        }
+
         addPoints(point);
     }
 }
@@ -85,6 +126,7 @@ int main()
     }
     case 3:
     {
+        data.limit = 100;
         pcg::engine::core::waveFunctionCollapse(&data, addWFCPoints);
         break;
     }
