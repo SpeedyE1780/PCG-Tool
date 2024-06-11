@@ -1,6 +1,7 @@
 #include <pcg/engine/core/api.hpp>
 #include <pcg/engine/core/SimpleGeneration.hpp>
 #include <pcg/engine/core/MultiDimensionalGeneration.hpp>
+#include <pcg/engine/core/WaveFunctionCollapse.hpp>
 
 namespace pcg::engine::core
 {
@@ -51,5 +52,10 @@ namespace pcg::engine::core
         };
 
         multiDimensionalGeneration(data, directions, disableOverlap, callback);
+    }
+
+    void waveFunctionCollapseGeneration(GenerationData* data, ExpansionMode mode, addWFCPointCallback callback)
+    {
+        waveFunctionCollapse(data, mode, callback);
     }
 }

@@ -73,9 +73,9 @@ int main()
 
     std::cout << "Wave Function Collapse DFS" << std::endl;
     data.limit = 115;
-    waveFunctionCollapse(&data, ExpansionMode::DFS, addWFCPoints);
+    waveFunctionCollapseGeneration(&data, ExpansionMode::DFS, addWFCPoints);
     std::cout << "Wave Function Collapse BFS" << std::endl;
-    waveFunctionCollapse(&data, ExpansionMode::BFS, addWFCPoints);
+    waveFunctionCollapseGeneration(&data, ExpansionMode::BFS, addWFCPoints);
 
     return 0;
 }
