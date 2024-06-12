@@ -10,7 +10,7 @@ namespace PCGAPI.Editor
         [SerializeField]
         private VisualTreeAsset m_VisualTreeAsset = default;
 
-        CommonGenerationFields<WaveFunctionCollapseGenerator, GameObject> generationFields;
+        CommonGenerationFields<WaveFunctionCollapseGenerator, WFCNode> generationFields;
 
         [MenuItem("PCG/Wave Function Colapse Generation")]
         public static void OpenWindow()
@@ -24,26 +24,26 @@ namespace PCGAPI.Editor
             // Instantiate UXML
             VisualElement uxmlElements = m_VisualTreeAsset.Instantiate();
             rootVisualElement.Add(uxmlElements);
-            generationFields = new CommonGenerationFields<WaveFunctionCollapseGenerator, GameObject>(rootVisualElement, SpawnFunction);
+            generationFields = new CommonGenerationFields<WaveFunctionCollapseGenerator, WFCNode>(rootVisualElement, SpawnFunction);
         }
 
-        private GameObject SpawnFunction(Vector3 position)
+        private WFCNode SpawnFunction(Vector3 position)
         {
-            GameObject go = null;
+            WFCNode node = null;
 
             if (PrefabUtility.IsPartOfAnyPrefab(generationFields.Node))
             {
-                go = PrefabUtility.InstantiatePrefab(generationFields.Node) as GameObject;
-                go.transform.position = position;
+                node = PrefabUtility.InstantiatePrefab(generationFields.Node) as WFCNode;
+                node.transform.position = position;
             }
             else
             {
-                go = Instantiate(generationFields.Node, position, Quaternion.identity);
+                node = Instantiate(generationFields.Node, position, Quaternion.identity);
             }
 
-            Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
-            go.transform.SetParent(generationFields.NodeParent);
-            return go;
+            Undo.RegisterCreatedObjectUndo(node, "Spawned cell");
+            node.transform.SetParent(generationFields.NodeParent);
+            return node;
         }
     }
 }

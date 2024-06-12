@@ -225,6 +225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6505578758312811873}
+  - component: {fileID: -1289703580466318902}
   m_Layer: 0
   m_Name: WFCCube
   m_TagString: Untagged
@@ -254,6 +255,24 @@ Transform:
   - {fileID: 4959779013609087001}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1289703580466318902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195827379816118242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b67f1bb23c79a4798146c03ed929e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  right: {fileID: 316078703774210854}
+  left: {fileID: 4465099886459541071}
+  forward: {fileID: 8787748945091912292}
+  backward: {fileID: 4580377190586112538}
+  up: {fileID: 1191448260465128624}
+  down: {fileID: 4516462674882275665}
 --- !u!1 &4465099886459541071
 GameObject:
   m_ObjectHideFlags: 0
