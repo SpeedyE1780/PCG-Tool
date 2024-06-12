@@ -39,12 +39,12 @@ namespace PCGAPI.Generators
 
             int n = neighbours[currentIndex];
             currentIndex++;
-            go.transform.Find("Right").gameObject.SetActive(HasNeighbour(n, Neighbors.right));
-            go.transform.Find("Left").gameObject.SetActive(HasNeighbour(n, Neighbors.left));
+            go.transform.Find("Right").gameObject.SetActive(!HasNeighbour(n, Neighbors.right));
+            go.transform.Find("Left").gameObject.SetActive(!HasNeighbour(n, Neighbors.left));
+            go.transform.Find("Backward").gameObject.SetActive(!HasNeighbour(n, Neighbors.backward));
+            go.transform.Find("Forward").gameObject.SetActive(!HasNeighbour(n, Neighbors.forward));
             go.transform.Find("Up").gameObject.SetActive(HasNeighbour(n, Neighbors.up));
             go.transform.Find("Down").gameObject.SetActive(HasNeighbour(n, Neighbors.down));
-            go.transform.Find("Backward").gameObject.SetActive(HasNeighbour(n, Neighbors.backward));
-            go.transform.Find("Forward").gameObject.SetActive(HasNeighbour(n, Neighbors.forward));
 
             return go;
         }
