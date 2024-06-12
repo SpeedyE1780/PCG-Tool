@@ -9,7 +9,6 @@ Unity/[Bb]uild/
 Unity/[Bb]uilds/
 Unity/[Ll]ogs/
 Unity/[Uu]ser[Ss]ettings/
-!Unity/[Aa]ssets/**/*.meta
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -567,3 +566,6 @@ Unreal/Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 Unreal/DerivedDataCache/*
+
+# Fix Unity meta folders being ignored
+!Unity/[Aa]ssets/**/*.meta

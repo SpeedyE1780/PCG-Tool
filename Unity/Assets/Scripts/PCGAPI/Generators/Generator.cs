@@ -4,13 +4,12 @@ using UnityEngine;
 
 namespace PCGAPI.Generators
 {
-    public abstract class Generator : ScriptableObject
+    public delegate T Spawn<T>(Vector3 position);
+
+    public abstract class Generator<T> : ScriptableObject
     {
-        public delegate GameObject Spawn(Vector3 position);
-
         private readonly List<Vector3> spawnPoints = new List<Vector3>();
-
-        protected Spawn SpawnFunction { get; private set; }
+        private Spawn<T> spawnFunction;
 
         protected void AddSpawnPoint(PCGEngine.Vector3 position)
         {
@@ -25,15 +24,15 @@ namespace PCGAPI.Generators
             GenerateWithEngine(ref parameters);
         }
 
-        protected virtual GameObject SpawnThing(Vector3 position)
+        protected virtual T SpawnThing(Vector3 position)
         {
-            return SpawnFunction(position);
+            return spawnFunction(position);
         }
 
-        public void GenerateOneShot(GeneratorData data, Spawn spawnFunction)
+        public void GenerateOneShot(GeneratorData data, Spawn<T> spawn)
         {
             PCGEngine.GenerationParameters parameters = PCGEngine2Unity.GeneratorDataToPCGEngineGenerationParameters(data);
-            SpawnFunction = spawnFunction;
+            spawnFunction = spawn;
             GenerateLevel(ref parameters);
 
             foreach (Vector3 point in spawnPoints)
@@ -42,10 +41,10 @@ namespace PCGAPI.Generators
             }
         }
 
-        public IEnumerator GenerateFrameByFrame(GeneratorData data, Spawn spawnFunction)
+        public IEnumerator GenerateFrameByFrame(GeneratorData data, Spawn<T> spawn)
         {
             PCGEngine.GenerationParameters parameters = PCGEngine2Unity.GeneratorDataToPCGEngineGenerationParameters(data);
-            SpawnFunction = spawnFunction;
+            spawnFunction = spawn;
             GenerateLevel(ref parameters);
 
             foreach (Vector3 point in spawnPoints)

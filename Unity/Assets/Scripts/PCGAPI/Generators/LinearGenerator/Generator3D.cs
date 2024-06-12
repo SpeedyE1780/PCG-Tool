@@ -3,7 +3,7 @@ using UnityEngine;
 namespace PCGAPI.Generators
 {
     [CreateAssetMenu(fileName = "Generator3D", menuName = "Scriptable Objects/PCG/Generator3D")]
-    public class Generator3D : Generator
+    public class Generator3D : LinearGenerator
     {
         [SerializeField]
         private bool disableOverlap;

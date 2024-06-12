@@ -1,41 +1,27 @@
 using PCGAPI.Generators;
 using Unity.EditorCoroutines.Editor;
-using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace PCGAPI.Editor
 {
-    public class PCGWindow : EditorWindow
+    public class CommonGenerationFields<GeneratorType, SpawnedObject> where GeneratorType : Generator<SpawnedObject> where SpawnedObject : Object
     {
-        [SerializeField]
-        private VisualTreeAsset m_VisualTreeAsset = default;
+        private readonly ObjectField generatorField;
+        private readonly ObjectField cellField;
+        private readonly UnsignedIntegerField seedField;
+        private readonly UnsignedIntegerField cellLimitField;
+        private readonly FloatField cellSizeField;
+        private readonly Vector3Field startPositionField;
+        private readonly Toggle frameToggle;
+        private readonly Spawn<SpawnedObject> spawnFunction;
 
-        private ObjectField generatorField;
-        private ObjectField cellField;
-        private UnsignedIntegerField seedField;
-        private UnsignedIntegerField cellLimitField;
-        private FloatField cellSizeField;
-        private Vector3Field startPositionField;
-        private Toggle frameToggle;
+        public SpawnedObject Node { get; private set; }
+        public Transform NodeParent { get; private set; }
 
-        [MenuItem("PCG/Open Window")]
-        public static void OpenWindow()
+        public CommonGenerationFields(VisualElement root, Spawn<SpawnedObject> spawnFunction)
         {
-            PCGWindow wnd = GetWindow<PCGWindow>();
-            wnd.titleContent = new GUIContent("PCG Window");
-        }
-
-        public void CreateGUI()
-        {
-            // Each editor window contains a root VisualElement object
-            VisualElement root = rootVisualElement;
-
-            // Instantiate UXML
-            VisualElement labelFromUXML = m_VisualTreeAsset.Instantiate();
-            root.Add(labelFromUXML);
-
             generatorField = root.Q<ObjectField>("Generator");
             cellField = root.Q<ObjectField>("Cell");
             seedField = root.Q<UnsignedIntegerField>("Seed");
@@ -46,6 +32,7 @@ namespace PCGAPI.Editor
 
             var generateButton = root.Q<Button>("GenerateButton");
             generateButton.clicked += SpawnObject;
+            this.spawnFunction = spawnFunction;
         }
 
         private void SpawnObject()
@@ -56,8 +43,8 @@ namespace PCGAPI.Editor
             }
 
             PCGEngine.SetLoggingFunction(Log);
-            Generator generator = generatorField.value as Generator;
-            GameObject cell = cellField.value as GameObject;
+            GeneratorType generator = generatorField.value as GeneratorType;
+            Node = cellField.value as SpawnedObject;
             uint seed = seedField.value;
             uint limit = cellLimitField.value;
             float size = cellSizeField.value;
@@ -69,7 +56,7 @@ namespace PCGAPI.Editor
                 return;
             }
 
-            if (cell == null)
+            if (Node == null)
             {
                 Debug.LogWarning("Cell not set");
                 return;
@@ -102,31 +89,17 @@ namespace PCGAPI.Editor
             PCGEngine.SetRandomGenerators(SetSeed, Generate);
             PCGEngine.UpdateSeed(seed);
 
-            GameObject SpawnFunction(Vector3 position)
-            {
-                GameObject go = null;
+            NodeParent = new GameObject("GENERATED NODES").transform;
 
-                if (PrefabUtility.IsPartOfAnyPrefab(cell))
-                {
-                    go = PrefabUtility.InstantiatePrefab(cell) as GameObject;
-                    go.transform.position = position;
-                }
-                else
-                {
-                    go = Instantiate(cell, position, Quaternion.identity);
-                }
-
-                Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
-                return go;
-            }
+            var data = new GeneratorData(limit, size, startPosition);
 
             if (frameToggle.value)
             {
-                EditorCoroutineUtility.StartCoroutine(generator.GenerateFrameByFrame(new GeneratorData(limit, size, startPosition), SpawnFunction), this); 
+                EditorCoroutineUtility.StartCoroutine(generator.GenerateFrameByFrame(data, spawnFunction), this);
             }
             else
             {
-                generator.GenerateOneShot(new GeneratorData(limit, size, startPosition), SpawnFunction);
+                generator.GenerateOneShot(data, spawnFunction);
             }
         }
     }

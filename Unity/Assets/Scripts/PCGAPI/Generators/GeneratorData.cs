@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PCGAPI
+namespace PCGAPI.Generators
 {
     public class GeneratorData
     {

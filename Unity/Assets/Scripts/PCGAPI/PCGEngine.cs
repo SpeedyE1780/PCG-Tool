@@ -59,7 +59,7 @@ namespace PCGAPI
             DFS
         };
 
-        [DllImport("PCG-Engine-Core", EntryPoint = "simpleGeneration")]
+        [DllImport("PCG-Engine-Core", EntryPoint = "generation1D")]
         public static extern void SimpleGenerator(ref GenerationParameters data, Axis axis, Direction direction, AddPosition addPosition);
         [DllImport("PCG-Engine-Core", EntryPoint = "generation2D")]
         public static extern void Generator2D(ref GenerationParameters data, Plane plane, bool disableOverlap, AddPosition addPosition);
@@ -71,7 +71,7 @@ namespace PCGAPI
         public static extern void SetRandomGenerators(SetSeed setSeed, GenerateNumber generate);
         [DllImport("PCG-Engine-Core", EntryPoint = "setLoggingFunction")]
         public static extern void SetLoggingFunction(LogFunction logFunction);
-        [DllImport("PCG-Engine-Core", EntryPoint = "waveFunctionCollapse")]
+        [DllImport("PCG-Engine-Core", EntryPoint = "waveFunctionCollapseGeneration")]
         public static extern void WaveFunctionCollapse(ref GenerationParameters data, ExpansionMode mode, AddWFCPosition addPosition);
     }
 }
