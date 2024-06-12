@@ -2,6 +2,7 @@
 #include <pcg/engine/core/api.hpp>
 #include <pcg/engine/core/node.hpp>
 
+#include <unordered_map>
 #include <vector>
 
 using namespace pcg::engine::core;
@@ -9,6 +10,11 @@ using namespace pcg::engine::math;
 
 namespace
 {
+    constexpr int width = 10;
+    constexpr int height = 10;
+
+    std::vector<std::vector<int>> grid(width, std::vector<int>(height, 0));
+
     void addPoints(Vector3 point)
     {
         std::cout << "Point:" << point.x << "," << point.y << "," << point.z << std::endl;
@@ -52,6 +58,11 @@ namespace
         std::cout << std::endl;
     }
 
+    void addMazePoint(int x, int y, int neighbor)
+    {
+        grid[y][x] = neighbor;
+    }
+
     void logMessage(const char* message)
     {
         std::cout << message << std::endl;
@@ -76,6 +87,23 @@ int main()
     waveFunctionCollapseGeneration(&data, ExpansionMode::DFS, addWFCPoints);
     std::cout << "Wave Function Collapse BFS" << std::endl;
     waveFunctionCollapseGeneration(&data, ExpansionMode::BFS, addWFCPoints);
+
+    std::cout << "Maze Generation" << std::endl;
+    generateMaze(width, height, addMazePoint);
+
+    int x = 0;
+    int y = 0;
+    for (const auto& row : grid)
+    {
+        for (int point : row)
+        {
+            std::cout << x << "-" << y << ": " << point << std::endl;
+            x += 1;
+        }
+
+        y += 1;
+        x = 0;
+    }
 
     return 0;
 }

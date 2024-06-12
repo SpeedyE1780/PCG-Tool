@@ -58,4 +58,9 @@ namespace pcg::engine::core
     {
         waveFunctionCollapse(data, mode, callback);
     }
+
+    void generateMaze(int width, int height, addMazePointCallback callback)
+    {
+        aldousBroder(width, height, callback);
+    }
 }
