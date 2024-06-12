@@ -59,7 +59,7 @@ namespace PCGAPI
             DFS
         };
 
-        [DllImport("PCG-Engine-Core", EntryPoint = "simpleGeneration")]
+        [DllImport("PCG-Engine-Core", EntryPoint = "generation1D")]
         public static extern void SimpleGenerator(ref GenerationParameters data, Axis axis, Direction direction, AddPosition addPosition);
         [DllImport("PCG-Engine-Core", EntryPoint = "generation2D")]
         public static extern void Generator2D(ref GenerationParameters data, Plane plane, bool disableOverlap, AddPosition addPosition);
