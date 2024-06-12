@@ -102,6 +102,8 @@ namespace PCGAPI.Editor
             PCGEngine.SetRandomGenerators(SetSeed, Generate);
             PCGEngine.UpdateSeed(seed);
 
+            GameObject nodesParent = new GameObject("GENERATED NODES");
+
             GameObject SpawnFunction(Vector3 position)
             {
                 GameObject go = null;
@@ -117,6 +119,7 @@ namespace PCGAPI.Editor
                 }
 
                 Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
+                go.transform.SetParent(nodesParent.transform);
                 return go;
             }
 
