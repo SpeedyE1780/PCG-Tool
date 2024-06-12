@@ -3,7 +3,7 @@ using UnityEngine;
 namespace PCGAPI.Generators
 {
     [CreateAssetMenu(fileName = "2DGenerator", menuName = "Scriptable Objects/PCG/2DGenerator")]
-    public class Generator2D : Generator<GameObject>
+    public class Generator2D : LinearGenerator
     {
         [SerializeField]
         private PCGEngine.Plane plane;
