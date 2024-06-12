@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace PCGAPI.Generators
 {
+    public delegate T Spawn<T>(Vector3 position);
+
     public abstract class Generator<T> : ScriptableObject
     {
-        public delegate T Spawn(Vector3 position);
-
         private readonly List<Vector3> spawnPoints = new List<Vector3>();
-        private Spawn spawnFunction;
+        private Spawn<T> spawnFunction;
 
         protected void AddSpawnPoint(PCGEngine.Vector3 position)
         {
@@ -29,7 +29,7 @@ namespace PCGAPI.Generators
             return spawnFunction(position);
         }
 
-        public void GenerateOneShot(GeneratorData data, Spawn spawn)
+        public void GenerateOneShot(GeneratorData data, Spawn<T> spawn)
         {
             PCGEngine.GenerationParameters parameters = PCGEngine2Unity.GeneratorDataToPCGEngineGenerationParameters(data);
             spawnFunction = spawn;
@@ -41,7 +41,7 @@ namespace PCGAPI.Generators
             }
         }
 
-        public IEnumerator GenerateFrameByFrame(GeneratorData data, Spawn spawn)
+        public IEnumerator GenerateFrameByFrame(GeneratorData data, Spawn<T> spawn)
         {
             PCGEngine.GenerationParameters parameters = PCGEngine2Unity.GeneratorDataToPCGEngineGenerationParameters(data);
             spawnFunction = spawn;

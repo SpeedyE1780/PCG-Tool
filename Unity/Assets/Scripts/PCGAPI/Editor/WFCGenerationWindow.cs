@@ -1,7 +1,5 @@
 using PCGAPI.Generators;
-using Unity.EditorCoroutines.Editor;
 using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,13 +10,7 @@ namespace PCGAPI.Editor
         [SerializeField]
         private VisualTreeAsset m_VisualTreeAsset = default;
 
-        private ObjectField generatorField;
-        private ObjectField cellField;
-        private UnsignedIntegerField seedField;
-        private UnsignedIntegerField cellLimitField;
-        private FloatField cellSizeField;
-        private Vector3Field startPositionField;
-        private Toggle frameToggle;
+        CommonGenerationFields<WaveFunctionCollapseGenerator, GameObject> generationFields;
 
         [MenuItem("PCG/Wave Function Colapse Generation")]
         public static void OpenWindow()
@@ -29,108 +21,29 @@ namespace PCGAPI.Editor
 
         public void CreateGUI()
         {
-            // Each editor window contains a root VisualElement object
-            VisualElement root = rootVisualElement;
-
             // Instantiate UXML
-            VisualElement labelFromUXML = m_VisualTreeAsset.Instantiate();
-            root.Add(labelFromUXML);
-
-            generatorField = root.Q<ObjectField>("Generator");
-            cellField = root.Q<ObjectField>("Cell");
-            seedField = root.Q<UnsignedIntegerField>("Seed");
-            cellLimitField = root.Q<UnsignedIntegerField>("CellLimit");
-            cellSizeField = root.Q<FloatField>("CellSize");
-            startPositionField = root.Q<Vector3Field>("StartPosition");
-            frameToggle = root.Q<Toggle>("FrameToggle");
-
-            var generateButton = root.Q<Button>("GenerateButton");
-            generateButton.clicked += SpawnObject;
+            VisualElement uxmlElements = m_VisualTreeAsset.Instantiate();
+            rootVisualElement.Add(uxmlElements);
+            generationFields = new CommonGenerationFields<WaveFunctionCollapseGenerator, GameObject>(rootVisualElement, SpawnFunction);
         }
 
-        private void SpawnObject()
+        private GameObject SpawnFunction(Vector3 position)
         {
-            void Log(string msg)
+            GameObject go = null;
+
+            if (PrefabUtility.IsPartOfAnyPrefab(generationFields.Node))
             {
-                Debug.Log(msg);
-            }
-
-            PCGEngine.SetLoggingFunction(Log);
-            WaveFunctionCollapseGenerator generator = generatorField.value as WaveFunctionCollapseGenerator;
-            GameObject cell = cellField.value as GameObject;
-            uint seed = seedField.value;
-            uint limit = cellLimitField.value;
-            float size = cellSizeField.value;
-            Vector3 startPosition = startPositionField.value;
-
-            if (generator == null)
-            {
-                Debug.LogWarning("Generator not set");
-                return;
-            }
-
-            if (cell == null)
-            {
-                Debug.LogWarning("Cell not set");
-                return;
-            }
-
-            if (limit == 0)
-            {
-                Debug.LogWarning("Limit is zero nothing to generate");
-                return;
-            }
-
-            if (size == 0)
-            {
-                Debug.LogWarning("Cell size is 0 object will spawn on top of one another");
-                return;
-            }
-
-            void SetSeed(uint seed)
-            {
-                Debug.Log("SET SEED");
-                Random.InitState((int)seed);
-            }
-
-            int Generate(int min, int max)
-            {
-                Debug.Log("GENERATING");
-                return Random.Range(min, max);
-            }
-
-            PCGEngine.SetRandomGenerators(SetSeed, Generate);
-            PCGEngine.UpdateSeed(seed);
-
-            GameObject nodesParent = new GameObject("GENERATED NODES");
-
-            GameObject SpawnFunction(Vector3 position)
-            {
-                GameObject go = null;
-
-                if (PrefabUtility.IsPartOfAnyPrefab(cell))
-                {
-                    go = PrefabUtility.InstantiatePrefab(cell) as GameObject;
-                    go.transform.position = position;
-                }
-                else
-                {
-                    go = Instantiate(cell, position, Quaternion.identity);
-                }
-
-                Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
-                go.transform.SetParent(nodesParent.transform);
-                return go;
-            }
-
-            if (frameToggle.value)
-            {
-                EditorCoroutineUtility.StartCoroutine(generator.GenerateFrameByFrame(new GeneratorData(limit, size, startPosition), SpawnFunction), this); 
+                go = PrefabUtility.InstantiatePrefab(generationFields.Node) as GameObject;
+                go.transform.position = position;
             }
             else
             {
-                generator.GenerateOneShot(new GeneratorData(limit, size, startPosition), SpawnFunction);
+                go = Instantiate(generationFields.Node, position, Quaternion.identity);
             }
+
+            Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
+            go.transform.SetParent(generationFields.NodeParent);
+            return go;
         }
     }
 }
