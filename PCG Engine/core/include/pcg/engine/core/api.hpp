@@ -3,6 +3,7 @@
 
 #include <pcg/engine/core/config.hpp>
 #include <pcg/engine/core/GenerationData.hpp>
+#include <pcg/engine/core/Maze.hpp>
 
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/random.hpp>
@@ -19,6 +20,7 @@ namespace pcg::engine::core
     PCG_ENGINE_CORE_API void generation2D(GenerationData* data, math::Plane plane, bool disableOverlap, addPointCallback callback);
     PCG_ENGINE_CORE_API void generation3D(GenerationData* data, bool disableOverlap, addPointCallback callback);
     PCG_ENGINE_CORE_API void waveFunctionCollapseGeneration(GenerationData* data, ExpansionMode mode, addWFCPointCallback callback);
+    PCG_ENGINE_CORE_API void generateMaze(int width, int height, addMazePointCallback callback);
 }
 
 #endif // PCG_ENGINE_CORE_API_HPP
