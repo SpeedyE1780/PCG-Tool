@@ -9,6 +9,7 @@ namespace PCGAPI
         public delegate void SetSeed(uint seed);
         public delegate int GenerateNumber(int min, int max);
         public delegate void LogFunction(string message);
+        public delegate void AddMazePosition(int x, int y, int neighbors);
 
         public enum Axis
         {
@@ -73,5 +74,7 @@ namespace PCGAPI
         public static extern void SetLoggingFunction(LogFunction logFunction);
         [DllImport("PCG-Engine-Core", EntryPoint = "waveFunctionCollapseGeneration")]
         public static extern void WaveFunctionCollapse(ref GenerationParameters data, ExpansionMode mode, AddWFCPosition addPosition);
+        [DllImport("PCG-Engine-Core", EntryPoint = "generateMaze")]
+        public static extern void GenerateMaze(int width, int height, AddMazePosition addMazePosition);
     }
 }
