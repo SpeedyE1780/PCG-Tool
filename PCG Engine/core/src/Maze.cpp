@@ -96,8 +96,8 @@ namespace pcg::engine::core
                 {
                     if (grid[ny][nx] == 0)
                     {
-                        grid[y][x] = direction;
-                        grid[ny][nx] = getFlippedDirection(direction);
+                        grid[y][x] |= direction;
+                        grid[ny][nx] |= getFlippedDirection(direction);
                         unvisited -= 1;
                         callback(x, y, grid[y][x]);
                         callback(nx, ny, grid[ny][nx]);
