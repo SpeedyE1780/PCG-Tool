@@ -56,7 +56,7 @@ namespace PCGAPI.Editor
             }
 
             PCGEngine.SetLoggingFunction(Log);
-            Generator generator = generatorField.value as Generator;
+            Generator<GameObject> generator = generatorField.value as Generator<GameObject>;
             GameObject cell = cellField.value as GameObject;
             uint seed = seedField.value;
             uint limit = cellLimitField.value;

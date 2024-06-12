@@ -4,7 +4,7 @@ using UnityEngine;
 namespace PCGAPI.Generators
 {
     [CreateAssetMenu(fileName = "WaveFunctionCollapse", menuName = "Scriptable Objects/PCG/Wave Function Collapse Generator")]
-    public class WaveFunctionCollapseGenerator : Generator
+    public class WaveFunctionCollapseGenerator : Generator<GameObject>
     {
         [SerializeField]
         private PCGEngine.ExpansionMode mode;

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace PCGAPI.Generators
 {
     [CreateAssetMenu(fileName = "SimpleGenerator", menuName = "Scriptable Objects/PCG/SimpleGenerator")]
-    public class SimpleGenerator : Generator
+    public class SimpleGenerator : Generator<GameObject>
     {
         [SerializeField]
         private PCGEngine.Axis axis;
