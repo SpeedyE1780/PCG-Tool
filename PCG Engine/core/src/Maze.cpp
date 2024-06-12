@@ -2,7 +2,10 @@
 
 #include <pcg/engine/math/vector3.hpp>
 
+#include <pcg/engine/utility/logging.hpp>
+
 #include <random>
+#include <sstream>
 #include <vector>
 
 namespace pcg::engine::core
@@ -71,6 +74,10 @@ namespace pcg::engine::core
 
     void aldousBroder(int width, int height, addMazePointCallback callback)
     {
+        std::ostringstream oss{};
+
+        utility::logInfo("Aldous - Broder Maze Generation Started");
+
         std::vector<int> directions{ left, right, up, down };
         auto randomDevice = std::random_device{};
         auto randomEngine = std::default_random_engine{ randomDevice() };
@@ -81,6 +88,11 @@ namespace pcg::engine::core
         int y = randomEngine() % height;
         int unvisited = width * height - 1;
 
+        oss << "Started with:" << x << "-" << y << " unvisited: " << unvisited << std::endl;
+
+        utility::logInfo(oss.str());
+
+        oss.clear();
         while (unvisited > 0)
         {
             std::shuffle(begin(directions), end(directions), randomEngine);
@@ -99,6 +111,9 @@ namespace pcg::engine::core
                         grid[y][x] |= direction;
                         grid[ny][nx] |= getFlippedDirection(direction);
                         unvisited -= 1;
+                        oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited << std::endl;
+                        utility::logInfo(oss.str());
+                        oss.clear();
                         callback(x, y, grid[y][x]);
                         callback(nx, ny, grid[ny][nx]);
                     }
@@ -109,5 +124,7 @@ namespace pcg::engine::core
                 }
             }
         }
+
+        utility::logInfo("Aldous - Broder Maze Generation Ended");
     }
 }
