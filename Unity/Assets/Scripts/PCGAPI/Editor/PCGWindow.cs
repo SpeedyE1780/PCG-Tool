@@ -20,11 +20,11 @@ namespace PCGAPI.Editor
         private Vector3Field startPositionField;
         private Toggle frameToggle;
 
-        [MenuItem("PCG/Open Window")]
+        [MenuItem("PCG/Linear Generation")]
         public static void OpenWindow()
         {
             PCGWindow wnd = GetWindow<PCGWindow>();
-            wnd.titleContent = new GUIContent("PCG Window");
+            wnd.titleContent = new GUIContent("Linear Generation");
         }
 
         public void CreateGUI()
@@ -56,7 +56,7 @@ namespace PCGAPI.Editor
             }
 
             PCGEngine.SetLoggingFunction(Log);
-            Generator<GameObject> generator = generatorField.value as Generator<GameObject>;
+            LinearGenerator generator = generatorField.value as LinearGenerator;
             GameObject cell = cellField.value as GameObject;
             uint seed = seedField.value;
             uint limit = cellLimitField.value;
