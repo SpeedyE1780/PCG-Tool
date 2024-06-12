@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 namespace PCGAPI.Editor
 {
-    public class PCGWindow : EditorWindow
+    public class LinearGenerationWindow : EditorWindow
     {
         [SerializeField]
         private VisualTreeAsset m_VisualTreeAsset = default;
@@ -23,7 +23,7 @@ namespace PCGAPI.Editor
         [MenuItem("PCG/Linear Generation")]
         public static void OpenWindow()
         {
-            PCGWindow wnd = GetWindow<PCGWindow>();
+            LinearGenerationWindow wnd = GetWindow<LinearGenerationWindow>();
             wnd.titleContent = new GUIContent("Linear Generation");
         }
 
