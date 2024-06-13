@@ -40,6 +40,13 @@ public class MazeGenerationWindow : EditorWindow
 
     private void SpawnObject()
     {
+        static void Log(string msg)
+        {
+            Debug.Log(msg);
+        }
+
+        PCGEngine.SetLoggingFunction(Log);
+
         WFCNode node = nodeField.value as WFCNode;
         float size = nodeSize.value;
         Vector2Int gridSize = gridSizeField.value;
