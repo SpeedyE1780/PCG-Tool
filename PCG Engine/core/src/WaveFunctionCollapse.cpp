@@ -1,10 +1,13 @@
 #include <pcg/engine/core/WaveFunctionCollapse.hpp>
 #include <pcg/engine/core/node.hpp>
 
+#include <pcg/engine/math/random.hpp>
+
 #include <pcg/engine/utility/logging.hpp>
 
 #include <optional>
 #include <queue>
+#include <random>
 #include <sstream>
 #include <stack>
 
@@ -144,8 +147,16 @@ namespace pcg::engine::core
         template<typename NodeCollection>
         void checkNeighborPair(WaveFunctionCollapseData<NodeCollection>& data, int side, int flippedSide)
         {
-            checkNeighbor(data, side, flippedSide);
-            checkNeighbor(data, flippedSide, side);
+            if (math::Random::generate(0, 2) == 0)
+            {
+                checkNeighbor(data, side, flippedSide);
+                checkNeighbor(data, flippedSide, side);
+            }
+            else
+            {
+                checkNeighbor(data, flippedSide, side);
+                checkNeighbor(data, side, flippedSide);
+            }
         }
 
         template<typename NodeCollection>
@@ -155,6 +166,13 @@ namespace pcg::engine::core
             NodeVector spawnedNodes{};
             spawnedNodes.reserve(data->limit);
             pushNode(pushedNodes, spawnedNodes, data->startPoint);
+            std::default_random_engine rd{};
+            std::vector<std::tuple<int, int>> directionPairs
+            {
+                { Neighbors::left, Neighbors::right },
+                { Neighbors::forward, Neighbors::backward },
+                { Neighbors::up, Neighbors::down }
+            };
 
             while (!pushedNodes.empty())
             {
@@ -172,9 +190,10 @@ namespace pcg::engine::core
                 }
 
                 WaveFunctionCollapseData wfcData(pushedNodes, spawnedNodes, currentIndex, data->size);
-                checkNeighborPair(wfcData, Neighbors::left, Neighbors::right);
-                checkNeighborPair(wfcData, Neighbors::forward, Neighbors::backward);
-                checkNeighborPair(wfcData, Neighbors::up, Neighbors::down);
+                std::shuffle(begin(directionPairs), end(directionPairs), rd);
+                checkNeighborPair(wfcData, std::get<0>(directionPairs[0]), std::get<1>(directionPairs[0]));
+                checkNeighborPair(wfcData, std::get<0>(directionPairs[1]), std::get<1>(directionPairs[1]));
+                checkNeighborPair(wfcData, std::get<0>(directionPairs[2]), std::get<1>(directionPairs[2]));
 
                 callback(spawnedNodes.at(currentIndex).getPosition(), spawnedNodes.at(currentIndex).getNeighbors().getIntegerRepresentation());
             }
