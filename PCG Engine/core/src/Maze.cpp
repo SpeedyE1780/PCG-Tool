@@ -1,5 +1,6 @@
 #include <pcg/engine/core/Maze.hpp>
 
+#include <pcg/engine/math/random.hpp>
 #include <pcg/engine/math/vector3.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
@@ -317,6 +318,37 @@ namespace pcg::engine::core
         {
             break;
         }
+        }
+    }
+
+    void sidewinder(int width, int height, addMazePointCallback callback)
+    {
+        std::vector<std::vector<int>> grid(width, std::vector<int>(height, 0));
+
+        for (std::size_t h = 0; h < height; ++h)
+        {
+            std::size_t runStart = 0;
+
+            for (std::size_t w = 0; w < width; ++w)
+            {
+                if (h > 0 && (w + 1 == width || math::Random::generate(0, 2) == 0))
+                {
+                    int cell = math::Random::generate(runStart, w + 1);
+                    grid[h][cell] |= down;
+                    grid[h - 1][cell] |= up;
+                    runStart = w + 1;
+                    callback(cell, h, grid[h][cell]);
+                    callback(cell, h - 1, grid[h - 1][cell]);
+                }
+                else if (w + 1 < width)
+                {
+                    grid[h][w] |= right;
+                    grid[h][w + 1] |= left;
+
+                    callback(w, h, grid[h][w]);
+                    callback(w + 1, h, grid[h][w + 1]);
+                }
+            }
         }
     }
 }
