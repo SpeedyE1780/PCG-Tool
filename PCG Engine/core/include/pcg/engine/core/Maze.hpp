@@ -7,6 +7,7 @@ namespace pcg::engine::core
 
     void aldousBroder(int width, int height, addMazePointCallback callback);
     void wilson(int width, int height, addMazePointCallback callback);
+    void binaryTree(int width, int height, addMazePointCallback callback);
 }
 
 #endif // PCG_ENGINE_CORE_MAZE_HPP

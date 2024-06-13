@@ -64,15 +64,20 @@ namespace pcg::engine::core
         switch (algorithm)
         {
         case MazeAlgorithm::aldousBroder:
-            {
+        {
             aldousBroder(width, height, callback);
-                break;
-            }
-            case MazeAlgorithm::wilson:
-            {
-                wilson(width, height, callback);
-                break;
-            }
+            break;
+        }
+        case MazeAlgorithm::wilson:
+        {
+            wilson(width, height, callback);
+            break;
+        }
+        case MazeAlgorithm::binaryTreeNE:
+        {
+            binaryTree(width, height, callback);
+            break;
+        }
         default:
             break;
         }

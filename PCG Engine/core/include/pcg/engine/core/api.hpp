@@ -16,7 +16,8 @@ namespace pcg::engine::core
     enum class MazeAlgorithm
     {
         aldousBroder = 0,
-        wilson = 1
+        wilson = 1,
+        binaryTreeNE = 2
     };
 
     PCG_ENGINE_CORE_API void setSeed(unsigned int seed);
