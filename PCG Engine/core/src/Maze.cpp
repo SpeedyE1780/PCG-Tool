@@ -175,6 +175,9 @@ namespace pcg::engine::core
                         {
                             grid[h][w] |= direction;
                             grid[nh][nw] |= getFlippedDirection(direction);
+                            std::ostringstream oss{};
+                            oss << "Value set at " << w << "-" << h << "/" << nw << "-" << nh;
+                            utility::logInfo(oss.str());
                             callback(w, h, grid[h][w]);
                             callback(nw, nh, grid[nh][nw]);
                             break;
@@ -284,22 +287,30 @@ namespace pcg::engine::core
         {
         case Diagonal::NE:
         {
+            utility::logInfo("Binary Tree NE Maze Generation Started");
             binaryTree(width, height, { up, right }, callback);
+            utility::logInfo("Binary Tree NE Maze Generation Ended");
             break;
         }
         case Diagonal::NW:
         {
+            utility::logInfo("Binary Tree NW Maze Generation Started");
             binaryTree(width, height, { up, left }, callback);
+            utility::logInfo("Binary Tree NW Maze Generation Ended");
             break;
         }
         case Diagonal::SE:
         {
+            utility::logInfo("Binary Tree SE Maze Generation Started");
             binaryTree(width, height, { down, right }, callback);
+            utility::logInfo("Binary Tree SE Maze Generation Ended");
             break;
         }
         case Diagonal::SW:
         {
+            utility::logInfo("Binary Tree SW Maze Generation Started");
             binaryTree(width, height, { down, left }, callback);
+            utility::logInfo("Binary Tree SW Maze Generation Ended");
             break;
         }
         default:
