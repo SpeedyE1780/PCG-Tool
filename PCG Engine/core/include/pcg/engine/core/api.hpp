@@ -20,7 +20,8 @@ namespace pcg::engine::core
         binaryTreeNE = 2,
         binaryTreeNW = 3,
         binaryTreeSE = 4,
-        binaryTreeSW = 5
+        binaryTreeSW = 5,
+        sidewinder = 6
     };
 
     PCG_ENGINE_CORE_API void setSeed(unsigned int seed);
