@@ -97,6 +97,9 @@ int main()
     std::cout << "Maze Generation: Binary Tree NE" << std::endl;
     generateMaze(width, height, MazeAlgorithm::binaryTreeNE, addMazePoint);
 
+    std::cout << "Maze Generation: sidewinder" << std::endl;
+    generateMaze(width, height, MazeAlgorithm::sidewinder, addMazePoint);
+
     int x = 0;
     int y = 0;
     for (const auto& row : grid)

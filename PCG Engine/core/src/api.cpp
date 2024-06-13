@@ -93,6 +93,11 @@ namespace pcg::engine::core
             binaryTree(width, height, Diagonal::SW, callback);
             break;
         }
+        case MazeAlgorithm::sidewinder:
+        {
+            sidewinder(width, height, callback);
+            break;
+        }
         default:
             break;
         }
