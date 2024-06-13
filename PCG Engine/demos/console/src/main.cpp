@@ -88,8 +88,11 @@ int main()
     std::cout << "Wave Function Collapse BFS" << std::endl;
     waveFunctionCollapseGeneration(&data, ExpansionMode::BFS, addWFCPoints);
 
-    std::cout << "Maze Generation" << std::endl;
-    generateMaze(width, height, addMazePoint);
+    std::cout << "Maze Generation: aldousBroder" << std::endl;
+    generateMaze(width, height, MazeAlgorithm::aldousBroder, addMazePoint);
+
+    std::cout << "Maze Generation: wilson" << std::endl;
+    generateMaze(width, height, MazeAlgorithm::wilson, addMazePoint);
 
     int x = 0;
     int y = 0;
