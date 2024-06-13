@@ -88,11 +88,11 @@ namespace pcg::engine::core
         int y = randomEngine() % height;
         int unvisited = width * height - 1;
 
-        oss << "Started with:" << x << "-" << y << " unvisited: " << unvisited << std::endl;
+        oss << "Started with:" << x << "-" << y << " unvisited: " << unvisited;
 
         utility::logInfo(oss.str());
 
-        oss.clear();
+        oss.str("");
         while (unvisited > 0)
         {
             std::shuffle(begin(directions), end(directions), randomEngine);
@@ -111,9 +111,9 @@ namespace pcg::engine::core
                         grid[y][x] |= direction;
                         grid[ny][nx] |= getFlippedDirection(direction);
                         unvisited -= 1;
-                        oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited << std::endl;
+                        oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited;
                         utility::logInfo(oss.str());
-                        oss.clear();
+                        oss.str("");
                         callback(x, y, grid[y][x]);
                         callback(nx, ny, grid[ny][nx]);
                     }
