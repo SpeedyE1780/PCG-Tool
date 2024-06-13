@@ -154,6 +154,35 @@ namespace pcg::engine::core
 
             return path;
         }
+
+        void binaryTree(int width, int height, std::vector<int> directions, addMazePointCallback callback)
+        {
+            std::vector<std::vector<int>> grid(width, std::vector<int>(height, 0));
+            auto randomDevice = std::random_device{};
+            auto randomEngine = std::default_random_engine{ randomDevice() };
+
+            for (int h = 0; h < height; ++h)
+            {
+                for (int w = 0; w < width; ++w)
+                {
+                    std::shuffle(begin(directions), end(directions), randomEngine);
+
+                    for (int direction : directions)
+                    {
+                        auto [nw, nh] = getNeighborXY(w, h, direction);
+
+                        if (nw >= 0 && nh >= 0 && nw < width && nh < height)
+                        {
+                            grid[h][w] |= direction;
+                            grid[nh][nw] |= getFlippedDirection(direction);
+                            callback(w, h, grid[h][w]);
+                            callback(nw, nh, grid[nh][nw]);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     void aldousBroder(int width, int height, addMazePointCallback callback)
@@ -249,33 +278,34 @@ namespace pcg::engine::core
         utility::logInfo("Wilson Maze Generation Ended");
     }
 
-    void binaryTree(int width, int height, addMazePointCallback callback)
+    void binaryTree(int width, int height, Diagonal diagonal, addMazePointCallback callback)
     {
-        std::vector<int> directions{ right, up };
-        std::vector<std::vector<int>> grid(width, std::vector<int>(height, 0));
-        auto randomDevice = std::random_device{};
-        auto randomEngine = std::default_random_engine{ randomDevice() };
-
-        for (int h = 0; h < height; ++h)
+        switch (diagonal)
         {
-            for (int w = 0; w < width; ++w)
-            {
-                std::shuffle(begin(directions), end(directions), randomEngine);
-
-                for (int direction : directions)
-                {
-                    auto [nw, nh] = getNeighborXY(w, h, direction);
-
-                    if (nw >= 0 && nh >= 0 && nw < width && nh < height)
-                    {
-                        grid[h][w] |= direction;
-                        grid[nh][nw] |= getFlippedDirection(direction);
-                        callback(w, h, grid[h][w]);
-                        callback(nw, nh, grid[nh][nw]);
-                        break;
-                    }
-                }
-            }
+        case Diagonal::NE:
+        {
+            binaryTree(width, height, { up, right }, callback);
+            break;
+        }
+        case Diagonal::NW:
+        {
+            binaryTree(width, height, { up, left }, callback);
+            break;
+        }
+        case Diagonal::SE:
+        {
+            binaryTree(width, height, { down, right }, callback);
+            break;
+        }
+        case Diagonal::SW:
+        {
+            binaryTree(width, height, { down, left }, callback);
+            break;
+        }
+        default:
+        {
+            break;
+        }
         }
     }
 }

@@ -75,7 +75,22 @@ namespace pcg::engine::core
         }
         case MazeAlgorithm::binaryTreeNE:
         {
-            binaryTree(width, height, callback);
+            binaryTree(width, height, Diagonal::NE, callback);
+            break;
+        }
+        case MazeAlgorithm::binaryTreeNW:
+        {
+            binaryTree(width, height, Diagonal::NW, callback);
+            break;
+        }
+        case MazeAlgorithm::binaryTreeSE:
+        {
+            binaryTree(width, height, Diagonal::SE, callback);
+            break;
+        }
+        case MazeAlgorithm::binaryTreeSW:
+        {
+            binaryTree(width, height, Diagonal::SW, callback);
             break;
         }
         default:
