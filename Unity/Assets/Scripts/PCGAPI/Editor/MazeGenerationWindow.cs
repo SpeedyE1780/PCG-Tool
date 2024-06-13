@@ -14,6 +14,7 @@ public class MazeGenerationWindow : EditorWindow
     private ObjectField nodeField;
     private Vector2IntField gridSizeField;
     private FloatField nodeSize;
+    private DropdownField mazeAlgorithmField;
 
     [MenuItem("PCG/Maze Generation")]
     public static void ShowExample()
@@ -31,6 +32,7 @@ public class MazeGenerationWindow : EditorWindow
         nodeField = rootVisualElement.Q<ObjectField>("NodeField");
         gridSizeField = rootVisualElement.Q<Vector2IntField>("GridSize");
         nodeSize = rootVisualElement.Q<FloatField>("NodeSize");
+        mazeAlgorithmField = rootVisualElement.Q<DropdownField>("MazeAlgorithm");
 
         var generateButton = rootVisualElement.Q<Button>("GenerateButton");
         generateButton.clicked += SpawnObject;
@@ -38,6 +40,13 @@ public class MazeGenerationWindow : EditorWindow
 
     private void SpawnObject()
     {
+        static void Log(string msg)
+        {
+            Debug.Log(msg);
+        }
+
+        PCGEngine.SetLoggingFunction(Log);
+
         WFCNode node = nodeField.value as WFCNode;
         float size = nodeSize.value;
         Vector2Int gridSize = gridSizeField.value;
@@ -79,6 +88,6 @@ public class MazeGenerationWindow : EditorWindow
             }
         }
 
-        PCGEngine.GenerateMaze(gridSize.x, gridSize.y, AddMazeNode);
+        PCGEngine.GenerateMaze(gridSize.x, gridSize.y, (PCGEngine.MazeAlgorithm)mazeAlgorithmField.index, AddMazeNode);
     }
 }
