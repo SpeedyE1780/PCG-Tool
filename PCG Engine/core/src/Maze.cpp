@@ -143,7 +143,10 @@ namespace pcg::engine::core
 
             while (visits.find({ x, y }) != visits.end())
             {
+                std::ostringstream oss{};
                 int direction = visits[{x, y}];
+                oss << "Adding: " << x << "-" << y << ": " << direction << " to path";
+                utility::logInfo(oss.str());
 
                 path.emplace_back(WilsonWalkData{ x, y, direction });
                 std::tie(x, y) = getNeighborXY(x, y, direction);
@@ -170,10 +173,9 @@ namespace pcg::engine::core
         int unvisited = width * height - 1;
 
         oss << "Started with:" << x << "-" << y << " unvisited: " << unvisited;
-
         utility::logInfo(oss.str());
-
         oss.str("");
+
         while (unvisited > 0)
         {
             std::shuffle(begin(directions), end(directions), randomEngine);
@@ -208,6 +210,9 @@ namespace pcg::engine::core
 
     void wilson(int width, int height, addMazePointCallback callback)
     {
+        utility::logInfo("Wilson Maze Generation Started");
+
+        std::ostringstream oss{};
         std::vector<int> directions{ left, right, up, down };
         auto randomDevice = std::random_device{};
         auto randomEngine = std::default_random_engine{ randomDevice() };
@@ -219,6 +224,10 @@ namespace pcg::engine::core
 
         grid[y][x] = in;
 
+        oss << "Started with:" << x << "-" << y << " unvisited: " << unvisited;
+        utility::logInfo(oss.str());
+        oss.str("");
+
         while (unvisited > 0)
         {
             for (const auto& walkData : wilsonWalk(grid, directions, randomEngine))
@@ -228,10 +237,15 @@ namespace pcg::engine::core
                 auto [nx, ny] = getNeighborXY(x, y, walkData.direction);
                 grid[y][x] |= walkData.direction;
                 grid[ny][nx] |= getFlippedDirection(walkData.direction);
+                oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited;
+                utility::logInfo(oss.str());
+                oss.str("");
                 callback(x, y, grid[y][x]);
                 callback(nx, ny, grid[ny][nx]);
                 unvisited -= 1;
             }
         }
+
+        utility::logInfo("Wilson Maze Generation Ended");
     }
 }
