@@ -60,6 +60,12 @@ namespace PCGAPI
             DFS
         };
 
+        public enum MazeAlgorithm
+        {
+            aldousBroder = 0,
+            wilson = 1
+        }
+
         [DllImport("PCG-Engine-Core", EntryPoint = "generation1D")]
         public static extern void SimpleGenerator(ref GenerationParameters data, Axis axis, Direction direction, AddPosition addPosition);
         [DllImport("PCG-Engine-Core", EntryPoint = "generation2D")]
@@ -75,6 +81,6 @@ namespace PCGAPI
         [DllImport("PCG-Engine-Core", EntryPoint = "waveFunctionCollapseGeneration")]
         public static extern void WaveFunctionCollapse(ref GenerationParameters data, ExpansionMode mode, AddWFCPosition addPosition);
         [DllImport("PCG-Engine-Core", EntryPoint = "generateMaze")]
-        public static extern void GenerateMaze(int width, int height, AddMazePosition addMazePosition);
+        public static extern void GenerateMaze(int width, int height, MazeAlgorithm algorithm, AddMazePosition addMazePosition);
     }
 }
