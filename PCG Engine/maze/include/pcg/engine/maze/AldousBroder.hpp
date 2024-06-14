@@ -22,7 +22,7 @@ namespace pcg::engine::maze
         auto randomDevice = std::random_device{};
         auto randomEngine = std::default_random_engine{ randomDevice() };
 
-        std::vector<std::vector<int>> grid(width, std::vector<int>(height, 0));
+        grid grid = generateGrid(width, height);
 
         int x = randomEngine() % width;
         int y = randomEngine() % height;

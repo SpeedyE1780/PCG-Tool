@@ -13,7 +13,7 @@ namespace pcg::engine::maze
         template<typename addMazePointCallback>
         void binaryTree(int width, int height, std::vector<int> directions, addMazePointCallback callback)
         {
-            std::vector<std::vector<int>> grid(width, std::vector<int>(height, 0));
+            grid grid = generateGrid(width, height);
             auto randomDevice = std::random_device{};
             auto randomEngine = std::default_random_engine{ randomDevice() };
 
