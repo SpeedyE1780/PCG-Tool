@@ -10,6 +10,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 "src/BinaryTree.cpp"
 "src/Common.cpp"
 "src/Sidewinder.cpp"
+"src/Wilson.cpp"
 
 #HPP
 "include/pcg/engine/maze/AldousBroder.hpp"
