@@ -4,7 +4,7 @@ namespace pcg::engine::utility
 {
     namespace
     {
-        void log(logMessage logger, const std::string& message)
+        void log(const CallbackFunctor<void(const char*)>& logger, const std::string& message)
         {
             if (logger)
             {
@@ -13,11 +13,11 @@ namespace pcg::engine::utility
         }
     }
 
-    logMessage logger = nullptr;
+    CallbackFunctor<void(const char*)>&& logger = [](const char*) {};
 
-    void setLoggingFunction(logMessage logFunction)
+    void setLoggingFunction(CallbackFunctor<void(const char*)>&& logFunction)
     {
-        logger = logFunction;
+        logger = std::move(logFunction);
     }
 
     void logInfo(const std::string& message)

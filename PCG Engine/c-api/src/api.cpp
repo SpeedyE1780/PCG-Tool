@@ -21,7 +21,7 @@ namespace pcg::engine::c_api
         return math::initializeRandom(seed, generate);
     }
 
-    void setLoggingFunction(utility::logMessage logFunction)
+    void setLoggingFunction(logMessage logFunction)
     {
         utility::setLoggingFunction(logFunction);
     }

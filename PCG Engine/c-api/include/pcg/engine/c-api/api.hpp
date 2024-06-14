@@ -19,10 +19,11 @@ namespace pcg::engine::c_api
     typedef void (*addMazePointCallback)(int x, int y, int neighbors);
     typedef void (*setSeedCallback)(unsigned int seed);
     typedef int (*generateNumberCallback)(int minimum, int maximum);
+    typedef void (*logMessage)(const char* message);
 
     PCG_ENGINE_C_API_API void setSeed(unsigned int seed);
     PCG_ENGINE_C_API_API void setRandomGenerator(setSeedCallback seed, generateNumberCallback generate);
-    PCG_ENGINE_C_API_API void setLoggingFunction(utility::logMessage logFunction);
+    PCG_ENGINE_C_API_API void setLoggingFunction(logMessage logFunction);
     PCG_ENGINE_C_API_API void generation1D(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback);
     PCG_ENGINE_C_API_API void generation2D(level_generation::GenerationData* data, math::Plane plane, bool disableOverlap, addPointCallback callback);
     PCG_ENGINE_C_API_API void generation3D(level_generation::GenerationData* data, bool disableOverlap, addPointCallback callback);

@@ -21,17 +21,17 @@ namespace pcg::engine::cpp_api
         return math::initializeRandom(seed, generate);
     }
 
-    void setLoggingFunction(utility::logMessage logFunction)
+    void setLoggingFunction(std::function<void(const char*)>&& logFunction)
     {
         utility::setLoggingFunction(logFunction);
     }
 
-    void generation1D(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, std::function<void(math::Vector3)> callback)
+    void generation1D(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, std::function<void(math::Vector3)>&& callback)
     {
         level_generation::simpleGeneration(data, axis, direction, callback);
     }
 
-    void generation2D(level_generation::GenerationData* data, math::Plane plane, bool disableOverlap, std::function<void(math::Vector3)> callback)
+    void generation2D(level_generation::GenerationData* data, math::Plane plane, bool disableOverlap, std::function<void(math::Vector3)>&& callback)
     {
         std::vector<const math::Vector3*> directions = getPlaneUnitVectors(plane);
 
@@ -43,7 +43,7 @@ namespace pcg::engine::cpp_api
         level_generation::multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void generation3D(level_generation::GenerationData* data, bool disableOverlap, std::function<void(math::Vector3)> callback)
+    void generation3D(level_generation::GenerationData* data, bool disableOverlap, std::function<void(math::Vector3)>&& callback)
     {
         static const std::vector<const math::Vector3*> directions
         {
@@ -60,12 +60,12 @@ namespace pcg::engine::cpp_api
         multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, std::function<void(math::Vector3, int)> callback)
+    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, std::function<void(math::Vector3, int)>&& callback)
     {
         level_generation::waveFunctionCollapse(data, mode, callback);
     }
 
-    void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, std::function<void(int x, int y, int neighbors)> callback)
+    void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, std::function<void(int x, int y, int neighbors)>&& callback)
     {
         switch (algorithm)
         {
