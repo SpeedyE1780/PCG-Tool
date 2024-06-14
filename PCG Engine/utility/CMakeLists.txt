@@ -10,6 +10,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 
 #HPP
 "include/pcg/engine/utility/logging.hpp"
+"include/pcg/engine/utility/CallbackFunctor.hpp"
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include/)
