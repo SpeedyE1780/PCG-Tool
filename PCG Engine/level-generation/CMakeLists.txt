@@ -6,6 +6,7 @@ add_library(${PROJECT_NAME} STATIC)
 
 target_sources(${PROJECT_NAME} PRIVATE
 #CPP
+"src/MultiDimensionalGeneration.cpp"
 "src/Node.cpp"
 "src/SimpleGeneration.cpp"
 
