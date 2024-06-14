@@ -8,7 +8,6 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE PCG_ENGINE_CORE_EXPORT)
 
 target_sources(${PROJECT_NAME} PRIVATE
 #CPP
-"src/api.cpp"
 "src/Maze.cpp"
 "src/MultiDimensionalGeneration.cpp"
 "src/node.cpp"
@@ -16,7 +15,6 @@ target_sources(${PROJECT_NAME} PRIVATE
 "src/WaveFunctionCollapse.cpp"
 
 #HPP
-"include/pcg/engine/core/api.hpp"
 "include/pcg/engine/core/GenerationData.hpp"
 "include/pcg/engine/core/Maze.hpp"
 "include/pcg/engine/core/MultiDimensionalGeneration.hpp"

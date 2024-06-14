@@ -1,8 +1,8 @@
 #ifndef PCG_ENGINE_CPP_API_API_HPP
 #define PCG_ENGINE_CPP_API_API_HPP
 
-#include <pcg/engine/core/api.hpp>
 #include <pcg/engine/core/GenerationData.hpp>
+#include <pcg/engine/core/Maze.hpp>
 
 #include <pcg/engine/cpp-api/config.hpp>
 
