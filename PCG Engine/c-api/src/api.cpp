@@ -16,12 +16,12 @@ namespace pcg::engine::c_api
         math::Random::seed(seed);
     }
 
-    void setRandomGenerator(math::setSeed seed, math::generateNumber generate)
+    void setRandomGenerator(setSeedCallback seed, generateNumberCallback generate)
     {
         return math::initializeRandom(seed, generate);
     }
 
-    void setLoggingFunction(utility::logMessage logFunction)
+    void setLoggingFunction(logMessage logFunction)
     {
         utility::setLoggingFunction(logFunction);
     }

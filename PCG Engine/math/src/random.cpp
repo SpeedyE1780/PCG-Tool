@@ -12,12 +12,12 @@ namespace pcg::engine::math
         }
     }
 
-    setSeed Random::seed = srand;
-    generateNumber Random::generate = defaultNumberGenerator;
+    utility::CallbackFunctor<void(unsigned int)> Random::seed = srand;
+    utility::CallbackFunctor<int(int, int)> Random::generate = defaultNumberGenerator;
 
-    void initializeRandom(setSeed seed, generateNumber generate)
+    void initializeRandom(utility::CallbackFunctor<void(unsigned int)>&& seed, utility::CallbackFunctor<int(int, int)>&& generate)
     {
-        Random::seed = seed ? seed : srand;
-        Random::generate = generate ? generate : defaultNumberGenerator;
+        Random::seed = seed ? std::move(seed) : srand;
+        Random::generate = generate ? std::move(generate) : defaultNumberGenerator;
     }
 }
