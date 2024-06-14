@@ -2,6 +2,7 @@
 #define PCG_ENGINE_MAZE_MAZE_HPP
 
 #include <pcg/engine/maze/AldousBroder.hpp>
+#include <pcg/engine/maze/BinaryTree.hpp>
 #include <pcg/engine/maze/Wilson.hpp>
 
 namespace pcg::engine::maze
@@ -19,15 +20,6 @@ namespace pcg::engine::maze
         sidewinder = 6
     };
 
-    enum class Diagonal
-    {
-        NE,
-        NW,
-        SE,
-        SW
-    };
-
-    void binaryTree(int width, int height, Diagonal diagonal, addMazePointCallback callback);
     void sidewinder(int width, int height, addMazePointCallback callback);
 }
 

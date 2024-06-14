@@ -11,6 +11,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 
 #HPP
 "include/pcg/engine/maze/AldousBroder.hpp"
+"include/pcg/engine/maze/BinaryTree.hpp"
 "include/pcg/engine/maze/Common.hpp"
 "include/pcg/engine/maze/Maze.hpp"
 "include/pcg/engine/maze/Wilson.hpp"
