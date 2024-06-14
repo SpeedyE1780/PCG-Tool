@@ -19,7 +19,7 @@ namespace pcg::engine::cpp_api
     PCG_ENGINE_CPP_API_API void setSeed(unsigned int seed);
     PCG_ENGINE_CPP_API_API void setRandomGenerator(math::setSeed seed, math::generateNumber generate);
     PCG_ENGINE_CPP_API_API void setLoggingFunction(utility::logMessage logFunction);
-    PCG_ENGINE_CPP_API_API void generation1D(core::GenerationData* data, math::Axis axis, math::Direction direction, core::addPointCallback callback);
+    PCG_ENGINE_CPP_API_API void generation1D(core::GenerationData* data, math::Axis axis, math::Direction direction, std::function<void(math::Vector3)> callback);
     PCG_ENGINE_CPP_API_API void generation2D(core::GenerationData* data, math::Plane plane, bool disableOverlap, core::addPointCallback callback);
     PCG_ENGINE_CPP_API_API void generation3D(core::GenerationData* data, bool disableOverlap, core::addPointCallback callback);
     PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(core::GenerationData* data, core::ExpansionMode mode, core::addWFCPointCallback callback);

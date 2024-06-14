@@ -75,9 +75,15 @@ namespace
 int main()
 {
     setLoggingFunction(logMessage);
+
+    auto callback = [](Vector3 point)
+        {
+            std::cout << "Point:" << point.x << "," << point.y << "," << point.z << std::endl;
+        };
+
     std::cout << "Simple Generation" << std::endl;
     GenerationData data{ 10, 1, { 0, 0, 0 } };
-    generation1D(&data, Axis::x, Direction::negative, addPoints);
+    generation1D(&data, Axis::x, Direction::negative, callback);
 
     std::cout << "2D Generation" << std::endl;
     generation2D(&data, Plane::yz, true, addPoints);

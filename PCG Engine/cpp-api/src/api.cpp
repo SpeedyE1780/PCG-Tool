@@ -26,7 +26,7 @@ namespace pcg::engine::cpp_api
         utility::setLoggingFunction(logFunction);
     }
 
-    void generation1D(core::GenerationData* data, math::Axis axis, math::Direction direction, core::addPointCallback callback)
+    void generation1D(core::GenerationData* data, math::Axis axis, math::Direction direction, std::function<void(math::Vector3)> callback)
     {
         core::simpleGeneration(data, axis, direction, callback);
     }

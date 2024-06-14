@@ -10,7 +10,6 @@ target_sources(${PROJECT_NAME} PRIVATE
 #CPP
 "src/MultiDimensionalGeneration.cpp"
 "src/node.cpp"
-"src/SimpleGeneration.cpp"
 "src/WaveFunctionCollapse.cpp"
 
 #HPP

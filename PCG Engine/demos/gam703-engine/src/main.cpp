@@ -47,6 +47,15 @@ namespace
         index += 1;
     }
 
+    void addPoints(gam703::engine::core::Engine& engine, pcg::engine::math::Vector3 point)
+    {
+        auto* cubeModel = engine.getResourceManager().getModel("resources/Models/cube/cube.obj");
+        auto* cubeTransform = engine.getScene().addTransform(glm::vec3(point.x, point.y, point.z), glm::vec3(), glm::vec3(PlaneSize, 0.2, PlaneSize));
+        auto* renderer = cubeTransform->addComponent<engine::components::Renderer>(cubeModel);
+        renderer->getMaterial().setColor(index % 2 == 0 ? white : black);
+        index += 1;
+    }
+
     void addWFCPoints(pcg::engine::math::Vector3 point, int neighbors)
     {
         if (neighbors & pcg::engine::core::Neighbors::left)
@@ -118,7 +127,12 @@ int main()
     {
     case 1:
     {
-        pcg::engine::cpp_api::generation1D(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, addPoints);
+        auto callback = [&engine](pcg::engine::math::Vector3 point)
+        {
+                addPoints(engine, point);
+        };
+
+        pcg::engine::cpp_api::generation1D(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, callback);
         break;
     }
     case 2:
