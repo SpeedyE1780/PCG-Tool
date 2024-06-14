@@ -1,4 +1,4 @@
-#include <pcg/engine/core/Maze.hpp>
+#include <pcg/engine/maze/Maze.hpp>
 
 #include <pcg/engine/math/random.hpp>
 #include <pcg/engine/math/vector3.hpp>

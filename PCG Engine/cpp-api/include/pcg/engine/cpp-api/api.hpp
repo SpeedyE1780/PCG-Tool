@@ -2,12 +2,13 @@
 #define PCG_ENGINE_CPP_API_API_HPP
 
 #include <pcg/engine/core/GenerationData.hpp>
-#include <pcg/engine/core/Maze.hpp>
 
 #include <pcg/engine/cpp-api/config.hpp>
 
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze/Maze.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
 

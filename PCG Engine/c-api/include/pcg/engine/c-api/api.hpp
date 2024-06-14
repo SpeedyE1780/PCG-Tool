@@ -4,7 +4,8 @@
 #include <pcg/engine/c-api/config.hpp>
 
 #include <pcg/engine/core/GenerationData.hpp>
-#include <pcg/engine/core/Maze.hpp>
+
+#include <pcg/engine/maze/Maze.hpp>
 
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/random.hpp>
