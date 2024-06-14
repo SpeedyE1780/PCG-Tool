@@ -2,6 +2,7 @@
 #define PCG_ENGINE_MAZE_MAZE_HPP
 
 #include <pcg/engine/maze/AldousBroder.hpp>
+#include <pcg/engine/maze/Wilson.hpp>
 
 namespace pcg::engine::maze
 {
@@ -26,7 +27,6 @@ namespace pcg::engine::maze
         SW
     };
 
-    void wilson(int width, int height, addMazePointCallback callback);
     void binaryTree(int width, int height, Diagonal diagonal, addMazePointCallback callback);
     void sidewinder(int width, int height, addMazePointCallback callback);
 }

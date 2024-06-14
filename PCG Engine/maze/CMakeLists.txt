@@ -13,6 +13,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 "include/pcg/engine/maze/AldousBroder.hpp"
 "include/pcg/engine/maze/Common.hpp"
 "include/pcg/engine/maze/Maze.hpp"
+"include/pcg/engine/maze/Wilson.hpp"
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include/)
