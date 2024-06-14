@@ -66,21 +66,21 @@ namespace PCGAPI
             wilson = 1
         }
 
-        [DllImport("PCG-Engine-Core", EntryPoint = "generation1D")]
+        [DllImport("PCG-Engine-C-API", EntryPoint = "generation1D")]
         public static extern void SimpleGenerator(ref GenerationParameters data, Axis axis, Direction direction, AddPosition addPosition);
-        [DllImport("PCG-Engine-Core", EntryPoint = "generation2D")]
+        [DllImport("PCG-Engine-C-API", EntryPoint = "generation2D")]
         public static extern void Generator2D(ref GenerationParameters data, Plane plane, bool disableOverlap, AddPosition addPosition);
-        [DllImport("PCG-Engine-Core", EntryPoint = "generation3D")]
+        [DllImport("PCG-Engine-C-API", EntryPoint = "generation3D")]
         public static extern void Generator3D(ref GenerationParameters data, bool disableOverlap, AddPosition addPosition);
-        [DllImport("PCG-Engine-Core", EntryPoint = "setSeed")]
+        [DllImport("PCG-Engine-C-API", EntryPoint = "setSeed")]
         public static extern void UpdateSeed(uint seed);
-        [DllImport("PCG-Engine-Core", EntryPoint = "setRandomGenerator")]
+        [DllImport("PCG-Engine-C-API", EntryPoint = "setRandomGenerator")]
         public static extern void SetRandomGenerators(SetSeed setSeed, GenerateNumber generate);
-        [DllImport("PCG-Engine-Core", EntryPoint = "setLoggingFunction")]
+        [DllImport("PCG-Engine-C-API", EntryPoint = "setLoggingFunction")]
         public static extern void SetLoggingFunction(LogFunction logFunction);
-        [DllImport("PCG-Engine-Core", EntryPoint = "waveFunctionCollapseGeneration")]
+        [DllImport("PCG-Engine-C-API", EntryPoint = "waveFunctionCollapseGeneration")]
         public static extern void WaveFunctionCollapse(ref GenerationParameters data, ExpansionMode mode, AddWFCPosition addPosition);
-        [DllImport("PCG-Engine-Core", EntryPoint = "generateMaze")]
+        [DllImport("PCG-Engine-C-API", EntryPoint = "generateMaze")]
         public static extern void GenerateMaze(int width, int height, MazeAlgorithm algorithm, AddMazePosition addMazePosition);
     }
 }
