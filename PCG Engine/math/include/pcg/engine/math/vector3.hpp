@@ -4,7 +4,7 @@
 #include <pcg/engine/math/enums.hpp>
 
 #include <cstddef>
-#include<vector>
+#include <vector>
 
 namespace pcg::engine::math
 {

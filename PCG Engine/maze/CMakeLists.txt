@@ -6,9 +6,12 @@ add_library(${PROJECT_NAME} STATIC)
 
 target_sources(${PROJECT_NAME} PRIVATE
 #CPP
+"src/Common.cpp"
 "src/Maze.cpp"
 
 #HPP
+"include/pcg/engine/maze/AldousBroder.hpp"
+"include/pcg/engine/maze/Common.hpp"
 "include/pcg/engine/maze/Maze.hpp"
 )
 

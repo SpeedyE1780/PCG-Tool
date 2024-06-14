@@ -1,6 +1,8 @@
 #ifndef PCG_ENGINE_MAZE_MAZE_HPP
 #define PCG_ENGINE_MAZE_MAZE_HPP
 
+#include <pcg/engine/maze/AldousBroder.hpp>
+
 namespace pcg::engine::maze
 {
     typedef void (*addMazePointCallback)(int x, int y, int neighbors);
@@ -24,7 +26,6 @@ namespace pcg::engine::maze
         SW
     };
 
-    void aldousBroder(int width, int height, addMazePointCallback callback);
     void wilson(int width, int height, addMazePointCallback callback);
     void binaryTree(int width, int height, Diagonal diagonal, addMazePointCallback callback);
     void sidewinder(int width, int height, addMazePointCallback callback);
