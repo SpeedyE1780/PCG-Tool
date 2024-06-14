@@ -9,6 +9,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 "src/AldousBroder.cpp"
 "src/BinaryTree.cpp"
 "src/Common.cpp"
+"src/Sidewinder.cpp"
 
 #HPP
 "include/pcg/engine/maze/AldousBroder.hpp"
