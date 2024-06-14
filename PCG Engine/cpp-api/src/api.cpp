@@ -16,7 +16,7 @@ namespace pcg::engine::cpp_api
         math::Random::seed(seed);
     }
 
-    void setRandomGenerator(math::setSeed seed, math::generateNumber generate)
+    void setRandomGenerator(std::function<void(unsigned int)>&& seed, std::function<int(int, int)>&& generate)
     {
         return math::initializeRandom(seed, generate);
     }

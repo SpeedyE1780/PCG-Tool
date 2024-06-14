@@ -22,6 +22,11 @@ namespace pcg::engine::utility
             return (*functorConcept)(arg...);
         }
 
+        explicit operator bool() const
+        {
+            return functorConcept != nullptr;
+        }
+
         class FunctorConcept
         {
         public:

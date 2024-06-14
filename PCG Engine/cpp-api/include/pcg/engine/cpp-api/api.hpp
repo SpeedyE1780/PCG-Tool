@@ -17,7 +17,7 @@
 namespace pcg::engine::cpp_api
 {
     PCG_ENGINE_CPP_API_API void setSeed(unsigned int seed);
-    PCG_ENGINE_CPP_API_API void setRandomGenerator(math::setSeed seed, math::generateNumber generate);
+    PCG_ENGINE_CPP_API_API void setRandomGenerator(std::function<void(unsigned int)>&& seed, std::function<int(int, int)>&& generate);
     PCG_ENGINE_CPP_API_API void setLoggingFunction(utility::logMessage logFunction);
     PCG_ENGINE_CPP_API_API void generation1D(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, std::function<void(math::Vector3)> callback);
     PCG_ENGINE_CPP_API_API void generation2D(level_generation::GenerationData* data, math::Plane plane, bool disableOverlap, std::function<void(math::Vector3)> callback);
