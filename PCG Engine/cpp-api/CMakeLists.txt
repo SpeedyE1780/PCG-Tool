@@ -1,4 +1,4 @@
-project(PCG-Engine-Cpp-API)
+project(PCG-Engine-CPP-API)
 
 add_library(${PROJECT_NAME} SHARED)
 
