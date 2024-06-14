@@ -1,10 +1,16 @@
-#include <pcg/engine/core/SimpleGeneration.hpp>
+#ifndef PCG_ENGINE_LEVEL_GENERATION_SIMPLE_GENERATION_HPP
+#define PCG_ENGINE_LEVEL_GENERATION_SIMPLE_GENERATION_HPP
+
+#include <pcg/engine/level-generation/GenerationData.hpp>
+
+#include <pcg/engine/math/enums.hpp>
+#include <pcg/engine/math/vector3.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
 
 #include <functional>
 
-namespace pcg::engine::core
+namespace pcg::engine::level_generation
 {
     namespace
     {
@@ -42,6 +48,7 @@ namespace pcg::engine::core
         }
     }
 
+    template<typename addPointCallback>
     void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)
     {
         utility::logInfo("Simple Generation Started");
@@ -63,3 +70,5 @@ namespace pcg::engine::core
         utility::logInfo("Simple Generation Ended");
     }
 }
+
+#endif // PCG_ENGINE_LEVEL_GENERATION_SIMPLE_GENERATION_HPP

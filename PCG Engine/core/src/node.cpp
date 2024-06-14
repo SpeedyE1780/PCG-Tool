@@ -1,8 +1,8 @@
-#include <pcg/engine/core/node.hpp>
+#include <pcg/engine/level-generation/node.hpp>
 
 #include <pcg/engine/math/random.hpp>
 
-namespace pcg::engine::core
+namespace pcg::engine::level_generation
 {
     Node::Node(const math::Vector3& position) :position(position), neighbors()
     {

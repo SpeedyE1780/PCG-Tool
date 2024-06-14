@@ -1,8 +1,13 @@
-#include <pcg/engine/core/SimpleGeneration.hpp>
-#include <pcg/engine/core/MultiDimensionalGeneration.hpp>
-#include <pcg/engine/core/WaveFunctionCollapse.hpp>
+#include <pcg/engine/level-generation/SimpleGeneration.hpp>
+#include <pcg/engine/level-generation/MultiDimensionalGeneration.hpp>
+#include <pcg/engine/level-generation/WaveFunctionCollapse.hpp>
 
 #include <pcg/engine/cpp-api/api.hpp>
+
+#include <pcg/engine/maze/AldousBroder.hpp>
+#include <pcg/engine/maze/BinaryTree.hpp>
+#include <pcg/engine/maze/Sidewinder.hpp>
+#include <pcg/engine/maze/Wilson.hpp>
 
 namespace pcg::engine::cpp_api
 {
@@ -21,12 +26,12 @@ namespace pcg::engine::cpp_api
         utility::setLoggingFunction(logFunction);
     }
 
-    void generation1D(core::GenerationData* data, math::Axis axis, math::Direction direction, core::addPointCallback callback)
+    void generation1D(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, std::function<void(math::Vector3)> callback)
     {
-        core::simpleGeneration(data, axis, direction, callback);
+        level_generation::simpleGeneration(data, axis, direction, callback);
     }
 
-    void generation2D(core::GenerationData* data, math::Plane plane, bool disableOverlap, core::addPointCallback callback)
+    void generation2D(level_generation::GenerationData* data, math::Plane plane, bool disableOverlap, std::function<void(math::Vector3)> callback)
     {
         std::vector<const math::Vector3*> directions = getPlaneUnitVectors(plane);
 
@@ -35,10 +40,10 @@ namespace pcg::engine::cpp_api
             return;
         }
 
-        core::multiDimensionalGeneration(data, directions, disableOverlap, callback);
+        level_generation::multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void generation3D(core::GenerationData* data, bool disableOverlap, core::addPointCallback callback)
+    void generation3D(level_generation::GenerationData* data, bool disableOverlap, std::function<void(math::Vector3)> callback)
     {
         static const std::vector<const math::Vector3*> directions
         {
@@ -55,48 +60,48 @@ namespace pcg::engine::cpp_api
         multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void waveFunctionCollapseGeneration(core::GenerationData* data, core::ExpansionMode mode, core::addWFCPointCallback callback)
+    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, std::function<void(math::Vector3, int)> callback)
     {
-        core::waveFunctionCollapse(data, mode, callback);
+        level_generation::waveFunctionCollapse(data, mode, callback);
     }
 
-    void generateMaze(int width, int height, core::MazeAlgorithm algorithm, core::addMazePointCallback callback)
+    void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, std::function<void(int x, int y, int neighbors)> callback)
     {
         switch (algorithm)
         {
-        case core::MazeAlgorithm::aldousBroder:
+        case maze::MazeAlgorithm::aldousBroder:
         {
-            core::aldousBroder(width, height, callback);
+            maze::aldousBroder(width, height, callback);
             break;
         }
-        case core::MazeAlgorithm::wilson:
+        case maze::MazeAlgorithm::wilson:
         {
-            core::wilson(width, height, callback);
+            maze::wilson(width, height, callback);
             break;
         }
-        case core::MazeAlgorithm::binaryTreeNE:
+        case maze::MazeAlgorithm::binaryTreeNE:
         {
-            core::binaryTree(width, height, core::Diagonal::NE, callback);
+            maze::binaryTree(width, height, maze::Diagonal::NE, callback);
             break;
         }
-        case core::MazeAlgorithm::binaryTreeNW:
+        case maze::MazeAlgorithm::binaryTreeNW:
         {
-            core::binaryTree(width, height, core::Diagonal::NW, callback);
+            maze::binaryTree(width, height, maze::Diagonal::NW, callback);
             break;
         }
-        case core::MazeAlgorithm::binaryTreeSE:
+        case maze::MazeAlgorithm::binaryTreeSE:
         {
-            core::binaryTree(width, height, core::Diagonal::SE, callback);
+            maze::binaryTree(width, height, maze::Diagonal::SE, callback);
             break;
         }
-        case core::MazeAlgorithm::binaryTreeSW:
+        case maze::MazeAlgorithm::binaryTreeSW:
         {
-            core::binaryTree(width, height, core::Diagonal::SW, callback);
+            maze::binaryTree(width, height, maze::Diagonal::SW, callback);
             break;
         }
-        case core::MazeAlgorithm::sidewinder:
+        case maze::MazeAlgorithm::sidewinder:
         {
-            core::sidewinder(width, height, callback);
+            maze::sidewinder(width, height, callback);
             break;
         }
         default:

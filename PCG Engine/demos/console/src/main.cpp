@@ -1,4 +1,4 @@
-#include <pcg/engine/core/node.hpp>
+#include <pcg/engine/level-generation/node.hpp>
 
 #include <pcg/engine/cpp-api/api.hpp>
 
@@ -6,9 +6,10 @@
 #include <unordered_map>
 #include <vector>
 
-using namespace pcg::engine::core;
-using namespace pcg::engine::math;
+using namespace pcg::engine::level_generation;
 using namespace pcg::engine::cpp_api;
+using namespace pcg::engine::math;
+using namespace pcg::engine::maze;
 
 namespace
 {
@@ -74,6 +75,7 @@ namespace
 int main()
 {
     setLoggingFunction(logMessage);
+
     std::cout << "Simple Generation" << std::endl;
     GenerationData data{ 10, 1, { 0, 0, 0 } };
     generation1D(&data, Axis::x, Direction::negative, addPoints);
@@ -104,6 +106,7 @@ int main()
 
     int x = 0;
     int y = 0;
+
     for (const auto& row : grid)
     {
         for (int point : row)

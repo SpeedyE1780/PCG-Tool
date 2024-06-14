@@ -1,4 +1,7 @@
-#include <pcg/engine/core/MultiDimensionalGeneration.hpp>
+#ifndef PCG_ENGINE_LEVEL_GENERATION_MULTI_DIMENSIONAL_GENERATION_HPP
+#define PCG_ENGINE_LEVEL_GENERATION_MULTI_DIMENSIONAL_GENERATION_HPP
+
+#include <pcg/engine/level-generation/GenerationData.hpp>
 
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/random.hpp>
@@ -7,8 +10,9 @@
 
 #include <optional>
 #include <unordered_set>
+#include <vector>
 
-namespace pcg::engine::core
+namespace pcg::engine::level_generation
 {
     namespace
     {
@@ -35,6 +39,7 @@ namespace pcg::engine::core
         }
     }
 
+    template<typename addPointCallback>
     void multiDimensionalGeneration(GenerationData* data, const std::vector<const math::Vector3*>& directions, bool disableOverlap, addPointCallback callback)
     {
         utility::logInfo("Multi-Dimension Generation Started");
@@ -65,3 +70,5 @@ namespace pcg::engine::core
         utility::logInfo("Multi-Dimension Generation Ended");
     }
 }
+
+#endif // PCG_ENGINE_LEVEL_GENERATION_MULTI_DIMENSIONAL_GENERATION_HPP

@@ -1,7 +1,11 @@
-#include <pcg/engine/core/WaveFunctionCollapse.hpp>
-#include <pcg/engine/core/node.hpp>
+#ifndef PCG_ENGINE_LEVEL_GENERATION_WAVE_FUNCTION_COLLAPSE_HPP
+#define PCG_ENGINE_LEVEL_GENERATION_WAVE_FUNCTION_COLLAPSE_HPP
+
+#include <pcg/engine/level-generation/GenerationData.hpp>
+#include <pcg/engine/level-generation/Node.hpp>
 
 #include <pcg/engine/math/random.hpp>
+#include <pcg/engine/math/vector3.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
 
@@ -11,12 +15,12 @@
 #include <sstream>
 #include <stack>
 
-using NodeVector = std::vector <pcg::engine::core::Node>;
-
-namespace pcg::engine::core
+namespace pcg::engine::level_generation
 {
     namespace
     {
+        using NodeVector = std::vector <Node>;
+
         template<typename NodeCollection>
         std::optional<NodeVector::iterator> pushNode(NodeCollection& pendingNodes, NodeVector& spawnedNodes, const math::Vector3& position)
         {
@@ -159,7 +163,7 @@ namespace pcg::engine::core
             }
         }
 
-        template<typename NodeCollection>
+        template<typename NodeCollection, typename addWFCPointCallback>
         void waveFunctionCollapse(GenerationData* data, addWFCPointCallback callback)
         {
             NodeCollection pushedNodes{};
@@ -191,9 +195,11 @@ namespace pcg::engine::core
 
                 WaveFunctionCollapseData wfcData(pushedNodes, spawnedNodes, currentIndex, data->size);
                 std::shuffle(begin(directionPairs), end(directionPairs), rd);
-                checkNeighborPair(wfcData, std::get<0>(directionPairs[0]), std::get<1>(directionPairs[0]));
-                checkNeighborPair(wfcData, std::get<0>(directionPairs[1]), std::get<1>(directionPairs[1]));
-                checkNeighborPair(wfcData, std::get<0>(directionPairs[2]), std::get<1>(directionPairs[2]));
+
+                for (const auto& directionPair : directionPairs)
+                {
+                    checkNeighborPair(wfcData, std::get<0>(directionPair), std::get<1>(directionPair));
+                }
 
                 callback(spawnedNodes.at(currentIndex).getPosition(), spawnedNodes.at(currentIndex).getNeighbors().getIntegerRepresentation());
             }
@@ -202,6 +208,7 @@ namespace pcg::engine::core
         }
     }
 
+    template<typename addWFCPointCallback>
     void waveFunctionCollapse(GenerationData* data, ExpansionMode mode, addWFCPointCallback callback)
     {
         if (mode == ExpansionMode::DFS)
@@ -218,3 +225,5 @@ namespace pcg::engine::core
         }
     }
 }
+
+#endif // PCG_ENGINE_LEVEL_GENERATION_WAVE_FUNCTION_COLLAPSE_HPP
