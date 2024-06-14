@@ -160,7 +160,7 @@ namespace pcg::engine::level_generation
         }
 
         template<typename NodeCollection>
-        void waveFunctionCollapse(GenerationData* data, utility::CallbackFunctor<math::Vector3, int>&& callback)
+        void waveFunctionCollapse(GenerationData* data, utility::CallbackFunctor<void(math::Vector3, int)>&& callback)
         {
             NodeCollection pushedNodes{};
             NodeVector spawnedNodes{};
@@ -204,7 +204,7 @@ namespace pcg::engine::level_generation
         }
     }
 
-    void waveFunctionCollapse(GenerationData* data, ExpansionMode mode, utility::CallbackFunctor<math::Vector3, int>&& callback)
+    void waveFunctionCollapse(GenerationData* data, ExpansionMode mode, utility::CallbackFunctor<void(math::Vector3, int)>&& callback)
     {
         if (mode == ExpansionMode::DFS)
         {

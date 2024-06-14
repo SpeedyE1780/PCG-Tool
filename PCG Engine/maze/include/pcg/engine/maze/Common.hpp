@@ -3,11 +3,14 @@
 
 #include <pcg/engine/math/vector3.hpp>
 
+#include <pcg/engine/utility/CallbackFunctor.hpp>
+
 #include <tuple>
 
 namespace pcg::engine::maze
 {
     using grid = std::vector<std::vector<int>>;
+    using MazeCallback = utility::CallbackFunctor<void(int, int, int)>;
 
     static constexpr int left = 1 << 0;
     static constexpr int right = 1 << 1;

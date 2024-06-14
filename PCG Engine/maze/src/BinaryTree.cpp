@@ -9,7 +9,7 @@ namespace pcg::engine::maze
 {
     namespace
     {
-        void binaryTree(int width, int height, std::vector<int> directions, utility::CallbackFunctor<int, int, int>&& callback)
+        void binaryTree(int width, int height, std::vector<int> directions, MazeCallback&& callback)
         {
             grid grid = generateGrid(width, height);
             auto randomDevice = std::random_device{};
@@ -42,7 +42,7 @@ namespace pcg::engine::maze
         }
     }
 
-    void binaryTree(int width, int height, Diagonal diagonal, utility::CallbackFunctor<int, int, int>&& callback)
+    void binaryTree(int width, int height, Diagonal diagonal, MazeCallback&& callback)
     {
         switch (diagonal)
         {

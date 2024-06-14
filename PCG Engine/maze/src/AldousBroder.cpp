@@ -9,7 +9,7 @@
 
 namespace pcg::engine::maze
 {
-    void aldousBroder(int width, int height, utility::CallbackFunctor<int, int, int>&& callback)
+    void aldousBroder(int width, int height, MazeCallback&& callback)
     {
         std::ostringstream oss{};
 

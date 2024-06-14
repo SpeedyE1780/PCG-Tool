@@ -5,8 +5,11 @@
 
 namespace pcg::engine::utility
 {
-    template<typename ...Args>
-    class CallbackFunctor
+    template<typename T>
+    class CallbackFunctor;
+
+    template<typename R, typename ...Args>
+    class CallbackFunctor<R(Args...)>
     {
     public:
         template<typename Functor>
@@ -14,16 +17,16 @@ namespace pcg::engine::utility
         {
         }
 
-        void operator()(const Args&... arg) const
+        R operator()(const Args&... arg) const
         {
-            (*functorConcept)(arg...);
+            return (*functorConcept)(arg...);
         }
 
         class FunctorConcept
         {
         public:
             virtual ~FunctorConcept() = default;
-            virtual void operator()(const Args&... args) const = 0;
+            virtual R operator()(const Args&... args) const = 0;
         };
 
         template<typename FunctorCallback>
@@ -34,9 +37,9 @@ namespace pcg::engine::utility
             {
             }
 
-            virtual void operator()(const Args&... args) const override
+            virtual R operator()(const Args&... args) const override
             {
-                callback(args...);
+                return callback(args...);
             }
 
         private:

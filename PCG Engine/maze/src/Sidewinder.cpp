@@ -8,7 +8,7 @@
 
 namespace pcg::engine::maze
 {
-    void sidewinder(int width, int height, utility::CallbackFunctor<int, int, int>&& callback)
+    void sidewinder(int width, int height, MazeCallback&& callback)
     {
         utility::logInfo("Sidewinder Maze Generation Started");
 

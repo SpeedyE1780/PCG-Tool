@@ -42,7 +42,7 @@ namespace pcg::engine::level_generation
         }
     }
 
-    void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, utility::CallbackFunctor<math::Vector3>&& callback)
+    void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, utility::CallbackFunctor<void(math::Vector3)>&& callback)
     {
         utility::logInfo("Simple Generation Started");
         std::function<void(math::Vector3& position, float offset)> updatePosition = getUpdatePositionFunction(axis);
