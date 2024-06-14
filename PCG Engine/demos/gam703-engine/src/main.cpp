@@ -8,8 +8,9 @@
 #include <game/components/FollowTarget.hpp>
 #include <game/components/MovementController.hpp>
 
-#include <pcg/engine/core/api.hpp>
 #include <pcg/engine/core/node.hpp>
+
+#include <pcg/engine/cpp-api/api.hpp>
 
 #include <iostream>
 #include <format>
@@ -117,24 +118,24 @@ int main()
     {
     case 1:
     {
-        pcg::engine::core::generation1D(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, addPoints);
+        pcg::engine::cpp_api::generation1D(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, addPoints);
         break;
     }
     case 2:
     {
-        pcg::engine::core::generation2D(&data, pcg::engine::math::Plane::xz, true, addPoints);
+        pcg::engine::cpp_api::generation2D(&data, pcg::engine::math::Plane::xz, true, addPoints);
         break;
     }
     case 3:
     {
         data.limit = 100;
-        pcg::engine::core::waveFunctionCollapseGeneration(&data, pcg::engine::core::ExpansionMode::DFS, addWFCPoints);
+        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::core::ExpansionMode::DFS, addWFCPoints);
         break;
     }
     case 4:
     {
         data.limit = 100;
-        pcg::engine::core::waveFunctionCollapseGeneration(&data, pcg::engine::core::ExpansionMode::BFS, addWFCPoints);
+        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::core::ExpansionMode::BFS, addWFCPoints);
         break;
     }
     default:

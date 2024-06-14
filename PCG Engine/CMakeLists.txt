@@ -20,6 +20,7 @@ add_subdirectory(3rd-party/game-engine)
 
 add_subdirectory(c-api)
 add_subdirectory(core)
+add_subdirectory(cpp-api)
 add_subdirectory(demos/console)
 add_subdirectory(demos/gam703-engine)
 add_subdirectory(math)

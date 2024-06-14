@@ -1,10 +1,10 @@
-#include <pcg/engine/c-api/api.hpp>
-
 #include <pcg/engine/core/SimpleGeneration.hpp>
 #include <pcg/engine/core/MultiDimensionalGeneration.hpp>
 #include <pcg/engine/core/WaveFunctionCollapse.hpp>
 
-namespace pcg::engine::c_api
+#include <pcg/engine/cpp-api/api.hpp>
+
+namespace pcg::engine::cpp_api
 {
     void setSeed(unsigned int seed)
     {
@@ -104,3 +104,4 @@ namespace pcg::engine::c_api
         }
     }
 }
+

@@ -1,12 +1,14 @@
-#include <iostream>>
-#include <pcg/engine/core/api.hpp>
 #include <pcg/engine/core/node.hpp>
 
+#include <pcg/engine/cpp-api/api.hpp>
+
+#include <iostream>>
 #include <unordered_map>
 #include <vector>
 
 using namespace pcg::engine::core;
 using namespace pcg::engine::math;
+using namespace pcg::engine::cpp_api;
 
 namespace
 {

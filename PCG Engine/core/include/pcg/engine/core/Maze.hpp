@@ -5,6 +5,17 @@ namespace pcg::engine::core
 {
     typedef void (*addMazePointCallback)(int x, int y, int neighbors);
 
+    enum class MazeAlgorithm
+    {
+        aldousBroder = 0,
+        wilson = 1,
+        binaryTreeNE = 2,
+        binaryTreeNW = 3,
+        binaryTreeSE = 4,
+        binaryTreeSW = 5,
+        sidewinder = 6
+    };
+
     enum class Diagonal
     {
         NE,
