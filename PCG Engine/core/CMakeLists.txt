@@ -2,7 +2,7 @@ project(PCG-Engine-Core)
 
 enable_testing()
 
-add_library(${PROJECT_NAME} SHARED)
+add_library(${PROJECT_NAME} STATIC)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE PCG_ENGINE_CORE_EXPORT)
 
@@ -17,7 +17,6 @@ target_sources(${PROJECT_NAME} PRIVATE
 
 #HPP
 "include/pcg/engine/core/api.hpp"
-"include/pcg/engine/core/config.hpp"
 "include/pcg/engine/core/GenerationData.hpp"
 "include/pcg/engine/core/Maze.hpp"
 "include/pcg/engine/core/MultiDimensionalGeneration.hpp"

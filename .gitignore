@@ -567,5 +567,6 @@ Unreal/Plugins/**/Intermediate/*
 # Cache files for the editor to use
 Unreal/DerivedDataCache/*
 
-# Fix Unity meta folders being ignored
+# Fix Unity meta/dll folders being ignored
 !Unity/[Aa]ssets/**/*.meta
+!Unity/[Aa]ssets/**/*.dll
