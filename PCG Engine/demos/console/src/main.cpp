@@ -7,8 +7,9 @@
 #include <vector>
 
 using namespace pcg::engine::core;
-using namespace pcg::engine::math;
 using namespace pcg::engine::cpp_api;
+using namespace pcg::engine::math;
+using namespace pcg::engine::maze;
 
 namespace
 {

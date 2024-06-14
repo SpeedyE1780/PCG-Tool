@@ -10,7 +10,7 @@
 #include <sstream>
 #include <vector>
 
-namespace pcg::engine::core
+namespace pcg::engine::maze
 {
     namespace
     {

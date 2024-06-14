@@ -60,43 +60,43 @@ namespace pcg::engine::cpp_api
         core::waveFunctionCollapse(data, mode, callback);
     }
 
-    void generateMaze(int width, int height, core::MazeAlgorithm algorithm, core::addMazePointCallback callback)
+    void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, maze::addMazePointCallback callback)
     {
         switch (algorithm)
         {
-        case core::MazeAlgorithm::aldousBroder:
+        case maze::MazeAlgorithm::aldousBroder:
         {
-            core::aldousBroder(width, height, callback);
+            maze::aldousBroder(width, height, callback);
             break;
         }
-        case core::MazeAlgorithm::wilson:
+        case maze::MazeAlgorithm::wilson:
         {
-            core::wilson(width, height, callback);
+            maze::wilson(width, height, callback);
             break;
         }
-        case core::MazeAlgorithm::binaryTreeNE:
+        case maze::MazeAlgorithm::binaryTreeNE:
         {
-            core::binaryTree(width, height, core::Diagonal::NE, callback);
+            maze::binaryTree(width, height, maze::Diagonal::NE, callback);
             break;
         }
-        case core::MazeAlgorithm::binaryTreeNW:
+        case maze::MazeAlgorithm::binaryTreeNW:
         {
-            core::binaryTree(width, height, core::Diagonal::NW, callback);
+            maze::binaryTree(width, height, maze::Diagonal::NW, callback);
             break;
         }
-        case core::MazeAlgorithm::binaryTreeSE:
+        case maze::MazeAlgorithm::binaryTreeSE:
         {
-            core::binaryTree(width, height, core::Diagonal::SE, callback);
+            maze::binaryTree(width, height, maze::Diagonal::SE, callback);
             break;
         }
-        case core::MazeAlgorithm::binaryTreeSW:
+        case maze::MazeAlgorithm::binaryTreeSW:
         {
-            core::binaryTree(width, height, core::Diagonal::SW, callback);
+            maze::binaryTree(width, height, maze::Diagonal::SW, callback);
             break;
         }
-        case core::MazeAlgorithm::sidewinder:
+        case maze::MazeAlgorithm::sidewinder:
         {
-            core::sidewinder(width, height, callback);
+            maze::sidewinder(width, height, callback);
             break;
         }
         default:

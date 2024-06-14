@@ -1,7 +1,7 @@
-#ifndef PCG_ENGINE_CORE_MAZE_HPP
-#define PCG_ENGINE_CORE_MAZE_HPP
+#ifndef PCG_ENGINE_MAZE_MAZE_HPP
+#define PCG_ENGINE_MAZE_MAZE_HPP
 
-namespace pcg::engine::core
+namespace pcg::engine::maze
 {
     typedef void (*addMazePointCallback)(int x, int y, int neighbors);
 
@@ -30,4 +30,4 @@ namespace pcg::engine::core
     void sidewinder(int width, int height, addMazePointCallback callback);
 }
 
-#endif // PCG_ENGINE_CORE_MAZE_HPP
+#endif // PCG_ENGINE_MAZE_MAZE_HPP

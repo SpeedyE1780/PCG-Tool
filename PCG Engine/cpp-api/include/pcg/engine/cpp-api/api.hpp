@@ -21,7 +21,7 @@ namespace pcg::engine::cpp_api
     PCG_ENGINE_CPP_API_API void generation2D(core::GenerationData* data, math::Plane plane, bool disableOverlap, core::addPointCallback callback);
     PCG_ENGINE_CPP_API_API void generation3D(core::GenerationData* data, bool disableOverlap, core::addPointCallback callback);
     PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(core::GenerationData* data, core::ExpansionMode mode, core::addWFCPointCallback callback);
-    PCG_ENGINE_CPP_API_API void generateMaze(int width, int height, core::MazeAlgorithm algorithm, core::addMazePointCallback callback);
+    PCG_ENGINE_CPP_API_API void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, maze::addMazePointCallback callback);
 }
 
 #endif // PCG_ENGINE_CPP_API_API_HPP
