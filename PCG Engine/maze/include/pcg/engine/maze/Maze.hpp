@@ -3,6 +3,7 @@
 
 #include <pcg/engine/maze/AldousBroder.hpp>
 #include <pcg/engine/maze/BinaryTree.hpp>
+#include <pcg/engine/maze/Sidewinder.hpp>
 #include <pcg/engine/maze/Wilson.hpp>
 
 namespace pcg::engine::maze
@@ -19,8 +20,6 @@ namespace pcg::engine::maze
         binaryTreeSW = 5,
         sidewinder = 6
     };
-
-    void sidewinder(int width, int height, addMazePointCallback callback);
 }
 
 #endif // PCG_ENGINE_MAZE_MAZE_HPP
