@@ -1,11 +1,11 @@
-#ifndef PCG_ENGINE_CORE_NODE_HPP
-#define PCG_ENGINE_CORE_NODE_HPP
+#ifndef PCG_ENGINE_LEVEL_GENERATION_NODE_HPP
+#define PCG_ENGINE_LEVEL_GENERATION_NODE_HPP
 
 #include <pcg/engine/math/vector3.hpp>
 
 #include <bitset>
 
-namespace pcg::engine::core
+namespace pcg::engine::level_generation
 {
     class Neighbors
     {
@@ -46,4 +46,4 @@ namespace pcg::engine::core
     };
 }
 
-#endif // PCG_ENGINE_CORE_NODE_HPP
+#endif // PCG_ENGINE_LEVEL_GENERATION_NODE_HPP

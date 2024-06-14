@@ -1,7 +1,7 @@
-#ifndef PCG_ENGINE_CORE_MULTI_DIMENSIONAL_GENERATION_HPP
-#define PCG_ENGINE_CORE_MULTI_DIMENSIONAL_GENERATION_HPP
+#ifndef PCG_ENGINE_LEVEL_GENERATION_MULTI_DIMENSIONAL_GENERATION_HPP
+#define PCG_ENGINE_LEVEL_GENERATION_MULTI_DIMENSIONAL_GENERATION_HPP
 
-#include <pcg/engine/core/GenerationData.hpp>
+#include <pcg/engine/level-generation/GenerationData.hpp>
 
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/random.hpp>
@@ -12,7 +12,7 @@
 #include <unordered_set>
 #include <vector>
 
-namespace pcg::engine::core
+namespace pcg::engine::level_generation
 {
     namespace
     {
@@ -71,4 +71,4 @@ namespace pcg::engine::core
     }
 }
 
-#endif // PCG_ENGINE_CORE_MULTI_DIMENSIONAL_GENERATION_HPP
+#endif // PCG_ENGINE_LEVEL_GENERATION_MULTI_DIMENSIONAL_GENERATION_HPP

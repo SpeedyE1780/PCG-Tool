@@ -3,7 +3,7 @@
 
 #include <pcg/engine/c-api/config.hpp>
 
-#include <pcg/engine/core/GenerationData.hpp>
+#include <pcg/engine/level-generation/GenerationData.hpp>
 
 #include <pcg/engine/maze/enums.hpp>
 
@@ -21,10 +21,10 @@ namespace pcg::engine::c_api
     PCG_ENGINE_C_API_API void setSeed(unsigned int seed);
     PCG_ENGINE_C_API_API void setRandomGenerator(math::setSeed seed, math::generateNumber generate);
     PCG_ENGINE_C_API_API void setLoggingFunction(utility::logMessage logFunction);
-    PCG_ENGINE_C_API_API void generation1D(core::GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback);
-    PCG_ENGINE_C_API_API void generation2D(core::GenerationData* data, math::Plane plane, bool disableOverlap, addPointCallback callback);
-    PCG_ENGINE_C_API_API void generation3D(core::GenerationData* data, bool disableOverlap, addPointCallback callback);
-    PCG_ENGINE_C_API_API void waveFunctionCollapseGeneration(core::GenerationData* data, core::ExpansionMode mode, addWFCPointCallback callback);
+    PCG_ENGINE_C_API_API void generation1D(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback);
+    PCG_ENGINE_C_API_API void generation2D(level_generation::GenerationData* data, math::Plane plane, bool disableOverlap, addPointCallback callback);
+    PCG_ENGINE_C_API_API void generation3D(level_generation::GenerationData* data, bool disableOverlap, addPointCallback callback);
+    PCG_ENGINE_C_API_API void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, addWFCPointCallback callback);
     PCG_ENGINE_C_API_API void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, addMazePointCallback callback);
 }
 

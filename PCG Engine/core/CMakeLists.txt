@@ -1,21 +1,19 @@
-project(PCG-Engine-Core)
+project(PCG-Engine-Level-Generation)
 
 enable_testing()
 
 add_library(${PROJECT_NAME} STATIC)
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE PCG_ENGINE_CORE_EXPORT)
-
 target_sources(${PROJECT_NAME} PRIVATE
 #CPP
-"src/node.cpp"
+"src/Node.cpp"
 
 #HPP
-"include/pcg/engine/core/GenerationData.hpp"
-"include/pcg/engine/core/MultiDimensionalGeneration.hpp"
-"include/pcg/engine/core/node.hpp"
-"include/pcg/engine/core/SimpleGeneration.hpp"
-"include/pcg/engine/core/WaveFunctionCollapse.hpp"
+"include/pcg/engine/level-generation/GenerationData.hpp"
+"include/pcg/engine/level-generation/MultiDimensionalGeneration.hpp"
+"include/pcg/engine/level-generation/Node.hpp"
+"include/pcg/engine/level-generation/SimpleGeneration.hpp"
+"include/pcg/engine/level-generation/WaveFunctionCollapse.hpp"
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include/)

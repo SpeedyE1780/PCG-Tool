@@ -1,8 +1,8 @@
 #include <pcg/engine/c-api/api.hpp>
 
-#include <pcg/engine/core/SimpleGeneration.hpp>
-#include <pcg/engine/core/MultiDimensionalGeneration.hpp>
-#include <pcg/engine/core/WaveFunctionCollapse.hpp>
+#include <pcg/engine/level-generation/SimpleGeneration.hpp>
+#include <pcg/engine/level-generation/MultiDimensionalGeneration.hpp>
+#include <pcg/engine/level-generation/WaveFunctionCollapse.hpp>
 
 #include <pcg/engine/maze/AldousBroder.hpp>
 #include <pcg/engine/maze/BinaryTree.hpp>
@@ -26,12 +26,12 @@ namespace pcg::engine::c_api
         utility::setLoggingFunction(logFunction);
     }
 
-    void generation1D(core::GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)
+    void generation1D(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)
     {
-        core::simpleGeneration(data, axis, direction, callback);
+        level_generation::simpleGeneration(data, axis, direction, callback);
     }
 
-    void generation2D(core::GenerationData* data, math::Plane plane, bool disableOverlap, addPointCallback callback)
+    void generation2D(level_generation::GenerationData* data, math::Plane plane, bool disableOverlap, addPointCallback callback)
     {
         std::vector<const math::Vector3*> directions = getPlaneUnitVectors(plane);
 
@@ -40,10 +40,10 @@ namespace pcg::engine::c_api
             return;
         }
 
-        core::multiDimensionalGeneration(data, directions, disableOverlap, callback);
+        level_generation::multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void generation3D(core::GenerationData* data, bool disableOverlap, addPointCallback callback)
+    void generation3D(level_generation::GenerationData* data, bool disableOverlap, addPointCallback callback)
     {
         static const std::vector<const math::Vector3*> directions
         {
@@ -60,9 +60,9 @@ namespace pcg::engine::c_api
         multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void waveFunctionCollapseGeneration(core::GenerationData* data, core::ExpansionMode mode, addWFCPointCallback callback)
+    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, addWFCPointCallback callback)
     {
-        core::waveFunctionCollapse(data, mode, callback);
+        level_generation::waveFunctionCollapse(data, mode, callback);
     }
 
     void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, addMazePointCallback callback)

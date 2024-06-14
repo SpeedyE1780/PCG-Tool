@@ -1,8 +1,8 @@
-#ifndef PCG_ENGINE_CORE_WAVE_FUNCTION_COLLAPSE_HPP
-#define PCG_ENGINE_CORE_WAVE_FUNCTION_COLLAPSE_HPP
+#ifndef PCG_ENGINE_LEVEL_GENERATION_WAVE_FUNCTION_COLLAPSE_HPP
+#define PCG_ENGINE_LEVEL_GENERATION_WAVE_FUNCTION_COLLAPSE_HPP
 
-#include <pcg/engine/core/GenerationData.hpp>
-#include <pcg/engine/core/node.hpp>
+#include <pcg/engine/level-generation/GenerationData.hpp>
+#include <pcg/engine/level-generation/Node.hpp>
 
 #include <pcg/engine/math/random.hpp>
 #include <pcg/engine/math/vector3.hpp>
@@ -15,11 +15,11 @@
 #include <sstream>
 #include <stack>
 
-namespace pcg::engine::core
+namespace pcg::engine::level_generation
 {
     namespace
     {
-        using NodeVector = std::vector <pcg::engine::core::Node>;
+        using NodeVector = std::vector <Node>;
 
         template<typename NodeCollection>
         std::optional<NodeVector::iterator> pushNode(NodeCollection& pendingNodes, NodeVector& spawnedNodes, const math::Vector3& position)
@@ -226,4 +226,4 @@ namespace pcg::engine::core
     }
 }
 
-#endif // PCG_ENGINE_CORE_WAVE_FUNCTION_COLLAPSE_HPP
+#endif // PCG_ENGINE_LEVEL_GENERATION_WAVE_FUNCTION_COLLAPSE_HPP

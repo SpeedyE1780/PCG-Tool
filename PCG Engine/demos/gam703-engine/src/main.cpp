@@ -8,7 +8,7 @@
 #include <game/components/FollowTarget.hpp>
 #include <game/components/MovementController.hpp>
 
-#include <pcg/engine/core/node.hpp>
+#include <pcg/engine/level-generation/node.hpp>
 
 #include <pcg/engine/cpp-api/api.hpp>
 
@@ -47,32 +47,32 @@ namespace
 
     void addWFCPoints(gam703::engine::core::Engine& engine, pcg::engine::math::Vector3 point, int neighbors)
     {
-        if (neighbors & pcg::engine::core::Neighbors::left)
+        if (neighbors & pcg::engine::level_generation::Neighbors::left)
         {
             addNeighbor(engine, point + pcg::engine::math::Vector3::left);
         }
 
-        if (neighbors & pcg::engine::core::Neighbors::right)
+        if (neighbors & pcg::engine::level_generation::Neighbors::right)
         {
             addNeighbor(engine, point + pcg::engine::math::Vector3::right);
         }
 
-        if (neighbors & pcg::engine::core::Neighbors::forward)
+        if (neighbors & pcg::engine::level_generation::Neighbors::forward)
         {
             addNeighbor(engine, point + pcg::engine::math::Vector3::forward);
         }
 
-        if (neighbors & pcg::engine::core::Neighbors::backward)
+        if (neighbors & pcg::engine::level_generation::Neighbors::backward)
         {
             addNeighbor(engine, point + pcg::engine::math::Vector3::backward);
         }
 
-        if (neighbors & pcg::engine::core::Neighbors::up)
+        if (neighbors & pcg::engine::level_generation::Neighbors::up)
         {
             addNeighbor(engine, point + pcg::engine::math::Vector3::up);
         }
 
-        if (neighbors & pcg::engine::core::Neighbors::down)
+        if (neighbors & pcg::engine::level_generation::Neighbors::down)
         {
             addNeighbor(engine, point + pcg::engine::math::Vector3::down);
         }
@@ -110,7 +110,7 @@ int main()
     auto* directionalLightTransform = scene.addTransform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(glm::radians(-90.f), 0.0f, 0.0f));
     auto* directionalLight = directionalLightTransform->addComponent < engine::components::DirectionalLight>(glm::vec3(1.0f, 1.0f, 1.0f), 1.0f);
 
-    pcg::engine::core::GenerationData data{ 10, PlaneSize, { 0, 0, 0 } };
+    pcg::engine::level_generation::GenerationData data{ 10, PlaneSize, { 0, 0, 0 } };
     auto addPointCallback = [&engine](pcg::engine::math::Vector3 point)
         {
             addPoints(engine, point);
@@ -136,13 +136,13 @@ int main()
     case 3:
     {
         data.limit = 100;
-        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::core::ExpansionMode::DFS, addWFCPointCallback);
+        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::level_generation::ExpansionMode::DFS, addWFCPointCallback);
         break;
     }
     case 4:
     {
         data.limit = 100;
-        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::core::ExpansionMode::BFS, addWFCPointCallback);
+        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::level_generation::ExpansionMode::BFS, addWFCPointCallback);
         break;
     }
     default:

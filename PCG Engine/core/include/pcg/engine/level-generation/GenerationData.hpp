@@ -1,9 +1,9 @@
-#ifndef PCG_ENGINE_CORE_GENERATION_DATA_HPP
-#define PCG_ENGINE_CORE_GENERATION_DATA_HPP
+#ifndef PCG_ENGINE_LEVEL_GENERATION_GENERATION_DATA_HPP
+#define PCG_ENGINE_LEVEL_GENERATION_GENERATION_DATA_HPP
 
 #include <pcg/engine/math/vector3.hpp>
 
-namespace pcg::engine::core
+namespace pcg::engine::level_generation
 {
     enum class ExpansionMode
     {
@@ -19,4 +19,4 @@ namespace pcg::engine::core
     };
 }
 
-#endif // PCG_ENGINE_CORE_GENERATION_DATA_HPP
+#endif // PCG_ENGINE_LEVEL_GENERATION_GENERATION_DATA_HPP
