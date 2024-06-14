@@ -8,9 +8,11 @@
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/random.hpp>
 
-#include <pcg/engine/maze/Maze.hpp>
+#include <pcg/engine/maze/Enums.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
+
+#include <functional>
 
 namespace pcg::engine::cpp_api
 {
@@ -21,7 +23,7 @@ namespace pcg::engine::cpp_api
     PCG_ENGINE_CPP_API_API void generation2D(core::GenerationData* data, math::Plane plane, bool disableOverlap, core::addPointCallback callback);
     PCG_ENGINE_CPP_API_API void generation3D(core::GenerationData* data, bool disableOverlap, core::addPointCallback callback);
     PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(core::GenerationData* data, core::ExpansionMode mode, core::addWFCPointCallback callback);
-    PCG_ENGINE_CPP_API_API void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, maze::addMazePointCallback callback);
+    PCG_ENGINE_CPP_API_API void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, std::function<void(int x, int y, int neighbors)> callback);
 }
 
 #endif // PCG_ENGINE_CPP_API_API_HPP

@@ -4,6 +4,11 @@
 #include <pcg/engine/core/MultiDimensionalGeneration.hpp>
 #include <pcg/engine/core/WaveFunctionCollapse.hpp>
 
+#include <pcg/engine/maze/AldousBroder.hpp>
+#include <pcg/engine/maze/BinaryTree.hpp>
+#include <pcg/engine/maze/Sidewinder.hpp>
+#include <pcg/engine/maze/Wilson.hpp>
+
 namespace pcg::engine::c_api
 {
     void setSeed(unsigned int seed)
@@ -60,7 +65,7 @@ namespace pcg::engine::c_api
         core::waveFunctionCollapse(data, mode, callback);
     }
 
-    void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, maze::addMazePointCallback callback)
+    void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, addMazePointCallback callback)
     {
         switch (algorithm)
         {
