@@ -7,6 +7,8 @@
 
 #include <pcg/engine/utility/logging.hpp>
 
+#include <sstream>
+
 namespace pcg::engine::maze
 {
     template<typename addMazePointCallback>

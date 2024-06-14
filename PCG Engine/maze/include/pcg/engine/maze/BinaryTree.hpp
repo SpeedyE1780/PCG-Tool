@@ -6,6 +6,9 @@
 
 #include <pcg/engine/utility/logging.hpp>
 
+#include <random>
+#include <sstream>
+
 namespace pcg::engine::maze
 {
     namespace
