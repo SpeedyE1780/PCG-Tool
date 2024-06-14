@@ -9,7 +9,6 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE PCG_ENGINE_CORE_EXPORT)
 target_sources(${PROJECT_NAME} PRIVATE
 #CPP
 "src/node.cpp"
-"src/WaveFunctionCollapse.cpp"
 
 #HPP
 "include/pcg/engine/core/GenerationData.hpp"

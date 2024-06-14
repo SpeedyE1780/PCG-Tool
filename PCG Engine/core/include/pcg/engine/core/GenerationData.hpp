@@ -5,8 +5,6 @@
 
 namespace pcg::engine::core
 {
-    typedef void (*addWFCPointCallback)(math::Vector3 vector, int neighbors);
-
     enum class ExpansionMode
     {
         BFS,

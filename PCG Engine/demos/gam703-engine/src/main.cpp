@@ -20,8 +20,6 @@ namespace game = gam703::game;
 
 constexpr float PlaneSize = 5;
 
-engine::core::Engine* pxEngine = nullptr;
-
 glm::vec3 white{ 1, 1, 1 };
 glm::vec3 black{ 0, 0, 0 };
 glm::vec3 red{ 1, 0, 0 };
@@ -30,21 +28,12 @@ int index = 0;
 
 namespace
 {
-    void addNeighbor(pcg::engine::math::Vector3 point)
+    void addNeighbor(gam703::engine::core::Engine& engine, pcg::engine::math::Vector3 point)
     {
-        auto* cubeModel = pxEngine->getResourceManager().getModel("resources/Models/cube/cube.obj");
-        auto* cubeTransform = pxEngine->getScene().addTransform(glm::vec3(point.x, point.y, point.z));
+        auto* cubeModel = engine.getResourceManager().getModel("resources/Models/cube/cube.obj");
+        auto* cubeTransform = engine.getScene().addTransform(glm::vec3(point.x, point.y, point.z));
         auto* renderer = cubeTransform->addComponent<engine::components::Renderer>(cubeModel);
         renderer->getMaterial().setColor(index % 2 == 0 ? red : blue);
-    }
-
-    void addPoints(pcg::engine::math::Vector3 point)
-    {
-        auto* cubeModel = pxEngine->getResourceManager().getModel("resources/Models/cube/cube.obj");
-        auto* cubeTransform = pxEngine->getScene().addTransform(glm::vec3(point.x, point.y, point.z), glm::vec3(), glm::vec3(PlaneSize, 0.2, PlaneSize));
-        auto* renderer = cubeTransform->addComponent<engine::components::Renderer>(cubeModel);
-        renderer->getMaterial().setColor(index % 2 == 0 ? white : black);
-        index += 1;
     }
 
     void addPoints(gam703::engine::core::Engine& engine, pcg::engine::math::Vector3 point)
@@ -56,39 +45,39 @@ namespace
         index += 1;
     }
 
-    void addWFCPoints(pcg::engine::math::Vector3 point, int neighbors)
+    void addWFCPoints(gam703::engine::core::Engine& engine, pcg::engine::math::Vector3 point, int neighbors)
     {
         if (neighbors & pcg::engine::core::Neighbors::left)
         {
-            addNeighbor(point + pcg::engine::math::Vector3::left);
+            addNeighbor(engine, point + pcg::engine::math::Vector3::left);
         }
 
         if (neighbors & pcg::engine::core::Neighbors::right)
         {
-            addNeighbor(point + pcg::engine::math::Vector3::right);
+            addNeighbor(engine, point + pcg::engine::math::Vector3::right);
         }
 
         if (neighbors & pcg::engine::core::Neighbors::forward)
         {
-            addNeighbor(point + pcg::engine::math::Vector3::forward);
+            addNeighbor(engine, point + pcg::engine::math::Vector3::forward);
         }
 
         if (neighbors & pcg::engine::core::Neighbors::backward)
         {
-            addNeighbor(point + pcg::engine::math::Vector3::backward);
+            addNeighbor(engine, point + pcg::engine::math::Vector3::backward);
         }
 
         if (neighbors & pcg::engine::core::Neighbors::up)
         {
-            addNeighbor(point + pcg::engine::math::Vector3::up);
+            addNeighbor(engine, point + pcg::engine::math::Vector3::up);
         }
 
         if (neighbors & pcg::engine::core::Neighbors::down)
         {
-            addNeighbor(point + pcg::engine::math::Vector3::down);
+            addNeighbor(engine, point + pcg::engine::math::Vector3::down);
         }
 
-        addPoints(point);
+        addPoints(engine, point);
     }
 }
 
@@ -104,7 +93,6 @@ int main()
     std::cin >> choice;
 
     engine::core::Engine engine("GAM703", 1280, 720);
-    pxEngine = &engine;
     auto& scene = engine.getScene();
 
     auto* cubeModel = engine.getResourceManager().getModel("resources/Models/cube/cube.obj");
@@ -128,12 +116,15 @@ int main()
             addPoints(engine, point);
         };
 
+    auto addWFCPointCallback = [&engine](pcg::engine::math::Vector3 point, int neighbors)
+        {
+            addWFCPoints(engine, point, neighbors);
+        };
+
     switch (choice)
     {
     case 1:
     {
-
-
         pcg::engine::cpp_api::generation1D(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, addPointCallback);
         break;
     }
@@ -145,13 +136,13 @@ int main()
     case 3:
     {
         data.limit = 100;
-        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::core::ExpansionMode::DFS, addWFCPoints);
+        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::core::ExpansionMode::DFS, addWFCPointCallback);
         break;
     }
     case 4:
     {
         data.limit = 100;
-        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::core::ExpansionMode::BFS, addWFCPoints);
+        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::core::ExpansionMode::BFS, addWFCPointCallback);
         break;
     }
     default:

@@ -60,7 +60,7 @@ namespace pcg::engine::cpp_api
         multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void waveFunctionCollapseGeneration(core::GenerationData* data, core::ExpansionMode mode, core::addWFCPointCallback callback)
+    void waveFunctionCollapseGeneration(core::GenerationData* data, core::ExpansionMode mode, std::function<void(math::Vector3, int)> callback)
     {
         core::waveFunctionCollapse(data, mode, callback);
     }

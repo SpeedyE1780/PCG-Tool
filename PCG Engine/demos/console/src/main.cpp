@@ -76,14 +76,9 @@ int main()
 {
     setLoggingFunction(logMessage);
 
-    auto callback = [](Vector3 point)
-        {
-            std::cout << "Point:" << point.x << "," << point.y << "," << point.z << std::endl;
-        };
-
     std::cout << "Simple Generation" << std::endl;
     GenerationData data{ 10, 1, { 0, 0, 0 } };
-    generation1D(&data, Axis::x, Direction::negative, callback);
+    generation1D(&data, Axis::x, Direction::negative, addPoints);
 
     std::cout << "2D Generation" << std::endl;
     generation2D(&data, Plane::yz, true, addPoints);
@@ -111,6 +106,7 @@ int main()
 
     int x = 0;
     int y = 0;
+
     for (const auto& row : grid)
     {
         for (int point : row)
