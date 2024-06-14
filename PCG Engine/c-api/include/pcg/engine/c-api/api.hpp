@@ -14,14 +14,15 @@
 
 namespace pcg::engine::c_api
 {
+    typedef void (*addPointCallback)(math::Vector3 vector);
     typedef void (*addMazePointCallback)(int x, int y, int neighbors);
 
     PCG_ENGINE_C_API_API void setSeed(unsigned int seed);
     PCG_ENGINE_C_API_API void setRandomGenerator(math::setSeed seed, math::generateNumber generate);
     PCG_ENGINE_C_API_API void setLoggingFunction(utility::logMessage logFunction);
-    PCG_ENGINE_C_API_API void generation1D(core::GenerationData* data, math::Axis axis, math::Direction direction, core::addPointCallback callback);
-    PCG_ENGINE_C_API_API void generation2D(core::GenerationData* data, math::Plane plane, bool disableOverlap, core::addPointCallback callback);
-    PCG_ENGINE_C_API_API void generation3D(core::GenerationData* data, bool disableOverlap, core::addPointCallback callback);
+    PCG_ENGINE_C_API_API void generation1D(core::GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback);
+    PCG_ENGINE_C_API_API void generation2D(core::GenerationData* data, math::Plane plane, bool disableOverlap, addPointCallback callback);
+    PCG_ENGINE_C_API_API void generation3D(core::GenerationData* data, bool disableOverlap, addPointCallback callback);
     PCG_ENGINE_C_API_API void waveFunctionCollapseGeneration(core::GenerationData* data, core::ExpansionMode mode, core::addWFCPointCallback callback);
     PCG_ENGINE_C_API_API void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, addMazePointCallback callback);
 }

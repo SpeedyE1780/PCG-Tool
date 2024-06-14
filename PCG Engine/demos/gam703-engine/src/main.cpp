@@ -123,21 +123,23 @@ int main()
     auto* directionalLight = directionalLightTransform->addComponent < engine::components::DirectionalLight>(glm::vec3(1.0f, 1.0f, 1.0f), 1.0f);
 
     pcg::engine::core::GenerationData data{ 10, PlaneSize, { 0, 0, 0 } };
+    auto addPointCallback = [&engine](pcg::engine::math::Vector3 point)
+        {
+            addPoints(engine, point);
+        };
+
     switch (choice)
     {
     case 1:
     {
-        auto callback = [&engine](pcg::engine::math::Vector3 point)
-        {
-                addPoints(engine, point);
-        };
 
-        pcg::engine::cpp_api::generation1D(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, callback);
+
+        pcg::engine::cpp_api::generation1D(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, addPointCallback);
         break;
     }
     case 2:
     {
-        pcg::engine::cpp_api::generation2D(&data, pcg::engine::math::Plane::xz, true, addPoints);
+        pcg::engine::cpp_api::generation2D(&data, pcg::engine::math::Plane::xz, true, addPointCallback);
         break;
     }
     case 3:

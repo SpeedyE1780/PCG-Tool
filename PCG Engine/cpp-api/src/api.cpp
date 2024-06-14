@@ -31,7 +31,7 @@ namespace pcg::engine::cpp_api
         core::simpleGeneration(data, axis, direction, callback);
     }
 
-    void generation2D(core::GenerationData* data, math::Plane plane, bool disableOverlap, core::addPointCallback callback)
+    void generation2D(core::GenerationData* data, math::Plane plane, bool disableOverlap, std::function<void(math::Vector3)> callback)
     {
         std::vector<const math::Vector3*> directions = getPlaneUnitVectors(plane);
 
@@ -43,7 +43,7 @@ namespace pcg::engine::cpp_api
         core::multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void generation3D(core::GenerationData* data, bool disableOverlap, core::addPointCallback callback)
+    void generation3D(core::GenerationData* data, bool disableOverlap, std::function<void(math::Vector3)> callback)
     {
         static const std::vector<const math::Vector3*> directions
         {
