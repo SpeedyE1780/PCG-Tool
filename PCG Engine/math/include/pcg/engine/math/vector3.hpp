@@ -33,7 +33,7 @@ namespace pcg::engine::math
     bool operator==(const Vector3& lhs, const Vector3& rhs);
     Vector3 operator*(const Vector3& vector, float scalar);
 
-    std::vector<const Vector3*> getPlaneUnitVectors(Plane plane);
+    std::vector<const Vector3*> getUnitVectors(axis::Flag axis);
 }
 
 #endif // PCG_ENGINE_MATH_VECTOR3_HPP

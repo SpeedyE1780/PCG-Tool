@@ -125,24 +125,24 @@ int main()
     {
     case 1:
     {
-        pcg::engine::cpp_api::generation1D(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, addPointCallback);
+        pcg::engine::cpp_api::simpleGeneration(&data, pcg::engine::math::axis::z, pcg::engine::math::Direction::negative, addPointCallback);
         break;
     }
     case 2:
     {
-        pcg::engine::cpp_api::generation2D(&data, pcg::engine::math::Plane::xz, true, addPointCallback);
+        pcg::engine::cpp_api::multiDimensionGeneration(&data, pcg::engine::math::axis::xz, true, addPointCallback);
         break;
     }
     case 3:
     {
         data.limit = 100;
-        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::level_generation::ExpansionMode::DFS, addWFCPointCallback);
+        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::level_generation::ExpansionMode::DFS, pcg::engine::math::axis::xz, addWFCPointCallback);
         break;
     }
     case 4:
     {
         data.limit = 100;
-        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::level_generation::ExpansionMode::BFS, addWFCPointCallback);
+        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::level_generation::ExpansionMode::BFS, pcg::engine::math::axis::xz, addWFCPointCallback);
         break;
     }
     default:

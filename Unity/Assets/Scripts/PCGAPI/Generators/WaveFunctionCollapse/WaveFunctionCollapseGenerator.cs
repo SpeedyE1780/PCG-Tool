@@ -7,6 +7,8 @@ namespace PCGAPI.Generators
     public class WaveFunctionCollapseGenerator : Generator<WFCNode>
     {
         [SerializeField]
+        private PCGEngine.Axis axis;
+        [SerializeField]
         private PCGEngine.ExpansionMode mode;
 
         readonly List<int> neighbours = new List<int>();
@@ -31,7 +33,7 @@ namespace PCGAPI.Generators
         {
             neighbours.Clear();
             currentIndex = 0;
-            PCGEngine.WaveFunctionCollapse(ref parameters, mode, AddPoint);
+            PCGEngine.WaveFunctionCollapse(ref parameters, mode, axis, AddPoint);
         }
     }
 }
