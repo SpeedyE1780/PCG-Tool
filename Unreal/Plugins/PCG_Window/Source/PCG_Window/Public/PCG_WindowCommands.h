@@ -20,4 +20,5 @@ public:
 
 public:
 	TSharedPtr< FUICommandInfo > OpenSimpleGenerationWindow;
+	TSharedPtr< FUICommandInfo > OpenMultiDimensionGenerationWindow;
 };
