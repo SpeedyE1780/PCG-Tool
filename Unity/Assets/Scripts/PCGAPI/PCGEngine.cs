@@ -11,24 +11,18 @@ namespace PCGAPI
         public delegate void LogFunction(string message);
         public delegate void AddMazePosition(int x, int y, int neighbors);
 
+        [System.Flags]
         public enum Axis
         {
-            x = 0,
-            y = 1,
-            z = 2
+            x = 1 << 0,
+            y = 1 << 1,
+            z = 1 << 2
         }
 
         public enum Direction
         {
             positive = 0,
             negative = 1
-        }
-
-        public enum Plane
-        {
-            XY = 0,
-            XZ = 1,
-            YZ = 2
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -66,12 +60,10 @@ namespace PCGAPI
             wilson = 1
         }
 
-        [DllImport("PCG-Engine-C-API", EntryPoint = "generation1D")]
+        [DllImport("PCG-Engine-C-API", EntryPoint = "simpleGeneration")]
         public static extern void SimpleGenerator(ref GenerationParameters data, Axis axis, Direction direction, AddPosition addPosition);
-        [DllImport("PCG-Engine-C-API", EntryPoint = "generation2D")]
-        public static extern void Generator2D(ref GenerationParameters data, Plane plane, bool disableOverlap, AddPosition addPosition);
-        [DllImport("PCG-Engine-C-API", EntryPoint = "generation3D")]
-        public static extern void Generator3D(ref GenerationParameters data, bool disableOverlap, AddPosition addPosition);
+        [DllImport("PCG-Engine-C-API", EntryPoint = "multiDimensionGeneration")]
+        public static extern void MultiDimensionGenerator(ref GenerationParameters data, Axis axis, bool disableOverlap, AddPosition addPosition);
         [DllImport("PCG-Engine-C-API", EntryPoint = "setSeed")]
         public static extern void UpdateSeed(uint seed);
         [DllImport("PCG-Engine-C-API", EntryPoint = "setRandomGenerator")]
@@ -79,7 +71,7 @@ namespace PCGAPI
         [DllImport("PCG-Engine-C-API", EntryPoint = "setLoggingFunction")]
         public static extern void SetLoggingFunction(LogFunction logFunction);
         [DllImport("PCG-Engine-C-API", EntryPoint = "waveFunctionCollapseGeneration")]
-        public static extern void WaveFunctionCollapse(ref GenerationParameters data, ExpansionMode mode, AddWFCPosition addPosition);
+        public static extern void WaveFunctionCollapse(ref GenerationParameters data, ExpansionMode mode, Axis axis, AddWFCPosition addPosition);
         [DllImport("PCG-Engine-C-API", EntryPoint = "generateMaze")]
         public static extern void GenerateMaze(int width, int height, MazeAlgorithm algorithm, AddMazePosition addMazePosition);
     }

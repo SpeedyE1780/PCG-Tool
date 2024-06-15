@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PCGAPI.Generators
 {
-    [CreateAssetMenu(fileName = "SimpleGenerator", menuName = "Scriptable Objects/PCG/SimpleGenerator")]
+    [CreateAssetMenu(fileName = "Simple Generator", menuName = "Scriptable Objects/PCG/Simple Generator")]
     public class SimpleGenerator : LinearGenerator
     {
         [SerializeField]

@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c70090dc27ac2ea4fbcea2a28276af7c, type: 3}
-  m_Name: 3DGenerator
+  m_Script: {fileID: 11500000, guid: cc370f3f62205e1478db2c5ccdfadb98, type: 3}
+  m_Name: Multi Dimension Generator
   m_EditorClassIdentifier: 
+  axis: -1
   disableOverlap: 1
