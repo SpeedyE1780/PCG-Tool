@@ -160,19 +160,13 @@ namespace pcg::engine::level_generation
         }
 
         template<typename NodeCollection>
-        void waveFunctionCollapse(GenerationData* data, utility::CallbackFunctor<void(math::Vector3, int)>&& callback)
+        void waveFunctionCollapse(GenerationData* data, std::vector<std::tuple<int, int>>&& directionPairs, utility::CallbackFunctor<void(math::Vector3, int)>&& callback)
         {
             NodeCollection pushedNodes{};
             NodeVector spawnedNodes{};
             spawnedNodes.reserve(data->limit);
             pushNode(pushedNodes, spawnedNodes, data->startPoint);
             std::default_random_engine rd{};
-            std::vector<std::tuple<int, int>> directionPairs
-            {
-                { Neighbors::left, Neighbors::right },
-                { Neighbors::forward, Neighbors::backward },
-                { Neighbors::up, Neighbors::down }
-            };
 
             while (!pushedNodes.empty())
             {
@@ -204,18 +198,35 @@ namespace pcg::engine::level_generation
         }
     }
 
-    void waveFunctionCollapse(GenerationData* data, ExpansionMode mode, utility::CallbackFunctor<void(math::Vector3, int)>&& callback)
+    void waveFunctionCollapse(GenerationData* data, ExpansionMode mode, math::axis::Flag axis, utility::CallbackFunctor<void(math::Vector3, int)>&& callback)
     {
+        std::vector<std::tuple<int, int>> directionPairs{};
+
+        if ((axis & math::axis::x) > 0)
+        {
+            directionPairs.emplace_back(std::tuple<int, int>{ Neighbors::left, Neighbors::right });
+        }
+
+        if ((axis & math::axis::y) > 0)
+        {
+            directionPairs.emplace_back(std::tuple<int, int>{ Neighbors::up, Neighbors::down });
+        }
+
+        if ((axis & math::axis::z) > 0)
+        {
+            directionPairs.emplace_back(std::tuple<int, int>{ Neighbors::forward, Neighbors::backward });
+        }
+
         if (mode == ExpansionMode::DFS)
         {
             utility::logInfo("DFS WFC Started");
-            waveFunctionCollapse<std::stack<std::size_t>>(data, std::move(callback));
+            waveFunctionCollapse<std::stack<std::size_t>>(data, std::move(directionPairs), std::move(callback));
             utility::logInfo("DFS WFC Ended");
         }
         else if (mode == ExpansionMode::BFS)
         {
             utility::logInfo("BFS WFC Started");
-            waveFunctionCollapse<std::queue<std::size_t>>(data, std::move(callback));
+            waveFunctionCollapse<std::queue<std::size_t>>(data, std::move(directionPairs), std::move(callback));
             utility::logInfo("BFS WFC Ended");
         }
     }

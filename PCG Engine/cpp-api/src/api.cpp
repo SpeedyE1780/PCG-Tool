@@ -43,9 +43,9 @@ namespace pcg::engine::cpp_api
         level_generation::multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, std::function<void(math::Vector3, int)>&& callback)
+    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::axis::Flag axis, std::function<void(math::Vector3, int)>&& callback)
     {
-        level_generation::waveFunctionCollapse(data, mode, callback);
+        level_generation::waveFunctionCollapse(data, mode, axis, callback);
     }
 
     void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, std::function<void(int x, int y, int neighbors)>&& callback)
