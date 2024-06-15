@@ -15,12 +15,7 @@ void FMyPCGModule::StartupModule()
     FString MyPcgPath = FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/PCGEngine/PCG-Engine-Cpp-API.dll"));
     // Add on the relative location of the third party dll and load it
     PCGLibraryHandle = !MyPcgPath.IsEmpty() ? FPlatformProcess::GetDllHandle(*MyPcgPath) : nullptr;
-    if (PCGLibraryHandle)
-    {
-        // Some code that will be executed if dll was found
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("PCGEngine", "LOADED DLL"));
-    }
-    else
+    if (!PCGLibraryHandle)
     {
         FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("PCGEngineError", "Failed to load PCG Engine DLL"));
     }
