@@ -19,6 +19,7 @@ public:
 	/** This function will be bound to Command (by default it will bring up plugin window) */
 	void SimpleGeneration();
 	void MultiDimensionGeneration();
+	void WaveFunctionCollapse();
 	
 private:
 
@@ -26,6 +27,7 @@ private:
 
 	TSharedRef<class SDockTab> OnSimpleGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnMultiDimensionGeneration(const class FSpawnTabArgs& SpawnTabArgs);
+	TSharedRef<class SDockTab> OnWaveFunctionCollapse(const class FSpawnTabArgs& SpawnTabArgs);
 
 private:
 	TSharedPtr<class FUICommandList> PluginCommands;
