@@ -5,9 +5,9 @@ namespace pcg::engine::math
 {
     enum class Axis
     {
-        x = 0,
-        y = 1,
-        z = 2
+        x = 1 << 0,
+        y = 1 << 1,
+        z = 1 << 2
     };
 
     enum class Direction
