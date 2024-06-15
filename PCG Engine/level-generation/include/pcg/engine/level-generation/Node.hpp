@@ -23,8 +23,9 @@ namespace pcg::engine::level_generation
         void addNeighbor(int neighbor);
         void removeNeighbor(int neighbor);
         int getIntegerRepresentation() const;
+        int getNeighborCount() const;
 
-        void generateNeighbors();
+        void generateNeighbors(int additionalNeighbor, std::vector<int>&& directions);
 
     private:
         std::bitset<count> neighbors = 0;

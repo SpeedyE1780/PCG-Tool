@@ -159,6 +159,21 @@ namespace pcg::engine::level_generation
             }
         }
 
+        std::vector<int> getShuffledDirections(const std::vector<std::tuple<int, int>>& directionPairs, std::default_random_engine& rd)
+        {
+            std::vector<int> directions{};
+
+            for (const auto& direction : directionPairs)
+            {
+                directions.emplace_back(std::get<0>(direction));
+                directions.emplace_back(std::get<1>(direction));
+            }
+
+            std::shuffle(begin(directions), end(directions), rd);
+
+            return directions;
+        }
+
         template<typename NodeCollection>
         void waveFunctionCollapse(GenerationData* data, std::vector<std::tuple<int, int>>&& directionPairs, utility::CallbackFunctor<void(math::Vector3, int)>&& callback)
         {
@@ -178,13 +193,20 @@ namespace pcg::engine::level_generation
                 oss << "Current Node: " << position.x << " " << position.y << " " << position.z;
                 utility::logInfo(oss.str());
 
+                std::shuffle(begin(directionPairs), end(directionPairs), rd);
+
                 if (spawnedNodes.size() < data->limit)
                 {
-                    spawnedNodes.at(currentIndex).getNeighbors().generateNeighbors();
+                    const int neighborCount = spawnedNodes.at(currentIndex).getNeighbors().getNeighborCount();
+
+                    if (neighborCount < directionPairs.size() * 2)
+                    {
+                        int additionalNeighbors = math::Random::generate(1, directionPairs.size() * 2 - neighborCount + 1);
+                        spawnedNodes.at(currentIndex).getNeighbors().generateNeighbors(additionalNeighbors, getShuffledDirections(directionPairs, rd));
+                    }
                 }
 
                 WaveFunctionCollapseData wfcData(pushedNodes, spawnedNodes, currentIndex, data->size);
-                std::shuffle(begin(directionPairs), end(directionPairs), rd);
 
                 for (const auto& directionPair : directionPairs)
                 {
