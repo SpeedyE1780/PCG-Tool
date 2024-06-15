@@ -26,14 +26,14 @@ namespace pcg::engine::c_api
         utility::setLoggingFunction(logFunction);
     }
 
-    void generation1D(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)
+    void simpleGeneration(level_generation::GenerationData* data, math::axis::Flag axis, math::Direction direction, addPointCallback callback)
     {
         level_generation::simpleGeneration(data, axis, direction, callback);
     }
 
-    void generation2D(level_generation::GenerationData* data, math::Plane plane, bool disableOverlap, addPointCallback callback)
+    void generation2D(level_generation::GenerationData* data, math::axis::Flag axis, bool disableOverlap, addPointCallback callback)
     {
-        std::vector<const math::Vector3*> directions = getPlaneUnitVectors(plane);
+        std::vector<const math::Vector3*> directions = math::getUnitVectors(axis);
 
         if (directions.empty())
         {

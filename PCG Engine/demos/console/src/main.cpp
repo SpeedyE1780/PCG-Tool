@@ -78,13 +78,13 @@ int main()
 
     std::cout << "Simple Generation" << std::endl;
     GenerationData data{ 10, 1, { 0, 0, 0 } };
-    generation1D(&data, Axis::x, Direction::negative, addPoints);
+    simpleGeneration(&data, axis::x, Direction::negative, addPoints);
 
     std::cout << "2D Generation" << std::endl;
-    generation2D(&data, Plane::yz, true, addPoints);
+    multiDimensionGeneration(&data, axis::y | axis::z, true, addPoints);
 
     std::cout << "3D Generation" << std::endl;
-    generation3D(&data, true, addPoints);
+    multiDimensionGeneration(&data, axis::x | axis::y | axis::z, true, addPoints);
 
     std::cout << "Wave Function Collapse DFS" << std::endl;
     data.limit = 115;

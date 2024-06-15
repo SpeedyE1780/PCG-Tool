@@ -3,24 +3,19 @@
 
 namespace pcg::engine::math
 {
-    enum class Axis
+    namespace axis
     {
-        x = 1 << 0,
-        y = 1 << 1,
-        z = 1 << 2
-    };
+        using Flag = int;
+
+        constexpr Flag x = 1 << 0;
+        constexpr Flag y = 1 << 1;
+        constexpr Flag z = 1 << 2;
+    }
 
     enum class Direction
     {
         positive = 0,
         negative = 1
-    };
-
-    enum class Plane
-    {
-        xy = 0,
-        xz = 1,
-        yz = 2
     };
 }
 

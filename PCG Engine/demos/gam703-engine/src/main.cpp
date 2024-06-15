@@ -125,12 +125,12 @@ int main()
     {
     case 1:
     {
-        pcg::engine::cpp_api::generation1D(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, addPointCallback);
+        pcg::engine::cpp_api::simpleGeneration(&data, pcg::engine::math::axis::z, pcg::engine::math::Direction::negative, addPointCallback);
         break;
     }
     case 2:
     {
-        pcg::engine::cpp_api::generation2D(&data, pcg::engine::math::Plane::xz, true, addPointCallback);
+        pcg::engine::cpp_api::multiDimensionGeneration(&data, pcg::engine::math::axis::x | pcg::engine::math::axis::z, true, addPointCallback);
         break;
     }
     case 3:

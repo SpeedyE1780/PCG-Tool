@@ -8,25 +8,25 @@ namespace pcg::engine::level_generation
 {
     namespace
     {
-        std::function<void(math::Vector3& position, float offset)> getUpdatePositionFunction(math::Axis axis)
+        std::function<void(math::Vector3& position, float offset)> getUpdatePositionFunction(math::axis::Flag axis)
         {
             switch (axis)
             {
-            case math::Axis::x:
+            case math::axis::x:
             {
                 return [](math::Vector3& position, float offset)
                     {
                         position.x += offset;
                     };
             }
-            case math::Axis::y:
+            case math::axis::y:
             {
                 return [](math::Vector3& position, float offset)
                     {
                         position.y += offset;
                     };
             }
-            case math::Axis::z:
+            case math::axis::z:
             {
                 return [](math::Vector3& position, float offset)
                     {
@@ -42,7 +42,7 @@ namespace pcg::engine::level_generation
         }
     }
 
-    void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, utility::CallbackFunctor<void(math::Vector3)>&& callback)
+    void simpleGeneration(GenerationData* data, math::axis::Flag axis, math::Direction direction, utility::CallbackFunctor<void(math::Vector3)>&& callback)
     {
         utility::logInfo("Simple Generation Started");
         std::function<void(math::Vector3& position, float offset)> updatePosition = getUpdatePositionFunction(axis);

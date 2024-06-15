@@ -52,29 +52,25 @@ namespace pcg::engine::math
         return scaledVector;
     }
 
-    std::vector<const Vector3*> getPlaneUnitVectors(Plane plane)
+    std::vector<const Vector3*> getUnitVectors(axis::Flag axis)
     {
-        switch (plane)
+        std::vector<const Vector3*> directions{};
+
+        if ((axis & axis::x) > 0)
         {
-        case Plane::xy:
+            directions.insert(directions.begin(), { &Vector3::left, &Vector3::right });
+        }
+
+        if ((axis & axis::y) > 0)
         {
-            return { { &Vector3::right, &Vector3::left, &Vector3::up, &Vector3::down } };
+            directions.insert(directions.begin(), { &Vector3::up, &Vector3::down });
         }
-        case Plane::xz:
+
+        if ((axis & axis::z) > 0)
         {
-            return { { &Vector3::right, &Vector3::left, &Vector3::forward, &Vector3::backward } };
-            break;
+            directions.insert(directions.begin(), { &Vector3::forward, &Vector3::backward });
         }
-        case Plane::yz:
-        {
-            return { { &Vector3::up, &Vector3::down, &Vector3::forward, &Vector3::backward } };
-            break;
-        }
-        default:
-        {
-            utility::logError("Can't interpret plane returning with no generation");
-            return {};
-        }
-        }
+
+        return directions;
     }
 }
