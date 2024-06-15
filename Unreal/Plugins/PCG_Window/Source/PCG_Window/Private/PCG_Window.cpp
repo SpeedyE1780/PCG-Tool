@@ -9,7 +9,7 @@
 #include "Widgets/Text/STextBlock.h"
 #include "ToolMenus.h"
 
-static const FName PCG_WindowTabName("PCG_Window");
+static const FName SimpleGenerationID("SimpleGeneration");
 
 #define LOCTEXT_NAMESPACE "FPCG_WindowModule"
 
@@ -25,14 +25,14 @@ void FPCG_WindowModule::StartupModule()
     PluginCommands = MakeShareable(new FUICommandList);
 
     PluginCommands->MapAction(
-        FPCG_WindowCommands::Get().OpenPluginWindow,
-        FExecuteAction::CreateRaw(this, &FPCG_WindowModule::PluginButtonClicked),
+        FPCG_WindowCommands::Get().OpenSimpleGenerationWindow,
+        FExecuteAction::CreateRaw(this, &FPCG_WindowModule::SimpleGeneration),
         FCanExecuteAction());
 
     UToolMenus::RegisterStartupCallback(FSimpleMulticastDelegate::FDelegate::CreateRaw(this, &FPCG_WindowModule::RegisterMenus));
 
-    FGlobalTabmanager::Get()->RegisterNomadTabSpawner(PCG_WindowTabName, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnSpawnPluginTab))
-        .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "PCG_Window"))
+    FGlobalTabmanager::Get()->RegisterNomadTabSpawner(SimpleGenerationID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnSimpleGeneration))
+        .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Simple Generation"))
         .SetMenuType(ETabSpawnerMenuType::Hidden);
 }
 
@@ -49,14 +49,14 @@ void FPCG_WindowModule::ShutdownModule()
 
     FPCG_WindowCommands::Unregister();
 
-    FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(PCG_WindowTabName);
+    FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(SimpleGenerationID);
 }
 
-TSharedRef<SDockTab> FPCG_WindowModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
+TSharedRef<SDockTab> FPCG_WindowModule::OnSimpleGeneration(const FSpawnTabArgs& SpawnTabArgs)
 {
     FText WidgetText = FText::Format(
         LOCTEXT("WindowWidgetText", "Add code to {0} in {1} to override this window's contents"),
-        FText::FromString(TEXT("FPCG_WindowModule::OnSpawnPluginTab")),
+        FText::FromString(TEXT("FPCG_WindowModule::OnSimpleGeneration")),
         FText::FromString(TEXT("PCG_Window.cpp"))
     );
 
@@ -74,9 +74,9 @@ TSharedRef<SDockTab> FPCG_WindowModule::OnSpawnPluginTab(const FSpawnTabArgs& Sp
         ];
 }
 
-void FPCG_WindowModule::PluginButtonClicked()
+void FPCG_WindowModule::SimpleGeneration()
 {
-    FGlobalTabmanager::Get()->TryInvokeTab(PCG_WindowTabName);
+    FGlobalTabmanager::Get()->TryInvokeTab(SimpleGenerationID);
 }
 
 void FPCG_WindowModule::RegisterMenus()
@@ -90,7 +90,7 @@ void FPCG_WindowModule::RegisterMenus()
         {
             FToolMenuSection& Section = PCGMenu->FindOrAddSection("LevelGeneration");
             Section.Label = FText::FromString("Level Generation");
-            Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenPluginWindow, PluginCommands);
+            Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenSimpleGenerationWindow, PluginCommands);
         }
     }
 }

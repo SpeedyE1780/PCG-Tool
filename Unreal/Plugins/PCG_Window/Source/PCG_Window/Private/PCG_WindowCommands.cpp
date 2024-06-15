@@ -6,7 +6,7 @@
 
 void FPCG_WindowCommands::RegisterCommands()
 {
-	UI_COMMAND(OpenPluginWindow, "PCG_Window", "Bring up PCG_Window window", EUserInterfaceActionType::Button, FInputChord());
+	UI_COMMAND(OpenSimpleGenerationWindow, "Simple Generation", "Open Window to Spawn Actor on One Axis", EUserInterfaceActionType::Button, FInputChord());
 }
 
 #undef LOCTEXT_NAMESPACE
