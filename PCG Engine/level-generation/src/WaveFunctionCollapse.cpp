@@ -16,6 +16,7 @@ namespace pcg::engine::level_generation
     namespace
     {
         using NodeVector = std::vector <Node>;
+        using DirectionPair = std::tuple<int, int>;
 
         template<typename NodeCollection>
         std::optional<NodeVector::iterator> pushNode(NodeCollection& pendingNodes, NodeVector& spawnedNodes, const math::Vector3& position)
@@ -159,8 +160,23 @@ namespace pcg::engine::level_generation
             }
         }
 
+        std::vector<int> getShuffledDirections(const std::vector<DirectionPair>& directionPairs, std::default_random_engine& rd)
+        {
+            std::vector<int> directions{};
+
+            for (const auto& direction : directionPairs)
+            {
+                directions.emplace_back(std::get<0>(direction));
+                directions.emplace_back(std::get<1>(direction));
+            }
+
+            std::shuffle(begin(directions), end(directions), rd);
+
+            return directions;
+        }
+
         template<typename NodeCollection>
-        void waveFunctionCollapse(GenerationData* data, std::vector<std::tuple<int, int>>&& directionPairs, utility::CallbackFunctor<void(math::Vector3, int)>&& callback)
+        void waveFunctionCollapse(GenerationData* data, std::vector<DirectionPair>&& directionPairs, utility::CallbackFunctor<void(math::Vector3, int)>&& callback)
         {
             NodeCollection pushedNodes{};
             NodeVector spawnedNodes{};
@@ -178,13 +194,20 @@ namespace pcg::engine::level_generation
                 oss << "Current Node: " << position.x << " " << position.y << " " << position.z;
                 utility::logInfo(oss.str());
 
+                std::shuffle(begin(directionPairs), end(directionPairs), rd);
+
                 if (spawnedNodes.size() < data->limit)
                 {
-                    spawnedNodes.at(currentIndex).getNeighbors().generateNeighbors();
+                    const int neighborCount = spawnedNodes.at(currentIndex).getNeighbors().getNeighborCount();
+
+                    if (neighborCount < directionPairs.size() * 2)
+                    {
+                        int additionalNeighbors = math::Random::generate(1, directionPairs.size() * 2 - neighborCount + 1);
+                        spawnedNodes.at(currentIndex).getNeighbors().generateNeighbors(additionalNeighbors, getShuffledDirections(directionPairs, rd));
+                    }
                 }
 
                 WaveFunctionCollapseData wfcData(pushedNodes, spawnedNodes, currentIndex, data->size);
-                std::shuffle(begin(directionPairs), end(directionPairs), rd);
 
                 for (const auto& directionPair : directionPairs)
                 {
@@ -200,21 +223,21 @@ namespace pcg::engine::level_generation
 
     void waveFunctionCollapse(GenerationData* data, ExpansionMode mode, math::axis::Flag axis, utility::CallbackFunctor<void(math::Vector3, int)>&& callback)
     {
-        std::vector<std::tuple<int, int>> directionPairs{};
+        std::vector<DirectionPair> directionPairs{};
 
         if ((axis & math::axis::x) > 0)
         {
-            directionPairs.emplace_back(std::tuple<int, int>{ Neighbors::left, Neighbors::right });
+            directionPairs.emplace_back(DirectionPair{ Neighbors::left, Neighbors::right });
         }
 
         if ((axis & math::axis::y) > 0)
         {
-            directionPairs.emplace_back(std::tuple<int, int>{ Neighbors::up, Neighbors::down });
+            directionPairs.emplace_back(DirectionPair{ Neighbors::up, Neighbors::down });
         }
 
         if ((axis & math::axis::z) > 0)
         {
-            directionPairs.emplace_back(std::tuple<int, int>{ Neighbors::forward, Neighbors::backward });
+            directionPairs.emplace_back(DirectionPair{ Neighbors::forward, Neighbors::backward });
         }
 
         if (mode == ExpansionMode::DFS)

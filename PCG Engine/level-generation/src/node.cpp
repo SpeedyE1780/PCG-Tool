@@ -13,6 +13,11 @@ namespace pcg::engine::level_generation
         return neighbors.to_ulong();
     }
 
+    int Neighbors::getNeighborCount() const
+    {
+        return neighbors.count();
+    }
+
     bool Neighbors::hasNeighbor(int neighbor) const
     {
         return (neighbors & std::bitset<count>(neighbor)).any();
@@ -28,8 +33,20 @@ namespace pcg::engine::level_generation
         neighbors &= ~neighbor;
     }
 
-    void Neighbors::generateNeighbors()
+    void Neighbors::generateNeighbors(int additionalNeighbor, std::vector<int>&& directions)
     {
-        neighbors |= math::Random::generate(0, combinationCount);
+        for (int direction : directions)
+        {
+            if (!hasNeighbor(direction))
+            {
+                addNeighbor(direction);
+                additionalNeighbor -= 1;
+
+                if (additionalNeighbor == 0)
+                {
+                    break;
+                }
+            }
+        }
     }
 }
