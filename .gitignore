@@ -570,3 +570,7 @@ Unreal/DerivedDataCache/*
 # Fix Unity meta/dll folders being ignored
 !Unity/[Aa]ssets/**/*.meta
 !Unity/[Aa]ssets/**/*.dll
+
+# Fix dll/lib in plugins being ignored
+!Unreal/Plugins/MyPCG/Source/ThirdPartyLibraries/PCGEngine/lib/*.lib
+!Unreal/Plugins/MyPCG/Source/ThirdPartyLibraries/PCGEngine/lib/*.dll
