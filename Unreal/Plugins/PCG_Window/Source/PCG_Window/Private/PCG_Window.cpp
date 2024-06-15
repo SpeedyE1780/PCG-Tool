@@ -85,21 +85,12 @@ void FPCG_WindowModule::RegisterMenus()
     FToolMenuOwnerScoped OwnerScoped(this);
 
     {
-        UToolMenu* Menu = UToolMenus::Get()->ExtendMenu("LevelEditor.MainMenu.Window");
+        UToolMenu* Menu = UToolMenus::Get()->ExtendMenu("LevelEditor.MainMenu");
+        UToolMenu* PCGMenu = Menu->AddSubMenu(OwnerScoped.GetOwner(), "LevelGeneration", "LevelEditor.MainMenu.PCG", FText::FromString("PCG Window"));
         {
-            FToolMenuSection& Section = Menu->FindOrAddSection("WindowLayout");
+            FToolMenuSection& Section = PCGMenu->FindOrAddSection("LevelGeneration");
+            Section.Label = FText::FromString("Level Generation");
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenPluginWindow, PluginCommands);
-        }
-    }
-
-    {
-        UToolMenu* ToolbarMenu = UToolMenus::Get()->ExtendMenu("LevelEditor.LevelEditorToolBar");
-        {
-            FToolMenuSection& Section = ToolbarMenu->FindOrAddSection("Settings");
-            {
-                FToolMenuEntry& Entry = Section.AddEntry(FToolMenuEntry::InitToolBarButton(FPCG_WindowCommands::Get().OpenPluginWindow));
-                Entry.SetCommandList(PluginCommands);
-            }
         }
     }
 }
