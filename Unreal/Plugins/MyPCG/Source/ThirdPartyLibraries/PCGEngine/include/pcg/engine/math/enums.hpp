@@ -13,6 +13,7 @@ namespace pcg::engine::math
         constexpr Flag xy = x | y;
         constexpr Flag xz = x | z;
         constexpr Flag yz = y | z;
+        constexpr Flag xyz = x | y | z;
     }
 
     enum class Direction

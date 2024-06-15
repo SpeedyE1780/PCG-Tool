@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "pcg/engine/math/Vector3.hpp"
+
 #include "SimpleLevelGeneration.generated.h"
 
 UCLASS()
@@ -15,13 +17,6 @@ public:
 	// Sets default values for this actor's properties
 	ASimpleLevelGeneration();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 	UFUNCTION(BlueprintCallable)
 	void GenerateLevel();
 
@@ -31,4 +26,7 @@ public:
 	int blockSize = 100;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TSubclassOf<AActor> levelBlock;
+
+private:
+	void SpawnBlock(pcg::engine::math::Vector3 position);
 };
