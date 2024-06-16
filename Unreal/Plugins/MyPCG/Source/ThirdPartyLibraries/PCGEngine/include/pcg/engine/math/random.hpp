@@ -1,18 +1,17 @@
 #ifndef PCG_ENGINE_MATH_RANDOM_HPP
 #define PCG_ENGINE_MATH_RANDOM_HPP
 
+#include <pcg/engine/utility/CallbackFunctor.hpp>
+
 namespace pcg::engine::math
 {
-    typedef void (*setSeed)(unsigned int seed);
-    typedef int (*generateNumber)(int minimum, int maximum);
-
     struct Random
     {
-        static setSeed seed;
-        static generateNumber generate;
+        static utility::CallbackFunctor<void(unsigned int)> seed;
+        static utility::CallbackFunctor<int(int, int)> generate;
     };
 
-    void initializeRandom(setSeed seed, generateNumber generate);
+    void initializeRandom(utility::CallbackFunctor<void(unsigned int)>&& seed, utility::CallbackFunctor<int(int, int)>&& generate);
 }
 
 #endif // PCG_ENGINE_MATH_RANDOM_HPP

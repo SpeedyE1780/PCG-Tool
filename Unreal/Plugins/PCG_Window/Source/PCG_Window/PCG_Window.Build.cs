@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class MyPCG : ModuleRules
+public class PCG_Window : ModuleRules
 {
-	public MyPCG(ReadOnlyTargetRules Target) : base(Target)
+	public PCG_Window(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -26,7 +26,6 @@ public class MyPCG : ModuleRules
 			new string[]
 			{
 				"Core",
-                "PCGEngine"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -35,11 +34,19 @@ public class MyPCG : ModuleRules
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
+				"Projects",
+				"InputCore",
+				"EditorFramework",
+				"UnrealEd",
+				"ToolMenus",
 				"CoreUObject",
 				"Engine",
 				"Slate",
 				"SlateCore",
-				"Projects"
+				"MyPCG",
+				"PropertyEditor",
+				"LevelEditor",
+				"PCGEngine"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

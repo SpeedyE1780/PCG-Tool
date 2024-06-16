@@ -11,18 +11,13 @@ void FMyPCGModule::StartupModule()
 {
     // This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
     // Get the base directory of this plugin
-    //FString BaseDir = IPluginManager::Get().FindPlugin("MyPCG")->GetBaseDir();
+    FString BaseDir = IPluginManager::Get().FindPlugin("MyPCG")->GetBaseDir();
+    FString MyPcgPath = FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/PCGEngine/PCG-Engine-Cpp-API.dll"));
     // Add on the relative location of the third party dll and load it
-    FString MyPcgPath = FPaths::Combine("C:/Users/sandr/OneDrive/Documents/Falmouth/GAM-708/PCG Tool/Unreal/Plugins/MyPCG", TEXT("Binaries/ThirdParty/PCGEngine/PCG-Engine-Core.dll"));
     PCGLibraryHandle = !MyPcgPath.IsEmpty() ? FPlatformProcess::GetDllHandle(*MyPcgPath) : nullptr;
-    if (PCGLibraryHandle)
+    if (!PCGLibraryHandle)
     {
-        // Some code that will be executed if dll was found
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("ThirdPartyLibrar", "LOAD DLL"));
-    }
-    else
-    {
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("ThirdPartyLibraryError", "Failed to load MyAwesomeLibrary"));
+        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("PCGEngineError", "Failed to load PCG Engine DLL"));
     }
 }
 
