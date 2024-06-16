@@ -15,7 +15,7 @@ void USimpleGenerationData::GenerateLevel() const
         return;
     }
 
-    if (count == 0 || nodeSize == 0)
+    if (count == 0 || nodeSize == 0 || axis == EGenerationAxis::None)
     {
         return;
     }
@@ -38,5 +38,5 @@ void USimpleGenerationData::SpawnNode(pcg::engine::math::Vector3 position) const
 {
     UWorld* world = GEditor->GetEditorWorldContext().World();
     AActor* spawnedNode = world->SpawnActor(node);
-    spawnedNode->SetActorLocation(FVector{ position.z, position.x, position.y } *nodeSize);
+    spawnedNode->SetActorLocation(FVector{ position.z, position.x, position.y });
 }

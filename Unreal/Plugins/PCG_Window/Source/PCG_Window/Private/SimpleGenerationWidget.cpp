@@ -1,13 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MazeGenerationWidget.h"
+#include "SimpleGenerationWidget.h"
 #include "PropertyEditorModule.h"
 
-
-void SMazeGenerationWidget::Construct(const FArguments& InArgs)
+void SSimpleGenerationWidget::Construct(const FArguments& InArgs)
 {
-    MazeData = NewObject<UMazeGenerationData>();
+    SimpleData = NewObject<USimpleGenerationData>();
 
     FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
 
@@ -16,10 +15,10 @@ void SMazeGenerationWidget::Construct(const FArguments& InArgs)
     Args.bHideSelectionTip = true;
 
     //Create the widget and store it in the PropertyWidget pointer
-    MazeDataWidget = PropertyModule.CreateDetailView(Args);
+    SimpleDataWidget = PropertyModule.CreateDetailView(Args);
 
     //Important! We set our new Details View to a mutable version of our custom settings.
-    MazeDataWidget->SetObject(MazeData);
+    SimpleDataWidget->SetObject(SimpleData);
 
     ChildSlot
         [
@@ -29,9 +28,8 @@ void SMazeGenerationWidget::Construct(const FArguments& InArgs)
                     SNew(SVerticalBox)
                         + SVerticalBox::Slot().AutoHeight()
                         [
-                            MazeDataWidget.ToSharedRef()
+                            SimpleDataWidget.ToSharedRef()
                         ]
                 ]
         ];
 }
-

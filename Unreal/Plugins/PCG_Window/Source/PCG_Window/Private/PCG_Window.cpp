@@ -9,6 +9,7 @@
 #include "Widgets/Text/STextBlock.h"
 #include "ToolMenus.h"
 #include "MazeGenerationWidget.h"
+#include "SimpleGenerationWidget.h"
 
 static const FName SimpleGenerationID("SimpleGeneration");
 static const FName MultiDimensionID("MultiDimensionGeneration");
@@ -88,23 +89,10 @@ void FPCG_WindowModule::ShutdownModule()
 
 TSharedRef<SDockTab> FPCG_WindowModule::OnSimpleGeneration(const FSpawnTabArgs& SpawnTabArgs)
 {
-    FText WidgetText = FText::Format(
-        LOCTEXT("WindowWidgetText", "Add code to {0} in {1} to override this window's contents"),
-        FText::FromString(TEXT("FPCG_WindowModule::OnSimpleGeneration")),
-        FText::FromString(TEXT("PCG_Window.cpp"))
-    );
-
     return SNew(SDockTab)
         .TabRole(ETabRole::NomadTab)
         [
-            // Put your tab content here!
-            SNew(SBox)
-                .HAlign(HAlign_Center)
-                .VAlign(VAlign_Center)
-                [
-                    SNew(STextBlock)
-                        .Text(WidgetText)
-                ]
+            SNew(SSimpleGenerationWidget)
         ];
 }
 
