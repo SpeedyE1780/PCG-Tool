@@ -8,7 +8,7 @@
 #include "SimpleGenerationData.generated.h"
 
 UENUM(BlueprintType)
-enum class EGenerationAxis
+enum class ELinearGenerationAxis
 {
     None = 0,
     X = 1 << 0,
@@ -17,7 +17,7 @@ enum class EGenerationAxis
 };
 
 UENUM(BlueprintType)
-enum class EGenerationDirection
+enum class ELinearGenerationDirection
 {
     Positive = 0,
     Negative = 1
@@ -41,9 +41,9 @@ class PCG_WINDOW_API USimpleGenerationData : public UObject
     UPROPERTY(EditAnywhere, Category = "Linear Generation Data")
     float nodeSize;
     UPROPERTY(EditAnywhere, Category = "Linear Generation Data")
-    EGenerationAxis axis;
+    ELinearGenerationAxis axis;
     UPROPERTY(EditAnywhere, Category = "Linear Generation Data")
-    EGenerationDirection direction;
+    ELinearGenerationDirection direction;
     UPROPERTY(EditAnywhere, Category = "Linear Generation Data")
     FVector startPosition;
 

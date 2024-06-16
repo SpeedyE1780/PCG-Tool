@@ -15,7 +15,7 @@ void UMultiDimensionGenerationData::GenerateLevel() const
         return;
     }
 
-    if (count == 0 || nodeSize == 0 || axis == EGenerationAxis::None)
+    if (count == 0 || nodeSize == 0 || axis == 0)
     {
         return;
     }
@@ -27,7 +27,7 @@ void UMultiDimensionGenerationData::GenerateLevel() const
         { startPosition.Y, startPosition.Z, startPosition.X }
     };
 
-    pcg::engine::cpp_api::multiDimensionGeneration(&data, static_cast<int>(axis), disableOverlap,
+    pcg::engine::cpp_api::multiDimensionGeneration(&data, axis, disableOverlap,
         [this](pcg::engine::math::Vector3 position)
         {
             SpawnNode(position);

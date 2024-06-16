@@ -7,13 +7,22 @@
 #include "SimpleGenerationData.h"
 #include "MultiDimensionGenerationData.generated.h"
 
+UENUM(BlueprintType, meta = (Bitflags, UseEnumValuesAsMaskValuesInEditor = "true"))
+enum class EMultiDimensionGenerationAxis : uint8
+{
+    None = 0,
+    X = 1 << 0,
+    Y = 1 << 1,
+    Z = 1 << 2
+};
+
 /**
- * 
+ *
  */
 UCLASS()
 class PCG_WINDOW_API UMultiDimensionGenerationData : public UObject
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "Multi Dimension Generation Data")
     void GenerateLevel() const;
@@ -24,8 +33,8 @@ class PCG_WINDOW_API UMultiDimensionGenerationData : public UObject
     TSubclassOf<AActor> node;
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
     float nodeSize;
-    UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
-    EGenerationAxis axis;
+    UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data", meta = (Bitmask, BitmaskEnum = "EMultiDimensionGenerationAxis"))
+    uint8 axis;
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
     bool disableOverlap;
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")

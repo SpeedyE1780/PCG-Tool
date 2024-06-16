@@ -15,7 +15,7 @@ void USimpleGenerationData::GenerateLevel() const
         return;
     }
 
-    if (count == 0 || nodeSize == 0 || axis == EGenerationAxis::None)
+    if (count == 0 || nodeSize == 0 || axis == ELinearGenerationAxis::None)
     {
         return;
     }
