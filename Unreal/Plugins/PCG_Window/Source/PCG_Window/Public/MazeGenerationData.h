@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "MazeBlock.h"
+#include "pcg/engine/math/Vector3.hpp"
 #include "MazeGenerationData.generated.h"
 
 UENUM(BlueprintType)
@@ -33,8 +35,14 @@ class PCG_WINDOW_API UMazeGenerationData : public UObject
     EMazeAlgorithm mazeAlgorithm;
 
     UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
-    TSubclassOf<AActor> levelBlock;
+    TSubclassOf<AMazeBlock> levelBlock;
 
     UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
 	FIntVector2 gridSize;
+
+    UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
+    float nodeSize;
+
+private:
+    void SpawnBlock(int x, int y, int neighbors) const;
 };
