@@ -43,7 +43,9 @@ public class PCG_Window : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
-				"MyPCG"
+				"MyPCG",
+				"PropertyEditor",
+				"LevelEditor"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
