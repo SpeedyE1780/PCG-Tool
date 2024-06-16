@@ -69,6 +69,15 @@ void SMazeGenerationWidget::Construct(const FArguments& InArgs)
                         ]
                         + SVerticalBox::Slot().AutoHeight()
                         [
+                            SNew(GridSize)
+                                .bColorAxisLabels(true)
+                                .X(this, &SMazeGenerationWidget::GetGridSize, 0)
+                                .Y(this, &SMazeGenerationWidget::GetGridSize, 1)
+                                .OnXCommitted(this, &SMazeGenerationWidget::SetGridSize, 0)
+                                .OnYCommitted(this, &SMazeGenerationWidget::SetGridSize, 1)
+                        ]
+                        + SVerticalBox::Slot().AutoHeight()
+                        [
                             SNew(SButton).OnClicked(this, &SMazeGenerationWidget::GenerateMaze)
                                 [
                                     SNew(STextBlock).Text(FText::FromString("Generate Maze"))
@@ -82,6 +91,16 @@ FReply SMazeGenerationWidget::GenerateMaze()
 {
     GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, SelectedAlgorithm->ToString());
     return FReply::Handled();
+}
+
+TOptional<int32> SMazeGenerationWidget::GetGridSize(int32 Axis) const
+{
+    return gridSize[Axis];
+}
+
+void SMazeGenerationWidget::SetGridSize(int NewValue, ETextCommit::Type CommitInfo, int32 Axis)
+{
+    gridSize[Axis] = NewValue;
 }
 
 #undef LOCTEXT_NAMESPACE
