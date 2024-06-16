@@ -2,28 +2,25 @@
 
 
 #include "MazeGenerationWidget.h"
+#include "PropertyEditorModule.h"
 
 #define LOCTEXT_NAMESPACE "SMazeGenerationWidget"
 
-const TArray<FText> SMazeGenerationWidget::Algorithms =
-{
-    LOCTEXT("aldousBroder", "Aldous Broder"),
-    LOCTEXT("wilson", "Wilson"),
-    LOCTEXT("binaryTreeNE", "Binary Tree NE"),
-    LOCTEXT("binaryTreeNW", "Binary Tree NW"),
-    LOCTEXT("binaryTreeSE", "Binary Tree SE"),
-    LOCTEXT("binaryTreeSW", "Binary Tree SW"),
-    LOCTEXT("sidewinder", "Sidewinder"),
-};
-
 void SMazeGenerationWidget::Construct(const FArguments& InArgs)
 {
-    SelectedAlgorithm = MakeShareable(new FText(Algorithms[0]));
+    MazeData = NewObject<UMazeGenerationData>();
 
-    for (const auto& Algorithm : Algorithms)
-    {
-        AlgorithmsOptions.Add(MakeShareable(new FText(Algorithm)));
-    }
+    FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
+
+    //FDetailsViewArgs is a struct of settings to customize our Details View Widget
+    FDetailsViewArgs Args;
+    Args.bHideSelectionTip = true;
+
+    //Create the widget and store it in the PropertyWidget pointer
+    MazeDataWidget = PropertyModule.CreateDetailView(Args);
+
+    //Important! We set our new Details View to a mutable version of our custom settings.
+    MazeDataWidget->SetObject(MazeData);
 
     ChildSlot
         [
@@ -33,74 +30,10 @@ void SMazeGenerationWidget::Construct(const FArguments& InArgs)
                     SNew(SVerticalBox)
                         + SVerticalBox::Slot().AutoHeight()
                         [
-                            SNew(STextBlock)
-                                .Text(FText::FromString("Generate Maze"))
-                        ]
-                        + SVerticalBox::Slot().AutoHeight()
-                        [
-                            SNew(SComboBox<TSharedPtr<FText>>)
-                                .InitiallySelectedItem(SelectedAlgorithm)
-                                .OptionsSource(&AlgorithmsOptions)
-                                .OnSelectionChanged_Lambda([this](TSharedPtr<FText> NewSelection, ESelectInfo::Type SelectInfo)
-                                    {
-                                        if (NewSelection == nullptr)
-                                        {
-                                            return;
-                                        }
-
-                                        if (SelectInfo == ESelectInfo::Type::OnMouseClick)
-                                        {
-                                            SelectedAlgorithm = NewSelection;
-                                        }
-                                    })
-                                .OnGenerateWidget_Lambda([this](TSharedPtr<FText> Value)
-                                    {
-                                        return SNew(STextBlock)
-                                            .Text(*Value);
-                                    })
-                                [
-                                    SNew(STextBlock)
-                                        .Font(FCoreStyle::GetDefaultFontStyle("Regular", 18))
-                                        .Text_Lambda([this]()
-                                            {
-                                                return SelectedAlgorithm.IsValid() ? *SelectedAlgorithm : FText::GetEmpty();
-                                            })
-                                ]
-                        ]
-                        + SVerticalBox::Slot().AutoHeight()
-                        [
-                            SNew(GridSize)
-                                .bColorAxisLabels(true)
-                                .X(this, &SMazeGenerationWidget::GetGridSize, 0)
-                                .Y(this, &SMazeGenerationWidget::GetGridSize, 1)
-                                .OnXCommitted(this, &SMazeGenerationWidget::SetGridSize, 0)
-                                .OnYCommitted(this, &SMazeGenerationWidget::SetGridSize, 1)
-                        ]
-                        + SVerticalBox::Slot().AutoHeight()
-                        [
-                            SNew(SButton).OnClicked(this, &SMazeGenerationWidget::GenerateMaze)
-                                [
-                                    SNew(STextBlock).Text(FText::FromString("Generate Maze"))
-                                ]
+                            MazeDataWidget.ToSharedRef()
                         ]
                 ]
         ];
-}
-
-FReply SMazeGenerationWidget::GenerateMaze()
-{
-    GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, SelectedAlgorithm->ToString());
-    return FReply::Handled();
-}
-
-TOptional<int32> SMazeGenerationWidget::GetGridSize(int32 Axis) const
-{
-    return gridSize[Axis];
-}
-
-void SMazeGenerationWidget::SetGridSize(int NewValue, ETextCommit::Type CommitInfo, int32 Axis)
-{
-    gridSize[Axis] = NewValue;
 }
 
 #undef LOCTEXT_NAMESPACE
