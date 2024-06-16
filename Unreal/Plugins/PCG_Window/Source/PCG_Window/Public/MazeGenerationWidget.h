@@ -6,14 +6,20 @@
 #include "Widgets/SCompoundWidget.h"
 
 /**
- * 
+ *
  */
 class PCG_WINDOW_API SMazeGenerationWidget : public SCompoundWidget
 {
 public:
-	SLATE_BEGIN_ARGS(SMazeGenerationWidget) {}
-	SLATE_END_ARGS()
+    SLATE_BEGIN_ARGS(SMazeGenerationWidget) {}
+    SLATE_END_ARGS()
 
-	void Construct(const FArguments& InArgs);
-	FReply GenerateMaze();
+    void Construct(const FArguments& InArgs);
+    FReply GenerateMaze();
+
+private:
+    static const TArray<FText> Algorithms;
+
+    TSharedPtr<FText> SelectedAlgorithm;
+    TArray<TSharedPtr<FText>> AlgorithmsOptions;
 };
