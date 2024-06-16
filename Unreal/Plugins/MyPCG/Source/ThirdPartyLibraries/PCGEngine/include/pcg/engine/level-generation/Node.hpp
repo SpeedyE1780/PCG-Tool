@@ -34,9 +34,9 @@ namespace pcg::engine::level_generation
     class Node
     {
     public:
-        Node(const math::Vector3& position);
+        Node(const math::Vector3& p);
         const math::Vector3& getPosition() const { return position; }
-        void setPosition(const math::Vector3& position) { this->position = position; }
+        void setPosition(const math::Vector3& p) { this->position = p; }
 
         Neighbors& getNeighbors() { return neighbors; }
         const Neighbors& getNeighbors() const { return neighbors; }

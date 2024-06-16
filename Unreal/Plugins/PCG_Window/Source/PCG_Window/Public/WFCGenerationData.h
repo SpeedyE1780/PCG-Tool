@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "pcg/engine/math/Vector3.hpp"
+#include "WFCBlock.h"
 #include "WFCGenerationData.generated.h"
 
 UENUM(BlueprintType)
@@ -28,7 +29,7 @@ class PCG_WINDOW_API UWFCGenerationData : public UObject
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
     int count;
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
-    TSubclassOf<AActor> node;
+    TSubclassOf<AWFCBlock> block;
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
     float nodeSize;
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")

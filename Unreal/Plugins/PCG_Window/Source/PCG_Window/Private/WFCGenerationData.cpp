@@ -10,7 +10,7 @@ void UWFCGenerationData::GenerateLevel() const
 
     UWorld* world = GEditor->GetEditorWorldContext().World();
 
-    if (!world || !node)
+    if (!world || !block)
     {
         return;
     }
@@ -37,6 +37,7 @@ void UWFCGenerationData::GenerateLevel() const
 void UWFCGenerationData::SpawnNode(pcg::engine::math::Vector3 position, int neighbors) const
 {
     UWorld* world = GEditor->GetEditorWorldContext().World();
-    AActor* spawnedNode = world->SpawnActor(node);
-    spawnedNode->SetActorLocation(FVector{ position.z, position.x, position.y });
+    AWFCBlock* spawnedBlock = world->SpawnActor<AWFCBlock>(block);
+    spawnedBlock->SetActorLocation(FVector{ position.z, position.x, position.y });
+    spawnedBlock->UpdateMeshes(neighbors);
 }
