@@ -10,7 +10,7 @@ void USimpleGenerationData::GenerateLevel() const
 
     UWorld* world = GEditor->GetEditorWorldContext().World();
 
-    if (!world)
+    if (!world || !node)
     {
         return;
     }

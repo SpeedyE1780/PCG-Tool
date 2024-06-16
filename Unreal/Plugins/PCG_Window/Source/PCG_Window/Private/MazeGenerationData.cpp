@@ -10,7 +10,7 @@ void UMazeGenerationData::GenerateMaze()
 
     UWorld* world = GEditor->GetEditorWorldContext().World();
 
-    if (!world)
+    if (!world || !levelBlock)
     {
         return;
     }

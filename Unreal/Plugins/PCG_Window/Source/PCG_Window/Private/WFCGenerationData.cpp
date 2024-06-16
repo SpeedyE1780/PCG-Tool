@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MultiDimensionGenerationData.h"
+#include "WFCGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
 
-void UMultiDimensionGenerationData::GenerateLevel() const
+void UWFCGenerationData::GenerateLevel() const
 {
-    GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, "GENERATING Multi Dimension Level");
+    GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, "GENERATING Wave Function Collapse Level");
 
     UWorld* world = GEditor->GetEditorWorldContext().World();
 
@@ -27,17 +27,16 @@ void UMultiDimensionGenerationData::GenerateLevel() const
         { startPosition.Y, startPosition.Z, startPosition.X }
     };
 
-    pcg::engine::cpp_api::multiDimensionGeneration(&data, axis, disableOverlap,
-        [this](pcg::engine::math::Vector3 position)
+    pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, static_cast<pcg::engine::level_generation::ExpansionMode>(expansionMode), axis,
+        [this](pcg::engine::math::Vector3 position, int neighbors)
         {
-            SpawnNode(position);
+            SpawnNode(position, neighbors);
         });
 }
 
-void UMultiDimensionGenerationData::SpawnNode(pcg::engine::math::Vector3 position) const
+void UWFCGenerationData::SpawnNode(pcg::engine::math::Vector3 position, int neighbors) const
 {
     UWorld* world = GEditor->GetEditorWorldContext().World();
     AActor* spawnedNode = world->SpawnActor(node);
     spawnedNode->SetActorLocation(FVector{ position.z, position.x, position.y });
 }
-
