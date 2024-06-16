@@ -21,28 +21,30 @@ enum class EMazeAlgorithm
 };
 
 /**
- * 
+ *
  */
 UCLASS(BlueprintType, config = EditorPerProjectUserSettings)
 class PCG_WINDOW_API UMazeGenerationData : public UObject
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "Maze Generation Data")
-    void GenerateMaze() const;
+    void GenerateMaze();
 
-	UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
+    UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
     EMazeAlgorithm mazeAlgorithm;
 
     UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
     TSubclassOf<AMazeBlock> levelBlock;
 
     UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
-	FIntVector2 gridSize;
+    FIntVector2 gridSize;
 
     UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
     float nodeSize;
 
 private:
-    void SpawnBlock(int x, int y, int neighbors) const;
+    void SpawnBlock(int x, int y, int neighbors);
+
+    TMap<TTuple<int, int>, AMazeBlock*> blocks;
 };
