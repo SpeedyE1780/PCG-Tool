@@ -35,6 +35,7 @@ namespace pcg::engine::cpp_api
     PCG_ENGINE_CPP_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, std::function<void(int x, int y, utility::enums::Direction neighbors)>&& callback);
     PCG_ENGINE_CPP_API_API void generateCombination(int elementCount, std::function<void(int, bool)>&& callback);
     PCG_ENGINE_CPP_API_API void generateCombination(int elementCount, int minimumElementCount, std::function<void(int, bool)>&& callback);
+    PCG_ENGINE_CPP_API_API void generateCombination(int elementCount, const std::vector<int>& activeElementsIndex, std::function<void(int, bool)>&& callback);
 }
 
 #endif // PCG_ENGINE_CPP_API_API_HPP

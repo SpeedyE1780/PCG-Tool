@@ -104,5 +104,10 @@ namespace pcg::engine::cpp_api
     {
         combination_generation::generateCombination(elementCount, minimumElementCount, callback);
     }
+
+    void generateCombination(int elementCount, const std::vector<int>& activeElementsIndex, std::function<void(int, bool)>&& callback)
+    {
+        combination_generation::generateCombination(elementCount, activeElementsIndex, callback);
+    }
 }
 

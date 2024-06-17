@@ -5,15 +5,28 @@
 #include <algorithm>>
 #include <numeric>
 #include <random>
-#include <vector>
 
 namespace pcg::engine::combination_generation
 {
     namespace
     {
+        int generateCombination(int elementCount)
+        {
+            const int combinationCount = 1 << elementCount;
+            return math::Random::generate(1, combinationCount);
+        }
+
         constexpr bool isElementActive(int index, int combination)
         {
             return ((1 << index) & combination) > 0;
+        }
+
+        void toggleElements(int combination, int elementCount, utility::CallbackFunctor<void(int, bool)>&& callback)
+        {
+            for (int elementIndex = 0; elementIndex < elementCount; ++elementIndex)
+            {
+                callback(elementIndex, isElementActive(elementIndex, combination));
+            }
         }
 
         constexpr int countActiveBits(int combination)
@@ -58,20 +71,13 @@ namespace pcg::engine::combination_generation
 
     void generateCombination(int elementCount, utility::CallbackFunctor<void(int, bool)>&& callback)
     {
-        const int combinationCount = 1 << elementCount;
-        const int combination = math::Random::generate(0, combinationCount);
-
-        for (int elementIndex = 0; elementIndex < elementCount; ++elementIndex)
-        {
-            callback(elementIndex, isElementActive(elementIndex, combination));
-        }
+        const int combination = generateCombination(elementCount);
+        toggleElements(combination, elementCount, std::move(callback));
     }
 
     void generateCombination(int elementCount, int minElementCount, utility::CallbackFunctor<void(int, bool)>&& callback)
     {
-        const int combinationCount = 1 << elementCount;
-        int combination = math::Random::generate(1, combinationCount);
-
+        int combination = generateCombination(elementCount);
         int activeElements = countActiveBits(combination);
 
         if (activeElements < minElementCount)
@@ -79,9 +85,18 @@ namespace pcg::engine::combination_generation
             activateRemainingBits(combination, elementCount, activeElements, minElementCount);
         }
 
-        for (int elementIndex = 0; elementIndex < elementCount; ++elementIndex)
+        toggleElements(combination, elementCount, std::move(callback));
+    }
+
+    void generateCombination(int elementCount, const std::vector<int>& activeElementIndex, utility::CallbackFunctor<void(int, bool)>&& callback)
+    {
+        int combination = generateCombination(elementCount);
+
+        for (int elementIndex : activeElementIndex)
         {
-            callback(elementIndex, isElementActive(elementIndex, combination));
+            combination |= 1 << elementIndex;
         }
+
+        toggleElements(combination, elementCount, std::move(callback));
     }
 }

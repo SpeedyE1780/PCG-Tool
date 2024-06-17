@@ -103,4 +103,16 @@ namespace pcg::engine::c_api
     {
         combination_generation::generateCombination(elementCount, minimumElementCount, callback);
     }
+
+    void generateCombination(int elementCount, int* activeElementsIndex, int activeElementCount, generateCombinationCallback&& callback)
+    {
+        std::vector<int> activeElements(activeElementCount);
+
+        for (int i = 0; i < activeElementCount; ++i)
+        {
+            activeElements.emplace_back(activeElementsIndex[i]);
+        }
+
+        combination_generation::generateCombination(elementCount, activeElements, callback);
+    }
 }
