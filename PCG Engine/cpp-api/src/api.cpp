@@ -48,41 +48,41 @@ namespace pcg::engine::cpp_api
         level_generation::waveFunctionCollapse(data, mode, axis, callback);
     }
 
-    void generateMaze(int width, int height, maze::MazeAlgorithm algorithm, std::function<void(int x, int y, int neighbors)>&& callback)
+    void generateMaze(int width, int height, MazeAlgorithm algorithm, std::function<void(int x, int y, int neighbors)>&& callback)
     {
         switch (algorithm)
         {
-        case maze::MazeAlgorithm::aldousBroder:
+        case MazeAlgorithm::aldousBroder:
         {
             maze::aldousBroder(width, height, callback);
             break;
         }
-        case maze::MazeAlgorithm::wilson:
+        case MazeAlgorithm::wilson:
         {
             maze::wilson(width, height, callback);
             break;
         }
-        case maze::MazeAlgorithm::binaryTreeNE:
+        case MazeAlgorithm::binaryTreeNE:
         {
             maze::binaryTree(width, height, maze::Diagonal::NE, callback);
             break;
         }
-        case maze::MazeAlgorithm::binaryTreeNW:
+        case MazeAlgorithm::binaryTreeNW:
         {
             maze::binaryTree(width, height, maze::Diagonal::NW, callback);
             break;
         }
-        case maze::MazeAlgorithm::binaryTreeSE:
+        case MazeAlgorithm::binaryTreeSE:
         {
             maze::binaryTree(width, height, maze::Diagonal::SE, callback);
             break;
         }
-        case maze::MazeAlgorithm::binaryTreeSW:
+        case MazeAlgorithm::binaryTreeSW:
         {
             maze::binaryTree(width, height, maze::Diagonal::SW, callback);
             break;
         }
-        case maze::MazeAlgorithm::sidewinder:
+        case MazeAlgorithm::sidewinder:
         {
             maze::sidewinder(width, height, callback);
             break;
