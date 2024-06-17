@@ -18,6 +18,7 @@ namespace pcg::engine::c_api
     typedef void (*addMazePointCallback)(int x, int y, utility::enums::Direction neighbors);
     typedef void (*setSeedCallback)(unsigned int seed);
     typedef int (*generateNumberCallback)(int minimum, int maximum);
+    typedef void (*generateCombinationCallback)(int elementIndex, bool included);
     typedef void (*logMessage)(const char* message);
 
     enum class MazeAlgorithm
@@ -38,6 +39,9 @@ namespace pcg::engine::c_api
     PCG_ENGINE_C_API_API void multiDimensionGeneration(level_generation::GenerationData* data, math::Axis axis, bool disableOverlap, addPointCallback callback);
     PCG_ENGINE_C_API_API void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::Axis axis, addWFCPointCallback callback);
     PCG_ENGINE_C_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazePointCallback callback);
+    PCG_ENGINE_C_API_API void generateCombination(int elementCount, generateCombinationCallback&& callback);
+    PCG_ENGINE_C_API_API void generateCombination(int elementCount, int minimumElementCount, generateCombinationCallback&& callback);
+    PCG_ENGINE_C_API_API void generateCombination(int elementCount, int* activeElementsIndex, int activeElementCount, generateCombinationCallback&& callback);
 }
 
 #endif // PCG_ENGINE_C_API_API_HPP

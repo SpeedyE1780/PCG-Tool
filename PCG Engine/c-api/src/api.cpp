@@ -1,5 +1,7 @@
 #include <pcg/engine/c-api/api.hpp>
 
+#include <pcg/engine/combination-generation/CombinationGenerator.hpp>
+
 #include <pcg/engine/level-generation/SimpleGeneration.hpp>
 #include <pcg/engine/level-generation/MultiDimensionalGeneration.hpp>
 #include <pcg/engine/level-generation/WaveFunctionCollapse.hpp>
@@ -90,5 +92,27 @@ namespace pcg::engine::c_api
         default:
             break;
         }
+    }
+
+    void generateCombination(int elementCount, generateCombinationCallback&& callback)
+    {
+        combination_generation::generateCombination(elementCount, callback);
+    }
+
+    void generateCombination(int elementCount, int minimumElementCount, generateCombinationCallback&& callback)
+    {
+        combination_generation::generateCombination(elementCount, minimumElementCount, callback);
+    }
+
+    void generateCombination(int elementCount, int* activeElementsIndex, int activeElementCount, generateCombinationCallback&& callback)
+    {
+        std::vector<int> activeElements(activeElementCount);
+
+        for (int i = 0; i < activeElementCount; ++i)
+        {
+            activeElements.emplace_back(activeElementsIndex[i]);
+        }
+
+        combination_generation::generateCombination(elementCount, activeElements, callback);
     }
 }

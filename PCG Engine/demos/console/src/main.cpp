@@ -107,5 +107,26 @@ int main()
     std::cout << "XY has x y: " << hasXY << std::endl;
     std::cout << "XY has x y z: " << hasXYZ << std::endl;
 
+    const std::vector<std::string> colors{ "Red", "Green", "Blue", "Purple", "Yellow", "Pink" };
+    auto combinationCallback = [&colors](int index, bool included)
+        {
+            if (included)
+            {
+                std::cout << colors[index] << " included in set" << std::endl;
+            }
+        };
+
+    std::cout << "Generate Combination:" << std::endl;
+    pcg::engine::cpp_api::generateCombination(colors.size(), combinationCallback);
+
+    std::cout << "Generate Combination with minimum of 3 elements:" << std::endl;
+    pcg::engine::cpp_api::generateCombination(colors.size(), 3, combinationCallback);
+
+    std::cout << "Generate Combination with minimum of Blue and Pink:" << std::endl;
+    pcg::engine::cpp_api::generateCombination(colors.size(), { 2, 5 }, combinationCallback);
+
+    std::cout << "Generate Combination with minimum of Red, Green and Pink:" << std::endl;
+    pcg::engine::cpp_api::generateCombination(colors.size(), { 0, 1, 5 }, combinationCallback);
+
     return 0;
 }
