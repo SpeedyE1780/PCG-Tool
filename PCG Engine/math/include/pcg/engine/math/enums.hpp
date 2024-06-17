@@ -3,18 +3,17 @@
 
 namespace pcg::engine::math
 {
-    namespace axis
+    enum class Axis
     {
-        using Flag = int;
-
-        constexpr Flag x = 1 << 0;
-        constexpr Flag y = 1 << 1;
-        constexpr Flag z = 1 << 2;
-        constexpr Flag xy = x | y;
-        constexpr Flag xz = x | z;
-        constexpr Flag yz = y | z;
-        constexpr Flag xyz = x | y | z;
-    }
+        none = 0,
+        x = 1 << 0,
+        y = 1 << 1,
+        z = 1 << 2,
+        xy = x | y,
+        xz = x | z,
+        yz = y | z,
+        xyz = x | y | z
+    };
 
     enum class Direction
     {

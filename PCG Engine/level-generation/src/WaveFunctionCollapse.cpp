@@ -221,21 +221,21 @@ namespace pcg::engine::level_generation
         }
     }
 
-    void waveFunctionCollapse(GenerationData* data, ExpansionMode mode, math::axis::Flag axis, utility::CallbackFunctor<void(math::Vector3, utility::enums::Direction)>&& callback)
+    void waveFunctionCollapse(GenerationData* data, ExpansionMode mode, math::Axis axis, utility::CallbackFunctor<void(math::Vector3, utility::enums::Direction)>&& callback)
     {
         std::vector<DirectionPair> directionPairs{};
 
-        if ((axis & math::axis::x) > 0)
+        if (utility::enums::hasFlag(axis, math::Axis::x))
         {
             directionPairs.emplace_back(DirectionPair{ utility::enums::Direction::left, utility::enums::Direction::right });
         }
 
-        if ((axis & math::axis::y) > 0)
+        if (utility::enums::hasFlag(axis, math::Axis::y))
         {
             directionPairs.emplace_back(DirectionPair{ utility::enums::Direction::up, utility::enums::Direction::down });
         }
 
-        if ((axis & math::axis::z) > 0)
+        if (utility::enums::hasFlag(axis, math::Axis::z))
         {
             directionPairs.emplace_back(DirectionPair{ utility::enums::Direction::forward, utility::enums::Direction::backward });
         }
