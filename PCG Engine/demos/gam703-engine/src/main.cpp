@@ -45,34 +45,34 @@ namespace
         index += 1;
     }
 
-    void addWFCPoints(gam703::engine::core::Engine& engine, pcg::engine::math::Vector3 point, int neighbors)
+    void addWFCPoints(gam703::engine::core::Engine& engine, pcg::engine::math::Vector3 point, pcg::engine::utility::enums::Direction neighbors)
     {
-        if (neighbors & pcg::engine::level_generation::Neighbors::left)
+        if (pcg::engine::utility::enums::hasFlag(neighbors, pcg::engine::utility::enums::Direction::left))
         {
             addNeighbor(engine, point + pcg::engine::math::Vector3::left);
         }
 
-        if (neighbors & pcg::engine::level_generation::Neighbors::right)
+        if (pcg::engine::utility::enums::hasFlag(neighbors, pcg::engine::utility::enums::Direction::right))
         {
             addNeighbor(engine, point + pcg::engine::math::Vector3::right);
         }
 
-        if (neighbors & pcg::engine::level_generation::Neighbors::forward)
+        if (pcg::engine::utility::enums::hasFlag(neighbors, pcg::engine::utility::enums::Direction::forward))
         {
             addNeighbor(engine, point + pcg::engine::math::Vector3::forward);
         }
 
-        if (neighbors & pcg::engine::level_generation::Neighbors::backward)
+        if (pcg::engine::utility::enums::hasFlag(neighbors, pcg::engine::utility::enums::Direction::backward))
         {
             addNeighbor(engine, point + pcg::engine::math::Vector3::backward);
         }
 
-        if (neighbors & pcg::engine::level_generation::Neighbors::up)
+        if (pcg::engine::utility::enums::hasFlag(neighbors, pcg::engine::utility::enums::Direction::up))
         {
             addNeighbor(engine, point + pcg::engine::math::Vector3::up);
         }
 
-        if (neighbors & pcg::engine::level_generation::Neighbors::down)
+        if (pcg::engine::utility::enums::hasFlag(neighbors, pcg::engine::utility::enums::Direction::down))
         {
             addNeighbor(engine, point + pcg::engine::math::Vector3::down);
         }
@@ -116,7 +116,7 @@ int main()
             addPoints(engine, point);
         };
 
-    auto addWFCPointCallback = [&engine](pcg::engine::math::Vector3 point, int neighbors)
+    auto addWFCPointCallback = [&engine](pcg::engine::math::Vector3 point, pcg::engine::utility::enums::Direction neighbors)
         {
             addWFCPoints(engine, point, neighbors);
         };

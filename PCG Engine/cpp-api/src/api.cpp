@@ -43,7 +43,7 @@ namespace pcg::engine::cpp_api
         level_generation::multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::axis::Flag axis, std::function<void(math::Vector3, int)>&& callback)
+    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::axis::Flag axis, std::function<void(math::Vector3, utility::enums::Direction)>&& callback)
     {
         level_generation::waveFunctionCollapse(data, mode, axis, callback);
     }

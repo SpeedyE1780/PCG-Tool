@@ -2,40 +2,29 @@
 
 #include <pcg/engine/math/random.hpp>
 
+#include <functional>
+
 namespace pcg::engine::level_generation
 {
-    Node::Node(const math::Vector3& position) :position(position), neighbors()
+    Node::Node(const math::Vector3& position) : position(position), neighbors()
     {
     }
 
-    int Neighbors::getIntegerRepresentation() const
-    {
-        return neighbors.to_ulong();
-    }
-
-    int Neighbors::getNeighborCount() const
-    {
-        return neighbors.count();
-    }
-
-    bool Neighbors::hasNeighbor(int neighbor) const
-    {
-        return (neighbors & std::bitset<count>(neighbor)).any();
-    }
-
-    void Neighbors::addNeighbor(int neighbor)
+    void Neighbors::addNeighbor(utility::enums::Direction neighbor)
     {
         neighbors |= neighbor;
+        neighborCount += 1;
     }
 
-    void Neighbors::removeNeighbor(int neighbor)
+    void Neighbors::removeNeighbor(utility::enums::Direction neighbor)
     {
         neighbors &= ~neighbor;
+        neighborCount -= 1;
     }
 
-    void Neighbors::generateNeighbors(int additionalNeighbor, std::vector<int>&& directions)
+    void Neighbors::generateNeighbors(int additionalNeighbor, std::vector<utility::enums::Direction>&& directions)
     {
-        for (int direction : directions)
+        for (utility::enums::Direction direction : directions)
         {
             if (!hasNeighbor(direction))
             {
