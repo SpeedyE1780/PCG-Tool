@@ -98,4 +98,9 @@ namespace pcg::engine::c_api
     {
         combination_generation::generateCombination(elementCount, callback);
     }
+
+    void generateCombination(int elementCount, int minimumElementCount, generateCombinationCallback&& callback)
+    {
+        combination_generation::generateCombination(elementCount, minimumElementCount, callback);
+    }
 }
