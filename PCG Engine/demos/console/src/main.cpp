@@ -107,5 +107,15 @@ int main()
     std::cout << "XY has x y: " << hasXY << std::endl;
     std::cout << "XY has x y z: " << hasXYZ << std::endl;
 
+    std::vector<std::string> color{ "Red", "Green", "Blue", "Purple", "Yellow", "Pink" };
+
+    pcg::engine::cpp_api::generateCombination(color.size(), [&color](int index, bool included)
+        {
+            if (included)
+            {
+                std::cout << color[index] << " included in set" << std::endl;
+            }
+        });
+
     return 0;
 }

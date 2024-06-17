@@ -1,8 +1,11 @@
+#include <pcg/engine/combination-generation/CombinationGenerator.hpp>
+
+#include <pcg/engine/cpp-api/api.hpp>
+
 #include <pcg/engine/level-generation/SimpleGeneration.hpp>
 #include <pcg/engine/level-generation/MultiDimensionalGeneration.hpp>
 #include <pcg/engine/level-generation/WaveFunctionCollapse.hpp>
 
-#include <pcg/engine/cpp-api/api.hpp>
 
 #include <pcg/engine/maze/AldousBroder.hpp>
 #include <pcg/engine/maze/BinaryTree.hpp>
@@ -90,6 +93,11 @@ namespace pcg::engine::cpp_api
         default:
             break;
         }
+    }
+
+    void generateCombination(int elementCount, std::function<void(int, bool)>&& callback)
+    {
+        combination_generation::generateCombination(elementCount, callback);
     }
 }
 
