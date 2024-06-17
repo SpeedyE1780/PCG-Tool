@@ -1,6 +1,7 @@
 #include <pcg/engine/math/vector3.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
+#include <pcg/engine/utility/Enums.hpp>
 
 #include <unordered_set>
 
@@ -52,21 +53,21 @@ namespace pcg::engine::math
         return scaledVector;
     }
 
-    std::vector<const Vector3*> getUnitVectors(axis::Flag axis)
+    std::vector<const Vector3*> getUnitVectors(Axis axis)
     {
         std::vector<const Vector3*> directions{};
 
-        if ((axis & axis::x) > 0)
+        if (utility::enums::hasFlag(axis, Axis::x))
         {
             directions.insert(directions.begin(), { &Vector3::left, &Vector3::right });
         }
 
-        if ((axis & axis::y) > 0)
+        if (utility::enums::hasFlag(axis, Axis::y))
         {
             directions.insert(directions.begin(), { &Vector3::up, &Vector3::down });
         }
 
-        if ((axis & axis::z) > 0)
+        if (utility::enums::hasFlag(axis, Axis::z))
         {
             directions.insert(directions.begin(), { &Vector3::forward, &Vector3::backward });
         }

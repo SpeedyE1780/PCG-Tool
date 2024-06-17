@@ -26,12 +26,12 @@ namespace pcg::engine::cpp_api
         utility::setLoggingFunction(logFunction);
     }
 
-    void simpleGeneration(level_generation::GenerationData* data, math::axis::Flag axis, math::Direction direction, std::function<void(math::Vector3)>&& callback)
+    void simpleGeneration(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, std::function<void(math::Vector3)>&& callback)
     {
         level_generation::simpleGeneration(data, axis, direction, callback);
     }
 
-    void multiDimensionGeneration(level_generation::GenerationData* data, math::axis::Flag axis, bool disableOverlap, std::function<void(math::Vector3)>&& callback)
+    void multiDimensionGeneration(level_generation::GenerationData* data, math::Axis axis, bool disableOverlap, std::function<void(math::Vector3)>&& callback)
     {
         std::vector<const math::Vector3*> directions = math::getUnitVectors(axis);
 
@@ -43,7 +43,7 @@ namespace pcg::engine::cpp_api
         level_generation::multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::axis::Flag axis, std::function<void(math::Vector3, utility::enums::Direction)>&& callback)
+    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::Axis axis, std::function<void(math::Vector3, utility::enums::Direction)>&& callback)
     {
         level_generation::waveFunctionCollapse(data, mode, axis, callback);
     }

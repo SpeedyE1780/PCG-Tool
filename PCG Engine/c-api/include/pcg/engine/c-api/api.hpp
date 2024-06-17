@@ -34,9 +34,9 @@ namespace pcg::engine::c_api
     PCG_ENGINE_C_API_API void setSeed(unsigned int seed);
     PCG_ENGINE_C_API_API void setRandomGenerator(setSeedCallback seed, generateNumberCallback generate);
     PCG_ENGINE_C_API_API void setLoggingFunction(logMessage logFunction);
-    PCG_ENGINE_C_API_API void simpleGeneration(level_generation::GenerationData* data, math::axis::Flag axis, math::Direction direction, addPointCallback callback);
-    PCG_ENGINE_C_API_API void multiDimensionGeneration(level_generation::GenerationData* data, math::axis::Flag axis, bool disableOverlap, addPointCallback callback);
-    PCG_ENGINE_C_API_API void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::axis::Flag axis, addWFCPointCallback callback);
+    PCG_ENGINE_C_API_API void simpleGeneration(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback);
+    PCG_ENGINE_C_API_API void multiDimensionGeneration(level_generation::GenerationData* data, math::Axis axis, bool disableOverlap, addPointCallback callback);
+    PCG_ENGINE_C_API_API void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::Axis axis, addWFCPointCallback callback);
     PCG_ENGINE_C_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazePointCallback callback);
 }
 

@@ -10,7 +10,7 @@
 
 namespace pcg::engine::level_generation
 {
-    void simpleGeneration(GenerationData* data, math::axis::Flag axis, math::Direction direction, utility::CallbackFunctor<void(math::Vector3)>&& callback);
+    void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, utility::CallbackFunctor<void(math::Vector3)>&& callback);
 }
 
 #endif // PCG_ENGINE_LEVEL_GENERATION_SIMPLE_GENERATION_HPP
