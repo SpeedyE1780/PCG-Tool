@@ -15,7 +15,7 @@ namespace pcg::engine::maze
 
         utility::logInfo("Aldous - Broder Maze Generation Started");
 
-        std::vector<int> directions{ left, right, up, down };
+        std::vector<utility::enums::Direction> directions{ utility::enums::Direction::left, utility::enums::Direction::right, utility::enums::Direction::forward, utility::enums::Direction::backward };
         auto randomDevice = std::random_device{};
         auto randomEngine = std::default_random_engine{ randomDevice() };
 
@@ -33,13 +33,13 @@ namespace pcg::engine::maze
         {
             std::shuffle(begin(directions), end(directions), randomEngine);
 
-            for (int direction : directions)
+            for (utility::enums::Direction direction : directions)
             {
                 auto [nx, ny] = getNeighborXY(x, y, direction);
 
                 if (nx >= 0 && ny >= 0 && nx < width && ny < height)
                 {
-                    if (grid[ny][nx] == 0)
+                    if (grid[ny][nx] == utility::enums::Direction::none)
                     {
                         grid[y][x] |= direction;
                         grid[ny][nx] |= getFlippedDirection(direction);

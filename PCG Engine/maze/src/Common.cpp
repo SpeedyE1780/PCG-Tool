@@ -5,61 +5,64 @@
 
 namespace pcg::engine::maze
 {
-    const math::Vector3& getDirection(int direction)
+    namespace
+    {
+        constexpr const math::Vector3& getDirection(utility::enums::Direction direction)
+        {
+            switch (direction)
+            {
+            case utility::enums::Direction::left:
+            {
+                return math::Vector3::left;
+            }
+            case utility::enums::Direction::right:
+            {
+                return math::Vector3::right;
+            }
+            case utility::enums::Direction::forward:
+            {
+                return math::Vector3::up;
+            }
+            case utility::enums::Direction::backward:
+            {
+                return math::Vector3::down;
+            }
+            default:
+            {
+                return math::Vector3::left;
+            }
+            }
+        }
+    }
+
+    utility::enums::Direction getFlippedDirection(utility::enums::Direction direction)
     {
         switch (direction)
         {
-        case left:
+        case utility::enums::Direction::left:
         {
-            return math::Vector3::left;
+            return utility::enums::Direction::right;
         }
-        case right:
+        case utility::enums::Direction::right:
         {
-            return math::Vector3::right;
+            return utility::enums::Direction::left;
         }
-        case up:
+        case utility::enums::Direction::forward:
         {
-            return math::Vector3::up;
+            return utility::enums::Direction::backward;
         }
-        case down:
+        case utility::enums::Direction::backward:
         {
-            return math::Vector3::down;
+            return utility::enums::Direction::forward;
         }
         default:
         {
-            return math::Vector3::left;
+            return utility::enums::Direction::left;
         }
         }
     }
 
-    int getFlippedDirection(int direction)
-    {
-        switch (direction)
-        {
-        case left:
-        {
-            return right;
-        }
-        case right:
-        {
-            return left;
-        }
-        case up:
-        {
-            return down;
-        }
-        case down:
-        {
-            return up;
-        }
-        default:
-        {
-            return left;
-        }
-        }
-    }
-
-    std::tuple<int, int> getNeighborXY(int x, int y, int direction)
+    std::tuple<int, int> getNeighborXY(int x, int y, utility::enums::Direction direction)
     {
         const math::Vector3& directionVector = getDirection(direction);
         int nx = x + directionVector.x;

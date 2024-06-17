@@ -32,7 +32,7 @@ namespace pcg::engine::cpp_api
     PCG_ENGINE_CPP_API_API void simpleGeneration(level_generation::GenerationData* data, math::axis::Flag axis, math::Direction direction, std::function<void(math::Vector3)>&& callback);
     PCG_ENGINE_CPP_API_API void multiDimensionGeneration(level_generation::GenerationData* data, math::axis::Flag axis, bool disableOverlap, std::function<void(math::Vector3)>&& callback);
     PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::axis::Flag axis, std::function<void(math::Vector3, utility::enums::Direction)>&& callback);
-    PCG_ENGINE_CPP_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, std::function<void(int x, int y, int neighbors)>&& callback);
+    PCG_ENGINE_CPP_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, std::function<void(int x, int y, utility::enums::Direction neighbors)>&& callback);
 }
 
 #endif // PCG_ENGINE_CPP_API_API_HPP

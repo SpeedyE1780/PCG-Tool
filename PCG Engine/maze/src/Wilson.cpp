@@ -16,10 +16,10 @@ namespace pcg::engine::maze
         {
             int x;
             int y;
-            int direction;
+            utility::enums::Direction direction;
         };
 
-        std::vector<WilsonWalkData> walk(const Grid& grid, std::vector<int>& directions, std::default_random_engine& randomEngine)
+        std::vector<WilsonWalkData> walk(const Grid& grid, std::vector<utility::enums::Direction>& directions, std::default_random_engine& randomEngine)
         {
             const int width = grid.size();
             const int height = grid[0].size();
@@ -30,21 +30,21 @@ namespace pcg::engine::maze
             {
                 x = randomEngine() % width;
                 y = randomEngine() % height;
-            } while (grid[y][x] != 0);
+            } while (grid[y][x] != utility::enums::Direction::none);
 
             int startX = x;
             int startY = y;
             bool walking = true;
 
-            std::map<std::tuple<int, int>, int> visits;
-            visits[{x, y}] = 0;
+            std::map<std::tuple<int, int>, utility::enums::Direction> visits;
+            visits[{x, y}] = utility::enums::Direction::none;
 
             while (walking)
             {
                 walking = false;
                 std::shuffle(begin(directions), end(directions), randomEngine);
 
-                for (int direction : directions)
+                for (utility::enums::Direction direction : directions)
                 {
                     auto [nx, ny] = getNeighborXY(x, y, direction);
 
@@ -52,7 +52,7 @@ namespace pcg::engine::maze
                     {
                         visits[{x, y}] = direction;
 
-                        if (grid[ny][nx] != 0)
+                        if (grid[ny][nx] != utility::enums::Direction::none)
                         {
                             break;
                         }
@@ -75,8 +75,8 @@ namespace pcg::engine::maze
             while (visits.find({ x, y }) != visits.end())
             {
                 std::ostringstream oss{};
-                int direction = visits[{x, y}];
-                oss << "Adding: " << x << "-" << y << ": " << direction << " to path";
+                utility::enums::Direction direction = visits[{x, y}];
+                oss << "Adding: " << x << "-" << y << " to path";
                 utility::logInfo(oss.str());
 
                 path.emplace_back(WilsonWalkData{ x, y, direction });
@@ -92,7 +92,7 @@ namespace pcg::engine::maze
         utility::logInfo("Wilson Maze Generation Started");
 
         std::ostringstream oss{};
-        std::vector<int> directions{ left, right, up, down };
+        std::vector<utility::enums::Direction> directions{ utility::enums::Direction::left, utility::enums::Direction::right, utility::enums::Direction::forward, utility::enums::Direction::backward };
         auto randomDevice = std::random_device{};
         auto randomEngine = std::default_random_engine{ randomDevice() };
 
@@ -101,7 +101,7 @@ namespace pcg::engine::maze
         int y = randomEngine() % height;
         int unvisited = width * height - 1;
 
-        grid[y][x] = in;
+        grid[y][x] = static_cast<utility::enums::Direction>(in);
 
         oss << "Started with:" << x << "-" << y << " unvisited: " << unvisited;
         utility::logInfo(oss.str());

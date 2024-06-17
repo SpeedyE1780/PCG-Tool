@@ -24,8 +24,8 @@ namespace pcg::engine::maze
                 {
                     utility::logInfo("Ending run and carving north");
                     int cell = math::Random::generate(runStart, w + 1);
-                    grid[h][cell] |= down;
-                    grid[h - 1][cell] |= up;
+                    grid[h][cell] |= utility::enums::Direction::backward;
+                    grid[h - 1][cell] |= utility::enums::Direction::forward;
                     runStart = w + 1;
                     std::ostringstream oss{};
                     oss << "Value set at " << cell << "-" << h << "/" << cell << "-" << h - 1;
@@ -40,8 +40,8 @@ namespace pcg::engine::maze
                 else if (w + 1 < width)
                 {
                     utility::logInfo("Carving east");
-                    grid[h][w] |= right;
-                    grid[h][w + 1] |= left;
+                    grid[h][w] |= utility::enums::Direction::right;
+                    grid[h][w + 1] |= utility::enums::Direction::left;
                     std::ostringstream oss{};
                     oss << "Value set at " << w << "-" << h << "/" << w + 1 << "-" << h;
                     utility::logInfo(oss.str());

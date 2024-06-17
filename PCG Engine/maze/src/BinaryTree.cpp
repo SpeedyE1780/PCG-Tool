@@ -9,7 +9,7 @@ namespace pcg::engine::maze
 {
     namespace
     {
-        void binaryTree(int width, int height, bool invokeAfterGeneration, std::vector<int> directions, MazeCallback&& callback)
+        void binaryTree(int width, int height, bool invokeAfterGeneration, std::vector<utility::enums::Direction> directions, MazeCallback&& callback)
         {
             Grid grid = generateGrid(width, height);
             auto randomDevice = std::random_device{};
@@ -21,7 +21,7 @@ namespace pcg::engine::maze
                 {
                     std::shuffle(begin(directions), end(directions), randomEngine);
 
-                    for (int direction : directions)
+                    for (utility::enums::Direction direction : directions)
                     {
                         auto [nw, nh] = getNeighborXY(w, h, direction);
 
@@ -64,28 +64,28 @@ namespace pcg::engine::maze
         case Diagonal::NE:
         {
             utility::logInfo("Binary Tree NE Maze Generation Started");
-            binaryTree(width, height, invokeAfterGeneration, { up, right }, std::move(callback));
+            binaryTree(width, height, invokeAfterGeneration, { utility::enums::Direction::forward, utility::enums::Direction::right }, std::move(callback));
             utility::logInfo("Binary Tree NE Maze Generation Ended");
             break;
         }
         case Diagonal::NW:
         {
             utility::logInfo("Binary Tree NW Maze Generation Started");
-            binaryTree(width, height, invokeAfterGeneration, { up, left }, std::move(callback));
+            binaryTree(width, height, invokeAfterGeneration, { utility::enums::Direction::forward, utility::enums::Direction::left }, std::move(callback));
             utility::logInfo("Binary Tree NW Maze Generation Ended");
             break;
         }
         case Diagonal::SE:
         {
             utility::logInfo("Binary Tree SE Maze Generation Started");
-            binaryTree(width, height, invokeAfterGeneration, { down, right }, std::move(callback));
+            binaryTree(width, height, invokeAfterGeneration, { utility::enums::Direction::backward, utility::enums::Direction::right }, std::move(callback));
             utility::logInfo("Binary Tree SE Maze Generation Ended");
             break;
         }
         case Diagonal::SW:
         {
             utility::logInfo("Binary Tree SW Maze Generation Started");
-            binaryTree(width, height, invokeAfterGeneration, { down, left }, std::move(callback));
+            binaryTree(width, height, invokeAfterGeneration, { utility::enums::Direction::backward, utility::enums::Direction::left }, std::move(callback));
             utility::logInfo("Binary Tree SW Maze Generation Ended");
             break;
         }
