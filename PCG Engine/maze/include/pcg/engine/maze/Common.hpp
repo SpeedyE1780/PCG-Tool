@@ -9,7 +9,7 @@
 
 namespace pcg::engine::maze
 {
-    using grid = std::vector<std::vector<int>>;
+    using Grid = std::vector<std::vector<int>>;
     using MazeCallback = utility::CallbackFunctor<void(int, int, int)>;
 
     static constexpr int left = 1 << 0;
@@ -21,7 +21,7 @@ namespace pcg::engine::maze
     const math::Vector3& getDirection(int direction);
     int getFlippedDirection(int direction);
     std::tuple<int, int> getNeighborXY(int x, int y, int direction);
-    inline grid generateGrid(int width, int height, int defaultValue = 0) { return grid(width, std::vector<int>(height, defaultValue)); }
+    inline Grid generateGrid(int width, int height, int defaultValue = 0) { return Grid(width, std::vector<int>(height, defaultValue)); }
 }
 
 #endif // PCG_ENGINE_MAZE_COMMON_HPP

@@ -12,7 +12,7 @@ namespace pcg::engine::maze
     {
         utility::logInfo("Sidewinder Maze Generation Started");
 
-        grid grid = generateGrid(width, height);
+        Grid grid = generateGrid(width, height);
 
         for (std::size_t h = 0; h < height; ++h)
         {

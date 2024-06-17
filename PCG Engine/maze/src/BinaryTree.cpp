@@ -11,7 +11,7 @@ namespace pcg::engine::maze
     {
         void binaryTree(int width, int height, std::vector<int> directions, MazeCallback&& callback)
         {
-            grid grid = generateGrid(width, height);
+            Grid grid = generateGrid(width, height);
             auto randomDevice = std::random_device{};
             auto randomEngine = std::default_random_engine{ randomDevice() };
 

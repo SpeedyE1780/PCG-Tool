@@ -19,7 +19,7 @@ namespace pcg::engine::maze
             int direction;
         };
 
-        std::vector<WilsonWalkData> walk(const grid& grid, std::vector<int>& directions, std::default_random_engine& randomEngine)
+        std::vector<WilsonWalkData> walk(const Grid& grid, std::vector<int>& directions, std::default_random_engine& randomEngine)
         {
             const int width = grid.size();
             const int height = grid[0].size();
@@ -96,7 +96,7 @@ namespace pcg::engine::maze
         auto randomDevice = std::random_device{};
         auto randomEngine = std::default_random_engine{ randomDevice() };
 
-        grid grid = generateGrid(width, height);
+        Grid grid = generateGrid(width, height);
         int x = randomEngine() % width;
         int y = randomEngine() % height;
         int unvisited = width * height - 1;
