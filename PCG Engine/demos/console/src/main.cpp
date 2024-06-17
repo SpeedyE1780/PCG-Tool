@@ -101,5 +101,11 @@ int main()
     std::cout << "Maze Generation: sidewinder" << std::endl;
     generateMaze(width, height, true, MazeAlgorithm::sidewinder, addMazePoint);
 
+    constexpr bool hasXY = pcg::engine::utility::enums::hasFlag(Axis::xy, Axis::x, Axis::y);
+    constexpr bool hasXYZ = pcg::engine::utility::enums::hasFlag(Axis::xy, Axis::x, Axis::y, Axis::z);
+
+    std::cout << "XY has x y: " << hasXY << std::endl;
+    std::cout << "XY has x y z: " << hasXYZ << std::endl;
+
     return 0;
 }
