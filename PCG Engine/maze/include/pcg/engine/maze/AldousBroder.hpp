@@ -5,7 +5,7 @@
 
 namespace pcg::engine::maze
 {
-    void aldousBroder(int width, int height, MazeCallback&& callback);
+    void aldousBroder(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback);
 }
 
 #endif // PCG_ENGINE_MAZE_ALDOUS_BRODER_HPP

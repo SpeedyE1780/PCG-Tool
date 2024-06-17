@@ -19,7 +19,7 @@ namespace pcg::engine::maze
             int direction;
         };
 
-        std::vector<WilsonWalkData> walk(const grid& grid, std::vector<int>& directions, std::default_random_engine& randomEngine)
+        std::vector<WilsonWalkData> walk(const Grid& grid, std::vector<int>& directions, std::default_random_engine& randomEngine)
         {
             const int width = grid.size();
             const int height = grid[0].size();
@@ -87,7 +87,7 @@ namespace pcg::engine::maze
         }
     }
 
-    void wilson(int width, int height, MazeCallback&& callback)
+    void wilson(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
         utility::logInfo("Wilson Maze Generation Started");
 
@@ -96,7 +96,7 @@ namespace pcg::engine::maze
         auto randomDevice = std::random_device{};
         auto randomEngine = std::default_random_engine{ randomDevice() };
 
-        grid grid = generateGrid(width, height);
+        Grid grid = generateGrid(width, height);
         int x = randomEngine() % width;
         int y = randomEngine() % height;
         int unvisited = width * height - 1;
@@ -119,9 +119,24 @@ namespace pcg::engine::maze
                 oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited;
                 utility::logInfo(oss.str());
                 oss.str("");
-                callback(x, y, grid[y][x]);
-                callback(nx, ny, grid[ny][nx]);
                 unvisited -= 1;
+
+                if (!invokeAfterGeneration)
+                {
+                    callback(x, y, grid[y][x]);
+                    callback(nx, ny, grid[ny][nx]);
+                }
+            }
+        }
+
+        if (invokeAfterGeneration)
+        {
+            for (int y = 0; y < grid.size(); ++y)
+            {
+                for (int x = 0; x < grid[0].size(); ++x)
+                {
+                    callback(x, y, grid[y][x]);
+                }
             }
         }
 

@@ -5,7 +5,7 @@
 
 namespace pcg::engine::maze
 {
-    void sidewinder(int width, int height, MazeCallback&& callback);
+    void sidewinder(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback);
 }
 
 #endif // PCG_ENGINE_MAZE_SIDEWINDER_HPP
