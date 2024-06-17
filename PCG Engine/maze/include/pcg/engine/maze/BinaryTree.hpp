@@ -2,10 +2,17 @@
 #define PCG_ENGINE_MAZE_BINARY_TREE_HPP
 
 #include <pcg/engine/maze/Common.hpp>
-#include <pcg/engine/maze/Enums.hpp>
 
 namespace pcg::engine::maze
 {
+    enum class Diagonal
+    {
+        NE,
+        NW,
+        SE,
+        SW
+    };
+
     void binaryTree(int width, int height, Diagonal diagonal, MazeCallback&& callback);
 }
 

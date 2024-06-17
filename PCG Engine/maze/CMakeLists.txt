@@ -16,7 +16,6 @@ target_sources(${PROJECT_NAME} PRIVATE
 "include/pcg/engine/maze/AldousBroder.hpp"
 "include/pcg/engine/maze/BinaryTree.hpp"
 "include/pcg/engine/maze/Common.hpp"
-"include/pcg/engine/maze/Enums.hpp"
 "include/pcg/engine/maze/Sidewinder.hpp"
 "include/pcg/engine/maze/Wilson.hpp"
 )

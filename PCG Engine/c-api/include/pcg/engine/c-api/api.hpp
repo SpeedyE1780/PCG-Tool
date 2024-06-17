@@ -5,8 +5,6 @@
 
 #include <pcg/engine/level-generation/GenerationData.hpp>
 
-#include <pcg/engine/maze/enums.hpp>
-
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/random.hpp>
 
