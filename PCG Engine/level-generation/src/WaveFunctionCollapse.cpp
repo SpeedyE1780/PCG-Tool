@@ -16,7 +16,7 @@ namespace pcg::engine::level_generation
     namespace
     {
         using NodeVector = std::vector <Node>;
-        using DirectionPair = std::tuple<int, int>;
+        using DirectionPair = std::tuple<utility::enums::Direction, utility::enums::Direction>;
 
         template<typename NodeCollection>
         std::optional<NodeVector::iterator> pushNode(NodeCollection& pendingNodes, NodeVector& spawnedNodes, const math::Vector3& position)
@@ -55,31 +55,31 @@ namespace pcg::engine::level_generation
             return collection.top();
         }
 
-        math::Vector3 getNeighborPosition(const math::Vector3& currentPosition, int side, float size)
+        math::Vector3 getNeighborPosition(const math::Vector3& currentPosition, utility::enums::Direction side, float size)
         {
             switch (side)
             {
-            case Neighbors::left:
+            case utility::enums::Direction::left:
             {
                 return currentPosition + math::Vector3::left * size;
             }
-            case Neighbors::right:
+            case utility::enums::Direction::right:
             {
                 return currentPosition + math::Vector3::right * size;
             }
-            case Neighbors::forward:
+            case utility::enums::Direction::forward:
             {
                 return currentPosition + math::Vector3::forward * size;
             }
-            case Neighbors::backward:
+            case utility::enums::Direction::backward:
             {
                 return currentPosition + math::Vector3::backward * size;
             }
-            case Neighbors::up:
+            case utility::enums::Direction::up:
             {
                 return currentPosition + math::Vector3::up * size;
             }
-            case Neighbors::down:
+            case utility::enums::Direction::down:
             {
                 return currentPosition + math::Vector3::down * size;
             }
@@ -90,7 +90,7 @@ namespace pcg::engine::level_generation
             }
         }
 
-        void addNeighborToSpawnedNode(Node& spawnedNode, int side)
+        void addNeighborToSpawnedNode(Node& spawnedNode, utility::enums::Direction side)
         {
             spawnedNode.getNeighbors().addNeighbor(side);
         }
@@ -125,7 +125,7 @@ namespace pcg::engine::level_generation
         };
 
         template<typename NodeCollection>
-        void checkNeighbor(WaveFunctionCollapseData<NodeCollection>& data, int currentSide, int flippedSide)
+        void checkNeighbor(WaveFunctionCollapseData<NodeCollection>& data, utility::enums::Direction currentSide, utility::enums::Direction flippedSide)
         {
             if (!data.getCurrentNode().getNeighbors().hasNeighbor(currentSide))
             {
@@ -146,7 +146,7 @@ namespace pcg::engine::level_generation
         }
 
         template<typename NodeCollection>
-        void checkNeighborPair(WaveFunctionCollapseData<NodeCollection>& data, int side, int flippedSide)
+        void checkNeighborPair(WaveFunctionCollapseData<NodeCollection>& data, utility::enums::Direction side, utility::enums::Direction flippedSide)
         {
             if (math::Random::generate(0, 2) == 0)
             {
@@ -160,9 +160,9 @@ namespace pcg::engine::level_generation
             }
         }
 
-        std::vector<int> getShuffledDirections(const std::vector<DirectionPair>& directionPairs, std::default_random_engine& rd)
+        std::vector<utility::enums::Direction> getShuffledDirections(const std::vector<DirectionPair>& directionPairs, std::default_random_engine& rd)
         {
-            std::vector<int> directions{};
+            std::vector<utility::enums::Direction> directions{};
 
             for (const auto& direction : directionPairs)
             {
@@ -176,7 +176,7 @@ namespace pcg::engine::level_generation
         }
 
         template<typename NodeCollection>
-        void waveFunctionCollapse(GenerationData* data, std::vector<DirectionPair>&& directionPairs, utility::CallbackFunctor<void(math::Vector3, int)>&& callback)
+        void waveFunctionCollapse(GenerationData* data, std::vector<DirectionPair>&& directionPairs, utility::CallbackFunctor<void(math::Vector3, utility::enums::Direction)>&& callback)
         {
             NodeCollection pushedNodes{};
             NodeVector spawnedNodes{};
@@ -214,30 +214,30 @@ namespace pcg::engine::level_generation
                     checkNeighborPair(wfcData, std::get<0>(directionPair), std::get<1>(directionPair));
                 }
 
-                callback(spawnedNodes.at(currentIndex).getPosition(), spawnedNodes.at(currentIndex).getNeighbors().getIntegerRepresentation());
+                callback(spawnedNodes.at(currentIndex).getPosition(), spawnedNodes.at(currentIndex).getNeighbors().getNeighbors());
             }
 
             utility::logInfo("Wave Function Collapsed Spawned: " + std::to_string(spawnedNodes.size()));
         }
     }
 
-    void waveFunctionCollapse(GenerationData* data, ExpansionMode mode, math::axis::Flag axis, utility::CallbackFunctor<void(math::Vector3, int)>&& callback)
+    void waveFunctionCollapse(GenerationData* data, ExpansionMode mode, math::axis::Flag axis, utility::CallbackFunctor<void(math::Vector3, utility::enums::Direction)>&& callback)
     {
         std::vector<DirectionPair> directionPairs{};
 
         if ((axis & math::axis::x) > 0)
         {
-            directionPairs.emplace_back(DirectionPair{ Neighbors::left, Neighbors::right });
+            directionPairs.emplace_back(DirectionPair{ utility::enums::Direction::left, utility::enums::Direction::right });
         }
 
         if ((axis & math::axis::y) > 0)
         {
-            directionPairs.emplace_back(DirectionPair{ Neighbors::up, Neighbors::down });
+            directionPairs.emplace_back(DirectionPair{ utility::enums::Direction::up, utility::enums::Direction::down });
         }
 
         if ((axis & math::axis::z) > 0)
         {
-            directionPairs.emplace_back(DirectionPair{ Neighbors::forward, Neighbors::backward });
+            directionPairs.emplace_back(DirectionPair{ utility::enums::Direction::forward, utility::enums::Direction::backward });
         }
 
         if (mode == ExpansionMode::DFS)

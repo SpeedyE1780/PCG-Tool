@@ -20,37 +20,37 @@ namespace
         std::cout << "Point:" << point.x << "," << point.y << "," << point.z << std::endl;
     }
 
-    void addWFCPoints(Vector3 point, int neighbors)
+    void addWFCPoints(Vector3 point, pcg::engine::utility::enums::Direction neighbors)
     {
         std::cout << "Point:" << point.x << "," << point.y << "," << point.z << std::endl;
         std::cout << "Neighbors: ";
 
-        if (neighbors & Neighbors::left)
+        if (pcg::engine::utility::enums::hasFlag(neighbors, pcg::engine::utility::enums::Direction::left))
         {
             std::cout << "L";
         }
 
-        if (neighbors & Neighbors::right)
+        if (pcg::engine::utility::enums::hasFlag(neighbors, pcg::engine::utility::enums::Direction::right))
         {
             std::cout << "R";
         }
 
-        if (neighbors & Neighbors::forward)
+        if (pcg::engine::utility::enums::hasFlag(neighbors, pcg::engine::utility::enums::Direction::forward))
         {
             std::cout << "F";
         }
 
-        if (neighbors & Neighbors::backward)
+        if (pcg::engine::utility::enums::hasFlag(neighbors, pcg::engine::utility::enums::Direction::backward))
         {
             std::cout << "B";
         }
 
-        if (neighbors & Neighbors::up)
+        if (pcg::engine::utility::enums::hasFlag(neighbors, pcg::engine::utility::enums::Direction::up))
         {
             std::cout << "U";
         }
 
-        if (neighbors & Neighbors::down)
+        if (pcg::engine::utility::enums::hasFlag(neighbors, pcg::engine::utility::enums::Direction::down))
         {
             std::cout << "D";
         }
@@ -58,9 +58,9 @@ namespace
         std::cout << std::endl;
     }
 
-    void addMazePoint(int x, int y, int neighbor)
+    void addMazePoint(int x, int y, pcg::engine::utility::enums::Direction neighbor)
     {
-        std::cout << "Point: " << x << "-" << y << " value: " << neighbor << std::endl;
+        std::cout << "Point: " << x << "-" << y << " value: " << static_cast<int>(neighbor) << std::endl;
     }
 
     void logMessage(const char* message)

@@ -3,32 +3,26 @@
 
 #include <pcg/engine/math/vector3.hpp>
 
-#include <bitset>
+#include <pcg/engine/utility/Enums.hpp>
+
+#include <vector>
 
 namespace pcg::engine::level_generation
 {
     class Neighbors
     {
     public:
-        static constexpr int count = 6;
-        static constexpr int combinationCount = 1 << count;
-        static constexpr int left = 1 << 0;
-        static constexpr int right = 1 << 1;
-        static constexpr int forward = 1 << 2;
-        static constexpr int backward = 1 << 3;
-        static constexpr int up = 1 << 4;
-        static constexpr int down = 1 << 5;
+        void addNeighbor(utility::enums::Direction neighbor);
+        void removeNeighbor(utility::enums::Direction neighbor);
+        bool hasNeighbor(utility::enums::Direction neighbor) const { return pcg::engine::utility::enums::hasFlag(neighbors, neighbor); }
+        utility::enums::Direction getNeighbors() const { return neighbors; }
+        int getNeighborCount() const { return neighborCount; }
 
-        bool hasNeighbor(int neighbor) const;
-        void addNeighbor(int neighbor);
-        void removeNeighbor(int neighbor);
-        int getIntegerRepresentation() const;
-        int getNeighborCount() const;
-
-        void generateNeighbors(int additionalNeighbor, std::vector<int>&& directions);
+        void generateNeighbors(int additionalNeighbor, std::vector<utility::enums::Direction>&& directions);
 
     private:
-        std::bitset<count> neighbors = 0;
+        utility::enums::Direction neighbors = utility::enums::Direction::none;
+        int neighborCount = 0;
     };
 
     class Node
