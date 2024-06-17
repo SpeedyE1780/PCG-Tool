@@ -9,7 +9,7 @@
 
 namespace pcg::engine::maze
 {
-    void aldousBroder(int width, int height, MazeCallback&& callback)
+    void aldousBroder(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
         std::ostringstream oss{};
 
@@ -47,13 +47,28 @@ namespace pcg::engine::maze
                         oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited;
                         utility::logInfo(oss.str());
                         oss.str("");
-                        callback(x, y, grid[y][x]);
-                        callback(nx, ny, grid[ny][nx]);
+
+                        if (!invokeAfterGeneration)
+                        {
+                            callback(x, y, grid[y][x]);
+                            callback(nx, ny, grid[ny][nx]);
+                        }
                     }
 
                     x = nx;
                     y = ny;
                     break;
+                }
+            }
+        }
+
+        if (invokeAfterGeneration)
+        {
+            for (int y = 0; y < grid.size(); ++y)
+            {
+                for (int x = 0; x < grid[0].size(); ++x)
+                {
+                    callback(x, y, grid[y][x]);
                 }
             }
         }

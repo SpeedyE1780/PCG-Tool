@@ -8,7 +8,7 @@
 
 namespace pcg::engine::maze
 {
-    void sidewinder(int width, int height, MazeCallback&& callback)
+    void sidewinder(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
         utility::logInfo("Sidewinder Maze Generation Started");
 
@@ -30,8 +30,12 @@ namespace pcg::engine::maze
                     std::ostringstream oss{};
                     oss << "Value set at " << cell << "-" << h << "/" << cell << "-" << h - 1;
                     utility::logInfo(oss.str());
-                    callback(cell, h, grid[h][cell]);
-                    callback(cell, h - 1, grid[h - 1][cell]);
+
+                    if (!invokeAfterGeneration)
+                    {
+                        callback(cell, h, grid[h][cell]);
+                        callback(cell, h - 1, grid[h - 1][cell]);
+                    }
                 }
                 else if (w + 1 < width)
                 {
@@ -41,8 +45,23 @@ namespace pcg::engine::maze
                     std::ostringstream oss{};
                     oss << "Value set at " << w << "-" << h << "/" << w + 1 << "-" << h;
                     utility::logInfo(oss.str());
-                    callback(w, h, grid[h][w]);
-                    callback(w + 1, h, grid[h][w + 1]);
+
+                    if (!invokeAfterGeneration)
+                    {
+                        callback(w, h, grid[h][w]);
+                        callback(w + 1, h, grid[h][w + 1]);
+                    }
+                }
+            }
+        }
+
+        if (invokeAfterGeneration)
+        {
+            for (int y = 0; y < grid.size(); ++y)
+            {
+                for (int x = 0; x < grid[0].size(); ++x)
+                {
+                    callback(x, y, grid[y][x]);
                 }
             }
         }

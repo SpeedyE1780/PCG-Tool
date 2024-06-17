@@ -15,8 +15,6 @@ namespace
     constexpr int width = 10;
     constexpr int height = 10;
 
-    std::vector<std::vector<int>> grid(width, std::vector<int>(height, 0));
-
     void addPoints(Vector3 point)
     {
         std::cout << "Point:" << point.x << "," << point.y << "," << point.z << std::endl;
@@ -62,7 +60,7 @@ namespace
 
     void addMazePoint(int x, int y, int neighbor)
     {
-        grid[y][x] = neighbor;
+        std::cout << "Point: " << x << "-" << y << " value: " << neighbor << std::endl;
     }
 
     void logMessage(const char* message)
@@ -92,31 +90,16 @@ int main()
     waveFunctionCollapseGeneration(&data, ExpansionMode::BFS, pcg::engine::math::axis::xz, addWFCPoints);
 
     std::cout << "Maze Generation: aldousBroder" << std::endl;
-    generateMaze(width, height, MazeAlgorithm::aldousBroder, addMazePoint);
+    generateMaze(width, height, true, MazeAlgorithm::aldousBroder, addMazePoint);
 
     std::cout << "Maze Generation: wilson" << std::endl;
-    generateMaze(width, height, MazeAlgorithm::wilson, addMazePoint);
+    generateMaze(width, height, true, MazeAlgorithm::wilson, addMazePoint);
 
     std::cout << "Maze Generation: Binary Tree NE" << std::endl;
-    generateMaze(width, height, MazeAlgorithm::binaryTreeNE, addMazePoint);
+    generateMaze(width, height, true, MazeAlgorithm::binaryTreeNE, addMazePoint);
 
     std::cout << "Maze Generation: sidewinder" << std::endl;
-    generateMaze(width, height, MazeAlgorithm::sidewinder, addMazePoint);
-
-    int x = 0;
-    int y = 0;
-
-    for (const auto& row : grid)
-    {
-        for (int point : row)
-        {
-            std::cout << x << "-" << y << ": " << point << std::endl;
-            x += 1;
-        }
-
-        y += 1;
-        x = 0;
-    }
+    generateMaze(width, height, true, MazeAlgorithm::sidewinder, addMazePoint);
 
     return 0;
 }

@@ -5,7 +5,7 @@
 
 namespace pcg::engine::maze
 {
-    void wilson(int width, int height, MazeCallback&& callback);
+    void wilson(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback);
 }
 
 #endif // PCG_ENGINE_MAZE_WILSON_HPP

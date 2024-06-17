@@ -13,7 +13,7 @@ namespace pcg::engine::maze
         SW
     };
 
-    void binaryTree(int width, int height, Diagonal diagonal, MazeCallback&& callback);
+    void binaryTree(int width, int height, bool invokeAfterGeneration, Diagonal diagonal, MazeCallback&& callback);
 }
 
 #endif // PCG_ENGINE_MAZE_BINARY_TREE_HPP

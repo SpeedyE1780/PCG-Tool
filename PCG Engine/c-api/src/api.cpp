@@ -48,43 +48,43 @@ namespace pcg::engine::c_api
         level_generation::waveFunctionCollapse(data, mode, axis, callback);
     }
 
-    void generateMaze(int width, int height, MazeAlgorithm algorithm, addMazePointCallback callback)
+    void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazePointCallback callback)
     {
         switch (algorithm)
         {
         case MazeAlgorithm::aldousBroder:
         {
-            maze::aldousBroder(width, height, callback);
+            maze::aldousBroder(width, height, invokeAferGeneration, callback);
             break;
         }
         case MazeAlgorithm::wilson:
         {
-            maze::wilson(width, height, callback);
+            maze::wilson(width, height, invokeAferGeneration, callback);
             break;
         }
         case MazeAlgorithm::binaryTreeNE:
         {
-            maze::binaryTree(width, height, maze::Diagonal::NE, callback);
+            maze::binaryTree(width, height, invokeAferGeneration, maze::Diagonal::NE, callback);
             break;
         }
         case MazeAlgorithm::binaryTreeNW:
         {
-            maze::binaryTree(width, height, maze::Diagonal::NW, callback);
+            maze::binaryTree(width, height, invokeAferGeneration, maze::Diagonal::NW, callback);
             break;
         }
         case MazeAlgorithm::binaryTreeSE:
         {
-            maze::binaryTree(width, height, maze::Diagonal::SE, callback);
+            maze::binaryTree(width, height, invokeAferGeneration, maze::Diagonal::SE, callback);
             break;
         }
         case MazeAlgorithm::binaryTreeSW:
         {
-            maze::binaryTree(width, height, maze::Diagonal::SW, callback);
+            maze::binaryTree(width, height, invokeAferGeneration, maze::Diagonal::SW, callback);
             break;
         }
         case MazeAlgorithm::sidewinder:
         {
-            maze::sidewinder(width, height, callback);
+            maze::sidewinder(width, height, invokeAferGeneration, callback);
             break;
         }
         default:
