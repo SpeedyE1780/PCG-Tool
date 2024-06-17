@@ -72,6 +72,22 @@ namespace pcg::engine::utility::enums
     {
         return std::to_underlying(value & flag) > 0;
     }
+
+    template <typename T, typename... Ts>
+    concept are_same = std::conjunction_v<std::is_same<T, Ts>...>;
+
+    template<typename EnumClass, typename ...EnumFlag> requires are_same<EnumClass, EnumFlag...>
+    constexpr bool hasFlag(EnumClass value, EnumFlag... flags)
+    {
+        bool hasFlags = true;
+
+        for (EnumClass flag : { flags... })
+        {
+            hasFlags &= hasFlag(value, flag);
+        }
+
+        return hasFlags;
+    }
 }
 
 #endif // PCG_ENGINE_UTILITY_ENUMS_HPP
