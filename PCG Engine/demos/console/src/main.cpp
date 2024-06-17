@@ -9,7 +9,6 @@
 using namespace pcg::engine::level_generation;
 using namespace pcg::engine::cpp_api;
 using namespace pcg::engine::math;
-using namespace pcg::engine::maze;
 
 namespace
 {
