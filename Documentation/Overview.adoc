@@ -1,0 +1,104 @@
+[cols="<,>" frame=none, grid=none]
+|===
+|xref:Index.adoc[<Index]
+|xref:Overview.adoc[>Overview]
+|===
+
+= PCG Engine 
+
+== Introduction
+
+=== What is the PCG Engine?
+
+The PCG Engine is a C++ library that can be used with other engines like Unity, Unreal or even custom engines by including the engine's DLL to your project.
+
+=== Motivation
+
+Looking at the list of software available on http://pcg.wikidot.com/category-pcg-software[The Procedural Content Generation Wiki] most of them were made during the development of https://store.steampowered.com/app/17390/SPORE/[Spore], which was released back in September 2008 (16 years ago).
+
+Most of the software needs you to learn how to use it before being able to generate content with it. And not all of them support games engines.
+
+For example to use Unreal's new https://dev.epicgames.com/community/learning/tutorials/j4xJ/unreal-engine-introduction-to-procedural-generation-plugin-in-ue5-3[Procedural Generation Plugin] you need to learn how to create a blueprint that will represent what you are trying to generate.
+
+Another example is https://sceelix.com[Sceelix] who can be integrated with Unity. You'll still need to learn the Node Graph to be able to generate content.
+
+==== Research Question:
+
+Will creators prefer a simple window that allows you to generate levels or models variation with a simple button click?
+
+=== What Does It Offer?
+
+At the moment you can generate:
+
+* Levels using:
+
+    ** A simple linear generator that will generate the level on a single axis(X, Y or Z) following the chosen direction
+    
+    ** A linear multi dimensional generator that will generate the level on the specified axes (X,Y,Z)
+    
+    ** A Wave Function Collapse Generator that will allow you to generate levels on the specified axes (X,Y,Z) where each node will have a path/wall to neighbouring/non neighbouring nodes.
+    
+* Mazes using:
+
+    ** xref:https://weblog.jamisbuck.org/2011/1/17/maze-generation-aldous-broder-algorithm[Aldous Broder's Algorithm]
+    
+    ** xref:https://weblog.jamisbuck.org/2011/1/20/maze-generation-wilson-s-algorithm[Wilson's Algorithm]
+    
+    ** xref:https://weblog.jamisbuck.org/2011/2/1/maze-generation-binary-tree-algorithm.html[Binary Tree Algorithm]
+    
+    ** xref:https://weblog.jamisbuck.org/2011/2/3/maze-generation-sidewinder-algorithm.html[Sidewinder Algorithm]
+    
+* Combinations:
+    
+    ** A combination given the number of elements in a list
+    
+    Given: Red, Green, Blue, Purple, Yellow, Pink
+    Output: Blue, Purple, Yellow
+    
+    ** A combination with a given number of minimum elements from a list
+    
+    Given: Red, Green, Blue, Purple, Yellow, Pink
+    Minimum: 3 elements
+    Output: Red, Blue, Purple, Yellow
+    
+    ** A combination that must contain the elements passed in.
+    
+    Given: Red, Green, Blue, Purple, Yellow, Pink
+    Included Elements: Red, Green, Pink
+    Output: Red, Green, Blue, Purple, Pink
+    
+=== Why Use It?
+
+This library allows you to add procedurally generated content to your games without having to implement the algorithm yourselves allowing you to focus on your game's code.
+
+=== Who Should Use It?
+
+- Ideally developers who doesn't have the experience or time to write a PCG algorithms.
+
+- Developers who want to add a procedural generation aspect to their game but the core game play loop doesn't revolve around it.
+
+- Artists who want to quickly try and create variations of their models by using different combinations of hair/outfits/accessories on their characters of have rooms with different furniture active in each room.
+
+=== Who Shouldn't Use It?
+
+- Games whose core game play loops revolves around PCG. I'd use it as a quick proof of concept to evaluate the game play loop around the generated content but as a programmer I'd rather have direct control over the core game play code.
+[NOTE]
+If engine is given with its source code and allows modification this no longer becomes an issue.
+
+- AAA companies who probably have their own better PCG library.
+
+=== Future Improvements:
+
+* Level Generation:
+
+** https://youtu.be/LRp9vLk7amg?si=HXGZ2lUwNPR5PqGt[Implement Graph Rewriting/Cyclic Generation like in Unexplorer]
+
+* Maze Generation:
+
+** https://www.jamisbuck.org/presentations/rubyconf2011/index.html#title-page[Implement Remaining Mazes from Jamis Buck presentation]
+
+== How It Works
+
+After adding the DLL to Unity or Unreal new editor windows will be added to the engines. Each window represents a functionality of the engine (Level Generation, Maze Generation, Combination Generation...).
+
+Since Random Number Generators are the core of procedural content, The RNG function can be set to a user defined function that will be used with the given seed to generate content.
