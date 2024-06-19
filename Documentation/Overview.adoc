@@ -101,6 +101,10 @@ If engine is given with its source code and allows modification this no longer b
 
 ** Sequence generation: Given a start node choose a random element from a list of next nodes and repeat the process recursively until node is available.
 
+* Additional Languages
+
+** JavaScript: This engine could be transformed into a REST API  to allow JavaScript engines like PlayCanvas. A GET request will return a JSON containing all of the generated content's information.
+
 == How It Works
 
 After adding the DLL to Unity or Unreal new editor windows will be added to the engines. Each window represents a functionality of the engine (Level Generation, Maze Generation, Combination Generation...).
