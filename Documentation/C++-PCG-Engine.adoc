@@ -32,3 +32,7 @@ The C++ enums needs to be declared again in C#.
 
 [NOTE]
 C++/CLI is not compatible with Unity because of the **J**ust **I**n **T**ime compiler crashing during compilation. This https://forum.unity.com/threads/is-c-cli-forbidden-in-unity.700115/[post] in the Unity forum explains the issue in more details.
+
+== Static Libraries List
+
+* xref:C++-Libraries/C-API.adoc[C-API]

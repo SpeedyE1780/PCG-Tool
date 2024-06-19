@@ -1,0 +1,84 @@
+= C-API DLL
+
+== Function Pointers
+
+* *addPointCallback*
+
+** *Description:* Used with level generation to indicate that a node was spawned at this position.
+
+** *Arguments:*
+
+*** *Vector3:* position where node was spawned
+
+** *Return:* void
+
+* *addWFCPointCallback*
+
+** *Descrption:* Used with Wave Function Collapse level generation to indicate that a node was spawned at this positio and has these neighbours.
+
+** *Arguments:*
+
+*** *Vector3:* position where node was spawned
+
+*** *Direction:* enum flags to indicate the location of this node's neighbours.
+
+** *Return:* void
+
+* *addMazePointCallback*
+
+** *Descrption:* Used with maze generation to indicate that a node was spawned at the x,y coordinate and has these neighbours.
+
+** *Arguments:*
+
+*** *int:* X coordinate of node in the grid.
+
+*** *int:* Y coordinate of node in the grid.
+
+*** *Direction:* enum flags to indicate the location of this node's neighbours.
+
+** *Return:* void
+
+* *setSeedCallback*
+
+** *Description:* Function that will be used when setting the random number generator's seed.
+
+** *Arguments:*
+
+*** *unsigned int:* The new seed.
+
+** *Return:* void
+
+* *generateNumberCallback*
+
+** *Description:* Function used to generate a number between [min, max[.
+
+** *Arguments:*
+
+*** *int:* Minimum value
+
+*** *int:* Maximum value
+
+** *Return:* int value generated.
+
+*generateCombinationCallback*
+
+** *Description:* Used with combination generation to indicate if the element at the given index is included in the generated combination.
+
+** *Arguments:*
+
+*** *int:* The element index.
+
+*** *bool:* True if elements is in generated combination.
+
+** *Return:* void
+
+
+*logMessage*
+
+** *Description:* Function used to log info from the engine.
+
+** *Arguments:*
+
+*** **const char*:** The message that will be logged.
+
+** *Return:* void
