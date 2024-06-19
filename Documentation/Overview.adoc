@@ -97,8 +97,20 @@ If engine is given with its source code and allows modification this no longer b
 
 ** https://www.jamisbuck.org/presentations/rubyconf2011/index.html#title-page[Implement Remaining Mazes from Jamis Buck presentation]
 
+* Combinations:
+
+** Sequence generation: Given a start node choose a random element from a list of next nodes and repeat the process recursively until node is available.
+
 == How It Works
 
 After adding the DLL to Unity or Unreal new editor windows will be added to the engines. Each window represents a functionality of the engine (Level Generation, Maze Generation, Combination Generation...).
+
+Each exposed function in the API takes a callback function that will be called when a node is generated.
+
+For level generation the position will be passed to the callback.
+
+For Wave Function Collapse and mazes the position and a flag of available neighbours is passed in.
+
+For combinations the index of the element and a boolean indicating if it's in the set or not will be passed in.
 
 Since Random Number Generators are the core of procedural content, The RNG function can be set to a user defined function that will be used with the given seed to generate content.
