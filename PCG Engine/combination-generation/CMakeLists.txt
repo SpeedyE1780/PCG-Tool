@@ -1,4 +1,4 @@
-project(PCG-Engine-Combination-Generation)
+project(pcg-engine-combination-generation)
 
 enable_testing()
 

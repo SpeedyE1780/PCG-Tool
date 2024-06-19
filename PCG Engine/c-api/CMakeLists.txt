@@ -15,6 +15,6 @@ target_sources(${PROJECT_NAME} PRIVATE
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include/)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC PCG-Engine-Combination-Generation)
+target_link_libraries(${PROJECT_NAME} PUBLIC pcg-engine-combination-generation)
 target_link_libraries(${PROJECT_NAME} PUBLIC PCG-Engine-Level-Generation)
 target_link_libraries(${PROJECT_NAME} PUBLIC PCG-Engine-Maze)

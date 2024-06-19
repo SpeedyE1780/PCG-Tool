@@ -10,17 +10,28 @@ namespace pcg::engine::combination_generation
 {
     namespace
     {
+        /// @brief Generate a combination based on the number of elements in the set
+        /// @param elementCount Number of elements in set
+        /// @return The selected combination
         int generateCombination(int elementCount)
         {
             const int combinationCount = 1 << elementCount;
             return math::Random::generate(1, combinationCount);
         }
 
+        /// @brief Check if an element is in the generated combination
+        /// @param index Index of element in set
+        /// @param combination Generated combination
+        /// @return True if element is in generated combination
         constexpr bool isElementActive(int index, int combination)
         {
             return ((1 << index) & combination) > 0;
         }
 
+        /// @brief Loops through each element in set and notifies game engine of element status (Included/Not Included in set)
+        /// @param combination Generated combination
+        /// @param elementCount Number of element in set
+        /// @param callback Callback notifying game engine if current element is in set
         void toggleElements(int combination, int elementCount, utility::CallbackFunctor<void(int, bool)>&& callback)
         {
             for (int elementIndex = 0; elementIndex < elementCount; ++elementIndex)
@@ -29,6 +40,9 @@ namespace pcg::engine::combination_generation
             }
         }
 
+        /// @brief Checks number of active elements in combination
+        /// @param combination Generated combination
+        /// @return Number of active elements in combination
         constexpr int countActiveBits(int combination)
         {
             int activeBits = 0;
@@ -44,6 +58,11 @@ namespace pcg::engine::combination_generation
             return activeBits;
         }
 
+        /// @brief Activate elements in combination until the minimum active element count is reached
+        /// @param combination Generated combination that will be modified during call
+        /// @param elementCount Number of elements in set
+        /// @param activeBits Current number of active elements
+        /// @param minimumBits Minimum number of active elements
         void activateRemainingBits(int& combination, int elementCount, int activeBits, int minimumBits)
         {
             std::vector<int> indices(elementCount);
@@ -91,12 +110,8 @@ namespace pcg::engine::combination_generation
     void generateCombination(int elementCount, const std::vector<int>& activeElementIndex, utility::CallbackFunctor<void(int, bool)>&& callback)
     {
         int combination = generateCombination(elementCount);
-
-        for (int elementIndex : activeElementIndex)
-        {
-            combination |= 1 << elementIndex;
-        }
-
+        std::for_each(begin(activeElementIndex), end(activeElementIndex), 
+            [&combination](int elementIndex) { combination |= 1 << elementIndex; });
         toggleElements(combination, elementCount, std::move(callback));
     }
 }
