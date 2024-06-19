@@ -13,9 +13,9 @@
 
 namespace pcg::engine::c_api
 {
-    typedef void (*addPointCallback)(math::Vector3 vector);
-    typedef void (*addWFCPointCallback)(math::Vector3 vector, utility::enums::Direction neighbors);
-    typedef void (*addMazePointCallback)(int x, int y, utility::enums::Direction neighbors);
+    typedef void (*addPointCallback)(math::Vector3 position);
+    typedef void (*addWFCPointCallback)(math::Vector3 position, utility::enums::Direction neighbours);
+    typedef void (*addMazePointCallback)(int x, int y, utility::enums::Direction neighbours);
     typedef void (*setSeedCallback)(unsigned int seed);
     typedef int (*generateNumberCallback)(int minimum, int maximum);
     typedef void (*generateCombinationCallback)(int elementIndex, bool included);

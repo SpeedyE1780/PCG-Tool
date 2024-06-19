@@ -4,27 +4,23 @@
 
 === Callback Signature
 
-* *addPointCallback*
+* *addPointCallback* `typedef void (*addPointCallback)(math::Vector3 position)`
 
 ** *Description:* Callback to indicate that a node was spawned at this position.
 
 ** *Arguments:*
 
-*** *Vector3 position:* position where node was spawned
+*** *Vector3 position:* Position where node was spawned.
 
-** *Return:* void
-
-* *addWFCPointCallback*
+* *addWFCPointCallback* `typedef void (*addWFCPointCallback)(math::Vector3 position, utility::enums::Direction neighbours)`
 
 ** *Descrption:* Used with Wave Function Collapse generation to indicate that a node was spawned at this position and has these neighbours.
 
 ** *Arguments:*
 
-*** *Vector3 position:* position where node was spawned
+*** *Vector3 position:* Position where node was spawned.
 
-*** *Direction neighbours:* enum flags to indicate the location of this node's neighbours.
-
-** *Return:* void
+*** *Direction neighbours:* Enum flags to indicate the location of this node's neighbours.
 
 === Exported Functions
 
@@ -42,8 +38,6 @@
 
 *** **addPointCallback callback:** Callback when a node is generated.
 
-** **Returns:** void
-
 * **void multiDimensionGeneration(level_generation::GenerationData* data, math::Axis axis, bool disableOverlap, addPointCallback callback)**
 
 ** **Description:** Generate a level on multiple axes.
@@ -58,10 +52,7 @@
 
 *** **addPointCallback callback:** Callback when a node is generated.
 
-** **Returns:** void
-
 [NOTE]
-
 If disableOverlap is true and generated node has no available neighbour. Generation will end early before generating the desired number of nodes. 
 
 * **void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::Axis axis, addWFCPointCallback callback)**
@@ -82,22 +73,17 @@ If disableOverlap is true and generated node has no available neighbour. Generat
 
 *** **addWFCPointCallback callback:** Callback when a node is generated.
 
-** **Returns:** void
-
 [NOTE]
-
 If generated node has no available neighbour, generation will end early before generating the desired number of nodes.
 
 [NOTE]
-
 Levels generated with wave function collapse & BFS can sometime resemble mazes.
-
 
 == Maze Generation
 
 === Callback Signature
 
-* *addMazePointCallback*
+* *addMazePointCallback* `typedef void (*addMazePointCallback)(int x, int y, utility::enums::Direction neighbours)`
 
 ** *Descrption:* Callback to indicate that a node was spawned at the x, y coordinate and has these neighbours.
 
@@ -109,13 +95,11 @@ Levels generated with wave function collapse & BFS can sometime resemble mazes.
 
 *** *Direction neighbours:* Enum flags to indicate the location of this node's neighbours.
 
-** *Return:* void
-
 === Enums
 
 * **MazeAlgorithm:**
 
-** **Description:** Indicates which algorithm to use when generating mazes
+** **Description:** Indicates which algorithm to use when generating mazes.
 
 ** **Values:**
 
@@ -147,11 +131,9 @@ Levels generated with wave function collapse & BFS can sometime resemble mazes.
 
 *** **bool invokeAferGeneration:** If true callback will only be called after all nodes are generated.
 
-*** **MazeAlgorithm algorithm:** Algorithm that will be used to generate maze
+*** **MazeAlgorithm algorithm:** Algorithm that will be used to generate maze.
 
 *** **addMazePointCallback callback:** Callback when a node is generated.
-
-** **Returns:** void
 
 [NOTE]
 If invokeAfterGeneration is false the callback will be called while the maze is being generated. The caller needs to store the generated nodes to update them when they get new neighbours instead of generating a new node on top of the old one.
@@ -160,7 +142,7 @@ If invokeAfterGeneration is false the callback will be called while the maze is 
 
 === Callback Signature
 
-*generateCombinationCallback*
+*generateCombinationCallback* `typedef void (*generateCombinationCallback)(int elementIndex, bool included)`
 
 ** *Description:* Callback to indicate if the element at the given index is included in the generated combination.
 
@@ -169,8 +151,6 @@ If invokeAfterGeneration is false the callback will be called while the maze is 
 *** *int elementIndex:* The element index.
 
 *** *bool includedInSet:* True if elements is in generated combination.
-
-** *Return:* void
 
 === Exposed Functions
 
@@ -184,8 +164,6 @@ If invokeAfterGeneration is false the callback will be called while the maze is 
 
 *** **generateCombinationCallback&& callback:** callback to add element to generated set. 
 
-** **Returns:** void
-
 * **void generateCombination(int elementCount, int minimumElementCount, generateCombinationCallback&& callback)**
 
 ** **Description:** Generate a combination with at least minimumElementCount elements.
@@ -197,8 +175,6 @@ If invokeAfterGeneration is false the callback will be called while the maze is 
 *** **int minimumElementCount:** Minimum number of elements in set.
 
 *** **generateCombinationCallback&& callback:** callback to add element to generated set. 
-
-** **Returns:** void
 
 * **void generateCombination(int elementCount, int* activeElementsIndex, int activeElementCount, generateCombinationCallback&& callback)**
 
@@ -214,13 +190,11 @@ If invokeAfterGeneration is false the callback will be called while the maze is 
 
 *** **generateCombinationCallback&& callback:** callback to add element to generated set. 
 
-** **Returns:** void
-
 == Random Number Generation (RNG)
 
 === Callback Signature
 
-* *setSeedCallback*
+* *setSeedCallback* `typedef void (*setSeedCallback)(unsigned int seed)`
 
 ** *Description:* Function that will be used when setting the random number generator's seed.
 
@@ -228,9 +202,7 @@ If invokeAfterGeneration is false the callback will be called while the maze is 
 
 *** *unsigned int seed:* The new seed.
 
-** *Return:* void
-
-* *generateNumberCallback*
+* *generateNumberCallback* `typedef int (*generateNumberCallback)(int minimum, int maximum)`
 
 ** *Description:* Function used to generate a number between [min, max[.
 
@@ -252,8 +224,6 @@ If invokeAfterGeneration is false the callback will be called while the maze is 
 
 *** **unsigned int seed:** Seed used while generating numbers.
 
-** **Returns:** void
-
 * *void setRandomGenerator(setSeedCallback seed, generateNumberCallback generate)*
 
 ** **Description:** Set functions used to set seed and generate numbers.
@@ -264,21 +234,17 @@ If invokeAfterGeneration is false the callback will be called while the maze is 
 
 *** **generateNumberCallback generate:** Function used to generate numbers.
 
-** **Returns:** void
-
 == Logging
 
 === Callback Signature
 
-*logMessage*
+*logMessage* `typedef void (*logMessage)(const char* message)`
 
 ** *Description:* Function used to log info from the engine.
 
 ** *Arguments:*
 
 *** **const char* message:** The message that will be logged.
-
-** *Return:* void
 
 === Exported Functions
 
@@ -289,5 +255,3 @@ If invokeAfterGeneration is false the callback will be called while the maze is 
 ** **Arguments:**
 
 *** **logMessage logFunction:** Function that will log engine messages.
-
-** **Returns:** void
