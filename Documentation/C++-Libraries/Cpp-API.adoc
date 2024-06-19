@@ -1,1 +1,177 @@
 = Cpp-API DLL
+
+== Level Generation
+
+=== Exported Functions
+
+* **void simpleGeneration(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, std::function<void(math::Vector3)>&& callback)**
+
+** **Description:** Generate a linear level on a single axis.
+
+** **Arguments:**
+
+*** **GenerationData* data:** Object containing number of nodes that need to be generated, node size & starting position.
+
+*** **Axis axis:** Axis used during level generation (X, Y or Z).
+
+*** **Direction direction:** Direction followed on axis (Either positive or negative).
+
+*** **std::function<void(math::Vector3)>&& callback:** Callback when a node is generated.
+
+* **void multiDimensionGeneration(level_generation::GenerationData* data, math::Axis axis, bool disableOverlap, std::function<void(math::Vector3)>&& callback)**
+
+** **Description:** Generate a level on multiple axes.
+
+** **Arguments:**
+
+*** **GenerationData* data:** Object containing number of nodes that need to be generated, node size & starting position.
+
+*** **Axis axis:** Axes flag indicating which axes are being used.
+
+*** **bool disableOverlap:** If true nodes cannot be generated on top of one another.
+
+*** **std::function<void(math::Vector3)>&& callback:** Callback when a node is generated.
+
+[NOTE]
+If disableOverlap is true and generated node has no available neighbour. Generation will end early before generating the desired number of nodes. 
+
+* **void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::Axis axis, std::function<void(math::Vector3, utility::enums::Direction)>&& callback)**
+
+** **Description:** Generate a level using the Wave Function Collapse Algorithm.
+
+** **Arguments:**
+
+*** **GenerationData* data:** Object containing number of nodes that need to be generated, node size & starting position.
+
+*** **ExpansionMode mode:** If Breadth-First Search (BFS) or Depth-First Search (DFS) should be used. 
+
+**** BFS will generate a level with more connected nodes.
+
+**** DFS will generate a more linear level with nodes having some side alleys.
+
+*** **Axis axis:** Axes flag indicating which axes are being used.
+
+*** **std::function<void(math::Vector3, utility::enums::Direction)>&& callback:** Callback when a node is generated.
+
+[NOTE]
+If generated node has no available neighbour, generation will end early before generating the desired number of nodes.
+
+[NOTE]
+Levels generated with wave function collapse & BFS can sometime resemble mazes.
+
+== Maze Generation
+
+=== Enums
+
+* **MazeAlgorithm:**
+
+** **Description:** Indicates which algorithm to use when generating mazes.
+
+** **Values:**
+
+*** aldousBroder
+
+*** wilson
+
+*** binaryTreeNE
+
+*** binaryTreeNW
+
+*** binaryTreeSE
+
+*** binaryTreeSW
+
+*** sidewinder
+
+=== Exported Functions
+
+* **void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, std::function<void(int x, int y, utility::enums::Direction neighbors)>&& callback)**
+
+** **Description:** Generate a maze using the passed in algorithm.
+
+** **Arguments:**
+
+*** **int width:** Width of grid.
+
+*** **int height:** Height of grid. 
+
+*** **bool invokeAferGeneration:** If true callback will only be called after all nodes are generated.
+
+*** **MazeAlgorithm algorithm:** Algorithm that will be used to generate maze.
+
+*** **std::function<void(int x, int y, utility::enums::Direction neighbors)>&& callback:** Callback when a node is generated.
+
+[NOTE]
+If invokeAfterGeneration is false the callback will be called while the maze is being generated. The caller needs to store the generated nodes to update them when they get new neighbours instead of generating a new node on top of the old one.
+
+== Combination Generation
+
+=== Exposed Functions
+
+* **void generateCombination(int elementCount, std::function<void(int, bool)>&& callback)**
+
+** **Description:** Generate a combination given a number of elements.
+
+** **Arguments:**
+
+*** **int elementCount:** Number of element that are available in set.
+
+*** **std::function<void(int, bool)>&& callback:** callback to add element to generated set. 
+
+* **void generateCombination(int elementCount, int minimumElementCount, std::function<void(int, bool)>&& callback)**
+
+** **Description:** Generate a combination with at least minimumElementCount elements.
+
+** **Arguments:**
+
+*** **int elementCount:** Number of element that are available in set.
+
+*** **int minimumElementCount:** Minimum number of elements in set.
+
+*** **std::function<void(int, bool)>&& callback:** callback to add element to generated set. 
+
+* **void generateCombination(int elementCount, const std::vector<int>& activeElementsIndex std::function<void(int, bool)>&& callback)**
+
+** **Description:** Generate a combination with the given elements active.
+
+** **Arguments:**
+
+*** **int elementCount:** Number of element that are available in set.
+
+*** **const std::vector<int>& activeElementsIndex:** Vector of elements that must be included.
+
+*** **std::function<void(int, bool)>&& callback:** callback to add element to generated set.
+
+== Random Number Generation (RNG)
+
+=== Exposed Functions
+
+* *void setSeed(unsigned int seed)*
+
+** **Description:** Set seed used in RNG.
+
+** **Arguments:**
+
+*** **unsigned int seed:** Seed used while generating numbers.
+
+* *void setRandomGenerator(std::function<void(unsigned int)>&& seed, std::function<int(int, int)>&& generate)*
+
+** **Description:** Set functions used to set seed and generate numbers.
+
+** **Arguments:**
+
+*** **std::function<void(unsigned int)>&& seed:** Function that will set the RNG seed.
+
+*** **std::function<int(int, int)>&& generate:** Function used to generate numbers.
+
+== Logging
+
+=== Exported Functions
+
+* *void setLoggingFunction(std::function<void(const char*)>&& logFunction)*
+
+** **Description:** Set function used to log info from the engine.
+
+** **Arguments:**
+
+*** **std::function<void(const char*)>&& logFunction:** Function that will log engine messages.
