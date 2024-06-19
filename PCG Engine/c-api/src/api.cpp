@@ -99,12 +99,12 @@ namespace pcg::engine::c_api
         combination_generation::generateCombination(elementCount, callback);
     }
 
-    void generateCombination(int elementCount, int minimumElementCount, generateCombinationCallback&& callback)
+    void generateCombinationWithMinimumElementCount(int elementCount, int minimumElementCount, generateCombinationCallback&& callback)
     {
         combination_generation::generateCombination(elementCount, minimumElementCount, callback);
     }
 
-    void generateCombination(int elementCount, int* activeElementsIndex, int activeElementCount, generateCombinationCallback&& callback)
+    void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementCount, generateCombinationCallback&& callback)
     {
         std::vector<int> activeElements(activeElementCount);
 
