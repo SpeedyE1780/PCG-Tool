@@ -6,11 +6,14 @@
 #include <pcg/engine/level-generation/MultiDimensionalGeneration.hpp>
 #include <pcg/engine/level-generation/WaveFunctionCollapse.hpp>
 
+#include <pcg/engine/math/random.hpp>
 
 #include <pcg/engine/maze/AldousBroder.hpp>
 #include <pcg/engine/maze/BinaryTree.hpp>
 #include <pcg/engine/maze/Sidewinder.hpp>
 #include <pcg/engine/maze/Wilson.hpp>
+
+#include <pcg/engine/utility/logging.hpp>
 
 namespace pcg::engine::cpp_api
 {
@@ -34,9 +37,9 @@ namespace pcg::engine::cpp_api
         level_generation::simpleGeneration(data, axis, direction, callback);
     }
 
-    void multiDimensionGeneration(level_generation::GenerationData* data, math::Axis axis, bool disableOverlap, std::function<void(math::Vector3)>&& callback)
+    void multiDimensionGeneration(level_generation::GenerationData* data, math::Axis axes, bool disableOverlap, std::function<void(math::Vector3)>&& callback)
     {
-        std::vector<const math::Vector3*> directions = math::getUnitVectors(axis);
+        std::vector<const math::Vector3*> directions = math::getUnitVectors(axes);
 
         if (directions.empty())
         {
@@ -46,9 +49,9 @@ namespace pcg::engine::cpp_api
         level_generation::multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::Axis axis, std::function<void(math::Vector3, utility::enums::Direction)>&& callback)
+    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::Axis axes, std::function<void(math::Vector3, utility::enums::Direction)>&& callback)
     {
-        level_generation::waveFunctionCollapse(data, mode, axis, callback);
+        level_generation::waveFunctionCollapse(data, mode, axes, callback);
     }
 
     void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, std::function<void(int x, int y, utility::enums::Direction neighbors)>&& callback)
