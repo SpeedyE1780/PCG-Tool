@@ -37,3 +37,4 @@ C++/CLI is not compatible with Unity because of the **J**ust **I**n **T**ime com
 
 * xref:C++-Libraries/C-API.adoc[C-API]
 * xref:C++-Libraries/Combination-Generation.adoc[Combination Generation]
+* xref:C++-Libraries/Cpp-API.adoc[Cpp-API]
