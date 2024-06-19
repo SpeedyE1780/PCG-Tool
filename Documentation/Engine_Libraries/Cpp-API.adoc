@@ -1,4 +1,10 @@
-= Cpp-API DLL
+= CPP-API DLL
+
+[cols="<,>" frame=none, grid=none]
+|===
+|xref:Combination-Generation.adoc[< Combination Generator]
+|xref:Level-Generation.adoc[Level-Generation >]
+|===
 
 == Level Generation
 

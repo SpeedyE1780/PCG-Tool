@@ -1,5 +1,11 @@
 = Combination-Generation Static Library
 
+[cols="<,>" frame=none, grid=none]
+|===
+|xref:C-API.adoc[< C-API]
+|xref:Cpp-API.adoc[CPP-API >]
+|===
+
 == Description
 
 The Combination-Generation library is used to generate combinations from a given set.

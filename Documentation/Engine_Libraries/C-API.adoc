@@ -1,5 +1,11 @@
 = C-API DLL
 
+[cols="<,>" frame=none, grid=none]
+|===
+|xref:./../PCG-Engine.adoc[< PCG-Engine]
+|xref:Combination-Generation.adoc[Combination Generator >]
+|===
+
 == Level Generation
 
 === Callback Signature

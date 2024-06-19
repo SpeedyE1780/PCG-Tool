@@ -1,5 +1,11 @@
 = Level-Generation Static Library
 
+[cols="<,>" frame=none, grid=none]
+|===
+|xref:Cpp-API.adoc[< CPP-API]
+|xref:Math.adoc[Math >]
+|===
+
 == Description
 
 The Level-Generation library is used to generate levels.
