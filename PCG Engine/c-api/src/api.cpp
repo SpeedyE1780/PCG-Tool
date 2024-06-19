@@ -19,7 +19,7 @@ namespace pcg::engine::c_api
 {
     void setSeed(unsigned int seed)
     {
-        math::Random::seed(seed);
+        math::Random::initializeSeed(seed);
     }
 
     void setRandomGenerator(setSeedCallback&& seed, generateNumberCallback&& generate)
@@ -32,9 +32,9 @@ namespace pcg::engine::c_api
         utility::setLoggingFunction(logFunction);
     }
 
-    void simpleGeneration(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, addNodeCallback&& callback)
+    void simpleGeneration(level_generation::GenerationData* data, math::Axis axis, addNodeCallback&& callback)
     {
-        level_generation::simpleGeneration(data, axis, direction, callback);
+        level_generation::simpleGeneration(data, axis, callback);
     }
 
     void multiDimensionGeneration(level_generation::GenerationData* data, math::Axis axes, bool disableOverlap, addNodeCallback&& callback)

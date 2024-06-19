@@ -75,7 +75,7 @@ int main()
 
     std::cout << "Simple Generation" << std::endl;
     GenerationData data{ 10, 1, { 0, 0, 0 } };
-    simpleGeneration(&data, Axis::x, Direction::negative, addPoints);
+    simpleGeneration(&data, Axis::negativeX, addPoints);
 
     std::cout << "2D Generation" << std::endl;
     multiDimensionGeneration(&data, Axis::yz, true, addPoints);

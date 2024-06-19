@@ -125,7 +125,7 @@ int main()
     {
     case 1:
     {
-        pcg::engine::cpp_api::simpleGeneration(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, addPointCallback);
+        pcg::engine::cpp_api::simpleGeneration(&data, pcg::engine::math::Axis::positiveZ, addPointCallback);
         break;
     }
     case 2:

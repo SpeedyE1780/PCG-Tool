@@ -11,7 +11,7 @@ namespace pcg::engine::level_generation
 {
     namespace
     {
-        std::optional<math::Vector3> getNextPosition(std::unordered_set<math::Vector3, math::Vector3Hash>& positions, const math::Vector3& currentPosition, const std::vector<const math::Vector3*>& directions, float offset)
+        std::optional<math::Vector3> getNextPosition(std::unordered_set<math::Vector3>& positions, const math::Vector3& currentPosition, const std::vector<const math::Vector3*>& directions, float offset)
         {
             std::vector<math::Vector3> availablePositions{};
 
@@ -30,7 +30,7 @@ namespace pcg::engine::level_generation
                 return std::nullopt;
             }
 
-            return availablePositions[math::Random::generate(0, availablePositions.size())];
+            return availablePositions[math::Random::generateNumber(0, availablePositions.size())];
         }
     }
 
@@ -38,7 +38,7 @@ namespace pcg::engine::level_generation
     {
         utility::logInfo("Multi-Dimension Generation Started");
 
-        std::unordered_set<math::Vector3, math::Vector3Hash> positions{};
+        std::unordered_set<math::Vector3> positions{};
         math::Vector3 position = data->startPoint;
 
         for (int i = 0; i < data->limit; i++)

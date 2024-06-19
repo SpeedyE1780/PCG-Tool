@@ -148,7 +148,7 @@ namespace pcg::engine::level_generation
         template<typename NodeCollection>
         void checkNeighborPair(WaveFunctionCollapseData<NodeCollection>& data, utility::enums::Direction side, utility::enums::Direction flippedSide)
         {
-            if (math::Random::generate(0, 2) == 0)
+            if (math::Random::generateNumber(0, 2) == 0)
             {
                 checkNeighbor(data, side, flippedSide);
                 checkNeighbor(data, flippedSide, side);
@@ -202,7 +202,7 @@ namespace pcg::engine::level_generation
 
                     if (neighborCount < directionPairs.size() * 2)
                     {
-                        int additionalNeighbors = math::Random::generate(1, directionPairs.size() * 2 - neighborCount + 1);
+                        int additionalNeighbors = math::Random::generateNumber(1, directionPairs.size() * 2 - neighborCount + 1);
                         spawnedNodes.at(currentIndex).getNeighbors().generateNeighbors(additionalNeighbors, getShuffledDirections(directionPairs, rd));
                     }
                 }

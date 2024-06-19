@@ -41,7 +41,7 @@ namespace pcg::engine::cpp_api
     /// @param axis Axis used during level generation (X, Y or Z)
     /// @param direction Direction followed on axis (Either positive or negative)
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void simpleGeneration(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, std::function<void(math::Vector3)>&& callback);
+    PCG_ENGINE_CPP_API_API void simpleGeneration(level_generation::GenerationData* data, math::Axis axis, std::function<void(math::Vector3)>&& callback);
     /// @brief Generate a level on multiple axes
     /// @param data Object containing number of nodes that need to be generated, node size & starting position
     /// @param axes Axes flag indicating which axes are being used

@@ -8,9 +8,10 @@
 
 namespace pcg::engine::math
 {
+    /// @brief Class representing a Vector in 3D space
     struct Vector3
     {
-        void operator+=(const Vector3& rhs);
+        Vector3& operator+=(const Vector3& rhs);
 
         static const Vector3 right;
         static const Vector3 left;
@@ -24,16 +25,30 @@ namespace pcg::engine::math
         float z;
     };
 
-    struct Vector3Hash
-    {
-        std::size_t operator()(const Vector3& vector) const noexcept;
-    };
-
     Vector3 operator+(const Vector3& lhs, const Vector3& rhs);
     bool operator==(const Vector3& lhs, const Vector3& rhs);
     Vector3 operator*(const Vector3& vector, float scalar);
 
-    std::vector<const Vector3*> getUnitVectors(Axis axis);
+    /// @brief Get vector containing unit vectors of given axes
+    /// @param axes Bit flag representing enabled axes
+    /// @return Vector containing unit vectors of enabled axes
+    std::vector<const Vector3*> getUnitVectors(Axis axes);
+}
+
+namespace std
+{
+    /// @brief Specialization of std::hash with Vector3 class
+    template <> struct hash<pcg::engine::math::Vector3>
+    {
+        size_t operator()(const pcg::engine::math::Vector3& vector) const
+        {
+            std::size_t x = std::hash<float>{}(vector.x);
+            std::size_t y = std::hash<float>{}(vector.y);
+            std::size_t z = std::hash<float>{}(vector.z);
+
+            return x ^ (y << 1) ^ (z << 2);
+        }
+    };
 }
 
 #endif // PCG_ENGINE_MATH_VECTOR3_HPP

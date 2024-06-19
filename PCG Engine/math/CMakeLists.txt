@@ -1,4 +1,4 @@
-project(PCG-Engine-Math)
+project(pcg-engine-math)
 
 enable_testing()
 

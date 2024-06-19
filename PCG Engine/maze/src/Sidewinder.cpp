@@ -20,10 +20,10 @@ namespace pcg::engine::maze
 
             for (std::size_t w = 0; w < width; ++w)
             {
-                if (h > 0 && (w + 1 == width || math::Random::generate(0, 2) == 0))
+                if (h > 0 && (w + 1 == width || math::Random::generateNumber(0, 2) == 0))
                 {
                     utility::logInfo("Ending run and carving north");
-                    int cell = math::Random::generate(runStart, w + 1);
+                    int cell = math::Random::generateNumber(runStart, w + 1);
                     grid[h][cell] |= utility::enums::Direction::backward;
                     grid[h - 1][cell] |= utility::enums::Direction::forward;
                     runStart = w + 1;

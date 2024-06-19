@@ -2,7 +2,7 @@
 
 #include <pcg/engine/math/random.hpp>
 
-#include <algorithm>>
+#include <algorithm>
 #include <numeric>
 #include <random>
 
@@ -16,7 +16,7 @@ namespace pcg::engine::combination_generation
         int generateCombination(int elementCount)
         {
             const int combinationCount = 1 << elementCount;
-            return math::Random::generate(1, combinationCount);
+            return math::Random::generateNumber(1, combinationCount);
         }
 
         /// @brief Check if an element is in the generated combination
