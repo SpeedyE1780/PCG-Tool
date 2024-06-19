@@ -82,3 +82,25 @@
 *** **const char*:** The message that will be logged.
 
 ** *Return:* void
+
+== Enums
+
+* **MazeAlgorithm:**
+
+** **Description:** Indicates which algorithm to use when generating mazes
+
+** **Values:**
+
+*** aldousBroder
+
+*** wilson
+
+*** binaryTreeNE
+
+*** binaryTreeNW
+
+*** binaryTreeSE
+
+*** binaryTreeSW
+
+*** sidewinder
