@@ -1,0 +1,15 @@
+= Math Static Library
+
+[cols="<,>" frame=none, grid=none]
+|===
+|xref:Level-Generation.adoc[< Level-Generation]
+|xref:Maze-Generation.adoc[Maze-Generation >]
+|===
+
+== Description
+
+The Math library contains the Vector3 class, the enums used for level generation and random number generation functions.
+
+== Dependencies
+
+- Utility

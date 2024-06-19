@@ -1,0 +1,16 @@
+= Maze-Generation Static Library
+
+[cols="<,>" frame=none, grid=none]
+|===
+|xref:Math.adoc[< Math]
+|xref:Utility.adoc[Utility >]
+|===
+
+== Description
+
+The Maze library is used to generate mazes using Algorithms from https://www.jamisbuck.org/presentations/rubyconf2011/index.html#title-page[Jamis Buck's presentation]
+
+== Dependencies
+
+- Math
+- Utility

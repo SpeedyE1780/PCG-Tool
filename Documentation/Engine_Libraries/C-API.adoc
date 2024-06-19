@@ -1,0 +1,263 @@
+= C-API DLL
+
+[cols="<,>" frame=none, grid=none]
+|===
+|xref:./../PCG-Engine.adoc[< PCG-Engine]
+|xref:Combination-Generation.adoc[Combination Generator >]
+|===
+
+== Level Generation
+
+=== Callback Signature
+
+* *addPointCallback* `typedef void (*addPointCallback)(math::Vector3 position)`
+
+** *Description:* Callback to indicate that a node was spawned at this position.
+
+** *Arguments:*
+
+*** *Vector3 position:* Position where node was spawned.
+
+* *addWFCPointCallback* `typedef void (*addWFCPointCallback)(math::Vector3 position, utility::enums::Direction neighbours)`
+
+** *Descrption:* Used with Wave Function Collapse generation to indicate that a node was spawned at this position and has these neighbours.
+
+** *Arguments:*
+
+*** *Vector3 position:* Position where node was spawned.
+
+*** *Direction neighbours:* Enum flags to indicate the location of this node's neighbours.
+
+=== Exported Functions
+
+* **void simpleGeneration(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)**
+
+** **Description:** Generate a linear level on a single axis.
+
+** **Arguments:**
+
+*** **GenerationData* data:** Object containing number of nodes that need to be generated, node size & starting position.
+
+*** **Axis axis:** Axis used during level generation (X, Y or Z).
+
+*** **Direction direction:** Direction followed on axis (Either positive or negative).
+
+*** **addPointCallback callback:** Callback when a node is generated.
+
+* **void multiDimensionGeneration(level_generation::GenerationData* data, math::Axis axis, bool disableOverlap, addPointCallback callback)**
+
+** **Description:** Generate a level on multiple axes.
+
+** **Arguments:**
+
+*** **GenerationData* data:** Object containing number of nodes that need to be generated, node size & starting position.
+
+*** **Axis axis:** Axes flag indicating which axes are being used.
+
+*** **bool disableOverlap:** If true nodes cannot be generated on top of one another.
+
+*** **addPointCallback callback:** Callback when a node is generated.
+
+[NOTE]
+If disableOverlap is true and generated node has no available neighbour. Generation will end early before generating the desired number of nodes. 
+
+* **void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::Axis axis, addWFCPointCallback callback)**
+
+** **Description:** Generate a level using the Wave Function Collapse Algorithm.
+
+** **Arguments:**
+
+*** **GenerationData* data:** Object containing number of nodes that need to be generated, node size & starting position.
+
+*** **ExpansionMode mode:** If Breadth-First Search (BFS) or Depth-First Search (DFS) should be used. 
+
+**** BFS will generate a level with more connected nodes.
+
+**** DFS will generate a more linear level with nodes having some side alleys.
+
+*** **Axis axis:** Axes flag indicating which axes are being used.
+
+*** **addWFCPointCallback callback:** Callback when a node is generated.
+
+[NOTE]
+If generated node has no available neighbour, generation will end early before generating the desired number of nodes.
+
+[NOTE]
+Levels generated with wave function collapse & BFS can sometime resemble mazes.
+
+== Maze Generation
+
+=== Callback Signature
+
+* *addMazePointCallback* `typedef void (*addMazePointCallback)(int x, int y, utility::enums::Direction neighbours)`
+
+** *Descrption:* Callback to indicate that a node was spawned at the x, y coordinate and has these neighbours.
+
+** *Arguments:*
+
+*** *int x:* X coordinate of node in the grid.
+
+*** *int y:* Y coordinate of node in the grid.
+
+*** *Direction neighbours:* Enum flags to indicate the location of this node's neighbours.
+
+=== Enums
+
+* **MazeAlgorithm:**
+
+** **Description:** Indicates which algorithm to use when generating mazes.
+
+** **Values:**
+
+*** aldousBroder
+
+*** wilson
+
+*** binaryTreeNE
+
+*** binaryTreeNW
+
+*** binaryTreeSE
+
+*** binaryTreeSW
+
+*** sidewinder
+
+=== Exported Functions
+
+* **void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazePointCallback callback)**
+
+** **Description:** Generate a maze using the passed in algorithm.
+
+** **Arguments:**
+
+*** **int width:** Width of grid.
+
+*** **int height:** Height of grid. 
+
+*** **bool invokeAferGeneration:** If true callback will only be called after all nodes are generated.
+
+*** **MazeAlgorithm algorithm:** Algorithm that will be used to generate maze.
+
+*** **addMazePointCallback callback:** Callback when a node is generated.
+
+[NOTE]
+If invokeAfterGeneration is false the callback will be called while the maze is being generated. The caller needs to store the generated nodes to update them when they get new neighbours instead of generating a new node on top of the old one.
+
+== Combination Generation
+
+=== Callback Signature
+
+*generateCombinationCallback* `typedef void (*generateCombinationCallback)(int elementIndex, bool included)`
+
+** *Description:* Callback to indicate if the element at the given index is included in the generated combination.
+
+** *Arguments:*
+
+*** *int elementIndex:* The element index.
+
+*** *bool includedInSet:* True if elements is in generated combination.
+
+=== Exposed Functions
+
+* **void generateCombination(int elementCount, generateCombinationCallback&& callback)**
+
+** **Description:** Generate a combination given a number of elements.
+
+** **Arguments:**
+
+*** **int elementCount:** Number of element that are available in set.
+
+*** **generateCombinationCallback&& callback:** callback to add element to generated set. 
+
+* **void generateCombination(int elementCount, int minimumElementCount, generateCombinationCallback&& callback)**
+
+** **Description:** Generate a combination with at least minimumElementCount elements.
+
+** **Arguments:**
+
+*** **int elementCount:** Number of element that are available in set.
+
+*** **int minimumElementCount:** Minimum number of elements in set.
+
+*** **generateCombinationCallback&& callback:** callback to add element to generated set. 
+
+* **void generateCombination(int elementCount, int* activeElementsIndex, int activeElementCount, generateCombinationCallback&& callback)**
+
+** **Description:** Generate a combination with the given elements active.
+
+** **Arguments:**
+
+*** **int elementCount:** Number of element that are available in set.
+
+*** **int* activeElementsIndex:** Array of elements that must be included.
+
+*** **int activeElementCount:** Number of elements in activeElementsIndex array.
+
+*** **generateCombinationCallback&& callback:** callback to add element to generated set. 
+
+== Random Number Generation (RNG)
+
+=== Callback Signature
+
+* *setSeedCallback* `typedef void (*setSeedCallback)(unsigned int seed)`
+
+** *Description:* Function that will be used when setting the random number generator's seed.
+
+** *Arguments:*
+
+*** *unsigned int seed:* The new seed.
+
+* *generateNumberCallback* `typedef int (*generateNumberCallback)(int minimum, int maximum)`
+
+** *Description:* Function used to generate a number between [min, max[.
+
+** *Arguments:*
+
+*** *int min:* Minimum value
+
+*** *int max:* Maximum value
+
+** *Return:* int value generated.
+
+=== Exposed Functions
+
+* *void setSeed(unsigned int seed)*
+
+** **Description:** Set seed used in RNG.
+
+** **Arguments:**
+
+*** **unsigned int seed:** Seed used while generating numbers.
+
+* *void setRandomGenerator(setSeedCallback seed, generateNumberCallback generate)*
+
+** **Description:** Set functions used to set seed and generate numbers.
+
+** **Arguments:**
+
+*** **setSeedCallback seed:** Function that will set the RNG seed.
+
+*** **generateNumberCallback generate:** Function used to generate numbers.
+
+== Logging
+
+=== Callback Signature
+
+*logMessage* `typedef void (*logMessage)(const char* message)`
+
+** *Description:* Function used to log info from the engine.
+
+** *Arguments:*
+
+*** **const char* message:** The message that will be logged.
+
+=== Exported Functions
+
+* *void setLoggingFunction(logMessage logFunction)*
+
+** **Description:** Set function used to log info from the engine.
+
+** **Arguments:**
+
+*** **logMessage logFunction:** Function that will log engine messages.

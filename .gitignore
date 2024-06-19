@@ -575,3 +575,4 @@ Unreal/DerivedDataCache/*
 !Unreal/Plugins/MyPCG/Source/ThirdPartyLibraries/PCGEngine/lib/*.lib
 !Unreal/Plugins/MyPCG/Source/ThirdPartyLibraries/PCGEngine/lib/*.dll
 /Unreal/enc_temp_folder
+/Documentation/**/*.html
