@@ -1,0 +1,9 @@
+# Math Static Library
+
+== Description
+
+The Math library contains the Vector3 class, the enums used for level generation and random number generation functions.
+
+== Dependencies
+
+- Utility

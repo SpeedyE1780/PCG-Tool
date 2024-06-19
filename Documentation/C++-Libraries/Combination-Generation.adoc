@@ -4,7 +4,7 @@
 
 The Combination-Generation library is used to generate combinations from a given set.
 
-== Example usage:
+== Examples:
 
 ** A combination given the number of elements in a list
     
