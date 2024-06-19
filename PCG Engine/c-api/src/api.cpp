@@ -6,10 +6,14 @@
 #include <pcg/engine/level-generation/MultiDimensionalGeneration.hpp>
 #include <pcg/engine/level-generation/WaveFunctionCollapse.hpp>
 
+#include <pcg/engine/math/random.hpp>
+
 #include <pcg/engine/maze/AldousBroder.hpp>
 #include <pcg/engine/maze/BinaryTree.hpp>
 #include <pcg/engine/maze/Sidewinder.hpp>
 #include <pcg/engine/maze/Wilson.hpp>
+
+#include <pcg/engine/utility/logging.hpp>
 
 namespace pcg::engine::c_api
 {
@@ -18,24 +22,24 @@ namespace pcg::engine::c_api
         math::Random::seed(seed);
     }
 
-    void setRandomGenerator(setSeedCallback seed, generateNumberCallback generate)
+    void setRandomGenerator(setSeedCallback&& seed, generateNumberCallback&& generate)
     {
         return math::initializeRandom(seed, generate);
     }
 
-    void setLoggingFunction(logMessage logFunction)
+    void setLoggingFunction(logMessage&& logFunction)
     {
         utility::setLoggingFunction(logFunction);
     }
 
-    void simpleGeneration(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)
+    void simpleGeneration(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, addNodeCallback&& callback)
     {
         level_generation::simpleGeneration(data, axis, direction, callback);
     }
 
-    void multiDimensionGeneration(level_generation::GenerationData* data, math::Axis axis, bool disableOverlap, addPointCallback callback)
+    void multiDimensionGeneration(level_generation::GenerationData* data, math::Axis axes, bool disableOverlap, addNodeCallback&& callback)
     {
-        std::vector<const math::Vector3*> directions = math::getUnitVectors(axis);
+        std::vector<const math::Vector3*> directions = math::getUnitVectors(axes);
 
         if (directions.empty())
         {
@@ -45,12 +49,12 @@ namespace pcg::engine::c_api
         level_generation::multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::Axis axis, addWFCPointCallback callback)
+    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::Axis axes, addWFCNodeCallback&& callback)
     {
-        level_generation::waveFunctionCollapse(data, mode, axis, callback);
+        level_generation::waveFunctionCollapse(data, mode, axes, callback);
     }
 
-    void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazePointCallback callback)
+    void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazeNodeCallback&& callback)
     {
         switch (algorithm)
         {
@@ -104,11 +108,11 @@ namespace pcg::engine::c_api
         combination_generation::generateCombination(elementCount, minimumElementCount, callback);
     }
 
-    void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementCount, generateCombinationCallback&& callback)
+    void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementsCount, generateCombinationCallback&& callback)
     {
-        std::vector<int> activeElements(activeElementCount);
+        std::vector<int> activeElements(activeElementsCount);
 
-        for (int i = 0; i < activeElementCount; ++i)
+        for (int i = 0; i < activeElementsCount; ++i)
         {
             activeElements.emplace_back(activeElementsIndex[i]);
         }
