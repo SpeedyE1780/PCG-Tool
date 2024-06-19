@@ -8,10 +8,10 @@
 
 #include <pcg/engine/math/random.hpp>
 
-#include <pcg/engine/maze/AldousBroder.hpp>
-#include <pcg/engine/maze/BinaryTree.hpp>
-#include <pcg/engine/maze/Sidewinder.hpp>
-#include <pcg/engine/maze/Wilson.hpp>
+#include <pcg/engine/maze-generation/AldousBroder.hpp>
+#include <pcg/engine/maze-generation/BinaryTree.hpp>
+#include <pcg/engine/maze-generation/Sidewinder.hpp>
+#include <pcg/engine/maze-generation/Wilson.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
 
@@ -60,37 +60,37 @@ namespace pcg::engine::c_api
         {
         case MazeAlgorithm::aldousBroder:
         {
-            maze::aldousBroder(width, height, invokeAferGeneration, callback);
+            maze_generation::aldousBroder(width, height, invokeAferGeneration, callback);
             break;
         }
         case MazeAlgorithm::wilson:
         {
-            maze::wilson(width, height, invokeAferGeneration, callback);
+            maze_generation::wilson(width, height, invokeAferGeneration, callback);
             break;
         }
         case MazeAlgorithm::binaryTreeNE:
         {
-            maze::binaryTree(width, height, invokeAferGeneration, maze::Diagonal::NE, callback);
+            maze_generation::binaryTree(width, height, invokeAferGeneration, maze_generation::Diagonal::NE, callback);
             break;
         }
         case MazeAlgorithm::binaryTreeNW:
         {
-            maze::binaryTree(width, height, invokeAferGeneration, maze::Diagonal::NW, callback);
+            maze_generation::binaryTree(width, height, invokeAferGeneration, maze_generation::Diagonal::NW, callback);
             break;
         }
         case MazeAlgorithm::binaryTreeSE:
         {
-            maze::binaryTree(width, height, invokeAferGeneration, maze::Diagonal::SE, callback);
+            maze_generation::binaryTree(width, height, invokeAferGeneration, maze_generation::Diagonal::SE, callback);
             break;
         }
         case MazeAlgorithm::binaryTreeSW:
         {
-            maze::binaryTree(width, height, invokeAferGeneration, maze::Diagonal::SW, callback);
+            maze_generation::binaryTree(width, height, invokeAferGeneration, maze_generation::Diagonal::SW, callback);
             break;
         }
         case MazeAlgorithm::sidewinder:
         {
-            maze::sidewinder(width, height, invokeAferGeneration, callback);
+            maze_generation::sidewinder(width, height, invokeAferGeneration, callback);
             break;
         }
         default:

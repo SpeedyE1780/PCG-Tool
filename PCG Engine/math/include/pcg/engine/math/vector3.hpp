@@ -3,6 +3,8 @@
 
 #include <pcg/engine/math/enums.hpp>
 
+#include <pcg/engine/utility/Enums.hpp>
+
 #include <cstddef>
 #include <vector>
 
@@ -13,6 +15,7 @@ namespace pcg::engine::math
     {
         Vector3& operator+=(const Vector3& rhs);
 
+        static const Vector3 zero;
         static const Vector3 right;
         static const Vector3 left;
         static const Vector3 up;
@@ -33,6 +36,11 @@ namespace pcg::engine::math
     /// @param axes Bit flag representing enabled axes
     /// @return Vector containing unit vectors of enabled axes
     std::vector<const Vector3*> getUnitVectors(Axis axes);
+
+    /// @brief Get a unit vector from a direction
+    /// @param direction Direction who's unit vector we need
+    /// @return The vector corresponding to the given direction
+    const math::Vector3& getUnitVectorFromDirection(utility::enums::Direction direction);
 }
 
 namespace std

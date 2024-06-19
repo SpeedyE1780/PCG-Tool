@@ -18,6 +18,11 @@ namespace pcg::engine::utility::enums
         down = 1 << 5
     };
 
+    /// @brief Get flipped direction of given direction
+    /// @param direction Direction that we want to flip
+    /// @return The flipped direction
+    Direction getFlippedDirection(Direction direction);
+
     template<typename EnumClass>
     constexpr EnumClass operator~(EnumClass enumValue)
     {

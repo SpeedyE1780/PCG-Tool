@@ -7,6 +7,7 @@
 
 namespace pcg::engine::math
 {
+    const Vector3 Vector3::zero{ 0, 0, 0 };
     const Vector3 Vector3::right{ 1, 0, 0 };
     const Vector3 Vector3::left{ -1, 0, 0 };
     const Vector3 Vector3::up{ 0, 1, 0 };
@@ -86,5 +87,42 @@ namespace pcg::engine::math
         }
 
         return directions;
+    }
+
+    const Vector3& getUnitVectorFromDirection(utility::enums::Direction direction)
+    {
+        switch (direction)
+        {
+        case utility::enums::Direction::left:
+        {
+            return Vector3::left;
+        }
+        case utility::enums::Direction::right:
+        {
+            return Vector3::right;
+        }
+        case utility::enums::Direction::forward:
+        {
+            return Vector3::up;
+        }
+        case utility::enums::Direction::backward:
+        {
+            return Vector3::down;
+        }
+        case utility::enums::Direction::up:
+        {
+            return Vector3::up;
+        }
+        case utility::enums::Direction::down:
+        {
+            return Vector3::down;
+        }
+        case utility::enums::Direction::none:
+        default:
+        {
+            utility::logWarning("None direction passed in to getUnitVectorFromDirection");
+            return Vector3::zero;
+        }
+        }
     }
 }

@@ -25,7 +25,7 @@ add_subdirectory(demos/console)
 add_subdirectory(demos/gam703-engine)
 add_subdirectory(level-generation)
 add_subdirectory(math)
-add_subdirectory(maze)
+add_subdirectory(maze-generation)
 add_subdirectory(utility)
 
 find_package(Doxygen)
