@@ -1,5 +1,34 @@
 = Combination-Generation Static Library
 
+== Description
+
+The Combination-Generation library is used to generate combinations from a given set.
+
+== Example usage:
+
+** A combination given the number of elements in a list
+    
+    Given: Red, Green, Blue, Purple, Yellow, Pink
+    Output: Blue, Purple, Yellow
+    
+** A combination with a given number of minimum elements from a list
+    
+    Given: Red, Green, Blue, Purple, Yellow, Pink
+    Minimum: 3 elements
+    Output: Red, Blue, Purple, Yellow
+    
+** A combination that must contain the elements passed in.
+    
+    Given: Red, Green, Blue, Purple, Yellow, Pink
+    Included Elements: Red, Green, Pink
+    Output: Red, Green, Blue, Purple, Pink
+
+== Dependencies
+
+- Math
+
+- Utility
+
 == Anonymous Functions
 
 * **int generateCombination(int elementCount)**

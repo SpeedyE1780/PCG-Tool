@@ -1,0 +1,193 @@
+= Level-Generation Static Library
+
+== Description
+
+The Level-Generation library is used to generate levels.
+
+== Example usage:
+
+
+== Dependencies
+
+- Math
+
+- Utility
+
+== Common Classes
+
+* **GenerationData**
+
+** **Fields:**
+
+*** **unsigned int limit:** Number of nodes that should be generated.
+
+*** **float size:** The size of the generated node.
+   
+*** **Vector3 startPoint:** The starting generation position.
+
+== Simple Generation
+
+=== Anonymous Functions
+
+* **std::function<void(math::Vector3& position, float offset)> getUpdatePositionFunction(math::Axis axis)**
+
+** *Description:* Get a function that will offset position by a unit vector * given offset.
+
+** *Arguments:*
+
+*** *Axis axis:* Axis that unit vector belongs to.
+
+** *Return:* A function that will offset position along the given axis.
+
+=== Header Functions
+
+* **void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, utility::CallbackFunctor<void(math::Vector3)>&& callback)**
+
+** *Description:* Generate a level along an axis.
+
+** *Arguments:*
+
+*** **GenerationData* data:** Object containing number of nodes that need to be generated, node size & starting position.
+
+*** **Axis axis:** Axis used during level generation (X, Y or Z).
+
+*** **Direction direction:** Direction followed on axis (Either positive or negative).
+
+*** **CallbackFunctor<void(Vector3)>&& callback:** Callback when a node is generated.
+
+== Multi Dimensional Generation
+
+=== Anonymous Functions
+
+* **std::optional<math::Vector3> getNextPosition(std::unordered_set<math::Vector3, math::Vector3Hash>& positions, const math::Vector3& currentPosition, const std::vector<const math::Vector3*>& directions, float offset)**
+
+** *Description:* Get the next node position that doesn't overlap with existing nodes.
+
+** *Arguments:*
+
+*** **std::unordered_set<math::Vector3, math::Vector3Hash>& positions:** Set of generated nodes' positions.
+
+*** **const math::Vector3& currentPosition:** Current node position.
+
+*** **const std::vector<const math::Vector3*>& directions:** Vector of directions that can used to get the next position.
+
+*** **float offset:** Offset scalar applied to directions before adding to current position.
+
+** *Returns:* A valid position or std::nullopt if no position is available
+
+=== Header Functions
+
+* **void multiDimensionalGeneration(GenerationData* data, const std::vector<const math::Vector3*>& directions, bool disableOverlap, utility::CallbackFunctor<void(math::Vector3)>&& callback)**
+
+** *Description:* Generate a level on multiple axes.
+
+** *Arguments:*
+
+*** **GenerationData* data:** Object containing number of nodes that need to be generated, node size & starting position.
+
+*** **const std::vector<const math::Vector3*>& directions:** Vector of directions that can used to get the next position.
+
+*** **bool disableOverlap:** VIf true nodes cannot be generated on top of one another.
+
+*** **CallbackFunctor<void(Vector3)>&& callback:** Callback when a node is generated.
+
+[NOTE]
+If disableOverlap is true and generated node has no available neighbour. Generation will end early before generating the desired number of nodes. 
+
+== Wave Function Collapse Geneation
+
+=== Classes
+
+==== Neighbours
+
+* **Methods:**
+
+** **void addNeighbour(utility::enums::Direction neighbour)**
+
+*** **Description:** Adds neighbour.
+
+*** **Arguments:**
+
+**** **Direction neighbour:** Direction from node to neighbour.
+
+** **void removeNeighbour(utility::enums::Direction neighbour)**
+
+*** **Description:** Removes neighbour.
+
+*** **Arguments:**
+
+**** **Direction neighbour:** Direction from node to neighbour.
+
+** **bool hasNeighbour(utility::enums::Direction neighbour) const**
+
+*** **Description:** Verify is node has neighbour.
+
+*** **Arguments:**
+
+**** **Direction neighbour:** Direction from node to neighbour.
+
+*** **Returns:** True if node has a neighbour following the direction.
+
+** **utility::enums::Direction getNeighbours() const**
+
+*** **Description:** Get neighbours direction flag.
+
+*** **Returns:** Direction flag with neighbours info.
+
+** **int getNeighbourCount() const**
+
+*** **Description:** Get neighbours count.
+
+*** **Returns:** Number of neighbours.
+
+** **void generateNeighbours(int additionalNeighbour, std::vector<utility::enums::Direction>&& directions)**
+
+*** **Description:** Generates node's neighbours.
+
+*** **Arguments:**
+
+**** **int additionalNeighbour:** Number of neighbours that should be added.
+
+**** **std::vector<utility::enums::Direction>&& directions:** Vector of directions from node to neighbour.
+
+==== Node
+
+* **Methods:**
+
+** **Node(const math::Vector3& position)**
+
+*** **Arguments:**
+
+**** **const math::Vector3& position:** Node's position.
+
+** **const math::Vector3& getPosition() const**
+
+*** **Description:** Get node's position.
+
+*** **Returns:** Node's position.
+
+** **void setPosition(const math::Vector3& position)**
+
+*** **Description:** Set node's position.
+
+*** **Arguments:**
+
+**** **const math::Vector3& position:** Node's position.
+
+** **Neighbours& getNeighbours()**
+
+*** **Description:** Get node's neighbours.
+
+*** **Returns:** Node's neighbours.
+
+** **const Neighbours& getNeighbours() const**
+
+*** **Description:** Get node's neighbours.
+
+*** **Returns:** Node's neighbours.
+
+=== Anonymous Functions
+
+* **std::optional<NodeVector::iterator> pushNode(NodeCollection& pendingNodes, NodeVector& spawnedNodes, const math::Vector3& position)**
+
+
