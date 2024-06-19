@@ -1,0 +1,5 @@
+= Utility Static Library
+
+== Description
+
+The Utility library contains the logging functionality and the CallbackFunctor class used to pass callback functions to the different libraries. And the operator overloads for enums to enable using them as bit flags.
