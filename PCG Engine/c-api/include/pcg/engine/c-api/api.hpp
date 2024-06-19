@@ -40,8 +40,8 @@ namespace pcg::engine::c_api
     PCG_ENGINE_C_API_API void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::Axis axis, addWFCPointCallback callback);
     PCG_ENGINE_C_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazePointCallback callback);
     PCG_ENGINE_C_API_API void generateCombination(int elementCount, generateCombinationCallback&& callback);
-    PCG_ENGINE_C_API_API void generateCombination(int elementCount, int minimumElementCount, generateCombinationCallback&& callback);
-    PCG_ENGINE_C_API_API void generateCombination(int elementCount, int* activeElementsIndex, int activeElementCount, generateCombinationCallback&& callback);
+    PCG_ENGINE_C_API_API void generateCombinationWithMinimumElementCount(int elementCount, int minimumElementCount, generateCombinationCallback&& callback);
+    PCG_ENGINE_C_API_API void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementCount, generateCombinationCallback&& callback);
 }
 
 #endif // PCG_ENGINE_C_API_API_HPP
