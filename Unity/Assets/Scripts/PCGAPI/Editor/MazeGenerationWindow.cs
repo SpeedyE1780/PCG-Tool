@@ -45,7 +45,7 @@ public class MazeGenerationWindow : EditorWindow
             Debug.Log(msg);
         }
 
-        PCGEngine.SetLoggingFunction(Log);
+        //PCGEngine.SetLoggingFunction(Log);
 
         WFCNode node = nodeField.value as WFCNode;
         float size = nodeSize.value;
