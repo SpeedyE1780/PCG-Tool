@@ -2,6 +2,7 @@
     <editor:ObjectField label="Node" type="PCGAPI.Generators.WFCNode, PCGAPI" name="NodeField" />
     <engine:Vector2IntField label="Grid Size" name="GridSize" />
     <engine:FloatField label="Node Size" value="0" name="NodeSize" />
+    <engine:UnsignedIntegerField label="Seed" value="0" name="Seed" />
     <engine:DropdownField label="Algorithm" choices="Aldous Broder,Wilson,Binary Tree NE,Binary Tree NW,Binary Tree SE,Binary Tree SW,Sidewinder" name="MazeAlgorithm" index="0" />
     <engine:Button text="Generate" name="GenerateButton" />
 </engine:UXML>

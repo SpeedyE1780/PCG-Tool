@@ -1,6 +1,5 @@
 using PCGAPI;
 using PCGAPI.Generators;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -13,7 +12,8 @@ public class MazeGenerationWindow : EditorWindow
 
     private ObjectField nodeField;
     private Vector2IntField gridSizeField;
-    private FloatField nodeSize;
+    private FloatField nodeSizeField;
+    private UnsignedIntegerField seedField;
     private DropdownField mazeAlgorithmField;
 
     [MenuItem("PCG/Maze Generation")]
@@ -31,7 +31,8 @@ public class MazeGenerationWindow : EditorWindow
 
         nodeField = rootVisualElement.Q<ObjectField>("NodeField");
         gridSizeField = rootVisualElement.Q<Vector2IntField>("GridSize");
-        nodeSize = rootVisualElement.Q<FloatField>("NodeSize");
+        nodeSizeField = rootVisualElement.Q<FloatField>("NodeSize");
+        seedField = rootVisualElement.Q<UnsignedIntegerField>("Seed");
         mazeAlgorithmField = rootVisualElement.Q<DropdownField>("MazeAlgorithm");
 
         var generateButton = rootVisualElement.Q<Button>("GenerateButton");
@@ -45,10 +46,10 @@ public class MazeGenerationWindow : EditorWindow
             Debug.Log(msg);
         }
 
-        //PCGEngine.SetLoggingFunction(Log);
+        PCGEngine.SetLoggingFunction(Log);
 
         WFCNode node = nodeField.value as WFCNode;
-        float size = nodeSize.value;
+        float size = nodeSizeField.value;
         Vector2Int gridSize = gridSizeField.value;
 
         if (node == null)
@@ -69,25 +70,18 @@ public class MazeGenerationWindow : EditorWindow
             return;
         }
 
-        Dictionary<Vector2, WFCNode> nodes = new Dictionary<Vector2, WFCNode>();
+        PCGEngine.SetSeed(seedField.value);
+
         Transform nodeParent = new GameObject("MAZE").transform;
 
-        void AddMazeNode(int x, int y, Direction neighbors)
+        void AddMazeNode(int x, int y, Direction adjacentNodes)
         {
-            if (!nodes.ContainsKey(new Vector2(x, y)))
-            {
-                UnityEngine.Vector3 position = new UnityEngine.Vector3(x * size, 0, y * size);
-                WFCNode n = Instantiate(node, nodeParent);
-                n.transform.position = position;
-                n.SetNeighbors(neighbors);
-                nodes.Add(new Vector2(x, y), n);
-            }
-            else
-            {
-                nodes[new Vector2(x, y)].SetNeighbors(neighbors);
-            }
+            UnityEngine.Vector3 position = new UnityEngine.Vector3(x * size, 0, y * size);
+            WFCNode n = Instantiate(node, nodeParent);
+            n.transform.position = position;
+            n.SetNeighbors(adjacentNodes);
         }
 
-        PCGEngine.GenerateMaze(gridSize.x, gridSize.y, false, (MazeAlgorithm)mazeAlgorithmField.index, AddMazeNode);
+        PCGEngine.GenerateMaze(gridSize.x, gridSize.y, true, (MazeAlgorithm)mazeAlgorithmField.index, AddMazeNode);
     }
 }
