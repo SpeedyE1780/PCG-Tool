@@ -15,6 +15,14 @@ namespace pcg::engine::utility::enums
         {
             return Direction::left;
         }
+        case Direction::up:
+        {
+            return Direction::down;
+        }
+        case Direction::down:
+        {
+            return Direction::up;
+        }
         case Direction::forward:
         {
             return Direction::backward;
