@@ -3,23 +3,23 @@
 
 namespace pcg::engine::math
 {
-    namespace axis
+    /// @brief Axis bitflag indicating which axes are enabled
+    enum class Axis
     {
-        using Flag = int;
-
-        constexpr Flag x = 1 << 0;
-        constexpr Flag y = 1 << 1;
-        constexpr Flag z = 1 << 2;
-        constexpr Flag xy = x | y;
-        constexpr Flag xz = x | z;
-        constexpr Flag yz = y | z;
-        constexpr Flag xyz = x | y | z;
-    }
-
-    enum class Direction
-    {
-        positive = 0,
-        negative = 1
+        none = 0,
+        positiveX = 1 << 0,
+        negativeX = 1 << 1,
+        positiveY = 1 << 2,
+        negativeY = 1 << 3,
+        positiveZ = 1 << 4,
+        negativeZ = 1 << 5,
+        x = positiveX | negativeX,
+        y = positiveY | negativeY,
+        z = positiveZ | negativeZ,
+        xy = x | y,
+        xz = x | z,
+        yz = y | z,
+        xyz = x | y | z
     };
 }
 
