@@ -28,6 +28,8 @@ class PCG_WINDOW_API UMultiDimensionGenerationData : public UObject
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data", meta = (Bitmask, BitmaskEnum = "EGenerationAxis"))
     uint8 axes;
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
+    unsigned int seed;
+    UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
     bool disableOverlap;
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
     FVector startPosition;

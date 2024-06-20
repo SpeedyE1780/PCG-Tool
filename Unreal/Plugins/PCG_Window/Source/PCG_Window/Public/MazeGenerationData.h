@@ -43,6 +43,8 @@ class PCG_WINDOW_API UMazeGenerationData : public UObject
 
     UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
     float nodeSize;
+    UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
+    unsigned int seed;
 
 private:
     void SpawnBlock(int x, int y, pcg::engine::utility::enums::Direction adjacentNodes);

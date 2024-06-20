@@ -84,5 +84,5 @@ namespace PCGAPI.Editor
 
             PCGEngine.GenerateMaze(gridSize.x, gridSize.y, true, (MazeAlgorithm)mazeAlgorithmField.index, AddMazeNode);
         }
-    } 
+    }
 }

@@ -20,6 +20,8 @@ void UMazeGenerationData::GenerateMaze()
         return;
     }
 
+    pcg::engine::cpp_api::setSeed(seed);
+
     blocks.Empty(gridSize.X * gridSize.Y);
     pcg::engine::cpp_api::generateMaze(gridSize.X, gridSize.Y, true, static_cast<pcg::engine::cpp_api::MazeAlgorithm>(mazeAlgorithm),
         [this](int x, int y, pcg::engine::utility::enums::Direction adjacentNodes) {

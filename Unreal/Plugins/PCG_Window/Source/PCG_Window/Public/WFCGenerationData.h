@@ -39,6 +39,8 @@ class PCG_WINDOW_API UWFCGenerationData : public UObject
     uint8 axes;
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
     FVector startPosition;
+    UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
+    unsigned int seed;
 
 private:
     void SpawnNode(pcg::engine::math::Vector3 position, pcg::engine::utility::enums::Direction adjacentNodes) const;

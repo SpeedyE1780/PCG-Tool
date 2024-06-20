@@ -21,6 +21,8 @@ void UWFCGenerationData::GenerateLevel() const
         return;
     }
 
+    pcg::engine::cpp_api::setSeed(seed);
+
     pcg::engine::level_generation::GenerationData data
     {
         count,
