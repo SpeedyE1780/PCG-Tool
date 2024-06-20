@@ -101,14 +101,6 @@ namespace pcg::engine::math
         {
             return Vector3::right;
         }
-        case utility::enums::Direction::forward:
-        {
-            return Vector3::up;
-        }
-        case utility::enums::Direction::backward:
-        {
-            return Vector3::down;
-        }
         case utility::enums::Direction::up:
         {
             return Vector3::up;
@@ -116,6 +108,14 @@ namespace pcg::engine::math
         case utility::enums::Direction::down:
         {
             return Vector3::down;
+        }
+        case utility::enums::Direction::forward:
+        {
+            return Vector3::forward;
+        }
+        case utility::enums::Direction::backward:
+        {
+            return Vector3::backward;
         }
         case utility::enums::Direction::none:
         default:
