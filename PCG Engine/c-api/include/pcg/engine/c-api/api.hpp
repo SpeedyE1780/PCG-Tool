@@ -65,7 +65,7 @@ namespace pcg::engine::c_api
     /// @param mode If Breadth-First Search (BFS) or Depth-First Search (DFS) expansion should be used
     /// @param axes Axes flag indicating which axes are being used
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_C_API_API void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, addWFCNodeCallback&& callback);
+    PCG_ENGINE_C_API_API void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, addWFCNodeCallback callback);
     /// @brief Generate a maze using the passed in algorithm
     /// @param width Width of grid
     /// @param height Height of grid
