@@ -75,19 +75,19 @@ int main()
 
     std::cout << "Simple Generation" << std::endl;
     GenerationData data{ 10, 1, { 0, 0, 0 } };
-    simpleGeneration(&data, Axis::x, Direction::negative, addPoints);
+    simpleGeneration(data, Axis::negativeX, addPoints);
 
     std::cout << "2D Generation" << std::endl;
-    multiDimensionGeneration(&data, Axis::yz, true, addPoints);
+    multiDimensionGeneration(data, Axis::yz, true, addPoints);
 
     std::cout << "3D Generation" << std::endl;
-    multiDimensionGeneration(&data, Axis::xyz, true, addPoints);
+    multiDimensionGeneration(data, Axis::xyz, true, addPoints);
 
     std::cout << "Wave Function Collapse DFS" << std::endl;
-    data.limit = 115;
-    waveFunctionCollapseGeneration(&data, ExpansionMode::DFS, Axis::xz, addWFCPoints);
+    data.count = 115;
+    waveFunctionCollapseGeneration(data, ExpansionMode::DFS, Axis::xz, addWFCPoints);
     std::cout << "Wave Function Collapse BFS" << std::endl;
-    waveFunctionCollapseGeneration(&data, ExpansionMode::BFS, Axis::xz, addWFCPoints);
+    waveFunctionCollapseGeneration(data, ExpansionMode::BFS, Axis::xz, addWFCPoints);
 
     std::cout << "Maze Generation: aldousBroder" << std::endl;
     generateMaze(width, height, true, MazeAlgorithm::aldousBroder, addMazePoint);

@@ -1,5 +1,7 @@
-#include <pcg/engine/maze/AldousBroder.hpp>
-#include <pcg/engine/maze/Common.hpp>
+#include <pcg/engine/maze-generation/AldousBroder.hpp>
+#include <pcg/engine/maze-generation/Common.hpp>
+
+#include <pcg/engine/math/random.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
 
@@ -7,7 +9,7 @@
 #include <sstream>
 #include <vector>
 
-namespace pcg::engine::maze
+namespace pcg::engine::maze_generation
 {
     void aldousBroder(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
@@ -15,9 +17,8 @@ namespace pcg::engine::maze
 
         utility::logInfo("Aldous - Broder Maze Generation Started");
 
-        std::vector<utility::enums::Direction> directions{ utility::enums::Direction::left, utility::enums::Direction::right, utility::enums::Direction::forward, utility::enums::Direction::backward };
-        auto randomDevice = std::random_device{};
-        auto randomEngine = std::default_random_engine{ randomDevice() };
+        std::vector<utility::enums::Direction> directions = getDefaultDirections();
+        auto randomEngine = std::default_random_engine{ math::Random::seed };
 
         Grid grid = generateGrid(width, height);
 
@@ -35,14 +36,14 @@ namespace pcg::engine::maze
 
             for (utility::enums::Direction direction : directions)
             {
-                auto [nx, ny] = getNeighborXY(x, y, direction);
+                auto [nx, ny] = getAdjacentCoordinates(x, y, direction);
 
                 if (nx >= 0 && ny >= 0 && nx < width && ny < height)
                 {
                     if (grid[ny][nx] == utility::enums::Direction::none)
                     {
                         grid[y][x] |= direction;
-                        grid[ny][nx] |= getFlippedDirection(direction);
+                        grid[ny][nx] |= utility::enums::getFlippedDirection(direction);
                         unvisited -= 1;
                         oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited;
                         utility::logInfo(oss.str());

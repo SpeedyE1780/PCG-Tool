@@ -7,6 +7,7 @@
 
 namespace pcg::engine::math
 {
+    const Vector3 Vector3::zero{ 0, 0, 0 };
     const Vector3 Vector3::right{ 1, 0, 0 };
     const Vector3 Vector3::left{ -1, 0, 0 };
     const Vector3 Vector3::up{ 0, 1, 0 };
@@ -14,20 +15,13 @@ namespace pcg::engine::math
     const Vector3 Vector3::forward{ 0, 0 ,1 };
     const Vector3 Vector3::backward{ 0, 0, -1 };
 
-    void Vector3::operator+=(const Vector3& rhs)
+    Vector3& Vector3::operator+=(const Vector3& rhs)
     {
         x += rhs.x;
         y += rhs.y;
         z += rhs.z;
-    }
 
-    std::size_t Vector3Hash::operator()(const Vector3& vector) const noexcept
-    {
-        std::size_t x = std::hash<float>{}(vector.x);
-        std::size_t y = std::hash<float>{}(vector.y);
-        std::size_t z = std::hash<float>{}(vector.z);
-
-        return x ^ (y << 1) ^ (z << 2);
+        return *this;
     }
 
     Vector3 operator+(const Vector3& lhs, const Vector3& rhs)
@@ -53,25 +47,82 @@ namespace pcg::engine::math
         return scaledVector;
     }
 
-    std::vector<const Vector3*> getUnitVectors(Axis axis)
+    std::vector<const Vector3*> getUnitVectors(Axis axes)
     {
         std::vector<const Vector3*> directions{};
 
-        if (utility::enums::hasFlag(axis, Axis::x))
+        if (utility::enums::hasFlag(axes, Axis::positiveX))
         {
-            directions.insert(directions.begin(), { &Vector3::left, &Vector3::right });
+            directions.emplace_back(&Vector3::right);
         }
 
-        if (utility::enums::hasFlag(axis, Axis::y))
+        if (utility::enums::hasFlag(axes, Axis::negativeX))
         {
-            directions.insert(directions.begin(), { &Vector3::up, &Vector3::down });
+            directions.emplace_back(&Vector3::left);
         }
 
-        if (utility::enums::hasFlag(axis, Axis::z))
+        if (utility::enums::hasFlag(axes, Axis::positiveY))
         {
-            directions.insert(directions.begin(), { &Vector3::forward, &Vector3::backward });
+            directions.emplace_back(&Vector3::up);
+        }
+
+        if (utility::enums::hasFlag(axes, Axis::negativeY))
+        {
+            directions.emplace_back(&Vector3::down);
+        }
+
+        if (utility::enums::hasFlag(axes, Axis::positiveZ))
+        {
+            directions.emplace_back(&Vector3::forward);
+        }
+
+        if (utility::enums::hasFlag(axes, Axis::negativeZ))
+        {
+            directions.emplace_back(&Vector3::backward);
+        }
+
+        if (directions.size() == 0)
+        {
+            utility::logError("Invalid axis given to getUnitVectors");
         }
 
         return directions;
+    }
+
+    const Vector3& getUnitVectorFromDirection(utility::enums::Direction direction)
+    {
+        switch (direction)
+        {
+        case utility::enums::Direction::left:
+        {
+            return Vector3::left;
+        }
+        case utility::enums::Direction::right:
+        {
+            return Vector3::right;
+        }
+        case utility::enums::Direction::up:
+        {
+            return Vector3::up;
+        }
+        case utility::enums::Direction::down:
+        {
+            return Vector3::down;
+        }
+        case utility::enums::Direction::forward:
+        {
+            return Vector3::forward;
+        }
+        case utility::enums::Direction::backward:
+        {
+            return Vector3::backward;
+        }
+        case utility::enums::Direction::none:
+        default:
+        {
+            utility::logWarning("None direction passed in to getUnitVectorFromDirection");
+            return Vector3::zero;
+        }
+        }
     }
 }

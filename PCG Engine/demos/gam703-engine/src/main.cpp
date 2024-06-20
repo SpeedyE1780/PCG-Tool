@@ -10,6 +10,8 @@
 
 #include <pcg/engine/level-generation/node.hpp>
 
+#include <pcg/engine/utility/Enums.hpp>
+
 #include <pcg/engine/cpp-api/api.hpp>
 
 #include <iostream>
@@ -125,24 +127,24 @@ int main()
     {
     case 1:
     {
-        pcg::engine::cpp_api::simpleGeneration(&data, pcg::engine::math::Axis::z, pcg::engine::math::Direction::negative, addPointCallback);
+        pcg::engine::cpp_api::simpleGeneration(data, pcg::engine::math::Axis::positiveZ, addPointCallback);
         break;
     }
     case 2:
     {
-        pcg::engine::cpp_api::multiDimensionGeneration(&data, pcg::engine::math::Axis::xz, true, addPointCallback);
+        pcg::engine::cpp_api::multiDimensionGeneration(data, pcg::engine::math::Axis::xz, true, addPointCallback);
         break;
     }
     case 3:
     {
-        data.limit = 100;
-        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::level_generation::ExpansionMode::DFS, pcg::engine::math::Axis::xz, addWFCPointCallback);
+        data.count = 100;
+        pcg::engine::cpp_api::waveFunctionCollapseGeneration(data, pcg::engine::level_generation::ExpansionMode::DFS, pcg::engine::math::Axis::xz, addWFCPointCallback);
         break;
     }
     case 4:
     {
-        data.limit = 100;
-        pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, pcg::engine::level_generation::ExpansionMode::BFS, pcg::engine::math::Axis::xz, addWFCPointCallback);
+        data.count = 100;
+        pcg::engine::cpp_api::waveFunctionCollapseGeneration(data, pcg::engine::level_generation::ExpansionMode::BFS, pcg::engine::math::Axis::positiveX | pcg::engine::math::Axis::negativeX | pcg::engine::math::Axis::negativeZ , addWFCPointCallback);
         break;
     }
     default:

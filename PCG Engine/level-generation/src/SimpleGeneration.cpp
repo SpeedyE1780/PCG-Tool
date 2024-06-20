@@ -8,56 +8,79 @@ namespace pcg::engine::level_generation
 {
     namespace
     {
+        /// @brief Get function used to get next node position
+        /// @param axis Axis followed to spawn nodes
+        /// @return Function used to update the node position to the next one
         std::function<void(math::Vector3& position, float offset)> getUpdatePositionFunction(math::Axis axis)
         {
             switch (axis)
             {
-            case math::Axis::x:
+            case math::Axis::positiveX:
             {
                 return [](math::Vector3& position, float offset)
                     {
                         position.x += offset;
                     };
             }
-            case math::Axis::y:
+            case math::Axis::negativeX:
+            {
+                return [](math::Vector3& position, float offset)
+                    {
+                        position.x -= offset;
+                    };
+            }
+            case math::Axis::positiveY:
             {
                 return [](math::Vector3& position, float offset)
                     {
                         position.y += offset;
                     };
             }
-            case math::Axis::z:
+            case math::Axis::negativeY:
+            {
+                return [](math::Vector3& position, float offset)
+                    {
+                        position.y -= offset;
+                    };
+            }
+            case math::Axis::positiveZ:
             {
                 return [](math::Vector3& position, float offset)
                     {
                         position.z += offset;
                     };
             }
+            case math::Axis::negativeZ:
+            {
+                return [](math::Vector3& position, float offset)
+                    {
+                        position.z -= offset;
+                    };
+            }
             default:
             {
-                utility::logError("Can't interpret axis returning with no generation");
+                utility::logError("Invalid axis given to getUpdatePositionFunction");
                 return nullptr;
             }
             }
         }
     }
 
-    void simpleGeneration(GenerationData* data, math::Axis axis, math::Direction direction, utility::CallbackFunctor<void(math::Vector3)>&& callback)
+    void simpleGeneration(const GenerationData& data, math::Axis axis, utility::CallbackFunctor<void(math::Vector3)>&& callback)
     {
         utility::logInfo("Simple Generation Started");
         std::function<void(math::Vector3& position, float offset)> updatePosition = getUpdatePositionFunction(axis);
-        math::Vector3 position = data->startPoint;
-        const float offset = direction == math::Direction::positive ? data->size : -data->size;
+        math::Vector3 position = data.startPoint;
 
         if (!updatePosition)
         {
             return;
         }
 
-        for (int i = 0; i < data->limit; ++i)
+        for (int i = 0; i < data.count; ++i)
         {
             callback(position);
-            updatePosition(position, offset);
+            updatePosition(position, data.size);
         }
 
         utility::logInfo("Simple Generation Ended");

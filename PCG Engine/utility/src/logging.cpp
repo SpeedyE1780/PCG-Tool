@@ -4,6 +4,9 @@ namespace pcg::engine::utility
 {
     namespace
     {
+        /// @brief Logs message functor functor
+        /// @param logger Logger functor used to log message
+        /// @param message Messaget that will be logged
         void log(const CallbackFunctor<void(const char*)>& logger, const std::string& message)
         {
             if (logger)

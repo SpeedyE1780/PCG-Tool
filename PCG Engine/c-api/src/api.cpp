@@ -6,36 +6,40 @@
 #include <pcg/engine/level-generation/MultiDimensionalGeneration.hpp>
 #include <pcg/engine/level-generation/WaveFunctionCollapse.hpp>
 
-#include <pcg/engine/maze/AldousBroder.hpp>
-#include <pcg/engine/maze/BinaryTree.hpp>
-#include <pcg/engine/maze/Sidewinder.hpp>
-#include <pcg/engine/maze/Wilson.hpp>
+#include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze-generation/AldousBroder.hpp>
+#include <pcg/engine/maze-generation/BinaryTree.hpp>
+#include <pcg/engine/maze-generation/Sidewinder.hpp>
+#include <pcg/engine/maze-generation/Wilson.hpp>
+
+#include <pcg/engine/utility/logging.hpp>
 
 namespace pcg::engine::c_api
 {
     void setSeed(unsigned int seed)
     {
-        math::Random::seed(seed);
+        math::Random::initializeSeed(seed);
     }
 
-    void setRandomGenerator(setSeedCallback seed, generateNumberCallback generate)
+    void setRandomGenerator(setSeedCallback&& seed, generateNumberCallback&& generate)
     {
         return math::initializeRandom(seed, generate);
     }
 
-    void setLoggingFunction(logMessage logFunction)
+    void setLoggingFunction(logMessage&& logFunction)
     {
         utility::setLoggingFunction(logFunction);
     }
 
-    void simpleGeneration(level_generation::GenerationData* data, math::Axis axis, math::Direction direction, addPointCallback callback)
+    void simpleGeneration(const level_generation::GenerationData& data, math::Axis axis, addNodeCallback&& callback)
     {
-        level_generation::simpleGeneration(data, axis, direction, callback);
+        level_generation::simpleGeneration(data, axis, callback);
     }
 
-    void multiDimensionGeneration(level_generation::GenerationData* data, math::Axis axis, bool disableOverlap, addPointCallback callback)
+    void multiDimensionGeneration(const level_generation::GenerationData& data, math::Axis axes, bool disableOverlap, addNodeCallback&& callback)
     {
-        std::vector<const math::Vector3*> directions = math::getUnitVectors(axis);
+        std::vector<const math::Vector3*> directions = math::getUnitVectors(axes);
 
         if (directions.empty())
         {
@@ -45,48 +49,48 @@ namespace pcg::engine::c_api
         level_generation::multiDimensionalGeneration(data, directions, disableOverlap, callback);
     }
 
-    void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::Axis axis, addWFCPointCallback callback)
+    void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, addWFCNodeCallback&& callback)
     {
-        level_generation::waveFunctionCollapse(data, mode, axis, callback);
+        level_generation::waveFunctionCollapse(data, mode, axes, callback);
     }
 
-    void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazePointCallback callback)
+    void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazeNodeCallback&& callback)
     {
         switch (algorithm)
         {
         case MazeAlgorithm::aldousBroder:
         {
-            maze::aldousBroder(width, height, invokeAferGeneration, callback);
+            maze_generation::aldousBroder(width, height, invokeAferGeneration, callback);
             break;
         }
         case MazeAlgorithm::wilson:
         {
-            maze::wilson(width, height, invokeAferGeneration, callback);
+            maze_generation::wilson(width, height, invokeAferGeneration, callback);
             break;
         }
         case MazeAlgorithm::binaryTreeNE:
         {
-            maze::binaryTree(width, height, invokeAferGeneration, maze::Diagonal::NE, callback);
+            maze_generation::binaryTree(width, height, invokeAferGeneration, maze_generation::Diagonal::NE, callback);
             break;
         }
         case MazeAlgorithm::binaryTreeNW:
         {
-            maze::binaryTree(width, height, invokeAferGeneration, maze::Diagonal::NW, callback);
+            maze_generation::binaryTree(width, height, invokeAferGeneration, maze_generation::Diagonal::NW, callback);
             break;
         }
         case MazeAlgorithm::binaryTreeSE:
         {
-            maze::binaryTree(width, height, invokeAferGeneration, maze::Diagonal::SE, callback);
+            maze_generation::binaryTree(width, height, invokeAferGeneration, maze_generation::Diagonal::SE, callback);
             break;
         }
         case MazeAlgorithm::binaryTreeSW:
         {
-            maze::binaryTree(width, height, invokeAferGeneration, maze::Diagonal::SW, callback);
+            maze_generation::binaryTree(width, height, invokeAferGeneration, maze_generation::Diagonal::SW, callback);
             break;
         }
         case MazeAlgorithm::sidewinder:
         {
-            maze::sidewinder(width, height, invokeAferGeneration, callback);
+            maze_generation::sidewinder(width, height, invokeAferGeneration, callback);
             break;
         }
         default:
@@ -104,11 +108,11 @@ namespace pcg::engine::c_api
         combination_generation::generateCombination(elementCount, minimumElementCount, callback);
     }
 
-    void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementCount, generateCombinationCallback&& callback)
+    void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementsCount, generateCombinationCallback&& callback)
     {
-        std::vector<int> activeElements(activeElementCount);
+        std::vector<int> activeElements(activeElementsCount);
 
-        for (int i = 0; i < activeElementCount; ++i)
+        for (int i = 0; i < activeElementsCount; ++i)
         {
             activeElements.emplace_back(activeElementsIndex[i]);
         }

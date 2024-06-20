@@ -1,19 +1,26 @@
-#include <pcg/engine/maze/BinaryTree.hpp>
+#include <pcg/engine/maze-generation/BinaryTree.hpp>
+
+#include <pcg/engine/math/random.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
 
 #include <random>
 #include <sstream>
 
-namespace pcg::engine::maze
+namespace pcg::engine::maze_generation
 {
     namespace
     {
-        void binaryTree(int width, int height, bool invokeAfterGeneration, std::vector<utility::enums::Direction> directions, MazeCallback&& callback)
+        /// @brief Geneate maze using Binary Tree Algorithm
+        /// @param width Grid Width
+        /// @param height Grid Height
+        /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+        /// @param directions Vector containing the N/S and W/E pair of direction
+        /// @param callback Callback when a node is generated
+        void binaryTree(int width, int height, bool invokeAfterGeneration, std::vector<utility::enums::Direction>&& directions, MazeCallback&& callback)
         {
             Grid grid = generateGrid(width, height);
-            auto randomDevice = std::random_device{};
-            auto randomEngine = std::default_random_engine{ randomDevice() };
+            auto randomEngine = std::default_random_engine{ math::Random::seed };
 
             for (int h = 0; h < height; ++h)
             {
@@ -23,12 +30,12 @@ namespace pcg::engine::maze
 
                     for (utility::enums::Direction direction : directions)
                     {
-                        auto [nw, nh] = getNeighborXY(w, h, direction);
+                        auto [nw, nh] = getAdjacentCoordinates(w, h, direction);
 
                         if (nw >= 0 && nh >= 0 && nw < width && nh < height)
                         {
                             grid[h][w] |= direction;
-                            grid[nh][nw] |= getFlippedDirection(direction);
+                            grid[nh][nw] |= utility::enums::getFlippedDirection(direction);
                             std::ostringstream oss{};
                             oss << "Value set at " << w << "-" << h << "/" << nw << "-" << nh;
                             utility::logInfo(oss.str());
@@ -91,6 +98,7 @@ namespace pcg::engine::maze
         }
         default:
         {
+            utility::logError("Invalid Diagonal passed to binaryTree");
             break;
         }
         }

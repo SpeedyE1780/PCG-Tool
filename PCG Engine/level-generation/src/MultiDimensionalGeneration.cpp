@@ -11,17 +11,23 @@ namespace pcg::engine::level_generation
 {
     namespace
     {
-        std::optional<math::Vector3> getNextPosition(std::unordered_set<math::Vector3, math::Vector3Hash>& positions, const math::Vector3& currentPosition, const std::vector<const math::Vector3*>& directions, float offset)
+        /// @brief Get next valid position to spawn node
+        /// @param spawnedPositions Set of positions containing nodes
+        /// @param currentPosition Current node position
+        /// @param directions Possible directions to reach adjacent node
+        /// @param offset Offset between each node
+        /// @return The next valid position or null if no position is found
+        std::optional<math::Vector3> getNextPosition(std::unordered_set<math::Vector3>& spawnedPositions, const math::Vector3& currentPosition, const std::vector<const math::Vector3*>& directions, float offset)
         {
             std::vector<math::Vector3> availablePositions{};
 
             for (const auto* direction : directions)
             {
-                math::Vector3 position = currentPosition + *direction * offset;
+                math::Vector3 nodePosition = currentPosition + *direction * offset;
 
-                if (positions.find(position) == end(positions))
+                if (spawnedPositions.find(nodePosition) == end(spawnedPositions))
                 {
-                    availablePositions.emplace_back(std::move(position));
+                    availablePositions.emplace_back(std::move(nodePosition));
                 }
             }
 
@@ -30,27 +36,27 @@ namespace pcg::engine::level_generation
                 return std::nullopt;
             }
 
-            return availablePositions[math::Random::generate(0, availablePositions.size())];
+            return availablePositions[math::Random::generateNumber(0, availablePositions.size())];
         }
     }
 
-    void multiDimensionalGeneration(GenerationData* data, const std::vector<const math::Vector3*>& directions, bool disableOverlap, utility::CallbackFunctor<void(math::Vector3)>&& callback)
+    void multiDimensionalGeneration(const GenerationData& data, const std::vector<const math::Vector3*>& directions, bool disableOverlap, utility::CallbackFunctor<void(math::Vector3)>&& callback)
     {
         utility::logInfo("Multi-Dimension Generation Started");
 
-        std::unordered_set<math::Vector3, math::Vector3Hash> positions{};
-        math::Vector3 position = data->startPoint;
+        std::unordered_set<math::Vector3> spawnedPositions{};
+        math::Vector3 nodePosition = data.startPoint;
 
-        for (int i = 0; i < data->limit; i++)
+        for (int i = 0; i < data.count; i++)
         {
-            callback(position);
+            callback(nodePosition);
 
             if (disableOverlap)
             {
-                positions.insert(position);
+                spawnedPositions.insert(nodePosition);
             }
 
-            auto nextPosition = getNextPosition(positions, position, directions, data->size);
+            auto nextPosition = getNextPosition(spawnedPositions, nodePosition, directions, data.size);
 
             if (!nextPosition.has_value())
             {
@@ -58,7 +64,7 @@ namespace pcg::engine::level_generation
                 return;
             }
 
-            position = nextPosition.value();
+            nodePosition = nextPosition.value();
         }
 
         utility::logInfo("Multi-Dimension Generation Ended");

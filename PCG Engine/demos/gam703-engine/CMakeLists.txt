@@ -4,7 +4,7 @@ add_executable(${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME} PRIVATE "src/main.cpp")
 
-target_link_libraries(${PROJECT_NAME} PRIVATE PCG-Engine-CPP-API)
+target_link_libraries(${PROJECT_NAME} PRIVATE pcg-engine-cpp-api)
 target_link_libraries(${PROJECT_NAME} PRIVATE game-components)
 
 add_dependencies(${PROJECT_NAME} copy-files)
