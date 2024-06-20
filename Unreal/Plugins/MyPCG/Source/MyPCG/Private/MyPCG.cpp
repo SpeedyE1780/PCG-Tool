@@ -12,7 +12,7 @@ void FMyPCGModule::StartupModule()
     // This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
     // Get the base directory of this plugin
     FString BaseDir = IPluginManager::Get().FindPlugin("MyPCG")->GetBaseDir();
-    FString MyPcgPath = FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/PCGEngine/PCG-Engine-Cpp-API.dll"));
+    FString MyPcgPath = FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/PCGEngine/pcg-engine-cpp-apid.dll"));
     // Add on the relative location of the third party dll and load it
     PCGLibraryHandle = !MyPcgPath.IsEmpty() ? FPlatformProcess::GetDllHandle(*MyPcgPath) : nullptr;
     if (!PCGLibraryHandle)

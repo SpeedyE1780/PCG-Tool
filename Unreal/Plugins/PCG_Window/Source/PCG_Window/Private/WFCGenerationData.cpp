@@ -15,7 +15,7 @@ void UWFCGenerationData::GenerateLevel() const
         return;
     }
 
-    if (count == 0 || nodeSize == 0 || axis == 0)
+    if (count == 0 || nodeSize == 0 || axes == EGenerationAxis::none)
     {
         return;
     }
@@ -24,20 +24,20 @@ void UWFCGenerationData::GenerateLevel() const
     {
         count,
         nodeSize,
-        { startPosition.Y, startPosition.Z, startPosition.X }
+        { startPosition.X, startPosition.Y, startPosition.Z }
     };
 
-    pcg::engine::cpp_api::waveFunctionCollapseGeneration(&data, static_cast<pcg::engine::level_generation::ExpansionMode>(expansionMode), axis,
-        [this](pcg::engine::math::Vector3 position, int neighbors)
+    pcg::engine::cpp_api::waveFunctionCollapseGeneration(data, static_cast<pcg::engine::level_generation::ExpansionMode>(expansionMode), static_cast<pcg::engine::math::Axis>(axes),
+        [this](pcg::engine::math::Vector3 position, pcg::engine::utility::enums::Direction adjacentNodes)
         {
-            SpawnNode(position, neighbors);
+            SpawnNode(position, adjacentNodes);
         });
 }
 
-void UWFCGenerationData::SpawnNode(pcg::engine::math::Vector3 position, int neighbors) const
+void UWFCGenerationData::SpawnNode(pcg::engine::math::Vector3 position, pcg::engine::utility::enums::Direction adjacentNodes) const
 {
     UWorld* world = GEditor->GetEditorWorldContext().World();
     AWFCBlock* spawnedBlock = world->SpawnActor<AWFCBlock>(block);
-    spawnedBlock->SetActorLocation(FVector{ position.z, position.x, position.y });
-    spawnedBlock->UpdateMeshes(neighbors);
+    spawnedBlock->SetActorLocation(FVector{ position.x, position.y, position.z });
+    spawnedBlock->UpdateMeshes(adjacentNodes);
 }

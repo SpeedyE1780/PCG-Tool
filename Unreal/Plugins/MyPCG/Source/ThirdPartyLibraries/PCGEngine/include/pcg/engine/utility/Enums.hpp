@@ -6,6 +6,15 @@
 #include <type_traits>
 #include <utility>
 
+namespace std
+{
+    template<class Enum>
+    constexpr std::underlying_type_t<Enum> to_underlying(Enum e) noexcept
+    {
+        return static_cast<std::underlying_type_t<Enum>>(e);
+    }
+}
+
 /// @brief Apply ~operator to enum
 /// @tparam EnumClass Templated enum
 /// @param enumValue Value

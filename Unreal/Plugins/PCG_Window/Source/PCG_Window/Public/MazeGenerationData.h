@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "MazeBlock.h"
 #include "pcg/engine/math/Vector3.hpp"
+#include "pcg/engine/utility/Enums.hpp"
 #include "MazeGenerationData.generated.h"
 
 UENUM(BlueprintType)
@@ -44,7 +45,7 @@ class PCG_WINDOW_API UMazeGenerationData : public UObject
     float nodeSize;
 
 private:
-    void SpawnBlock(int x, int y, int neighbors);
+    void SpawnBlock(int x, int y, pcg::engine::utility::enums::Direction adjacentNodes);
 
     TMap<TTuple<int, int>, AMazeBlock*> blocks;
 };

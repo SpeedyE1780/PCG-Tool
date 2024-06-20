@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "pcg/engine/utility/Enums.hpp"
 #include "WFCBlock.generated.h"
 
 UCLASS()
@@ -15,7 +16,7 @@ public:
 	// Sets default values for this actor's properties
 	AWFCBlock();
 
-	void UpdateMeshes(int neighbors);
+	void UpdateMeshes(pcg::engine::utility::enums::Direction adjacentNodes);
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))

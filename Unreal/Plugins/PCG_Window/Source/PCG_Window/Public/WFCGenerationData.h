@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "pcg/engine/math/Vector3.hpp"
 #include "WFCBlock.h"
+#include "GenerationAxisEnum.h"
 #include "WFCGenerationData.generated.h"
 
 UENUM(BlueprintType)
@@ -34,12 +35,12 @@ class PCG_WINDOW_API UWFCGenerationData : public UObject
     float nodeSize;
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
     EExpansionMode expansionMode;
-    UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data", meta = (Bitmask, BitmaskEnum = "EMultiDimensionGenerationAxis"))
-    uint8 axis;
+    UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data", meta = (Bitmask, BitmaskEnum = "EGenerationAxis"))
+    EGenerationAxis axes;
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
     FVector startPosition;
 
 private:
-    void SpawnNode(pcg::engine::math::Vector3 position, int neighbors) const;
+    void SpawnNode(pcg::engine::math::Vector3 position, pcg::engine::utility::enums::Direction adjacentNodes) const;
 
 };

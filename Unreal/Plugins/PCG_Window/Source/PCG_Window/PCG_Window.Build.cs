@@ -26,6 +26,7 @@ public class PCG_Window : ModuleRules
 			new string[]
 			{
 				"Core",
+				"MyPCG",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -43,7 +44,6 @@ public class PCG_Window : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
-				"MyPCG",
 				"PropertyEditor",
 				"LevelEditor",
 				"PCGEngine"
