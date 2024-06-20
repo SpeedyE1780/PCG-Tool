@@ -24,7 +24,7 @@ namespace pcg::engine::c_api
 
     void setRandomGenerator(setSeedCallback seed, generateNumberCallback generate)
     {
-        return math::Random::initializeRandom(seed, generate);
+        math::Random::initializeRandom(seed, generate);
     }
 
     void setLoggingFunction(logMessage logFunction)

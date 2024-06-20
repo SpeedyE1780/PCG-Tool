@@ -36,7 +36,7 @@ namespace pcg::engine::utility
         /// @brief Convert CallbackFunctor to bool
         explicit operator bool() const
         {
-            return functorConcept != nullptr;
+            return functorConcept && functorConcept->hasValue();
         }
 
         /// @brief Base class of FunctorModel used for type erasure
@@ -48,6 +48,9 @@ namespace pcg::engine::utility
             /// @param ...args List of arguments passed to functor
             /// @return R
             virtual R operator()(const Args&... args) const = 0;
+            /// @brief Check that concept has a valid value
+            /// @return True if concept has a valid value
+            virtual bool hasValue() const = 0;
         };
 
         /// @brief FunctorModel inheriting from FunctorConcept used for type erasure
@@ -68,6 +71,13 @@ namespace pcg::engine::utility
             virtual R operator()(const Args&... args) const override
             {
                 return callback(args...);
+            }
+
+            /// @brief Check that callback is not null
+            /// @return True if callback is not null
+            virtual bool hasValue() const override
+            {
+                return callback != nullptr;
             }
 
         private:

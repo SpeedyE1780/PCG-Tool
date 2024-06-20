@@ -24,7 +24,7 @@ namespace pcg::engine::cpp_api
 
     void setRandomGenerator(std::function<void(unsigned int)>&& seed, std::function<int(int, int)>&& generate)
     {
-        return math::Random::initializeRandom(seed, generate);
+        math::Random::initializeRandom(seed, generate);
     }
 
     void setLoggingFunction(std::function<void(const char*)>&& logFunction)
