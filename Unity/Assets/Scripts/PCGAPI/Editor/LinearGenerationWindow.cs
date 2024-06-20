@@ -1,4 +1,3 @@
-using PCGAPI.Generators;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,8 +8,6 @@ namespace PCGAPI.Editor
     {
         [SerializeField]
         private VisualTreeAsset m_VisualTreeAsset = default;
-
-        private CommonGenerationFields<LinearGenerator, GameObject> generationFields;
 
         [MenuItem("PCG/Linear Generation")]
         public static void OpenWindow()
@@ -24,26 +21,25 @@ namespace PCGAPI.Editor
             // Instantiate UXML
             VisualElement uxmlElements = m_VisualTreeAsset.Instantiate();
             rootVisualElement.Add(uxmlElements);
-            generationFields = new CommonGenerationFields<LinearGenerator, GameObject>(rootVisualElement, SpawnFunction);
         }
 
-        private GameObject SpawnFunction(Vector3 position)
-        {
-            GameObject go = null;
+        //private GameObject SpawnFunction(Vector3 position)
+        //{
+        //    GameObject go = null;
 
-            if (PrefabUtility.IsPartOfAnyPrefab(generationFields.Node))
-            {
-                go = PrefabUtility.InstantiatePrefab(generationFields.Node) as GameObject;
-                go.transform.position = position;
-            }
-            else
-            {
-                go = Instantiate(generationFields.Node, position, Quaternion.identity);
-            }
+        //    if (PrefabUtility.IsPartOfAnyPrefab(generationFields.Node))
+        //    {
+        //        go = PrefabUtility.InstantiatePrefab(generationFields.Node) as GameObject;
+        //        go.transform.position = position;
+        //    }
+        //    else
+        //    {
+        //        go = Instantiate(generationFields.Node, position, Quaternion.identity);
+        //    }
 
-            Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
-            go.transform.SetParent(generationFields.NodeParent);
-            return go;
-        }
+        //    Undo.RegisterCreatedObjectUndo(go, "Spawned cell");
+        //    go.transform.SetParent(generationFields.NodeParent);
+        //    return go;
+        //}
     }
 }

@@ -3,5 +3,4 @@
     <Style src="project://database/Assets/Scripts/PCGAPI/Editor/LinearGenerationWindow.uss?fileID=7433441132597879392&amp;guid=43412664f3961f647b0957ebfdffa8b9&amp;type=3#LinearGenerationWindow" />
     <editor:ObjectField label="Generator" name="Generator" type="PCGAPI.Generators.LinearGenerator, PCGAPI" allow-scene-objects="false" />
     <editor:ObjectField label="Cell" name="Cell" type="UnityEngine.GameObject, UnityEngine.CoreModule" allow-scene-objects="true" />
-    <engine:Instance template="CommonGenerationFields" />
 </engine:UXML>

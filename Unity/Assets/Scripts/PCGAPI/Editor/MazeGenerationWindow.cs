@@ -35,59 +35,59 @@ public class MazeGenerationWindow : EditorWindow
         mazeAlgorithmField = rootVisualElement.Q<DropdownField>("MazeAlgorithm");
 
         var generateButton = rootVisualElement.Q<Button>("GenerateButton");
-        generateButton.clicked += SpawnObject;
+        //generateButton.clicked += SpawnObject;
     }
 
-    private void SpawnObject()
-    {
-        static void Log(string msg)
-        {
-            Debug.Log(msg);
-        }
+    //private void SpawnObject()
+    //{
+    //    static void Log(string msg)
+    //    {
+    //        Debug.Log(msg);
+    //    }
 
-        PCGEngine.SetLoggingFunction(Log);
+    //    PCGEngine.SetLoggingFunction(Log);
 
-        WFCNode node = nodeField.value as WFCNode;
-        float size = nodeSize.value;
-        Vector2Int gridSize = gridSizeField.value;
+    //    WFCNode node = nodeField.value as WFCNode;
+    //    float size = nodeSize.value;
+    //    Vector2Int gridSize = gridSizeField.value;
 
-        if (node == null)
-        {
-            Debug.LogWarning("Node not set");
-            return;
-        }
+    //    if (node == null)
+    //    {
+    //        Debug.LogWarning("Node not set");
+    //        return;
+    //    }
 
-        if (gridSize.x == 0 || gridSize.y == 0)
-        {
-            Debug.LogWarning("Grid needs to have x and y > 0");
-            return;
-        }
+    //    if (gridSize.x == 0 || gridSize.y == 0)
+    //    {
+    //        Debug.LogWarning("Grid needs to have x and y > 0");
+    //        return;
+    //    }
 
-        if (size == 0)
-        {
-            Debug.LogWarning("Node size not set");
-            return;
-        }
+    //    if (size == 0)
+    //    {
+    //        Debug.LogWarning("Node size not set");
+    //        return;
+    //    }
 
-        Dictionary<Vector2, WFCNode> nodes = new Dictionary<Vector2, WFCNode>();
-        Transform nodeParent = new GameObject("MAZE").transform;
+    //    Dictionary<Vector2, WFCNode> nodes = new Dictionary<Vector2, WFCNode>();
+    //    Transform nodeParent = new GameObject("MAZE").transform;
 
-        void AddMazeNode(int x, int y, int neighbors)
-        {
-            if (!nodes.ContainsKey(new Vector2(x, y)))
-            {
-                Vector3 position = new Vector3(x * size, 0, y * size);
-                WFCNode n = Instantiate(node, nodeParent);
-                n.transform.position = position;
-                n.SetNeighbors(neighbors);
-                nodes.Add(new Vector2(x, y), n);
-            }
-            else
-            {
-                nodes[new Vector2(x, y)].SetNeighbors(neighbors);
-            }
-        }
+    //    void AddMazeNode(int x, int y, int neighbors)
+    //    {
+    //        if (!nodes.ContainsKey(new Vector2(x, y)))
+    //        {
+    //            Vector3 position = new Vector3(x * size, 0, y * size);
+    //            WFCNode n = Instantiate(node, nodeParent);
+    //            n.transform.position = position;
+    //            n.SetNeighbors(neighbors);
+    //            nodes.Add(new Vector2(x, y), n);
+    //        }
+    //        else
+    //        {
+    //            nodes[new Vector2(x, y)].SetNeighbors(neighbors);
+    //        }
+    //    }
 
-        PCGEngine.GenerateMaze(gridSize.x, gridSize.y, (PCGEngine.MazeAlgorithm)mazeAlgorithmField.index, AddMazeNode);
-    }
+    //    PCGEngine.GenerateMaze(gridSize.x, gridSize.y, (MazeAlgorithm)mazeAlgorithmField.index, AddMazeNode);
+    //}
 }
