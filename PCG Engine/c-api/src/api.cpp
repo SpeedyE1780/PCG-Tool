@@ -98,23 +98,23 @@ namespace pcg::engine::c_api
         }
     }
 
-    void generateCombination(int elementCount, generateCombinationCallback&& callback)
+    void generateCombination(int elementCount, generateCombinationCallback callback)
     {
         combination_generation::generateCombination(elementCount, callback);
     }
 
-    void generateCombinationWithMinimumElementCount(int elementCount, int minimumElementCount, generateCombinationCallback&& callback)
+    void generateCombinationWithMinimumElementCount(int elementCount, int minimumElementCount, generateCombinationCallback callback)
     {
         combination_generation::generateCombination(elementCount, minimumElementCount, callback);
     }
 
-    void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementsCount, generateCombinationCallback&& callback)
+    void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementsCount, generateCombinationCallback callback)
     {
         std::vector<int> activeElements(activeElementsCount);
 
         for (int i = 0; i < activeElementsCount; ++i)
         {
-            activeElements.emplace_back(activeElementsIndex[i]);
+            activeElements[i] = activeElementsIndex[i];
         }
 
         combination_generation::generateCombination(elementCount, activeElements, callback);

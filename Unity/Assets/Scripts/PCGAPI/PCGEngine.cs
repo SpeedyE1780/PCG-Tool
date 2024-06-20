@@ -18,5 +18,11 @@ namespace PCGAPI
         public static extern void MultiDimensionalGeneration(ref GenerationParameters generationParameters, Axis axis, bool disableOverlap, AddNode addNode);
         [DllImport("pcg-engine-c-apid", EntryPoint = "waveFunctionCollapseGeneration")]
         public static extern void WaveFunctionCollapseGeneration(ref GenerationParameters generationParameters, ExpansionMode mode, Axis axis, AddWFCNode addNode);
+        [DllImport("pcg-engine-c-apid", EntryPoint = "generateCombination")]
+        public static extern void GenerateCombination(int elementCount, GenerateCombination generateCombination);
+        [DllImport("pcg-engine-c-apid", EntryPoint = "generateCombinationWithMinimumElementCount")]
+        public static extern void GenerateCombination(int elementCount, int minimumElementCount, GenerateCombination generateCombination);
+        [DllImport("pcg-engine-c-apid", EntryPoint = "generateCombinationWithActiveElements")]
+        public static extern void GenerateCombination(int elementCount, int[] includedElementsIndex, int includedElementsCount, GenerateCombination generateCombination);
     }
 }

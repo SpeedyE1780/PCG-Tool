@@ -76,18 +76,18 @@ namespace pcg::engine::c_api
     /// @brief Generate a combination given a number of elements
     /// @param elementCount Number of element that are available in set
     /// @param callback Callback to add element to generated set
-    PCG_ENGINE_C_API_API void generateCombination(int elementCount, generateCombinationCallback&& callback);
+    PCG_ENGINE_C_API_API void generateCombination(int elementCount, generateCombinationCallback callback);
     /// @brief Generate a combination with at least minimumElementCount elements
     /// @param elementCount Number of element that are available in set
     /// @param minimumElementCount Minimum number of elements in set
     /// @param callback Callback to add element to generated set
-    PCG_ENGINE_C_API_API void generateCombinationWithMinimumElementCount(int elementCount, int minimumElementCount, generateCombinationCallback&& callback);
+    PCG_ENGINE_C_API_API void generateCombinationWithMinimumElementCount(int elementCount, int minimumElementCount, generateCombinationCallback callback);
     /// @brief Generate a combination with the given elements active
     /// @param elementCount Number of element that are available in set
     /// @param activeElementsIndex Array of elements that must be included
     /// @param activeElementsCount Number of elements in activeElementsIndex array
     /// @param callback Callback to add element to generated set
-    PCG_ENGINE_C_API_API void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementsCount, generateCombinationCallback&& callback);
+    PCG_ENGINE_C_API_API void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementsCount, generateCombinationCallback callback);
 }
 
 #endif // PCG_ENGINE_C_API_API_HPP
