@@ -38,8 +38,8 @@ namespace pcg::engine::utility::enums
 
     /// @brief Apply & operator between lhs and rhs
     /// @tparam EnumClass Templated enum
-    /// @param Left hand side value
-    /// @param Right hand side value
+    /// @param lhs Left hand side value
+    /// @param rhs Right hand side value
     /// @return lhs & rhs
     template<typename EnumClass>
     constexpr EnumClass operator&(EnumClass lhs, EnumClass rhs) noexcept

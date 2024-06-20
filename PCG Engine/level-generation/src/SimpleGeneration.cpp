@@ -8,6 +8,9 @@ namespace pcg::engine::level_generation
 {
     namespace
     {
+        /// @brief Get function used to get next node position
+        /// @param axis Axis followed to spawn nodes
+        /// @return Function used to update the node position to the next one
         std::function<void(math::Vector3& position, float offset)> getUpdatePositionFunction(math::Axis axis)
         {
             switch (axis)
@@ -63,21 +66,21 @@ namespace pcg::engine::level_generation
         }
     }
 
-    void simpleGeneration(GenerationData* data, math::Axis axis, utility::CallbackFunctor<void(math::Vector3)>&& callback)
+    void simpleGeneration(const GenerationData& data, math::Axis axis, utility::CallbackFunctor<void(math::Vector3)>&& callback)
     {
         utility::logInfo("Simple Generation Started");
         std::function<void(math::Vector3& position, float offset)> updatePosition = getUpdatePositionFunction(axis);
-        math::Vector3 position = data->startPoint;
+        math::Vector3 position = data.startPoint;
 
         if (!updatePosition)
         {
             return;
         }
 
-        for (int i = 0; i < data->limit; ++i)
+        for (int i = 0; i < data.count; ++i)
         {
             callback(position);
-            updatePosition(position, data->size);
+            updatePosition(position, data.size);
         }
 
         utility::logInfo("Simple Generation Ended");

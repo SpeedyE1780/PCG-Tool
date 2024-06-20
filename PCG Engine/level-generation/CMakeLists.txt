@@ -1,4 +1,4 @@
-project(PCG-Engine-Level-Generation)
+project(pcg-engine-level-generation)
 
 enable_testing()
 

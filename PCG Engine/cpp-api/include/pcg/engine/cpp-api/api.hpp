@@ -39,21 +39,20 @@ namespace pcg::engine::cpp_api
     /// @brief Generate a linear level on a single axis
     /// @param data Object containing number of nodes that need to be generated, node size & starting position
     /// @param axis Axis used during level generation (X, Y or Z)
-    /// @param direction Direction followed on axis (Either positive or negative)
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void simpleGeneration(level_generation::GenerationData* data, math::Axis axis, std::function<void(math::Vector3)>&& callback);
+    PCG_ENGINE_CPP_API_API void simpleGeneration(const level_generation::GenerationData& data, math::Axis axis, std::function<void(math::Vector3)>&& callback);
     /// @brief Generate a level on multiple axes
     /// @param data Object containing number of nodes that need to be generated, node size & starting position
     /// @param axes Axes flag indicating which axes are being used
     /// @param disableOverlap If true nodes cannot be generated on top of one another
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void multiDimensionGeneration(level_generation::GenerationData* data, math::Axis axes, bool disableOverlap, std::function<void(math::Vector3)>&& callback);
+    PCG_ENGINE_CPP_API_API void multiDimensionGeneration(const level_generation::GenerationData& data, math::Axis axes, bool disableOverlap, std::function<void(math::Vector3)>&& callback);
     /// @brief Generate a level using the Wave Function Collapse Algorithm
     /// @param data Object containing number of nodes that need to be generated, node size & starting position
     /// @param mode If Breadth-First Search (BFS) or Depth-First Search (DFS) expansion should be used
     /// @param axes Axes flag indicating which axes are being used
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(level_generation::GenerationData* data, level_generation::ExpansionMode mode, math::Axis axes, std::function<void(math::Vector3, utility::enums::Direction)>&& callback);
+    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, std::function<void(math::Vector3, utility::enums::Direction)>&& callback);
     /// @brief Generate a maze using the passed in algorithm
     /// @param width Width of grid
     /// @param height Height of grid

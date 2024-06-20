@@ -6,32 +6,32 @@
 
 namespace pcg::engine::level_generation
 {
-    Node::Node(const math::Vector3& position) : position(position), neighbors()
+    Node::Node(const math::Vector3& position) : position(position)
     {
     }
 
-    void Neighbors::addNeighbor(utility::enums::Direction neighbor)
+    void Node::addAdjacentNode(utility::enums::Direction direction)
     {
-        neighbors |= neighbor;
-        neighborCount += 1;
+        adjacentNodesDirection |= direction;
+        adjacentNodeCount += 1;
     }
 
-    void Neighbors::removeNeighbor(utility::enums::Direction neighbor)
+    void Node::removeAdjacentNode(utility::enums::Direction direction)
     {
-        neighbors &= ~neighbor;
-        neighborCount -= 1;
+        adjacentNodesDirection &= ~direction;
+        adjacentNodeCount -= 1;
     }
 
-    void Neighbors::generateNeighbors(int additionalNeighbor, std::vector<utility::enums::Direction>&& directions)
+    void Node::generateAdjacentNodes(int additionalNodes, const std::vector<utility::enums::Direction>& directions)
     {
         for (utility::enums::Direction direction : directions)
         {
-            if (!hasNeighbor(direction))
+            if (!hasAdjacentNode(direction))
             {
-                addNeighbor(direction);
-                additionalNeighbor -= 1;
+                addAdjacentNode(direction);
+                additionalNodes -= 1;
 
-                if (additionalNeighbor == 0)
+                if (additionalNodes == 0)
                 {
                     break;
                 }
