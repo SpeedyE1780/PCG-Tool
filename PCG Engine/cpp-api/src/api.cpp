@@ -19,12 +19,12 @@ namespace pcg::engine::cpp_api
 {
     void setSeed(unsigned int seed)
     {
-        math::Random::initializeSeed(seed);
+        math::Random::updateSeed(seed);
     }
 
     void setRandomGenerator(std::function<void(unsigned int)>&& seed, std::function<int(int, int)>&& generate)
     {
-        return math::initializeRandom(seed, generate);
+        return math::Random::initializeRandom(seed, generate);
     }
 
     void setLoggingFunction(std::function<void(const char*)>&& logFunction)

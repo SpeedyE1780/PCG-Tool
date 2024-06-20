@@ -45,7 +45,7 @@ namespace pcg::engine::c_api
     /// @brief Set functions used to set seed and generate numbers
     /// @param seed Function that will set the RNG seed
     /// @param generate Function used to generate numbers
-    PCG_ENGINE_C_API_API void setRandomGenerator(setSeedCallback&& seed, generateNumberCallback&& generate);
+    PCG_ENGINE_C_API_API void setRandomGenerator(setSeedCallback seed, generateNumberCallback generate);
     /// @brief Set function used to log messages from the engine
     /// @param logFunction Function that will log engine messages
     PCG_ENGINE_C_API_API void setLoggingFunction(logMessage logFunction);

@@ -6,6 +6,8 @@ namespace PCGAPI
     {
         [DllImport("pcg-engine-c-apid", EntryPoint = "setSeed")]
         public static extern void SetSeed(uint seed);
+        [DllImport("pcg-engine-c-apid", EntryPoint = "setRandomGenerator")]
+        public static extern void SetRandomGenerators(SetSeed setSeed, GenerateNumber generateNumber);
         [DllImport("pcg-engine-c-apid", EntryPoint = "setLoggingFunction")]
         public static extern void SetLoggingFunction(LogFunction logFunction);
         [DllImport("pcg-engine-c-apid", EntryPoint = "generateMaze")]

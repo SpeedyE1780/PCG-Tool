@@ -19,12 +19,12 @@ namespace pcg::engine::c_api
 {
     void setSeed(unsigned int seed)
     {
-        math::Random::initializeSeed(seed);
+        math::Random::updateSeed(seed);
     }
 
-    void setRandomGenerator(setSeedCallback&& seed, generateNumberCallback&& generate)
+    void setRandomGenerator(setSeedCallback seed, generateNumberCallback generate)
     {
-        return math::initializeRandom(seed, generate);
+        return math::Random::initializeRandom(seed, generate);
     }
 
     void setLoggingFunction(logMessage logFunction)
