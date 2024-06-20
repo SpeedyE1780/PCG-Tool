@@ -20,11 +20,17 @@ namespace pcg::engine::math
     utility::CallbackFunctor<int(int, int)> Random::generateNumber = defaultNumberGenerator;
     unsigned int Random::seed = 0;
 
-    void initializeRandom(utility::CallbackFunctor<void(unsigned int)>&& seed, utility::CallbackFunctor<int(int, int)>&& generate)
+    void Random::updateSeed(unsigned int newSeed)
     {
-        Random::initializeSeed = seed ? std::move(seed) : srand;
-        Random::generateNumber = generate ? std::move(generate) : defaultNumberGenerator;
+        seed = newSeed;
+        initializeSeed(newSeed);
+    }
+
+    void Random::initializeRandom(utility::CallbackFunctor<void(unsigned int)>&& seed, utility::CallbackFunctor<int(int, int)>&& generate)
+    {
+        initializeSeed = seed ? std::move(seed) : srand;
+        generateNumber = generate ? std::move(generate) : defaultNumberGenerator;
         //Update new function seed to current seed value
-        Random::initializeSeed(Random::seed);
+        initializeSeed(Random::seed);
     }
 }

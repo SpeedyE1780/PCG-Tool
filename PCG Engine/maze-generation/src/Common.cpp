@@ -11,7 +11,7 @@ namespace pcg::engine::maze_generation
     {
         const math::Vector3& directionVector = math::getUnitVectorFromDirection(direction);
         int nx = x + directionVector.x;
-        int ny = y + directionVector.y;
+        int ny = y + directionVector.z;
         return { nx, ny };
     }
 }

@@ -128,5 +128,7 @@ int main()
     std::cout << "Generate Combination with minimum of Red, Green and Pink:" << std::endl;
     pcg::engine::cpp_api::generateCombination(colors.size(), { 0, 1, 5 }, combinationCallback);
 
+    pcg::engine::cpp_api::setRandomGenerator(nullptr, nullptr);
+
     return 0;
 }
