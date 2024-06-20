@@ -4,25 +4,31 @@ namespace PCGAPI
 {
     public static class PCGEngine
     {
-        [DllImport("pcg-engine-c-apid", EntryPoint = "setSeed")]
+#if UNITY_EDITOR
+        public const string DLLName = "pcg-engine-c-apid";
+#else
+        public const string DLLName = "pcg-engine-c-api";
+#endif
+
+        [DllImport(DLLName, EntryPoint = "setSeed")]
         public static extern void SetSeed(uint seed);
-        [DllImport("pcg-engine-c-apid", EntryPoint = "setRandomGenerator")]
+        [DllImport(DLLName, EntryPoint = "setRandomGenerator")]
         public static extern void SetRandomGenerators(SetSeed setSeed, GenerateNumber generateNumber);
-        [DllImport("pcg-engine-c-apid", EntryPoint = "setLoggingFunction")]
+        [DllImport(DLLName, EntryPoint = "setLoggingFunction")]
         public static extern void SetLoggingFunction(LogFunction logFunction);
-        [DllImport("pcg-engine-c-apid", EntryPoint = "generateMaze")]
+        [DllImport(DLLName, EntryPoint = "generateMaze")]
         public static extern void GenerateMaze(int width, int height, bool invokeAfterGeneration, MazeAlgorithm algorithm, AddMazeNode addMazeNode);
-        [DllImport("pcg-engine-c-apid", EntryPoint = "simpleGeneration")]
+        [DllImport(DLLName, EntryPoint = "simpleGeneration")]
         public static extern void SimpleGeneration(ref GenerationParameters generationParameters, Axis axis, AddNode addNode);
-        [DllImport("pcg-engine-c-apid", EntryPoint = "multiDimensionGeneration")]
+        [DllImport(DLLName, EntryPoint = "multiDimensionGeneration")]
         public static extern void MultiDimensionalGeneration(ref GenerationParameters generationParameters, Axis axis, bool disableOverlap, AddNode addNode);
-        [DllImport("pcg-engine-c-apid", EntryPoint = "waveFunctionCollapseGeneration")]
+        [DllImport(DLLName, EntryPoint = "waveFunctionCollapseGeneration")]
         public static extern void WaveFunctionCollapseGeneration(ref GenerationParameters generationParameters, ExpansionMode mode, Axis axis, AddWFCNode addNode);
-        [DllImport("pcg-engine-c-apid", EntryPoint = "generateCombination")]
+        [DllImport(DLLName, EntryPoint = "generateCombination")]
         public static extern void GenerateCombination(int elementCount, GenerateCombination generateCombination);
-        [DllImport("pcg-engine-c-apid", EntryPoint = "generateCombinationWithMinimumElementCount")]
+        [DllImport(DLLName, EntryPoint = "generateCombinationWithMinimumElementCount")]
         public static extern void GenerateCombination(int elementCount, int minimumElementCount, GenerateCombination generateCombination);
-        [DllImport("pcg-engine-c-apid", EntryPoint = "generateCombinationWithActiveElements")]
+        [DllImport(DLLName, EntryPoint = "generateCombinationWithActiveElements")]
         public static extern void GenerateCombination(int elementCount, int[] includedElementsIndex, int includedElementsCount, GenerateCombination generateCombination);
     }
 }
