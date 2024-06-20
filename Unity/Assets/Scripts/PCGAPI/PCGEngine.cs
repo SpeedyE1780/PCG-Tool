@@ -10,5 +10,7 @@ namespace PCGAPI
         public static extern void SetLoggingFunction(LogFunction logFunction);
         [DllImport("pcg-engine-c-apid", EntryPoint = "generateMaze")]
         public static extern void GenerateMaze(int width, int height, bool invokeAfterGeneration, MazeAlgorithm algorithm, AddMazeNode addMazeNode);
+        [DllImport("pcg-engine-c-apid", EntryPoint = "simpleGeneration")]
+        public static extern void SimpleGeneration(ref GenerationParameters generationParameters, Axis axis, AddNode addNode);
     }
 }

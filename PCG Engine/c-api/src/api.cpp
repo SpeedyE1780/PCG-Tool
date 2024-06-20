@@ -32,12 +32,12 @@ namespace pcg::engine::c_api
         utility::setLoggingFunction(logFunction);
     }
 
-    void simpleGeneration(const level_generation::GenerationData& data, math::Axis axis, addNodeCallback&& callback)
+    void simpleGeneration(const level_generation::GenerationData& data, math::Axis axis, addNodeCallback callback)
     {
         level_generation::simpleGeneration(data, axis, callback);
     }
 
-    void multiDimensionGeneration(const level_generation::GenerationData& data, math::Axis axes, bool disableOverlap, addNodeCallback&& callback)
+    void multiDimensionGeneration(const level_generation::GenerationData& data, math::Axis axes, bool disableOverlap, addNodeCallback callback)
     {
         std::vector<const math::Vector3*> directions = math::getUnitVectors(axes);
 
