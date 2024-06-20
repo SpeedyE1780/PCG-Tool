@@ -6,6 +6,89 @@
 #include <type_traits>
 #include <utility>
 
+/// @brief Apply ~operator to enum
+/// @tparam EnumClass Templated enum
+/// @param enumValue Value
+/// @return ~value
+template<typename EnumClass>
+constexpr EnumClass operator~(EnumClass enumValue)
+{
+    static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
+    return static_cast<EnumClass>(~std::to_underlying(enumValue));
+}
+
+/// @brief Apply & operator between lhs and rhs
+/// @tparam EnumClass Templated enum
+/// @param lhs Left hand side value
+/// @param rhs Right hand side value
+/// @return lhs & rhs
+template<typename EnumClass>
+constexpr EnumClass operator&(EnumClass lhs, EnumClass rhs) noexcept
+{
+    static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
+    return static_cast<EnumClass>(std::to_underlying(lhs) & std::to_underlying(rhs));
+}
+
+/// @brief Apply | operator between lhs and rhs
+/// @tparam EnumClass Templated enum
+/// @param lhs Left hand side value
+/// @param rhs Right hand side value
+/// @return lhs | rhs
+template<typename EnumClass>
+constexpr EnumClass operator|(EnumClass lhs, EnumClass rhs) noexcept
+{
+    static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
+    return static_cast<EnumClass>(std::to_underlying(lhs) | std::to_underlying(rhs));
+}
+
+/// @brief Apply ^ operator between lhs and rhs
+/// @tparam EnumClass Templated enum
+/// @param lhs Left hand side value
+/// @param rhs Right hand side value
+/// @return lhs ^ rhs
+template<typename EnumClass>
+constexpr EnumClass operator^(EnumClass lhs, EnumClass rhs) noexcept
+{
+    static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
+    return static_cast<EnumClass>(std::to_underlying(lhs) ^ std::to_underlying(rhs));
+}
+
+/// @brief Apply &= operator between lhs and rhs
+/// @tparam EnumClass Templated enum
+/// @param lhs Left hand side value
+/// @param rhs Right hand side value
+/// @return lhs &= rhs
+template<typename EnumClass>
+constexpr EnumClass operator&=(EnumClass& lhs, EnumClass rhs) noexcept
+{
+    static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
+    return lhs = lhs & rhs;
+}
+
+/// @brief Apply |= operator between lhs and rhs
+/// @tparam EnumClass Templated enum
+/// @param lhs Left hand side value
+/// @param rhs Right hand side value
+/// @return lhs |= rhs
+template<typename EnumClass>
+constexpr EnumClass operator|=(EnumClass& lhs, EnumClass rhs) noexcept
+{
+    static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
+    return lhs = lhs | rhs;
+}
+
+/// @brief Apply ^= operator between lhs and rhs
+/// @tparam EnumClass Templated enum
+/// @param lhs Left hand side value
+/// @param rhs Right hand side value
+/// @return lhs ^= rhs
+template<typename EnumClass>
+constexpr EnumClass operator^=(EnumClass& lhs, EnumClass rhs) noexcept
+{
+    static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
+    return lhs = lhs ^ rhs;
+}
+
 namespace pcg::engine::utility::enums
 {
     /// @brief Possible directions from node to adjacent node
@@ -24,89 +107,6 @@ namespace pcg::engine::utility::enums
     /// @param direction Direction that we want to flip
     /// @return The flipped direction
     Direction getFlippedDirection(Direction direction);
-
-    /// @brief Apply ~operator to enum
-    /// @tparam EnumClass Templated enum
-    /// @param enumValue Value
-    /// @return ~value
-    template<typename EnumClass>
-    constexpr EnumClass operator~(EnumClass enumValue)
-    {
-        static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
-        return static_cast<EnumClass>(~std::to_underlying(enumValue));
-    }
-
-    /// @brief Apply & operator between lhs and rhs
-    /// @tparam EnumClass Templated enum
-    /// @param lhs Left hand side value
-    /// @param rhs Right hand side value
-    /// @return lhs & rhs
-    template<typename EnumClass>
-    constexpr EnumClass operator&(EnumClass lhs, EnumClass rhs) noexcept
-    {
-        static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
-        return static_cast<EnumClass>(std::to_underlying(lhs) & std::to_underlying(rhs));
-    }
-
-    /// @brief Apply | operator between lhs and rhs
-    /// @tparam EnumClass Templated enum
-    /// @param lhs Left hand side value
-    /// @param rhs Right hand side value
-    /// @return lhs | rhs
-    template<typename EnumClass>
-    constexpr EnumClass operator|(EnumClass lhs, EnumClass rhs) noexcept
-    {
-        static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
-        return static_cast<EnumClass>(std::to_underlying(lhs) | std::to_underlying(rhs));
-    }
-
-    /// @brief Apply ^ operator between lhs and rhs
-    /// @tparam EnumClass Templated enum
-    /// @param lhs Left hand side value
-    /// @param rhs Right hand side value
-    /// @return lhs ^ rhs
-    template<typename EnumClass>
-    constexpr EnumClass operator^(EnumClass lhs, EnumClass rhs) noexcept
-    {
-        static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
-        return static_cast<EnumClass>(std::to_underlying(lhs) ^ std::to_underlying(rhs));
-    }
-
-    /// @brief Apply &= operator between lhs and rhs
-    /// @tparam EnumClass Templated enum
-    /// @param lhs Left hand side value
-    /// @param rhs Right hand side value
-    /// @return lhs &= rhs
-    template<typename EnumClass>
-    constexpr EnumClass operator&=(EnumClass& lhs, EnumClass rhs) noexcept
-    {
-        static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
-        return lhs = lhs & rhs;
-    }
-
-    /// @brief Apply |= operator between lhs and rhs
-    /// @tparam EnumClass Templated enum
-    /// @param lhs Left hand side value
-    /// @param rhs Right hand side value
-    /// @return lhs |= rhs
-    template<typename EnumClass>
-    constexpr EnumClass operator|=(EnumClass& lhs, EnumClass rhs) noexcept
-    {
-        static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
-        return lhs = lhs | rhs;
-    }
-
-    /// @brief Apply ^= operator between lhs and rhs
-    /// @tparam EnumClass Templated enum
-    /// @param lhs Left hand side value
-    /// @param rhs Right hand side value
-    /// @return lhs ^= rhs
-    template<typename EnumClass>
-    constexpr EnumClass operator^=(EnumClass& lhs, EnumClass rhs) noexcept
-    {
-        static_assert(std::is_enum_v<EnumClass>, "EnumClass must be an enum");
-        return lhs = lhs ^ rhs;
-    }
 
     /// @brief Check if given value has flag enabled
     /// @tparam EnumClass Templated enum
