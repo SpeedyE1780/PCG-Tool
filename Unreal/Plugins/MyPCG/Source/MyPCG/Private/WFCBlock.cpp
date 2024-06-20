@@ -29,8 +29,8 @@ void AWFCBlock::UpdateMeshes(int neighbors)
 {
     left->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::left) == 0, true);
     right->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::right) == 0, true);
-    up->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::up) == 0, true);
-    down->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::down) == 0, true);
+    up->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::up) != 0, true);
+    down->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::down) != 0, true);
     forward->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::forward) == 0, true);
     backward->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::backward) == 0, true);
 }
