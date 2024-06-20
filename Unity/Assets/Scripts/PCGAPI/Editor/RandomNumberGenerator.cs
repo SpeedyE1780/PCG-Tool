@@ -57,6 +57,8 @@ namespace PCGAPI.Editor
             PCGEngine.SetSeed(seedField.value);
 
             Debug.Log($"Generated Number: {GenerateNumber(minMaxField.value.x, minMaxField.value.y)}");
+
+            PCGEngine.SetRandomGenerators(null, null);
         }
     }
 }
