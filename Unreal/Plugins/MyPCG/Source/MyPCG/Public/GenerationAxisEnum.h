@@ -3,22 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GenerationAxisEnum.generated.h"
 
 UENUM(BlueprintType, meta = (Bitflags, UseEnumValuesAsMaskValuesInEditor = "true"))
 enum class EGenerationAxis : uint8
 {
     none = 0,
-    positiveX = 1 << 0,
-    negativeX = 1 << 1,
-    positiveY = 1 << 2,
-    negativeY = 1 << 3,
-    positiveZ = 1 << 4,
-    negativeZ = 1 << 5,
-    x = positiveX | negativeX,
-    y = positiveY | negativeY,
-    z = positiveZ | negativeZ,
-    xy = x | y,
-    xz = x | z,
-    yz = y | z,
-    xyz = x | y | z
+    left = 1 << 0,
+    right = 1 << 1,
+    up = 1 << 2,
+    down = 1 << 3,
+    forward = 1 << 4,
+    backward = 1 << 5
 };

@@ -36,7 +36,7 @@ class PCG_WINDOW_API UWFCGenerationData : public UObject
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
     EExpansionMode expansionMode;
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data", meta = (Bitmask, BitmaskEnum = "EGenerationAxis"))
-    EGenerationAxis axes;
+    uint8 axes;
     UPROPERTY(EditAnywhere, Category = "Multi Dimension Generation Data")
     FVector startPosition;
 

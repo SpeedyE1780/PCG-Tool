@@ -3,6 +3,7 @@
 
 #include "SimpleGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
+#include "PCG2Unreal.h"
 
 void USimpleGenerationData::GenerateLevel() const
 {
@@ -24,7 +25,7 @@ void USimpleGenerationData::GenerateLevel() const
     {
         count,
         nodeSize,
-        { startPosition.X, startPosition.Y, startPosition.Z }
+        FVectorToPCGVector(startPosition)
     };
 
     pcg::engine::cpp_api::simpleGeneration(data, static_cast<pcg::engine::math::Axis>(axes),
@@ -38,5 +39,5 @@ void USimpleGenerationData::SpawnNode(pcg::engine::math::Vector3 position) const
 {
     UWorld* world = GEditor->GetEditorWorldContext().World();
     AActor* spawnedNode = world->SpawnActor(node);
-    spawnedNode->SetActorLocation(FVector{ position.x, position.y, position.z });
+    spawnedNode->SetActorLocation(PCGVectorToFVector(position));
 }

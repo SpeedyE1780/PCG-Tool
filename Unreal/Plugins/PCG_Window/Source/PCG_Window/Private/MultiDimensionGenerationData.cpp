@@ -3,6 +3,7 @@
 
 #include "MultiDimensionGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
+#include "PCG2Unreal.h"
 
 void UMultiDimensionGenerationData::GenerateLevel() const
 {
@@ -15,7 +16,7 @@ void UMultiDimensionGenerationData::GenerateLevel() const
         return;
     }
 
-    if (count == 0 || nodeSize == 0 || axes == EGenerationAxis::none)
+    if (count == 0 || nodeSize == 0 || axes == 0)
     {
         return;
     }
@@ -24,7 +25,7 @@ void UMultiDimensionGenerationData::GenerateLevel() const
     {
         count,
         nodeSize,
-        { startPosition.X, startPosition.Y, startPosition.Z }
+        FVectorToPCGVector(startPosition)
     };
 
     pcg::engine::cpp_api::multiDimensionGeneration(data, static_cast<pcg::engine::math::Axis>(axes), disableOverlap,
@@ -38,6 +39,6 @@ void UMultiDimensionGenerationData::SpawnNode(pcg::engine::math::Vector3 positio
 {
     UWorld* world = GEditor->GetEditorWorldContext().World();
     AActor* spawnedNode = world->SpawnActor(node);
-    spawnedNode->SetActorLocation(FVector{ position.x, position.y, position.z });
+    spawnedNode->SetActorLocation(PCGVectorToFVector(position));
 }
 

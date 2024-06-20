@@ -3,6 +3,7 @@
 
 #include "WFCGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
+#include "PCG2Unreal.h"
 
 void UWFCGenerationData::GenerateLevel() const
 {
@@ -15,7 +16,7 @@ void UWFCGenerationData::GenerateLevel() const
         return;
     }
 
-    if (count == 0 || nodeSize == 0 || axes == EGenerationAxis::none)
+    if (count == 0 || nodeSize == 0 || axes == 0)
     {
         return;
     }
@@ -24,7 +25,7 @@ void UWFCGenerationData::GenerateLevel() const
     {
         count,
         nodeSize,
-        { startPosition.X, startPosition.Y, startPosition.Z }
+        FVectorToPCGVector(startPosition)
     };
 
     pcg::engine::cpp_api::waveFunctionCollapseGeneration(data, static_cast<pcg::engine::level_generation::ExpansionMode>(expansionMode), static_cast<pcg::engine::math::Axis>(axes),
@@ -38,6 +39,6 @@ void UWFCGenerationData::SpawnNode(pcg::engine::math::Vector3 position, pcg::eng
 {
     UWorld* world = GEditor->GetEditorWorldContext().World();
     AWFCBlock* spawnedBlock = world->SpawnActor<AWFCBlock>(block);
-    spawnedBlock->SetActorLocation(FVector{ position.x, position.y, position.z });
+    spawnedBlock->SetActorLocation(PCGVectorToFVector(position));
     spawnedBlock->UpdateMeshes(adjacentNodes);
 }
