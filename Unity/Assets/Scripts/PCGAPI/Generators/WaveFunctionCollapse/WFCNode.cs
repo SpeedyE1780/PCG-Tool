@@ -17,29 +17,19 @@ namespace PCGAPI.Generators
         [SerializeField]
         private GameObject down;
 
-        private enum Neighbors
+        private static bool HasNeighbour(Direction current, Direction direction)
         {
-            left = 1 << 0,
-            right = 1 << 1,
-            forward = 1 << 2,
-            backward = 1 << 3,
-            up = 1 << 4,
-            down = 1 << 5
-        };
-
-        private static bool HasNeighbour(int neighbor, Neighbors neighbors)
-        {
-            return (neighbor & (int)neighbors) > 0;
+            return (current & direction) > 0;
         }
 
-        public void SetNeighbors(int neighbors)
+        public void SetNeighbors(Direction neighbors)
         {
-            right.SetActive(!HasNeighbour(neighbors, Neighbors.right));
-            left.SetActive(!HasNeighbour(neighbors, Neighbors.left));
-            backward.SetActive(!HasNeighbour(neighbors, Neighbors.backward));
-            forward.SetActive(!HasNeighbour(neighbors, Neighbors.forward));
-            up.SetActive(HasNeighbour(neighbors, Neighbors.up));
-            down.SetActive(HasNeighbour(neighbors, Neighbors.down));
+            right.SetActive(!HasNeighbour(neighbors, Direction.right));
+            left.SetActive(!HasNeighbour(neighbors, Direction.left));
+            backward.SetActive(!HasNeighbour(neighbors, Direction.backward));
+            forward.SetActive(!HasNeighbour(neighbors, Direction.forward));
+            up.SetActive(HasNeighbour(neighbors, Direction.up));
+            down.SetActive(HasNeighbour(neighbors, Direction.down));
         }
     }
 }

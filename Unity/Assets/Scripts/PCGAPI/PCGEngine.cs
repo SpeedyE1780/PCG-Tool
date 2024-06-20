@@ -17,6 +17,6 @@ namespace PCGAPI
         [DllImport("PCG-Engine-C-API", EntryPoint = "waveFunctionCollapseGeneration")]
         public static extern void WaveFunctionCollapse(ref GenerationParameters data, ExpansionMode mode, Axis axis, AddWFCNode addWFCNode);
         [DllImport("PCG-Engine-C-API", EntryPoint = "generateMaze")]
-        public static extern void GenerateMaze(int width, int height, MazeAlgorithm algorithm, AddMazeNode addMazeNode);
+        public static extern void GenerateMaze(int width, int height, bool invokeAfterGeneration, MazeAlgorithm algorithm, AddMazeNode addMazeNode);
     }
 }
