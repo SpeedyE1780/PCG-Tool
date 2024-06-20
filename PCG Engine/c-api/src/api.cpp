@@ -27,7 +27,7 @@ namespace pcg::engine::c_api
         return math::initializeRandom(seed, generate);
     }
 
-    void setLoggingFunction(logMessage&& logFunction)
+    void setLoggingFunction(logMessage logFunction)
     {
         utility::setLoggingFunction(logFunction);
     }
@@ -54,7 +54,7 @@ namespace pcg::engine::c_api
         level_generation::waveFunctionCollapse(data, mode, axes, callback);
     }
 
-    void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazeNodeCallback&& callback)
+    void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazeNodeCallback callback)
     {
         switch (algorithm)
         {

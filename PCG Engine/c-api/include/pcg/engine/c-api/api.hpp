@@ -48,7 +48,7 @@ namespace pcg::engine::c_api
     PCG_ENGINE_C_API_API void setRandomGenerator(setSeedCallback&& seed, generateNumberCallback&& generate);
     /// @brief Set function used to log messages from the engine
     /// @param logFunction Function that will log engine messages
-    PCG_ENGINE_C_API_API void setLoggingFunction(logMessage&& logFunction);
+    PCG_ENGINE_C_API_API void setLoggingFunction(logMessage logFunction);
     /// @brief Generate a linear level on a single axis
     /// @param data Object containing number of nodes that need to be generated, node size & starting position
     /// @param axis Axis used during level generation (X, Y or Z)
@@ -72,7 +72,7 @@ namespace pcg::engine::c_api
     /// @param invokeAferGeneration If true callback will only be called after all nodes are generated
     /// @param algorithm Algorithm that will be used to generate maze
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_C_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazeNodeCallback&& callback);
+    PCG_ENGINE_C_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazeNodeCallback callback);
     /// @brief Generate a combination given a number of elements
     /// @param elementCount Number of element that are available in set
     /// @param callback Callback to add element to generated set
