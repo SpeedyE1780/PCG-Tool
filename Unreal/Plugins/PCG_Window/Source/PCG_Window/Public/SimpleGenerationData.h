@@ -5,23 +5,8 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "pcg/engine/math/Vector3.hpp"
+#include "GenerationAxisEnum.h"
 #include "SimpleGenerationData.generated.h"
-
-UENUM(BlueprintType)
-enum class ELinearGenerationAxis
-{
-    None = 0,
-    X = 1 << 0,
-    Y = 1 << 1,
-    Z = 1 << 2,
-};
-
-UENUM(BlueprintType)
-enum class ELinearGenerationDirection
-{
-    Positive = 0,
-    Negative = 1
-};
 
 /**
  *
@@ -41,9 +26,7 @@ class PCG_WINDOW_API USimpleGenerationData : public UObject
     UPROPERTY(EditAnywhere, Category = "Linear Generation Data")
     float nodeSize;
     UPROPERTY(EditAnywhere, Category = "Linear Generation Data")
-    ELinearGenerationAxis axis;
-    UPROPERTY(EditAnywhere, Category = "Linear Generation Data")
-    ELinearGenerationDirection direction;
+    EGenerationAxis axes;
     UPROPERTY(EditAnywhere, Category = "Linear Generation Data")
     FVector startPosition;
 

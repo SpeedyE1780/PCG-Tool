@@ -12,11 +12,11 @@ public class PCGEngine : ModuleRules
         if (Target.Platform == UnrealTargetPlatform.Win64)
         {
             // Add the import library
-            PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory, "lib", "PCG-Engine-Cpp-API.lib"));
+            PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory, "lib", "pcg-engine-cpp-apid.lib"));
             // Delay-load the DLL, so we can load it from the right place first
-            PublicDelayLoadDLLs.Add("PCG-Engine-Cpp-API.dll");
+            PublicDelayLoadDLLs.Add("pcg-engine-cpp-apid.dll");
             // Ensure that the DLL is staged along with the executable
-            RuntimeDependencies.Add("$(PluginDir)/Binaries/ThirdParty/PCGEngine/PCG-Engine-Cpp-API.dll");
+            RuntimeDependencies.Add("$(PluginDir)/Binaries/ThirdParty/PCGEngine/pcg-engine-cpp-apid.dll");
         }
     }
 }

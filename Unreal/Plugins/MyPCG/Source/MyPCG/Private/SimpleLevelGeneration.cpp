@@ -17,12 +17,12 @@ ASimpleLevelGeneration::ASimpleLevelGeneration()
 void ASimpleLevelGeneration::SpawnBlock(pcg::engine::math::Vector3 position)
 {
     auto* spawnedActor = GetWorld()->SpawnActor(levelBlock);
-    spawnedActor->SetActorLocation(FVector{ position.x, position.z, position.y });
+    spawnedActor->SetActorLocation(FVector{ position.x, position.y, position.z });
 }
 
 void ASimpleLevelGeneration::GenerateLevel()
 {
     GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, "TEST");
     pcg::engine::level_generation::GenerationData data{ blockCount, blockSize, {0, 0, 0} };
-    pcg::engine::cpp_api::multiDimensionGeneration(&data, pcg::engine::math::axis::xz, true, [this](pcg::engine::math::Vector3 position) { this->SpawnBlock(position); });
+    pcg::engine::cpp_api::multiDimensionGeneration(data, pcg::engine::math::Axis::xz, true, [this](pcg::engine::math::Vector3 position) { this->SpawnBlock(position); });
 }

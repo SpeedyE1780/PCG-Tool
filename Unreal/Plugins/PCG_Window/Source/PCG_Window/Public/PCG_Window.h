@@ -20,6 +20,7 @@ public:
 	void MultiDimensionGeneration();
 	void WaveFunctionCollapse();
 	void MazeGeneration();
+	void CombinationGeneration();
 	
 private:
 
@@ -29,6 +30,7 @@ private:
 	TSharedRef<class SDockTab> OnMultiDimensionGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnWaveFunctionCollapse(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnMazeGeneration(const class FSpawnTabArgs& SpawnTabArgs);
+	TSharedRef<class SDockTab> OnCombinationGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 
 private:
 	TSharedPtr<class FUICommandList> PluginCommands;

@@ -3,6 +3,8 @@
 #include "WFCBlock.h"
 #include "pcg/engine/level-generation/Node.hpp"
 
+namespace pcgEnums = pcg::engine::utility::enums;
+
 // Sets default values
 AWFCBlock::AWFCBlock()
 {
@@ -25,12 +27,12 @@ AWFCBlock::AWFCBlock()
     backward->SetupAttachment(RootComponent);
 }
 
-void AWFCBlock::UpdateMeshes(int neighbors)
+void AWFCBlock::UpdateMeshes(pcgEnums::Direction adjacentNodes)
 {
-    left->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::left) == 0, true);
-    right->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::right) == 0, true);
-    up->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::up) == 0, true);
-    down->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::down) == 0, true);
-    forward->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::forward) == 0, true);
-    backward->SetVisibility((neighbors & pcg::engine::level_generation::Neighbors::backward) == 0, true);
+    left->SetVisibility(!pcgEnums::hasFlag(adjacentNodes, pcgEnums::Direction::left), true);
+    right->SetVisibility(!pcgEnums::hasFlag(adjacentNodes, pcgEnums::Direction::right), true);
+    up->SetVisibility(pcgEnums::hasFlag(adjacentNodes, pcgEnums::Direction::up), true);
+    down->SetVisibility(pcgEnums::hasFlag(adjacentNodes, pcgEnums::Direction::down), true);
+    forward->SetVisibility(!pcgEnums::hasFlag(adjacentNodes, pcgEnums::Direction::forward), true);
+    backward->SetVisibility(!pcgEnums::hasFlag(adjacentNodes, pcgEnums::Direction::backward), true);
 }
