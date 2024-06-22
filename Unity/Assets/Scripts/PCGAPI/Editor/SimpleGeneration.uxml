@@ -4,5 +4,6 @@
     <engine:FloatField label="Node Size" value="0" name="Size" />
     <engine:Vector3Field label="Start Position" name="StartPosition" />
     <engine:DropdownField label="Axis" choices="Positive X,Negative X,Positive Y,Negative Y,Positive Z,Negative Z" index="0" name="Axis" />
+    <engine:Toggle label="Frame by Frame" name="FramebyFrame" />
     <engine:Button text="Generate" name="GenerateButton" />
 </engine:UXML>
