@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -17,6 +20,10 @@ namespace PCGAPI.Editor
         private EnumFlagsField axesField;
         private Toggle disableOverlapToggle;
         private Vector3Field startPosition;
+        private Toggle frameByFrameToggle;
+
+        private GameObject node;
+        private Transform nodeParent;
 
         [MenuItem("PCG/Multi Dimensional Generation")]
         public static void ShowExample()
@@ -38,6 +45,7 @@ namespace PCGAPI.Editor
             disableOverlapToggle = rootVisualElement.Q<Toggle>("DisableOverlap");
             startPosition = rootVisualElement.Q<Vector3Field>("StartPosition");
             axesField = rootVisualElement.Q<EnumFlagsField>("Axes");
+            frameByFrameToggle = rootVisualElement.Q<Toggle>("FrameByFrame");
 
             var generateButton = rootVisualElement.Q<Button>("GenerateButton");
             generateButton.clicked += SpawnObject;
@@ -52,7 +60,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetLoggingFunction(Log);
 
-            GameObject node = nodeField.value as GameObject;
+            node = nodeField.value as GameObject;
             uint nodeCount = nodeCountField.value;
             float size = nodeSizeField.value;
 
@@ -76,14 +84,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetSeed(seedField.value);
 
-            Transform nodeParent = new GameObject("Multi Dimensional Generation").transform;
-
-            void AddNode(Vector3 nodePosition)
-            {
-                UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
-                GameObject n = Instantiate(node, nodeParent);
-                n.transform.position = position;
-            }
+            nodeParent = new GameObject("Multi Dimensional Generation").transform;
 
             GenerationParameters generationParameters = new GenerationParameters()
             {
@@ -92,7 +93,39 @@ namespace PCGAPI.Editor
                 startPoint = PCGEngine2Unity.UnityToPCGEngineVector(startPosition.value)
             };
 
+            if (frameByFrameToggle.value)
+            {
+                List<Vector3> positions = new List<Vector3>();
+
+                void AddNodePosition(Vector3 nodePosition)
+                {
+                    positions.Add(nodePosition);
+                }
+
+                PCGEngine.MultiDimensionalGeneration(ref generationParameters, (Axis)axesField.value, disableOverlapToggle.value, AddNodePosition);
+                EditorCoroutineUtility.StartCoroutine(GenerateLevel(positions), this);
+            }
+            else
+            {
             PCGEngine.MultiDimensionalGeneration(ref generationParameters, (Axis)axesField.value, disableOverlapToggle.value, AddNode);
+            }
+
+        }
+
+        private void AddNode(Vector3 nodePosition)
+        {
+            UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
+            GameObject n = Instantiate(node, nodeParent);
+            n.transform.position = position;
+        }
+
+        private IEnumerator GenerateLevel(List<Vector3> nodes)
+        {
+            foreach (Vector3 node in nodes)
+            {
+                AddNode(node);
+                yield return null;
+            }
         }
     }
 }

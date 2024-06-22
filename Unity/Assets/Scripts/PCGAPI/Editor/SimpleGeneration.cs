@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -15,6 +18,10 @@ namespace PCGAPI.Editor
         private FloatField nodeSizeField;
         private DropdownField axisField;
         private Vector3Field startPosition;
+        private Toggle frameByFrameToggle;
+
+        private GameObject node;
+        private Transform nodeParent;
 
         [MenuItem("PCG/Simple Generation")]
         public static void ShowExample()
@@ -34,6 +41,7 @@ namespace PCGAPI.Editor
             nodeSizeField = rootVisualElement.Q<FloatField>("Size");
             axisField = rootVisualElement.Q<DropdownField>("Axis");
             startPosition = rootVisualElement.Q<Vector3Field>("StartPosition");
+            frameByFrameToggle = rootVisualElement.Q<Toggle>("FramebyFrame");
 
             var generateButton = rootVisualElement.Q<Button>("GenerateButton");
             generateButton.clicked += SpawnObject;
@@ -48,7 +56,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetLoggingFunction(Log);
 
-            GameObject node = nodeField.value as GameObject;
+            node = nodeField.value as GameObject;
             uint nodeCount = nodeCountField.value;
             float size = nodeSizeField.value;
 
@@ -70,14 +78,7 @@ namespace PCGAPI.Editor
                 return;
             }
 
-            Transform nodeParent = new GameObject("Simple Generation").transform;
-
-            void AddNode(Vector3 nodePosition)
-            {
-                UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
-                GameObject n = Instantiate(node, nodeParent);
-                n.transform.position = position;
-            }
+            nodeParent = new GameObject("Simple Generation").transform;
 
             GenerationParameters generationParameters = new GenerationParameters()
             {
@@ -86,7 +87,39 @@ namespace PCGAPI.Editor
                 startPoint = PCGEngine2Unity.UnityToPCGEngineVector(startPosition.value)
             };
 
-            PCGEngine.SimpleGeneration(ref generationParameters, (Axis)(1 << axisField.index), AddNode);
+
+            if (frameByFrameToggle.value)
+            {
+                List<Vector3> positions = new List<Vector3>();
+
+                void AddNodePosition(Vector3 nodePosition)
+                {
+                    positions.Add(nodePosition);
+                }
+
+                PCGEngine.SimpleGeneration(ref generationParameters, (Axis)(1 << axisField.index), AddNodePosition);
+                EditorCoroutineUtility.StartCoroutine(GenerateLevel(positions), this);
+            }
+            else
+            {
+                PCGEngine.SimpleGeneration(ref generationParameters, (Axis)(1 << axisField.index), AddNode);
+            }
+        }
+
+        private void AddNode(Vector3 nodePosition)
+        {
+            UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
+            GameObject n = Instantiate(node, nodeParent);
+            n.transform.position = position;
+        }
+
+        private IEnumerator GenerateLevel(List<Vector3> nodes)
+        {
+            foreach (Vector3 node in nodes)
+            {
+                AddNode(node);
+                yield return null;
+            }
         }
     }
 }
