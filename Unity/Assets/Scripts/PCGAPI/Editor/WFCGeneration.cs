@@ -22,8 +22,8 @@ namespace PCGAPI.Editor
         private Vector3Field startPosition;
         private Toggle frameByFrameToggle;
 
-        Transform nodeParent;
-        WFCNode node;
+        private Transform nodeParent;
+        private WFCNode node;
 
         struct NodeInfo
         {
