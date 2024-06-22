@@ -16,19 +16,19 @@ The Engine is made of multiple static libraries that are all linked to one final
 
 The CPP-API DLL is used to communicate with C++ engines like Unreal.
 
-It allows passing in std::function as callback functions to the API's exposed functions and std::vectors when needed.
+It allows passing in std::function as callback functions to the API's exposed functions and std::vector when needed.
 
-It can also directly include headers from the static libraries and used the declared enums/constants inside of if/switch statements. (For example using the Directions enum with maze generation algorithm to find out if the generated node has a left neighbour)
+It can also directly include headers from the static libraries and use the declared enums/constants inside of if/switch statements. (For example using the Directions enum with maze generation algorithm to find out if the generated node has an adjacent left node)
 
 === C-API
 
-The C-API is used  to communicate with languages that can only communicate with a C-API like C# and Unity.
+The C-API is used  to communicate with languages that can only communicate with a C-API like C# (Unity Engine).
 
 It uses function pointers to pass callback from C# to C++. A pointer to the first element in a array and an int representing the size to pass in arrays of T.
 
 A C# class needs to be created with functions that call the C-API DLL functions using the DLLImport attribute.
 
-The C++ enums needs to be declared again in C#.
+The C++ enums/constants needs to be declared again in C#.
 
 [NOTE]
 C++/CLI is not compatible with Unity because of the **J**ust **I**n **T**ime compiler crashing during compilation. This https://forum.unity.com/threads/is-c-cli-forbidden-in-unity.700115/[post] in the Unity forum explains the issue in more details.
