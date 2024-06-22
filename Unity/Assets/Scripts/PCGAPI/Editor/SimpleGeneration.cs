@@ -106,7 +106,7 @@ namespace PCGAPI.Editor
             }
         }
 
-        void AddNode(Vector3 nodePosition)
+        private void AddNode(Vector3 nodePosition)
         {
             UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
             GameObject n = Instantiate(node, nodeParent);

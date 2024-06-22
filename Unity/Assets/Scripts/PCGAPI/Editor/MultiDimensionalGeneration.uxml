@@ -6,5 +6,6 @@
     <engine:Toggle label="Disable Overlap" name="DisableOverlap" value="true" />
     <engine:Vector3Field label="Start Position" name="StartPosition" />
     <editor:EnumFlagsField label="Axes" value="-1" type="PCGAPI.Axis, PCGAPI" name="Axes" include-obsolete-values="false" />
+    <engine:Toggle label="Frame by Frame" name="FrameByFrame" />
     <engine:Button text="Generate" name="GenerateButton" />
 </engine:UXML>
