@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -17,6 +20,16 @@ namespace PCGAPI.Editor
         private EnumFlagsField axesField;
         private EnumField expansionModeField;
         private Vector3Field startPosition;
+        private Toggle frameByFrameToggle;
+
+        Transform nodeParent;
+        WFCNode node;
+
+        struct NodeInfo
+        {
+            public Vector3 position;
+            public Direction direction;
+        }
 
         [MenuItem("PCG/Wave Function Collapse Generation")]
         public static void ShowExample()
@@ -38,6 +51,7 @@ namespace PCGAPI.Editor
             startPosition = rootVisualElement.Q<Vector3Field>("StartPosition");
             axesField = rootVisualElement.Q<EnumFlagsField>("Axes");
             expansionModeField = rootVisualElement.Q<EnumField>("ExpansionMode");
+            frameByFrameToggle = rootVisualElement.Q<Toggle>("FramebyFrame");
 
             var generateButton = rootVisualElement.Q<Button>("GenerateButton");
             generateButton.clicked += SpawnObject;
@@ -52,7 +66,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetLoggingFunction(Log);
 
-            WFCNode node = nodeField.value as WFCNode;
+            node = nodeField.value as WFCNode;
             uint nodeCount = nodeCountField.value;
             float size = nodeSizeField.value;
 
@@ -76,15 +90,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetSeed(seedField.value);
 
-            Transform nodeParent = new GameObject("Multi Dimensional Generation").transform;
-
-            void AddNode(Vector3 nodePosition, Direction adjacentNodes)
-            {
-                UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
-                WFCNode n = Instantiate(node, nodeParent);
-                n.transform.position = position;
-                n.SetNeighbors(adjacentNodes);
-            }
+            nodeParent = new GameObject("Multi Dimensional Generation").transform;
 
             GenerationParameters generationParameters = new GenerationParameters()
             {
@@ -93,7 +99,43 @@ namespace PCGAPI.Editor
                 startPoint = PCGEngine2Unity.UnityToPCGEngineVector(startPosition.value)
             };
 
-            PCGEngine.WaveFunctionCollapseGeneration(ref generationParameters, (ExpansionMode)expansionModeField.value, (Axis)axesField.value, AddNode);
+            if (frameByFrameToggle.value)
+            {
+                List<NodeInfo> nodes = new List<NodeInfo>();
+
+                void AddNodeInfo(Vector3 nodePosition, Direction adjacentNodes)
+                {
+                    nodes.Add(new NodeInfo()
+                    {
+                        position = nodePosition,
+                        direction = adjacentNodes
+                    });
+                }
+
+                PCGEngine.WaveFunctionCollapseGeneration(ref generationParameters, (ExpansionMode)expansionModeField.value, (Axis)axesField.value, AddNodeInfo);
+                EditorCoroutineUtility.StartCoroutine(SpawnLevel(nodes), this);
+            }
+            else
+            {
+                PCGEngine.WaveFunctionCollapseGeneration(ref generationParameters, (ExpansionMode)expansionModeField.value, (Axis)axesField.value, AddNode);
+            }
+        }
+
+        void AddNode(Vector3 nodePosition, Direction adjacentNodes)
+        {
+            UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
+            WFCNode n = Instantiate(node, nodeParent);
+            n.transform.position = position;
+            n.SetNeighbors(adjacentNodes);
+        }
+
+        IEnumerator SpawnLevel(List<NodeInfo> nodes)
+        {
+            foreach (NodeInfo node in nodes)
+            {
+                AddNode(node.position, node.direction);
+                yield return null;
+            }
         }
     }
 }
