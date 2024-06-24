@@ -12,6 +12,11 @@ namespace pcg::engine::math
         /// @return Value in range [minimum, maximum[
         int defaultNumberGenerator(int minimum, int maximum)
         {
+            if (minimum == maximum)
+            {
+                return minimum;
+            }
+
             return rand() % (maximum - minimum) + minimum;
         }
     }
