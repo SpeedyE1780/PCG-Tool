@@ -10,6 +10,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 "src/BinaryTree.cpp"
 "src/Common.cpp"
 "src/Eller.cpp"
+"src/HuntAndKill.cpp"
 "src/Sidewinder.cpp"
 "src/Wilson.cpp"
 
@@ -18,6 +19,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 "include/pcg/engine/maze-generation/BinaryTree.hpp"
 "include/pcg/engine/maze-generation/Common.hpp"
 "include/pcg/engine/maze-generation/Eller.hpp"
+"include/pcg/engine/maze-generation/HuntAndKill.hpp"
 "include/pcg/engine/maze-generation/Sidewinder.hpp"
 "include/pcg/engine/maze-generation/Wilson.hpp"
 )
