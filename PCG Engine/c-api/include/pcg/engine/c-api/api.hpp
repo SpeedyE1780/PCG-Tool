@@ -36,7 +36,9 @@ namespace pcg::engine::c_api
         binaryTreeNW = 3,
         binaryTreeSE = 4,
         binaryTreeSW = 5,
-        sidewinder = 6
+        sidewinder = 6,
+        eller = 7,
+        huntAndKill = 8
     };
 
     /// @brief Set RNG's seed
