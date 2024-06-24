@@ -17,7 +17,7 @@ namespace pcg::engine::maze_generation
 
         utility::logInfo("Aldous - Broder Maze Generation Started");
 
-        std::vector<utility::enums::Direction> directions = getDefaultDirections();
+        Directions directions = getDefaultDirections();
         auto randomEngine = std::default_random_engine{ math::Random::seed };
 
         Grid grid = generateGrid(width, height);

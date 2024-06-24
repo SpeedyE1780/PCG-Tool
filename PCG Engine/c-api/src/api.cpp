@@ -10,6 +10,8 @@
 
 #include <pcg/engine/maze-generation/AldousBroder.hpp>
 #include <pcg/engine/maze-generation/BinaryTree.hpp>
+#include <pcg/engine/maze-generation/Eller.hpp>
+#include <pcg/engine/maze-generation/HuntAndKill.hpp>
 #include <pcg/engine/maze-generation/Sidewinder.hpp>
 #include <pcg/engine/maze-generation/Wilson.hpp>
 
@@ -91,6 +93,16 @@ namespace pcg::engine::c_api
         case MazeAlgorithm::sidewinder:
         {
             maze_generation::sidewinder(width, height, invokeAferGeneration, callback);
+            break;
+        }
+        case MazeAlgorithm::eller:
+        {
+            maze_generation::eller(width, height, invokeAferGeneration, callback);
+            break;
+        }
+        case MazeAlgorithm::huntAndKill:
+        {
+            maze_generation::huntAndKill(width, height, invokeAferGeneration, callback);
             break;
         }
         default:

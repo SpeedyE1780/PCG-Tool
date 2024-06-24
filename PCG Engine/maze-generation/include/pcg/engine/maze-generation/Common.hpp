@@ -11,8 +11,10 @@
 
 namespace pcg::engine::maze_generation
 {
+    /// @brief Direction vector alias
+    using Directions = std::vector<utility::enums::Direction>;
     /// @brief 2D vector alias
-    using Grid = std::vector<std::vector<utility::enums::Direction>>;
+    using Grid = std::vector<Directions>;
     /// @brief Callback used to notify a node was spawned/modified
     using MazeCallback = utility::CallbackFunctor<void(int, int, utility::enums::Direction)>;
 
@@ -30,12 +32,12 @@ namespace pcg::engine::maze_generation
     /// @param height Grid height
     /// @param defaultValue Default value when allocating grid
     /// @return A 2D vector representing the maze's empty grid
-    inline constexpr Grid generateGrid(int width, int height, utility::enums::Direction defaultValue = utility::enums::Direction::none) { return Grid(width, std::vector<utility::enums::Direction>(height, defaultValue)); }
+    inline constexpr Grid generateGrid(int width, int height, utility::enums::Direction defaultValue = utility::enums::Direction::none) { return Grid(height, Directions(width, defaultValue)); }
     /// @brief Get default directions used when generating maze
     /// @return a vector containing { left, right, forward, backward }
-    inline constexpr std::vector<utility::enums::Direction> getDefaultDirections()
+    inline constexpr Directions getDefaultDirections()
     {
-        return std::vector<utility::enums::Direction>
+        return Directions
         {
             utility::enums::Direction::left, utility::enums::Direction::right,
                 utility::enums::Direction::forward, utility::enums::Direction::backward
