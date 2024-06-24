@@ -12,6 +12,7 @@
 #include <pcg/engine/maze-generation/BinaryTree.hpp>
 #include <pcg/engine/maze-generation/Eller.hpp>
 #include <pcg/engine/maze-generation/HuntAndKill.hpp>
+#include <pcg/engine/maze-generation/RecursiveBacktracker.hpp>
 #include <pcg/engine/maze-generation/Sidewinder.hpp>
 #include <pcg/engine/maze-generation/Wilson.hpp>
 
@@ -103,6 +104,11 @@ namespace pcg::engine::cpp_api
         case MazeAlgorithm::huntAndKill:
         {
             maze_generation::huntAndKill(width, height, invokeAferGeneration, callback);
+            break;
+        }
+        case MazeAlgorithm::recursiveBacktracker:
+        {
+            maze_generation::recursiveBacktracker(width, height, invokeAferGeneration, callback);
             break;
         }
         default:

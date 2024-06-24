@@ -25,7 +25,8 @@ namespace pcg::engine::cpp_api
         binaryTreeSW = 5,
         sidewinder = 6,
         eller = 7,
-        huntAndKill = 8
+        huntAndKill = 8,
+        recursiveBacktracker = 9
     };
 
     /// @brief Set RNG's seed
