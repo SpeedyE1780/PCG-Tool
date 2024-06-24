@@ -74,8 +74,8 @@ namespace pcg::engine::maze_generation
         /// @return A vector of nodes that should be added to the grid
         std::vector<WilsonWalkData> walk(const Grid& grid, std::vector<utility::enums::Direction>& directions, std::default_random_engine& randomEngine)
         {
-            const int width = grid.size();
-            const int height = grid[0].size();
+            const int height = grid.size();
+            const int width = grid[0].size();
             auto [x, y] = findStartingNode(grid, width, height, randomEngine);
             int startX = x;
             int startY = y;
@@ -121,7 +121,7 @@ namespace pcg::engine::maze_generation
         utility::logInfo("Wilson Maze Generation Started");
 
         std::ostringstream oss{};
-        std::vector<utility::enums::Direction> directions = getDefaultDirections();
+        Directions directions = getDefaultDirections();
         auto randomEngine = std::default_random_engine{ math::Random::seed };
 
         Grid grid = generateGrid(width, height);
