@@ -5,6 +5,11 @@
 
 namespace pcg::engine::maze_generation
 {
+    /// @brief Geneate maze using Hunt and Kill Algorithm
+    /// @param width Grid Width
+    /// @param height Grid Height
+    /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+    /// @param callback Callback when a node is generated
     void huntAndKill(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback);
 }
 
