@@ -30,7 +30,7 @@ namespace pcg::engine::cpp_api
         recursiveDivision = 10,
         kruskal = 11,
         prim = 12,
-        growingTree = 13
+        growingTreeOldest = 13
     };
 
     /// @brief Set RNG's seed
