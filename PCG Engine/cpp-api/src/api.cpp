@@ -11,6 +11,7 @@
 #include <pcg/engine/maze-generation/AldousBroder.hpp>
 #include <pcg/engine/maze-generation/BinaryTree.hpp>
 #include <pcg/engine/maze-generation/Eller.hpp>
+#include <pcg/engine/maze-generation/GrowingTree.hpp>
 #include <pcg/engine/maze-generation/HuntAndKill.hpp>
 #include <pcg/engine/maze-generation/Kruskal.hpp>
 #include <pcg/engine/maze-generation/Prim.hpp>
@@ -127,6 +128,11 @@ namespace pcg::engine::cpp_api
         case MazeAlgorithm::prim:
         {
             maze_generation::prim(width, height, invokeAferGeneration, callback);
+            break;
+        }
+        case MazeAlgorithm::growingTree:
+        {
+            maze_generation::growingTree(width, height, invokeAferGeneration, callback);
             break;
         }
         default:

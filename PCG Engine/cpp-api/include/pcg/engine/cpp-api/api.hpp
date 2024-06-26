@@ -29,7 +29,8 @@ namespace pcg::engine::cpp_api
         recursiveBacktracker = 9,
         recursiveDivision = 10,
         kruskal = 11,
-        prim = 12
+        prim = 12,
+        growingTree = 13
     };
 
     /// @brief Set RNG's seed
