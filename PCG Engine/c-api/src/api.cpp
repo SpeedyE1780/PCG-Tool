@@ -155,6 +155,11 @@ namespace pcg::engine::c_api
         }
     }
 
+    void generateGrowingTreeWithCustomSelection(int width, int height, bool invokeAfterGeneration, selectNodeCallback nodeCallback, addMazeNodeCallback callback)
+    {
+        maze_generation::growingTree(width, height, invokeAfterGeneration, nodeCallback, callback);
+    }
+
     void generateCombination(int elementCount, generateCombinationCallback callback)
     {
         combination_generation::generateCombination(elementCount, callback);

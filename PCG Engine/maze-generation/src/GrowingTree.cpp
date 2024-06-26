@@ -37,7 +37,7 @@ namespace pcg::engine::maze_generation
             return nodes[math::Random::generateNumber(0, nodes.size())];
         }
 
-        void growingTree(int width, int height, bool invokeAfterGeneration, std::function<std::tuple<int, int>(const std::vector<std::tuple<int, int>>& nodes)> getNextNode, MazeCallback&& callback)
+        void generateGrowingTree(int width, int height, bool invokeAfterGeneration, std::function<std::tuple<int, int>(const std::vector<std::tuple<int, int>>& nodes)> getNextNode, MazeCallback&& callback)
         {
             Grid grid = generateGrid(width, height);
             Directions directions = getDefaultDirections();
@@ -98,22 +98,22 @@ namespace pcg::engine::maze_generation
         {
         case GrowingTreeSelectionMethod::oldest:
         {
-            growingTree(width, height, invokeAfterGeneration, getOldestNode, std::move(callback));
+            generateGrowingTree(width, height, invokeAfterGeneration, getOldestNode, std::move(callback));
             break;
         }
         case GrowingTreeSelectionMethod::middle:
         {
-            growingTree(width, height, invokeAfterGeneration, getMiddleNode, std::move(callback));
+            generateGrowingTree(width, height, invokeAfterGeneration, getMiddleNode, std::move(callback));
             break;
         }
         case GrowingTreeSelectionMethod::newest:
         {
-            growingTree(width, height, invokeAfterGeneration, getNewestNode, std::move(callback));
+            generateGrowingTree(width, height, invokeAfterGeneration, getNewestNode, std::move(callback));
             break;
         }
         case GrowingTreeSelectionMethod::random:
         {
-            growingTree(width, height, invokeAfterGeneration, getRandomNode, std::move(callback));
+            generateGrowingTree(width, height, invokeAfterGeneration, getRandomNode, std::move(callback));
             break;
         }
         default:
@@ -121,5 +121,13 @@ namespace pcg::engine::maze_generation
             break;
         }
         }
+    }
+
+    void growingTree(int width, int height, bool invokeAfterGeneration, utility::CallbackFunctor<int(int)>&& nodeSelectionCallback, MazeCallback&& callback)
+    {
+        generateGrowingTree(width, height, invokeAfterGeneration, [&nodeSelectionCallback](const std::vector<std::tuple<int, int>>& nodes)
+            {
+                return nodes[nodeSelectionCallback(nodes.size())];
+            }, std::move(callback));
     }
 }

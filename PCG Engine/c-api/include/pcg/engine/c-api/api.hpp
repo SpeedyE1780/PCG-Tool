@@ -18,6 +18,8 @@ namespace pcg::engine::c_api
     typedef void (*addWFCNodeCallback)(math::Vector3 position, utility::enums::Direction adjacentNodes);
     /// @brief Callback to indicate that a node was spawned at the x, y coordinate and has these adjacent node
     typedef void (*addMazeNodeCallback)(int x, int y, utility::enums::Direction adjacentNodes);
+    /// @brief Callback to select node during growing tree maze generation with user defined function
+    typedef int (*selectNodeCallback)(int size);
     /// @brief Function that will be used when setting the random number generator's seed
     typedef void (*setSeedCallback)(unsigned int seed);
     /// @brief Function used to generate a number between [min, max[
@@ -83,6 +85,13 @@ namespace pcg::engine::c_api
     /// @param algorithm Algorithm that will be used to generate maze
     /// @param callback Callback when a node is generated
     PCG_ENGINE_C_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazeNodeCallback callback);
+    /// @brief Generate a Growing Tree maze using a custom selection callback
+    /// @param width Width of grid
+    /// @param height Height of grid
+    /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+    /// @param nodeCallback Callback used to select a node from pending growing tree nodes
+    /// @param callback Callback when a node is generated
+    PCG_ENGINE_C_API_API void generateGrowingTreeWithCustomSelection(int width, int height, bool invokeAfterGeneration, selectNodeCallback nodeCallback, addMazeNodeCallback callback);
     /// @brief Generate a combination given a number of elements
     /// @param elementCount Number of element that are available in set
     /// @param callback Callback to add element to generated set
