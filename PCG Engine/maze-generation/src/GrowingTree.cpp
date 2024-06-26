@@ -10,7 +10,7 @@ namespace pcg::engine::maze_generation
 {
     namespace
     {
-        std::tuple<int, int> getRandomNode(int width, int height)
+        std::tuple<int, int> getStartingNode(int width, int height)
         {
             const int x = math::Random::generateNumber(0, width);
             const int y = math::Random::generateNumber(0, height);
@@ -32,6 +32,11 @@ namespace pcg::engine::maze_generation
             return nodes[nodes.size() - 1];
         }
 
+        std::tuple<int, int> getRandomNode(const std::vector<std::tuple<int, int>>& nodes)
+        {
+            return nodes[math::Random::generateNumber(0, nodes.size())];
+        }
+
         void growingTree(int width, int height, bool invokeAfterGeneration, std::function<std::tuple<int, int>(const std::vector<std::tuple<int, int>>& nodes)> getNextNode, MazeCallback&& callback)
         {
             Grid grid = generateGrid(width, height);
@@ -39,7 +44,7 @@ namespace pcg::engine::maze_generation
             std::default_random_engine randomEngine{ math::Random::seed };
 
             std::vector<std::tuple<int, int>> nodes{};
-            nodes.emplace_back(getRandomNode(width, height));
+            nodes.emplace_back(getStartingNode(width, height));
 
             while (!nodes.empty())
             {
@@ -104,6 +109,11 @@ namespace pcg::engine::maze_generation
         case GrowingTreeSelectionMethod::newest:
         {
             growingTree(width, height, invokeAfterGeneration, getNewestNode, std::move(callback));
+            break;
+        }
+        case GrowingTreeSelectionMethod::random:
+        {
+            growingTree(width, height, invokeAfterGeneration, getRandomNode, std::move(callback));
             break;
         }
         default:

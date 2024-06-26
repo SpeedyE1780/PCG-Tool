@@ -145,6 +145,11 @@ namespace pcg::engine::c_api
             maze_generation::growingTree(width, height, invokeAferGeneration, maze_generation::GrowingTreeSelectionMethod::newest, callback);
             break;
         }
+        case MazeAlgorithm::growingTreeRandom:
+        {
+            maze_generation::growingTree(width, height, invokeAferGeneration, maze_generation::GrowingTreeSelectionMethod::random, callback);
+            break;
+        }
         default:
             break;
         }

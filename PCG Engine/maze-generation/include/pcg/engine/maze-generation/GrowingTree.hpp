@@ -10,6 +10,7 @@ namespace pcg::engine::maze_generation
         oldest = 0,
         middle = 1,
         newest = 2,
+        random = 3
     };
 
     /// @brief Geneate maze using Growing Tree Algorithm
