@@ -8,6 +8,7 @@ namespace pcg::engine::maze_generation
     enum class GrowingTreeSelectionMethod
     {
         oldest = 0,
+        middle = 1,
     };
 
     /// @brief Geneate maze using Growing Tree Algorithm
