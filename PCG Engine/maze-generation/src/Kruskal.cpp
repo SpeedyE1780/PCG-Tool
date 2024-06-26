@@ -14,26 +14,26 @@ namespace pcg::engine::maze_generation
         public:
             Tree* getRoot()
             {
-                return root ? root : this;
+                return parent ? parent->getRoot() : this;
             }
 
             const Tree* getRoot() const
             {
-                return root ? root : this;
+                return parent ? parent->getRoot() : this;
             }
 
-            bool isRoot(const Tree& tree) const
+            bool isConnected(const Tree& tree) const
             {
-                return root == tree.getRoot();
+                return getRoot() == tree.getRoot();
             }
 
             void addSubTree(Tree& tree)
             {
-                tree.root = this;
+                tree.getRoot()->parent = this;
             }
 
         private:
-            Tree* root = nullptr;
+            Tree* parent = nullptr;
         };
 
         struct Edge
@@ -84,9 +84,9 @@ namespace pcg::engine::maze_generation
             auto [endX, endY] = getAdjacentCoordinates(originX, originY, direction);
 
             Tree& originTree = trees[originY][originX];
-            Tree& endTree = trees.at(endY).at(endX);
+            Tree& endTree = trees[endY][endX];
 
-            if (originTree.isRoot(endTree))
+            if (originTree.isConnected(endTree))
             {
                 continue;
             }

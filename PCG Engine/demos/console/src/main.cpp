@@ -104,6 +104,9 @@ int main()
     std::cout << "Maze Generation: Recursive Division" << std::endl;
     generateMaze(width, height, true, MazeAlgorithm::recursiveDivision, addMazePoint);
 
+    std::cout << "Maze Generation: Kruskal" << std::endl;
+    generateMaze(width, height, true, MazeAlgorithm::kruskal, addMazePoint);
+
     constexpr bool hasXY = pcg::engine::utility::enums::hasFlag(Axis::xy, Axis::x, Axis::y);
     constexpr bool hasXYZ = pcg::engine::utility::enums::hasFlag(Axis::xy, Axis::x, Axis::y, Axis::z);
 
