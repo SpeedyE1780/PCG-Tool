@@ -13,6 +13,7 @@
 #include <pcg/engine/maze-generation/Eller.hpp>
 #include <pcg/engine/maze-generation/HuntAndKill.hpp>
 #include <pcg/engine/maze-generation/Kruskal.hpp>
+#include <pcg/engine/maze-generation/Prim.hpp>
 #include <pcg/engine/maze-generation/RecursiveBacktracker.hpp>
 #include <pcg/engine/maze-generation/RecursiveDivision.hpp>
 #include <pcg/engine/maze-generation/Sidewinder.hpp>
@@ -121,6 +122,11 @@ namespace pcg::engine::cpp_api
         case MazeAlgorithm::kruskal:
         {
             maze_generation::kruskal(width, height, invokeAferGeneration, callback);
+            break;
+        }
+        case MazeAlgorithm::prim:
+        {
+            maze_generation::prim(width, height, invokeAferGeneration, callback);
             break;
         }
         default:
