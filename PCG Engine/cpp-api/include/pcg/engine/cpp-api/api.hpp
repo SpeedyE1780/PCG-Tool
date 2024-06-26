@@ -28,7 +28,8 @@ namespace pcg::engine::cpp_api
         huntAndKill = 8,
         recursiveBacktracker = 9,
         recursiveDivision = 10,
-        kruskal = 11
+        kruskal = 11,
+        prim = 12
     };
 
     /// @brief Set RNG's seed
