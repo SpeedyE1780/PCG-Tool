@@ -1,5 +1,7 @@
 #include <pcg/engine/cpp-api/api.hpp>
 
+#include <pcg/engine/maze-generation/RecursiveDivision.hpp>
+
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -98,6 +100,9 @@ int main()
 
     std::cout << "Maze Generation: sidewinder" << std::endl;
     generateMaze(width, height, true, MazeAlgorithm::sidewinder, addMazePoint);
+
+    std::cout << "Maze Generation: Recursive Division" << std::endl;
+    pcg::engine::maze_generation::recursiveDivision(5, 5, true, addMazePoint);
 
     constexpr bool hasXY = pcg::engine::utility::enums::hasFlag(Axis::xy, Axis::x, Axis::y);
     constexpr bool hasXYZ = pcg::engine::utility::enums::hasFlag(Axis::xy, Axis::x, Axis::y, Axis::z);
