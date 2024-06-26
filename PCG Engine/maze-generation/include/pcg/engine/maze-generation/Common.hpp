@@ -20,6 +20,8 @@ namespace pcg::engine::maze_generation
 
     /// @brief Defines a node as part of the maze without having an actual direction
     inline constexpr int in = 1 << 6;
+    /// @brief Defines a ndoe as a frontier in the maze without having an actual direction
+    inline constexpr int frontier = 1 << 7;
 
     /// @brief Get adjacent node x, y coordinates
     /// @param x Current node x coordinate
