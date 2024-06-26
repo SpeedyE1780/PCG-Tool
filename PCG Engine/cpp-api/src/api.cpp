@@ -11,6 +11,7 @@
 #include <pcg/engine/maze-generation/AldousBroder.hpp>
 #include <pcg/engine/maze-generation/BinaryTree.hpp>
 #include <pcg/engine/maze-generation/Eller.hpp>
+#include <pcg/engine/maze-generation/GrowingTree.hpp>
 #include <pcg/engine/maze-generation/HuntAndKill.hpp>
 #include <pcg/engine/maze-generation/Kruskal.hpp>
 #include <pcg/engine/maze-generation/Prim.hpp>
@@ -129,9 +130,34 @@ namespace pcg::engine::cpp_api
             maze_generation::prim(width, height, invokeAferGeneration, callback);
             break;
         }
+        case MazeAlgorithm::growingTreeOldest:
+        {
+            maze_generation::growingTree(width, height, invokeAferGeneration, maze_generation::GrowingTreeSelectionMethod::oldest, callback);
+            break;
+        }
+        case MazeAlgorithm::growingTreeMiddle:
+        {
+            maze_generation::growingTree(width, height, invokeAferGeneration, maze_generation::GrowingTreeSelectionMethod::middle, callback);
+            break;
+        }
+        case MazeAlgorithm::growingTreeNewest:
+        {
+            maze_generation::growingTree(width, height, invokeAferGeneration, maze_generation::GrowingTreeSelectionMethod::newest, callback);
+            break;
+        }
+        case MazeAlgorithm::growingTreeRandom:
+        {
+            maze_generation::growingTree(width, height, invokeAferGeneration, maze_generation::GrowingTreeSelectionMethod::random, callback);
+            break;
+        }
         default:
             break;
         }
+    }
+
+    void generateGrowingTreeWithCustomSelection(int width, int height, bool invokeAfterGeneration, std::function<int(int)>&& nodeCallback, std::function<void(int x, int y, utility::enums::Direction neighbors)>&& callback)
+    {
+        maze_generation::growingTree(width, height, invokeAfterGeneration, nodeCallback, callback);
     }
 
     void generateCombination(int elementCount, std::function<void(int, bool)>&& callback)
