@@ -27,6 +27,11 @@ namespace pcg::engine::maze_generation
             return nodes[nodes.size() / 2];
         }
 
+        std::tuple<int, int> getNewestNode(const std::vector<std::tuple<int, int>>& nodes)
+        {
+            return nodes[nodes.size() - 1];
+        }
+
         void growingTree(int width, int height, bool invokeAfterGeneration, std::function<std::tuple<int, int>(const std::vector<std::tuple<int, int>>& nodes)> getNextNode, MazeCallback&& callback)
         {
             Grid grid = generateGrid(width, height);
@@ -94,6 +99,11 @@ namespace pcg::engine::maze_generation
         case GrowingTreeSelectionMethod::middle:
         {
             growingTree(width, height, invokeAfterGeneration, getMiddleNode, std::move(callback));
+            break;
+        }
+        case GrowingTreeSelectionMethod::newest:
+        {
+            growingTree(width, height, invokeAfterGeneration, getNewestNode, std::move(callback));
             break;
         }
         default:

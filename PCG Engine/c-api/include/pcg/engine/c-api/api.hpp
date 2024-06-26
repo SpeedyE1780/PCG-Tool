@@ -45,6 +45,7 @@ namespace pcg::engine::c_api
         prim = 12,
         growingTreeOldest = 13,
         growingTreeMiddle = 14,
+        growingTreeNewest = 15,
     };
 
     /// @brief Set RNG's seed
