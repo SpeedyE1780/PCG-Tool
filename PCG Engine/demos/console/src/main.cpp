@@ -102,7 +102,7 @@ int main()
     generateMaze(width, height, true, MazeAlgorithm::sidewinder, addMazePoint);
 
     std::cout << "Maze Generation: Recursive Division" << std::endl;
-    pcg::engine::maze_generation::recursiveDivision(5, 5, true, addMazePoint);
+    generateMaze(width, height, true, MazeAlgorithm::recursiveDivision, addMazePoint);
 
     constexpr bool hasXY = pcg::engine::utility::enums::hasFlag(Axis::xy, Axis::x, Axis::y);
     constexpr bool hasXYZ = pcg::engine::utility::enums::hasFlag(Axis::xy, Axis::x, Axis::y, Axis::z);
