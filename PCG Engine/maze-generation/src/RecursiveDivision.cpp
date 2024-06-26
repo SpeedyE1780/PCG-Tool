@@ -2,6 +2,7 @@
 
 #include <pcg/engine/math/random.hpp>
 
+#include <stack>
 #include <tuple>
 
 namespace pcg::engine::maze_generation
@@ -97,48 +98,60 @@ namespace pcg::engine::maze_generation
             }
         }
 
-        void divide(Grid& grid, GridSection&& section, MazeCallback* callback)
+        void divide(Grid& grid, int width, int height, MazeCallback* callback)
         {
-            if (section.isInvalid())
-            {
-                return;
-            }
+            std::stack<GridSection> sections{};
+            sections.push({ 0, 0, width, height });
 
-            const WallOrientation orientation = chooseOrientation(section.width, section.height);
-            const bool isHorizontal = orientation == WallOrientation::Horizontal;
-            const auto passageDirection = isHorizontal ? utility::enums::Direction::forward : utility::enums::Direction::right;
-            const auto wallDirection = isHorizontal ? utility::enums::Direction::right : utility::enums::Direction::forward;
-            auto [wallX, wallY] = getWallCoordinates(section, isHorizontal);
-            const auto [passageX, passageY] = getPassageCoordinates(section, wallX, wallY, isHorizontal);
-            const auto [adjacentX, adjacentY] = getAdjacentCoordinates(passageX, passageY, passageDirection);
-            const int wallLength = isHorizontal ? section.width : section.height;
-
-            for (int i = 0; i < wallLength; ++i)
+            while (!sections.empty())
             {
-                if (wallX != passageX || wallY != passageY)
+                const GridSection& section = sections.top();
+
+                if (section.isInvalid())
                 {
-                    auto [adjacentWallX, adjacentWallY] = getAdjacentCoordinates(wallX, wallY, passageDirection);
-                    grid[wallY][wallX] &= ~passageDirection;
-                    grid[adjacentWallY][adjacentWallX] &= ~utility::enums::getFlippedDirection(passageDirection);
+                    return;
+                }
 
-                    if (callback)
+                const WallOrientation orientation = chooseOrientation(section.width, section.height);
+                const bool isHorizontal = orientation == WallOrientation::Horizontal;
+                const auto passageDirection = isHorizontal ? utility::enums::Direction::forward : utility::enums::Direction::right;
+                const auto wallDirection = isHorizontal ? utility::enums::Direction::right : utility::enums::Direction::forward;
+                auto [wallX, wallY] = getWallCoordinates(section, isHorizontal);
+                const auto [passageX, passageY] = getPassageCoordinates(section, wallX, wallY, isHorizontal);
+                const auto [adjacentX, adjacentY] = getAdjacentCoordinates(passageX, passageY, passageDirection);
+                const int wallLength = isHorizontal ? section.width : section.height;
+
+                for (int i = 0; i < wallLength; ++i)
+                {
+                    if (wallX != passageX || wallY != passageY)
                     {
+                        auto [adjacentWallX, adjacentWallY] = getAdjacentCoordinates(wallX, wallY, passageDirection);
+                        grid[wallY][wallX] &= ~passageDirection;
+                        grid[adjacentWallY][adjacentWallX] &= ~utility::enums::getFlippedDirection(passageDirection);
+
+                        if (callback)
+                        {
+                            (*callback)(wallX, wallY, grid[wallY][wallX]);
+                            (*callback)(adjacentWallX, adjacentWallY, grid[adjacentWallY][adjacentWallX]);
+                        }
+                    }
+                    else if (callback)
+                    {
+                        auto [adjacentWallX, adjacentWallY] = getAdjacentCoordinates(wallX, wallY, passageDirection);
                         (*callback)(wallX, wallY, grid[wallY][wallX]);
                         (*callback)(adjacentWallX, adjacentWallY, grid[adjacentWallY][adjacentWallX]);
                     }
-                }
-                else if (callback)
-                {
-                    auto [adjacentWallX, adjacentWallY] = getAdjacentCoordinates(wallX, wallY, passageDirection);
-                    (*callback)(wallX, wallY, grid[wallY][wallX]);
-                    (*callback)(adjacentWallX, adjacentWallY, grid[adjacentWallY][adjacentWallX]);
+
+                    std::tie(wallX, wallY) = getAdjacentCoordinates(wallX, wallY, wallDirection);
                 }
 
-                std::tie(wallX, wallY) = getAdjacentCoordinates(wallX, wallY, wallDirection);
+                GridSection leftBottomSection = getLeftBottomSection(section, passageX, passageY, isHorizontal);
+                GridSection rightTopSection = getRightTopSection(section, adjacentX, adjacentY, isHorizontal);
+                sections.pop();
+                sections.emplace(std::move(leftBottomSection));
+                sections.emplace(std::move(rightTopSection));
             }
 
-            divide(grid, getLeftBottomSection(section, passageX, passageY, isHorizontal), callback);
-            divide(grid, getRightTopSection(section, adjacentX, adjacentY, isHorizontal), callback);
         }
     }
 
@@ -147,7 +160,7 @@ namespace pcg::engine::maze_generation
         Grid grid = generateGrid(width, height, utility::enums::Direction::right | utility::enums::Direction::left | utility::enums::Direction::forward | utility::enums::Direction::backward);
         addGridBounds(grid, width, height);
 
-        divide(grid, GridSection{ 0,0, width, height }, invokeAfterGeneration ? nullptr : &callback);
+        divide(grid, width, height, invokeAfterGeneration ? nullptr : &callback);
 
         if (invokeAfterGeneration)
         {
