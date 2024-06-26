@@ -40,7 +40,8 @@ namespace pcg::engine::c_api
         eller = 7,
         huntAndKill = 8,
         recursiveBacktracker = 9,
-        recursiveDivision = 10
+        recursiveDivision = 10,
+        kruskal = 11
     };
 
     /// @brief Set RNG's seed

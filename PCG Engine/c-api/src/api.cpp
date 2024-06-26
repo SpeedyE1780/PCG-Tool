@@ -12,6 +12,7 @@
 #include <pcg/engine/maze-generation/BinaryTree.hpp>
 #include <pcg/engine/maze-generation/Eller.hpp>
 #include <pcg/engine/maze-generation/HuntAndKill.hpp>
+#include <pcg/engine/maze-generation/Kruskal.hpp>
 #include <pcg/engine/maze-generation/RecursiveBacktracker.hpp>
 #include <pcg/engine/maze-generation/RecursiveDivision.hpp>
 #include <pcg/engine/maze-generation/Sidewinder.hpp>
@@ -115,6 +116,11 @@ namespace pcg::engine::c_api
         case MazeAlgorithm::recursiveDivision:
         {
             maze_generation::recursiveDivision(width, height, invokeAferGeneration, callback);
+            break;
+        }
+        case MazeAlgorithm::kruskal:
+        {
+            maze_generation::kruskal(width, height, invokeAferGeneration, callback);
             break;
         }
         default:

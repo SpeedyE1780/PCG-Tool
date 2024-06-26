@@ -12,7 +12,9 @@
 #include <pcg/engine/maze-generation/BinaryTree.hpp>
 #include <pcg/engine/maze-generation/Eller.hpp>
 #include <pcg/engine/maze-generation/HuntAndKill.hpp>
+#include <pcg/engine/maze-generation/Kruskal.hpp>
 #include <pcg/engine/maze-generation/RecursiveBacktracker.hpp>
+#include <pcg/engine/maze-generation/RecursiveDivision.hpp>
 #include <pcg/engine/maze-generation/Sidewinder.hpp>
 #include <pcg/engine/maze-generation/Wilson.hpp>
 
@@ -109,6 +111,16 @@ namespace pcg::engine::cpp_api
         case MazeAlgorithm::recursiveBacktracker:
         {
             maze_generation::recursiveBacktracker(width, height, invokeAferGeneration, callback);
+            break;
+        }
+        case MazeAlgorithm::recursiveDivision:
+        {
+            maze_generation::recursiveDivision(width, height, invokeAferGeneration, callback);
+            break;
+        }
+        case MazeAlgorithm::kruskal:
+        {
+            maze_generation::kruskal(width, height, invokeAferGeneration, callback);
             break;
         }
         default:
