@@ -5,7 +5,7 @@
 
 namespace pcg::engine::maze_generation
 {
-    /// @brief Geneate maze using Hunt and Kill Algorithm
+    /// @brief Geneate maze using Recursive Backtracker Algorithm
     /// @param width Grid Width
     /// @param height Grid Height
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated

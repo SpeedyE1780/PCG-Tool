@@ -39,7 +39,8 @@ namespace pcg::engine::c_api
         sidewinder = 6,
         eller = 7,
         huntAndKill = 8,
-        recursiveBacktracker = 9
+        recursiveBacktracker = 9,
+        recursiveDivision = 10
     };
 
     /// @brief Set RNG's seed
