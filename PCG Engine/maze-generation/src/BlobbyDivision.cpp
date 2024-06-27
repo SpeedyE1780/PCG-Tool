@@ -329,6 +329,12 @@ namespace pcg::engine::maze_generation
                     adjacentNode->region = node->region;
                     node->region->addNode(adjacentNode);
                     frontiers.push_back(adjacentNode);
+
+                    if (!invokeAfterGeneration)
+                    {
+                        callback(node->coordinates.x, node->coordinates.y, grid[node->coordinates.y][node->coordinates.x]);
+                        callback(adjacentNode->coordinates.x, adjacentNode->coordinates.y, grid[adjacentNode->coordinates.y][adjacentNode->coordinates.x]);
+                    }
                 }
                 else
                 {
