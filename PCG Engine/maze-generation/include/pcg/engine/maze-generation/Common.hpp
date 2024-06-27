@@ -29,17 +29,6 @@ namespace pcg::engine::maze_generation
     /// @param direction Direction from current node to adjacent node
     /// @return tuple containing adjacent node x, y coordinate
     std::tuple<int, int> getAdjacentCoordinates(int x, int y, utility::enums::Direction direction);
-
-    /// @brief Get default directions used when generating maze
-    /// @return a vector containing { left, right, forward, backward }
-    inline constexpr Directions getDefaultDirections()
-    {
-        return Directions
-        {
-            utility::enums::Direction::left, utility::enums::Direction::right,
-                utility::enums::Direction::forward, utility::enums::Direction::backward
-        };
-    }
 }
 
 #endif // PCG_ENGINE_MAZE_GENERATION_COMMON_HPP
