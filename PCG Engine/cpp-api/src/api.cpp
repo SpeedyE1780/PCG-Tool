@@ -10,6 +10,7 @@
 
 #include <pcg/engine/maze-generation/AldousBroder.hpp>
 #include <pcg/engine/maze-generation/BinaryTree.hpp>
+#include <pcg/engine/maze-generation/BlobbyDivision.hpp>
 #include <pcg/engine/maze-generation/Eller.hpp>
 #include <pcg/engine/maze-generation/GrowingTree.hpp>
 #include <pcg/engine/maze-generation/HuntAndKill.hpp>
@@ -150,6 +151,31 @@ namespace pcg::engine::cpp_api
             maze_generation::growingTree(width, height, invokeAferGeneration, maze_generation::GrowingTreeSelectionMethod::random, callback);
             break;
         }
+        case MazeAlgorithm::blobbyDivisionCorridors:
+        {
+            maze_generation::blobbyDivision(width, height, invokeAferGeneration, maze_generation::SubRegionSize::corridors, callback);
+            break;
+        }
+        case MazeAlgorithm::blobbyDivisionSmall:
+        {
+            maze_generation::blobbyDivision(width, height, invokeAferGeneration, maze_generation::SubRegionSize::small, callback);
+            break;
+        }
+        case MazeAlgorithm::blobbyDivisionMedium:
+        {
+            maze_generation::blobbyDivision(width, height, invokeAferGeneration, maze_generation::SubRegionSize::medium, callback);
+            break;
+        }
+        case MazeAlgorithm::blobbyDivisionLarge:
+        {
+            maze_generation::blobbyDivision(width, height, invokeAferGeneration, maze_generation::SubRegionSize::large, callback);
+            break;
+        }
+        case MazeAlgorithm::blobbyDivisionHuge:
+        {
+            maze_generation::blobbyDivision(width, height, invokeAferGeneration, maze_generation::SubRegionSize::huge, callback);
+            break;
+        }
         default:
             break;
         }
@@ -158,6 +184,11 @@ namespace pcg::engine::cpp_api
     void generateGrowingTreeWithCustomSelection(int width, int height, bool invokeAfterGeneration, std::function<int(int)>&& nodeCallback, std::function<void(int x, int y, utility::enums::Direction neighbors)>&& callback)
     {
         maze_generation::growingTree(width, height, invokeAfterGeneration, nodeCallback, callback);
+    }
+
+    void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, std::function<void(int x, int y, utility::enums::Direction neighbors)>&& callback)
+    {
+        maze_generation::blobbyDivision(width, height, invokeAfterGeneration, regionThreshold, callback);
     }
 
     void generateCombination(int elementCount, std::function<void(int, bool)>&& callback)

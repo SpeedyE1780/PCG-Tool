@@ -8,6 +8,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 #CPP
 "src/AldousBroder.cpp"
 "src/BinaryTree.cpp"
+"src/BlobbyDivision.cpp"
 "src/Common.cpp"
 "src/Eller.cpp"
 "src/GrowingTree.cpp"
@@ -22,6 +23,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 #HPP
 "include/pcg/engine/maze-generation/AldousBroder.hpp"
 "include/pcg/engine/maze-generation/BinaryTree.hpp"
+"include/pcg/engine/maze-generation/BlobbyDivision.hpp"
 "include/pcg/engine/maze-generation/Common.hpp"
 "include/pcg/engine/maze-generation/Eller.hpp"
 "include/pcg/engine/maze-generation/GrowingTree.hpp"

@@ -48,7 +48,12 @@ namespace pcg::engine::c_api
         growingTreeOldest = 13,
         growingTreeMiddle = 14,
         growingTreeNewest = 15,
-        growingTreeRandom = 16
+        growingTreeRandom = 16,
+        blobbyDivisionCorridors = 17,
+        blobbyDivisionSmall = 18,
+        blobbyDivisionMedium = 19,
+        blobbyDivisionLarge = 20,
+        blobbyDivisionHuge = 21,
     };
 
     /// @brief Set RNG's seed
@@ -92,6 +97,13 @@ namespace pcg::engine::c_api
     /// @param nodeCallback Callback used to select a node from pending growing tree nodes
     /// @param callback Callback when a node is generated
     PCG_ENGINE_C_API_API void generateGrowingTreeWithCustomSelection(int width, int height, bool invokeAfterGeneration, selectNodeCallback nodeCallback, addMazeNodeCallback callback);
+    /// @brief Geneate maze using Blobby Division Algorithm
+    /// @param width Grid Width
+    /// @param height Grid Height
+    /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+    /// @param regionThreshold User defined region threshold
+    /// @param callback Callback when a node is generated
+    PCG_ENGINE_C_API_API void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, addMazeNodeCallback callback);
     /// @brief Generate a combination given a number of elements
     /// @param elementCount Number of element that are available in set
     /// @param callback Callback to add element to generated set
