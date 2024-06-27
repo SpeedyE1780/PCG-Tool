@@ -299,6 +299,18 @@ namespace pcg::engine::maze_generation
                 }
             }
         }
+
+        void addSubRegionToStack(std::stack<Region>& regions, Region& subRegion)
+        {
+            if (subRegion.getNodeCount() < 4)
+            {
+                subRegion.updateNodesRegion();
+            }
+            else
+            {
+                regions.emplace(std::move(subRegion));
+            }
+        }
     }
 
     void pcg::engine::maze_generation::blobbyDivision(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
@@ -345,24 +357,8 @@ namespace pcg::engine::maze_generation
             addWalls(region, subRegion1, grid, invokeAfterGeneration ? nullptr : &callback);
 
             region.clearNodesRegion();
-
-            if (subRegion1.getNodeCount() > 4)
-            {
-                regions.emplace(std::move(subRegion1));
-            }
-            else
-            {
-                subRegion1.updateNodesRegion();
-            }
-
-            if (subRegion2.getNodeCount() > 4)
-            {
-                regions.emplace(std::move(subRegion2));
-            }
-            else
-            {
-                subRegion2.updateNodesRegion();
-            }
+            addSubRegionToStack(regions, subRegion1);
+            addSubRegionToStack(regions, subRegion2);
         }
 
         if (invokeAfterGeneration)
