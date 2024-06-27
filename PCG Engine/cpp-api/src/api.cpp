@@ -151,9 +151,29 @@ namespace pcg::engine::cpp_api
             maze_generation::growingTree(width, height, invokeAferGeneration, maze_generation::GrowingTreeSelectionMethod::random, callback);
             break;
         }
-        case MazeAlgorithm::blobbyDivision:
+        case MazeAlgorithm::blobbyDivisionCorridors:
         {
-            maze_generation::blobbyDivision(width, height, invokeAferGeneration, callback);
+            maze_generation::blobbyDivision(width, height, invokeAferGeneration, maze_generation::SubRegionSize::corridors, callback);
+            break;
+        }
+        case MazeAlgorithm::blobbyDivisionSmall:
+        {
+            maze_generation::blobbyDivision(width, height, invokeAferGeneration, maze_generation::SubRegionSize::small, callback);
+            break;
+        }
+        case MazeAlgorithm::blobbyDivisionMedium:
+        {
+            maze_generation::blobbyDivision(width, height, invokeAferGeneration, maze_generation::SubRegionSize::medium, callback);
+            break;
+        }
+        case MazeAlgorithm::blobbyDivisionLarge:
+        {
+            maze_generation::blobbyDivision(width, height, invokeAferGeneration, maze_generation::SubRegionSize::large, callback);
+            break;
+        }
+        case MazeAlgorithm::blobbyDivisionHuge:
+        {
+            maze_generation::blobbyDivision(width, height, invokeAferGeneration, maze_generation::SubRegionSize::huge, callback);
             break;
         }
         default:

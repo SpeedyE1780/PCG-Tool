@@ -54,6 +54,12 @@ namespace pcg::engine::maze_generation
         class Region;
         using NodePointer = std::shared_ptr<Node>;
         using NodeMap = std::unordered_map<NodeCoordinates, NodePointer>;
+        /// @brief A threshold lower than 4 will create subregion that are cut off from the rest of the maze
+        constexpr int minimumThreshold = 4;
+        constexpr int smallThreshold = 10;
+        constexpr int mediumThreshold = 25;
+        constexpr int largeThreshold = 40;
+        constexpr int hugeThreshold = 70;
 
         struct WallInfo
         {
@@ -300,76 +306,105 @@ namespace pcg::engine::maze_generation
             }
         }
 
-        void addSubRegionToStack(std::stack<Region>& regions, Region& subRegion)
+        void addSubRegionToStack(std::stack<Region>& regions, Region& subRegion, int regionThreshold)
         {
-            if (subRegion.getNodeCount() < 4)
+            const bool greaterThanThreshold = subRegion.getNodeCount() >= regionThreshold;
+            // Allows dividing a region that has less nodes than the threshold to sub regions
+            const bool pushSmallRegion = subRegion.getNodeCount() >= minimumThreshold && math::Random::generateNumber(0, 10) < 5;
+
+            if (greaterThanThreshold || pushSmallRegion)
             {
-                subRegion.updateNodesRegion();
+                regions.emplace(std::move(subRegion));
             }
             else
             {
-                regions.emplace(std::move(subRegion));
+                subRegion.updateNodesRegion();
+            }
+        }
+
+        void blobbyDivision(int width, int height, int regionThreshold, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            Grid grid = generateGrid(width, height, utility::enums::Direction::left | utility::enums::Direction::right | utility::enums::Direction::forward | utility::enums::Direction::backward);
+            addGridBounds(grid, width, height);
+            std::stack<Region> regions{};
+            std::vector<NodePointer> frontiers{};
+            std::default_random_engine randomEngine{ math::Random::seed };
+            regions.emplace(getStartRegion(grid, width, height));
+
+            while (!regions.empty())
+            {
+                Region region = std::move(regions.top());
+                regions.pop();
+                region.clearNodesRegion();
+                auto [subRegion1, subRegion2] = plantSeed(region, frontiers);
+
+                while (!frontiers.empty())
+                {
+                    NodePointer node = frontiers.at(math::Random::generateNumber(0, frontiers.size()));
+
+                    std::vector<NodePointer> adjacentNodes = getAdjacentNodes(node, region);
+
+                    if (!adjacentNodes.empty())
+                    {
+                        NodePointer adjacentNode = adjacentNodes[math::Random::generateNumber(0, adjacentNodes.size())];
+                        adjacentNode->region = node->region;
+                        node->region->addNode(adjacentNode);
+                        frontiers.push_back(adjacentNode);
+
+                        if (!invokeAfterGeneration)
+                        {
+                            callback(node->coordinates.x, node->coordinates.y, grid[node->coordinates.y][node->coordinates.x]);
+                            callback(adjacentNode->coordinates.x, adjacentNode->coordinates.y, grid[adjacentNode->coordinates.y][adjacentNode->coordinates.x]);
+                        }
+                    }
+                    else
+                    {
+                        std::erase(frontiers, node);
+                    }
+                }
+
+                addWalls(region, subRegion1, grid, invokeAfterGeneration ? nullptr : &callback);
+
+                region.clearNodesRegion();
+                addSubRegionToStack(regions, subRegion1, regionThreshold);
+                addSubRegionToStack(regions, subRegion2, regionThreshold);
+            }
+
+            if (invokeAfterGeneration)
+            {
+                for (int y = 0; y < grid.size(); ++y)
+                {
+                    for (int x = 0; x < grid[0].size(); ++x)
+                    {
+                        callback(x, y, grid[y][x]);
+                    }
+                }
             }
         }
     }
 
-    void pcg::engine::maze_generation::blobbyDivision(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+    void blobbyDivision(int width, int height,bool invokeAfterGeneration, SubRegionSize regionSize,  MazeCallback&& callback)
     {
-        Grid grid = generateGrid(width, height, utility::enums::Direction::left | utility::enums::Direction::right | utility::enums::Direction::forward | utility::enums::Direction::backward);
-        addGridBounds(grid, width, height);
-        std::stack<Region> regions{};
-        std::vector<NodePointer> frontiers{};
-        std::default_random_engine randomEngine{ math::Random::seed };
-        regions.emplace(getStartRegion(grid, width, height));
-
-        while (!regions.empty())
+        switch (regionSize)
         {
-            Region region = std::move(regions.top());
-            regions.pop();
-            region.clearNodesRegion();
-            auto [subRegion1, subRegion2] = plantSeed(region, frontiers);
-
-            while (!frontiers.empty())
-            {
-                NodePointer node = frontiers.at(math::Random::generateNumber(0, frontiers.size()));
-
-                std::vector<NodePointer> adjacentNodes = getAdjacentNodes(node, region);
-
-                if (!adjacentNodes.empty())
-                {
-                    NodePointer adjacentNode = adjacentNodes[math::Random::generateNumber(0, adjacentNodes.size())];
-                    adjacentNode->region = node->region;
-                    node->region->addNode(adjacentNode);
-                    frontiers.push_back(adjacentNode);
-
-                    if (!invokeAfterGeneration)
-                    {
-                        callback(node->coordinates.x, node->coordinates.y, grid[node->coordinates.y][node->coordinates.x]);
-                        callback(adjacentNode->coordinates.x, adjacentNode->coordinates.y, grid[adjacentNode->coordinates.y][adjacentNode->coordinates.x]);
-                    }
-                }
-                else
-                {
-                    std::erase(frontiers, node);
-                }
-            }
-
-            addWalls(region, subRegion1, grid, invokeAfterGeneration ? nullptr : &callback);
-
-            region.clearNodesRegion();
-            addSubRegionToStack(regions, subRegion1);
-            addSubRegionToStack(regions, subRegion2);
+        case SubRegionSize::corridors:
+            blobbyDivision(width, height, minimumThreshold, invokeAfterGeneration, std::move(callback));
+            break;
+        case SubRegionSize::small:
+            blobbyDivision(width, height, smallThreshold, invokeAfterGeneration, std::move(callback));
+            break;
+        case SubRegionSize::medium:
+            blobbyDivision(width, height, mediumThreshold, invokeAfterGeneration, std::move(callback));
+            break;
+        case SubRegionSize::large:
+            blobbyDivision(width, height, largeThreshold, invokeAfterGeneration, std::move(callback));
+            break;
+        case SubRegionSize::huge:
+            blobbyDivision(width, height, hugeThreshold, invokeAfterGeneration, std::move(callback));
+            break;
+        default:
+            break;
         }
 
-        if (invokeAfterGeneration)
-        {
-            for (int y = 0; y < grid.size(); ++y)
-            {
-                for (int x = 0; x < grid[0].size(); ++x)
-                {
-                    callback(x, y, grid[y][x]);
-                }
-            }
-        }
     }
 }

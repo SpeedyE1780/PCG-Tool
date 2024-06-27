@@ -34,7 +34,11 @@ namespace pcg::engine::cpp_api
         growingTreeMiddle = 14,
         growingTreeNewest = 15,
         growingTreeRandom = 16,
-        blobbyDivision = 17
+        blobbyDivisionCorridors = 17,
+        blobbyDivisionSmall = 18,
+        blobbyDivisionMedium = 19,
+        blobbyDivisionLarge = 20,
+        blobbyDivisionHuge = 21,
     };
 
     /// @brief Set RNG's seed
