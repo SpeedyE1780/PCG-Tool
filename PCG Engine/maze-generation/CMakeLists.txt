@@ -14,6 +14,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 "src/GrowingTree.cpp"
 "src/HuntAndKill.cpp"
 "src/Kruskal.cpp"
+"src/NodeCoordinates.cpp"
 "src/Prim.cpp"
 "src/RecursiveBacktracker.cpp"
 "src/RecursiveDivision.cpp"
@@ -37,6 +38,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 "include/pcg/engine/maze-generation/Wilson.hpp"
 
 #INTERNAL HPP
+"include-internal/pcg/engine/maze-generation/NodeCoordinates.hpp"
 "include-internal/pcg/engine/maze-generation/Utility.hpp"
 )
 

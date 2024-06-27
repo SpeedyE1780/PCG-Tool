@@ -1,43 +1,12 @@
 #include <pcg/engine/math/random.hpp>
 
 #include <pcg/engine/maze-generation/Eller.hpp>
+#include <pcg/engine/maze-generation/NodeCoordinates.hpp>
 #include <pcg/engine/maze-generation/Utility.hpp>
 
 #include <algorithm>
 #include <random>
 #include <unordered_map>
-
-namespace pcg::engine::maze_generation
-{
-    namespace
-    {
-        struct NodeCoordinates
-        {
-            std::size_t x;
-            std::size_t y;
-        };
-
-        bool operator==(const NodeCoordinates& lhs, const NodeCoordinates& rhs)
-        {
-            return lhs.x == rhs.x && lhs.y == rhs.y;
-        }
-    }
-}
-
-namespace std
-{
-    template<>
-    struct hash<pcg::engine::maze_generation::NodeCoordinates>
-    {
-        std::size_t operator()(const pcg::engine::maze_generation::NodeCoordinates& node) const
-        {
-            std::size_t x = std::hash<std::size_t>{}(node.x);
-            std::size_t y = std::hash<std::size_t>{}(node.y);
-
-            return x ^ (y << 1);
-        }
-    };
-}
 
 namespace pcg::engine::maze_generation
 {
@@ -88,13 +57,13 @@ namespace pcg::engine::maze_generation
         int currentSet = 0;
         std::default_random_engine randomEngine{ math::Random::seed };
 
-        for (std::size_t y = 0; y < height; ++y)
+        for (int y = 0; y < height; ++y)
         {
             std::vector<std::vector<int>> connectedSets{};
             std::vector<int> connectedSet(1, 0);
-            const bool lastRow = static_cast<int>(y) == height - 1;
+            const bool lastRow = y == height - 1;
 
-            for (std::size_t x = 0; x < static_cast<std::size_t>(width) - 1; ++x)
+            for (int x = 0; x < width - 1; ++x)
             {
                 initializeNodes(nodes, sets, currentSet, { x, y });
                 initializeNodes(nodes, sets, currentSet, { x + 1, y });
@@ -110,13 +79,14 @@ namespace pcg::engine::maze_generation
                 {
                     merge(nodes, sets, { x, y }, { x + 1, y });
                     connectedSet.push_back(x + 1);
+                    const int adjacentX = x + 1;
                     grid[y][x] |= utility::enums::Direction::right;
-                    grid[y][x + 1] |= utility::enums::Direction::left;
+                    grid[y][adjacentX] |= utility::enums::Direction::left;
 
                     if (!invokeAfterGeneration)
                     {
                         callback(x, y, grid[y][x]);
-                        callback(x + 1, y, grid[y][x + 1]);
+                        callback(adjacentX, y, grid[y][adjacentX]);
                     }
                 }
             }
@@ -132,15 +102,16 @@ namespace pcg::engine::maze_generation
 
                     for (int connection = 0; connection < verticalConnections; ++connection)
                     {
-                        std::size_t x = connectedSet[connection];
+                        const int x = connectedSet[connection];
+                        const int adjacentY = y + 1;
                         grid[y][x] |= utility::enums::Direction::forward;
-                        grid[y + 1][x] |= utility::enums::Direction::backward;
-                        add(nodes, sets, { x, y + 1 }, nodes[{x, y}]);
+                        grid[adjacentY][x] |= utility::enums::Direction::backward;
+                        add(nodes, sets, { x, adjacentY }, nodes[{x, y}]);
 
                         if (!invokeAfterGeneration)
                         {
                             callback(x, y, grid[y][x]);
-                            callback(x, y + 1, grid[y + 1][x]);
+                            callback(x, adjacentY, grid[adjacentY][x]);
                         }
                     }
                 }

@@ -1,9 +1,6 @@
-#ifndef PCG_ENGINE_MAZE_ALDOUS_BRODER_HPP
-#define PCG_ENGINE_MAZE_ALDOUS_BRODER_HPP
+#include <pcg/engine/math/vector3.hpp>
 
 #include <pcg/engine/maze-generation/Common.hpp>
-
-#include <pcg/engine/math/vector3.hpp>
 
 namespace pcg::engine::maze_generation
 {
@@ -15,5 +12,3 @@ namespace pcg::engine::maze_generation
         return { nx, ny };
     }
 }
-
-#endif // PCG_ENGINE_MAZE_ALDOUS_BRODER_HPP

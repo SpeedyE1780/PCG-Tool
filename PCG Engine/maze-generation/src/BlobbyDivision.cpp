@@ -1,6 +1,7 @@
 #include <pcg/engine/math/random.hpp>
 
 #include <pcg/engine/maze-generation/BlobbyDivision.hpp>
+#include <pcg/engine/maze-generation/NodeCoordinates.hpp>
 #include <pcg/engine/maze-generation/Utility.hpp>
 
 #include <memory>
@@ -9,43 +10,6 @@
 #include <stack>
 #include <tuple>
 #include <unordered_map>
-
-namespace pcg::engine::maze_generation
-{
-    namespace
-    {
-        struct NodeCoordinates
-        {
-            NodeCoordinates(std::tuple<int, int>&& coordinates) : x(std::get<0>(coordinates)), y(std::get<1>(coordinates))
-            {
-            }
-
-            int x;
-            int y;
-        };
-
-        bool operator==(const NodeCoordinates& lhs, const NodeCoordinates& rhs)
-        {
-            return lhs.x == rhs.x && lhs.y == rhs.y;
-        }
-    }
-}
-
-namespace std
-{
-    template<>
-    struct hash<pcg::engine::maze_generation::NodeCoordinates>
-    {
-        std::size_t operator()(const pcg::engine::maze_generation::NodeCoordinates& value) const
-        {
-            const auto& [x, y] = value;
-            std::size_t xHash = std::hash<int>{}(x);
-            std::size_t yHash = std::hash<int>{}(y);
-
-            return xHash ^ (yHash << 1);
-        }
-    };
-}
 
 namespace pcg::engine::maze_generation
 {
@@ -75,22 +39,22 @@ namespace pcg::engine::maze_generation
             {
                 if (x > 0)
                 {
-                    left = getAdjacentCoordinates(x, y, utility::enums::Direction::left);
+                    left = getAdjacentCoordinates(coordinates, utility::enums::Direction::left);
                 }
 
                 if (x < width - 1)
                 {
-                    right = getAdjacentCoordinates(x, y, utility::enums::Direction::right);
+                    right = getAdjacentCoordinates(coordinates, utility::enums::Direction::right);
                 }
 
                 if (y > 0)
                 {
-                    backward = getAdjacentCoordinates(x, y, utility::enums::Direction::backward);
+                    backward = getAdjacentCoordinates(coordinates, utility::enums::Direction::backward);
                 }
 
                 if (y < height - 1)
                 {
-                    forward = getAdjacentCoordinates(x, y, utility::enums::Direction::forward);
+                    forward = getAdjacentCoordinates(coordinates, utility::enums::Direction::forward);
                 }
             }
 
