@@ -17,6 +17,7 @@ namespace pcg::engine::maze_generation
     /// @param width Grid Width
     /// @param height Grid Height
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+    /// @param method Callback used to select the next node
     /// @param callback Callback when a node is generated
     void growingTree(int width, int height, bool invokeAfterGeneration, GrowingTreeSelectionMethod method, MazeCallback&& callback);
     /// @brief Geneate maze using Growing Tree Algorithm
