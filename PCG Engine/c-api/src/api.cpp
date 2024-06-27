@@ -186,6 +186,11 @@ namespace pcg::engine::c_api
         maze_generation::growingTree(width, height, invokeAfterGeneration, nodeCallback, callback);
     }
 
+    void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, addMazeNodeCallback callback)
+    {
+        maze_generation::blobbyDivision(width, height, invokeAfterGeneration, regionThreshold, callback);
+    }
+
     void generateCombination(int elementCount, generateCombinationCallback callback)
     {
         combination_generation::generateCombination(elementCount, callback);

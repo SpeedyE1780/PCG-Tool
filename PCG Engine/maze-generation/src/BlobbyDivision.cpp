@@ -383,7 +383,7 @@ namespace pcg::engine::maze_generation
         }
     }
 
-    void blobbyDivision(int width, int height,bool invokeAfterGeneration, SubRegionSize regionSize,  MazeCallback&& callback)
+    void blobbyDivision(int width, int height, bool invokeAfterGeneration, SubRegionSize regionSize, MazeCallback&& callback)
     {
         switch (regionSize)
         {
@@ -406,5 +406,10 @@ namespace pcg::engine::maze_generation
             break;
         }
 
+    }
+
+    void blobbyDivision(int width, int height, bool invokeAfterGeneration, int regionThreshold, MazeCallback&& callback)
+    {
+        blobbyDivision(width, height, regionThreshold, invokeAfterGeneration, std::move(callback));
     }
 }
