@@ -10,6 +10,7 @@
 
 #include <pcg/engine/maze-generation/AldousBroder.hpp>
 #include <pcg/engine/maze-generation/BinaryTree.hpp>
+#include <pcg/engine/maze-generation/BlobbyDivision.hpp>
 #include <pcg/engine/maze-generation/Eller.hpp>
 #include <pcg/engine/maze-generation/GrowingTree.hpp>
 #include <pcg/engine/maze-generation/HuntAndKill.hpp>
@@ -148,6 +149,11 @@ namespace pcg::engine::cpp_api
         case MazeAlgorithm::growingTreeRandom:
         {
             maze_generation::growingTree(width, height, invokeAferGeneration, maze_generation::GrowingTreeSelectionMethod::random, callback);
+            break;
+        }
+        case MazeAlgorithm::blobbyDivision:
+        {
+            maze_generation::blobbyDivision(width, height, invokeAferGeneration, callback);
             break;
         }
         default:
