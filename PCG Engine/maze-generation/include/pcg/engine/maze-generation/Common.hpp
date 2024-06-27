@@ -29,12 +29,7 @@ namespace pcg::engine::maze_generation
     /// @param direction Direction from current node to adjacent node
     /// @return tuple containing adjacent node x, y coordinate
     std::tuple<int, int> getAdjacentCoordinates(int x, int y, utility::enums::Direction direction);
-    /// @brief Generate a 2D vector representing the maze's grid
-    /// @param width Grid width
-    /// @param height Grid height
-    /// @param defaultValue Default value when allocating grid
-    /// @return A 2D vector representing the maze's empty grid
-    inline constexpr Grid generateGrid(int width, int height, utility::enums::Direction defaultValue = utility::enums::Direction::none) { return Grid(height, Directions(width, defaultValue)); }
+
     /// @brief Get default directions used when generating maze
     /// @return a vector containing { left, right, forward, backward }
     inline constexpr Directions getDefaultDirections()
