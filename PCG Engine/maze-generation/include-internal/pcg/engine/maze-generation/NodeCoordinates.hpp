@@ -4,6 +4,7 @@
 #include <pcg/engine/utility/Enums.hpp>
 
 #include <functional>
+#include <tuple>
 
 namespace pcg::engine::maze_generation
 {
@@ -21,6 +22,12 @@ namespace pcg::engine::maze_generation
     /// @param direction Direction from current node to adjacent node
     /// @return NodeCoordinates containing adjacent node x, y coordinate
     NodeCoordinates getAdjacentCoordinates(const NodeCoordinates& nodeCoordinates, utility::enums::Direction direction);
+    /// @brief Get adjacent node x, y coordinates
+    /// @param x Current node x coordinate
+    /// @param y Current node y coordinate
+    /// @param direction Direction from current node to adjacent node
+    /// @return tuple containing adjacent node x, y coordinate
+    std::tuple<int, int> getAdjacentCoordinates(int x, int y, utility::enums::Direction direction);
 }
 
 namespace std

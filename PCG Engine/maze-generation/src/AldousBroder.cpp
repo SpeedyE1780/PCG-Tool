@@ -1,6 +1,7 @@
 #include <pcg/engine/math/random.hpp>
 
 #include <pcg/engine/maze-generation/AldousBroder.hpp>
+#include <pcg/engine/maze-generation/NodeCoordinates.hpp>
 #include <pcg/engine/maze-generation/Utility.hpp>
 
 #include <pcg/engine/utility/logging.hpp>

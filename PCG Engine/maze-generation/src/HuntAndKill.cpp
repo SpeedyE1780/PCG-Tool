@@ -1,6 +1,7 @@
 #include <pcg/engine/math/random.hpp>
 
 #include <pcg/engine/maze-generation/HuntAndKill.hpp>
+#include <pcg/engine/maze-generation/NodeCoordinates.hpp>
 #include <pcg/engine/maze-generation/Utility.hpp>
 
 #include <optional>
