@@ -1,6 +1,7 @@
-#include <pcg/engine/maze-generation/Kruskal.hpp>
-
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze-generation/Kruskal.hpp>
+#include <pcg/engine/maze-generation/Utility.hpp>
 
 #include <random>
 #include <vector>
@@ -105,13 +106,7 @@ namespace pcg::engine::maze_generation
 
         if (invokeAfterGeneration)
         {
-            for (int y = 0; y < height; ++y)
-            {
-                for (int x = 0; x < width; ++x)
-                {
-                    callback(x, y, grid[y][x]);
-                }
-            }
+            invokeCallback(grid, callback);
         }
     }
 }

@@ -1,6 +1,7 @@
 #include <pcg/engine/math/random.hpp>
 
 #include <pcg/engine/maze-generation/HuntAndKill.hpp>
+#include <pcg/engine/maze-generation/Utility.hpp>
 
 #include <optional>
 #include <random>
@@ -112,13 +113,7 @@ namespace pcg::engine::maze_generation
 
         if (invokeAfterGeneration)
         {
-            for (int y = 0; y < height; ++y)
-            {
-                for (int x = 0; x < width; ++x)
-                {
-                    callback(x, y, grid[y][x]);
-                }
-            }
+            invokeCallback(grid, callback);
         }
     }
 }

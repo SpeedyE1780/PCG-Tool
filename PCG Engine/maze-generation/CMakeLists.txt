@@ -18,6 +18,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 "src/RecursiveBacktracker.cpp"
 "src/RecursiveDivision.cpp"
 "src/Sidewinder.cpp"
+"src/Utility.cpp"
 "src/Wilson.cpp"
 
 #HPP
@@ -34,9 +35,13 @@ target_sources(${PROJECT_NAME} PRIVATE
 "include/pcg/engine/maze-generation/RecursiveDivision.hpp"
 "include/pcg/engine/maze-generation/Sidewinder.hpp"
 "include/pcg/engine/maze-generation/Wilson.hpp"
+
+#INTERNAL HPP
+"include-internal/pcg/engine/maze-generation/Utility.hpp"
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include/)
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include-internal/)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC pcg-engine-math)
 target_link_libraries(${PROJECT_NAME} PUBLIC pcg-engine-utility)

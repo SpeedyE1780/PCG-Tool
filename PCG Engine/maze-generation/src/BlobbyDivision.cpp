@@ -1,6 +1,7 @@
-#include <pcg/engine/maze-generation/BlobbyDivision.hpp>
-
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze-generation/BlobbyDivision.hpp>
+#include <pcg/engine/maze-generation/Utility.hpp>
 
 #include <memory>
 #include <optional>
@@ -372,13 +373,7 @@ namespace pcg::engine::maze_generation
 
             if (invokeAfterGeneration)
             {
-                for (int y = 0; y < grid.size(); ++y)
-                {
-                    for (int x = 0; x < grid[0].size(); ++x)
-                    {
-                        callback(x, y, grid[y][x]);
-                    }
-                }
+                invokeCallback(grid, callback);
             }
         }
     }

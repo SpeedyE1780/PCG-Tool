@@ -1,6 +1,7 @@
-#include <pcg/engine/maze-generation/Wilson.hpp>
-
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze-generation/Wilson.hpp>
+#include <pcg/engine/maze-generation/Utility.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
 
@@ -159,13 +160,7 @@ namespace pcg::engine::maze_generation
 
         if (invokeAfterGeneration)
         {
-            for (int y = 0; y < grid.size(); ++y)
-            {
-                for (int x = 0; x < grid[0].size(); ++x)
-                {
-                    callback(x, y, grid[y][x]);
-                }
-            }
+            invokeCallback(grid, callback);
         }
 
         utility::logInfo("Wilson Maze Generation Ended");
