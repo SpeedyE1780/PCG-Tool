@@ -1,6 +1,6 @@
 #include <pcg/engine/cpp-api/api.hpp>
 
-#include <pcg/engine/maze-generation/RecursiveDivision.hpp>
+#include <pcg/engine/maze-generation/BlobbyDivision.hpp>
 
 #include <iostream>
 #include <unordered_map>
@@ -111,7 +111,9 @@ int main()
     generateMaze(width, height, true, MazeAlgorithm::prim, addMazePoint);
 
     std::cout << "Maze Generation: Growing Tree" << std::endl;
-    generateMaze(width, height, true, MazeAlgorithm::growingTree, addMazePoint);
+    generateMaze(width, height, true, MazeAlgorithm::growingTreeOldest, addMazePoint);
+
+    pcg::engine::maze_generation::blobbyDivision(width, height, true, pcg::engine::maze_generation::SubRegionSize::corridors, addMazePoint);
 
     constexpr bool hasXY = pcg::engine::utility::enums::hasFlag(Axis::xy, Axis::x, Axis::y);
     constexpr bool hasXYZ = pcg::engine::utility::enums::hasFlag(Axis::xy, Axis::x, Axis::y, Axis::z);
