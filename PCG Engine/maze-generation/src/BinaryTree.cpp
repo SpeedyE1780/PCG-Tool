@@ -37,7 +37,7 @@ namespace pcg::engine::maze_generation
                         if (nw >= 0 && nh >= 0 && nw < width && nh < height)
                         {
                             grid[h][w] |= direction;
-                            grid[nh][nw] |= flipNodeValue(direction);
+                            grid[nh][nw] |= getOppositeNodeValue(direction);
                             std::ostringstream oss{};
                             oss << "Value set at " << w << "-" << h << "/" << nw << "-" << nh;
                             utility::logInfo(oss.str());

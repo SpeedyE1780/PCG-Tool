@@ -145,7 +145,7 @@ namespace pcg::engine::maze_generation
                 int y = walkData.y;
                 auto [nx, ny] = getAdjacentCoordinates(x, y, walkData.direction);
                 grid[y][x] |= walkData.direction;
-                grid[ny][nx] |= flipNodeValue(walkData.direction);
+                grid[ny][nx] |= getOppositeNodeValue(walkData.direction);
                 oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited;
                 utility::logInfo(oss.str());
                 oss.str("");

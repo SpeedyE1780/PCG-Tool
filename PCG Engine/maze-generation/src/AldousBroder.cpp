@@ -44,7 +44,7 @@ namespace pcg::engine::maze_generation
                     if (grid[ny][nx] == NodeValue::none)
                     {
                         grid[y][x] |= direction;
-                        grid[ny][nx] |= flipNodeValue(direction);
+                        grid[ny][nx] |= getOppositeNodeValue(direction);
                         unvisited -= 1;
                         oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited;
                         utility::logInfo(oss.str());

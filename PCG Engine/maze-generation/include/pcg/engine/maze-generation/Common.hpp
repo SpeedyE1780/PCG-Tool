@@ -1,15 +1,11 @@
 #ifndef PCG_ENGINE_MAZE_GENERATION_COMMON_HPP
 #define PCG_ENGINE_MAZE_GENERATION_COMMON_HPP
 
-#include <pcg/engine/math/vector3.hpp>
-
 #include <pcg/engine/utility/CallbackFunctor.hpp>
-
-#include <tuple>
-#include <vector>
 
 namespace pcg::engine::maze_generation
 {
+    /// @brief Flags used to determine if node has an adjacent node
     enum class NodeValue
     {
         none = 0,

@@ -96,7 +96,7 @@ namespace pcg::engine::maze_generation
             originTree.addSubTree(endTree);
 
             grid[originY][originX] |= direction;
-            grid[endY][endX] |= flipNodeValue(direction);
+            grid[endY][endX] |= getOppositeNodeValue(direction);
 
             if (!invokeAfterGeneration)
             {

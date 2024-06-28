@@ -62,7 +62,7 @@ namespace pcg::engine::maze_generation
                     if (adjacentX >= 0 && adjacentX < width && adjacentY >= 0 && adjacentY < height && grid[adjacentY][adjacentX] == NodeValue::none)
                     {
                         grid[y][x] |= direction;
-                        grid[adjacentY][adjacentX] |= flipNodeValue(direction);
+                        grid[adjacentY][adjacentX] |= getOppositeNodeValue(direction);
 
                         if (!invokeAfterGeneration)
                         {

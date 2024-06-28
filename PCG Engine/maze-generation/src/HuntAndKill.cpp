@@ -29,7 +29,7 @@ namespace pcg::engine::maze_generation
                     if (nx >= 0 && ny >= 0 && nx < width && ny < height && grid[ny][nx] == NodeValue::none)
                     {
                         grid[y][x] |= direction;
-                        grid[ny][nx] |= flipNodeValue(direction);
+                        grid[ny][nx] |= getOppositeNodeValue(direction);
 
                         if (callback)
                         {
@@ -78,7 +78,7 @@ namespace pcg::engine::maze_generation
                     NodeValue randomDirection = adjacentNodes[math::Random::generateNumber(0, adjacentNodes.size())];
                     auto [nx, ny] = getAdjacentCoordinates(x, y, randomDirection);
                     grid[y][x] |= randomDirection;
-                    grid[ny][nx] |= flipNodeValue(randomDirection);
+                    grid[ny][nx] |= getOppositeNodeValue(randomDirection);
 
                     if (callback)
                     {

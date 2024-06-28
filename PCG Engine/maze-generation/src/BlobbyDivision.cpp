@@ -261,7 +261,7 @@ namespace pcg::engine::maze_generation
             {
                 grid[wall.y][wall.x] &= ~wall.direction;
                 auto [x, y] = getAdjacentCoordinates(wall.x, wall.y, wall.direction);
-                grid[y][x] &= ~flipNodeValue(wall.direction);
+                grid[y][x] &= ~getOppositeNodeValue(wall.direction);
 
                 if (callback)
                 {

@@ -34,7 +34,7 @@ namespace pcg::engine::maze_generation
                 if (nx >= 0 && ny >= 0 && nx < width && ny < height && grid[ny][nx] == NodeValue::none)
                 {
                     grid[y][x] |= direction;
-                    grid[ny][nx] |= flipNodeValue(direction);
+                    grid[ny][nx] |= getOppositeNodeValue(direction);
                     visitedNodes.push({ nx, ny });
                     noAdjacentNodes = false;
 

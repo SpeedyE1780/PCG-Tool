@@ -85,7 +85,7 @@ namespace pcg::engine::maze_generation
             auto& [frontierX, frontierY] = frontierNode;
             auto [adjacentX, adjacentY, direction] = getAdjacentNode(frontierX, frontierY, grid);
             grid[frontierY][frontierX] |= direction;
-            grid[adjacentY][adjacentX] |= flipNodeValue(direction);
+            grid[adjacentY][adjacentX] |= getOppositeNodeValue(direction);
 
             if (!invokeAfterGeneration)
             {

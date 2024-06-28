@@ -33,7 +33,10 @@ namespace pcg::engine::maze_generation
         };
     }
 
-    constexpr NodeValue flipNodeValue(NodeValue value)
+    /// @brief Get the value's opposite direction
+    /// @param value The value we want to get the opposite
+    /// @return The opposite of value (ex: left -> right)
+    constexpr NodeValue getOppositeNodeValue(NodeValue value)
     {
         switch (value)
         {
