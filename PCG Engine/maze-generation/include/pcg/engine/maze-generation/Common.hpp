@@ -16,7 +16,8 @@ namespace pcg::engine::maze_generation
         forward = 1 << 3,
         backward = 1 << 4,
         in = 1 << 5,
-        frontier = 1 << 6
+        frontier = 1 << 6,
+        allDirections = left | right | forward | backward
     };
 
     /// @brief Callback used to notify a node was spawned/modified

@@ -209,9 +209,7 @@ namespace pcg::engine::maze_generation
                     continue;
                 }
 
-                NodePointer adjacentNode = region.getNode(coordinate);
-
-                if (adjacentNode->region == nullptr)
+                if (NodePointer adjacentNode = region.getNode(coordinate); adjacentNode->region == nullptr)
                 {
                     adjacentNodes.emplace_back(std::move(adjacentNode));
                 }
@@ -289,7 +287,7 @@ namespace pcg::engine::maze_generation
 
         void blobbyDivision(int width, int height, int regionThreshold, bool invokeAfterGeneration, MazeCallback&& callback)
         {
-            Grid grid = generateGrid(width, height, NodeValue::left | NodeValue::right | NodeValue::forward | NodeValue::backward);
+            Grid grid = generateGrid(width, height, NodeValue::allDirections);
             addGridBounds(grid, width, height);
             std::stack<Region> regions{};
             std::vector<NodePointer> frontiers{};
@@ -364,7 +362,6 @@ namespace pcg::engine::maze_generation
         default:
             break;
         }
-
     }
 
     void blobbyDivision(int width, int height, bool invokeAfterGeneration, int regionThreshold, MazeCallback&& callback)
