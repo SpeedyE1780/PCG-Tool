@@ -76,6 +76,19 @@ namespace pcg::engine::maze_generation
         }
         }
     }
+
+    /// @brief Check that value is within index range [0, size[
+    /// @param index Index that is being checked
+    /// @param size Collection size
+    /// @return True is index is within range [0, size[
+    constexpr bool isWithinBounds(int index, int size) { return index >= 0 && index < size; }
+    /// @brief Checks that x y are within the Grid's bound x within [0, width[ y within [0, height[
+    /// @param x x index
+    /// @param y y index
+    /// @param width Grid width
+    /// @param height Grid height
+    /// @return True if x is within [0, width[ & y is within [0, height[
+    constexpr bool isWithinGridBounds(int x, int y, int width, int height) { return isWithinBounds(x, width) && isWithinBounds(y, height); }
 }
 
 #endif // PCG_ENGINE_MAZE_GENERATION_UTILITY_HPP

@@ -39,7 +39,7 @@ namespace pcg::engine::maze_generation
             {
                 auto [nx, ny] = getAdjacentCoordinates(x, y, direction);
 
-                if (nx >= 0 && ny >= 0 && nx < width && ny < height)
+                if (isWithinGridBounds(nx, ny, width, height))
                 {
                     if (grid[ny][nx] == NodeValue::none)
                     {
@@ -72,4 +72,3 @@ namespace pcg::engine::maze_generation
         utility::logInfo("Aldous - Broder Maze Generation Ended");
     }
 }
-

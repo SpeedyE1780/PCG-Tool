@@ -95,7 +95,7 @@ namespace pcg::engine::maze_generation
                 {
                     auto [nx, ny] = getAdjacentCoordinates(x, y, direction);
 
-                    if (nx >= 0 && ny >= 0 && nx < width && ny < height)
+                    if (isWithinGridBounds(nx, ny, width, height))
                     {
                         visits[{x, y}] = direction;
 

@@ -13,19 +13,19 @@ namespace pcg::engine::maze_generation
         {
             switch (direction)
             {
-            case pcg::engine::maze_generation::NodeValue::left:
+            case NodeValue::left:
             {
                 return math::Vector3::left;
             }
-            case pcg::engine::maze_generation::NodeValue::right:
+            case NodeValue::right:
             {
                 return math::Vector3::right;
             }
-            case pcg::engine::maze_generation::NodeValue::forward:
+            case NodeValue::forward:
             {
                 return math::Vector3::forward;
             }
-            case pcg::engine::maze_generation::NodeValue::backward:
+            case NodeValue::backward:
             {
                 return math::Vector3::backward;
             }

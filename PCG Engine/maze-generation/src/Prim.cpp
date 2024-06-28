@@ -16,7 +16,7 @@ namespace pcg::engine::maze_generation
             const int width = grid[0].size();
             const int height = grid.size();
 
-            if (x >= 0 && x < width && y >= 0 && y < height && grid[y][x] == NodeValue::none)
+            if (isWithinGridBounds(x, y, width, height) && grid[y][x] == NodeValue::none)
             {
                 grid[y][x] |= NodeValue::frontier;
                 frontiers.emplace_back(std::make_pair(x, y));

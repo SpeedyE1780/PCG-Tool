@@ -34,7 +34,7 @@ namespace pcg::engine::maze_generation
                     {
                         auto [nw, nh] = getAdjacentCoordinates(w, h, direction);
 
-                        if (nw >= 0 && nh >= 0 && nw < width && nh < height)
+                        if (isWithinGridBounds(nw, nh, width, height))
                         {
                             grid[h][w] |= direction;
                             grid[nh][nw] |= getOppositeNodeValue(direction);
