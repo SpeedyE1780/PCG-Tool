@@ -3,6 +3,8 @@
 
 #include <pcg/engine/maze-generation/Common.hpp>
 
+#include <vector>
+
 namespace pcg::engine::maze_generation
 {
     /// @brief Direction vector alias
