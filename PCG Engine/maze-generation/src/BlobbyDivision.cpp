@@ -30,7 +30,7 @@ namespace pcg::engine::maze_generation
         {
             int x;
             int y;
-            utility::enums::Direction direction;
+            NodeValue direction;
         };
 
         struct Node
@@ -39,22 +39,22 @@ namespace pcg::engine::maze_generation
             {
                 if (x > 0)
                 {
-                    left = getAdjacentCoordinates(coordinates, utility::enums::Direction::left);
+                    left = getAdjacentCoordinates(coordinates, NodeValue::left);
                 }
 
                 if (x < width - 1)
                 {
-                    right = getAdjacentCoordinates(coordinates, utility::enums::Direction::right);
+                    right = getAdjacentCoordinates(coordinates, NodeValue::right);
                 }
 
                 if (y > 0)
                 {
-                    backward = getAdjacentCoordinates(coordinates, utility::enums::Direction::backward);
+                    backward = getAdjacentCoordinates(coordinates, NodeValue::backward);
                 }
 
                 if (y < height - 1)
                 {
-                    forward = getAdjacentCoordinates(coordinates, utility::enums::Direction::forward);
+                    forward = getAdjacentCoordinates(coordinates, NodeValue::forward);
                 }
             }
 
@@ -157,14 +157,14 @@ namespace pcg::engine::maze_generation
 
             for (int x = 0; x < width; ++x)
             {
-                grid[0][x] &= ~utility::enums::Direction::backward;
-                grid[upperBound][x] &= ~utility::enums::Direction::forward;
+                grid[0][x] &= ~NodeValue::backward;
+                grid[upperBound][x] &= ~NodeValue::forward;
             }
 
             for (int y = 0; y < width; ++y)
             {
-                grid[y][0] &= ~utility::enums::Direction::left;
-                grid[y][rightBound] &= ~utility::enums::Direction::right;
+                grid[y][0] &= ~NodeValue::left;
+                grid[y][rightBound] &= ~NodeValue::right;
             }
         }
 
@@ -226,7 +226,7 @@ namespace pcg::engine::maze_generation
 
             for (const auto& [key, node] : subRegion.getNodes())
             {
-                auto tryAddWall = [&walls, &region, &node](const std::optional<NodeCoordinates>& coordinates, utility::enums::Direction direction)
+                auto tryAddWall = [&walls, &region, &node](const std::optional<NodeCoordinates>& coordinates, NodeValue direction)
                     {
                         if (coordinates.has_value() && region.hasNode(coordinates.value()))
                         {
@@ -237,10 +237,10 @@ namespace pcg::engine::maze_generation
                         }
                     };
 
-                tryAddWall(node->left, utility::enums::Direction::left);
-                tryAddWall(node->right, utility::enums::Direction::right);
-                tryAddWall(node->forward, utility::enums::Direction::forward);
-                tryAddWall(node->backward, utility::enums::Direction::backward);
+                tryAddWall(node->left, NodeValue::left);
+                tryAddWall(node->right, NodeValue::right);
+                tryAddWall(node->forward, NodeValue::forward);
+                tryAddWall(node->backward, NodeValue::backward);
             }
 
             return walls;
@@ -261,7 +261,7 @@ namespace pcg::engine::maze_generation
             {
                 grid[wall.y][wall.x] &= ~wall.direction;
                 auto [x, y] = getAdjacentCoordinates(wall.x, wall.y, wall.direction);
-                grid[y][x] &= ~utility::enums::getFlippedDirection(wall.direction);
+                grid[y][x] &= ~flipNodeValue(wall.direction);
 
                 if (callback)
                 {
@@ -289,7 +289,7 @@ namespace pcg::engine::maze_generation
 
         void blobbyDivision(int width, int height, int regionThreshold, bool invokeAfterGeneration, MazeCallback&& callback)
         {
-            Grid grid = generateGrid(width, height, utility::enums::Direction::left | utility::enums::Direction::right | utility::enums::Direction::forward | utility::enums::Direction::backward);
+            Grid grid = generateGrid(width, height, NodeValue::left | NodeValue::right | NodeValue::forward | NodeValue::backward);
             addGridBounds(grid, width, height);
             std::stack<Region> regions{};
             std::vector<NodePointer> frontiers{};

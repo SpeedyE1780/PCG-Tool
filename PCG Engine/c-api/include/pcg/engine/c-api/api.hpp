@@ -8,6 +8,8 @@
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/Vector3.hpp>
 
+#include <pcg/engine/maze-generation/Common.hpp>
+
 #include <pcg/engine/utility/Enums.hpp>
 
 namespace pcg::engine::c_api
@@ -17,7 +19,7 @@ namespace pcg::engine::c_api
     /// @brief Callback to indicate that a node was spawned at this position and has these adjacent node
     typedef void (*addWFCNodeCallback)(math::Vector3 position, utility::enums::Direction adjacentNodes);
     /// @brief Callback to indicate that a node was spawned at the x, y coordinate and has these adjacent node
-    typedef void (*addMazeNodeCallback)(int x, int y, utility::enums::Direction adjacentNodes);
+    typedef void (*addMazeNodeCallback)(int x, int y, maze_generation::NodeValue adjacentNodes);
     /// @brief Callback to select node during growing tree maze generation with user defined function
     typedef int (*selectNodeCallback)(int size);
     /// @brief Function that will be used when setting the random number generator's seed

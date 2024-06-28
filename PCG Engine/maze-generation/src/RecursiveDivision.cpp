@@ -89,14 +89,14 @@ namespace pcg::engine::maze_generation
 
             for (int x = 0; x < width; ++x)
             {
-                grid[0][x] &= ~utility::enums::Direction::backward;
-                grid[upperBound][x] &= ~utility::enums::Direction::forward;
+                grid[0][x] &= ~NodeValue::backward;
+                grid[upperBound][x] &= ~NodeValue::forward;
             }
 
             for (int y = 0; y < width; ++y)
             {
-                grid[y][0] &= ~utility::enums::Direction::left;
-                grid[y][rightBound] &= ~utility::enums::Direction::right;
+                grid[y][0] &= ~NodeValue::left;
+                grid[y][rightBound] &= ~NodeValue::right;
             }
         }
 
@@ -116,8 +116,8 @@ namespace pcg::engine::maze_generation
 
                 const WallOrientation orientation = chooseOrientation(section.width, section.height);
                 const bool isHorizontal = orientation == WallOrientation::Horizontal;
-                const auto passageDirection = isHorizontal ? utility::enums::Direction::forward : utility::enums::Direction::right;
-                const auto wallDirection = isHorizontal ? utility::enums::Direction::right : utility::enums::Direction::forward;
+                const auto passageDirection = isHorizontal ? NodeValue::forward : NodeValue::right;
+                const auto wallDirection = isHorizontal ? NodeValue::right : NodeValue::forward;
                 auto [wallX, wallY] = getWallCoordinates(section, isHorizontal);
                 const auto [passageX, passageY] = getPassageCoordinates(section, wallX, wallY, isHorizontal);
                 const auto [adjacentX, adjacentY] = getAdjacentCoordinates(passageX, passageY, passageDirection);
@@ -129,7 +129,7 @@ namespace pcg::engine::maze_generation
                     {
                         auto [adjacentWallX, adjacentWallY] = getAdjacentCoordinates(wallX, wallY, passageDirection);
                         grid[wallY][wallX] &= ~passageDirection;
-                        grid[adjacentWallY][adjacentWallX] &= ~utility::enums::getFlippedDirection(passageDirection);
+                        grid[adjacentWallY][adjacentWallX] &= ~flipNodeValue(passageDirection);
 
                         if (callback)
                         {
@@ -159,7 +159,7 @@ namespace pcg::engine::maze_generation
 
     void recursiveDivision(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
-        Grid grid = generateGrid(width, height, utility::enums::Direction::right | utility::enums::Direction::left | utility::enums::Direction::forward | utility::enums::Direction::backward);
+        Grid grid = generateGrid(width, height, NodeValue::right | NodeValue::left | NodeValue::forward | NodeValue::backward);
         addGridBounds(grid, width, height);
 
         divide(grid, width, height, invokeAfterGeneration ? nullptr : &callback);

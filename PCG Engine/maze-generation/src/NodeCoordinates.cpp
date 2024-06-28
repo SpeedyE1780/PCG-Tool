@@ -4,17 +4,48 @@
 
 namespace pcg::engine::maze_generation
 {
-    NodeCoordinates getAdjacentCoordinates(const NodeCoordinates& nodeCoordinates, utility::enums::Direction direction)
+    namespace
     {
-        const math::Vector3& directionVector = math::getUnitVectorFromDirection(direction);
-        const int x = nodeCoordinates.x + directionVector.x;
-        const int y = nodeCoordinates.y + directionVector.z;
-        return NodeCoordinates{ x, y };
+        /// @brief Return Vector3 used to reach adjacent node following the direction
+        /// @param direction Direction from current to adjacent node
+        /// @return Vector3 to reach adjacent node
+        const math::Vector3& getDirectionVector(NodeValue direction)
+        {
+            switch (direction)
+            {
+            case pcg::engine::maze_generation::NodeValue::left:
+            {
+                return math::Vector3::left;
+            }
+            case pcg::engine::maze_generation::NodeValue::right:
+            {
+                return math::Vector3::right;
+            }
+            case pcg::engine::maze_generation::NodeValue::forward:
+            {
+                return math::Vector3::forward;
+            }
+            case pcg::engine::maze_generation::NodeValue::backward:
+            {
+                return math::Vector3::backward;
+            }
+            default:
+            {
+                return math::Vector3::zero;
+            }
+            }
+        }
     }
 
-    std::tuple<int, int> getAdjacentCoordinates(int x, int y, utility::enums::Direction direction)
+    NodeCoordinates getAdjacentCoordinates(const NodeCoordinates& nodeCoordinates, NodeValue direction)
     {
-        const math::Vector3& directionVector = math::getUnitVectorFromDirection(direction);
+        auto [adjacentX, adjacentY] = getAdjacentCoordinates(nodeCoordinates.x, nodeCoordinates.y, direction);
+        return NodeCoordinates{ adjacentX, adjacentY };
+    }
+
+    std::tuple<int, int> getAdjacentCoordinates(int x, int y, NodeValue direction)
+    {
+        const math::Vector3& directionVector = getDirectionVector(direction);
         const int adjacentX = x + directionVector.x;
         const int adjacentY = y + directionVector.z;
         return std::make_tuple(adjacentX, adjacentY);

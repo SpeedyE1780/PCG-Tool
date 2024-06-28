@@ -11,7 +11,7 @@ namespace pcg::engine::maze_generation
 {
     namespace
     {
-        void walk(int x, int y, Grid& grid, std::vector<utility::enums::Direction>& directions, std::default_random_engine& randomEngine, MazeCallback* callback)
+        void walk(int x, int y, Grid& grid, std::vector<NodeValue>& directions, std::default_random_engine& randomEngine, MazeCallback* callback)
         {
             const int width = grid.size();
             const int height = grid[0].size();
@@ -22,14 +22,14 @@ namespace pcg::engine::maze_generation
                 adjacentNodeFound = false;
                 std::shuffle(begin(directions), end(directions), randomEngine);
 
-                for (utility::enums::Direction direction : directions)
+                for (NodeValue direction : directions)
                 {
                     auto [nx, ny] = getAdjacentCoordinates(x, y, direction);
 
-                    if (nx >= 0 && ny >= 0 && nx < width && ny < height && grid[ny][nx] == utility::enums::Direction::none)
+                    if (nx >= 0 && ny >= 0 && nx < width && ny < height && grid[ny][nx] == NodeValue::none)
                     {
                         grid[y][x] |= direction;
-                        grid[ny][nx] |= utility::enums::getFlippedDirection(direction);
+                        grid[ny][nx] |= flipNodeValue(direction);
 
                         if (callback)
                         {
@@ -52,7 +52,7 @@ namespace pcg::engine::maze_generation
             {
                 for (int x = 0; x < width; ++x)
                 {
-                    if (grid[y][x] != utility::enums::Direction::none)
+                    if (grid[y][x] != NodeValue::none)
                     {
                         continue;
                     }
@@ -60,11 +60,11 @@ namespace pcg::engine::maze_generation
                     std::shuffle(begin(directions), end(directions), randomEngine);
                     Directions adjacentNodes{};
 
-                    for (utility::enums::Direction direction : directions)
+                    for (NodeValue direction : directions)
                     {
                         auto [nx, ny] = getAdjacentCoordinates(x, y, direction);
 
-                        if (nx >= 0 && ny >= 0 && nx < width && ny < height && grid[ny][nx] != utility::enums::Direction::none)
+                        if (nx >= 0 && ny >= 0 && nx < width && ny < height && grid[ny][nx] != NodeValue::none)
                         {
                             adjacentNodes.push_back(direction);
                         }
@@ -75,10 +75,10 @@ namespace pcg::engine::maze_generation
                         continue;
                     }
 
-                    utility::enums::Direction randomDirection = adjacentNodes[math::Random::generateNumber(0, adjacentNodes.size())];
+                    NodeValue randomDirection = adjacentNodes[math::Random::generateNumber(0, adjacentNodes.size())];
                     auto [nx, ny] = getAdjacentCoordinates(x, y, randomDirection);
                     grid[y][x] |= randomDirection;
-                    grid[ny][nx] |= utility::enums::getFlippedDirection(randomDirection);
+                    grid[ny][nx] |= flipNodeValue(randomDirection);
 
                     if (callback)
                     {

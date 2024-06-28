@@ -1,7 +1,7 @@
 #ifndef PCG_ENGINE_MAZE_GENERATION_NODE_COORDINATES_HPP
 #define PCG_ENGINE_MAZE_GENERATION_NODE_COORDINATES_HPP
 
-#include <pcg/engine/utility/Enums.hpp>
+#include <pcg/engine/maze-generation/Common.hpp>
 
 #include <functional>
 #include <tuple>
@@ -21,13 +21,13 @@ namespace pcg::engine::maze_generation
     /// @param nodeCoordinates Current node coordinates
     /// @param direction Direction from current node to adjacent node
     /// @return NodeCoordinates containing adjacent node x, y coordinate
-    NodeCoordinates getAdjacentCoordinates(const NodeCoordinates& nodeCoordinates, utility::enums::Direction direction);
+    NodeCoordinates getAdjacentCoordinates(const NodeCoordinates& nodeCoordinates, NodeValue direction);
     /// @brief Get adjacent node x, y coordinates
     /// @param x Current node x coordinate
     /// @param y Current node y coordinate
     /// @param direction Direction from current node to adjacent node
     /// @return tuple containing adjacent node x, y coordinate
-    std::tuple<int, int> getAdjacentCoordinates(int x, int y, utility::enums::Direction direction);
+    std::tuple<int, int> getAdjacentCoordinates(int x, int y, NodeValue direction);
 }
 
 namespace std

@@ -80,8 +80,8 @@ namespace pcg::engine::maze_generation
                     merge(nodes, sets, { x, y }, { x + 1, y });
                     connectedSet.push_back(x + 1);
                     const int adjacentX = x + 1;
-                    grid[y][x] |= utility::enums::Direction::right;
-                    grid[y][adjacentX] |= utility::enums::Direction::left;
+                    grid[y][x] |= NodeValue::right;
+                    grid[y][adjacentX] |= NodeValue::left;
 
                     if (!invokeAfterGeneration)
                     {
@@ -104,8 +104,8 @@ namespace pcg::engine::maze_generation
                     {
                         const int x = connectedSet[connection];
                         const int adjacentY = y + 1;
-                        grid[y][x] |= utility::enums::Direction::forward;
-                        grid[adjacentY][x] |= utility::enums::Direction::backward;
+                        grid[y][x] |= NodeValue::forward;
+                        grid[adjacentY][x] |= NodeValue::backward;
                         add(nodes, sets, { x, adjacentY }, nodes[{x, y}]);
 
                         if (!invokeAfterGeneration)

@@ -58,9 +58,9 @@ namespace
         std::cout << std::endl;
     }
 
-    void addMazePoint(int x, int y, pcg::engine::utility::enums::Direction neighbor)
+    void addMazePoint(int x, int y, pcg::engine::maze_generation::NodeValue adjacentNodes)
     {
-        std::cout << "Point: " << x << "-" << y << " value: " << static_cast<int>(neighbor) << std::endl;
+        std::cout << "Point: " << x << "-" << y << " value: " << static_cast<int>(adjacentNodes) << std::endl;
     }
 
     void logMessage(const char* message)

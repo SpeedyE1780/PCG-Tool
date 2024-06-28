@@ -42,7 +42,7 @@ namespace pcg::engine::maze_generation
         {
             int x;
             int y;
-            utility::enums::Direction direction;
+            NodeValue direction;
         };
 
         using EdgesVector = std::vector<Edge>;
@@ -58,12 +58,12 @@ namespace pcg::engine::maze_generation
                 {
                     if (x < width - 1)
                     {
-                        edges.emplace_back(Edge{ x, y, utility::enums::Direction::right });
+                        edges.emplace_back(Edge{ x, y, NodeValue::right });
                     }
 
                     if (y < height - 1)
                     {
-                        edges.emplace_back(Edge{ x, y, utility::enums::Direction::forward });
+                        edges.emplace_back(Edge{ x, y, NodeValue::forward });
                     }
                 }
             }
@@ -96,7 +96,7 @@ namespace pcg::engine::maze_generation
             originTree.addSubTree(endTree);
 
             grid[originY][originX] |= direction;
-            grid[endY][endX] |= utility::enums::getFlippedDirection(direction);
+            grid[endY][endX] |= flipNodeValue(direction);
 
             if (!invokeAfterGeneration)
             {

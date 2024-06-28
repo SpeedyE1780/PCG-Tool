@@ -41,6 +41,8 @@ target_sources(${PROJECT_NAME} PRIVATE
 "include-internal/pcg/engine/maze-generation/Utility.hpp"
 )
 
+source_group("Interal Headers" ${PROJECT_SOURCE_DIR}/include-internal/*)
+
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include/)
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include-internal/)
 

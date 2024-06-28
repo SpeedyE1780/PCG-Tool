@@ -35,16 +35,16 @@ namespace pcg::engine::maze_generation
         {
             std::shuffle(begin(directions), end(directions), randomEngine);
 
-            for (utility::enums::Direction direction : directions)
+            for (NodeValue direction : directions)
             {
                 auto [nx, ny] = getAdjacentCoordinates(x, y, direction);
 
                 if (nx >= 0 && ny >= 0 && nx < width && ny < height)
                 {
-                    if (grid[ny][nx] == utility::enums::Direction::none)
+                    if (grid[ny][nx] == NodeValue::none)
                     {
                         grid[y][x] |= direction;
-                        grid[ny][nx] |= utility::enums::getFlippedDirection(direction);
+                        grid[ny][nx] |= flipNodeValue(direction);
                         unvisited -= 1;
                         oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited;
                         utility::logInfo(oss.str());

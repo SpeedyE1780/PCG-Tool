@@ -16,16 +16,16 @@ namespace pcg::engine::maze_generation
             const int width = grid[0].size();
             const int height = grid.size();
 
-            if (x >= 0 && x < width && y >= 0 && y < height && grid[y][x] == utility::enums::Direction::none)
+            if (x >= 0 && x < width && y >= 0 && y < height && grid[y][x] == NodeValue::none)
             {
-                grid[y][x] |= static_cast<utility::enums::Direction>(frontier);
+                grid[y][x] |= NodeValue::frontier;
                 frontiers.emplace_back(std::make_pair(x, y));
             }
         }
 
         void mark(int x, int y, NodesVector& frontiers, Grid& grid)
         {
-            grid[y][x] |= static_cast<utility::enums::Direction>(in);
+            grid[y][x] |= NodeValue::in;
             addFrontierNode(x, y + 1, frontiers, grid);
             addFrontierNode(x, y - 1, frontiers, grid);
             addFrontierNode(x + 1, y, frontiers, grid);
@@ -39,33 +39,33 @@ namespace pcg::engine::maze_generation
             mark(randomX, randomY, frontierNodes, grid);
         }
 
-        std::tuple<int, int, utility::enums::Direction> getAdjacentNode(int x, int y, const Grid& grid)
+        std::tuple<int, int, NodeValue> getAdjacentNode(int x, int y, const Grid& grid)
         {
-            std::vector<std::tuple<int, int, utility::enums::Direction>> adjacentsNodes{};
+            std::vector<std::tuple<int, int, NodeValue>> adjacentsNodes{};
 
             const int leftX = x - 1;
             const int rightX = x + 1;
             const int forwardY = y + 1;
             const int backwardY = y - 1;
 
-            if (x > 0 && (static_cast<int>(grid[y][leftX]) & in) != 0)
+            if (x > 0 && (grid[y][leftX] & NodeValue::in) != NodeValue::none)
             {
-                adjacentsNodes.emplace_back(std::make_tuple(leftX, y, utility::enums::Direction::left));
+                adjacentsNodes.emplace_back(std::make_tuple(leftX, y, NodeValue::left));
             }
 
-            if (rightX < grid[0].size() && (static_cast<int>(grid[y][rightX]) & in) != 0)
+            if (rightX < grid[0].size() && (grid[y][rightX] & NodeValue::in) != NodeValue::none)
             {
-                adjacentsNodes.emplace_back(std::make_tuple(rightX, y, utility::enums::Direction::right));
+                adjacentsNodes.emplace_back(std::make_tuple(rightX, y, NodeValue::right));
             }
 
-            if (y > 0 && (static_cast<int>(grid[backwardY][x]) & in) != 0)
+            if (y > 0 && (grid[backwardY][x] & NodeValue::in) != NodeValue::none)
             {
-                adjacentsNodes.emplace_back(std::make_tuple(x, backwardY, utility::enums::Direction::backward));
+                adjacentsNodes.emplace_back(std::make_tuple(x, backwardY, NodeValue::backward));
             }
 
-            if (forwardY < grid.size() && (static_cast<int>(grid[forwardY][x]) & in) != 0)
+            if (forwardY < grid.size() && (grid[forwardY][x] & NodeValue::in) != NodeValue::none)
             {
-                adjacentsNodes.emplace_back(std::make_tuple(x, forwardY, utility::enums::Direction::forward));
+                adjacentsNodes.emplace_back(std::make_tuple(x, forwardY, NodeValue::forward));
             }
 
             return adjacentsNodes[math::Random::generateNumber(0, adjacentsNodes.size())];
@@ -85,7 +85,7 @@ namespace pcg::engine::maze_generation
             auto& [frontierX, frontierY] = frontierNode;
             auto [adjacentX, adjacentY, direction] = getAdjacentNode(frontierX, frontierY, grid);
             grid[frontierY][frontierX] |= direction;
-            grid[adjacentY][adjacentX] |= utility::enums::getFlippedDirection(direction);
+            grid[adjacentY][adjacentX] |= flipNodeValue(direction);
 
             if (!invokeAfterGeneration)
             {

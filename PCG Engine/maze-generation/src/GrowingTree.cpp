@@ -55,14 +55,14 @@ namespace pcg::engine::maze_generation
                 std::shuffle(begin(nodes), end(nodes), randomEngine);
                 bool noAdjacentNode = true;
 
-                for (utility::enums::Direction direction : directions)
+                for (NodeValue direction : directions)
                 {
                     auto [adjacentX, adjacentY] = getAdjacentCoordinates(x, y, direction);
 
-                    if (adjacentX >= 0 && adjacentX < width && adjacentY >= 0 && adjacentY < height && grid[adjacentY][adjacentX] == utility::enums::Direction::none)
+                    if (adjacentX >= 0 && adjacentX < width && adjacentY >= 0 && adjacentY < height && grid[adjacentY][adjacentX] == NodeValue::none)
                     {
                         grid[y][x] |= direction;
-                        grid[adjacentY][adjacentX] |= utility::enums::getFlippedDirection(direction);
+                        grid[adjacentY][adjacentX] |= flipNodeValue(direction);
 
                         if (!invokeAfterGeneration)
                         {

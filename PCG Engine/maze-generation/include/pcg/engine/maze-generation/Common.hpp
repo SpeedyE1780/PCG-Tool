@@ -4,24 +4,25 @@
 #include <pcg/engine/math/vector3.hpp>
 
 #include <pcg/engine/utility/CallbackFunctor.hpp>
-#include <pcg/engine/utility/Enums.hpp>
 
 #include <tuple>
 #include <vector>
 
 namespace pcg::engine::maze_generation
 {
-    /// @brief Direction vector alias
-    using Directions = std::vector<utility::enums::Direction>;
-    /// @brief 2D vector alias
-    using Grid = std::vector<Directions>;
-    /// @brief Callback used to notify a node was spawned/modified
-    using MazeCallback = utility::CallbackFunctor<void(int, int, utility::enums::Direction)>;
+    enum class NodeValue
+    {
+        none = 0,
+        left = 1 << 1,
+        right = 1 << 2,
+        forward = 1 << 3,
+        backward = 1 << 4,
+        in = 1 << 5,
+        frontier = 1 << 6
+    };
 
-    /// @brief Defines a node as part of the maze without having an actual direction
-    inline constexpr int in = 1 << 6;
-    /// @brief Defines a ndoe as a frontier in the maze without having an actual direction
-    inline constexpr int frontier = 1 << 7;
+    /// @brief Callback used to notify a node was spawned/modified
+    using MazeCallback = utility::CallbackFunctor<void(int, int, NodeValue)>;
 }
 
 #endif // PCG_ENGINE_MAZE_GENERATION_COMMON_HPP

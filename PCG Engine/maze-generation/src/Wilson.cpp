@@ -21,7 +21,7 @@ namespace pcg::engine::maze_generation
         {
             int x;
             int y;
-            utility::enums::Direction direction;
+            NodeValue direction;
         };
 
         /// @brief Find a node that belongs to the maze
@@ -39,7 +39,7 @@ namespace pcg::engine::maze_generation
             {
                 x = randomEngine() % width;
                 y = randomEngine() % height;
-            } while (grid[y][x] != utility::enums::Direction::none);
+            } while (grid[y][x] != NodeValue::none);
 
             return { x, y };
         }
@@ -49,7 +49,7 @@ namespace pcg::engine::maze_generation
         /// @param startY Starting y coordinate where walk started
         /// @param visits Map containing all nodes visited during walk
         /// @return A path from starting node to node in maze
-        std::vector<WilsonWalkData> getPath(int startX, int startY, const std::map<std::tuple<int, int>, utility::enums::Direction>& visits)
+        std::vector<WilsonWalkData> getPath(int startX, int startY, const std::map<std::tuple<int, int>, NodeValue>& visits)
         {
             std::vector<WilsonWalkData> path{};
 
@@ -59,7 +59,7 @@ namespace pcg::engine::maze_generation
             while (visits.find({ x, y }) != visits.end())
             {
                 std::ostringstream oss{};
-                utility::enums::Direction direction = visits.at({ x, y });
+                NodeValue direction = visits.at({ x, y });
                 oss << "Adding: " << x << "-" << y << " to path";
                 utility::logInfo(oss.str());
                 path.emplace_back(WilsonWalkData{ x, y, direction });
@@ -74,7 +74,7 @@ namespace pcg::engine::maze_generation
         /// @param directions Vector of valid directions
         /// @param randomEngine Random number generator used for shuffling
         /// @return A vector of nodes that should be added to the grid
-        std::vector<WilsonWalkData> walk(const Grid& grid, std::vector<utility::enums::Direction>& directions, std::default_random_engine& randomEngine)
+        std::vector<WilsonWalkData> walk(const Grid& grid, std::vector<NodeValue>& directions, std::default_random_engine& randomEngine)
         {
             const int height = grid.size();
             const int width = grid[0].size();
@@ -83,15 +83,15 @@ namespace pcg::engine::maze_generation
             int startY = y;
             bool walking = true;
 
-            std::map<std::tuple<int, int>, utility::enums::Direction> visits;
-            visits[{x, y}] = utility::enums::Direction::none;
+            std::map<std::tuple<int, int>, NodeValue> visits;
+            visits[{x, y}] = NodeValue::none;
 
             while (walking)
             {
                 walking = false;
                 std::shuffle(begin(directions), end(directions), randomEngine);
 
-                for (utility::enums::Direction direction : directions)
+                for (NodeValue direction : directions)
                 {
                     auto [nx, ny] = getAdjacentCoordinates(x, y, direction);
 
@@ -99,7 +99,7 @@ namespace pcg::engine::maze_generation
                     {
                         visits[{x, y}] = direction;
 
-                        if (grid[ny][nx] != utility::enums::Direction::none)
+                        if (grid[ny][nx] != NodeValue::none)
                         {
                             break;
                         }
@@ -131,7 +131,7 @@ namespace pcg::engine::maze_generation
         int y = randomEngine() % height;
         int unvisited = width * height - 1;
 
-        grid[y][x] = static_cast<utility::enums::Direction>(in);
+        grid[y][x] = NodeValue::in;
 
         oss << "Started with:" << x << "-" << y << " unvisited: " << unvisited;
         utility::logInfo(oss.str());
@@ -145,7 +145,7 @@ namespace pcg::engine::maze_generation
                 int y = walkData.y;
                 auto [nx, ny] = getAdjacentCoordinates(x, y, walkData.direction);
                 grid[y][x] |= walkData.direction;
-                grid[ny][nx] |= utility::enums::getFlippedDirection(walkData.direction);
+                grid[ny][nx] |= flipNodeValue(walkData.direction);
                 oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited;
                 utility::logInfo(oss.str());
                 oss.str("");

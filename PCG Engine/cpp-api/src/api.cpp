@@ -62,7 +62,7 @@ namespace pcg::engine::cpp_api
         level_generation::waveFunctionCollapse(data, mode, axes, callback);
     }
 
-    void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, std::function<void(int x, int y, utility::enums::Direction neighbors)>&& callback)
+    void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback)
     {
         switch (algorithm)
         {
@@ -181,12 +181,12 @@ namespace pcg::engine::cpp_api
         }
     }
 
-    void generateGrowingTreeWithCustomSelection(int width, int height, bool invokeAfterGeneration, std::function<int(int)>&& nodeCallback, std::function<void(int x, int y, utility::enums::Direction neighbors)>&& callback)
+    void generateGrowingTreeWithCustomSelection(int width, int height, bool invokeAfterGeneration, std::function<int(int)>&& nodeCallback, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback)
     {
         maze_generation::growingTree(width, height, invokeAfterGeneration, nodeCallback, callback);
     }
 
-    void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, std::function<void(int x, int y, utility::enums::Direction neighbors)>&& callback)
+    void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback)
     {
         maze_generation::blobbyDivision(width, height, invokeAfterGeneration, regionThreshold, callback);
     }
