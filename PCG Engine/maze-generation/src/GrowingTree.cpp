@@ -66,8 +66,7 @@ namespace pcg::engine::maze_generation
 
                         if (!invokeAfterGeneration)
                         {
-                            callback(x, y, grid[y][x]);
-                            callback(adjacentX, adjacentY, grid[adjacentY][adjacentX]);
+                            invokeNodePairCallback(x, y, adjacentX, adjacentY, grid, callback);
                         }
 
                         noAdjacentNode = false;

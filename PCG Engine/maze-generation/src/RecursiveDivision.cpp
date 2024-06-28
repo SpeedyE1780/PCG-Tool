@@ -125,23 +125,17 @@ namespace pcg::engine::maze_generation
 
                 for (int i = 0; i < wallLength; ++i)
                 {
+                    auto [adjacentWallX, adjacentWallY] = getAdjacentCoordinates(wallX, wallY, passageDirection);
+
                     if (wallX != passageX || wallY != passageY)
                     {
-                        auto [adjacentWallX, adjacentWallY] = getAdjacentCoordinates(wallX, wallY, passageDirection);
                         grid[wallY][wallX] &= ~passageDirection;
                         grid[adjacentWallY][adjacentWallX] &= ~getOppositeNodeValue(passageDirection);
-
-                        if (callback)
-                        {
-                            (*callback)(wallX, wallY, grid[wallY][wallX]);
-                            (*callback)(adjacentWallX, adjacentWallY, grid[adjacentWallY][adjacentWallX]);
-                        }
                     }
-                    else if (callback)
+
+                    if (callback)
                     {
-                        auto [adjacentWallX, adjacentWallY] = getAdjacentCoordinates(wallX, wallY, passageDirection);
-                        (*callback)(wallX, wallY, grid[wallY][wallX]);
-                        (*callback)(adjacentWallX, adjacentWallY, grid[adjacentWallY][adjacentWallX]);
+                        invokeNodePairCallback(wallX, wallY, adjacentWallX, adjacentWallY, grid, *callback);
                     }
 
                     std::tie(wallX, wallY) = getAdjacentCoordinates(wallX, wallY, wallDirection);

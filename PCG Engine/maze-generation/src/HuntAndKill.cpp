@@ -33,8 +33,7 @@ namespace pcg::engine::maze_generation
 
                         if (callback)
                         {
-                            (*callback)(x, y, grid[y][x]);
-                            (*callback)(x, y, grid[ny][nx]);
+                            invokeNodePairCallback(x, y, nx, ny, grid, *callback);
                         }
 
                         x = nx;
@@ -82,8 +81,7 @@ namespace pcg::engine::maze_generation
 
                     if (callback)
                     {
-                        (*callback)(x, y, grid[y][x]);
-                        (*callback)(x, y, grid[ny][nx]);
+                        invokeNodePairCallback(x, y, nx, ny, grid, *callback);
                     }
 
                     return std::make_tuple(nx, ny);

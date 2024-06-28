@@ -263,8 +263,7 @@ namespace pcg::engine::maze_generation
 
                 if (callback)
                 {
-                    (*callback)(wall.x, wall.y, grid[wall.y][wall.x]);
-                    (*callback)(x, y, grid[y][x]);
+                    invokeNodePairCallback(wall.x, wall.y, x, y, grid, *callback);
                 }
             }
         }
@@ -316,8 +315,9 @@ namespace pcg::engine::maze_generation
 
                         if (!invokeAfterGeneration)
                         {
-                            callback(node->coordinates.x, node->coordinates.y, grid[node->coordinates.y][node->coordinates.x]);
-                            callback(adjacentNode->coordinates.x, adjacentNode->coordinates.y, grid[adjacentNode->coordinates.y][adjacentNode->coordinates.x]);
+                            invokeNodePairCallback(node->coordinates.x, node->coordinates.y,
+                                adjacentNode->coordinates.x, adjacentNode->coordinates.y,
+                                grid, callback);
                         }
                     }
                     else

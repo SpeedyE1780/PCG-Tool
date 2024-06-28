@@ -89,8 +89,7 @@ namespace pcg::engine::maze_generation
 
             if (!invokeAfterGeneration)
             {
-                callback(frontierX, frontierY, grid[frontierY][frontierX]);
-                callback(adjacentX, adjacentY, grid[adjacentY][adjacentX]);
+                invokeNodePairCallback(frontierX, frontierY, adjacentX, adjacentY, grid, callback);
             }
 
             mark(frontierX, frontierY, frontierNodes, grid);

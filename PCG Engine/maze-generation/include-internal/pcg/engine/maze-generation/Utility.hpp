@@ -12,10 +12,24 @@ namespace pcg::engine::maze_generation
     /// @brief 2D vector alias
     using Grid = std::vector<Directions>;
 
+    /// @brief Invoke callback on a single node
+    /// @param x X coordinate in grid
+    /// @param y Y coordinate in grid
+    /// @param grid Grid representing maze
+    /// @param callback User defined callback
+    inline void invokeNodeCallback(int x, int y, const Grid& grid, const MazeCallback& callback);
+    /// @brief Invoke callback on a pair of adjacent node
+    /// @param x X coordinate in grid
+    /// @param y Y coordinate in grid
+    /// @param adjacentX adjacent X coordinate in grid
+    /// @param adjacentY adjacent Y coordinate in grid
+    /// @param grid Grid representing maze
+    /// @param callback User defined callback
+    inline void invokeNodePairCallback(int x, int y, int adjacentX, int adjacentY, const Grid& grid, const MazeCallback& callback);
     /// @brief Loops over grid and invoke callback on each node
     /// @param grid Grid representing maze
     /// @param callback User defined callback
-    void invokeCallback(const Grid& grid, const MazeCallback& callback);
+    inline void invokeCallback(const Grid& grid, const MazeCallback& callback);
 
     /// @brief Generate a 2D vector representing the maze's grid
     /// @param width Grid width

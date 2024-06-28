@@ -44,9 +44,9 @@ namespace pcg::engine::maze_generation
 
                             if (!invokeAfterGeneration)
                             {
-                                callback(w, h, grid[h][w]);
-                                callback(nw, nh, grid[nh][nw]);
+                                invokeNodePairCallback(w, h, nw, nh, grid, callback);
                             }
+
                             break;
                         }
                     }

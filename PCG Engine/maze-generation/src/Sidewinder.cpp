@@ -31,8 +31,7 @@ namespace pcg::engine::maze_generation
 
             if (!invokeAfterGeneration)
             {
-                callback(cell, y, grid[y][cell]);
-                callback(cell, y - 1, grid[y - 1][cell]);
+                invokeNodePairCallback(cell, y, cell, y - 1, grid, callback);
             }
         }
 
@@ -53,8 +52,7 @@ namespace pcg::engine::maze_generation
 
             if (!invokeAfterGeneration)
             {
-                callback(x, y, grid[y][x]);
-                callback(x + 1, y, grid[y][x + 1]);
+                invokeNodePairCallback(x, y, x + 1, y, grid, callback);
             }
         }
     }
