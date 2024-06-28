@@ -3,6 +3,8 @@
 
 #include <pcg/engine/utility/CallbackFunctor.hpp>
 
+#include <pcg/engine/utility/Enums.hpp>
+
 namespace pcg::engine::maze_generation
 {
     /// @brief Flags used to determine if node has an adjacent node
