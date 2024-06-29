@@ -11,33 +11,30 @@ namespace pcg::engine::maze_generation
 {
     namespace
     {
+        /// @brief Tree representing connected nodes
         class Tree
         {
         public:
-            Tree* getRoot()
-            {
-                return parent ? parent->getRoot() : this;
-            }
-
-            const Tree* getRoot() const
-            {
-                return parent ? parent->getRoot() : this;
-            }
-
-            bool isConnected(const Tree& tree) const
-            {
-                return getRoot() == tree.getRoot();
-            }
-
-            void addSubTree(Tree& tree)
-            {
-                tree.getRoot()->parent = this;
-            }
+            /// @brief Get root of tree
+            /// @return Root of tree or this
+            Tree* getRoot() { return parent ? parent->getRoot() : this; }
+            /// @brief Get root of tree
+            /// @return Root of tree or this
+            const Tree* getRoot() const { return parent ? parent->getRoot() : this; }
+            /// @brief Check if tree share same root
+            /// @param tree other tree
+            /// @return True if trees share the same root
+            bool isConnected(const Tree& tree) const { return getRoot() == tree.getRoot(); }
+            /// @brief Add tree as a subtree to this
+            /// @param tree Subtree being added under this
+            void addSubTree(Tree& tree) { tree.getRoot()->parent = this; }
 
         private:
+            /// @brief Parent of this tree
             Tree* parent = nullptr;
         };
 
+        /// @brief Edge between two adjacent nodes
         struct Edge
         {
             int x;
@@ -48,6 +45,10 @@ namespace pcg::engine::maze_generation
         using EdgesVector = std::vector<Edge>;
         using TreeGrid = std::vector<std::vector<Tree>>;
 
+        /// @brief Get all possible edges in grid
+        /// @param width Grid width
+        /// @param height Grid height
+        /// @return A shuffled vector of all edges in grid
         EdgesVector getEdges(int width, int height)
         {
             EdgesVector edges{};
