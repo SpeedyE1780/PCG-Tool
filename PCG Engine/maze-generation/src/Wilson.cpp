@@ -6,10 +6,10 @@
 
 #include <pcg/engine/utility/logging.hpp>
 
-#include <map>
 #include <random>
 #include <sstream>
 #include <tuple>
+#include <unordered_map>
 #include <vector>
 
 namespace pcg::engine::maze_generation
@@ -48,14 +48,14 @@ namespace pcg::engine::maze_generation
         /// @param startY Starting y coordinate where walk started
         /// @param visits Map containing all nodes visited during walk
         /// @return A path from starting node to node in maze
-        std::vector<WilsonWalkData> getPath(int startX, int startY, const std::map<NodeCoordinates, NodeValue>& visits)
+        std::vector<WilsonWalkData> getPath(int startX, int startY, const std::unordered_map<NodeCoordinates, NodeValue>& visits)
         {
             std::vector<WilsonWalkData> path{};
 
             int x = startX;
             int y = startY;
 
-            while (visits.find({ x, y }) != visits.end())
+            while (visits.find(NodeCoordinates{ x, y }) != visits.end())
             {
                 std::ostringstream oss{};
                 NodeValue direction = visits.at({ x, y });
@@ -82,7 +82,7 @@ namespace pcg::engine::maze_generation
             int startY = y;
             bool walking = true;
 
-            std::map<NodeCoordinates, NodeValue> visits;
+            std::unordered_map<NodeCoordinates, NodeValue> visits;
             visits[{x, y}] = NodeValue::none;
 
             while (walking)
@@ -126,7 +126,7 @@ namespace pcg::engine::maze_generation
         auto randomEngine = std::default_random_engine{ math::Random::seed };
 
         Grid grid = generateGrid(width, height);
-        auto [x, y] = getRandomStartingNode();
+        auto [x, y] = getRandomStartingNode(width, height);
         int unvisited = width * height - 1;
 
         grid[y][x] = NodeValue::in;

@@ -23,7 +23,7 @@ namespace pcg::engine::maze_generation
 
         Grid grid = generateGrid(width, height);
 
-        auto [x, y] = getRandomStartingNode();
+        auto [x, y] = getRandomStartingNode(width, height);
         int unvisited = width * height - 1;
 
         oss << "Started with:" << x << "-" << y << " unvisited: " << unvisited;
