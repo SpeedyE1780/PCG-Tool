@@ -4,6 +4,8 @@
 #include <pcg/engine/maze-generation/NodeCoordinates.hpp>
 #include <pcg/engine/maze-generation/Utility.hpp>
 
+#include <pcg/engine/utility/logging.hpp>
+
 #include <optional>
 #include <random>
 
@@ -20,6 +22,8 @@ namespace pcg::engine::maze_generation
         /// @param callback User defined callback nullptr if callback should be invoked after maze generation
         void walk(int x, int y, Grid& grid, std::vector<NodeValue>& directions, std::default_random_engine& randomEngine, MazeCallback* callback)
         {
+            utility::logInfo("Walking Started");
+
             const int width = grid.size();
             const int height = grid[0].size();
             bool adjacentNodeFound = true;
@@ -47,6 +51,8 @@ namespace pcg::engine::maze_generation
                     }
                 }
             }
+
+            utility::logInfo("Walking Ended");
         }
 
         /// @brief Get adjacent nodes that have already been visited
@@ -84,6 +90,8 @@ namespace pcg::engine::maze_generation
         /// @return Node coordinate or std::nullopt if no node is found
         std::optional<NodeCoordinates> hunt(Grid& grid, Directions& directions, int width, int height, std::default_random_engine& randomEngine, MazeCallback* callback)
         {
+            utility::logInfo("Hunting Started");
+
             for (int y = 0; y < height; ++y)
             {
                 for (int x = 0; x < width; ++x)
@@ -110,16 +118,20 @@ namespace pcg::engine::maze_generation
                         invokeNodePairCallback(x, y, nx, ny, grid, *callback);
                     }
 
+                    utility::logInfo("Hunting Succeeded");
                     return NodeCoordinates(x, y);
                 }
             }
 
+            utility::logInfo("Hunting Failed");
             return std::nullopt;
         }
     }
 
     void huntAndKill(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
+        utility::logInfo("Hunt And Kill Maze Generation Started");
+
         Grid grid = generateGrid(width, height);
         Directions directions = getDefaultDirections();
         std::default_random_engine randomEngine{ math::Random::seed };
@@ -138,5 +150,7 @@ namespace pcg::engine::maze_generation
         {
             invokeCallback(grid, callback);
         }
+
+        utility::logInfo("Hunt And Kill Maze Generation Ended");
     }
 }

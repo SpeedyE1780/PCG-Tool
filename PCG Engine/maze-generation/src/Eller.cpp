@@ -4,6 +4,8 @@
 #include <pcg/engine/maze-generation/NodeCoordinates.hpp>
 #include <pcg/engine/maze-generation/Utility.hpp>
 
+#include <pcg/engine/utility/logging.hpp>
+
 #include <algorithm>
 #include <random>
 #include <unordered_map>
@@ -125,10 +127,12 @@ namespace pcg::engine::maze_generation
 
             if (nodesConnected || newSet)
             {
+                utility::logInfo("Ending current run");
                 row.endCurrentSet(adjacentNode.x);
             }
             else
             {
+                utility::logInfo("Merging node to run");
                 info.merge(currentNode, adjacentNode);
                 row.connectedSet.push_back(adjacentNode.x);
                 addAdjacentNodePath(currentNode, adjacentNode, NodeValue::right, grid);
@@ -147,6 +151,7 @@ namespace pcg::engine::maze_generation
         /// @param callback User defined callback nullptr if callback should be invoked after maze generation
         void addVerticalConnections(EllerGenerationInfo& info, RowInfo& row, Grid& grid, MazeCallback* callback)
         {
+            utility::logInfo("Adding vertical connections");
             for (auto& connectedSet : row.connectedSets)
             {
                 std::shuffle(begin(connectedSet), end(connectedSet), info.randomEngine);
@@ -170,6 +175,8 @@ namespace pcg::engine::maze_generation
 
     void eller(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
+        utility::logInfo("Eller Maze Generation Started");
+
         Grid grid = generateGrid(width, height);
         EllerGenerationInfo info{};
         MazeCallback* callbackPtr = invokeAfterGeneration ? nullptr : &callback;
@@ -195,5 +202,7 @@ namespace pcg::engine::maze_generation
         {
             invokeCallback(grid, callback);
         }
+
+        utility::logInfo("Eller Maze Generation Ended");
     }
 }

@@ -77,6 +77,6 @@ namespace pcg::engine::maze_generation
             invokeCallback(grid, callback);
         }
 
-        utility::logInfo("Sidewinder Maze Generation Started");
+        utility::logInfo("Sidewinder Maze Generation Ended");
     }
 }

@@ -4,6 +4,8 @@
 #include <pcg/engine/maze-generation/NodeCoordinates.hpp>
 #include <pcg/engine/maze-generation/Utility.hpp>
 
+#include <pcg/engine/utility/logging.hpp>
+
 #include <random>
 #include <vector>
 
@@ -77,6 +79,7 @@ namespace pcg::engine::maze_generation
 
     void kruskal(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
+        utility::logInfo("Kruskal Maze Generation Started");
         Grid grid = generateGrid(width, height);
         TreeGrid trees = TreeGrid(height, std::vector<Tree>(width));
         EdgesVector edges = getEdges(width, height);
@@ -107,5 +110,7 @@ namespace pcg::engine::maze_generation
         {
             invokeCallback(grid, callback);
         }
+
+        utility::logInfo("Kruskal Maze Generation Ended");
     }
 }

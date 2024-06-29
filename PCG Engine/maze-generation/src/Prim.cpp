@@ -3,6 +3,8 @@
 #include <pcg/engine/maze-generation/Prim.hpp>
 #include <pcg/engine/maze-generation/Utility.hpp>
 
+#include <pcg/engine/utility/logging.hpp>
+
 #include <tuple>
 
 namespace pcg::engine::maze_generation
@@ -103,6 +105,8 @@ namespace pcg::engine::maze_generation
 
     void prim(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
+        utility::logInfo("Prim Maze Generation Started");
+
         Grid grid = generateGrid(width, height);
         NodesVector frontierNodes{};
         markRandomStartingNode(width, height, frontierNodes, grid);
@@ -127,5 +131,7 @@ namespace pcg::engine::maze_generation
         {
             invokeCallback(grid, callback);
         }
+
+        utility::logInfo("Prim Maze Generation Ended");
     }
 }

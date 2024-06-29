@@ -4,6 +4,8 @@
 #include <pcg/engine/maze-generation/NodeCoordinates.hpp>
 #include <pcg/engine/maze-generation/Utility.hpp>
 
+#include <pcg/engine/utility/logging.hpp>
+
 #include <functional>
 #include <random>
 #include <tuple>
@@ -52,6 +54,7 @@ namespace pcg::engine::maze_generation
         /// @param callback Callback when a node is generated
         void generateGrowingTree(int width, int height, bool invokeAfterGeneration, std::function<NodeCoordinates(const std::vector<NodeCoordinates>& nodes)> getNextNode, MazeCallback&& callback)
         {
+            utility::logInfo("Growing Tree Maze Generation Started");
             Grid grid = generateGrid(width, height);
             Directions directions = getDefaultDirections();
             std::default_random_engine randomEngine{ math::Random::seed };
@@ -91,6 +94,8 @@ namespace pcg::engine::maze_generation
             {
                 invokeCallback(grid, callback);
             }
+
+            utility::logInfo("Growing Tree Maze Generation Ended");
         }
     }
 
