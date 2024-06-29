@@ -42,7 +42,7 @@ namespace pcg::engine::maze_generation
             }
         }
 
-        std::optional<std::tuple<int, int>> hunt(Grid& grid, Directions& directions, int width, int height, std::default_random_engine& randomEngine, MazeCallback* callback)
+        std::optional<NodeCoordinates> hunt(Grid& grid, Directions& directions, int width, int height, std::default_random_engine& randomEngine, MazeCallback* callback)
         {
             for (int y = 0; y < height; ++y)
             {
@@ -80,7 +80,7 @@ namespace pcg::engine::maze_generation
                         invokeNodePairCallback(x, y, nx, ny, grid, *callback);
                     }
 
-                    return std::make_tuple(nx, ny);
+                    return NodeCoordinates(nx, ny);
                 }
             }
 
@@ -94,9 +94,7 @@ namespace pcg::engine::maze_generation
         Directions directions = getDefaultDirections();
         std::default_random_engine randomEngine{ math::Random::seed };
 
-        int x = math::Random::generateNumber(0, width);
-        int y = math::Random::generateNumber(0, height);
-        std::optional<std::tuple<int, int>> xYCoordinate{ { x, y } };
+        std::optional<NodeCoordinates> xYCoordinate{ getRandomStartingNode(width, height)};
         MazeCallback* callbackPtr = invokeAfterGeneration ? nullptr : &callback;
 
         while (xYCoordinate.has_value())

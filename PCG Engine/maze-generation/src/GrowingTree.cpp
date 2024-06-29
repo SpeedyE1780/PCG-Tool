@@ -12,17 +12,6 @@ namespace pcg::engine::maze_generation
 {
     namespace
     {
-        /// @brief Get a random starting node
-        /// @param width Grid width
-        /// @param height Grid height
-        /// @return A random starting node
-        NodeCoordinates getStartingNode(int width, int height)
-        {
-            const int x = math::Random::generateNumber(0, width);
-            const int y = math::Random::generateNumber(0, height);
-            return { x, y };
-        }
-
         /// @brief Get oldest node
         /// @param pendingNodes Pending nodes that still has adjacent nodes
         /// @return Oldest node
@@ -67,8 +56,7 @@ namespace pcg::engine::maze_generation
             Directions directions = getDefaultDirections();
             std::default_random_engine randomEngine{ math::Random::seed };
 
-            std::vector<NodeCoordinates> nodes{};
-            nodes.emplace_back(getStartingNode(width, height));
+            std::vector<NodeCoordinates> nodes(1, getRandomStartingNode(width, height));
 
             while (!nodes.empty())
             {

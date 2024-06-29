@@ -1,3 +1,5 @@
+#include <pcg/engine/math/random.hpp>
+
 #include <pcg/engine/maze-generation/Utility.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
@@ -135,5 +137,10 @@ namespace pcg::engine::maze_generation
         std::ostringstream oss{};
         oss << "Wall added between: (" << nodeX << ", " << nodeY << ") and (" << adjacentNodeX << ", " << adjacentNodeY << ")";
         utility::logInfo(oss.str());
+    }
+
+    NodeCoordinates getRandomStartingNode(int width, int height)
+    {
+        return NodeCoordinates{ math::Random::generateNumber(0, width), math::Random::generateNumber(0, height) };
     }
 }

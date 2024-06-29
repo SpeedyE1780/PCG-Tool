@@ -34,8 +34,7 @@ namespace pcg::engine::maze_generation
 
         void markRandomStartingNode(int width, int height, NodesVector& frontierNodes, Grid& grid)
         {
-            const int randomX = math::Random::generateNumber(0, width);
-            const int randomY = math::Random::generateNumber(0, height);
+            auto [randomX, randomY] = getRandomStartingNode(width, height);
             mark(randomX, randomY, frontierNodes, grid);
         }
 

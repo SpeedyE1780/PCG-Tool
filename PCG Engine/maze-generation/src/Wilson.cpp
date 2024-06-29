@@ -30,18 +30,17 @@ namespace pcg::engine::maze_generation
         /// @param height Grid height
         /// @param randomEngine Random number generator used for shuffling
         /// @return 
-        std::tuple<int, int> findStartingNode(const Grid& grid, int width, int height, std::default_random_engine& randomEngine)
+        NodeCoordinates findStartingNode(const Grid& grid, int width, int height, std::default_random_engine& randomEngine)
         {
-            int x = 0;
-            int y = 0;
-
-            do
+            while (true)
             {
-                x = randomEngine() % width;
-                y = randomEngine() % height;
-            } while (grid[y][x] != NodeValue::none);
+                NodeCoordinates node = getRandomStartingNode(width, height);
 
-            return { x, y };
+                if (grid[node.y][node.x] == NodeValue::none)
+                {
+                    return node;
+                }
+            }
         }
 
         /// @brief Get path used to reach node in maze
@@ -49,7 +48,7 @@ namespace pcg::engine::maze_generation
         /// @param startY Starting y coordinate where walk started
         /// @param visits Map containing all nodes visited during walk
         /// @return A path from starting node to node in maze
-        std::vector<WilsonWalkData> getPath(int startX, int startY, const std::map<std::tuple<int, int>, NodeValue>& visits)
+        std::vector<WilsonWalkData> getPath(int startX, int startY, const std::map<NodeCoordinates, NodeValue>& visits)
         {
             std::vector<WilsonWalkData> path{};
 
@@ -83,7 +82,7 @@ namespace pcg::engine::maze_generation
             int startY = y;
             bool walking = true;
 
-            std::map<std::tuple<int, int>, NodeValue> visits;
+            std::map<NodeCoordinates, NodeValue> visits;
             visits[{x, y}] = NodeValue::none;
 
             while (walking)
@@ -127,8 +126,7 @@ namespace pcg::engine::maze_generation
         auto randomEngine = std::default_random_engine{ math::Random::seed };
 
         Grid grid = generateGrid(width, height);
-        int x = randomEngine() % width;
-        int y = randomEngine() % height;
+        auto [x, y] = getRandomStartingNode();
         int unvisited = width * height - 1;
 
         grid[y][x] = NodeValue::in;

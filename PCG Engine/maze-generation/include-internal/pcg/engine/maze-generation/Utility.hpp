@@ -99,6 +99,11 @@ namespace pcg::engine::maze_generation
     /// @param direction wall direction from node to adjacent
     /// @param grid Grid representing maze
     void addAdjacentNodeWall(int nodeX, int nodeY, int adjacentNodeX, int adjacentNodeY, NodeValue direction, Grid& grid);
+    /// @brief Get a random starting node
+    /// @param width Grid width
+    /// @param height Grid height
+    /// @return A random starting node
+    NodeCoordinates getRandomStartingNode(int width, int height);
 }
 
 #endif // PCG_ENGINE_MAZE_GENERATION_UTILITY_HPP
