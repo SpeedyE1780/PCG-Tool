@@ -134,8 +134,7 @@ namespace pcg::engine::maze_generation
 
     void recursiveDivision(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
-        Grid grid = generateGrid(width, height, NodeValue::allDirections);
-        addGridBounds(grid, width, height);
+        Grid grid = generateOpenGrid(width, height);
 
         divide(grid, width, height, invokeAfterGeneration ? nullptr : &callback);
 

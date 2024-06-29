@@ -49,6 +49,28 @@ namespace pcg::engine::maze_generation
             }
             }
         }
+
+        /// @brief Add Outer edges wall to grid
+        /// @param grid Grid representing maze
+        /// @param width Grid Width
+        /// @param height Grid Height
+        void addGridBounds(Grid& grid, int width, int height)
+        {
+            const int upperBound = height - 1;
+            const int rightBound = width - 1;
+
+            for (int x = 0; x < width; ++x)
+            {
+                grid[0][x] &= ~NodeValue::backward;
+                grid[upperBound][x] &= ~NodeValue::forward;
+            }
+
+            for (int y = 0; y < width; ++y)
+            {
+                grid[y][0] &= ~NodeValue::left;
+                grid[y][rightBound] &= ~NodeValue::right;
+            }
+        }
     }
 
     void invokeNodeCallback(int x, int y, const Grid& grid, const MazeCallback& callback)
@@ -73,6 +95,13 @@ namespace pcg::engine::maze_generation
         }
     }
 
+    Grid generateOpenGrid(int width, int height)
+    {
+        Grid grid = generateGrid(width, height, NodeValue::allDirections);
+        addGridBounds(grid, width, height);
+        return grid;
+    }
+
     void addAdjacentNodePath(int nodeX, int nodeY, int adjacentNodeX, int adjacentNodeY, NodeValue direction, Grid& grid)
     {
         grid[nodeY][nodeX] |= direction;
@@ -91,23 +120,5 @@ namespace pcg::engine::maze_generation
         std::ostringstream oss{};
         oss << "Wall added between: (" << nodeX << ", " << nodeY << ") and (" << adjacentNodeX << ", " << adjacentNodeY << ")";
         utility::logInfo(oss.str());
-    }
-
-    void addGridBounds(Grid& grid, int width, int height)
-    {
-        const int upperBound = height - 1;
-        const int rightBound = width - 1;
-
-        for (int x = 0; x < width; ++x)
-        {
-            grid[0][x] &= ~NodeValue::backward;
-            grid[upperBound][x] &= ~NodeValue::forward;
-        }
-
-        for (int y = 0; y < width; ++y)
-        {
-            grid[y][0] &= ~NodeValue::left;
-            grid[y][rightBound] &= ~NodeValue::right;
-        }
     }
 }

@@ -405,8 +405,7 @@ namespace pcg::engine::maze_generation
         {
             utility::logInfo("Blobby Division Maze Generation Started");
 
-            Grid grid = generateGrid(width, height, NodeValue::allDirections);
-            addGridBounds(grid, width, height);
+            Grid grid = generateOpenGrid(width, height);
             std::stack<Region> regions{};
             regions.emplace(getStartRegion(grid, width, height));
 

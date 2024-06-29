@@ -37,7 +37,11 @@ namespace pcg::engine::maze_generation
     /// @param defaultValue Default value when allocating grid
     /// @return A 2D vector representing the maze's grid
     inline Grid generateGrid(int width, int height, NodeValue defaultValue = NodeValue::none) { return Grid(height, Directions(width, defaultValue)); }
-
+    /// @brief Generate a grid with no walls other than on the edges
+    /// @param width Grid width
+    /// @param height Grid height
+    /// @return Grid with walls only on the edges
+    Grid generateOpenGrid(int width, int height);
     /// @brief Get default directions used when generating maze
     /// @return a vector containing { left, right, forward, backward }
     inline Directions getDefaultDirections()
@@ -61,7 +65,6 @@ namespace pcg::engine::maze_generation
     /// @param height Grid height
     /// @return True if x is within [0, width[ & y is within [0, height[
     constexpr bool isWithinGridBounds(int x, int y, int width, int height) { return isWithinBounds(x, width) && isWithinBounds(y, height); }
-
     /// @brief Adds a path between the node and adjacent node following the given direction
     /// @param nodeX Node X coordinate
     /// @param nodeY Node Y coordinate
@@ -78,11 +81,6 @@ namespace pcg::engine::maze_generation
     /// @param direction wall direction from node to adjacent
     /// @param grid Grid representing maze
     void addAdjacentNodeWall(int nodeX, int nodeY, int adjacentNodeX, int adjacentNodeY, NodeValue direction, Grid& grid);
-    /// @brief Add Outer edges wall to grid
-    /// @param grid Grid representing maze
-    /// @param width Grid Width
-    /// @param height Grid Height
-    void addGridBounds(Grid& grid, int width, int height);
 }
 
 #endif // PCG_ENGINE_MAZE_GENERATION_UTILITY_HPP
