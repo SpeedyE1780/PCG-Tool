@@ -5,6 +5,7 @@
 
 namespace pcg::engine::maze_generation
 {
+    /// @brief SubRegionSize sets the size minimum size of a subregion
     enum class SubRegionSize
     {
         corridors = 0,

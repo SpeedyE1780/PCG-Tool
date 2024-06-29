@@ -1,6 +1,10 @@
-#include <pcg/engine/maze-generation/RecursiveBacktracker.hpp>
-
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze-generation/NodeCoordinates.hpp>
+#include <pcg/engine/maze-generation/RecursiveBacktracker.hpp>
+#include <pcg/engine/maze-generation/Utility.hpp>
+
+#include <pcg/engine/utility/logging.hpp>
 
 #include <random>
 #include <stack>
@@ -9,15 +13,13 @@ namespace pcg::engine::maze_generation
 {
     void recursiveBacktracker(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
+        utility::logInfo("Recursive Backtracker Maze Generation Started");
+
         Grid grid = generateGrid(width, height);
         Directions directions = getDefaultDirections();
         std::default_random_engine randomEngine{ math::Random::seed };
-        std::stack<std::tuple<int, int>> visitedNodes;
-
-        int x = math::Random::generateNumber(0, width);
-        int y = math::Random::generateNumber(0, height);
-
-        visitedNodes.push({ x, y });
+        std::stack<NodeCoordinates> visitedNodes;
+        visitedNodes.emplace(getRandomStartingNode(width, height));
 
         while (!visitedNodes.empty())
         {
@@ -25,22 +27,19 @@ namespace pcg::engine::maze_generation
             std::shuffle(begin(directions), end(directions), randomEngine);
             bool noAdjacentNodes = true;
 
-            for (utility::enums::Direction direction : directions)
+            for (NodeValue direction : directions)
             {
-                auto [nx, ny] = getAdjacentCoordinates(x, y, direction);
-
-                if (nx >= 0 && ny >= 0 && nx < width && ny < height && grid[ny][nx] == utility::enums::Direction::none)
+                if (auto [nx, ny] = getAdjacentCoordinates(x, y, direction); isWithinGridBounds(nx, ny, width, height) && grid[ny][nx] == NodeValue::none)
                 {
-                    grid[y][x] |= direction;
-                    grid[ny][nx] |= utility::enums::getFlippedDirection(direction);
+                    addAdjacentNodePath(x, y, nx, ny, direction, grid);
                     visitedNodes.push({ nx, ny });
                     noAdjacentNodes = false;
 
                     if (!invokeAfterGeneration)
                     {
-                        callback(x, y, grid[y][x]);
-                        callback(nx, ny, grid[ny][nx]);
+                        invokeNodePairCallback(x, y, nx, ny, grid, callback);
                     }
+
                     break;
                 }
             }
@@ -53,13 +52,9 @@ namespace pcg::engine::maze_generation
 
         if (invokeAfterGeneration)
         {
-            for (int y = 0; y < height; ++y)
-            {
-                for (int x = 0; x < width; ++x)
-                {
-                    callback(x, y, grid[y][x]);
-                }
-            }
+            invokeCallback(grid, callback);
         }
+
+        utility::logInfo("Recursive Backtracker Maze Generation Ended");
     }
 }

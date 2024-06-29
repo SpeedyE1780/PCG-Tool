@@ -9,15 +9,16 @@ target_sources(${PROJECT_NAME} PRIVATE
 "src/AldousBroder.cpp"
 "src/BinaryTree.cpp"
 "src/BlobbyDivision.cpp"
-"src/Common.cpp"
 "src/Eller.cpp"
 "src/GrowingTree.cpp"
 "src/HuntAndKill.cpp"
 "src/Kruskal.cpp"
+"src/NodeCoordinates.cpp"
 "src/Prim.cpp"
 "src/RecursiveBacktracker.cpp"
 "src/RecursiveDivision.cpp"
 "src/Sidewinder.cpp"
+"src/Utility.cpp"
 "src/Wilson.cpp"
 
 #HPP
@@ -34,9 +35,16 @@ target_sources(${PROJECT_NAME} PRIVATE
 "include/pcg/engine/maze-generation/RecursiveDivision.hpp"
 "include/pcg/engine/maze-generation/Sidewinder.hpp"
 "include/pcg/engine/maze-generation/Wilson.hpp"
+
+#INTERNAL HPP
+"include-internal/pcg/engine/maze-generation/NodeCoordinates.hpp"
+"include-internal/pcg/engine/maze-generation/Utility.hpp"
 )
 
+source_group("Interal Headers" ${PROJECT_SOURCE_DIR}/include-internal/*)
+
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include/)
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include-internal/)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC pcg-engine-math)
 target_link_libraries(${PROJECT_NAME} PUBLIC pcg-engine-utility)

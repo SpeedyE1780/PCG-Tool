@@ -1,7 +1,8 @@
-#include <pcg/engine/maze-generation/AldousBroder.hpp>
-#include <pcg/engine/maze-generation/Common.hpp>
-
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze-generation/AldousBroder.hpp>
+#include <pcg/engine/maze-generation/NodeCoordinates.hpp>
+#include <pcg/engine/maze-generation/Utility.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
 
@@ -22,8 +23,7 @@ namespace pcg::engine::maze_generation
 
         Grid grid = generateGrid(width, height);
 
-        int x = randomEngine() % width;
-        int y = randomEngine() % height;
+        auto [x, y] = getRandomStartingNode(width, height);
         int unvisited = width * height - 1;
 
         oss << "Started with:" << x << "-" << y << " unvisited: " << unvisited;
@@ -34,25 +34,21 @@ namespace pcg::engine::maze_generation
         {
             std::shuffle(begin(directions), end(directions), randomEngine);
 
-            for (utility::enums::Direction direction : directions)
+            for (NodeValue direction : directions)
             {
-                auto [nx, ny] = getAdjacentCoordinates(x, y, direction);
-
-                if (nx >= 0 && ny >= 0 && nx < width && ny < height)
+                if (auto [nx, ny] = getAdjacentCoordinates(x, y, direction); isWithinGridBounds(nx, ny, width, height))
                 {
-                    if (grid[ny][nx] == utility::enums::Direction::none)
+                    if (grid[ny][nx] == NodeValue::none)
                     {
-                        grid[y][x] |= direction;
-                        grid[ny][nx] |= utility::enums::getFlippedDirection(direction);
+                        addAdjacentNodePath(x, y, nx, ny, direction, grid);
                         unvisited -= 1;
-                        oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited;
+                        oss << " unvisited: " << unvisited;
                         utility::logInfo(oss.str());
                         oss.str("");
 
                         if (!invokeAfterGeneration)
                         {
-                            callback(x, y, grid[y][x]);
-                            callback(nx, ny, grid[ny][nx]);
+                            invokeNodePairCallback(x, y, nx, ny, grid, callback);
                         }
                     }
 
@@ -65,16 +61,9 @@ namespace pcg::engine::maze_generation
 
         if (invokeAfterGeneration)
         {
-            for (int y = 0; y < grid.size(); ++y)
-            {
-                for (int x = 0; x < grid[0].size(); ++x)
-                {
-                    callback(x, y, grid[y][x]);
-                }
-            }
+            invokeCallback(grid, callback);
         }
 
         utility::logInfo("Aldous - Broder Maze Generation Ended");
     }
 }
-

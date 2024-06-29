@@ -1,6 +1,10 @@
-#include <pcg/engine/maze-generation/Kruskal.hpp>
-
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze-generation/Kruskal.hpp>
+#include <pcg/engine/maze-generation/NodeCoordinates.hpp>
+#include <pcg/engine/maze-generation/Utility.hpp>
+
+#include <pcg/engine/utility/logging.hpp>
 
 #include <random>
 #include <vector>
@@ -9,43 +13,44 @@ namespace pcg::engine::maze_generation
 {
     namespace
     {
+        /// @brief Tree representing connected nodes
         class Tree
         {
         public:
-            Tree* getRoot()
-            {
-                return parent ? parent->getRoot() : this;
-            }
-
-            const Tree* getRoot() const
-            {
-                return parent ? parent->getRoot() : this;
-            }
-
-            bool isConnected(const Tree& tree) const
-            {
-                return getRoot() == tree.getRoot();
-            }
-
-            void addSubTree(Tree& tree)
-            {
-                tree.getRoot()->parent = this;
-            }
+            /// @brief Get root of tree
+            /// @return Root of tree or this
+            Tree* getRoot() { return parent ? parent->getRoot() : this; }
+            /// @brief Get root of tree
+            /// @return Root of tree or this
+            const Tree* getRoot() const { return parent ? parent->getRoot() : this; }
+            /// @brief Check if tree share same root
+            /// @param tree other tree
+            /// @return True if trees share the same root
+            bool isConnected(const Tree& tree) const { return getRoot() == tree.getRoot(); }
+            /// @brief Add tree as a subtree to this
+            /// @param tree Subtree being added under this
+            void addSubTree(Tree& tree) { tree.getRoot()->parent = this; }
 
         private:
+            /// @brief Parent of this tree
             Tree* parent = nullptr;
         };
 
+        /// @brief Edge between two adjacent nodes
         struct Edge
         {
             int x;
             int y;
-            utility::enums::Direction direction;
+            NodeValue direction;
         };
 
         using EdgesVector = std::vector<Edge>;
         using TreeGrid = std::vector<std::vector<Tree>>;
 
+        /// @brief Get all possible edges in grid
+        /// @param width Grid width
+        /// @param height Grid height
+        /// @return A shuffled vector of all edges in grid
         EdgesVector getEdges(int width, int height)
         {
             EdgesVector edges{};
@@ -56,12 +61,12 @@ namespace pcg::engine::maze_generation
                 {
                     if (x < width - 1)
                     {
-                        edges.emplace_back(Edge{ x, y, utility::enums::Direction::right });
+                        edges.emplace_back(Edge{ x, y, NodeValue::right });
                     }
 
                     if (y < height - 1)
                     {
-                        edges.emplace_back(Edge{ x, y, utility::enums::Direction::forward });
+                        edges.emplace_back(Edge{ x, y, NodeValue::forward });
                     }
                 }
             }
@@ -74,6 +79,7 @@ namespace pcg::engine::maze_generation
 
     void kruskal(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
+        utility::logInfo("Kruskal Maze Generation Started");
         Grid grid = generateGrid(width, height);
         TreeGrid trees = TreeGrid(height, std::vector<Tree>(width));
         EdgesVector edges = getEdges(width, height);
@@ -92,26 +98,19 @@ namespace pcg::engine::maze_generation
             }
 
             originTree.addSubTree(endTree);
-
-            grid[originY][originX] |= direction;
-            grid[endY][endX] |= utility::enums::getFlippedDirection(direction);
+            addAdjacentNodePath(originX, originY, endX, endY, direction, grid);
 
             if (!invokeAfterGeneration)
             {
-                callback(originX, originY, grid[originY][originX]);
-                callback(endX, endY, grid[endY][endX]);
+                invokeNodePairCallback(originX, originY, endX, endY, grid, callback);
             }
         }
 
         if (invokeAfterGeneration)
         {
-            for (int y = 0; y < height; ++y)
-            {
-                for (int x = 0; x < width; ++x)
-                {
-                    callback(x, y, grid[y][x]);
-                }
-            }
+            invokeCallback(grid, callback);
         }
+
+        utility::logInfo("Kruskal Maze Generation Ended");
     }
 }

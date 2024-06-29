@@ -1,6 +1,7 @@
-#include <pcg/engine/maze-generation/Sidewinder.hpp>
-
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze-generation/Sidewinder.hpp>
+#include <pcg/engine/maze-generation/Utility.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
 
@@ -21,17 +22,12 @@ namespace pcg::engine::maze_generation
         {
             utility::logInfo("Ending run and carving north");
             int cell = math::Random::generateNumber(runStart, x + 1);
-            grid[y][cell] |= utility::enums::Direction::backward;
-            grid[y - 1][cell] |= utility::enums::Direction::forward;
+            addAdjacentNodePath(cell, y, cell, y - 1, NodeValue::backward, grid);
             runStart = x + 1;
-            std::ostringstream oss{};
-            oss << "Value set at " << cell << "-" << y << "/" << cell << "-" << y - 1;
-            utility::logInfo(oss.str());
 
             if (!invokeAfterGeneration)
             {
-                callback(cell, y, grid[y][cell]);
-                callback(cell, y - 1, grid[y - 1][cell]);
+                invokeNodePairCallback(cell, y, cell, y - 1, grid, callback);
             }
         }
 
@@ -44,16 +40,11 @@ namespace pcg::engine::maze_generation
         void carveEast(Grid& grid, std::size_t x, std::size_t y, bool invokeAfterGeneration, const MazeCallback& callback)
         {
             utility::logInfo("Carving east");
-            grid[y][x] |= utility::enums::Direction::right;
-            grid[y][x + 1] |= utility::enums::Direction::left;
-            std::ostringstream oss{};
-            oss << "Value set at " << x << "-" << y << "/" << x + 1 << "-" << y;
-            utility::logInfo(oss.str());
+            addAdjacentNodePath(x, y, x + 1, y, NodeValue::right, grid);
 
             if (!invokeAfterGeneration)
             {
-                callback(x, y, grid[y][x]);
-                callback(x + 1, y, grid[y][x + 1]);
+                invokeNodePairCallback(x, y, x + 1, y, grid, callback);
             }
         }
     }
@@ -83,15 +74,9 @@ namespace pcg::engine::maze_generation
 
         if (invokeAfterGeneration)
         {
-            for (int y = 0; y < grid.size(); ++y)
-            {
-                for (int x = 0; x < grid[0].size(); ++x)
-                {
-                    callback(x, y, grid[y][x]);
-                }
-            }
+            invokeCallback(grid, callback);
         }
 
-        utility::logInfo("Sidewinder Maze Generation Started");
+        utility::logInfo("Sidewinder Maze Generation Ended");
     }
 }

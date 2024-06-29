@@ -1,6 +1,10 @@
-#include <pcg/engine/maze-generation/BlobbyDivision.hpp>
-
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze-generation/BlobbyDivision.hpp>
+#include <pcg/engine/maze-generation/NodeCoordinates.hpp>
+#include <pcg/engine/maze-generation/Utility.hpp>
+
+#include <pcg/engine/utility/logging.hpp>
 
 #include <memory>
 #include <optional>
@@ -13,92 +17,69 @@ namespace pcg::engine::maze_generation
 {
     namespace
     {
-        struct NodeCoordinates
-        {
-            NodeCoordinates(std::tuple<int, int>&& coordinates) : x(std::get<0>(coordinates)), y(std::get<1>(coordinates))
-            {
-            }
-
-            int x;
-            int y;
-        };
-
-        bool operator==(const NodeCoordinates& lhs, const NodeCoordinates& rhs)
-        {
-            return lhs.x == rhs.x && lhs.y == rhs.y;
-        }
-    }
-}
-
-namespace std
-{
-    template<>
-    struct hash<pcg::engine::maze_generation::NodeCoordinates>
-    {
-        std::size_t operator()(const pcg::engine::maze_generation::NodeCoordinates& value) const
-        {
-            const auto& [x, y] = value;
-            std::size_t xHash = std::hash<int>{}(x);
-            std::size_t yHash = std::hash<int>{}(y);
-
-            return xHash ^ (yHash << 1);
-        }
-    };
-}
-
-namespace pcg::engine::maze_generation
-{
-    namespace
-    {
         struct Node;
         class Region;
         using NodePointer = std::shared_ptr<Node>;
         using NodeMap = std::unordered_map<NodeCoordinates, NodePointer>;
         /// @brief A threshold lower than 4 will create subregion that are cut off from the rest of the maze
         constexpr int minimumThreshold = 4;
+        /// @brief Threshold used with SubRegionSize::small
         constexpr int smallThreshold = 10;
+        /// @brief Threshold used with SubRegionSize::medium
         constexpr int mediumThreshold = 25;
+        /// @brief Threshold used with SubRegionSize::large
         constexpr int largeThreshold = 40;
+        /// @brief Threshold used with SubRegionSize::huge
         constexpr int hugeThreshold = 70;
 
+        /// @brief WallInfo contains wall coordinates and direction
         struct WallInfo
         {
             int x;
             int y;
-            utility::enums::Direction direction;
+            NodeValue direction;
         };
 
+        /// @brief Represents a node in a region
         struct Node
         {
+            /// @brief Construct a node and assign its adjacent nodes
+            /// @param x X coordinate
+            /// @param y Y coordinate
+            /// @param width Grid Width
+            /// @param height Grid Height
             Node(int x, int y, int width, int height) : coordinates({ x, y })
             {
                 if (x > 0)
                 {
-                    left = getAdjacentCoordinates(x, y, utility::enums::Direction::left);
+                    left = getAdjacentCoordinates(coordinates, NodeValue::left);
                 }
 
                 if (x < width - 1)
                 {
-                    right = getAdjacentCoordinates(x, y, utility::enums::Direction::right);
+                    right = getAdjacentCoordinates(coordinates, NodeValue::right);
                 }
 
                 if (y > 0)
                 {
-                    backward = getAdjacentCoordinates(x, y, utility::enums::Direction::backward);
+                    backward = getAdjacentCoordinates(coordinates, NodeValue::backward);
                 }
 
                 if (y < height - 1)
                 {
-                    forward = getAdjacentCoordinates(x, y, utility::enums::Direction::forward);
+                    forward = getAdjacentCoordinates(coordinates, NodeValue::forward);
                 }
             }
 
-            std::vector<NodeCoordinates> getAdjacentNodeCoordinates() const
+            /// @brief Get adjacent nodes in region
+            /// @param region Region that nodes should belong to
+            /// @return All adjacent nodes in region
+            std::vector<NodeCoordinates> getAdjacentNodeCoordinates(std::function<bool(NodeCoordinates)>&& regionHasNode) const
             {
                 std::vector<NodeCoordinates> adjacentCoordinates{};
-                auto addCoordinate = [&adjacentCoordinates](const std::optional<NodeCoordinates>& coordinate)
+                auto addCoordinate = [&adjacentCoordinates, &regionHasNode](const std::optional<NodeCoordinates>& coordinate)
                     {
-                        if (coordinate.has_value())
+                        if (coordinate.has_value() && regionHasNode(coordinate.value()))
                         {
                             adjacentCoordinates.push_back(coordinate.value());
                         }
@@ -112,14 +93,21 @@ namespace pcg::engine::maze_generation
                 return adjacentCoordinates;
             }
 
+            /// @brief Node coordinates in grid
             NodeCoordinates coordinates;
-            std::optional<NodeCoordinates> left = std::nullopt;
-            std::optional<NodeCoordinates> right = std::nullopt;
-            std::optional<NodeCoordinates> forward = std::nullopt;
-            std::optional<NodeCoordinates> backward = std::nullopt;
+            /// @brief Region this node belongs to
             Region* region = nullptr;
+            /// @brief Left adjacent node if it exists
+            std::optional<NodeCoordinates> left = std::nullopt;
+            /// @brief Rigt adjacent node if it exists
+            std::optional<NodeCoordinates> right = std::nullopt;
+            /// @brief Forward adjacent node if it exists
+            std::optional<NodeCoordinates> forward = std::nullopt;
+            /// @brief Backward adjacent node if it exists
+            std::optional<NodeCoordinates> backward = std::nullopt;
         };
 
+        /// @brief Region is a collection of nodes that belong to the same region
         class Region
         {
         public:
@@ -128,13 +116,15 @@ namespace pcg::engine::maze_generation
             Region(const Region& other) = delete;
             Region& operator=(const Region& other) = delete;
 
-            Region(NodePointer node)
+            /// @brief Construct region and assign the seed
+            /// @param node The seed of this region
+            Region(NodePointer node) : seed(node)
             {
-                node->region = this;
-                addNode(node);
+                seed->region = this;
+                addNode(seed);
             }
 
-            Region(Region&& other) noexcept : nodes(other.nodes)
+            Region(Region&& other) noexcept : nodes(other.nodes), seed(other.seed)
             {
                 updateNodesRegion();
             }
@@ -146,11 +136,14 @@ namespace pcg::engine::maze_generation
                 return *this;
             }
 
+            /// @brief Add node to region
+            /// @param node Node added to region
             void addNode(NodePointer node)
             {
                 nodes.insert({ node->coordinates, std::move(node) });
             }
 
+            /// @brief Reset region of all nodes in region
             void clearNodesRegion()
             {
                 for (auto& [key, node] : nodes)
@@ -159,6 +152,8 @@ namespace pcg::engine::maze_generation
                 }
             }
 
+            /// @brief Get Random node in region
+            /// @return Random node in region
             NodePointer getRandomNode() const
             {
                 int randomIndex = math::Random::generateNumber(0, nodes.size());
@@ -166,13 +161,33 @@ namespace pcg::engine::maze_generation
                 return nodeIterator->second;
             }
 
+            /// @brief Check if region contains node
+            /// @param coordinates Node coordinates
+            /// @return True if regions contains node
             bool hasNode(const NodeCoordinates& coordinates) const { return nodes.find(coordinates) != nodes.end(); }
+            /// @brief Get node at coordinate
+            /// @param coordinates Node Coordinates
+            /// @return Node
             NodePointer getNode(const NodeCoordinates& coordinates) { return nodes[coordinates]; }
+            /// @brief Get node at coordinate
+            /// @param coordinates Node Coordinates
+            /// @return Node
             NodePointer getNode(const NodeCoordinates& coordinates) const { return nodes.at(coordinates); }
+            /// @brief Get Region Seed
+            /// @return Region Seed
+            NodePointer getSeed() { return seed; }
+            /// @brief Get Region Seed
+            /// @return Region Seed
+            NodePointer getSeed() const { return seed; }
 
+            /// @brief Get all nodes in region
+            /// @return Nodes in region
             const NodeMap& getNodes() const { return nodes; }
+            /// @brief Get node count in region
+            /// @return Node count in region
             std::size_t getNodeCount() const { return nodes.size(); }
 
+            /// @brief Update all nodes' region to this
             void updateNodesRegion()
             {
                 for (auto& [key, node] : nodes)
@@ -182,27 +197,17 @@ namespace pcg::engine::maze_generation
             }
 
         private:
+            /// @brief Map of nodes belonging to region
             NodeMap nodes{};
+            /// @brief Seed of this region
+            NodePointer seed = nullptr;
         };
 
-        void addGridBounds(Grid& grid, int width, int height)
-        {
-            const int upperBound = height - 1;
-            const int rightBound = width - 1;
-
-            for (int x = 0; x < width; ++x)
-            {
-                grid[0][x] &= ~utility::enums::Direction::backward;
-                grid[upperBound][x] &= ~utility::enums::Direction::forward;
-            }
-
-            for (int y = 0; y < width; ++y)
-            {
-                grid[y][0] &= ~utility::enums::Direction::left;
-                grid[y][rightBound] &= ~utility::enums::Direction::right;
-            }
-        }
-
+        /// @brief Get Region that contains all nodes in the maze
+        /// @param grid Grid representing maze
+        /// @param width Grid width
+        /// @param height Grid height
+        /// @return Region that contains all nodes in the maze
         Region getStartRegion(const Grid& grid, int width, int height)
         {
             Region region{};
@@ -218,35 +223,31 @@ namespace pcg::engine::maze_generation
             return region;
         }
 
-        std::tuple<Region, Region> plantSeed(Region& region, std::vector<NodePointer>& frontiers)
+        /// @brief Divide region in two sub regions and assign a seed for each sub region
+        /// @param region Region being divided in two
+        /// @return The two new sub regions
+        std::tuple<Region, Region> plantSeed(Region& region)
         {
-            std::shared_ptr<Node> node = region.getRandomNode();
-            frontiers.push_back(node);
-            Region subRegion1(node);
-
-            node = region.getRandomNode();
-            frontiers.push_back(node);
-            Region subRegion2(node);
-
-            return { std::move(subRegion1), std::move(subRegion2) };
+            utility::logInfo("Planting seeds in region");
+            return { Region(region.getRandomNode()), Region(region.getRandomNode()) };
         }
 
+        /// @brief Get all adjacent nodes that share the same region as node
+        /// @param node Current node
+        /// @param region Region the nodes belong to
+        /// @return All adjacent nodes that share the same region as node
         std::vector<NodePointer> getAdjacentNodes(const NodePointer& node, const Region& region)
         {
-            std::vector<NodeCoordinates> adjacentCoordinates = node->getAdjacentNodeCoordinates();
+            std::vector<NodeCoordinates> adjacentCoordinates = node->getAdjacentNodeCoordinates([&region](const NodeCoordinates& coordinates)
+                {
+                    return region.hasNode(coordinates);
+                });
 
             std::vector<NodePointer> adjacentNodes{};
 
             for (const NodeCoordinates& coordinate : adjacentCoordinates)
             {
-                if (!region.hasNode(coordinate))
-                {
-                    continue;
-                }
-
-                NodePointer adjacentNode = region.getNode(coordinate);
-
-                if (adjacentNode->region == nullptr)
+                if (NodePointer adjacentNode = region.getNode(coordinate); adjacentNode->region == nullptr)
                 {
                     adjacentNodes.emplace_back(std::move(adjacentNode));
                 }
@@ -255,13 +256,51 @@ namespace pcg::engine::maze_generation
             return adjacentNodes;
         }
 
+        /// @brief Grow subregions until all nodes are assigned a sub region
+        /// @param region Region containing the two sub regions
+        /// @param frontiers Vector containing the seeds of the two sub regions
+        /// @param grid Grid representing maze
+        /// @param callback User defined callback nullptr if callback should be invoked after maze generation
+        void growSubRegions(Region& region, std::vector<NodePointer>&& frontiers, Grid& grid, MazeCallback* callback)
+        {
+            utility::logInfo("Growing sub regions");
+
+            while (!frontiers.empty())
+            {
+                NodePointer node = frontiers.at(math::Random::generateNumber(0, frontiers.size()));
+
+                if (std::vector<NodePointer> adjacentNodes = getAdjacentNodes(node, region); !adjacentNodes.empty())
+                {
+                    NodePointer adjacentNode = adjacentNodes[math::Random::generateNumber(0, adjacentNodes.size())];
+                    adjacentNode->region = node->region;
+                    node->region->addNode(adjacentNode);
+                    frontiers.push_back(adjacentNode);
+
+                    if (callback)
+                    {
+                        invokeNodePairCallback(node->coordinates.x, node->coordinates.y,
+                            adjacentNode->coordinates.x, adjacentNode->coordinates.y,
+                            grid, *callback);
+                    }
+                }
+                else
+                {
+                    std::erase(frontiers, node);
+                }
+            }
+        }
+
+        /// @brief Get sub region wall info vector
+        /// @param region Region containing the two sub regions
+        /// @param subRegion Sub region used to find borders between the two sub regions
+        /// @return Sub region wall info vector
         std::vector<WallInfo> getWallInfo(const Region& region, const Region& subRegion)
         {
             std::vector<WallInfo> walls{};
 
             for (const auto& [key, node] : subRegion.getNodes())
             {
-                auto tryAddWall = [&walls, &region, &node](const std::optional<NodeCoordinates>& coordinates, utility::enums::Direction direction)
+                auto tryAddWall = [&walls, &region, &node](const std::optional<NodeCoordinates>& coordinates, NodeValue direction)
                     {
                         if (coordinates.has_value() && region.hasNode(coordinates.value()))
                         {
@@ -272,17 +311,23 @@ namespace pcg::engine::maze_generation
                         }
                     };
 
-                tryAddWall(node->left, utility::enums::Direction::left);
-                tryAddWall(node->right, utility::enums::Direction::right);
-                tryAddWall(node->forward, utility::enums::Direction::forward);
-                tryAddWall(node->backward, utility::enums::Direction::backward);
+                tryAddWall(node->left, NodeValue::left);
+                tryAddWall(node->right, NodeValue::right);
+                tryAddWall(node->forward, NodeValue::forward);
+                tryAddWall(node->backward, NodeValue::backward);
             }
 
             return walls;
         }
 
+        /// @brief Loop over nodes in subregion and add walls between node that doesn't share the same region
+        /// @param region Region containing the two sub regions
+        /// @param subRegion Sub region used to find borders between the two sub regions
+        /// @param grid Grid representing maze
+        /// @param callback User defined callback nullptr if callback should be invoked after maze generation
         void addWalls(const Region& region, const Region& subRegion, Grid& grid, MazeCallback* callback)
         {
+            utility::logInfo("Adding walls seperation between regions");
             std::vector<WallInfo> walls = getWallInfo(region, subRegion);
 
             if (walls.empty())
@@ -294,18 +339,20 @@ namespace pcg::engine::maze_generation
 
             for (const WallInfo& wall : walls)
             {
-                grid[wall.y][wall.x] &= ~wall.direction;
                 auto [x, y] = getAdjacentCoordinates(wall.x, wall.y, wall.direction);
-                grid[y][x] &= ~utility::enums::getFlippedDirection(wall.direction);
+                addAdjacentNodeWall(wall.x, wall.y, x, y, wall.direction, grid);
 
                 if (callback)
                 {
-                    (*callback)(wall.x, wall.y, grid[wall.y][wall.x]);
-                    (*callback)(x, y, grid[y][x]);
+                    invokeNodePairCallback(wall.x, wall.y, x, y, grid, *callback);
                 }
             }
         }
 
+        /// @brief Add subregion to stack if it has more nodes than the threshold
+        /// @param regions Regions Stack
+        /// @param subRegion Sub Region being added
+        /// @param regionThreshold Minimum node count to divide region
         void addSubRegionToStack(std::stack<Region>& regions, Region& subRegion, int regionThreshold)
         {
             const bool greaterThanThreshold = subRegion.getNodeCount() >= regionThreshold;
@@ -314,21 +361,52 @@ namespace pcg::engine::maze_generation
 
             if (greaterThanThreshold || pushSmallRegion)
             {
+                utility::logInfo("Adding region to stack");
                 regions.emplace(std::move(subRegion));
             }
             else
             {
+                utility::logInfo("Region can't be divided further");
                 subRegion.updateNodesRegion();
             }
         }
 
+        /// @brief Add sub regions to stack if they can be divided into subregions
+        /// @param regions Regions Stack
+        /// @param subRegion1 First sub region
+        /// @param subRegion2 Second sub region
+        /// @param regionThreshold Minimum node count to divide region
+        void addSubRegionsToStack(std::stack<Region>& regions, Region& subRegion1, Region& subRegion2, int regionThreshold)
+        {
+            addSubRegionToStack(regions, subRegion1, regionThreshold);
+            addSubRegionToStack(regions, subRegion2, regionThreshold);
+        }
+
+        /// @brief Divide region in two sub regions
+        /// @param region Region being divided
+        /// @param grid Grid representing maze
+        /// @param callback User defined callback nullptr if callback should be invoked after maze generation
+        /// @return The two new sub regions
+        std::tuple<Region, Region> divideRegion(Region& region, Grid& grid, MazeCallback* callback)
+        {
+            auto [subRegion1, subRegion2] = plantSeed(region);
+            growSubRegions(region, { subRegion1.getSeed(), subRegion2.getSeed() }, grid, callback);
+            addWalls(region, subRegion1, grid, callback);
+            return { std::move(subRegion1), std::move(subRegion2) };
+        }
+
+        /// @brief Generate Maze using Blobby Division
+        /// @param width Grid Width
+        /// @param height Grid Height
+        /// @param regionThreshold Region node count threshold
+        /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+        /// @param callback Callback when a node is generated
         void blobbyDivision(int width, int height, int regionThreshold, bool invokeAfterGeneration, MazeCallback&& callback)
         {
-            Grid grid = generateGrid(width, height, utility::enums::Direction::left | utility::enums::Direction::right | utility::enums::Direction::forward | utility::enums::Direction::backward);
-            addGridBounds(grid, width, height);
+            utility::logInfo("Blobby Division Maze Generation Started");
+
+            Grid grid = generateOpenGrid(width, height);
             std::stack<Region> regions{};
-            std::vector<NodePointer> frontiers{};
-            std::default_random_engine randomEngine{ math::Random::seed };
             regions.emplace(getStartRegion(grid, width, height));
 
             while (!regions.empty())
@@ -336,50 +414,17 @@ namespace pcg::engine::maze_generation
                 Region region = std::move(regions.top());
                 regions.pop();
                 region.clearNodesRegion();
-                auto [subRegion1, subRegion2] = plantSeed(region, frontiers);
-
-                while (!frontiers.empty())
-                {
-                    NodePointer node = frontiers.at(math::Random::generateNumber(0, frontiers.size()));
-
-                    std::vector<NodePointer> adjacentNodes = getAdjacentNodes(node, region);
-
-                    if (!adjacentNodes.empty())
-                    {
-                        NodePointer adjacentNode = adjacentNodes[math::Random::generateNumber(0, adjacentNodes.size())];
-                        adjacentNode->region = node->region;
-                        node->region->addNode(adjacentNode);
-                        frontiers.push_back(adjacentNode);
-
-                        if (!invokeAfterGeneration)
-                        {
-                            callback(node->coordinates.x, node->coordinates.y, grid[node->coordinates.y][node->coordinates.x]);
-                            callback(adjacentNode->coordinates.x, adjacentNode->coordinates.y, grid[adjacentNode->coordinates.y][adjacentNode->coordinates.x]);
-                        }
-                    }
-                    else
-                    {
-                        std::erase(frontiers, node);
-                    }
-                }
-
-                addWalls(region, subRegion1, grid, invokeAfterGeneration ? nullptr : &callback);
-
+                auto [subRegion1, subRegion2] = divideRegion(region, grid, invokeAfterGeneration ? nullptr : &callback);
                 region.clearNodesRegion();
-                addSubRegionToStack(regions, subRegion1, regionThreshold);
-                addSubRegionToStack(regions, subRegion2, regionThreshold);
+                addSubRegionsToStack(regions, subRegion1, subRegion2, regionThreshold);
             }
 
             if (invokeAfterGeneration)
             {
-                for (int y = 0; y < grid.size(); ++y)
-                {
-                    for (int x = 0; x < grid[0].size(); ++x)
-                    {
-                        callback(x, y, grid[y][x]);
-                    }
-                }
+                invokeCallback(grid, callback);
             }
+
+            utility::logInfo("Blobby Division Maze Generation Ended");
         }
     }
 
@@ -405,7 +450,6 @@ namespace pcg::engine::maze_generation
         default:
             break;
         }
-
     }
 
     void blobbyDivision(int width, int height, bool invokeAfterGeneration, int regionThreshold, MazeCallback&& callback)

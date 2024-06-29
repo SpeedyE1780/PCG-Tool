@@ -1,6 +1,10 @@
-#include <pcg/engine/maze-generation/RecursiveDivision.hpp>
-
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze-generation/NodeCoordinates.hpp>
+#include <pcg/engine/maze-generation/RecursiveDivision.hpp>
+#include <pcg/engine/maze-generation/Utility.hpp>
+
+#include <pcg/engine/utility/logging.hpp>
 
 #include <stack>
 #include <tuple>
@@ -9,16 +13,23 @@ namespace pcg::engine::maze_generation
 {
     namespace
     {
+        /// @brief GridSection represents a sub division of the grid
         struct GridSection
         {
+            /// @brief Check that section is has an area greater than 1x1
+            /// @return True if grid area < 1x1
             bool isInvalid() const
             {
                 return width == 0 || height == 0 || (width == 1 && height == 1);
             }
 
+            /// @brief Starting x coordinate
             int startX = 0;
+            /// @brief Ending x coordinate
             int startY = 0;
+            /// @brief Section width
             int width = 0;
+            /// @brief Section height
             int height = 0;
         };
 
@@ -28,6 +39,10 @@ namespace pcg::engine::maze_generation
             Vertical = 1
         };
 
+        /// @brief Choose an orientation for the grid division
+        /// @param width Section width
+        /// @param height Section height
+        /// @return The chosen orientation
         WallOrientation chooseOrientation(int width, int height)
         {
             if (width < height)
@@ -44,7 +59,11 @@ namespace pcg::engine::maze_generation
             }
         }
 
-        std::tuple<int, int> getWallCoordinates(const GridSection& section, bool isHorizontal)
+        /// @brief Get the wall coordinates
+        /// @param section Section that is being divided in 2
+        /// @param isHorizontal Is wall horizontal?
+        /// @return The starting position of the wall
+        NodeCoordinates getWallCoordinates(const GridSection& section, bool isHorizontal)
         {
             const int wallX = section.startX + (isHorizontal ? 0 : math::Random::generateNumber(0, section.width - 1));
             const int wallY = section.startY + (isHorizontal ? math::Random::generateNumber(0, section.height - 1) : 0);
@@ -52,7 +71,13 @@ namespace pcg::engine::maze_generation
             return { wallX, wallY };
         }
 
-        std::tuple<int, int> getPassageCoordinates(const GridSection& section, int wallX, int wallY, bool isHorizontal)
+        /// @brief Get the passage coordinates
+        /// @param section Section that is being divided in 2
+        /// @param wallX Wall x coordinate
+        /// @param wallY Wall y coordinate
+        /// @param isHorizontal Is passage horizontal?
+        /// @return The position of the passage
+        NodeCoordinates getPassageCoordinates(const GridSection& section, int wallX, int wallY, bool isHorizontal)
         {
             const int passageX = wallX + (isHorizontal ? math::Random::generateNumber(0, section.width) : 0);
             const int passageY = wallY + (isHorizontal ? 0 : math::Random::generateNumber(0, section.height));
@@ -60,6 +85,12 @@ namespace pcg::engine::maze_generation
             return { passageX, passageY };
         }
 
+        /// @brief Get the left/bottom section
+        /// @param section Section that was divided
+        /// @param passageX X coordinate of passage
+        /// @param passageY Y coordinate of passage
+        /// @param isHorizontal Is division horizontal?
+        /// @return Left/Bottom grid section
         GridSection getLeftBottomSection(const GridSection& section, int passageX, int passageY, bool isHorizontal)
         {
             const int startX = section.startX;
@@ -70,6 +101,12 @@ namespace pcg::engine::maze_generation
             return { startX, startY, width, height };
         }
 
+        /// @brief Get the right/top section
+        /// @param section Section that was divided
+        /// @param adjacentX X coordinate adjacent to passage
+        /// @param adjacentY Y coordinate adjacent to passage
+        /// @param isHorizontal Is division horizontal?
+        /// @return Right/Top grid section
         GridSection getRightTopSection(const GridSection& section, int adjacentX, int adjacentY, bool isHorizontal)
         {
             const int startX = isHorizontal ? section.startX : adjacentX;
@@ -80,24 +117,11 @@ namespace pcg::engine::maze_generation
             return { startX, startY, width, height };
         }
 
-        void addGridBounds(Grid& grid, int width, int height)
-        {
-            const int upperBound = height - 1;
-            const int rightBound = width - 1;
-
-            for (int x = 0; x < width; ++x)
-            {
-                grid[0][x] &= ~utility::enums::Direction::backward;
-                grid[upperBound][x] &= ~utility::enums::Direction::forward;
-            }
-
-            for (int y = 0; y < width; ++y)
-            {
-                grid[y][0] &= ~utility::enums::Direction::left;
-                grid[y][rightBound] &= ~utility::enums::Direction::right;
-            }
-        }
-
+        /// @brief Divide grid in multiple sections
+        /// @param grid Grid representing maze
+        /// @param width Grid width
+        /// @param height Grid height
+        /// @param callback User defined callback nullptr if callback should be invoked after maze generation
         void divide(Grid& grid, int width, int height, MazeCallback* callback)
         {
             std::stack<GridSection> sections{};
@@ -105,7 +129,8 @@ namespace pcg::engine::maze_generation
 
             while (!sections.empty())
             {
-                const GridSection& section = sections.top();
+                GridSection section = std::move(sections.top());
+                sections.pop();
 
                 if (section.isInvalid())
                 {
@@ -114,8 +139,8 @@ namespace pcg::engine::maze_generation
 
                 const WallOrientation orientation = chooseOrientation(section.width, section.height);
                 const bool isHorizontal = orientation == WallOrientation::Horizontal;
-                const auto passageDirection = isHorizontal ? utility::enums::Direction::forward : utility::enums::Direction::right;
-                const auto wallDirection = isHorizontal ? utility::enums::Direction::right : utility::enums::Direction::forward;
+                const auto passageDirection = isHorizontal ? NodeValue::forward : NodeValue::right;
+                const auto wallDirection = isHorizontal ? NodeValue::right : NodeValue::forward;
                 auto [wallX, wallY] = getWallCoordinates(section, isHorizontal);
                 const auto [passageX, passageY] = getPassageCoordinates(section, wallX, wallY, isHorizontal);
                 const auto [adjacentX, adjacentY] = getAdjacentCoordinates(passageX, passageY, passageDirection);
@@ -123,33 +148,23 @@ namespace pcg::engine::maze_generation
 
                 for (int i = 0; i < wallLength; ++i)
                 {
+                    auto [adjacentWallX, adjacentWallY] = getAdjacentCoordinates(wallX, wallY, passageDirection);
+
                     if (wallX != passageX || wallY != passageY)
                     {
-                        auto [adjacentWallX, adjacentWallY] = getAdjacentCoordinates(wallX, wallY, passageDirection);
-                        grid[wallY][wallX] &= ~passageDirection;
-                        grid[adjacentWallY][adjacentWallX] &= ~utility::enums::getFlippedDirection(passageDirection);
-
-                        if (callback)
-                        {
-                            (*callback)(wallX, wallY, grid[wallY][wallX]);
-                            (*callback)(adjacentWallX, adjacentWallY, grid[adjacentWallY][adjacentWallX]);
-                        }
+                        addAdjacentNodeWall(wallX, wallY, adjacentWallX, adjacentWallY, passageDirection, grid);
                     }
-                    else if (callback)
+
+                    if (callback)
                     {
-                        auto [adjacentWallX, adjacentWallY] = getAdjacentCoordinates(wallX, wallY, passageDirection);
-                        (*callback)(wallX, wallY, grid[wallY][wallX]);
-                        (*callback)(adjacentWallX, adjacentWallY, grid[adjacentWallY][adjacentWallX]);
+                        invokeNodePairCallback(wallX, wallY, adjacentWallX, adjacentWallY, grid, *callback);
                     }
 
                     std::tie(wallX, wallY) = getAdjacentCoordinates(wallX, wallY, wallDirection);
                 }
 
-                GridSection leftBottomSection = getLeftBottomSection(section, passageX, passageY, isHorizontal);
-                GridSection rightTopSection = getRightTopSection(section, adjacentX, adjacentY, isHorizontal);
-                sections.pop();
-                sections.emplace(std::move(leftBottomSection));
-                sections.emplace(std::move(rightTopSection));
+                sections.emplace(getLeftBottomSection(section, passageX, passageY, isHorizontal));
+                sections.emplace(getRightTopSection(section, adjacentX, adjacentY, isHorizontal));
             }
 
         }
@@ -157,20 +172,15 @@ namespace pcg::engine::maze_generation
 
     void recursiveDivision(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
-        Grid grid = generateGrid(width, height, utility::enums::Direction::right | utility::enums::Direction::left | utility::enums::Direction::forward | utility::enums::Direction::backward);
-        addGridBounds(grid, width, height);
-
+        utility::logInfo("Recursive Division Maze Generation Started");
+        Grid grid = generateOpenGrid(width, height);
         divide(grid, width, height, invokeAfterGeneration ? nullptr : &callback);
 
         if (invokeAfterGeneration)
         {
-            for (int y = 0; y < height; ++y)
-            {
-                for (int x = 0; x < width; ++x)
-                {
-                    callback(x, y, grid[y][x]);
-                }
-            }
+            invokeCallback(grid, callback);
         }
+
+        utility::logInfo("Recursive Division Maze Generation Ended");
     }
 }

@@ -1,5 +1,5 @@
-#ifndef PG_ENGINE_MAZE_GENERATION_ELLER_HPP
-#define PG_ENGINE_MAZE_GENERATION_ELLER_HPP
+#ifndef PCG_ENGINE_MAZE_GENERATION_ELLER_HPP
+#define PCG_ENGINE_MAZE_GENERATION_ELLER_HPP
 
 #include <pcg/engine/maze-generation/Common.hpp>
 
@@ -13,4 +13,4 @@ namespace pcg::engine::maze_generation
     void eller(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback);
 }
 
-#endif // PG_ENGINE_MAZE_GENERATION_ELLER_HPP
+#endif // PCG_ENGINE_MAZE_GENERATION_ELLER_HPP

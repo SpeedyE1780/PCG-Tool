@@ -1,13 +1,15 @@
-#include <pcg/engine/maze-generation/Wilson.hpp>
-
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze-generation/NodeCoordinates.hpp>
+#include <pcg/engine/maze-generation/Utility.hpp>
+#include <pcg/engine/maze-generation/Wilson.hpp>
 
 #include <pcg/engine/utility/logging.hpp>
 
-#include <map>
 #include <random>
 #include <sstream>
 #include <tuple>
+#include <unordered_map>
 #include <vector>
 
 namespace pcg::engine::maze_generation
@@ -19,7 +21,7 @@ namespace pcg::engine::maze_generation
         {
             int x;
             int y;
-            utility::enums::Direction direction;
+            NodeValue direction;
         };
 
         /// @brief Find a node that belongs to the maze
@@ -28,18 +30,17 @@ namespace pcg::engine::maze_generation
         /// @param height Grid height
         /// @param randomEngine Random number generator used for shuffling
         /// @return 
-        std::tuple<int, int> findStartingNode(const Grid& grid, int width, int height, std::default_random_engine& randomEngine)
+        NodeCoordinates findStartingNode(const Grid& grid, int width, int height, std::default_random_engine& randomEngine)
         {
-            int x = 0;
-            int y = 0;
-
-            do
+            while (true)
             {
-                x = randomEngine() % width;
-                y = randomEngine() % height;
-            } while (grid[y][x] != utility::enums::Direction::none);
+                NodeCoordinates node = getRandomStartingNode(width, height);
 
-            return { x, y };
+                if (grid[node.y][node.x] == NodeValue::none)
+                {
+                    return node;
+                }
+            }
         }
 
         /// @brief Get path used to reach node in maze
@@ -47,17 +48,17 @@ namespace pcg::engine::maze_generation
         /// @param startY Starting y coordinate where walk started
         /// @param visits Map containing all nodes visited during walk
         /// @return A path from starting node to node in maze
-        std::vector<WilsonWalkData> getPath(int startX, int startY, const std::map<std::tuple<int, int>, utility::enums::Direction>& visits)
+        std::vector<WilsonWalkData> getPath(int startX, int startY, const std::unordered_map<NodeCoordinates, NodeValue>& visits)
         {
             std::vector<WilsonWalkData> path{};
 
             int x = startX;
             int y = startY;
 
-            while (visits.find({ x, y }) != visits.end())
+            while (visits.find(NodeCoordinates{ x, y }) != visits.end())
             {
                 std::ostringstream oss{};
-                utility::enums::Direction direction = visits.at({ x, y });
+                NodeValue direction = visits.at({ x, y });
                 oss << "Adding: " << x << "-" << y << " to path";
                 utility::logInfo(oss.str());
                 path.emplace_back(WilsonWalkData{ x, y, direction });
@@ -72,7 +73,7 @@ namespace pcg::engine::maze_generation
         /// @param directions Vector of valid directions
         /// @param randomEngine Random number generator used for shuffling
         /// @return A vector of nodes that should be added to the grid
-        std::vector<WilsonWalkData> walk(const Grid& grid, std::vector<utility::enums::Direction>& directions, std::default_random_engine& randomEngine)
+        std::vector<WilsonWalkData> walk(const Grid& grid, std::vector<NodeValue>& directions, std::default_random_engine& randomEngine)
         {
             const int height = grid.size();
             const int width = grid[0].size();
@@ -81,23 +82,21 @@ namespace pcg::engine::maze_generation
             int startY = y;
             bool walking = true;
 
-            std::map<std::tuple<int, int>, utility::enums::Direction> visits;
-            visits[{x, y}] = utility::enums::Direction::none;
+            std::unordered_map<NodeCoordinates, NodeValue> visits;
+            visits[{x, y}] = NodeValue::none;
 
             while (walking)
             {
                 walking = false;
                 std::shuffle(begin(directions), end(directions), randomEngine);
 
-                for (utility::enums::Direction direction : directions)
+                for (NodeValue direction : directions)
                 {
-                    auto [nx, ny] = getAdjacentCoordinates(x, y, direction);
-
-                    if (nx >= 0 && ny >= 0 && nx < width && ny < height)
+                    if (auto [nx, ny] = getAdjacentCoordinates(x, y, direction); isWithinGridBounds(nx, ny, width, height))
                     {
                         visits[{x, y}] = direction;
 
-                        if (grid[ny][nx] != utility::enums::Direction::none)
+                        if (grid[ny][nx] != NodeValue::none)
                         {
                             break;
                         }
@@ -125,11 +124,10 @@ namespace pcg::engine::maze_generation
         auto randomEngine = std::default_random_engine{ math::Random::seed };
 
         Grid grid = generateGrid(width, height);
-        int x = randomEngine() % width;
-        int y = randomEngine() % height;
+        auto [x, y] = getRandomStartingNode(width, height);
         int unvisited = width * height - 1;
 
-        grid[y][x] = static_cast<utility::enums::Direction>(in);
+        grid[y][x] = NodeValue::in;
 
         oss << "Started with:" << x << "-" << y << " unvisited: " << unvisited;
         utility::logInfo(oss.str());
@@ -142,30 +140,22 @@ namespace pcg::engine::maze_generation
                 int x = walkData.x;
                 int y = walkData.y;
                 auto [nx, ny] = getAdjacentCoordinates(x, y, walkData.direction);
-                grid[y][x] |= walkData.direction;
-                grid[ny][nx] |= utility::enums::getFlippedDirection(walkData.direction);
-                oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited;
+                addAdjacentNodePath(x, y, nx, ny, walkData.direction, grid);
+                unvisited -= 1;
+                oss << " unvisited: " << unvisited;
                 utility::logInfo(oss.str());
                 oss.str("");
-                unvisited -= 1;
 
                 if (!invokeAfterGeneration)
                 {
-                    callback(x, y, grid[y][x]);
-                    callback(nx, ny, grid[ny][nx]);
+                    invokeNodePairCallback(x, y, nx, ny, grid, callback);
                 }
             }
         }
 
         if (invokeAfterGeneration)
         {
-            for (int y = 0; y < grid.size(); ++y)
-            {
-                for (int x = 0; x < grid[0].size(); ++x)
-                {
-                    callback(x, y, grid[y][x]);
-                }
-            }
+            invokeCallback(grid, callback);
         }
 
         utility::logInfo("Wilson Maze Generation Ended");

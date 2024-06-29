@@ -5,6 +5,7 @@
 
 namespace pcg::engine::maze_generation
 {
+    /// @brief GrowingTreeSelectionMethod defines how will the next node be chosen
     enum class GrowingTreeSelectionMethod
     {
         oldest = 0,

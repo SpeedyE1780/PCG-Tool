@@ -1,6 +1,10 @@
-#include <pcg/engine/maze-generation/GrowingTree.hpp>
-
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze-generation/GrowingTree.hpp>
+#include <pcg/engine/maze-generation/NodeCoordinates.hpp>
+#include <pcg/engine/maze-generation/Utility.hpp>
+
+#include <pcg/engine/utility/logging.hpp>
 
 #include <functional>
 #include <random>
@@ -10,41 +14,52 @@ namespace pcg::engine::maze_generation
 {
     namespace
     {
-        std::tuple<int, int> getStartingNode(int width, int height)
+        /// @brief Get oldest node
+        /// @param pendingNodes Pending nodes that still has adjacent nodes
+        /// @return Oldest node
+        NodeCoordinates getOldestNode(const std::vector<NodeCoordinates>& pendingNodes)
         {
-            const int x = math::Random::generateNumber(0, width);
-            const int y = math::Random::generateNumber(0, height);
-            return { x, y };
+            return pendingNodes[0];
         }
 
-        std::tuple<int, int> getOldestNode(const std::vector<std::tuple<int, int>>& nodes)
+        /// @brief Get node in the middle of vector
+        /// @param pendingNodes Pending nodes that still has adjacent nodes
+        /// @return Node in the middle of vector
+        NodeCoordinates getMiddleNode(const std::vector<NodeCoordinates>& pendingNodes)
         {
-            return nodes[0];
+            return pendingNodes[pendingNodes.size() / 2];
         }
 
-        std::tuple<int, int> getMiddleNode(const std::vector<std::tuple<int, int>>& nodes)
+        /// @brief Get newest node
+        /// @param pendingNodes Pending nodes that still has adjacent nodes
+        /// @return Newest node
+        NodeCoordinates getNewestNode(const std::vector<NodeCoordinates>& pendingNodes)
         {
-            return nodes[nodes.size() / 2];
+            return pendingNodes[pendingNodes.size() - 1];
         }
 
-        std::tuple<int, int> getNewestNode(const std::vector<std::tuple<int, int>>& nodes)
+        /// @brief Get random node
+        /// @param pendingNodes Pending nodes that still has adjacent nodes
+        /// @return Random node
+        NodeCoordinates getRandomNode(const std::vector<NodeCoordinates>& pendingNodes)
         {
-            return nodes[nodes.size() - 1];
+            return pendingNodes[math::Random::generateNumber(0, pendingNodes.size())];
         }
 
-        std::tuple<int, int> getRandomNode(const std::vector<std::tuple<int, int>>& nodes)
+        /// @brief Generate maze with growing tree
+        /// @param width Grid width
+        /// @param height Grid height
+        /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+        /// @param getNextNode Function to get the next node to process
+        /// @param callback Callback when a node is generated
+        void generateGrowingTree(int width, int height, bool invokeAfterGeneration, std::function<NodeCoordinates(const std::vector<NodeCoordinates>& nodes)> getNextNode, MazeCallback&& callback)
         {
-            return nodes[math::Random::generateNumber(0, nodes.size())];
-        }
-
-        void generateGrowingTree(int width, int height, bool invokeAfterGeneration, std::function<std::tuple<int, int>(const std::vector<std::tuple<int, int>>& nodes)> getNextNode, MazeCallback&& callback)
-        {
+            utility::logInfo("Growing Tree Maze Generation Started");
             Grid grid = generateGrid(width, height);
             Directions directions = getDefaultDirections();
             std::default_random_engine randomEngine{ math::Random::seed };
 
-            std::vector<std::tuple<int, int>> nodes{};
-            nodes.emplace_back(getStartingNode(width, height));
+            std::vector<NodeCoordinates> nodes(1, getRandomStartingNode(width, height));
 
             while (!nodes.empty())
             {
@@ -53,42 +68,34 @@ namespace pcg::engine::maze_generation
                 std::shuffle(begin(nodes), end(nodes), randomEngine);
                 bool noAdjacentNode = true;
 
-                for (utility::enums::Direction direction : directions)
+                for (NodeValue direction : directions)
                 {
-                    auto [adjacentX, adjacentY] = getAdjacentCoordinates(x, y, direction);
-
-                    if (adjacentX >= 0 && adjacentX < width && adjacentY >= 0 && adjacentY < height && grid[adjacentY][adjacentX] == utility::enums::Direction::none)
+                    if (auto [adjacentX, adjacentY] = getAdjacentCoordinates(x, y, direction); isWithinGridBounds(adjacentX, adjacentY, width, height) && grid[adjacentY][adjacentX] == NodeValue::none)
                     {
-                        grid[y][x] |= direction;
-                        grid[adjacentY][adjacentX] |= utility::enums::getFlippedDirection(direction);
+                        addAdjacentNodePath(x, y, adjacentX, adjacentY, direction, grid);
 
                         if (!invokeAfterGeneration)
                         {
-                            callback(x, y, grid[y][x]);
-                            callback(adjacentX, adjacentY, grid[adjacentY][adjacentX]);
+                            invokeNodePairCallback(x, y, adjacentX, adjacentY, grid, callback);
                         }
 
                         noAdjacentNode = false;
-                        nodes.emplace_back(std::make_tuple(adjacentX, adjacentY));
+                        nodes.emplace_back(NodeCoordinates{ adjacentX, adjacentY });
                     }
                 }
 
                 if (noAdjacentNode)
                 {
-                    std::erase(nodes, std::tuple(x, y));
+                    std::erase(nodes, NodeCoordinates{ x, y });
                 }
             }
 
             if (invokeAfterGeneration)
             {
-                for (int y = 0; y < height; ++y)
-                {
-                    for (int x = 0; x < width; ++x)
-                    {
-                        callback(x, y, grid[y][x]);
-                    }
-                }
+                invokeCallback(grid, callback);
             }
+
+            utility::logInfo("Growing Tree Maze Generation Ended");
         }
     }
 
@@ -125,7 +132,7 @@ namespace pcg::engine::maze_generation
 
     void growingTree(int width, int height, bool invokeAfterGeneration, utility::CallbackFunctor<int(int)>&& nodeSelectionCallback, MazeCallback&& callback)
     {
-        generateGrowingTree(width, height, invokeAfterGeneration, [&nodeSelectionCallback](const std::vector<std::tuple<int, int>>& nodes)
+        generateGrowingTree(width, height, invokeAfterGeneration, [&nodeSelectionCallback](const std::vector<NodeCoordinates>& nodes)
             {
                 return nodes[nodeSelectionCallback(nodes.size())];
             }, std::move(callback));

@@ -1,6 +1,10 @@
-#include <pcg/engine/maze-generation/Eller.hpp>
-
 #include <pcg/engine/math/random.hpp>
+
+#include <pcg/engine/maze-generation/Eller.hpp>
+#include <pcg/engine/maze-generation/NodeCoordinates.hpp>
+#include <pcg/engine/maze-generation/Utility.hpp>
+
+#include <pcg/engine/utility/logging.hpp>
 
 #include <algorithm>
 #include <random>
@@ -10,151 +14,195 @@ namespace pcg::engine::maze_generation
 {
     namespace
     {
-        struct NodeCoordinates
+        using NodesSet = std::unordered_map<NodeCoordinates, int>;
+        using Sets = std::unordered_map<int, std::vector<NodeCoordinates>>;
+        using ConnectedSet = std::vector<int>;
+
+        /// @brief Contains nodes map and sets map used to keep track of connected nodes
+        struct EllerGenerationInfo
         {
-            std::size_t x;
-            std::size_t y;
+            /// @brief Add node coordinate to map of sets and nodes
+            /// @param current Current node coordinates
+            void initializeNode(const NodeCoordinates& current)
+            {
+                if (nodes.find(current) == end(nodes))
+                {
+                    nodes.insert({ current,  currentSet });
+                    sets.insert({ currentSet++, { current } });
+                }
+            }
+            /// @brief Add current and adjacent node to map of sets and nodes
+            /// @param current Current node coordinates
+            /// @param adjacent Adjacent node coordinates
+            void initializeNodePair(const NodeCoordinates& current, const NodeCoordinates& adjacent)
+            {
+                initializeNode(current);
+                initializeNode(adjacent);
+            }
+            /// @brief Returns true if node coordinate belongs to same set
+            /// @param currentNode Current node coordinates
+            /// @param adjacentNode Adjacent node coordinates
+            /// @return True if nodes belong to same set
+            bool areConnected(const NodeCoordinates& currentNode, const NodeCoordinates& adjacentNode) const
+            {
+                auto currentNodeSet = nodes.find(currentNode);
+                auto adjacentNodeSet = nodes.find(adjacentNode);
+                const bool nodesExists = currentNodeSet != end(nodes) && adjacentNodeSet != end(nodes);
+                return nodesExists && currentNodeSet->second == adjacentNodeSet->second;
+            }
+            /// @brief Merge two sets together
+            /// @param sinkNode Node who's set will remain
+            /// @param targetNode Node that will be merged with the set of sink node
+            void merge(const NodeCoordinates& sinkNode, const NodeCoordinates& targetNode)
+            {
+                const int sinkSet = nodes[sinkNode];
+                const int targetSet = nodes[targetNode];
+
+                sets[sinkSet].append_range(sets[targetSet]);
+                std::for_each(begin(sets[targetSet]), end(sets[targetSet]), [this, sinkSet](const NodeCoordinates& coordinate) { nodes[coordinate] = sinkSet; });
+                sets.erase(targetSet);
+            }
+            /// @brief Add node to nodes and sets maps
+            /// @param node Node being added
+            /// @param set Set id
+            void add(NodeCoordinates&& node, int set)
+            {
+                nodes.insert({ node, set });
+                sets[set].emplace_back(node);
+            }
+
+            /// @brief Map of each nodes set
+            NodesSet nodes{};
+            /// @brief Map of vector of nodes of each set
+            Sets sets{};
+            /// @brief Random engine used to shuffle vectors
+            std::default_random_engine randomEngine{ math::Random::seed };
+            /// @brief Current active set
+            int currentSet = 0;
         };
 
-        bool operator==(const NodeCoordinates& lhs, const NodeCoordinates& rhs)
+        /// @brief RowInfo contains info about the row being processed
+        struct RowInfo
         {
-            return lhs.x == rhs.x && lhs.y == rhs.y;
-        }
-    }
-}
-
-namespace std
-{
-    template<>
-    struct hash<pcg::engine::maze_generation::NodeCoordinates>
-    {
-        std::size_t operator()(const pcg::engine::maze_generation::NodeCoordinates& node) const
-        {
-            std::size_t x = std::hash<std::size_t>{}(node.x);
-            std::size_t y = std::hash<std::size_t>{}(node.y);
-
-            return x ^ (y << 1);
-        }
-    };
-}
-
-namespace pcg::engine::maze_generation
-{
-    using NodesSet = std::unordered_map<NodeCoordinates, int>;
-    using Sets = std::unordered_map<int, std::vector<NodeCoordinates>>;
-
-    namespace
-    {
-        void initializeNodes(NodesSet& nodes, Sets& sets, int& currentSet, NodeCoordinates&& current)
-        {
-            if (auto iterator = nodes.find(current); iterator == end(nodes))
+            RowInfo(int y, bool last) : yCoordinate(y), lastRow(last)
             {
-                nodes.insert({ current,  currentSet });
-                sets.insert({ currentSet++, { current } });
+            }
+
+            /// @brief End current set and add x to new set
+            /// @param x New set starting position
+            void endCurrentSet(int x)
+            {
+                connectedSets.emplace_back(std::move(connectedSet));
+                connectedSet = ConnectedSet(1, x);
+            }
+
+            /// @brief Add the last set in the row to the connectedSets
+            void addLastSet()
+            {
+                connectedSets.emplace_back(std::move(connectedSet));
+            }
+
+            /// @brief Vector of joint cell in row
+            std::vector<ConnectedSet> connectedSets{};
+            /// @brief Current set of joint cell
+            ConnectedSet connectedSet{};
+            /// @brief Row y coordinate
+            int yCoordinate;
+            /// @brief Last row in maze
+            bool lastRow;
+        };
+
+        /// @brief Join cells in the current row into multiple sets
+        /// @param info MazeGeneration info
+        /// @param row Current row sets info
+        /// @param currentNode Current node coordinates
+        /// @param grid Grid representing maze
+        /// @param callback User defined callback nullptr if callback should be invoked after maze generation
+        void joinCells(EllerGenerationInfo& info, RowInfo& row, NodeCoordinates&& currentNode, Grid& grid, MazeCallback* callback)
+        {
+            NodeCoordinates adjacentNode{ currentNode.x + 1, currentNode.y };
+            info.initializeNodePair(currentNode, adjacentNode);
+            const bool nodesConnected = info.areConnected(currentNode, adjacentNode);
+            const bool newSet = !row.lastRow && math::Random::generateNumber(0, 1) == 0;
+
+            if (nodesConnected || newSet)
+            {
+                utility::logInfo("Ending current run");
+                row.endCurrentSet(adjacentNode.x);
+            }
+            else
+            {
+                utility::logInfo("Merging node to run");
+                info.merge(currentNode, adjacentNode);
+                row.connectedSet.push_back(adjacentNode.x);
+                addAdjacentNodePath(currentNode, adjacentNode, NodeValue::right, grid);
+
+                if (callback)
+                {
+                    invokeNodePairCallback(currentNode, adjacentNode, grid, *callback);
+                }
             }
         }
 
-        bool areConnected(const NodesSet& nodes, NodeCoordinates&& lhs, NodeCoordinates&& rhs)
+        /// @brief Connect each set in the row to the next row
+        /// @param info MazeGeneration info
+        /// @param row Current row sets info
+        /// @param grid Grid representing maze
+        /// @param callback User defined callback nullptr if callback should be invoked after maze generation
+        void addVerticalConnections(EllerGenerationInfo& info, RowInfo& row, Grid& grid, MazeCallback* callback)
         {
-            auto lhsSet = nodes.find(lhs);
-            auto rhsSet = nodes.find(rhs);
-            const bool nodesExists = lhsSet != end(nodes) && rhsSet != end(nodes);
-            return nodesExists && lhsSet->second == rhsSet->second;
-        }
+            utility::logInfo("Adding vertical connections");
+            for (auto& connectedSet : row.connectedSets)
+            {
+                std::shuffle(begin(connectedSet), end(connectedSet), info.randomEngine);
+                const int verticalConnections = math::Random::generateNumber(1, connectedSet.size());
 
-        void merge(NodesSet& nodes, Sets& sets, NodeCoordinates&& sinkNode, NodeCoordinates&& targetNode)
-        {
-            const int sinkSet = nodes[sinkNode];
-            const int targetSet = nodes[targetNode];
+                for (int connection = 0; connection < verticalConnections; ++connection)
+                {
+                    const int x = connectedSet[connection];
+                    const int adjacentY = row.yCoordinate + 1;
+                    addAdjacentNodePath(x, row.yCoordinate, x, adjacentY, NodeValue::forward, grid);
+                    info.add({ x, adjacentY }, info.nodes[{x, row.yCoordinate}]);
 
-            sets[sinkSet].append_range(sets[targetSet]);
-            std::for_each(begin(sets[targetSet]), end(sets[targetSet]), [&nodes, sinkSet](const NodeCoordinates& coordinate) { nodes[coordinate] = sinkSet; });
-            sets.erase(targetSet);
-        }
-
-        void add(NodesSet& nodes, Sets& sets, NodeCoordinates&& node, int set)
-        {
-            nodes.insert({ node, set });
-            sets[set].emplace_back(node);
+                    if (callback)
+                    {
+                        invokeNodePairCallback(x, row.yCoordinate, x, adjacentY, grid, *callback);
+                    }
+                }
+            }
         }
     }
 
     void eller(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
+        utility::logInfo("Eller Maze Generation Started");
+
         Grid grid = generateGrid(width, height);
-        NodesSet nodes;
-        Sets sets;
-        int currentSet = 0;
-        std::default_random_engine randomEngine{ math::Random::seed };
+        EllerGenerationInfo info{};
+        MazeCallback* callbackPtr = invokeAfterGeneration ? nullptr : &callback;
 
-        for (std::size_t y = 0; y < height; ++y)
+        for (int y = 0; y < height; ++y)
         {
-            std::vector<std::vector<int>> connectedSets{};
-            std::vector<int> connectedSet(1, 0);
-            const bool lastRow = static_cast<int>(y) == height - 1;
+            RowInfo rowInfo(y, y == height - 1);
 
-            for (std::size_t x = 0; x < static_cast<std::size_t>(width) - 1; ++x)
+            for (int x = 0; x < width - 1; ++x)
             {
-                initializeNodes(nodes, sets, currentSet, { x, y });
-                initializeNodes(nodes, sets, currentSet, { x + 1, y });
-                bool nodesConnected = areConnected(nodes, { x, y }, { x + 1, y });
-                bool newSet = !lastRow && math::Random::generateNumber(0, 1) == 0;
-                if (nodesConnected || newSet)
-                {
-                    connectedSets.emplace_back(std::move(connectedSet));
-                    connectedSet = std::vector<int>{};
-                    connectedSet.push_back(x + 1);
-                }
-                else
-                {
-                    merge(nodes, sets, { x, y }, { x + 1, y });
-                    connectedSet.push_back(x + 1);
-                    grid[y][x] |= utility::enums::Direction::right;
-                    grid[y][x + 1] |= utility::enums::Direction::left;
-
-                    if (!invokeAfterGeneration)
-                    {
-                        callback(x, y, grid[y][x]);
-                        callback(x + 1, y, grid[y][x + 1]);
-                    }
-                }
+                joinCells(info, rowInfo, { x, y }, grid, callbackPtr);
             }
 
-            connectedSets.emplace_back(std::move(connectedSet));
+            rowInfo.addLastSet();
 
-            if (!lastRow)
+            if (!rowInfo.lastRow)
             {
-                for (auto& connectedSet : connectedSets)
-                {
-                    std::shuffle(begin(connectedSet), end(connectedSet), randomEngine);
-                    int verticalConnections = math::Random::generateNumber(1, connectedSet.size());
-
-                    for (int connection = 0; connection < verticalConnections; ++connection)
-                    {
-                        std::size_t x = connectedSet[connection];
-                        grid[y][x] |= utility::enums::Direction::forward;
-                        grid[y + 1][x] |= utility::enums::Direction::backward;
-                        add(nodes, sets, { x, y + 1 }, nodes[{x, y}]);
-
-                        if (!invokeAfterGeneration)
-                        {
-                            callback(x, y, grid[y][x]);
-                            callback(x, y + 1, grid[y + 1][x]);
-                        }
-                    }
-                }
+                addVerticalConnections(info, rowInfo, grid, callbackPtr);
             }
         }
 
         if (invokeAfterGeneration)
         {
-            for (int y = 0; y < grid.size(); ++y)
-            {
-                for (int x = 0; x < grid[0].size(); ++x)
-                {
-                    callback(x, y, grid[y][x]);
-                }
-            }
+            invokeCallback(grid, callback);
         }
+
+        utility::logInfo("Eller Maze Generation Ended");
     }
 }
