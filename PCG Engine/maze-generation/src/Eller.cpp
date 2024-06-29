@@ -65,23 +65,22 @@ namespace pcg::engine::maze_generation
 
             for (int x = 0; x < width - 1; ++x)
             {
+                const int adjacentX = x + 1;
                 initializeNodes(nodes, sets, currentSet, { x, y });
-                initializeNodes(nodes, sets, currentSet, { x + 1, y });
-                bool nodesConnected = areConnected(nodes, { x, y }, { x + 1, y });
+                initializeNodes(nodes, sets, currentSet, { adjacentX, y });
+                bool nodesConnected = areConnected(nodes, { x, y }, { adjacentX, y });
                 bool newSet = !lastRow && math::Random::generateNumber(0, 1) == 0;
                 if (nodesConnected || newSet)
                 {
                     connectedSets.emplace_back(std::move(connectedSet));
                     connectedSet = std::vector<int>{};
-                    connectedSet.push_back(x + 1);
+                    connectedSet.push_back(adjacentX);
                 }
                 else
                 {
-                    merge(nodes, sets, { x, y }, { x + 1, y });
-                    connectedSet.push_back(x + 1);
-                    const int adjacentX = x + 1;
-                    grid[y][x] |= NodeValue::right;
-                    grid[y][adjacentX] |= NodeValue::left;
+                    merge(nodes, sets, { x, y }, { adjacentX, y });
+                    connectedSet.push_back(adjacentX);
+                    addAdjacentNodePath(x, y, adjacentX, y, NodeValue::right, grid);
 
                     if (!invokeAfterGeneration)
                     {
@@ -98,14 +97,13 @@ namespace pcg::engine::maze_generation
                 for (auto& connectedSet : connectedSets)
                 {
                     std::shuffle(begin(connectedSet), end(connectedSet), randomEngine);
-                    int verticalConnections = math::Random::generateNumber(1, connectedSet.size());
+                    const int verticalConnections = math::Random::generateNumber(1, connectedSet.size());
 
                     for (int connection = 0; connection < verticalConnections; ++connection)
                     {
                         const int x = connectedSet[connection];
                         const int adjacentY = y + 1;
-                        grid[y][x] |= NodeValue::forward;
-                        grid[adjacentY][x] |= NodeValue::backward;
+                        addAdjacentNodePath(x, y, x, adjacentY, NodeValue::forward, grid);
                         add(nodes, sets, { x, adjacentY }, nodes[{x, y}]);
 
                         if (!invokeAfterGeneration)

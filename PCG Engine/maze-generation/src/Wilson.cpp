@@ -144,12 +144,11 @@ namespace pcg::engine::maze_generation
                 int x = walkData.x;
                 int y = walkData.y;
                 auto [nx, ny] = getAdjacentCoordinates(x, y, walkData.direction);
-                grid[y][x] |= walkData.direction;
-                grid[ny][nx] |= getOppositeNodeValue(walkData.direction);
-                oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited;
+                addAdjacentNodePath(x, y, nx, ny, walkData.direction, grid);
+                unvisited -= 1;
+                oss << " unvisited: " << unvisited;
                 utility::logInfo(oss.str());
                 oss.str("");
-                unvisited -= 1;
 
                 if (!invokeAfterGeneration)
                 {

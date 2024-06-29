@@ -37,16 +37,13 @@ namespace pcg::engine::maze_generation
 
             for (NodeValue direction : directions)
             {
-                auto [nx, ny] = getAdjacentCoordinates(x, y, direction);
-
-                if (isWithinGridBounds(nx, ny, width, height))
+                if (auto [nx, ny] = getAdjacentCoordinates(x, y, direction); isWithinGridBounds(nx, ny, width, height))
                 {
                     if (grid[ny][nx] == NodeValue::none)
                     {
-                        grid[y][x] |= direction;
-                        grid[ny][nx] |= getOppositeNodeValue(direction);
+                        addAdjacentNodePath(x, y, nx, ny, direction, grid);
                         unvisited -= 1;
-                        oss << "Value set at " << x << "-" << y << "/" << nx << "-" << ny << " unvisited: " << unvisited;
+                        oss << " unvisited: " << unvisited;
                         utility::logInfo(oss.str());
                         oss.str("");
 

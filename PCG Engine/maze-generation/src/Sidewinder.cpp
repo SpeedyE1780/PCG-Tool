@@ -22,12 +22,8 @@ namespace pcg::engine::maze_generation
         {
             utility::logInfo("Ending run and carving north");
             int cell = math::Random::generateNumber(runStart, x + 1);
-            grid[y][cell] |= NodeValue::backward;
-            grid[y - 1][cell] |= NodeValue::forward;
+            addAdjacentNodePath(cell, y, cell, y - 1, NodeValue::backward, grid);
             runStart = x + 1;
-            std::ostringstream oss{};
-            oss << "Value set at " << cell << "-" << y << "/" << cell << "-" << y - 1;
-            utility::logInfo(oss.str());
 
             if (!invokeAfterGeneration)
             {
@@ -44,11 +40,7 @@ namespace pcg::engine::maze_generation
         void carveEast(Grid& grid, std::size_t x, std::size_t y, bool invokeAfterGeneration, const MazeCallback& callback)
         {
             utility::logInfo("Carving east");
-            grid[y][x] |= NodeValue::right;
-            grid[y][x + 1] |= NodeValue::left;
-            std::ostringstream oss{};
-            oss << "Value set at " << x << "-" << y << "/" << x + 1 << "-" << y;
-            utility::logInfo(oss.str());
+            addAdjacentNodePath(x, y, x + 1, y, NodeValue::right, grid);
 
             if (!invokeAfterGeneration)
             {

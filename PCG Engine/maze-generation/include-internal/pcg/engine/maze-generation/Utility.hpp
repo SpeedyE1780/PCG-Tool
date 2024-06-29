@@ -103,6 +103,15 @@ namespace pcg::engine::maze_generation
     /// @param height Grid height
     /// @return True if x is within [0, width[ & y is within [0, height[
     constexpr bool isWithinGridBounds(int x, int y, int width, int height) { return isWithinBounds(x, width) && isWithinBounds(y, height); }
+
+    /// @brief Adds a path between the node and adjacent node following the given direction
+    /// @param nodeX Node X coordinate
+    /// @param nodeY Node Y coordinate
+    /// @param adjacentNodeX Adjacent Node X coordinate
+    /// @param adjacentNodeY Adjacent Node Y coordinate
+    /// @param direction Path direction from node to adjacent
+    /// @param grid Grid representing maze
+    void addAdjacentNodePath(int nodeX, int nodeY, int adjacentNodeX, int adjacentNodeY, NodeValue direction, Grid& grid);
 }
 
 #endif // PCG_ENGINE_MAZE_GENERATION_UTILITY_HPP

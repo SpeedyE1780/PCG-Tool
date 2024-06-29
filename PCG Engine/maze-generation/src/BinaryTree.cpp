@@ -32,15 +32,9 @@ namespace pcg::engine::maze_generation
 
                     for (NodeValue direction : directions)
                     {
-                        auto [nw, nh] = getAdjacentCoordinates(w, h, direction);
-
-                        if (isWithinGridBounds(nw, nh, width, height))
+                        if (auto [nw, nh] = getAdjacentCoordinates(w, h, direction); isWithinGridBounds(nw, nh, width, height))
                         {
-                            grid[h][w] |= direction;
-                            grid[nh][nw] |= getOppositeNodeValue(direction);
-                            std::ostringstream oss{};
-                            oss << "Value set at " << w << "-" << h << "/" << nw << "-" << nh;
-                            utility::logInfo(oss.str());
+                            addAdjacentNodePath(w, h, nw, nh, direction, grid);
 
                             if (!invokeAfterGeneration)
                             {

@@ -84,8 +84,7 @@ namespace pcg::engine::maze_generation
             std::erase(frontierNodes, frontierNode);
             auto& [frontierX, frontierY] = frontierNode;
             auto [adjacentX, adjacentY, direction] = getAdjacentNode(frontierX, frontierY, grid);
-            grid[frontierY][frontierX] |= direction;
-            grid[adjacentY][adjacentX] |= getOppositeNodeValue(direction);
+            addAdjacentNodePath(frontierX, frontierY, adjacentX, adjacentY, direction, grid);
 
             if (!invokeAfterGeneration)
             {

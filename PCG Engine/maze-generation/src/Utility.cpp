@@ -1,5 +1,9 @@
 #include <pcg/engine/maze-generation/Utility.hpp>
 
+#include <pcg/engine/utility/logging.hpp>
+
+#include <sstream>
+
 namespace pcg::engine::maze_generation
 {
     void invokeNodeCallback(int x, int y, const Grid& grid, const MazeCallback& callback)
@@ -22,5 +26,15 @@ namespace pcg::engine::maze_generation
                 invokeNodeCallback(x, y, grid, callback);
             }
         }
+    }
+
+    void addAdjacentNodePath(int nodeX, int nodeY, int adjacentNodeX, int adjacentNodeY, NodeValue direction, Grid& grid)
+    {
+        grid[nodeY][nodeX] |= direction;
+        grid[adjacentNodeY][adjacentNodeX] |= getOppositeNodeValue(direction);
+
+        std::ostringstream oss{};
+        oss << "Path added between: (" << nodeX << ", " << nodeY << ") and (" << adjacentNodeX << ", " << adjacentNodeY << ")";
+        utility::logInfo(oss.str());
     }
 }

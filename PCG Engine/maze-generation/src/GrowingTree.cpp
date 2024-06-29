@@ -57,12 +57,9 @@ namespace pcg::engine::maze_generation
 
                 for (NodeValue direction : directions)
                 {
-                    auto [adjacentX, adjacentY] = getAdjacentCoordinates(x, y, direction);
-
-                    if (isWithinGridBounds(adjacentX, adjacentY, width, height) && grid[adjacentY][adjacentX] == NodeValue::none)
+                    if (auto [adjacentX, adjacentY] = getAdjacentCoordinates(x, y, direction); isWithinGridBounds(adjacentX, adjacentY, width, height) && grid[adjacentY][adjacentX] == NodeValue::none)
                     {
-                        grid[y][x] |= direction;
-                        grid[adjacentY][adjacentX] |= getOppositeNodeValue(direction);
+                        addAdjacentNodePath(x, y, adjacentX, adjacentY, direction, grid);
 
                         if (!invokeAfterGeneration)
                         {
