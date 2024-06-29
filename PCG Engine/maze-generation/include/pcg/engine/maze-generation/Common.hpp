@@ -11,12 +11,12 @@ namespace pcg::engine::maze_generation
     enum class NodeValue
     {
         none = 0,
-        left = 1 << 1,
-        right = 1 << 2,
-        forward = 1 << 3,
-        backward = 1 << 4,
-        in = 1 << 5,
-        frontier = 1 << 6,
+        left = 1 << 0,
+        right = 1 << 1,
+        forward = 1 << 2,
+        backward = 1 << 3,
+        in = 1 << 4,
+        frontier = 1 << 5,
         allDirections = left | right | forward | backward
     };
 
