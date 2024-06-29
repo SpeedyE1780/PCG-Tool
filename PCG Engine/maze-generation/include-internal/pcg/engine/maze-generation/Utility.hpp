@@ -2,6 +2,7 @@
 #define PCG_ENGINE_MAZE_GENERATION_UTILITY_HPP
 
 #include <pcg/engine/maze-generation/Common.hpp>
+#include <pcg/engine/maze-generation/NodeCoordinates.hpp>
 
 #include <vector>
 
@@ -18,6 +19,11 @@ namespace pcg::engine::maze_generation
     /// @param grid Grid representing maze
     /// @param callback User defined callback
     void invokeNodeCallback(int x, int y, const Grid& grid, const MazeCallback& callback);
+    /// @brief Invoke callback on a single node
+    /// @param node Current node coordinates
+    /// @param grid Grid representing maze
+    /// @param callback User defined callback
+    void invokeNodeCallback(const NodeCoordinates& node, const Grid& grid, const MazeCallback& callback);
     /// @brief Invoke callback on a pair of adjacent node
     /// @param x X coordinate in grid
     /// @param y Y coordinate in grid
@@ -26,6 +32,12 @@ namespace pcg::engine::maze_generation
     /// @param grid Grid representing maze
     /// @param callback User defined callback
     void invokeNodePairCallback(int x, int y, int adjacentX, int adjacentY, const Grid& grid, const MazeCallback& callback);
+    /// @brief Invoke callback on a pair of adjacent node
+    /// @param current Current node coordinates
+    /// @param adjacent Adjacent node coordinates
+    /// @param grid Grid representing maze
+    /// @param callback User defined callback
+    void invokeNodePairCallback(const NodeCoordinates& current, const NodeCoordinates& adjacent, const Grid& grid, const MazeCallback& callback);
     /// @brief Loops over grid and invoke callback on each node
     /// @param grid Grid representing maze
     /// @param callback User defined callback
@@ -73,6 +85,12 @@ namespace pcg::engine::maze_generation
     /// @param direction Path direction from node to adjacent
     /// @param grid Grid representing maze
     void addAdjacentNodePath(int nodeX, int nodeY, int adjacentNodeX, int adjacentNodeY, NodeValue direction, Grid& grid);
+    /// @brief Adds a path between the node and adjacent node following the given direction
+    /// @param node Current Node
+    /// @param adjacentNode Adjacent Node
+    /// @param direction Path direction from node to adjacent
+    /// @param grid Grid representing maze
+    void addAdjacentNodePath(const NodeCoordinates& node, const NodeCoordinates& adjacentNode, NodeValue direction, Grid& grid);
     /// @brief Adds a wall between the node and adjacent node following the given direction
     /// @param nodeX Node X coordinate
     /// @param nodeY Node Y coordinate

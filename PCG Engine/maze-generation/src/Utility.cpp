@@ -78,10 +78,20 @@ namespace pcg::engine::maze_generation
         callback(x, y, grid[y][x]);
     }
 
+    void invokeNodeCallback(const NodeCoordinates& node, const Grid& grid, const MazeCallback& callback)
+    {
+        invokeNodeCallback(node.x, node.y, grid, callback);
+    }
+
     void invokeNodePairCallback(int x, int y, int adjacentX, int adjacentY, const Grid& grid, const MazeCallback& callback)
     {
         invokeNodeCallback(x, y, grid, callback);
         invokeNodeCallback(adjacentX, adjacentY, grid, callback);
+    }
+
+    void invokeNodePairCallback(const NodeCoordinates& current, const NodeCoordinates& adjacent, const Grid& grid, const MazeCallback& callback)
+    {
+        invokeNodePairCallback(current.x, current.y, adjacent.x, adjacent.y, grid, callback);
     }
 
     void invokeCallback(const Grid& grid, const MazeCallback& callback)
@@ -110,6 +120,11 @@ namespace pcg::engine::maze_generation
         std::ostringstream oss{};
         oss << "Path added between: (" << nodeX << ", " << nodeY << ") and (" << adjacentNodeX << ", " << adjacentNodeY << ")";
         utility::logInfo(oss.str());
+    }
+
+    void addAdjacentNodePath(const NodeCoordinates& node, const NodeCoordinates& adjacentNode, NodeValue direction, Grid& grid)
+    {
+        addAdjacentNodePath(node.x, node.y, adjacentNode.x, adjacentNode.y, direction, grid);
     }
 
     void addAdjacentNodeWall(int nodeX, int nodeY, int adjacentNodeX, int adjacentNodeY, NodeValue direction, Grid& grid)
