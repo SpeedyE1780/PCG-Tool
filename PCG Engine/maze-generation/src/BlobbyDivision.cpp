@@ -257,9 +257,8 @@ namespace pcg::engine::maze_generation
 
             for (const WallInfo& wall : walls)
             {
-                grid[wall.y][wall.x] &= ~wall.direction;
                 auto [x, y] = getAdjacentCoordinates(wall.x, wall.y, wall.direction);
-                grid[y][x] &= ~getOppositeNodeValue(wall.direction);
+                addAdjacentNodeWall(wall.x, wall.y, x, y, wall.direction, grid);
 
                 if (callback)
                 {

@@ -49,48 +49,6 @@ namespace pcg::engine::maze_generation
         };
     }
 
-    /// @brief Get the value's opposite direction
-    /// @param value The value we want to get the opposite
-    /// @return The opposite of value (ex: left -> right)
-    constexpr NodeValue getOppositeNodeValue(NodeValue value)
-    {
-        switch (value)
-        {
-        case NodeValue::none:
-        {
-            return NodeValue::none;
-        }
-        case NodeValue::left:
-        {
-            return NodeValue::right;
-        }
-        case NodeValue::right:
-        {
-            return NodeValue::left;
-        }
-        case NodeValue::forward:
-        {
-            return NodeValue::backward;
-        }
-        case NodeValue::backward:
-        {
-            return NodeValue::forward;
-        }
-        case NodeValue::in:
-        {
-            return NodeValue::in;
-        }
-        case NodeValue::frontier:
-        {
-            return NodeValue::frontier;
-        }
-        default:
-        {
-            return NodeValue::none;
-        }
-        }
-    }
-
     /// @brief Check that value is within index range [0, size[
     /// @param index Index that is being checked
     /// @param size Collection size
@@ -112,6 +70,14 @@ namespace pcg::engine::maze_generation
     /// @param direction Path direction from node to adjacent
     /// @param grid Grid representing maze
     void addAdjacentNodePath(int nodeX, int nodeY, int adjacentNodeX, int adjacentNodeY, NodeValue direction, Grid& grid);
+    /// @brief Adds a wall between the node and adjacent node following the given direction
+    /// @param nodeX Node X coordinate
+    /// @param nodeY Node Y coordinate
+    /// @param adjacentNodeX Adjacent Node X coordinate
+    /// @param adjacentNodeY Adjacent Node Y coordinate
+    /// @param direction wall direction from node to adjacent
+    /// @param grid Grid representing maze
+    void addAdjacentNodeWall(int nodeX, int nodeY, int adjacentNodeX, int adjacentNodeY, NodeValue direction, Grid& grid);
 }
 
 #endif // PCG_ENGINE_MAZE_GENERATION_UTILITY_HPP

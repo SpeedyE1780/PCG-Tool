@@ -129,8 +129,7 @@ namespace pcg::engine::maze_generation
 
                     if (wallX != passageX || wallY != passageY)
                     {
-                        grid[wallY][wallX] &= ~passageDirection;
-                        grid[adjacentWallY][adjacentWallX] &= ~getOppositeNodeValue(passageDirection);
+                        addAdjacentNodeWall(wallX, wallY, adjacentWallX, adjacentWallY, passageDirection, grid);
                     }
 
                     if (callback)
