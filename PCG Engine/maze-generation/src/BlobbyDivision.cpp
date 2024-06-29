@@ -150,24 +150,6 @@ namespace pcg::engine::maze_generation
             NodeMap nodes{};
         };
 
-        void addGridBounds(Grid& grid, int width, int height)
-        {
-            const int upperBound = height - 1;
-            const int rightBound = width - 1;
-
-            for (int x = 0; x < width; ++x)
-            {
-                grid[0][x] &= ~NodeValue::backward;
-                grid[upperBound][x] &= ~NodeValue::forward;
-            }
-
-            for (int y = 0; y < width; ++y)
-            {
-                grid[y][0] &= ~NodeValue::left;
-                grid[y][rightBound] &= ~NodeValue::right;
-            }
-        }
-
         Region getStartRegion(const Grid& grid, int width, int height)
         {
             Region region{};
