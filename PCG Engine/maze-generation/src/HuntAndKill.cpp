@@ -11,6 +11,13 @@ namespace pcg::engine::maze_generation
 {
     namespace
     {
+        /// @brief Walk in maze until a node belonging to the maze is reached
+        /// @param x Starting x coordinate
+        /// @param y Starting y coordinate
+        /// @param grid Maze grid representation
+        /// @param directions Directions to reach adjacent node
+        /// @param randomEngine Random number generator used for shuffling
+        /// @param callback User defined callback nullptr if callback should be invoked after maze generation
         void walk(int x, int y, Grid& grid, std::vector<NodeValue>& directions, std::default_random_engine& randomEngine, MazeCallback* callback)
         {
             const int width = grid.size();
@@ -42,6 +49,39 @@ namespace pcg::engine::maze_generation
             }
         }
 
+        /// @brief Get adjacent nodes that have already been visited
+        /// @param x Node x coordinate
+        /// @param y Node y coordinate
+        /// @param directions Directions to reach adjacent node
+        /// @param width Grid width
+        /// @param height Grid height
+        /// @param grid Grid representing maze
+        /// @return Vector of visited adjacent nodes
+        std::vector<NodeValue> getVisitedAdjacentNodes(int x, int y, Directions& directions, int width, int height, Grid& grid)
+        {
+            Directions adjacentNodes{};
+
+            for (NodeValue direction : directions)
+            {
+                auto [nx, ny] = getAdjacentCoordinates(x, y, direction);
+
+                if (isWithinGridBounds(nx, ny, width, height) && grid[ny][nx] != NodeValue::none)
+                {
+                    adjacentNodes.push_back(direction);
+                }
+            }
+
+            return adjacentNodes;
+        }
+
+        /// @brief Hunt for unvisited node with a visited adjacent node
+        /// @param grid Maze grid representation
+        /// @param directions Directions to reach adjacent node
+        /// @param width Grid width
+        /// @param height Grid height
+        /// @param randomEngine Random number generator used for shuffling
+        /// @param callback User defined callback nullptr if callback should be invoked after maze generation
+        /// @return Node coordinate or std::nullopt if no node is found
         std::optional<NodeCoordinates> hunt(Grid& grid, Directions& directions, int width, int height, std::default_random_engine& randomEngine, MazeCallback* callback)
         {
             for (int y = 0; y < height; ++y)
@@ -54,17 +94,7 @@ namespace pcg::engine::maze_generation
                     }
 
                     std::shuffle(begin(directions), end(directions), randomEngine);
-                    Directions adjacentNodes{};
-
-                    for (NodeValue direction : directions)
-                    {
-                        auto [nx, ny] = getAdjacentCoordinates(x, y, direction);
-
-                        if (isWithinGridBounds(nx, ny, width, height) && grid[ny][nx] != NodeValue::none)
-                        {
-                            adjacentNodes.push_back(direction);
-                        }
-                    }
+                    std::vector<NodeValue> adjacentNodes = getVisitedAdjacentNodes(x, y, directions, width, height, grid);
 
                     if (adjacentNodes.size() == 0)
                     {
@@ -80,7 +110,7 @@ namespace pcg::engine::maze_generation
                         invokeNodePairCallback(x, y, nx, ny, grid, *callback);
                     }
 
-                    return NodeCoordinates(nx, ny);
+                    return NodeCoordinates(x, y);
                 }
             }
 
@@ -94,7 +124,7 @@ namespace pcg::engine::maze_generation
         Directions directions = getDefaultDirections();
         std::default_random_engine randomEngine{ math::Random::seed };
 
-        std::optional<NodeCoordinates> xYCoordinate{ getRandomStartingNode(width, height)};
+        std::optional<NodeCoordinates> xYCoordinate{ getRandomStartingNode(width, height) };
         MazeCallback* callbackPtr = invokeAfterGeneration ? nullptr : &callback;
 
         while (xYCoordinate.has_value())
