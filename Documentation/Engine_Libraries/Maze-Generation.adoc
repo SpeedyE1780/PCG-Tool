@@ -10,6 +10,146 @@
 
 The Maze library is used to generate mazes using Algorithms from https://www.jamisbuck.org/presentations/rubyconf2011/index.html#title-page[Jamis Buck's presentation]
 
+== Algorithms
+
+- https://weblog.jamisbuck.org/2011/1/17/maze-generation-aldous-broder-algorithm[Aldous-Broder]:
+    
+    * Steps:
+        . Choose a vertex. Any vertex.
+        . Choose a connected neighbour of the vertex and travel to it. If the neighbour has not yet been visited, add the travelled edge to the spanning tree.
+        . Repeat step 2 until all vertexes have been visited.
+    
+    * Bias / Cons:
+        ** Slow.
+    
+- https://weblog.jamisbuck.org/2011/1/20/maze-generation-wilson-s-algorithm[Wilson]:
+
+    * Steps:
+        . Choose any vertex at random and add it to the UST(Uniform Spanning Tree).
+        . Select any vertex that is not already in the UST and perform a random walk until you encounter a vertex that is in the UST.
+        . Add the vertices and edges touched in the random walk to the UST.
+        . Repeat 2 and 3 until all vertices have been added to the UST.
+    
+    * Bias / Cons:
+        ** Slow.
+    
+- https://weblog.jamisbuck.org/2011/2/1/maze-generation-binary-tree-algorithm.html[Binary Tree]: 
+    
+    * Steps:
+        . Choose a Diagonal:
+            ** North / West
+            ** North / East
+            ** South / West
+            ** South / East
+        . Loop over each vertex and add a horizontal / vertical passage
+    
+    * Bias / Cons:
+        ** Passages along chosen diagonal.
+    
+- https://weblog.jamisbuck.org/2011/2/3/maze-generation-sidewinder-algorithm.html[Sidewinder:]
+
+    * Steps:
+        . Work through the grid row-wise, starting with the cell at 0,0. Initialize the “run” set to be empty.
+        . Add the current cell to the “run” set.
+        . For the current cell, randomly decide whether to carve east or not.
+        . If a passage was carved, make the new cell the current cell and repeat steps 2-4.
+        . If a passage was not carved, choose any one of the cells in the run set and carve a passage north. Then empty the run set, set the next cell in the row to be the current cell, and repeat steps 2-5.
+        . Continue until all rows have been processed.
+        
+    * Bias / Cons:
+        ** Trivial solution.
+        ** Path move from end to start vertically with little resistance.
+    
+    
+- https://weblog.jamisbuck.org/2010/12/29/maze-generation-eller-s-algorithm[Eller:]
+    
+    * Steps:
+        . Initialize the cells of the first row to each exist in their own set.
+        . Now, randomly join adjacent cells, but only if they are not in the same set. When joining adjacent cells, merge the cells of both sets into a single set, indicating that all cells in both sets are now connected (there is a path that connects any two cells in the set).
+        . For each set, randomly create vertical connections downward to the next row. Each remaining set must have at least one vertical connection. The cells in the next row thus connected must share the set of the cell above them.
+        . Flesh out the next row by putting any remaining cells into their own sets.
+        . Repeat until the last row is reached.
+        . For the last row, join all adjacent cells that do not share a set, and omit the vertical connections, and you’re done!
+    
+    * Bias / Cons:
+        ** Last row tends to be a corridor.
+    
+- https://weblog.jamisbuck.org/2011/1/24/maze-generation-hunt-and-kill-algorithm.html[Hunt-and-Kill:]
+
+    * Steps:
+        . Choose a starting location.
+        . Perform a random walk, carving passages to unvisited neighbours, until the current cell has no unvisited neighbours.
+        . Enter “hunt” mode, where you scan the grid looking for an unvisited cell that is adjacent to a visited cell. If found, carve a passage between the two and let the formerly unvisited cell be the new starting location.
+        . Repeat steps 2 and 3 until the hunt mode scans the entire grid and finds no unvisited cells.
+        
+    * Bias / Cons:
+        ** Long and winding passages.
+        ** Fewer dead-ends.
+        ** Slower than similar algorithms.
+
+- https://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking.html[Recursive Backtracking]:
+
+    * Steps:
+        . Choose a starting point in the field.
+        . Randomly choose a wall at that point and carve a passage through to the adjacent cell, but only if the adjacent cell has not been visited yet. This becomes the new current cell.
+        . If all adjacent cells have been visited, back up to the last cell that has uncarved walls and repeat.
+        . The algorithm ends when the process has backed all the way up to the starting point.
+        
+    * Bias / Cons:
+        ** Long and winding passages.
+        ** Fewer dead-ends.
+        
+- https://weblog.jamisbuck.org/2011/1/12/maze-generation-recursive-division-algorithm.html[Recursive Division:]
+
+    * Steps:
+        . Begin with an empty field.
+        . Bisect the field with a wall, either horizontally or vertically. Add a single passage through the wall.
+        . Repeat step 2 with the areas on either side of the wall.
+        . Continue, recursively, until the maze reaches the desired resolution.
+        
+    * Bias / Cons:
+        ** Bottleneck nodes (Solution must pass through node).
+        
+- https://weblog.jamisbuck.org/2011/1/3/maze-generation-kruskal-s-algorithm[Kruskal:]
+
+    * Steps:
+        . Throw all of the edges in the graph into a big burlap sack. (Or, you know, a set or something.)
+        . Pull out the edge with the lowest weight. If the edge connects two disjoint trees, join the trees. Otherwise, throw that edge away.
+        . Repeat until there are no more edges left.
+    
+    * Bias / Cons:
+        ** Lot of short dead-ends.
+        
+- https://weblog.jamisbuck.org/2011/1/10/maze-generation-prim-s-algorithm.html[Prim:]
+
+    * Steps:
+        . Choose an arbitrary vertex from G (the graph), and add it to some (initially empty) set V.
+        . Choose the edge with the smallest weight from G, that connects a vertex in V with another vertex not in V.
+        . Add that edge to the minimal spanning tree, and the edge’s other vertex to V.
+        . Repeat steps 2 and 3 until V includes every vertex in G.
+    
+    * Bias / Cons:
+        ** Lot of short dead-ends.
+    
+- https://weblog.jamisbuck.org/2011/1/27/maze-generation-growing-tree-algorithm.html[Growing Tree:]
+
+    * Steps:
+        . Let C be a list of cells, initially empty. Add one cell to C, at random.
+        . Choose a cell from C, and carve a passage to any unvisited neighbor of that cell, adding that neighbor to C as well. If there are no unvisited neighbors, remove the cell from C.
+        . Repeat step 2 until C is empty.
+
+- https://weblog.jamisbuck.org/2015/1/15/better-recursive-division-algorithm.html[Blobby Division:]
+
+    * Steps:
+        . Collect all the cells in the maze into a single region.
+        . Split the region into two, using the following process:
+            .. Choose two cells from the region at random as "seeds". Identify one as subregion A and one as subregion B. Put them into a set S.
+            .. Choose a cell at random from S. Remove it from the set.
+            .. For each of that cell’s neighbors, if the neighbor is not already associated with a subregion, add it to S, and associate it with the same subregion as the cell itself.
+            .. Repeat 2.b and 2.c until the entire region has been split into two.
+        . Construct a wall between the two regions by identifying cells in one region that have neighbors in the other region. Leave a gap by omitting the wall from one such cell pair.
+        . Repeat 2 and 3 for each subregion, recursively.
+
 == Dependencies
 
 - Math
