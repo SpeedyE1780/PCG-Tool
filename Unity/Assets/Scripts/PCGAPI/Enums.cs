@@ -44,6 +44,21 @@ namespace PCGAPI
         binaryTreeNW = 3,
         binaryTreeSE = 4,
         binaryTreeSW = 5,
-        sidewinder = 6
+        sidewinder = 6,
+        eller = 7,
+        huntAndKill = 8,
+        recursiveBacktracker = 9,
+        recursiveDivision = 10,
+        kruskal = 11,
+        prim = 12,
+        growingTreeOldest = 13,
+        growingTreeMiddle = 14,
+        growingTreeNewest = 15,
+        growingTreeRandom = 16,
+        blobbyDivisionCorridors = 17,
+        blobbyDivisionSmall = 18,
+        blobbyDivisionMedium = 19,
+        blobbyDivisionLarge = 20,
+        blobbyDivisionHuge = 21,
     }
 }
