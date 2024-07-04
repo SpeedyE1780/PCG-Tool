@@ -101,6 +101,9 @@ int main()
     std::cout << "Maze Generation: sidewinder" << std::endl;
     generateMaze(width, height, true, MazeAlgorithm::sidewinder, addMazePoint);
 
+    std::cout << "Maze Generation: Eller" << std::endl;
+    generateMaze(width, height, true, MazeAlgorithm::eller, addMazePoint);
+
     std::cout << "Maze Generation: Recursive Division" << std::endl;
     generateMaze(width, height, true, MazeAlgorithm::recursiveDivision, addMazePoint);
 

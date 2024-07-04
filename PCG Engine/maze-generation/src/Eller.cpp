@@ -84,7 +84,7 @@ namespace pcg::engine::maze_generation
         /// @brief RowInfo contains info about the row being processed
         struct RowInfo
         {
-            RowInfo(int y, bool last) : yCoordinate(y), lastRow(last)
+            RowInfo(int y, bool last) : connectedSet(1, 0), yCoordinate(y), lastRow(last)
             {
             }
 
@@ -105,7 +105,7 @@ namespace pcg::engine::maze_generation
             /// @brief Vector of joint cell in row
             std::vector<ConnectedSet> connectedSets{};
             /// @brief Current set of joint cell
-            ConnectedSet connectedSet{};
+            ConnectedSet connectedSet;
             /// @brief Row y coordinate
             int yCoordinate;
             /// @brief Last row in maze
