@@ -3,7 +3,7 @@
     <engine:Vector2IntField label="Grid Size" name="GridSize" />
     <engine:FloatField label="Node Size" value="0" name="NodeSize" />
     <engine:UnsignedIntegerField label="Seed" value="0" name="Seed" />
-    <engine:DropdownField label="Algorithm" choices="Aldous Broder,Wilson,Binary Tree NE,Binary Tree NW,Binary Tree SE,Binary Tree SW,Sidewinder" name="MazeAlgorithm" index="0" />
+    <engine:EnumField label="Algorithm" value="Center" type="PCGAPI.MazeAlgorithm, PCGAPI" name="MazeAlgorithm" />
     <engine:Toggle label="Frame by Frame" name="FrameByFrame" />
     <engine:Toggle label="Delayed Invoke" name="DelayedInvoke" />
     <engine:Button text="Generate" name="GenerateButton" />

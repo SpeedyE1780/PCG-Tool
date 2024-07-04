@@ -17,7 +17,7 @@ namespace PCGAPI.Editor
         private Vector2IntField gridSizeField;
         private FloatField nodeSizeField;
         private UnsignedIntegerField seedField;
-        private DropdownField mazeAlgorithmField;
+        private EnumField mazeAlgorithmField;
         private Toggle delayedInvoke;
         private Toggle frameByFrameToggle;
 
@@ -49,7 +49,7 @@ namespace PCGAPI.Editor
             gridSizeField = rootVisualElement.Q<Vector2IntField>("GridSize");
             nodeSizeField = rootVisualElement.Q<FloatField>("NodeSize");
             seedField = rootVisualElement.Q<UnsignedIntegerField>("Seed");
-            mazeAlgorithmField = rootVisualElement.Q<DropdownField>("MazeAlgorithm");
+            mazeAlgorithmField = rootVisualElement.Q<EnumField>("MazeAlgorithm");
             frameByFrameToggle = rootVisualElement.Q<Toggle>("FrameByFrame");
             delayedInvoke = rootVisualElement.Q<Toggle>("DelayedInvoke");
 
@@ -106,7 +106,7 @@ namespace PCGAPI.Editor
                     });
                 }
 
-                PCGEngine.GenerateMaze(gridSize.x, gridSize.y, delayedInvoke.value, (MazeAlgorithm)mazeAlgorithmField.index, AddNodeInfo);
+                PCGEngine.GenerateMaze(gridSize.x, gridSize.y, delayedInvoke.value, (MazeAlgorithm)mazeAlgorithmField.value, AddNodeInfo);
 
                 if (delayedInvoke.value)
                 {
@@ -119,7 +119,7 @@ namespace PCGAPI.Editor
             }
             else
             {
-                PCGEngine.GenerateMaze(gridSize.x, gridSize.y, true, (MazeAlgorithm)mazeAlgorithmField.index, AddMazeNode);
+                PCGEngine.GenerateMaze(gridSize.x, gridSize.y, true, (MazeAlgorithm)mazeAlgorithmField.value, AddMazeNode);
             }
         }
 
