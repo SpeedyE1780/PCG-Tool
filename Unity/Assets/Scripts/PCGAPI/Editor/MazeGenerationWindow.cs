@@ -150,7 +150,7 @@ namespace PCGAPI.Editor
         {
             UnityEngine.Vector3 position = new UnityEngine.Vector3(nodeInfo.x * nodeInfo.size, 0, nodeInfo.y * nodeInfo.size);
             IMazeNode node = Instantiate(mazeNode.gameObject, nodeParent).GetComponent<IMazeNode>();
-            node.transform.position = position;
+            node.transform.localPosition = position;
             node.SetAdjacentNodes(nodeInfo.adjacentNodes);
             return node;
         }
