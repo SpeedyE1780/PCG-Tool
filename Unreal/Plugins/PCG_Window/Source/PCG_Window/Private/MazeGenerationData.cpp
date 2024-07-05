@@ -36,5 +36,6 @@ void UMazeGenerationData::SpawnBlock(int x, int y, maze_generation::NodeValue ad
     UWorld* world = GEditor->GetEditorWorldContext().World();
     AMazeBlock* block = world->SpawnActor<AMazeBlock>(levelBlock);
     block->SetActorLocation({ y * nodeSize, x * nodeSize, 0 });
+    block->SetFolderPath("Maze");
     block->UpdateMeshes(adjacentNodes);
 }
