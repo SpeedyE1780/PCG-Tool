@@ -159,6 +159,12 @@ namespace PCGAPI.Editor
         {
             foreach (NodeInfo node in nodes)
             {
+                if (nodeParent == null)
+                {
+                    Debug.LogError("Maze Parent has been deleted generation stopping");
+                    yield break;
+                }
+
                 AddNode(nodeParent, node);
                 yield return null;
             }
@@ -170,6 +176,12 @@ namespace PCGAPI.Editor
 
             foreach (NodeInfo nodeInfo in nodes)
             {
+                if (nodeParent == null)
+                {
+                    Debug.LogError("Maze Parent has been deleted generation stopping");
+                    yield break;
+                }
+
                 Vector2 key = new Vector2(nodeInfo.x, nodeInfo.y);
 
                 if (spawnedNodes.ContainsKey(key))
