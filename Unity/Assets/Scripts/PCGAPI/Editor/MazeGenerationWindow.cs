@@ -20,6 +20,7 @@ namespace PCGAPI.Editor
         private EnumField mazeAlgorithmField;
         private Toggle delayedInvoke;
         private Toggle frameByFrameToggle;
+        private IMazeNode mazeNode;
 
         struct NodeInfo
         {
@@ -30,10 +31,28 @@ namespace PCGAPI.Editor
         }
 
         [MenuItem("PCG/Maze Generation")]
-        public static void ShowExample()
+        public static void OpenMazeWindow()
         {
             MazeGenerationWindow wnd = GetWindow<MazeGenerationWindow>();
             wnd.titleContent = new GUIContent("Maze Generation");
+        }
+
+        private void ValidateNodeField(ChangeEvent<Object> changeEvent)
+        {
+            if (changeEvent.newValue == null)
+            {
+                return;
+            }
+
+            GameObject newGameObject = changeEvent.newValue as GameObject;
+
+            if (newGameObject != null && newGameObject.TryGetComponent(out mazeNode))
+            {
+                return;
+            }
+
+            Debug.LogError($"{newGameObject.name} has no component that inherits from IMazeNode");
+            nodeField.value = changeEvent.previousValue; //this will call the event again
         }
 
         public void CreateGUI()
@@ -52,6 +71,8 @@ namespace PCGAPI.Editor
 
             var generateButton = rootVisualElement.Q<Button>("GenerateButton");
             generateButton.clicked += SpawnObject;
+
+            nodeField.RegisterValueChangedCallback(ValidateNodeField);
         }
 
         private void SpawnObject()
@@ -128,7 +149,7 @@ namespace PCGAPI.Editor
         private IMazeNode AddNode(Transform nodeParent, NodeInfo nodeInfo)
         {
             UnityEngine.Vector3 position = new UnityEngine.Vector3(nodeInfo.x * nodeInfo.size, 0, nodeInfo.y * nodeInfo.size);
-            IMazeNode node = Instantiate(nodeField.value as GameObject, nodeParent).GetComponent<IMazeNode>();
+            IMazeNode node = Instantiate(mazeNode.gameObject, nodeParent).GetComponent<IMazeNode>();
             node.transform.position = position;
             node.SetAdjacentNodes(nodeInfo.adjacentNodes);
             return node;
