@@ -17,26 +17,42 @@ namespace PCGAPI.Editor
         private Vector2IntField gridSizeField;
         private FloatField nodeSizeField;
         private UnsignedIntegerField seedField;
-        private DropdownField mazeAlgorithmField;
+        private EnumField mazeAlgorithmField;
         private Toggle delayedInvoke;
         private Toggle frameByFrameToggle;
-
-        private Transform nodeParent;
-        private WFCNode node;
-        private float nodeSize;
+        private IMazeNode mazeNode;
 
         struct NodeInfo
         {
             public int x;
             public int y;
-            public Direction direction;
+            public float size;
+            public Direction adjacentNodes;
         }
 
         [MenuItem("PCG/Maze Generation")]
-        public static void ShowExample()
+        public static void OpenMazeWindow()
         {
             MazeGenerationWindow wnd = GetWindow<MazeGenerationWindow>();
             wnd.titleContent = new GUIContent("Maze Generation");
+        }
+
+        private void ValidateNodeField(ChangeEvent<Object> changeEvent)
+        {
+            if (changeEvent.newValue == null)
+            {
+                return;
+            }
+
+            GameObject newGameObject = changeEvent.newValue as GameObject;
+
+            if (newGameObject != null && newGameObject.TryGetComponent(out mazeNode))
+            {
+                return;
+            }
+
+            Debug.LogError($"{newGameObject.name} has no component that inherits from IMazeNode");
+            nodeField.value = changeEvent.previousValue; //this will call the event again
         }
 
         public void CreateGUI()
@@ -49,12 +65,14 @@ namespace PCGAPI.Editor
             gridSizeField = rootVisualElement.Q<Vector2IntField>("GridSize");
             nodeSizeField = rootVisualElement.Q<FloatField>("NodeSize");
             seedField = rootVisualElement.Q<UnsignedIntegerField>("Seed");
-            mazeAlgorithmField = rootVisualElement.Q<DropdownField>("MazeAlgorithm");
+            mazeAlgorithmField = rootVisualElement.Q<EnumField>("MazeAlgorithm");
             frameByFrameToggle = rootVisualElement.Q<Toggle>("FrameByFrame");
             delayedInvoke = rootVisualElement.Q<Toggle>("DelayedInvoke");
 
             var generateButton = rootVisualElement.Q<Button>("GenerateButton");
             generateButton.clicked += SpawnObject;
+
+            nodeField.RegisterValueChangedCallback(ValidateNodeField);
         }
 
         private void SpawnObject()
@@ -66,11 +84,10 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetLoggingFunction(Log);
 
-            node = nodeField.value as WFCNode;
-            nodeSize = nodeSizeField.value;
+            float nodeSize = nodeSizeField.value;
             Vector2Int gridSize = gridSizeField.value;
 
-            if (node == null)
+            if (nodeField.value == null)
             {
                 Debug.LogWarning("Node not set");
                 return;
@@ -90,7 +107,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetSeed(seedField.value);
 
-            nodeParent = new GameObject("MAZE").transform;
+            Transform nodeParent = new GameObject("MAZE").transform;
 
             if (frameByFrameToggle.value)
             {
@@ -102,63 +119,79 @@ namespace PCGAPI.Editor
                     {
                         x = x,
                         y = y,
-                        direction = adjacentNodes
+                        adjacentNodes = adjacentNodes,
+                        size = nodeSize
                     });
                 }
 
-                PCGEngine.GenerateMaze(gridSize.x, gridSize.y, delayedInvoke.value, (MazeAlgorithm)mazeAlgorithmField.index, AddNodeInfo);
+                PCGEngine.GenerateMaze(gridSize.x, gridSize.y, delayedInvoke.value, (MazeAlgorithm)mazeAlgorithmField.value, AddNodeInfo);
 
                 if (delayedInvoke.value)
                 {
-                    EditorCoroutineUtility.StartCoroutine(DelayedGeneration(nodes), this);
+                    EditorCoroutineUtility.StartCoroutine(DelayedGeneration(nodes, nodeParent), this);
                 }
                 else
                 {
-                    EditorCoroutineUtility.StartCoroutine(Generation(nodes), this);
+                    EditorCoroutineUtility.StartCoroutine(Generation(nodes, nodeParent), this);
                 }
             }
             else
             {
-                PCGEngine.GenerateMaze(gridSize.x, gridSize.y, true, (MazeAlgorithm)mazeAlgorithmField.index, AddMazeNode);
+                void AddMazeNode(int x, int y, Direction adjacentNodes)
+                {
+                    AddNode(nodeParent, new NodeInfo { x = x, y = y, adjacentNodes = adjacentNodes, size = nodeSize });
+                }
+
+                PCGEngine.GenerateMaze(gridSize.x, gridSize.y, true, (MazeAlgorithm)mazeAlgorithmField.value, AddMazeNode);
             }
         }
 
-        private void AddMazeNode(int x, int y, Direction adjacentNodes)
+        private IMazeNode AddNode(Transform nodeParent, NodeInfo nodeInfo)
         {
-            UnityEngine.Vector3 position = new UnityEngine.Vector3(x * nodeSize, 0, y * nodeSize);
-            WFCNode n = Instantiate(node, nodeParent);
-            n.transform.position = position;
-            n.SetNeighbors(adjacentNodes);
+            UnityEngine.Vector3 position = new UnityEngine.Vector3(nodeInfo.x * nodeInfo.size, 0, nodeInfo.y * nodeInfo.size);
+            IMazeNode node = Instantiate(mazeNode.gameObject, nodeParent).GetComponent<IMazeNode>();
+            node.transform.localPosition = position;
+            node.SetAdjacentNodes(nodeInfo.adjacentNodes);
+            return node;
         }
 
-        private IEnumerator DelayedGeneration(List<NodeInfo> nodes)
+        private IEnumerator DelayedGeneration(List<NodeInfo> nodes, Transform nodeParent)
         {
             foreach (NodeInfo node in nodes)
             {
-                AddMazeNode(node.x, node.y, node.direction);
+                if (nodeParent == null)
+                {
+                    Debug.LogError("Maze Parent has been deleted generation stopping");
+                    yield break;
+                }
+
+                AddNode(nodeParent, node);
                 yield return null;
             }
         }
 
-        private IEnumerator Generation(List<NodeInfo> nodes)
+        private IEnumerator Generation(List<NodeInfo> nodes, Transform nodeParent)
         {
-            Dictionary<Vector2, WFCNode> spawnedNodes = new Dictionary<Vector2, WFCNode>();
+            Dictionary<Vector2, IMazeNode> spawnedNodes = new Dictionary<Vector2, IMazeNode>();
 
             foreach (NodeInfo nodeInfo in nodes)
             {
+                if (nodeParent == null)
+                {
+                    Debug.LogError("Maze Parent has been deleted generation stopping");
+                    yield break;
+                }
+
                 Vector2 key = new Vector2(nodeInfo.x, nodeInfo.y);
 
                 if (spawnedNodes.ContainsKey(key))
                 {
-                    spawnedNodes[key].SetNeighbors(nodeInfo.direction);
+                    spawnedNodes[key].SetAdjacentNodes(nodeInfo.adjacentNodes);
                 }
                 else
                 {
-                    UnityEngine.Vector3 position = new UnityEngine.Vector3(nodeInfo.x * nodeSize, 0, nodeInfo.y * nodeSize);
-                    WFCNode n = Instantiate(node, nodeParent);
-                    n.transform.position = position;
-                    n.SetNeighbors(nodeInfo.direction);
-                    spawnedNodes.Add(key, n);
+                    IMazeNode node = AddNode(nodeParent, nodeInfo);
+                    spawnedNodes.Add(key, node);
                 }
 
                 yield return null;

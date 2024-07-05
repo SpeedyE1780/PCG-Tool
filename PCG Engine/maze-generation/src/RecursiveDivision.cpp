@@ -134,7 +134,7 @@ namespace pcg::engine::maze_generation
 
                 if (section.isInvalid())
                 {
-                    return;
+                    continue;
                 }
 
                 const WallOrientation orientation = chooseOrientation(section.width, section.height);
