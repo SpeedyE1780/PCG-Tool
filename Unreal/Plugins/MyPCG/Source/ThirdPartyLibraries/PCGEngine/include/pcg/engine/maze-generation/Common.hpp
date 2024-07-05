@@ -1,46 +1,27 @@
 #ifndef PCG_ENGINE_MAZE_GENERATION_COMMON_HPP
 #define PCG_ENGINE_MAZE_GENERATION_COMMON_HPP
 
-#include <pcg/engine/math/vector3.hpp>
-
 #include <pcg/engine/utility/CallbackFunctor.hpp>
-#include <pcg/engine/utility/Enums.hpp>
 
-#include <tuple>
-#include <vector>
+#include <pcg/engine/utility/Enums.hpp>
 
 namespace pcg::engine::maze_generation
 {
-    /// @brief 2D vector alias
-    using Grid = std::vector<std::vector<utility::enums::Direction>>;
-    /// @brief Callback used to notify a node was spawned/modified
-    using MazeCallback = utility::CallbackFunctor<void(int, int, utility::enums::Direction)>;
-
-    /// @brief Defines a node as part of the maze without having an actual direction
-    inline constexpr int in = 1 << 6;
-
-    /// @brief Get adjacent node x, y coordinates
-    /// @param x Current node x coordinate
-    /// @param y Current node y coordinate
-    /// @param direction Direction from current node to adjacent node
-    /// @return tuple containing adjacent node x, y coordinate
-    std::tuple<int, int> getAdjacentCoordinates(int x, int y, utility::enums::Direction direction);
-    /// @brief Generate a 2D vector representing the maze's grid
-    /// @param width Grid width
-    /// @param height Grid height
-    /// @param defaultValue Default value when allocating grid
-    /// @return A 2D vector representing the maze's empty grid
-    inline constexpr Grid generateGrid(int width, int height, utility::enums::Direction defaultValue = utility::enums::Direction::none) { return Grid(width, std::vector<utility::enums::Direction>(height, defaultValue)); }
-    /// @brief Get default directions used when generating maze
-    /// @return a vector containing { left, right, forward, backward }
-    inline constexpr std::vector<utility::enums::Direction> getDefaultDirections()
+    /// @brief Flags used to determine if node has an adjacent node
+    enum class NodeValue
     {
-        return std::vector<utility::enums::Direction>
-        {
-            utility::enums::Direction::left, utility::enums::Direction::right,
-                utility::enums::Direction::forward, utility::enums::Direction::backward
-        };
-    }
+        none = 0,
+        left = 1 << 0,
+        right = 1 << 1,
+        forward = 1 << 2,
+        backward = 1 << 3,
+        in = 1 << 4,
+        frontier = 1 << 5,
+        allDirections = left | right | forward | backward
+    };
+
+    /// @brief Callback used to notify a node was spawned/modified
+    using MazeCallback = utility::CallbackFunctor<void(int, int, NodeValue)>;
 }
 
 #endif // PCG_ENGINE_MAZE_GENERATION_COMMON_HPP
