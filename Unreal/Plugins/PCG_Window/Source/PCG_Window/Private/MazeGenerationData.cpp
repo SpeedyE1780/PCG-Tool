@@ -25,7 +25,6 @@ void UMazeGenerationData::GenerateMaze()
 
     pcg_api::setSeed(seed);
 
-    blocks.Empty(gridSize.X * gridSize.Y);
     pcg_api::generateMaze(gridSize.X, gridSize.Y, true, static_cast<pcg_api::MazeAlgorithm>(mazeAlgorithm),
         [this](int x, int y, maze_generation::NodeValue adjacentNodes) {
             this->SpawnBlock(x, y, adjacentNodes);
@@ -34,16 +33,8 @@ void UMazeGenerationData::GenerateMaze()
 
 void UMazeGenerationData::SpawnBlock(int x, int y, maze_generation::NodeValue adjacentNodes)
 {
-    if (blocks.Contains({ x, y }))
-    {
-        blocks[{x, y}]->UpdateMeshes(adjacentNodes);
-    }
-    else
-    {
-        UWorld* world = GEditor->GetEditorWorldContext().World();
-        AMazeBlock* block = world->SpawnActor<AMazeBlock>(levelBlock);
-        block->SetActorLocation({ y * nodeSize, x * nodeSize, 0 });
-        block->UpdateMeshes(adjacentNodes);
-        blocks.Add({ x, y }, block);
-    }
+    UWorld* world = GEditor->GetEditorWorldContext().World();
+    AMazeBlock* block = world->SpawnActor<AMazeBlock>(levelBlock);
+    block->SetActorLocation({ y * nodeSize, x * nodeSize, 0 });
+    block->UpdateMeshes(adjacentNodes);
 }
