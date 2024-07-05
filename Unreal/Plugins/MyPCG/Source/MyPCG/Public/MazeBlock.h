@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "pcg/engine/utility/Enums.hpp"
+#include "pcg/engine/maze-generation/Common.hpp"
 #include "MazeBlock.generated.h"
 
 UCLASS()
@@ -16,7 +16,7 @@ public:
 	// Sets default values for this actor's properties
 	AMazeBlock();
 
-	void UpdateMeshes(pcg::engine::utility::enums::Direction adjacentNodes);
+	void UpdateMeshes(pcg::engine::maze_generation::NodeValue adjacentNodes);
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))

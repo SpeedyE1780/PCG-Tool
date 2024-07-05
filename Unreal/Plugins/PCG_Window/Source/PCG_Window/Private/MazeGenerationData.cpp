@@ -4,6 +4,9 @@
 #include "MazeGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
 
+namespace maze_generation = pcg::engine::maze_generation;
+namespace pcg_api = pcg::engine::cpp_api;
+
 void UMazeGenerationData::GenerateMaze()
 {
     GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, "GENERATING MAZE");
@@ -20,16 +23,16 @@ void UMazeGenerationData::GenerateMaze()
         return;
     }
 
-    pcg::engine::cpp_api::setSeed(seed);
+    pcg_api::setSeed(seed);
 
     blocks.Empty(gridSize.X * gridSize.Y);
-    pcg::engine::cpp_api::generateMaze(gridSize.X, gridSize.Y, true, static_cast<pcg::engine::cpp_api::MazeAlgorithm>(mazeAlgorithm),
-        [this](int x, int y, pcg::engine::utility::enums::Direction adjacentNodes) {
+    pcg_api::generateMaze(gridSize.X, gridSize.Y, true, static_cast<pcg_api::MazeAlgorithm>(mazeAlgorithm),
+        [this](int x, int y, maze_generation::NodeValue adjacentNodes) {
             this->SpawnBlock(x, y, adjacentNodes);
         });
 }
 
-void UMazeGenerationData::SpawnBlock(int x, int y, pcg::engine::utility::enums::Direction adjacentNodes)
+void UMazeGenerationData::SpawnBlock(int x, int y, maze_generation::NodeValue adjacentNodes)
 {
     if (blocks.Contains({ x, y }))
     {
