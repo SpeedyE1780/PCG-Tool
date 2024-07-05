@@ -7,6 +7,22 @@
 namespace maze_generation = pcg::engine::maze_generation;
 namespace pcg_api = pcg::engine::cpp_api;
 
+namespace
+{
+    FString GetMazeAlgorith(EMazeAlgorithm algorithm)
+    {
+        // Strip the namespace from the name.
+        FString EnumNameString = UEnum::GetValueAsString(algorithm);
+        int32 ScopeIndex = EnumNameString.Find(TEXT("::"), ESearchCase::CaseSensitive);
+        if (ScopeIndex != INDEX_NONE)
+        {
+            return EnumNameString.Mid(ScopeIndex + 2);
+        }
+
+        return FString();
+    }
+}
+
 void UMazeGenerationData::GenerateMaze()
 {
     GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, "GENERATING MAZE");
@@ -36,6 +52,15 @@ void UMazeGenerationData::SpawnBlock(int x, int y, maze_generation::NodeValue ad
     UWorld* world = GEditor->GetEditorWorldContext().World();
     AMazeBlock* block = world->SpawnActor<AMazeBlock>(levelBlock);
     block->SetActorLocation({ y * nodeSize, x * nodeSize, 0 });
-    block->SetFolderPath("Maze");
+    block->SetFolderPath(*GetFolderName());
     block->UpdateMeshes(adjacentNodes);
+}
+
+FString UMazeGenerationData::GetFolderName() const
+{
+    FString path = "Maze/";
+    path.Append(GetMazeAlgorith(mazeAlgorithm));
+    path.Append("/");
+    path.Append(FString::FromInt(seed));
+    return path;
 }

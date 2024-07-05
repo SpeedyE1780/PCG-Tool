@@ -63,4 +63,5 @@ class PCG_WINDOW_API UMazeGenerationData : public UObject
 
 private:
     void SpawnBlock(int x, int y, pcg::engine::maze_generation::NodeValue adjacentNodes);
+    FString GetFolderName() const;
 };
