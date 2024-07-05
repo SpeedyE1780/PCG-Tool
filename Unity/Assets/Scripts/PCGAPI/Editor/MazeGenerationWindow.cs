@@ -21,15 +21,12 @@ namespace PCGAPI.Editor
         private Toggle delayedInvoke;
         private Toggle frameByFrameToggle;
 
-        private Transform nodeParent;
-        private WFCNode node;
-        private float nodeSize;
-
         struct NodeInfo
         {
             public int x;
             public int y;
-            public Direction direction;
+            public float size;
+            public Direction adjacentNodes;
         }
 
         [MenuItem("PCG/Maze Generation")]
@@ -66,11 +63,10 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetLoggingFunction(Log);
 
-            node = nodeField.value as WFCNode;
-            nodeSize = nodeSizeField.value;
+            float nodeSize = nodeSizeField.value;
             Vector2Int gridSize = gridSizeField.value;
 
-            if (node == null)
+            if (nodeField.value == null)
             {
                 Debug.LogWarning("Node not set");
                 return;
@@ -90,7 +86,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetSeed(seedField.value);
 
-            nodeParent = new GameObject("MAZE").transform;
+            Transform nodeParent = new GameObject("MAZE").transform;
 
             if (frameByFrameToggle.value)
             {
@@ -102,7 +98,8 @@ namespace PCGAPI.Editor
                     {
                         x = x,
                         y = y,
-                        direction = adjacentNodes
+                        adjacentNodes = adjacentNodes,
+                        size = nodeSize
                     });
                 }
 
@@ -110,39 +107,45 @@ namespace PCGAPI.Editor
 
                 if (delayedInvoke.value)
                 {
-                    EditorCoroutineUtility.StartCoroutine(DelayedGeneration(nodes), this);
+                    EditorCoroutineUtility.StartCoroutine(DelayedGeneration(nodes, nodeParent), this);
                 }
                 else
                 {
-                    EditorCoroutineUtility.StartCoroutine(Generation(nodes), this);
+                    EditorCoroutineUtility.StartCoroutine(Generation(nodes, nodeParent), this);
                 }
             }
             else
             {
+                void AddMazeNode(int x, int y, Direction adjacentNodes)
+                {
+                    AddNode(nodeParent, new NodeInfo { x = x, y = y, adjacentNodes = adjacentNodes, size = nodeSize });
+                }
+
                 PCGEngine.GenerateMaze(gridSize.x, gridSize.y, true, (MazeAlgorithm)mazeAlgorithmField.value, AddMazeNode);
             }
         }
 
-        private void AddMazeNode(int x, int y, Direction adjacentNodes)
+        private IMazeNode AddNode(Transform nodeParent, NodeInfo nodeInfo)
         {
-            UnityEngine.Vector3 position = new UnityEngine.Vector3(x * nodeSize, 0, y * nodeSize);
-            WFCNode n = Instantiate(node, nodeParent);
-            n.transform.position = position;
-            n.SetNeighbors(adjacentNodes);
+            UnityEngine.Vector3 position = new UnityEngine.Vector3(nodeInfo.x * nodeInfo.size, 0, nodeInfo.y * nodeInfo.size);
+            IMazeNode node = Instantiate(nodeField.value as GameObject, nodeParent).GetComponent<IMazeNode>();
+            node.transform.position = position;
+            node.SetAdjacentNodes(nodeInfo.adjacentNodes);
+            return node;
         }
 
-        private IEnumerator DelayedGeneration(List<NodeInfo> nodes)
+        private IEnumerator DelayedGeneration(List<NodeInfo> nodes, Transform nodeParent)
         {
             foreach (NodeInfo node in nodes)
             {
-                AddMazeNode(node.x, node.y, node.direction);
+                AddNode(nodeParent, node);
                 yield return null;
             }
         }
 
-        private IEnumerator Generation(List<NodeInfo> nodes)
+        private IEnumerator Generation(List<NodeInfo> nodes, Transform nodeParent)
         {
-            Dictionary<Vector2, WFCNode> spawnedNodes = new Dictionary<Vector2, WFCNode>();
+            Dictionary<Vector2, IMazeNode> spawnedNodes = new Dictionary<Vector2, IMazeNode>();
 
             foreach (NodeInfo nodeInfo in nodes)
             {
@@ -150,15 +153,12 @@ namespace PCGAPI.Editor
 
                 if (spawnedNodes.ContainsKey(key))
                 {
-                    spawnedNodes[key].SetNeighbors(nodeInfo.direction);
+                    spawnedNodes[key].SetAdjacentNodes(nodeInfo.adjacentNodes);
                 }
                 else
                 {
-                    UnityEngine.Vector3 position = new UnityEngine.Vector3(nodeInfo.x * nodeSize, 0, nodeInfo.y * nodeSize);
-                    WFCNode n = Instantiate(node, nodeParent);
-                    n.transform.position = position;
-                    n.SetNeighbors(nodeInfo.direction);
-                    spawnedNodes.Add(key, n);
+                    IMazeNode node = AddNode(nodeParent, nodeInfo);
+                    spawnedNodes.Add(key, node);
                 }
 
                 yield return null;
