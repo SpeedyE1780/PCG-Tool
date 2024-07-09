@@ -1,4 +1,12 @@
 #include <pcg/engine/maze-generation/AldousBroder.hpp>
+#include <pcg/engine/maze-generation/Eller.hpp>
+#include <pcg/engine/maze-generation/HuntAndKill.hpp>
+#include <pcg/engine/maze-generation/Kruskal.hpp>
+#include <pcg/engine/maze-generation/Prim.hpp>
+#include <pcg/engine/maze-generation/RecursiveBacktracker.hpp>
+#include <pcg/engine/maze-generation/RecursiveDivision.hpp>
+#include <pcg/engine/maze-generation/Sidewinder.hpp>
+#include <pcg/engine/maze-generation/Wilson.hpp>
 
 #include <gtest/gtest.h>
 
