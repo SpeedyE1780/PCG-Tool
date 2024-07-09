@@ -93,7 +93,19 @@ namespace pcg::engine::maze_generation::tests
         std::function<void(int, int, bool, MazeCallback&&)> function;
     };
 
-    class MazeAlgorithmTest : public ::testing::TestWithParam<MazeParameters> { };
+    class MazeAlgorithmTest : public ::testing::TestWithParam<MazeParameters> 
+    {
+    public:
+        struct PrintToStringParamName
+        {
+            template <class ParamType>
+            std::string operator()(const testing::TestParamInfo<ParamType>& info) const
+            {
+                const auto& mazeParameters = static_cast<MazeParameters>(info.param);
+                return mazeParameters.fileName;
+            }
+        };
+    };
 
     TEST_P(MazeAlgorithmTest, Maze)
     {
@@ -146,5 +158,6 @@ namespace pcg::engine::maze_generation::tests
             MazeParameters{ "RecursiveDivision", recursiveDivision },
             MazeParameters{ "Sidewinder", sidewinder },
             MazeParameters{ "Wilson", wilson }
-        ));
+        ),
+    MazeAlgorithmTest::PrintToStringParamName());
 }
