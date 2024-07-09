@@ -2,6 +2,7 @@
 #include <pcg/engine/maze-generation/BinaryTree.hpp>
 #include <pcg/engine/maze-generation/BlobbyDivision.hpp>
 #include <pcg/engine/maze-generation/Eller.hpp>
+#include <pcg/engine/maze-generation/GrowingTree.hpp>
 #include <pcg/engine/maze-generation/HuntAndKill.hpp>
 #include <pcg/engine/maze-generation/Kruskal.hpp>
 #include <pcg/engine/maze-generation/Prim.hpp>
@@ -64,6 +65,26 @@ namespace pcg::engine::maze_generation::tests
         {
             blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::huge, std::move(callback));
         }
+
+        void growingTreeOldest(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            growingTree(width, height, invokeAfterGeneration, GrowingTreeSelectionMethod::oldest, std::move(callback));
+        }
+
+        void growingTreeMiddle(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            growingTree(width, height, invokeAfterGeneration, GrowingTreeSelectionMethod::middle, std::move(callback));
+        }
+
+        void growingTreeNewest(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            growingTree(width, height, invokeAfterGeneration, GrowingTreeSelectionMethod::newest, std::move(callback));
+        }
+
+        void growingTreeRandom(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            growingTree(width, height, invokeAfterGeneration, GrowingTreeSelectionMethod::random, std::move(callback));
+        }
     }
 
     struct MazeParameters
@@ -114,6 +135,10 @@ namespace pcg::engine::maze_generation::tests
             MazeParameters{ "BlobbyDivisionLarge", blobbyDivisionLarge },
             MazeParameters{ "BlobbyDivisionHuge", blobbyDivisionHuge },
             MazeParameters{ "Eller", eller },
+            MazeParameters{ "GrowingTreeOldest", growingTreeOldest },
+            MazeParameters{ "GrowingTreeMiddle", growingTreeMiddle },
+            MazeParameters{ "GrowingTreeNewest", growingTreeNewest },
+            MazeParameters{ "GrowingTreeRandom", growingTreeRandom },
             MazeParameters{ "HuntAndKill", huntAndKill },
             MazeParameters{ "Kruskal", kruskal },
             MazeParameters{ "Prim", prim },
