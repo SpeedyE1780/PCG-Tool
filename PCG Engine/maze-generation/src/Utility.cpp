@@ -67,7 +67,7 @@ namespace pcg::engine::maze_generation
                 grid[upperBound][x] &= ~NodeValue::forward;
             }
 
-            for (int y = 0; y < width; ++y)
+            for (int y = 0; y < height; ++y)
             {
                 grid[y][0] &= ~NodeValue::left;
                 grid[y][rightBound] &= ~NodeValue::right;
