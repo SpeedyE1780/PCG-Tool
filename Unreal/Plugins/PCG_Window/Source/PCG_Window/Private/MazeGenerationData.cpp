@@ -59,6 +59,7 @@ void UMazeGenerationData::SpawnBlock(int x, int y, maze_generation::NodeValue ad
     auto* block = world->SpawnActor<AActor>(levelBlock);
     block->SetActorLocation({ y * nodeSize, x * nodeSize, 0 });
     block->SetFolderPath(*GetFolderName());
+    block->SetActorLabel(FString::FromInt(x) + "-" + FString::FromInt(y));
     Cast<IMazeNode>(block)->UpdateAdjacentNodes(adjacentNodes);
 }
 
