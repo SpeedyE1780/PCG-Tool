@@ -4,9 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "MazeBlock.h"
-#include "pcg/engine/math/Vector3.hpp"
-#include "pcg/engine/utility/Enums.hpp"
+#include "MazeNode.h"
+#include "pcg/engine/maze-generation/Common.hpp"
+
 #include "MazeGenerationData.generated.h"
 
 UENUM(BlueprintType)
@@ -18,7 +18,22 @@ enum class EMazeAlgorithm
     binaryTreeNW = 3,
     binaryTreeSE = 4,
     binaryTreeSW = 5,
-    sidewinder = 6
+    sidewinder = 6,
+    eller = 7,
+    huntAndKill = 8,
+    recursiveBacktracker = 9,
+    recursiveDivision = 10,
+    kruskal = 11,
+    prim = 12,
+    growingTreeOldest = 13,
+    growingTreeMiddle = 14,
+    growingTreeNewest = 15,
+    growingTreeRandom = 16,
+    blobbyDivisionCorridors = 17,
+    blobbyDivisionSmall = 18,
+    blobbyDivisionMedium = 19,
+    blobbyDivisionLarge = 20,
+    blobbyDivisionHuge = 21,
 };
 
 /**
@@ -36,7 +51,7 @@ class PCG_WINDOW_API UMazeGenerationData : public UObject
     EMazeAlgorithm mazeAlgorithm;
 
     UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
-    TSubclassOf<AMazeBlock> levelBlock;
+    TSubclassOf<AActor> levelBlock;
 
     UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
     FIntVector2 gridSize;
@@ -47,7 +62,6 @@ class PCG_WINDOW_API UMazeGenerationData : public UObject
     unsigned int seed;
 
 private:
-    void SpawnBlock(int x, int y, pcg::engine::utility::enums::Direction adjacentNodes);
-
-    TMap<TTuple<int, int>, AMazeBlock*> blocks;
+    void SpawnBlock(int x, int y, pcg::engine::maze_generation::NodeValue adjacentNodes);
+    FString GetFolderName() const;
 };

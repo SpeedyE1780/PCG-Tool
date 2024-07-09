@@ -8,6 +8,8 @@
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/Vector3.hpp>
 
+#include <pcg/engine/maze-generation/Common.hpp>
+
 #include <pcg/engine/utility/Enums.hpp>
 
 #include <functional>
@@ -23,7 +25,22 @@ namespace pcg::engine::cpp_api
         binaryTreeNW = 3,
         binaryTreeSE = 4,
         binaryTreeSW = 5,
-        sidewinder = 6
+        sidewinder = 6,
+        eller = 7,
+        huntAndKill = 8,
+        recursiveBacktracker = 9,
+        recursiveDivision = 10,
+        kruskal = 11,
+        prim = 12,
+        growingTreeOldest = 13,
+        growingTreeMiddle = 14,
+        growingTreeNewest = 15,
+        growingTreeRandom = 16,
+        blobbyDivisionCorridors = 17,
+        blobbyDivisionSmall = 18,
+        blobbyDivisionMedium = 19,
+        blobbyDivisionLarge = 20,
+        blobbyDivisionHuge = 21,
     };
 
     /// @brief Set RNG's seed
@@ -59,7 +76,21 @@ namespace pcg::engine::cpp_api
     /// @param invokeAferGeneration If true callback will only be called after all nodes are generated
     /// @param algorithm Algorithm that will be used to generate maze
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, std::function<void(int x, int y, utility::enums::Direction neighbors)>&& callback);
+    PCG_ENGINE_CPP_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback);
+    /// @brief Generate a Growing Tree maze using a custom selection callback
+    /// @param width Width of grid
+    /// @param height Height of grid
+    /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+    /// @param nodeCallback Callback used to select a node from pending growing tree nodes
+    /// @param callback Callback when a node is generated
+    PCG_ENGINE_CPP_API_API void generateGrowingTreeWithCustomSelection(int width, int height, bool invokeAfterGeneration, std::function<int(int)>&& nodeCallback, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback);
+    /// @brief Geneate maze using Blobby Division Algorithm
+    /// @param width Grid Width
+    /// @param height Grid Height
+    /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+    /// @param regionThreshold User defined region threshold
+    /// @param callback Callback when a node is generated
+    void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback);
     /// @brief Generate a combination given a number of elements
     /// @param elementCount Number of element that are available in set
     /// @param callback Callback to add element to generated set

@@ -2,7 +2,9 @@
 
 
 #include "MazeBlock.h"
+#include "pcg/engine/utility/Enums.hpp"
 
+namespace maze_generation = pcg::engine::maze_generation;
 namespace pcgEnums = pcg::engine::utility::enums;
 
 // Sets default values
@@ -23,10 +25,10 @@ AMazeBlock::AMazeBlock()
     backward->SetupAttachment(RootComponent);
 }
 
-void AMazeBlock::UpdateMeshes(pcgEnums::Direction adjacentNode)
+void AMazeBlock::UpdateAdjacentNodes(maze_generation::NodeValue adjacentNode)
 {
-    left->SetVisibility(!pcgEnums::hasFlag(adjacentNode, pcgEnums::Direction::left), true);
-    right->SetVisibility(!pcgEnums::hasFlag(adjacentNode, pcgEnums::Direction::right), true);
-    forward->SetVisibility(!pcgEnums::hasFlag(adjacentNode, pcgEnums::Direction::forward), true);
-    backward->SetVisibility(!pcgEnums::hasFlag(adjacentNode, pcgEnums::Direction::backward), true);
+    left->SetVisibility(!pcgEnums::hasFlag(adjacentNode, maze_generation::NodeValue::left), true);
+    right->SetVisibility(!pcgEnums::hasFlag(adjacentNode, maze_generation::NodeValue::right), true);
+    forward->SetVisibility(!pcgEnums::hasFlag(adjacentNode, maze_generation::NodeValue::forward), true);
+    backward->SetVisibility(!pcgEnums::hasFlag(adjacentNode, maze_generation::NodeValue::backward), true);
 }

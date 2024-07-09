@@ -46,7 +46,8 @@ namespace pcg::engine::math
 namespace std
 {
     /// @brief Specialization of std::hash with Vector3 class
-    template <> struct hash<pcg::engine::math::Vector3>
+    template <>
+    struct hash<pcg::engine::math::Vector3>
     {
         size_t operator()(const pcg::engine::math::Vector3& vector) const
         {
