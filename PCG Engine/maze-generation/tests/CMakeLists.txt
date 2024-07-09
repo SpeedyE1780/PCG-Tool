@@ -5,8 +5,8 @@ enable_testing()
 add_executable(${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME} PRIVATE 
-"src/AldousBroder.cpp"
 "src/main.cpp"
+"src/Mazes.cpp"
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE pcg-engine-maze-generation)
