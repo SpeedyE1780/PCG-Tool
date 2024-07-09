@@ -1,4 +1,5 @@
 #include <pcg/engine/maze-generation/AldousBroder.hpp>
+#include <pcg/engine/maze-generation/BinaryTree.hpp>
 #include <pcg/engine/maze-generation/Eller.hpp>
 #include <pcg/engine/maze-generation/HuntAndKill.hpp>
 #include <pcg/engine/maze-generation/Kruskal.hpp>
@@ -16,6 +17,29 @@
 
 namespace pcg::engine::maze_generation::tests
 {
+    namespace
+    {
+        void binaryTreeNE(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            binaryTree(width, height, invokeAfterGeneration, Diagonal::NE, std::move(callback));
+        }
+
+        void binaryTreeNW(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            binaryTree(width, height, invokeAfterGeneration, Diagonal::NW, std::move(callback));
+        }
+
+        void binaryTreeSE(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            binaryTree(width, height, invokeAfterGeneration, Diagonal::SE, std::move(callback));
+        }
+
+        void binaryTreeSW(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            binaryTree(width, height, invokeAfterGeneration, Diagonal::SW, std::move(callback));
+        }
+    }
+
     struct MazeParameters
     {
         std::string fileName;
@@ -52,5 +76,19 @@ namespace pcg::engine::maze_generation::tests
     INSTANTIATE_TEST_CASE_P(
         MazeAlgorithmTests,
         MazeAlgorithmTest,
-        ::testing::Values(MazeParameters{"AldousBroder", aldousBroder}));
+        ::testing::Values(
+            MazeParameters{ "AldousBroder", aldousBroder },
+            MazeParameters{ "BinaryTreeNE", binaryTreeNE },
+            MazeParameters{ "BinaryTreeNW", binaryTreeNW },
+            MazeParameters{ "BinaryTreeSE", binaryTreeSE },
+            MazeParameters{ "BinaryTreeSW", binaryTreeSW },
+            MazeParameters{ "Eller", eller },
+            MazeParameters{ "HuntAndKill", huntAndKill },
+            MazeParameters{ "Kruskal", kruskal },
+            MazeParameters{ "Prim", prim },
+            MazeParameters{ "RecursiveBacktracker", recursiveBacktracker },
+            MazeParameters{ "RecursiveDivision", recursiveDivision },
+            MazeParameters{ "Sidewinder", sidewinder },
+            MazeParameters{ "Wilson", wilson }
+        ));
 }
