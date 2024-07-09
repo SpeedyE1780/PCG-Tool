@@ -10,12 +10,13 @@
 #include <random>
 #include <sstream>
 #include <stack>
+#include <unordered_map>
 
 namespace pcg::engine::level_generation
 {
     namespace
     {
-        using NodeVector = std::vector <Node>;
+        using NodeMap = std::unordered_map<math::Vector3, Node>;
 
         /// @brief Get directions from chosen axes
         /// @param axes Axes that will be used to generate level
@@ -60,24 +61,21 @@ namespace pcg::engine::level_generation
         /// @brief Spawns new node if it wasn't already spawned
         /// @tparam NodeCollection Collection of pending nodes (stack or queue)
         /// @param pendingNodes Pending nodes that haven't been processed yet
-        /// @param spawnedNodes Vector of nodes that are spawned
+        /// @param spawnedNodes Map of nodes that are spawned
         /// @param position Node position
         /// @return An iterator to the existing node in the spawnedNodes or an std::nullopt if the node wasn't previously spawned
         template<typename NodeCollection>
-        std::optional<NodeVector::iterator> spawnNode(NodeCollection& pendingNodes, NodeVector& spawnedNodes, const math::Vector3& position)
+        std::optional<NodeMap::iterator> spawnNode(NodeCollection& pendingNodes, NodeMap& spawnedNodes, const math::Vector3& position)
         {
             std::ostringstream oss{};
 
             oss << "Node: " << position.x << " " << position.y << " " << position.z << " ";
-            auto node = std::find_if(begin(spawnedNodes), end(spawnedNodes), [&position](const Node& node)
-                {
-                    return node.getPosition() == position;
-                });
+            auto node = spawnedNodes.find(position);
 
             if (node == end(spawnedNodes))
             {
-                pendingNodes.push(spawnedNodes.size());
-                spawnedNodes.emplace_back(Node(position));
+                pendingNodes.push(position);
+                spawnedNodes.emplace(position, Node(position));
                 oss << "added";
                 utility::logInfo(oss.str());
                 return std::nullopt;
@@ -126,29 +124,23 @@ namespace pcg::engine::level_generation
         public:
             /// @brief Initialize Data
             /// @param pendingNodes Current pending nodes collection
-            /// @param spawnedNodes Current spawned nodes vector
-            /// @param currentIndex Index of node being processed
+            /// @param spawnedNodes Current spawned nodes map
+            /// @param currentPosition Position of node being processed
             /// @param size Size of each node
-            WaveFunctionCollapseData(NodeCollection& pendingNodes, NodeVector& spawnedNodes, std::size_t currentIndex, float size) :
+            WaveFunctionCollapseData(NodeCollection& pendingNodes, NodeMap& spawnedNodes, math::Vector3 currentPosition, float size) :
                 pendingNodes(pendingNodes),
                 spawnedNodes(spawnedNodes),
-                currentIndex(currentIndex),
+                currentPosition(currentPosition),
                 nodeSize(size)
             {
             }
 
             /// @brief Get node being currently processed
             /// @return Node being currently processed
-            Node& getCurrentNode() { return spawnedNodes.at(currentIndex); }
+            Node& getCurrentNode() { return spawnedNodes.at(currentPosition); }
             /// @brief Get node being currently processed
             /// @return Node being currently processed
-            const Node& getCurrentNode() const { return spawnedNodes.at(currentIndex); }
-            /// @brief Get last spawned node
-            /// @return Last spawned node
-            Node& getLastSpawnedNode() { return spawnedNodes.back(); }
-            /// @brief Get last spawned node
-            /// @return Last spawned node
-            const Node& getLastSpawnedNode() const { return spawnedNodes.back(); }
+            const Node& getCurrentNode() const { return spawnedNodes.at(currentPosition); }
             /// @brief Get the size of each node
             /// @return The size of each node
             float getNodeSize() const { return nodeSize; }
@@ -158,20 +150,20 @@ namespace pcg::engine::level_generation
             /// @brief Get collection of nodes not processed yet
             /// @return Collection of nodes not processed yet
             const NodeCollection& getPendingNodes() const { return pendingNodes; }
-            /// @brief Get vector of nodes that were spawned
-            /// @return Vector of nodes that were spawned
-            NodeVector& getSpawnedNodes() { return spawnedNodes; }
-            /// @brief Get vector of nodes that were spawned
-            /// @return Vector of nodes that were spawned
-            const NodeVector& getSpawnedNodes() const { return spawnedNodes; }
+            /// @brief Get map of nodes that were spawned
+            /// @return Map of nodes that were spawned
+            NodeMap& getSpawnedNodes() { return spawnedNodes; }
+            /// @brief Get map of nodes that were spawned
+            /// @return Map of nodes that were spawned
+            const NodeMap& getSpawnedNodes() const { return spawnedNodes; }
 
         private:
             /// @brief Collection of nodes that weren't processed yet
             NodeCollection& pendingNodes;
-            /// @brief Vector of spawned nodes
-            NodeVector& spawnedNodes;
-            /// @brief Index of node being processed
-            std::size_t currentIndex;
+            /// @brief Map of spawned nodes
+            NodeMap& spawnedNodes;
+            /// @brief Position of node being processed
+            math::Vector3 currentPosition;
             /// @brief Size of each node
             float nodeSize;
         };
@@ -190,13 +182,13 @@ namespace pcg::engine::level_generation
             }
 
             math::Vector3 adjacentPosition = getAdjacentNodePosition(data.getCurrentNode().getPosition(), currentDirection, data.getNodeSize());
-            std::optional<NodeVector::iterator> adjacentNode = spawnNode(data.getPendingNodes(), data.getSpawnedNodes(), adjacentPosition);
+            std::optional<NodeMap::iterator> adjacentNode = spawnNode(data.getPendingNodes(), data.getSpawnedNodes(), adjacentPosition);
 
             if (!adjacentNode.has_value())
             {
-                data.getLastSpawnedNode().addAdjacentNode(flippedDirection);
+                data.getSpawnedNodes().at(adjacentPosition).addAdjacentNode(flippedDirection);
             }
-            else if (!adjacentNode.value()->hasAdjacentNode(flippedDirection))
+            else if (!adjacentNode.value()->second.hasAdjacentNode(flippedDirection))
             {
                 data.getCurrentNode().removeAdjacentNode(currentDirection);
             }
@@ -204,13 +196,13 @@ namespace pcg::engine::level_generation
 
         /// @brief Spawn nodes adjacent to current node
         /// @tparam NodeCollection Collection of pending nodes (stack or queue)
-        /// @param spawnedNodes Vector of nodes spawned in level
+        /// @param spawnedNodes Map of nodes spawned in level
         /// @param pendingNodes Collection of nodes that weren't processed yet
         /// @param currentIndex Index of node being processed
         /// @param directions Directions that can be used to reach adjacent node
         /// @param nodeSize Size of each node
         template<typename NodeCollection>
-        void spawnAdjacentNodes(NodeVector& spawnedNodes, NodeCollection& pendingNodes, std::size_t currentIndex, const std::vector<utility::enums::Direction> directions, float nodeSize)
+        void spawnAdjacentNodes(NodeMap& spawnedNodes, NodeCollection& pendingNodes, math::Vector3 currentIndex, const std::vector<utility::enums::Direction> directions, float nodeSize)
         {
             const int adjacentNodes = spawnedNodes.at(currentIndex).getAdjacentNodesCount();
 
@@ -238,7 +230,7 @@ namespace pcg::engine::level_generation
         void waveFunctionCollapse(const GenerationData& data, std::vector<utility::enums::Direction>&& directions, utility::CallbackFunctor<void(math::Vector3, utility::enums::Direction)>&& callback)
         {
             NodeCollection pendingNodes{};
-            NodeVector spawnedNodes{};
+            NodeMap spawnedNodes{};
             spawnedNodes.reserve(data.count);
             spawnNode(pendingNodes, spawnedNodes, data.startPoint);
             std::default_random_engine rd{ math::Random::seed };
@@ -246,20 +238,20 @@ namespace pcg::engine::level_generation
             while (!pendingNodes.empty())
             {
                 std::ostringstream oss{};
-                std::size_t currentIndex = getNext(pendingNodes);
+                math::Vector3 currentPosition = getNext(pendingNodes);
                 pendingNodes.pop();
 
-                const math::Vector3& position = spawnedNodes.at(currentIndex).getPosition();
+                const math::Vector3& position = spawnedNodes.at(currentPosition).getPosition();
                 oss << "Current Node: " << position.x << " " << position.y << " " << position.z;
                 utility::logInfo(oss.str());
 
                 if (spawnedNodes.size() < data.count)
                 {
                     std::shuffle(begin(directions), end(directions), rd);
-                    spawnAdjacentNodes(spawnedNodes, pendingNodes, currentIndex, directions, data.size);
+                    spawnAdjacentNodes(spawnedNodes, pendingNodes, currentPosition, directions, data.size);
                 }
 
-                callback(spawnedNodes.at(currentIndex).getPosition(), spawnedNodes.at(currentIndex).getAdjacentNodes());
+                callback(spawnedNodes.at(currentPosition).getPosition(), spawnedNodes.at(currentPosition).getAdjacentNodes());
             }
 
             utility::logInfo("Wave Function Collapsed Spawned: " + std::to_string(spawnedNodes.size()));
@@ -271,13 +263,13 @@ namespace pcg::engine::level_generation
         if (mode == ExpansionMode::DFS)
         {
             utility::logInfo("DFS WFC Started");
-            waveFunctionCollapse<std::stack<std::size_t>>(data, getDirections(axes), std::move(callback));
+            waveFunctionCollapse<std::stack<math::Vector3>>(data, getDirections(axes), std::move(callback));
             utility::logInfo("DFS WFC Ended");
         }
         else if (mode == ExpansionMode::BFS)
         {
             utility::logInfo("BFS WFC Started");
-            waveFunctionCollapse<std::queue<std::size_t>>(data, getDirections(axes), std::move(callback));
+            waveFunctionCollapse<std::queue<math::Vector3>>(data, getDirections(axes), std::move(callback));
             utility::logInfo("BFS WFC Ended");
         }
     }
