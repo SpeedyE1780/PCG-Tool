@@ -25,7 +25,7 @@ AMazeBlock::AMazeBlock()
     backward->SetupAttachment(RootComponent);
 }
 
-void AMazeBlock::UpdateMeshes(maze_generation::NodeValue adjacentNode)
+void AMazeBlock::UpdateAdjacentNodes(maze_generation::NodeValue adjacentNode)
 {
     left->SetVisibility(!pcgEnums::hasFlag(adjacentNode, maze_generation::NodeValue::left), true);
     right->SetVisibility(!pcgEnums::hasFlag(adjacentNode, maze_generation::NodeValue::right), true);

@@ -39,6 +39,12 @@ void UMazeGenerationData::GenerateMaze()
         return;
     }
 
+    if (!levelBlock->ImplementsInterface(UMazeNode::StaticClass()))
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, "Maze Block does not implement IMazeNode");
+        return;
+    }
+
     pcg_api::setSeed(seed);
 
     pcg_api::generateMaze(gridSize.X, gridSize.Y, true, static_cast<pcg_api::MazeAlgorithm>(mazeAlgorithm),
@@ -50,10 +56,10 @@ void UMazeGenerationData::GenerateMaze()
 void UMazeGenerationData::SpawnBlock(int x, int y, maze_generation::NodeValue adjacentNodes)
 {
     UWorld* world = GEditor->GetEditorWorldContext().World();
-    AMazeBlock* block = world->SpawnActor<AMazeBlock>(levelBlock);
+    auto* block = world->SpawnActor<AActor>(levelBlock);
     block->SetActorLocation({ y * nodeSize, x * nodeSize, 0 });
     block->SetFolderPath(*GetFolderName());
-    block->UpdateMeshes(adjacentNodes);
+    Cast<IMazeNode>(block)->UpdateAdjacentNodes(adjacentNodes);
 }
 
 FString UMazeGenerationData::GetFolderName() const

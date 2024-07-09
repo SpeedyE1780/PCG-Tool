@@ -5,10 +5,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "pcg/engine/maze-generation/Common.hpp"
+#include "MazeNode.h"
 #include "MazeBlock.generated.h"
 
 UCLASS()
-class MYPCG_API AMazeBlock : public AActor
+class MYPCG_API AMazeBlock : public AActor, public IMazeNode
 {
 	GENERATED_BODY()
 	
@@ -16,7 +17,7 @@ public:
 	// Sets default values for this actor's properties
 	AMazeBlock();
 
-	void UpdateMeshes(pcg::engine::maze_generation::NodeValue adjacentNodes);
+	virtual void UpdateAdjacentNodes(pcg::engine::maze_generation::NodeValue adjacentNodes) override;
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))

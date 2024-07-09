@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "MazeBlock.h"
+#include "MazeNode.h"
 #include "pcg/engine/maze-generation/Common.hpp"
 
 #include "MazeGenerationData.generated.h"
@@ -51,7 +51,7 @@ class PCG_WINDOW_API UMazeGenerationData : public UObject
     EMazeAlgorithm mazeAlgorithm;
 
     UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
-    TSubclassOf<AMazeBlock> levelBlock;
+    TSubclassOf<AActor> levelBlock;
 
     UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
     FIntVector2 gridSize;
