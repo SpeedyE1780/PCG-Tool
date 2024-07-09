@@ -1,5 +1,6 @@
 #include <pcg/engine/maze-generation/AldousBroder.hpp>
 #include <pcg/engine/maze-generation/BinaryTree.hpp>
+#include <pcg/engine/maze-generation/BlobbyDivision.hpp>
 #include <pcg/engine/maze-generation/Eller.hpp>
 #include <pcg/engine/maze-generation/HuntAndKill.hpp>
 #include <pcg/engine/maze-generation/Kruskal.hpp>
@@ -37,6 +38,31 @@ namespace pcg::engine::maze_generation::tests
         void binaryTreeSW(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
         {
             binaryTree(width, height, invokeAfterGeneration, Diagonal::SW, std::move(callback));
+        }
+
+        void blobbyDivisionCorridors(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::corridors, std::move(callback));
+        }
+
+        void blobbyDivisionSmall(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::small, std::move(callback));
+        }
+
+        void blobbyDivisionMedium(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::medium, std::move(callback));
+        }
+
+        void blobbyDivisionLarge(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::large, std::move(callback));
+        }
+
+        void blobbyDivisionHuge(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        {
+            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::huge, std::move(callback));
         }
     }
 
@@ -82,6 +108,11 @@ namespace pcg::engine::maze_generation::tests
             MazeParameters{ "BinaryTreeNW", binaryTreeNW },
             MazeParameters{ "BinaryTreeSE", binaryTreeSE },
             MazeParameters{ "BinaryTreeSW", binaryTreeSW },
+            MazeParameters{ "BlobbyDivisionCorridors", blobbyDivisionCorridors },
+            MazeParameters{ "BlobbyDivisionSmall", blobbyDivisionSmall },
+            MazeParameters{ "BlobbyDivisionMedium", blobbyDivisionMedium },
+            MazeParameters{ "BlobbyDivisionLarge", blobbyDivisionLarge },
+            MazeParameters{ "BlobbyDivisionHuge", blobbyDivisionHuge },
             MazeParameters{ "Eller", eller },
             MazeParameters{ "HuntAndKill", huntAndKill },
             MazeParameters{ "Kruskal", kruskal },
