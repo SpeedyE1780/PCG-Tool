@@ -67,6 +67,11 @@ namespace pcg::engine::c_api
         level_generation::waveFunctionCollapse(width, height, invokeAfterGeneration, callback);
     }
 
+    void waveFunctionCollapse3DGridGeneration(int width, int height, int depth, bool invokeAfterGeneration, addWFC3DGridNodeCallback callback)
+    {
+        level_generation::waveFunctionCollapse(width, height, depth, invokeAfterGeneration, callback);
+    }
+
     void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazeNodeCallback callback)
     {
         switch (algorithm)

@@ -76,6 +76,13 @@ namespace pcg::engine::cpp_api
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param callback Callback when a node is generated
     PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(int width, int height, bool invokeAfterGeneration, std::function<void(int, int, utility::enums::Direction)>&& callback);
+    /// @brief Generate a grid using the Wave Function Collapse Algorithm
+    /// @param width Grid width
+    /// @param height Grid height
+    /// @param depth Grid depth
+    /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+    /// @param callback Callback when a node is generated
+    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(int width, int height, int depth, bool invokeAfterGeneration, std::function<void(int, int, int, utility::enums::Direction)>&& callback);
     /// @brief Generate a maze using the passed in algorithm
     /// @param width Width of grid
     /// @param height Height of grid
