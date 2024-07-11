@@ -426,7 +426,7 @@ namespace pcg::engine::level_generation
         utility::logInfo("3D Wave Function Collapse Started");
 
         std::default_random_engine randomEngine(math::Random::seed);
-        std::vector<utility::enums::Direction> directions = getDirections(math::Axis::xz);
+        std::vector<utility::enums::Direction> directions = getDirections(math::Axis::xyz);
         std::shuffle(begin(directions), end(directions), randomEngine);
         std::vector<std::vector<std::vector<utility::enums::Direction>>> grid(depth, 
             std::vector<std::vector<utility::enums::Direction>>(height, std::vector<utility::enums::Direction>(width, utility::enums::Direction::none)));
