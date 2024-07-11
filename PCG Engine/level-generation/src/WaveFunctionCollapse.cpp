@@ -310,7 +310,7 @@ namespace pcg::engine::level_generation
                 || y == 0 && utility::enums::hasFlag(direction, utility::enums::Direction::down)
                 || y == grid[z].size() - 1 && utility::enums::hasFlag(direction, utility::enums::Direction::up)
                 || z == 0 && utility::enums::hasFlag(direction, utility::enums::Direction::backward)
-                || z == grid.size() && utility::enums::hasFlag(direction, utility::enums::Direction::forward)
+                || z == grid.size() - 1 && utility::enums::hasFlag(direction, utility::enums::Direction::forward)
                 || utility::enums::hasFlag(grid[z][y][x], direction))
             {
                 return;
