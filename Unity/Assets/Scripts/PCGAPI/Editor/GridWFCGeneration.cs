@@ -24,6 +24,15 @@ public class GridWFCGeneration : EditorWindow
         public Direction adjacentNodes;
     }
 
+    private struct Node3DInfo
+    {
+        public int x;
+        public int y;
+        public int z;
+        public float size;
+        public Direction adjacentNodes;
+    }
+
     private delegate UnityEngine.Vector3 Place2DNode(int x, int y, float  size);
 
     [SerializeField]
@@ -212,21 +221,22 @@ public class GridWFCGeneration : EditorWindow
 
         if (frameByFrameToggle.value)
         {
-            //List<Node2DInfo> nodes = new List<Node2DInfo>();
+            List<Node3DInfo> nodes = new List<Node3DInfo>();
 
-            //void AddNodeInfo(int x, int y, Direction adjacentNodes)
-            //{
-            //    nodes.Add(new Node2DInfo()
-            //    {
-            //        x = x,
-            //        y = y,
-            //        size = size,
-            //        adjacentNodes = adjacentNodes
-            //    });
-            //}
+            void AddNodeInfo(int x, int y, int z, Direction adjacentNodes)
+            {
+                nodes.Add(new Node3DInfo()
+                {
+                    x = x,
+                    y = y,
+                    z = z,
+                    size = size,
+                    adjacentNodes = adjacentNodes
+                });
+            }
 
-            //PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, true, AddNodeInfo);
-            //EditorCoroutineUtility.StartCoroutine(Spawn2DGrid(nodes, node, nodeParent, placingFunction), this);
+            PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, gridSize.z, true, AddNodeInfo);
+            EditorCoroutineUtility.StartCoroutine(Spawn3DGrid(nodes, node, nodeParent), this);
         }
         else
         {
@@ -248,6 +258,15 @@ public class GridWFCGeneration : EditorWindow
             WFCNode n = Instantiate(node, nodeParent);
             n.transform.position = position;
             n.SetNeighbors(adjacentNodes);
+        }
+    }
+
+    private IEnumerator Spawn3DGrid(List<Node3DInfo> nodes, WFCNode node, Transform nodeParent)
+    {
+        foreach (Node3DInfo nodeInfo in nodes)
+        {
+            AddNode(node, nodeParent, nodeInfo.size, nodeInfo.x, nodeInfo.y, nodeInfo.z, nodeInfo.adjacentNodes);
+            yield return null;
         }
     }
 }
