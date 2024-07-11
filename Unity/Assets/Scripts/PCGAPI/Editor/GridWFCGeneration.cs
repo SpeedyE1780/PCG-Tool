@@ -1,6 +1,4 @@
 using PCGAPI;
-using System.Collections.Generic;
-using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -8,6 +6,15 @@ using UnityEngine.UIElements;
 
 public class GridWFCGeneration : EditorWindow
 {
+    private enum Plane
+    {
+        XY,
+        XZ,
+        YZ
+    }
+
+    private delegate UnityEngine.Vector3 Place2DNode(int x, int y, float  size);
+
     [SerializeField]
     private VisualTreeAsset m_VisualTreeAsset = default;
 
@@ -15,6 +22,7 @@ public class GridWFCGeneration : EditorWindow
     private FloatField nodeSizeField;
     private UnsignedIntegerField seedField;
     private DropdownField gridDimensionField;
+    private EnumField grid2DPlane;
     private Toggle frameByFrameToggle;
     private Vector2IntField grid2DSizeField;
 
@@ -36,6 +44,7 @@ public class GridWFCGeneration : EditorWindow
         frameByFrameToggle = rootVisualElement.Q<Toggle>("FramebyFrame");
         gridDimensionField = rootVisualElement.Q<DropdownField>("GridDimension");
         grid2DSizeField = rootVisualElement.Q<Vector2IntField>("Grid2DSize");
+        grid2DPlane = rootVisualElement.Q<EnumField>("2DPlane");
 
         var generateButton = rootVisualElement.Q<Button>("GenerateButton");
         generateButton.clicked += SpawnObject;
@@ -49,9 +58,39 @@ public class GridWFCGeneration : EditorWindow
         }
 
         PCGEngine.SetLoggingFunction(Log);
+        PCGEngine.SetSeed(seedField.value);
+        Spawn2DGrid();
+    }
 
+    private Place2DNode GetPositioningDelegate()
+    {
+        switch ((Plane)grid2DPlane.value)
+        {
+            case Plane.XY:
+                {
+                    return (int x, int y, float size) => { return new UnityEngine.Vector3(x * size, y * size, 0); };
+                }
+            case Plane.XZ:
+                {
+                    return (int x, int y, float size) => { return new UnityEngine.Vector3(x * size, 0, y * size); };
+                }
+            case Plane.YZ:
+                {
+                    return (int x, int y, float size) => { return new UnityEngine.Vector3(0, x * size, y * size); };
+                }
+            default:
+                {
+                    return null;
+                }
+        }
+    }
+
+    private void Spawn2DGrid()
+    {
         WFCNode node = nodeField.value as WFCNode;
         float size = nodeSizeField.value;
+        Vector2Int gridSize = grid2DSizeField.value;
+        Place2DNode placingFunction = GetPositioningDelegate();
 
         if (node == null)
         {
@@ -65,8 +104,7 @@ public class GridWFCGeneration : EditorWindow
             return;
         }
 
-        PCGEngine.SetSeed(seedField.value);
-        Transform nodeParent = new GameObject("Grid WFC Generation").transform;
+        Transform nodeParent = new GameObject("Grid 2D WFC Generation").transform;
         if (frameByFrameToggle.value)
         {
             //EditorCoroutineUtility.StartCoroutine(SpawnLevel(nodes), this);
@@ -75,18 +113,18 @@ public class GridWFCGeneration : EditorWindow
         {
             void AddGridNode(int x, int y, Direction adjacentNodes)
             {
-                AddNode(nodeParent, node, x, y, adjacentNodes);
+                AddNode(node, nodeParent, placingFunction, size, x, y, adjacentNodes);
             }
 
-            PCGEngine.WaveFunctionCollapseGeneration(5, 5, true, AddGridNode);
+            PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, true, AddGridNode);
         }
     }
 
-    void AddNode(Transform nodeParent, WFCNode node, int x, int y, Direction adjacentNodes)
+    void AddNode(WFCNode node, Transform nodeParent, Place2DNode placingFunction, float nodeSize, int x, int y, Direction adjacentNodes)
     {
         if (adjacentNodes != Direction.none)
         {
-            UnityEngine.Vector3 position = new UnityEngine.Vector3(x * nodeSizeField.value, 0, nodeSizeField.value * y);
+            UnityEngine.Vector3 position = placingFunction(x, y, nodeSize);
             WFCNode n = Instantiate(node, nodeParent);
             n.transform.position = position;
             n.SetNeighbors(adjacentNodes);
