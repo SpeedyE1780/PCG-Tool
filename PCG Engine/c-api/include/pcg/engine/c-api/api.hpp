@@ -90,8 +90,9 @@ namespace pcg::engine::c_api
     /// @brief Generate a grid using the Wave Function Collapse Algorithm
     /// @param width Grid width
     /// @param height Grid height
+    /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_C_API_API void waveFunctionCollapseGridGeneration(int width, int height, addWFCGridNodeCallback callback);
+    PCG_ENGINE_C_API_API void waveFunctionCollapseGridGeneration(int width, int height, bool invokeAfterGeneration, addWFCGridNodeCallback callback);
     /// @brief Generate a maze using the passed in algorithm
     /// @param width Width of grid
     /// @param height Height of grid

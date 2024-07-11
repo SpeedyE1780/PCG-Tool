@@ -257,7 +257,7 @@ namespace pcg::engine::level_generation
             utility::logInfo("Wave Function Collapsed Spawned: " + std::to_string(spawnedNodes.size()));
         }
 
-        void processNode(std::vector<std::vector<utility::enums::Direction>>& grid, std::queue<std::tuple<int, int>>& pending, int x, int y, utility::enums::Direction direction, const utility::CallbackFunctor<void(int, int, utility::enums::Direction)>& callback)
+        void processNode(std::vector<std::vector<utility::enums::Direction>>& grid, std::queue<std::tuple<int, int>>& pending, int x, int y, utility::enums::Direction direction, utility::CallbackFunctor<void(int, int, utility::enums::Direction)>* callback)
         {
             if (x == 0 && utility::enums::hasFlag(direction, utility::enums::Direction::left)
                 || x == grid[y].size() - 1 && utility::enums::hasFlag(direction, utility::enums::Direction::right)
@@ -268,7 +268,10 @@ namespace pcg::engine::level_generation
             }
 
             grid[y][x] |= direction;
-            callback(x, y, grid[y][x]);
+            if (callback)
+            {
+                (*callback)(x, y, grid[y][x]);
+            }
 
             if (utility::enums::hasFlag(direction, utility::enums::Direction::left))
             {
@@ -292,7 +295,10 @@ namespace pcg::engine::level_generation
             }
 
             grid[y][x] |= direction;
-            callback(x, y, grid[y][x]);
+            if (callback)
+            {
+                (*callback)(x, y, grid[y][x]);
+            }
             pending.emplace(std::make_pair(x, y));
         }
     }
@@ -313,7 +319,7 @@ namespace pcg::engine::level_generation
         }
     }
 
-    void waveFunctionCollapse(int width, int height, utility::CallbackFunctor<void(int, int, utility::enums::Direction)>&& callback)
+    void waveFunctionCollapse(int width, int height, bool invokeAfterGeneration, utility::CallbackFunctor<void(int, int, utility::enums::Direction)>&& callback)
     {
         utility::logInfo("2D Wave Function Collapse Started");
 
@@ -336,10 +342,21 @@ namespace pcg::engine::level_generation
 
             for (int i = 0; i < adjacents; ++i)
             {
-                processNode(grid, pending, x, y, directions[i], callback);
+                processNode(grid, pending, x, y, directions[i], invokeAfterGeneration ? nullptr : &callback);
             }
 
             std::shuffle(begin(directions), end(directions), randomEngine);
+        }
+
+        if (invokeAfterGeneration)
+        {
+            for (int y = 0; y < height; ++y)
+            {
+                for (int x = 0; x < width; ++x)
+                {
+                    callback(x, y, grid[y][x]);
+                }
+            }
         }
 
         utility::logInfo("2D Wave Function Collapse Ended");
