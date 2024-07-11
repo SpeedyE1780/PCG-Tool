@@ -70,6 +70,11 @@ namespace pcg::engine::cpp_api
     /// @param axes Axes flag indicating which axes are being used
     /// @param callback Callback when a node is generated
     PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, std::function<void(math::Vector3, utility::enums::Direction)>&& callback);
+    /// @brief Generate a grid using the Wave Function Collapse Algorithm
+    /// @param width Grid width
+    /// @param height Grid height
+    /// @param callback Callback when a node is generated
+    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(int width, int height, std::function<void(int, int, utility::enums::Direction)>&& callback);
     /// @brief Generate a maze using the passed in algorithm
     /// @param width Width of grid
     /// @param height Height of grid
