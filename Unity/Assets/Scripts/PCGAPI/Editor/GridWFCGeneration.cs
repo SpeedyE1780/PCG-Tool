@@ -192,18 +192,62 @@ public class GridWFCGeneration : EditorWindow
 
     private void Spawn3DGrid()
     {
+        WFCNode node = nodeField.value as WFCNode;
+        float size = nodeSizeField.value;
+        Vector3Int gridSize = grid3DSizeField.value;
 
+        if (node == null)
+        {
+            Debug.LogWarning("Node not set");
+            return;
+        }
+
+        if (size == 0)
+        {
+            Debug.LogWarning("Node size not set");
+            return;
+        }
+
+        Transform nodeParent = new GameObject("Grid 3D WFC Generation").transform;
+
+        if (frameByFrameToggle.value)
+        {
+            //List<Node2DInfo> nodes = new List<Node2DInfo>();
+
+            //void AddNodeInfo(int x, int y, Direction adjacentNodes)
+            //{
+            //    nodes.Add(new Node2DInfo()
+            //    {
+            //        x = x,
+            //        y = y,
+            //        size = size,
+            //        adjacentNodes = adjacentNodes
+            //    });
+            //}
+
+            //PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, true, AddNodeInfo);
+            //EditorCoroutineUtility.StartCoroutine(Spawn2DGrid(nodes, node, nodeParent, placingFunction), this);
+        }
+        else
+        {
+            void AddGridNode(int x, int y, int z, Direction adjacentNodes)
+            {
+                AddNode(node, nodeParent, size, x, y, z, adjacentNodes);
+            }
+
+            PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, gridSize.z, true, AddGridNode);
+        }
     }
 
 
-    //void AddNode(int x, int y, int z, Direction adjacentNodes)
-    //{
-    //    if (adjacentNodes != Direction.none)
-    //    {
-    //        UnityEngine.Vector3 position = new UnityEngine.Vector3(x * nodeSizeField.value, nodeSizeField.value * y, nodeSizeField.value * z);
-    //        WFCNode n = Instantiate(node, nodeParent);
-    //        n.transform.position = position;
-    //        n.SetNeighbors(adjacentNodes);
-    //    }
-    //}
+    void AddNode(WFCNode node, Transform nodeParent, float size, int x, int y, int z, Direction adjacentNodes)
+    {
+        if (adjacentNodes != Direction.none)
+        {
+            UnityEngine.Vector3 position = new UnityEngine.Vector3(x * nodeSizeField.value, nodeSizeField.value * y, nodeSizeField.value * z);
+            WFCNode n = Instantiate(node, nodeParent);
+            n.transform.position = position;
+            n.SetNeighbors(adjacentNodes);
+        }
+    }
 }
