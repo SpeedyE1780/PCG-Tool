@@ -302,6 +302,64 @@ namespace pcg::engine::level_generation
             }
             pending.emplace(std::make_pair(x, y));
         }
+
+        void processNode(std::vector<std::vector<std::vector<utility::enums::Direction>>>& grid, std::queue<std::tuple<int, int, int>>& pending, int x, int y, int z, utility::enums::Direction direction, utility::CallbackFunctor<void(int, int, int, utility::enums::Direction)>* callback)
+        {
+            if (x == 0 && utility::enums::hasFlag(direction, utility::enums::Direction::left)
+                || x == grid[z][y].size() - 1 && utility::enums::hasFlag(direction, utility::enums::Direction::right)
+                || y == 0 && utility::enums::hasFlag(direction, utility::enums::Direction::down)
+                || y == grid[z].size() - 1 && utility::enums::hasFlag(direction, utility::enums::Direction::up)
+                || z == 0 && utility::enums::hasFlag(direction, utility::enums::Direction::backward)
+                || z == grid.size() && utility::enums::hasFlag(direction, utility::enums::Direction::forward)
+                || utility::enums::hasFlag(grid[z][y][x], direction))
+            {
+                return;
+            }
+
+            grid[z][y][x] |= direction;
+            if (callback)
+            {
+                (*callback)(x, y, z, grid[z][y][x]);
+            }
+
+            if (utility::enums::hasFlag(direction, utility::enums::Direction::left))
+            {
+                x -= 1;
+                direction = utility::enums::Direction::right;
+            }
+            else if (utility::enums::hasFlag(direction, utility::enums::Direction::right))
+            {
+                x += 1;
+                direction = utility::enums::Direction::left;
+            }
+            else if (utility::enums::hasFlag(direction, utility::enums::Direction::up))
+            {
+                y += 1;
+                direction = utility::enums::Direction::down;
+            }
+            else if (utility::enums::hasFlag(direction, utility::enums::Direction::down))
+            {
+                y -= 1;
+                direction = utility::enums::Direction::up;
+            }
+            else if (utility::enums::hasFlag(direction, utility::enums::Direction::forward))
+            {
+                z += 1;
+                direction = utility::enums::Direction::backward;
+            }
+            else if (utility::enums::hasFlag(direction, utility::enums::Direction::backward))
+            {
+                z -= 1;
+                direction = utility::enums::Direction::forward;
+            }
+
+            grid[z][y][x] |= direction;
+            if (callback)
+            {
+                (*callback)(x, y, z, grid[z][y][x]);
+            }
+            pending.emplace(std::make_tuple(x, y, z));
+        }
     }
 
     void waveFunctionCollapse(const GenerationData& data, ExpansionMode mode, math::Axis axes, utility::CallbackFunctor<void(math::Vector3, utility::enums::Direction)>&& callback)
@@ -361,5 +419,53 @@ namespace pcg::engine::level_generation
         }
 
         utility::logInfo("2D Wave Function Collapse Ended");
+    }
+
+    void waveFunctionCollapse(int width, int height, int depth, bool invokeAfterGeneration, utility::CallbackFunctor<void(int, int, int, utility::enums::Direction)>&& callback)
+    {
+        utility::logInfo("3D Wave Function Collapse Started");
+
+        std::default_random_engine randomEngine(math::Random::seed);
+        std::vector<utility::enums::Direction> directions = getDirections(math::Axis::xz);
+        std::shuffle(begin(directions), end(directions), randomEngine);
+        std::vector<std::vector<std::vector<utility::enums::Direction>>> grid(depth, 
+            std::vector<std::vector<utility::enums::Direction>>(height, std::vector<utility::enums::Direction>(width, utility::enums::Direction::none)));
+
+        const int startX = math::Random::generateNumber(0, width);
+        const int startY = math::Random::generateNumber(0, height);
+        const int startZ = math::Random::generateNumber(0, depth);
+        std::queue<std::tuple<int, int, int>> pending;
+        pending.emplace(std::make_tuple(startX, startY, startZ));
+
+        while (!pending.empty())
+        {
+            const auto& [x, y, z] = std::move(pending.front());
+            pending.pop();
+
+            const int adjacents = math::Random::generateNumber(0, directions.size());
+
+            for (int i = 0; i < adjacents; ++i)
+            {
+                processNode(grid, pending, x, y, z, directions[i], invokeAfterGeneration ? nullptr : &callback);
+            }
+
+            std::shuffle(begin(directions), end(directions), randomEngine);
+        }
+
+        if (invokeAfterGeneration)
+        {
+            for (int z = 0; z < depth; ++z)
+            {
+                for (int y = 0; y < height; ++y)
+                {
+                    for (int x = 0; x < width; ++x)
+                    {
+                        callback(x, y, z, grid[z][y][x]);
+                    }
+                }
+            }
+        }
+
+        utility::logInfo("3D Wave Function Collapse Ended");
     }
 }
