@@ -7,6 +7,9 @@
         <engine:EnumField label="Plane" type="GridWFCGeneration+Plane, PCGAPI.Editor" name="2DPlane" />
         <engine:Vector2IntField label="Grid Size" name="Grid2DSize" />
     </engine:VisualElement>
+    <engine:VisualElement name="Grid3D">
+        <engine:Vector3IntField label="GridSize" name="Grid3DSize" />
+    </engine:VisualElement>
     <engine:Toggle label="Frame by Frame" name="FramebyFrame" />
     <engine:Button text="Generate" name="GenerateButton" />
 </engine:UXML>

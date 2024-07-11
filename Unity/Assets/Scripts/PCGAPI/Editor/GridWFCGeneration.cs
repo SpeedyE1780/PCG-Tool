@@ -36,12 +36,23 @@ public class GridWFCGeneration : EditorWindow
     private EnumField grid2DPlane;
     private Toggle frameByFrameToggle;
     private Vector2IntField grid2DSizeField;
+    private Vector3IntField grid3DSizeField;
+    private VisualElement grid2DContainer;
+    private VisualElement grid3DContainer;
+    private bool grid3DGeneration = false;
 
     [MenuItem("PCG/Grid Wave Function Collapse Generation")]
     public static void ShowExample()
     {
         GridWFCGeneration wnd = GetWindow<GridWFCGeneration>();
         wnd.titleContent = new GUIContent("Grid Wave Function Collapse Generation");
+    }
+
+    private void OnDimensionChange()
+    {
+        grid2DContainer.style.display = gridDimensionField.value == "2D Grid" ? DisplayStyle.Flex : DisplayStyle.None;
+        grid3DContainer.style.display = gridDimensionField.value == "3D Grid" ? DisplayStyle.Flex : DisplayStyle.None;
+        grid3DGeneration = gridDimensionField.value == "3D Grid";
     }
 
     public void CreateGUI()
@@ -56,6 +67,12 @@ public class GridWFCGeneration : EditorWindow
         gridDimensionField = rootVisualElement.Q<DropdownField>("GridDimension");
         grid2DSizeField = rootVisualElement.Q<Vector2IntField>("Grid2DSize");
         grid2DPlane = rootVisualElement.Q<EnumField>("2DPlane");
+        grid3DSizeField = rootVisualElement.Q<Vector3IntField>("Grid3DSize");
+        grid2DContainer = rootVisualElement.Q<VisualElement>("Grid2D");
+        grid3DContainer = rootVisualElement.Q<VisualElement>("Grid3D");
+
+        gridDimensionField.RegisterValueChangedCallback((eventChange) => OnDimensionChange());
+        OnDimensionChange();
 
         var generateButton = rootVisualElement.Q<Button>("GenerateButton");
         generateButton.clicked += SpawnObject;
@@ -70,7 +87,14 @@ public class GridWFCGeneration : EditorWindow
 
         PCGEngine.SetLoggingFunction(Log);
         PCGEngine.SetSeed(seedField.value);
-        Spawn2DGrid();
+        if (grid3DGeneration)
+        {
+            Spawn3DGrid();
+        }
+        else
+        {
+            Spawn2DGrid(); 
+        }
     }
 
     private Place2DNode GetPositioningDelegate()
@@ -165,6 +189,12 @@ public class GridWFCGeneration : EditorWindow
             yield return null;
         }
     }
+
+    private void Spawn3DGrid()
+    {
+
+    }
+
 
     //void AddNode(int x, int y, int z, Direction adjacentNodes)
     //{
