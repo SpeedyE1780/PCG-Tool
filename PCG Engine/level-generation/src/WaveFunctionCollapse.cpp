@@ -256,6 +256,45 @@ namespace pcg::engine::level_generation
 
             utility::logInfo("Wave Function Collapsed Spawned: " + std::to_string(spawnedNodes.size()));
         }
+
+        void processNode(std::vector<std::vector<utility::enums::Direction>>& grid, std::queue<std::tuple<int, int>>& pending, int x, int y, utility::enums::Direction direction, const utility::CallbackFunctor<void(int, int, utility::enums::Direction)>& callback)
+        {
+            if (x == 0 && utility::enums::hasFlag(direction, utility::enums::Direction::left)
+                || x == grid[y].size() - 1 && utility::enums::hasFlag(direction, utility::enums::Direction::right)
+                || y == 0 && utility::enums::hasFlag(direction, utility::enums::Direction::backward)
+                || y == grid.size() - 1 && utility::enums::hasFlag(direction, utility::enums::Direction::forward))
+            {
+                return;
+            }
+
+            grid[y][x] |= direction;
+            callback(x, y, grid[y][x]);
+
+            if (utility::enums::hasFlag(direction, utility::enums::Direction::left))
+            {
+                x -= 1;
+                direction = utility::enums::Direction::right;
+            }
+            else if (utility::enums::hasFlag(direction, utility::enums::Direction::right))
+            {
+                x += 1;
+                direction = utility::enums::Direction::left;
+            }
+            else if (utility::enums::hasFlag(direction, utility::enums::Direction::forward))
+            {
+                y += 1;
+                direction = utility::enums::Direction::backward;
+            }
+            else if (utility::enums::hasFlag(direction, utility::enums::Direction::backward))
+            {
+                y -= 1;
+                direction = utility::enums::Direction::forward;
+            }
+
+            grid[y][x] |= direction;
+            callback(x, y, grid[y][x]);
+            pending.emplace(std::make_pair(x, y));
+        }
     }
 
     void waveFunctionCollapse(const GenerationData& data, ExpansionMode mode, math::Axis axes, utility::CallbackFunctor<void(math::Vector3, utility::enums::Direction)>&& callback)
@@ -272,5 +311,37 @@ namespace pcg::engine::level_generation
             waveFunctionCollapse<std::queue<math::Vector3>>(data, getDirections(axes), std::move(callback));
             utility::logInfo("BFS WFC Ended");
         }
+    }
+
+    void waveFunctionCollapse(int width, int height, utility::CallbackFunctor<void(int, int, utility::enums::Direction)>&& callback)
+    {
+        utility::logInfo("2D Wave Function Collapse Started");
+
+        std::default_random_engine randomEngine(math::Random::seed);
+        std::vector<utility::enums::Direction> directions = getDirections(math::Axis::xz);
+        std::shuffle(begin(directions), end(directions), randomEngine);
+        std::vector<std::vector<utility::enums::Direction>> grid(height, std::vector<utility::enums::Direction>(width, utility::enums::Direction::none));
+
+        const int startX = math::Random::generateNumber(0, width);
+        const int startY = math::Random::generateNumber(0, height);
+        std::queue<std::tuple<int, int>> pending;
+        pending.emplace(std::make_pair(startX, startY));
+
+        while (!pending.empty())
+        {
+            const auto& [x, y] = std::move(pending.front());
+            pending.pop();
+
+            const int adjacents = math::Random::generateNumber(0, directions.size());
+
+            for (int i = 0; i < adjacents; ++i)
+            {
+                processNode(grid, pending, x, y, directions[i], callback);
+            }
+
+            std::shuffle(begin(directions), end(directions), randomEngine);
+        }
+
+        utility::logInfo("2D Wave Function Collapse Ended");
     }
 }
