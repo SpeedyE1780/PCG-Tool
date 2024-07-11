@@ -1,4 +1,7 @@
 using PCGAPI;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -11,6 +14,14 @@ public class GridWFCGeneration : EditorWindow
         XY,
         XZ,
         YZ
+    }
+
+    private struct Node2DInfo
+    {
+        public int x;
+        public int y;
+        public float size;
+        public Direction adjacentNodes;
     }
 
     private delegate UnityEngine.Vector3 Place2DNode(int x, int y, float  size);
@@ -105,9 +116,24 @@ public class GridWFCGeneration : EditorWindow
         }
 
         Transform nodeParent = new GameObject("Grid 2D WFC Generation").transform;
+
         if (frameByFrameToggle.value)
         {
-            //EditorCoroutineUtility.StartCoroutine(SpawnLevel(nodes), this);
+            List<Node2DInfo> nodes = new List<Node2DInfo>();
+            
+            void AddNodeInfo(int x, int y, Direction adjacentNodes)
+            {
+                nodes.Add(new Node2DInfo()
+                {
+                    x = x,
+                    y = y,
+                    size = size,
+                    adjacentNodes = adjacentNodes
+                });
+            }
+
+            PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, true, AddNodeInfo);
+            EditorCoroutineUtility.StartCoroutine(Spawn2DGrid(nodes, node, nodeParent, placingFunction), this);
         }
         else
         {
@@ -128,6 +154,15 @@ public class GridWFCGeneration : EditorWindow
             WFCNode n = Instantiate(node, nodeParent);
             n.transform.position = position;
             n.SetNeighbors(adjacentNodes);
+        }
+    }
+
+    private IEnumerator Spawn2DGrid(List<Node2DInfo> nodes, WFCNode node, Transform nodeParent,Place2DNode placingFunction)
+    {
+        foreach (Node2DInfo nodeInfo in nodes)
+        {
+            AddNode(node, nodeParent, placingFunction, nodeInfo.size, nodeInfo.x, nodeInfo.y, nodeInfo.adjacentNodes);
+            yield return null;
         }
     }
 
