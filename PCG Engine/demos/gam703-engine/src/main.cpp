@@ -91,6 +91,7 @@ int main()
     std::cout << "2 2D Generation on XZ Plane" << std::endl;
     std::cout << "3 DFS Wave Function Collapse" << std::endl;
     std::cout << "4 BFS Wave Function Collapse" << std::endl;
+    std::cout << "5 2D Grid Wave Function Collapse" << std::endl;
     int choice = 0;
     std::cin >> choice;
 
@@ -123,6 +124,11 @@ int main()
             addWFCPoints(engine, point, neighbors);
         };
 
+    auto addWFCGridPointCallback = [&engine](int x, int y, pcg::engine::utility::enums::Direction neighbours)
+        {
+            addWFCPoints(engine, { x * PlaneSize, 0, y * PlaneSize }, neighbours);
+        };
+
     switch (choice)
     {
     case 1:
@@ -144,7 +150,12 @@ int main()
     case 4:
     {
         data.count = 100;
-        pcg::engine::cpp_api::waveFunctionCollapseGeneration(data, pcg::engine::level_generation::ExpansionMode::BFS, pcg::engine::math::Axis::positiveX | pcg::engine::math::Axis::negativeX | pcg::engine::math::Axis::negativeZ , addWFCPointCallback);
+        pcg::engine::cpp_api::waveFunctionCollapseGeneration(data, pcg::engine::level_generation::ExpansionMode::BFS, pcg::engine::math::Axis::positiveX | pcg::engine::math::Axis::negativeX | pcg::engine::math::Axis::negativeZ, addWFCPointCallback);
+        break;
+    }
+    case 5:
+    {
+        pcg::engine::cpp_api::waveFunctionCollapseGeneration(10, 10, addWFCGridPointCallback);
         break;
     }
     default:

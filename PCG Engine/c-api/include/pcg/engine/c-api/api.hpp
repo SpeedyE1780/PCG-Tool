@@ -18,6 +18,10 @@ namespace pcg::engine::c_api
     typedef void (*addNodeCallback)(math::Vector3 position);
     /// @brief Callback to indicate that a node was spawned at this position and has these adjacent node
     typedef void (*addWFCNodeCallback)(math::Vector3 position, utility::enums::Direction adjacentNodes);
+    /// @brief Callback to indicate that a node was spawned at x, y coordinates and has these adjacent node
+    typedef void (*addWFCGridNodeCallback)(int x, int y, utility::enums::Direction adjacentNodes);
+    /// @brief Callback to indicate that a node was spawned at x, y, z coordinates and has these adjacent node
+    typedef void (*addWFC3DGridNodeCallback)(int x, int y, int z, utility::enums::Direction adjacentNodes);
     /// @brief Callback to indicate that a node was spawned at the x, y coordinate and has these adjacent node
     typedef void (*addMazeNodeCallback)(int x, int y, maze_generation::NodeValue adjacentNodes);
     /// @brief Callback to select node during growing tree maze generation with user defined function
@@ -85,6 +89,19 @@ namespace pcg::engine::c_api
     /// @param axes Axes flag indicating which axes are being used
     /// @param callback Callback when a node is generated
     PCG_ENGINE_C_API_API void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, addWFCNodeCallback callback);
+    /// @brief Generate a grid using the Wave Function Collapse Algorithm
+    /// @param width Grid width
+    /// @param height Grid height
+    /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+    /// @param callback Callback when a node is generated
+    PCG_ENGINE_C_API_API void waveFunctionCollapseGridGeneration(int width, int height, bool invokeAfterGeneration, addWFCGridNodeCallback callback);
+    /// @brief Generate a grid using the Wave Function Collapse Algorithm
+    /// @param width Grid width
+    /// @param height Grid height
+    /// @param depth Grid depth
+    /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+    /// @param callback Callback when a node is generated
+    PCG_ENGINE_C_API_API void waveFunctionCollapse3DGridGeneration(int width, int height, int depth, bool invokeAfterGeneration, addWFC3DGridNodeCallback callback);
     /// @brief Generate a maze using the passed in algorithm
     /// @param width Width of grid
     /// @param height Height of grid
