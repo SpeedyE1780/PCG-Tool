@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PCGAPI
 {
-    public class WFCNode : MonoBehaviour
+    public class WFCNode : MonoBehaviour, IWFCNode
     {
         [SerializeField]
         private GameObject right;
@@ -22,14 +22,14 @@ namespace PCGAPI
             return (current & direction) > 0;
         }
 
-        public void SetNeighbors(Direction neighbors)
+        public void SetAdjacentNodes(Direction adjacentNodes)
         {
-            right.SetActive(!HasNeighbour(neighbors, Direction.right));
-            left.SetActive(!HasNeighbour(neighbors, Direction.left));
-            backward.SetActive(!HasNeighbour(neighbors, Direction.backward));
-            forward.SetActive(!HasNeighbour(neighbors, Direction.forward));
-            up.SetActive(HasNeighbour(neighbors, Direction.up));
-            down.SetActive(HasNeighbour(neighbors, Direction.down));
+            right.SetActive(!HasNeighbour(adjacentNodes, Direction.right));
+            left.SetActive(!HasNeighbour(adjacentNodes, Direction.left));
+            backward.SetActive(!HasNeighbour(adjacentNodes, Direction.backward));
+            forward.SetActive(!HasNeighbour(adjacentNodes, Direction.forward));
+            up.SetActive(HasNeighbour(adjacentNodes, Direction.up));
+            down.SetActive(HasNeighbour(adjacentNodes, Direction.down));
         }
     }
 }

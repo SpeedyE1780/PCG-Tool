@@ -24,6 +24,10 @@ namespace PCGAPI
         public static extern void MultiDimensionalGeneration(ref GenerationParameters generationParameters, Axis axis, bool disableOverlap, AddNode addNode);
         [DllImport(DLLName, EntryPoint = "waveFunctionCollapseGeneration")]
         public static extern void WaveFunctionCollapseGeneration(ref GenerationParameters generationParameters, ExpansionMode mode, Axis axis, AddWFCNode addNode);
+        [DllImport(DLLName, EntryPoint = "waveFunctionCollapseGridGeneration")]
+        public static extern void WaveFunctionCollapseGeneration(int x, int y, bool invokeAfterGeneration, AddWFCGridNode addNode);
+        [DllImport(DLLName, EntryPoint = "waveFunctionCollapse3DGridGeneration")]
+        public static extern void WaveFunctionCollapseGeneration(int x, int y, int z, bool invokeAfterGeneration, AddWFC3DGridNode addNode);
         [DllImport(DLLName, EntryPoint = "generateCombination")]
         public static extern void GenerateCombination(int elementCount, GenerateCombination generateCombination);
         [DllImport(DLLName, EntryPoint = "generateCombinationWithMinimumElementCount")]

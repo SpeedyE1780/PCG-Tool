@@ -22,8 +22,7 @@ namespace PCGAPI.Editor
         private Vector3Field startPosition;
         private Toggle frameByFrameToggle;
 
-        private Transform nodeParent;
-        private WFCNode node;
+        private IWFCNode wfcNode;
 
         struct NodeInfo
         {
@@ -36,6 +35,24 @@ namespace PCGAPI.Editor
         {
             WFCGeneration wnd = GetWindow<WFCGeneration>();
             wnd.titleContent = new GUIContent("Wave Function Collapse Generation");
+        }
+
+        private void ValidateNodeField(ChangeEvent<Object> changeEvent)
+        {
+            if (changeEvent.newValue == null)
+            {
+                return;
+            }
+
+            GameObject newGameObject = changeEvent.newValue as GameObject;
+
+            if (newGameObject != null && newGameObject.TryGetComponent(out wfcNode))
+            {
+                return;
+            }
+
+            Debug.LogError($"{newGameObject.name} has no component that inherits from IWFCNode");
+            nodeField.value = changeEvent.previousValue; //this will call the event again
         }
 
         public void CreateGUI()
@@ -55,6 +72,8 @@ namespace PCGAPI.Editor
 
             var generateButton = rootVisualElement.Q<Button>("GenerateButton");
             generateButton.clicked += SpawnObject;
+
+            nodeField.RegisterValueChangedCallback(ValidateNodeField);
         }
 
         private void SpawnObject()
@@ -66,11 +85,10 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetLoggingFunction(Log);
 
-            node = nodeField.value as WFCNode;
             uint nodeCount = nodeCountField.value;
             float size = nodeSizeField.value;
 
-            if (node == null)
+            if (wfcNode == null)
             {
                 Debug.LogWarning("Node not set");
                 return;
@@ -90,7 +108,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetSeed(seedField.value);
 
-            nodeParent = new GameObject("Multi Dimensional Generation").transform;
+            Transform nodeParent = new GameObject("Multi Dimensional Generation").transform;
 
             GenerationParameters generationParameters = new GenerationParameters()
             {
@@ -113,27 +131,32 @@ namespace PCGAPI.Editor
                 }
 
                 PCGEngine.WaveFunctionCollapseGeneration(ref generationParameters, (ExpansionMode)expansionModeField.value, (Axis)axesField.value, AddNodeInfo);
-                EditorCoroutineUtility.StartCoroutine(SpawnLevel(nodes), this);
+                EditorCoroutineUtility.StartCoroutine(SpawnLevel(nodes, nodeParent), this);
             }
             else
             {
-                PCGEngine.WaveFunctionCollapseGeneration(ref generationParameters, (ExpansionMode)expansionModeField.value, (Axis)axesField.value, AddNode);
+                void AddWFCNode(Vector3 nodePosition, Direction adjacentNodes)
+                {
+                    AddNode(nodeParent, nodePosition, adjacentNodes);
+                }
+
+                PCGEngine.WaveFunctionCollapseGeneration(ref generationParameters, (ExpansionMode)expansionModeField.value, (Axis)axesField.value, AddWFCNode);
             }
         }
 
-        void AddNode(Vector3 nodePosition, Direction adjacentNodes)
+        void AddNode(Transform nodeParent, Vector3 nodePosition, Direction adjacentNodes)
         {
             UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
-            WFCNode n = Instantiate(node, nodeParent);
-            n.transform.position = position;
-            n.SetNeighbors(adjacentNodes);
+            IWFCNode node = Instantiate(wfcNode.gameObject, nodeParent).GetComponent<IWFCNode>();
+            node.transform.position = position;
+            node.SetAdjacentNodes(adjacentNodes);
         }
 
-        IEnumerator SpawnLevel(List<NodeInfo> nodes)
+        IEnumerator SpawnLevel(List<NodeInfo> nodes, Transform nodeParent)
         {
             foreach (NodeInfo node in nodes)
             {
-                AddNode(node.position, node.direction);
+                AddNode(nodeParent, node.position, node.direction);
                 yield return null;
             }
         }
