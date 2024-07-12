@@ -23,7 +23,7 @@ namespace PCGAPI.Editor
         private Toggle frameByFrameToggle;
 
         private Transform nodeParent;
-        private WFCNode node;
+        private IWFCNode wfcNode;
 
         struct NodeInfo
         {
@@ -36,6 +36,24 @@ namespace PCGAPI.Editor
         {
             WFCGeneration wnd = GetWindow<WFCGeneration>();
             wnd.titleContent = new GUIContent("Wave Function Collapse Generation");
+        }
+
+        private void ValidateNodeField(ChangeEvent<Object> changeEvent)
+        {
+            if (changeEvent.newValue == null)
+            {
+                return;
+            }
+
+            GameObject newGameObject = changeEvent.newValue as GameObject;
+
+            if (newGameObject != null && newGameObject.TryGetComponent(out wfcNode))
+            {
+                return;
+            }
+
+            Debug.LogError($"{newGameObject.name} has no component that inherits from IWFCNode");
+            nodeField.value = changeEvent.previousValue; //this will call the event again
         }
 
         public void CreateGUI()
@@ -55,6 +73,8 @@ namespace PCGAPI.Editor
 
             var generateButton = rootVisualElement.Q<Button>("GenerateButton");
             generateButton.clicked += SpawnObject;
+
+            nodeField.RegisterValueChangedCallback(ValidateNodeField);
         }
 
         private void SpawnObject()
@@ -66,11 +86,10 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetLoggingFunction(Log);
 
-            node = nodeField.value as WFCNode;
             uint nodeCount = nodeCountField.value;
             float size = nodeSizeField.value;
 
-            if (node == null)
+            if (wfcNode == null)
             {
                 Debug.LogWarning("Node not set");
                 return;
@@ -124,9 +143,9 @@ namespace PCGAPI.Editor
         void AddNode(Vector3 nodePosition, Direction adjacentNodes)
         {
             UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
-            WFCNode n = Instantiate(node, nodeParent);
-            n.transform.position = position;
-            n.SetAdjacentNodes(adjacentNodes);
+            IWFCNode node = Instantiate(wfcNode.gameObject, nodeParent).GetComponent<IWFCNode>();
+            node.transform.position = position;
+            node.SetAdjacentNodes(adjacentNodes);
         }
 
         IEnumerator SpawnLevel(List<NodeInfo> nodes)
