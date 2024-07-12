@@ -73,9 +73,10 @@ namespace pcg::engine::cpp_api
     /// @brief Generate a grid using the Wave Function Collapse Algorithm
     /// @param width Grid width
     /// @param height Grid height
+    /// @param axes Axes flag indicating which axes are being used
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(int width, int height, bool invokeAfterGeneration, std::function<void(int, int, utility::enums::Direction)>&& callback);
+    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(int width, int height, math::Axis axes, bool invokeAfterGeneration, std::function<void(int, int, utility::enums::Direction)>&& callback);
     /// @brief Generate a grid using the Wave Function Collapse Algorithm
     /// @param width Grid width
     /// @param height Grid height

@@ -11,9 +11,9 @@ public class GridWFCGeneration : EditorWindow
 {
     private enum Plane
     {
-        XY,
-        XZ,
-        YZ
+        XY = Axis.xy,
+        XZ = Axis.xz,
+        YZ = Axis.yz,
     }
 
     private struct Node2DInfo
@@ -186,7 +186,7 @@ public class GridWFCGeneration : EditorWindow
                 });
             }
 
-            PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, true, AddNodeInfo);
+            PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, (Axis)grid2DPlane.value, true, AddNodeInfo);
             EditorCoroutineUtility.StartCoroutine(Spawn2DGrid(nodes, wfcNode, nodeParent, placingFunction), this);
         }
         else
@@ -196,7 +196,7 @@ public class GridWFCGeneration : EditorWindow
                 AddNode(wfcNode, nodeParent, placingFunction, size, x, y, adjacentNodes);
             }
 
-            PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, true, AddGridNode);
+            PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, (Axis)grid2DPlane.value, true, AddGridNode);
         }
     }
 

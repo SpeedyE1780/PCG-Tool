@@ -19,9 +19,10 @@ namespace pcg::engine::level_generation
     /// @brief Generate a grid using the Wave Function Collapse Algorithm
     /// @param width Grid width
     /// @param height Grid height
+    /// @param axes Axes flag indicating which axes are being used
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param callback Callback when a node is generated
-    void waveFunctionCollapse(int width, int height, bool invokeAfterGeneration, utility::CallbackFunctor<void(int, int, utility::enums::Direction)>&& callback);
+    void waveFunctionCollapse(int width, int height, math::Axis axes, bool invokeAfterGeneration, utility::CallbackFunctor<void(int, int, utility::enums::Direction)>&& callback);
     /// @brief Generate a grid using the Wave Function Collapse Algorithm
     /// @param width Grid width
     /// @param height Grid height

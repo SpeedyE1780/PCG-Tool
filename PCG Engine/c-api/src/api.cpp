@@ -62,9 +62,9 @@ namespace pcg::engine::c_api
         level_generation::waveFunctionCollapse(data, mode, axes, callback);
     }
 
-    void waveFunctionCollapseGridGeneration(int width, int height, bool invokeAfterGeneration, addWFCGridNodeCallback callback)
+    void waveFunctionCollapseGridGeneration(int width, int height, math::Axis axes, bool invokeAfterGeneration, addWFCGridNodeCallback callback)
     {
-        level_generation::waveFunctionCollapse(width, height, invokeAfterGeneration, callback);
+        level_generation::waveFunctionCollapse(width, height, axes, invokeAfterGeneration, callback);
     }
 
     void waveFunctionCollapse3DGridGeneration(int width, int height, int depth, bool invokeAfterGeneration, addWFC3DGridNodeCallback callback)
