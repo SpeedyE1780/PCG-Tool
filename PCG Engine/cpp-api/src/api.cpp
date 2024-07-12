@@ -62,9 +62,9 @@ namespace pcg::engine::cpp_api
         level_generation::waveFunctionCollapse(data, mode, axes, callback);
     }
 
-    void waveFunctionCollapseGeneration(int width, int height, bool invokeAfterGeneration, std::function<void(int, int, utility::enums::Direction)>&& callback)
+    void waveFunctionCollapseGeneration(int width, int height, math::Axis axes, bool invokeAfterGeneration, std::function<void(int, int, utility::enums::Direction)>&& callback)
     {
-        level_generation::waveFunctionCollapse(width, height, invokeAfterGeneration, callback);
+        level_generation::waveFunctionCollapse(width, height, axes, invokeAfterGeneration, callback);
     }
 
     void waveFunctionCollapseGeneration(int width, int height, int depth, bool invokeAfterGeneration, std::function<void(int, int, int, utility::enums::Direction)>&& callback)

@@ -378,12 +378,12 @@ namespace pcg::engine::level_generation
         }
     }
 
-    void waveFunctionCollapse(int width, int height, bool invokeAfterGeneration, utility::CallbackFunctor<void(int, int, utility::enums::Direction)>&& callback)
+    void waveFunctionCollapse(int width, int height, math::Axis axes, bool invokeAfterGeneration, utility::CallbackFunctor<void(int, int, utility::enums::Direction)>&& callback)
     {
         utility::logInfo("2D Wave Function Collapse Started");
 
         std::default_random_engine randomEngine(math::Random::seed);
-        std::vector<utility::enums::Direction> directions = getDirections(math::Axis::xz);
+        std::vector<utility::enums::Direction> directions = getDirections(axes);
         std::shuffle(begin(directions), end(directions), randomEngine);
         std::vector<std::vector<utility::enums::Direction>> grid(height, std::vector<utility::enums::Direction>(width, utility::enums::Direction::none));
 

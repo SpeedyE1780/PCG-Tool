@@ -155,7 +155,7 @@ int main()
     }
     case 5:
     {
-        pcg::engine::cpp_api::waveFunctionCollapseGeneration(10, 10, addWFCGridPointCallback);
+        pcg::engine::cpp_api::waveFunctionCollapseGeneration(10, 10, pcg::engine::math::Axis::xz, true, addWFCGridPointCallback);
         break;
     }
     default:
