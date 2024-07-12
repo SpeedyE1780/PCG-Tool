@@ -126,7 +126,7 @@ namespace PCGAPI.Editor
             UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
             WFCNode n = Instantiate(node, nodeParent);
             n.transform.position = position;
-            n.SetNeighbors(adjacentNodes);
+            n.SetAdjacentNodes(adjacentNodes);
         }
 
         IEnumerator SpawnLevel(List<NodeInfo> nodes)

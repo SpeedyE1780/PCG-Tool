@@ -33,7 +33,7 @@ public class GridWFCGeneration : EditorWindow
         public Direction adjacentNodes;
     }
 
-    private delegate UnityEngine.Vector3 Place2DNode(int x, int y, float  size);
+    private delegate UnityEngine.Vector3 Place2DNode(int x, int y, float size);
 
     [SerializeField]
     private VisualTreeAsset m_VisualTreeAsset = default;
@@ -102,7 +102,7 @@ public class GridWFCGeneration : EditorWindow
         }
         else
         {
-            Spawn2DGrid(); 
+            Spawn2DGrid();
         }
     }
 
@@ -153,7 +153,7 @@ public class GridWFCGeneration : EditorWindow
         if (frameByFrameToggle.value)
         {
             List<Node2DInfo> nodes = new List<Node2DInfo>();
-            
+
             void AddNodeInfo(int x, int y, Direction adjacentNodes)
             {
                 nodes.Add(new Node2DInfo()
@@ -186,14 +186,20 @@ public class GridWFCGeneration : EditorWindow
             UnityEngine.Vector3 position = placingFunction(x, y, nodeSize);
             WFCNode n = Instantiate(node, nodeParent);
             n.transform.position = position;
-            n.SetNeighbors(adjacentNodes);
+            n.SetAdjacentNodes(adjacentNodes);
         }
     }
 
-    private IEnumerator Spawn2DGrid(List<Node2DInfo> nodes, WFCNode node, Transform nodeParent,Place2DNode placingFunction)
+    private IEnumerator Spawn2DGrid(List<Node2DInfo> nodes, WFCNode node, Transform nodeParent, Place2DNode placingFunction)
     {
         foreach (Node2DInfo nodeInfo in nodes)
         {
+            if (nodeParent == null)
+            {
+                Debug.LogError("Grid Parent has been deleted generation stopping");
+                yield break;
+            }
+
             AddNode(node, nodeParent, placingFunction, nodeInfo.size, nodeInfo.x, nodeInfo.y, nodeInfo.adjacentNodes);
             yield return null;
         }
@@ -249,7 +255,6 @@ public class GridWFCGeneration : EditorWindow
         }
     }
 
-
     void AddNode(WFCNode node, Transform nodeParent, float size, int x, int y, int z, Direction adjacentNodes)
     {
         if (adjacentNodes != Direction.none)
@@ -257,7 +262,7 @@ public class GridWFCGeneration : EditorWindow
             UnityEngine.Vector3 position = new UnityEngine.Vector3(x * nodeSizeField.value, nodeSizeField.value * y, nodeSizeField.value * z);
             WFCNode n = Instantiate(node, nodeParent);
             n.transform.position = position;
-            n.SetNeighbors(adjacentNodes);
+            n.SetAdjacentNodes(adjacentNodes);
         }
     }
 
@@ -265,6 +270,12 @@ public class GridWFCGeneration : EditorWindow
     {
         foreach (Node3DInfo nodeInfo in nodes)
         {
+            if (nodeParent == null)
+            {
+                Debug.LogError("Grid Parent has been deleted generation stopping");
+                yield break;
+            }
+
             AddNode(node, nodeParent, nodeInfo.size, nodeInfo.x, nodeInfo.y, nodeInfo.z, nodeInfo.adjacentNodes);
             yield return null;
         }
