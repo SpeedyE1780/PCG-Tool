@@ -50,6 +50,8 @@ public class GridWFCGeneration : EditorWindow
     private VisualElement grid3DContainer;
     private bool grid3DGeneration = false;
 
+    private IWFCNode wfcNode;
+
     [MenuItem("PCG/Grid Wave Function Collapse Generation")]
     public static void ShowExample()
     {
@@ -62,6 +64,24 @@ public class GridWFCGeneration : EditorWindow
         grid2DContainer.style.display = gridDimensionField.value == "2D Grid" ? DisplayStyle.Flex : DisplayStyle.None;
         grid3DContainer.style.display = gridDimensionField.value == "3D Grid" ? DisplayStyle.Flex : DisplayStyle.None;
         grid3DGeneration = gridDimensionField.value == "3D Grid";
+    }
+
+    private void ValidateNodeField(ChangeEvent<Object> changeEvent)
+    {
+        if (changeEvent.newValue == null)
+        {
+            return;
+        }
+
+        GameObject newGameObject = changeEvent.newValue as GameObject;
+
+        if (newGameObject != null && newGameObject.TryGetComponent(out wfcNode))
+        {
+            return;
+        }
+
+        Debug.LogError($"{newGameObject.name} has no component that inherits from IWFCNode");
+        nodeField.value = changeEvent.previousValue; //this will call the event again
     }
 
     public void CreateGUI()
@@ -85,6 +105,8 @@ public class GridWFCGeneration : EditorWindow
 
         var generateButton = rootVisualElement.Q<Button>("GenerateButton");
         generateButton.clicked += SpawnObject;
+
+        nodeField.RegisterValueChangedCallback(ValidateNodeField);
     }
 
     private void SpawnObject()
@@ -131,12 +153,11 @@ public class GridWFCGeneration : EditorWindow
 
     private void Spawn2DGrid()
     {
-        WFCNode node = nodeField.value as WFCNode;
         float size = nodeSizeField.value;
         Vector2Int gridSize = grid2DSizeField.value;
         Place2DNode placingFunction = GetPositioningDelegate();
 
-        if (node == null)
+        if (wfcNode == null)
         {
             Debug.LogWarning("Node not set");
             return;
@@ -166,31 +187,31 @@ public class GridWFCGeneration : EditorWindow
             }
 
             PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, true, AddNodeInfo);
-            EditorCoroutineUtility.StartCoroutine(Spawn2DGrid(nodes, node, nodeParent, placingFunction), this);
+            EditorCoroutineUtility.StartCoroutine(Spawn2DGrid(nodes, wfcNode, nodeParent, placingFunction), this);
         }
         else
         {
             void AddGridNode(int x, int y, Direction adjacentNodes)
             {
-                AddNode(node, nodeParent, placingFunction, size, x, y, adjacentNodes);
+                AddNode(wfcNode, nodeParent, placingFunction, size, x, y, adjacentNodes);
             }
 
             PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, true, AddGridNode);
         }
     }
 
-    void AddNode(WFCNode node, Transform nodeParent, Place2DNode placingFunction, float nodeSize, int x, int y, Direction adjacentNodes)
+    void AddNode(IWFCNode node, Transform nodeParent, Place2DNode placingFunction, float nodeSize, int x, int y, Direction adjacentNodes)
     {
         if (adjacentNodes != Direction.none)
         {
             UnityEngine.Vector3 position = placingFunction(x, y, nodeSize);
-            WFCNode n = Instantiate(node, nodeParent);
+            IWFCNode n = Instantiate(node.gameObject, nodeParent).GetComponent<IWFCNode>();
             n.transform.position = position;
             n.SetAdjacentNodes(adjacentNodes);
         }
     }
 
-    private IEnumerator Spawn2DGrid(List<Node2DInfo> nodes, WFCNode node, Transform nodeParent, Place2DNode placingFunction)
+    private IEnumerator Spawn2DGrid(List<Node2DInfo> nodes, IWFCNode node, Transform nodeParent, Place2DNode placingFunction)
     {
         foreach (Node2DInfo nodeInfo in nodes)
         {
@@ -207,11 +228,10 @@ public class GridWFCGeneration : EditorWindow
 
     private void Spawn3DGrid()
     {
-        WFCNode node = nodeField.value as WFCNode;
         float size = nodeSizeField.value;
         Vector3Int gridSize = grid3DSizeField.value;
 
-        if (node == null)
+        if (wfcNode == null)
         {
             Debug.LogWarning("Node not set");
             return;
@@ -242,31 +262,31 @@ public class GridWFCGeneration : EditorWindow
             }
 
             PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, gridSize.z, true, AddNodeInfo);
-            EditorCoroutineUtility.StartCoroutine(Spawn3DGrid(nodes, node, nodeParent), this);
+            EditorCoroutineUtility.StartCoroutine(Spawn3DGrid(nodes, wfcNode, nodeParent), this);
         }
         else
         {
             void AddGridNode(int x, int y, int z, Direction adjacentNodes)
             {
-                AddNode(node, nodeParent, size, x, y, z, adjacentNodes);
+                AddNode(wfcNode, nodeParent, size, x, y, z, adjacentNodes);
             }
 
             PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, gridSize.z, true, AddGridNode);
         }
     }
 
-    void AddNode(WFCNode node, Transform nodeParent, float size, int x, int y, int z, Direction adjacentNodes)
+    void AddNode(IWFCNode node, Transform nodeParent, float size, int x, int y, int z, Direction adjacentNodes)
     {
         if (adjacentNodes != Direction.none)
         {
             UnityEngine.Vector3 position = new UnityEngine.Vector3(x * nodeSizeField.value, nodeSizeField.value * y, nodeSizeField.value * z);
-            WFCNode n = Instantiate(node, nodeParent);
+            IWFCNode n = Instantiate(node.gameObject, nodeParent).GetComponent<IWFCNode>();
             n.transform.position = position;
             n.SetAdjacentNodes(adjacentNodes);
         }
     }
 
-    private IEnumerator Spawn3DGrid(List<Node3DInfo> nodes, WFCNode node, Transform nodeParent)
+    private IEnumerator Spawn3DGrid(List<Node3DInfo> nodes, IWFCNode node, Transform nodeParent)
     {
         foreach (Node3DInfo nodeInfo in nodes)
         {
