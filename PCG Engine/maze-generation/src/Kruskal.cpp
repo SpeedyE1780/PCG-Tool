@@ -71,7 +71,7 @@ namespace pcg::engine::maze_generation
                 }
             }
 
-            std::default_random_engine randomEngine{ math::Random::seed };
+            std::default_random_engine randomEngine = math::Random::getDefaultEngine();
             std::shuffle(begin(edges), end(edges), randomEngine);
             return edges;
         }

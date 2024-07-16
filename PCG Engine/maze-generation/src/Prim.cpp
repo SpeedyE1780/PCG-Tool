@@ -99,7 +99,7 @@ namespace pcg::engine::maze_generation
                 adjacentsNodes.emplace_back(std::make_tuple(x, forwardY, NodeValue::forward));
             }
 
-            return adjacentsNodes[math::Random::generateNumber(0, adjacentsNodes.size())];
+            return math::Random::element<std::tuple<int, int, NodeValue>>(adjacentsNodes);
         }
     }
 
@@ -113,7 +113,7 @@ namespace pcg::engine::maze_generation
 
         while (!frontierNodes.empty())
         {
-            const NodeCoordinates frontierNode = frontierNodes[math::Random::generateNumber(0, frontierNodes.size())];
+            const auto frontierNode = math::Random::element<NodeCoordinates>(frontierNodes);
             std::erase(frontierNodes, frontierNode);
             auto& [frontierX, frontierY] = frontierNode;
             auto [adjacentX, adjacentY, direction] = getAdjacentNode(frontierX, frontierY, grid);

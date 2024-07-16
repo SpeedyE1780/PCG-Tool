@@ -21,7 +21,7 @@ namespace pcg::engine::maze_generation
         void carveNoth(Grid& grid, std::size_t x, std::size_t y, std::size_t& runStart, bool invokeAfterGeneration, const MazeCallback& callback)
         {
             utility::logInfo("Ending run and carving north");
-            int cell = math::Random::generateNumber(runStart, x + 1);
+            int cell = math::Random::number(runStart, x + 1);
             addAdjacentNodePath(cell, y, cell, y - 1, NodeValue::backward, grid);
             runStart = x + 1;
 
@@ -61,7 +61,7 @@ namespace pcg::engine::maze_generation
 
             for (std::size_t w = 0; w < width; ++w)
             {
-                if (h > 0 && (w + 1 == width || math::Random::generateNumber(0, 2) == 0))
+                if (h > 0 && (w + 1 == width || math::Random::boolean()))
                 {
                     carveNoth(grid, w, h, runStart, invokeAfterGeneration, callback);
                 }

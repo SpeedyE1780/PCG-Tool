@@ -17,7 +17,7 @@ namespace pcg::engine::maze_generation
 
         Grid grid = generateGrid(width, height);
         Directions directions = getDefaultDirections();
-        std::default_random_engine randomEngine{ math::Random::seed };
+        std::default_random_engine randomEngine = math::Random::getDefaultEngine();
         std::stack<NodeCoordinates> visitedNodes;
         visitedNodes.emplace(getRandomStartingNode(width, height));
 

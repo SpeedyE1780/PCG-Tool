@@ -22,7 +22,7 @@ namespace pcg::engine::maze_generation
         void binaryTree(int width, int height, bool invokeAfterGeneration, std::vector<NodeValue>&& directions, MazeCallback&& callback)
         {
             Grid grid = generateGrid(width, height);
-            auto randomEngine = std::default_random_engine{ math::Random::seed };
+            std::default_random_engine randomEngine = math::Random::getDefaultEngine();
 
             for (int h = 0; h < height; ++h)
             {

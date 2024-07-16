@@ -109,7 +109,7 @@ namespace pcg::engine::maze_generation
                         continue;
                     }
 
-                    NodeValue randomDirection = adjacentNodes[math::Random::generateNumber(0, adjacentNodes.size())];
+                    NodeValue randomDirection = math::Random::element<NodeValue>(adjacentNodes);
                     auto [nx, ny] = getAdjacentCoordinates(x, y, randomDirection);
                     addAdjacentNodePath(x, y, nx, ny, randomDirection, grid);
 
@@ -134,7 +134,7 @@ namespace pcg::engine::maze_generation
 
         Grid grid = generateGrid(width, height);
         Directions directions = getDefaultDirections();
-        std::default_random_engine randomEngine{ math::Random::seed };
+        std::default_random_engine randomEngine = math::Random::getDefaultEngine();
 
         std::optional<NodeCoordinates> xYCoordinate{ getRandomStartingNode(width, height) };
         MazeCallback* callbackPtr = invokeAfterGeneration ? nullptr : &callback;

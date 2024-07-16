@@ -55,7 +55,7 @@ namespace pcg::engine::maze_generation
             }
             else
             {
-                return math::Random::generateNumber(0, 2) == 0 ? WallOrientation::Horizontal : WallOrientation::Vertical;
+                return math::Random::boolean() ? WallOrientation::Horizontal : WallOrientation::Vertical;
             }
         }
 
@@ -65,8 +65,8 @@ namespace pcg::engine::maze_generation
         /// @return The starting position of the wall
         NodeCoordinates getWallCoordinates(const GridSection& section, bool isHorizontal)
         {
-            const int wallX = section.startX + (isHorizontal ? 0 : math::Random::generateNumber(0, section.width - 1));
-            const int wallY = section.startY + (isHorizontal ? math::Random::generateNumber(0, section.height - 1) : 0);
+            const int wallX = section.startX + (isHorizontal ? 0 : math::Random::number(section.width - 1));
+            const int wallY = section.startY + (isHorizontal ? math::Random::number(section.height - 1) : 0);
 
             return { wallX, wallY };
         }
@@ -79,8 +79,8 @@ namespace pcg::engine::maze_generation
         /// @return The position of the passage
         NodeCoordinates getPassageCoordinates(const GridSection& section, int wallX, int wallY, bool isHorizontal)
         {
-            const int passageX = wallX + (isHorizontal ? math::Random::generateNumber(0, section.width) : 0);
-            const int passageY = wallY + (isHorizontal ? 0 : math::Random::generateNumber(0, section.height));
+            const int passageX = wallX + (isHorizontal ? math::Random::number(section.width) : 0);
+            const int passageY = wallY + (isHorizontal ? 0 : math::Random::number(section.height));
 
             return { passageX, passageY };
         }

@@ -217,7 +217,7 @@ namespace pcg::engine::level_generation
                 return;
             }
 
-            int additionalNeighbors = math::Random::generateNumber(1, directions.size() - adjacentNodes + 1);
+            int additionalNeighbors = math::Random::number(1, directions.size() - adjacentNodes + 1);
             spawnedNodes.at(currentIndex).generateAdjacentNodes(additionalNeighbors, directions);
             WaveFunctionCollapseData wfcData(pendingNodes, spawnedNodes, currentIndex, nodeSize);
             std::for_each(begin(directions), end(directions),
@@ -239,7 +239,7 @@ namespace pcg::engine::level_generation
             NodeMap spawnedNodes{};
             spawnedNodes.reserve(data.count);
             spawnNode(pendingNodes, spawnedNodes, data.startPoint);
-            std::default_random_engine rd{ math::Random::seed };
+            std::default_random_engine rd = math::Random::getDefaultEngine();
 
             while (!pendingNodes.empty())
             {
@@ -366,9 +366,9 @@ namespace pcg::engine::level_generation
                 grid(height, std::vector<utility::enums::Direction>(width, utility::enums::Direction::none)),
                 width(width),
                 height(height),
-                x(math::Random::generateNumber(0, width)),
-                y(math::Random::generateNumber(0, height)),
-                randomEngine(math::Random::seed),
+                x(math::Random::number(width)),
+                y(math::Random::number(height)),
+                randomEngine(math::Random::getDefaultEngine()),
                 directions(getDirections(axes))
             {
                 std::shuffle(begin(directions), end(directions), randomEngine);
@@ -382,7 +382,7 @@ namespace pcg::engine::level_generation
                 {
                     std::tie(x, y) = pending.front();
                     pending.pop();
-                    const int adjacents = math::Random::generateNumber(0, directions.size());
+                    const int adjacents = math::Random::number(directions.size());
 
                     for (int i = 0; i < adjacents; ++i)
                     {
@@ -599,15 +599,15 @@ namespace pcg::engine::level_generation
     {
         utility::logInfo("3D Wave Function Collapse Started");
 
-        std::default_random_engine randomEngine(math::Random::seed);
+        std::default_random_engine randomEngine = math::Random::getDefaultEngine();
         std::vector<utility::enums::Direction> directions = getDirections(math::Axis::xyz);
         std::shuffle(begin(directions), end(directions), randomEngine);
         std::vector<std::vector<std::vector<utility::enums::Direction>>> grid(depth,
             std::vector<std::vector<utility::enums::Direction>>(height, std::vector<utility::enums::Direction>(width, utility::enums::Direction::none)));
 
-        const int startX = math::Random::generateNumber(0, width);
-        const int startY = math::Random::generateNumber(0, height);
-        const int startZ = math::Random::generateNumber(0, depth);
+        const int startX = math::Random::number(width);
+        const int startY = math::Random::number(height);
+        const int startZ = math::Random::number(depth);
         std::queue<std::tuple<int, int, int>> pending;
         pending.emplace(std::make_tuple(startX, startY, startZ));
 
@@ -616,7 +616,7 @@ namespace pcg::engine::level_generation
             const auto& [x, y, z] = std::move(pending.front());
             pending.pop();
 
-            const int adjacents = math::Random::generateNumber(0, directions.size());
+            const int adjacents = math::Random::number(directions.size());
 
             for (int i = 0; i < adjacents; ++i)
             {

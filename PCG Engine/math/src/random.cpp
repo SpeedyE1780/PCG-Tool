@@ -38,4 +38,9 @@ namespace pcg::engine::math
         //Update new function seed to current seed value
         initializeSeed(Random::seed);
     }
+
+    std::default_random_engine Random::getDefaultEngine()
+    {
+        return std::default_random_engine{ seed };
+    }
 }
