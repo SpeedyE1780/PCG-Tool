@@ -32,7 +32,13 @@ namespace pcg::engine::math
 
         /// @brief Returns a random bool value
         /// @return Random bool value
-        static bool getRandomBool() { return number(2) == 0; }
+        static bool boolean() { return number(2) == 0; }
+
+        /// @brief Return true if generated number is in range [0, threshold[
+        /// @param max Max number in range
+        /// @param threshold range of values that return true
+        /// @return True if generated number is in range [0, threshold[
+        static bool boolean(int max, int threshold) { return number(max) < threshold; }
 
         /// @brief Return a new std::default_random_engine
         /// @return std::default_random_engine

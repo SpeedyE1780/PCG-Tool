@@ -61,7 +61,7 @@ namespace pcg::engine::maze_generation
 
             for (std::size_t w = 0; w < width; ++w)
             {
-                if (h > 0 && (w + 1 == width || math::Random::getRandomBool()))
+                if (h > 0 && (w + 1 == width || math::Random::boolean()))
                 {
                     carveNoth(grid, w, h, runStart, invokeAfterGeneration, callback);
                 }

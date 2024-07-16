@@ -123,7 +123,7 @@ namespace pcg::engine::maze_generation
             NodeCoordinates adjacentNode{ currentNode.x + 1, currentNode.y };
             info.initializeNodePair(currentNode, adjacentNode);
             const bool nodesConnected = info.areConnected(currentNode, adjacentNode);
-            const bool newSet = !row.lastRow && math::Random::getRandomBool();
+            const bool newSet = !row.lastRow && math::Random::boolean();
 
             if (nodesConnected || newSet)
             {

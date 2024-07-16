@@ -55,7 +55,7 @@ namespace pcg::engine::maze_generation
             }
             else
             {
-                return math::Random::getRandomBool() ? WallOrientation::Horizontal : WallOrientation::Vertical;
+                return math::Random::boolean() ? WallOrientation::Horizontal : WallOrientation::Vertical;
             }
         }
 
