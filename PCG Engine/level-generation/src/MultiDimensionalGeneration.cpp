@@ -40,9 +40,17 @@ namespace pcg::engine::level_generation
         }
     }
 
-    void multiDimensionalGeneration(const GenerationData& data, const std::vector<const math::Vector3*>& directions, bool disableOverlap, utility::CallbackFunctor<void(math::Vector3)>&& callback)
+    void multiDimensionalGeneration(const GenerationData& data, math::Axis axes, bool disableOverlap, utility::CallbackFunctor<void(math::Vector3)>&& callback)
     {
         utility::logInfo("Multi-Dimension Generation Started");
+
+        std::vector<const math::Vector3*> directions = math::getUnitVectors(axes);
+
+        if (directions.empty())
+        {
+            utility::logError("Invalid axes passed to multiDimensionalGeneration");
+            return;
+        }
 
         std::unordered_set<math::Vector3> spawnedPositions{};
         math::Vector3 nodePosition = data.startPoint;

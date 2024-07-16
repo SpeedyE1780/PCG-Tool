@@ -47,14 +47,7 @@ namespace pcg::engine::c_api
 
     void multiDimensionGeneration(const level_generation::GenerationData& data, math::Axis axes, bool disableOverlap, addNodeCallback callback)
     {
-        std::vector<const math::Vector3*> directions = math::getUnitVectors(axes);
-
-        if (directions.empty())
-        {
-            return;
-        }
-
-        level_generation::multiDimensionalGeneration(data, directions, disableOverlap, callback);
+        level_generation::multiDimensionalGeneration(data, axes, disableOverlap, callback);
     }
 
     void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, addWFCNodeCallback callback)
