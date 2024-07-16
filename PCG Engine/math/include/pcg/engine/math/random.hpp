@@ -40,6 +40,14 @@ namespace pcg::engine::math
         /// @return True if generated number is in range [0, threshold[
         static bool boolean(int max, int threshold) { return number(max) < threshold; }
 
+        /// @brief Get a random element in a vector
+        /// @tparam Element Type of element returned
+        /// @tparam Container Type of container passed in
+        /// @param container Container of elements
+        /// @return Random element in the container
+        template<typename Element, typename Container>
+        static Element element(const Container& container) { return *std::next(begin(container), number(container.size())); }
+
         /// @brief Return a new std::default_random_engine
         /// @return std::default_random_engine
         static std::default_random_engine getDefaultEngine();

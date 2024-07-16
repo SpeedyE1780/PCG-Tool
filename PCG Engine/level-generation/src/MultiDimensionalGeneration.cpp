@@ -36,7 +36,7 @@ namespace pcg::engine::level_generation
                 return std::nullopt;
             }
 
-            return availablePositions[math::Random::number(availablePositions.size())];
+            return math::Random::element<math::Vector3>(availablePositions);
         }
     }
 

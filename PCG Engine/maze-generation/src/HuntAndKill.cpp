@@ -109,7 +109,7 @@ namespace pcg::engine::maze_generation
                         continue;
                     }
 
-                    NodeValue randomDirection = adjacentNodes[math::Random::number(adjacentNodes.size())];
+                    NodeValue randomDirection = math::Random::element<NodeValue>(adjacentNodes);
                     auto [nx, ny] = getAdjacentCoordinates(x, y, randomDirection);
                     addAdjacentNodePath(x, y, nx, ny, randomDirection, grid);
 

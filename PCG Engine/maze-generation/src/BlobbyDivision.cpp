@@ -156,9 +156,8 @@ namespace pcg::engine::maze_generation
             /// @return Random node in region
             NodePointer getRandomNode() const
             {
-                int randomIndex = math::Random::number(nodes.size());
-                auto nodeIterator = std::next(begin(nodes), randomIndex);
-                return nodeIterator->second;
+                const auto& nodePair = math::Random::element<std::pair<NodeCoordinates, NodePointer>>(nodes);
+                return nodePair.second;
             }
 
             /// @brief Check if region contains node
@@ -267,11 +266,11 @@ namespace pcg::engine::maze_generation
 
             while (!frontiers.empty())
             {
-                NodePointer node = frontiers.at(math::Random::number(frontiers.size()));
+                auto node = math::Random::element<NodePointer>(frontiers);
 
                 if (std::vector<NodePointer> adjacentNodes = getAdjacentNodes(node, region); !adjacentNodes.empty())
                 {
-                    NodePointer adjacentNode = adjacentNodes[math::Random::number(adjacentNodes.size())];
+                    auto adjacentNode = math::Random::element<NodePointer>(adjacentNodes);
                     adjacentNode->region = node->region;
                     node->region->addNode(adjacentNode);
                     frontiers.push_back(adjacentNode);
