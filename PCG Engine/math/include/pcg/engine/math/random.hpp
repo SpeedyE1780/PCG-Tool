@@ -30,6 +30,10 @@ namespace pcg::engine::math
         /// @return Number in [minimum, maximum[
         static int number(int maximum) { return number(0, maximum); }
 
+        /// @brief Returns a random bool value
+        /// @return Random bool value
+        static bool getRandomBool() { return number(2) == 0; }
+
         /// @brief Return a new std::default_random_engine
         /// @return std::default_random_engine
         static std::default_random_engine getDefaultEngine();

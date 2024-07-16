@@ -357,7 +357,7 @@ namespace pcg::engine::maze_generation
         {
             const bool greaterThanThreshold = subRegion.getNodeCount() >= regionThreshold;
             // Allows dividing a region that has less nodes than the threshold to sub regions
-            const bool pushSmallRegion = subRegion.getNodeCount() >= minimumThreshold && math::Random::number(10) < 5;
+            const bool pushSmallRegion = subRegion.getNodeCount() >= minimumThreshold && math::Random::getRandomBool();
 
             if (greaterThanThreshold || pushSmallRegion)
             {
