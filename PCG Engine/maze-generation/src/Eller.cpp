@@ -76,7 +76,7 @@ namespace pcg::engine::maze_generation
             /// @brief Map of vector of nodes of each set
             Sets sets{};
             /// @brief Random engine used to shuffle vectors
-            std::default_random_engine randomEngine{ math::Random::seed };
+            std::default_random_engine randomEngine = math::Random::getDefaultEngine();
             /// @brief Current active set
             int currentSet = 0;
         };

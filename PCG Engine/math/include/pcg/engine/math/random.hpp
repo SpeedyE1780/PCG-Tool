@@ -3,6 +3,8 @@
 
 #include <pcg/engine/utility/CallbackFunctor.hpp>
 
+#include <random>
+
 namespace pcg::engine::math
 {
     /// @brief Random class is in charge of Random Number Generation (RNG)
@@ -19,12 +21,16 @@ namespace pcg::engine::math
 
         /// @brief Function used to generate a number between [min, max[
         static utility::CallbackFunctor<int(int, int)> generateNumber;
-        /// @brief Current RNG seed
-        static unsigned int seed;
+
+        /// @brief Return a new std::default_random_engine
+        /// @return std::default_random_engine
+        static std::default_random_engine getDefaultEngine();
 
     private:
         /// @brief Function used to set the RNG seed
         static utility::CallbackFunctor<void(unsigned int)> initializeSeed;
+        /// @brief Current RNG seed
+        static unsigned int seed;
     };
 }
 

@@ -239,7 +239,7 @@ namespace pcg::engine::level_generation
             NodeMap spawnedNodes{};
             spawnedNodes.reserve(data.count);
             spawnNode(pendingNodes, spawnedNodes, data.startPoint);
-            std::default_random_engine rd{ math::Random::seed };
+            std::default_random_engine rd = math::Random::getDefaultEngine();
 
             while (!pendingNodes.empty())
             {
@@ -368,7 +368,7 @@ namespace pcg::engine::level_generation
                 height(height),
                 x(math::Random::generateNumber(0, width)),
                 y(math::Random::generateNumber(0, height)),
-                randomEngine(math::Random::seed),
+                randomEngine(math::Random::getDefaultEngine()),
                 directions(getDirections(axes))
             {
                 std::shuffle(begin(directions), end(directions), randomEngine);
@@ -599,7 +599,7 @@ namespace pcg::engine::level_generation
     {
         utility::logInfo("3D Wave Function Collapse Started");
 
-        std::default_random_engine randomEngine(math::Random::seed);
+        std::default_random_engine randomEngine = math::Random::getDefaultEngine();
         std::vector<utility::enums::Direction> directions = getDirections(math::Axis::xyz);
         std::shuffle(begin(directions), end(directions), randomEngine);
         std::vector<std::vector<std::vector<utility::enums::Direction>>> grid(depth,

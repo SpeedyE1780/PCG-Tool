@@ -121,7 +121,7 @@ namespace pcg::engine::maze_generation
 
         std::ostringstream oss{};
         Directions directions = getDefaultDirections();
-        auto randomEngine = std::default_random_engine{ math::Random::seed };
+        std::default_random_engine randomEngine = math::Random::getDefaultEngine();
 
         Grid grid = generateGrid(width, height);
         auto [x, y] = getRandomStartingNode(width, height);

@@ -134,7 +134,7 @@ namespace pcg::engine::maze_generation
 
         Grid grid = generateGrid(width, height);
         Directions directions = getDefaultDirections();
-        std::default_random_engine randomEngine{ math::Random::seed };
+        std::default_random_engine randomEngine = math::Random::getDefaultEngine();
 
         std::optional<NodeCoordinates> xYCoordinate{ getRandomStartingNode(width, height) };
         MazeCallback* callbackPtr = invokeAfterGeneration ? nullptr : &callback;
