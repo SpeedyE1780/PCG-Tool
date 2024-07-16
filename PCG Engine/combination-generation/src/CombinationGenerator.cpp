@@ -16,7 +16,7 @@ namespace pcg::engine::combination_generation
         int generateCombination(int elementCount)
         {
             const int combinationCount = 1 << elementCount;
-            return math::Random::generateNumber(1, combinationCount);
+            return math::Random::number(1, combinationCount);
         }
 
         /// @brief Check if an element is in the generated combination

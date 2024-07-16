@@ -43,7 +43,7 @@ namespace pcg::engine::maze_generation
         /// @return Random node
         NodeCoordinates getRandomNode(const std::vector<NodeCoordinates>& pendingNodes)
         {
-            return pendingNodes[math::Random::generateNumber(0, pendingNodes.size())];
+            return pendingNodes[math::Random::number(pendingNodes.size())];
         }
 
         /// @brief Generate maze with growing tree

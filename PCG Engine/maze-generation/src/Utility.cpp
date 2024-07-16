@@ -141,6 +141,6 @@ namespace pcg::engine::maze_generation
 
     NodeCoordinates getRandomStartingNode(int width, int height)
     {
-        return NodeCoordinates{ math::Random::generateNumber(0, width), math::Random::generateNumber(0, height) };
+        return NodeCoordinates{ math::Random::number(width), math::Random::number(height) };
     }
 }

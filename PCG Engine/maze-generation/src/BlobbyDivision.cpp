@@ -156,7 +156,7 @@ namespace pcg::engine::maze_generation
             /// @return Random node in region
             NodePointer getRandomNode() const
             {
-                int randomIndex = math::Random::generateNumber(0, nodes.size());
+                int randomIndex = math::Random::number(nodes.size());
                 auto nodeIterator = std::next(begin(nodes), randomIndex);
                 return nodeIterator->second;
             }
@@ -267,11 +267,11 @@ namespace pcg::engine::maze_generation
 
             while (!frontiers.empty())
             {
-                NodePointer node = frontiers.at(math::Random::generateNumber(0, frontiers.size()));
+                NodePointer node = frontiers.at(math::Random::number(frontiers.size()));
 
                 if (std::vector<NodePointer> adjacentNodes = getAdjacentNodes(node, region); !adjacentNodes.empty())
                 {
-                    NodePointer adjacentNode = adjacentNodes[math::Random::generateNumber(0, adjacentNodes.size())];
+                    NodePointer adjacentNode = adjacentNodes[math::Random::number(adjacentNodes.size())];
                     adjacentNode->region = node->region;
                     node->region->addNode(adjacentNode);
                     frontiers.push_back(adjacentNode);
@@ -335,7 +335,7 @@ namespace pcg::engine::maze_generation
                 return;
             }
 
-            walls.erase(walls.begin() + math::Random::generateNumber(0, walls.size()));
+            walls.erase(walls.begin() + math::Random::number(walls.size()));
 
             for (const WallInfo& wall : walls)
             {
@@ -357,7 +357,7 @@ namespace pcg::engine::maze_generation
         {
             const bool greaterThanThreshold = subRegion.getNodeCount() >= regionThreshold;
             // Allows dividing a region that has less nodes than the threshold to sub regions
-            const bool pushSmallRegion = subRegion.getNodeCount() >= minimumThreshold && math::Random::generateNumber(0, 10) < 5;
+            const bool pushSmallRegion = subRegion.getNodeCount() >= minimumThreshold && math::Random::number(10) < 5;
 
             if (greaterThanThreshold || pushSmallRegion)
             {

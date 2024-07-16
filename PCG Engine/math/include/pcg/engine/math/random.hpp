@@ -19,18 +19,28 @@ namespace pcg::engine::math
         /// @param newSeed The new RNG seed
         static void updateSeed(unsigned int newSeed);
 
-        /// @brief Function used to generate a number between [min, max[
-        static utility::CallbackFunctor<int(int, int)> generateNumber;
+        /// @brief Generate a number in [minimum, maximum[ range
+        /// @param minimum Min value
+        /// @param maximum Max value
+        /// @return Number in [minimum, maximum[
+        static int number(int minimum, int maximum) { return generateNumber(minimum, maximum); }
+
+        /// @brief Generate a number in [0, maximum[ range
+        /// @param maximum Max value
+        /// @return Number in [minimum, maximum[
+        static int number(int maximum) { return number(0, maximum); }
 
         /// @brief Return a new std::default_random_engine
         /// @return std::default_random_engine
         static std::default_random_engine getDefaultEngine();
 
     private:
-        /// @brief Function used to set the RNG seed
-        static utility::CallbackFunctor<void(unsigned int)> initializeSeed;
         /// @brief Current RNG seed
         static unsigned int seed;
+        /// @brief Function used to set the RNG seed
+        static utility::CallbackFunctor<void(unsigned int)> initializeSeed;
+        /// @brief Function used to generate a number between [min, max[
+        static utility::CallbackFunctor<int(int, int)> generateNumber;
     };
 }
 

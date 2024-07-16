@@ -123,7 +123,7 @@ namespace pcg::engine::maze_generation
             NodeCoordinates adjacentNode{ currentNode.x + 1, currentNode.y };
             info.initializeNodePair(currentNode, adjacentNode);
             const bool nodesConnected = info.areConnected(currentNode, adjacentNode);
-            const bool newSet = !row.lastRow && math::Random::generateNumber(0, 2) == 0;
+            const bool newSet = !row.lastRow && math::Random::number(0, 2) == 0;
 
             if (nodesConnected || newSet)
             {
@@ -155,7 +155,7 @@ namespace pcg::engine::maze_generation
             for (auto& connectedSet : row.connectedSets)
             {
                 std::shuffle(begin(connectedSet), end(connectedSet), info.randomEngine);
-                const int verticalConnections = math::Random::generateNumber(1, connectedSet.size());
+                const int verticalConnections = math::Random::number(1, connectedSet.size());
 
                 for (int connection = 0; connection < verticalConnections; ++connection)
                 {
