@@ -101,6 +101,8 @@ namespace pcg::engine::maze_generation
 
     void growingTree(int width, int height, bool invokeAfterGeneration, GrowingTreeSelectionMethod method, MazeCallback&& callback)
     {
+        math::Random::resetSeed();
+
         switch (method)
         {
         case GrowingTreeSelectionMethod::oldest:
@@ -132,6 +134,8 @@ namespace pcg::engine::maze_generation
 
     void growingTree(int width, int height, bool invokeAfterGeneration, utility::CallbackFunctor<int(int)>&& nodeSelectionCallback, MazeCallback&& callback)
     {
+        math::Random::resetSeed();
+
         generateGrowingTree(width, height, invokeAfterGeneration, [&nodeSelectionCallback](const std::vector<NodeCoordinates>& nodes)
             {
                 return nodes[nodeSelectionCallback(nodes.size())];

@@ -19,6 +19,9 @@ namespace pcg::engine::math
         /// @param newSeed The new RNG seed
         static void updateSeed(unsigned int newSeed);
 
+        /// @brief Reset the RNG state
+        static void resetSeed();
+
         /// @brief Generate a number in [minimum, maximum[ range
         /// @param minimum Min value
         /// @param maximum Max value

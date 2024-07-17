@@ -105,6 +105,8 @@ namespace pcg::engine::maze_generation
 
     void prim(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
+        math::Random::resetSeed();
+
         utility::logInfo("Prim Maze Generation Started");
 
         Grid grid = generateGrid(width, height);
