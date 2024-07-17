@@ -6,6 +6,7 @@
 #include <functional>
 #include <sstream>
 #include <string>
+#include <unordered_set>
 
 namespace pcg::engine::level_generation::tests
 {
@@ -103,14 +104,47 @@ namespace pcg::engine::level_generation::tests
         };
     };
 
-    TEST_P(MultiDimensionalGenerationTest, MultiDimensionalGeneration)
+    TEST_P(MultiDimensionalGenerationTest, MultiDimensionalGenerationNoOverlap)
     {
         GenerationData data{ 150, 1, math::Vector3::zero };
         MultiDimensionalGenerationParam levelGenerationParam = GetParam();
         levelGenerationParam.fillPositionCheckers();
 
         std::ostringstream oss{};
-        oss << "GoldenValues/" << levelGenerationParam.fileName << ".txt";
+        oss << "GoldenValues/NoOverlap/" << levelGenerationParam.fileName << ".txt";
+
+        std::ifstream input(oss.str(), std::ofstream::out);
+        std::unordered_set<math::Vector3> positions{};
+
+        std::function<void(math::Vector3)> callback = [&levelGenerationParam, &input, &positions](math::Vector3 position)
+            {
+                ASSERT_TRUE(positions.find(position) == positions.end());
+                positions.insert(position);
+
+                int x = 0;
+                int y = 0;
+                int z = 0;
+
+                input >> x >> y >> z;
+                levelGenerationParam.positionCheck(position);
+
+                EXPECT_EQ(x, position.x);
+                EXPECT_EQ(y, position.y);
+                EXPECT_EQ(z, position.z);
+            };
+
+        multiDimensionalGeneration(data, levelGenerationParam.axis, true, callback);
+        input.close();
+    }
+
+    TEST_P(MultiDimensionalGenerationTest, MultiDimensionalGenerationOverlap)
+    {
+        GenerationData data{ 150, 1, math::Vector3::zero };
+        MultiDimensionalGenerationParam levelGenerationParam = GetParam();
+        levelGenerationParam.fillPositionCheckers();
+
+        std::ostringstream oss{};
+        oss << "GoldenValues/Overlap/" << levelGenerationParam.fileName << ".txt";
 
         std::ifstream input(oss.str(), std::ofstream::out);
 
@@ -128,7 +162,7 @@ namespace pcg::engine::level_generation::tests
                 EXPECT_EQ(z, position.z);
             };
 
-        multiDimensionalGeneration(data, levelGenerationParam.axis, true, callback);
+        multiDimensionalGeneration(data, levelGenerationParam.axis, false, callback);
         input.close();
     }
 
