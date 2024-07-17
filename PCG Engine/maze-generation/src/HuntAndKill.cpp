@@ -130,6 +130,8 @@ namespace pcg::engine::maze_generation
 
     void huntAndKill(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
+        math::Random::resetSeed();
+
         utility::logInfo("Hunt And Kill Maze Generation Started");
 
         Grid grid = generateGrid(width, height);

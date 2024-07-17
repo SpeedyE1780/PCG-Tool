@@ -31,6 +31,11 @@ namespace pcg::engine::math
         initializeSeed(newSeed);
     }
 
+    void Random::resetSeed()
+    {
+        updateSeed(seed);
+    }
+
     void Random::initializeRandom(utility::CallbackFunctor<void(unsigned int)>&& seed, utility::CallbackFunctor<int(int, int)>&& generate)
     {
         initializeSeed = seed ? std::move(seed) : srand;

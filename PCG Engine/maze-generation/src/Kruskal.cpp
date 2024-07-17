@@ -79,6 +79,8 @@ namespace pcg::engine::maze_generation
 
     void kruskal(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
+        math::Random::resetSeed();
+
         utility::logInfo("Kruskal Maze Generation Started");
         Grid grid = generateGrid(width, height);
         TreeGrid trees = TreeGrid(height, std::vector<Tree>(width));

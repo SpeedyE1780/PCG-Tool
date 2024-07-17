@@ -117,6 +117,8 @@ namespace pcg::engine::maze_generation
 
     void wilson(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
+        math::Random::resetSeed();
+
         utility::logInfo("Wilson Maze Generation Started");
 
         std::ostringstream oss{};

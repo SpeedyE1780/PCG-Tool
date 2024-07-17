@@ -14,6 +14,7 @@ namespace pcg::engine::maze_generation
 {
     void aldousBroder(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
+        math::Random::resetSeed();
         std::ostringstream oss{};
 
         utility::logInfo("Aldous - Broder Maze Generation Started");
