@@ -8,6 +8,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 "src/main.cpp"
 "src/MultiDimensionalGeneration.cpp"
 "src/SimpleLevelGeneration.cpp"
+"src/WaveFunctionCollapse.cpp"
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE pcg-engine-level-generation)

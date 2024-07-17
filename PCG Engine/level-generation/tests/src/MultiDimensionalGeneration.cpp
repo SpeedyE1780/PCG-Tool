@@ -113,7 +113,7 @@ namespace pcg::engine::level_generation::tests
         std::ostringstream oss{};
         oss << "GoldenValues/NoOverlap/" << levelGenerationParam.fileName << ".txt";
 
-        std::ifstream input(oss.str(), std::ofstream::out);
+        std::ifstream input(oss.str());
         std::unordered_set<math::Vector3> positions{};
 
         std::function<void(math::Vector3)> callback = [&levelGenerationParam, &input, &positions](math::Vector3 position)
@@ -146,7 +146,7 @@ namespace pcg::engine::level_generation::tests
         std::ostringstream oss{};
         oss << "GoldenValues/Overlap/" << levelGenerationParam.fileName << ".txt";
 
-        std::ifstream input(oss.str(), std::ofstream::out);
+        std::ifstream input(oss.str());
 
         std::function<void(math::Vector3)> callback = [&levelGenerationParam, &input](math::Vector3 position)
             {
