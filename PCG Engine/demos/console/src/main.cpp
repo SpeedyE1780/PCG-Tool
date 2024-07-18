@@ -2,6 +2,8 @@
 
 #include <pcg/engine/maze-generation/BlobbyDivision.hpp>
 
+#include <pcg/engine/combination-generation/SequenceGenerator.hpp>
+
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -66,6 +68,76 @@ namespace
     void logMessage(const char* message)
     {
         std::cout << message << std::endl;
+    }
+
+    class SequenceNode : public pcg::engine::combination_generation::ISequenceNode
+    {
+    public:
+        SequenceNode(std::string&& message, std::vector<SequenceNode*>&& nextNodes) :
+            ISequenceNode(),
+            message(message),
+            nextNodes(nextNodes)
+        {
+        }
+
+        SequenceNode(std::string&& message) : SequenceNode(std::move(message), std::vector<SequenceNode*>{})
+        {
+        }
+
+        virtual void setNext(ISequenceNode* node) override { nextNode = node; }
+        virtual int getNextCount() const override { return nextNodes.size(); }
+        virtual ISequenceNode* getNodeAt(int index) const override { return nextNodes[index]; }
+
+        virtual void printSequence() const override
+        {
+            std::cout << message;
+
+            if (nextNode)
+            {
+                std::cout << "->";
+                nextNode->printSequence();
+            }
+        }
+
+    private:
+        std::string message = "";
+        std::vector<SequenceNode*> nextNodes{};
+        ISequenceNode* nextNode = nullptr;
+    };
+
+    void generateSequence()
+    {
+        SequenceNode goldIngots("5 Gold Ingots");
+        SequenceNode logs("10 Logs");
+        SequenceNode give("Give", { &goldIngots, &logs });
+
+        SequenceNode axe("Axe");
+        SequenceNode dagger("Dagger");
+        SequenceNode sword("Sword");
+        SequenceNode craft("Craft", { &axe, &dagger, &sword });
+
+        SequenceNode smith("Smith", { &give, &craft });
+
+        SequenceNode amulet("Amulet of Resistance");
+        SequenceNode stolenGold("Stolen Gold");
+        SequenceNode retrieve("Retrieve", { &amulet, &stolenGold });
+
+        SequenceNode merchant("Merchant", { &retrieve });
+
+        SequenceNode town("Town");
+        SequenceNode defend("Defend", { &town });
+
+        SequenceNode wolf("Wolf");
+        SequenceNode orc("Orc");
+        SequenceNode goblin("Goblin");
+        SequenceNode kill("Kill", { &wolf, &orc, &goblin });
+
+        SequenceNode guildMaster("Guild Master", { &kill, &defend });
+
+        SequenceNode speak("Speak", { &guildMaster, &merchant, &smith });
+
+        pcg::engine::combination_generation::generateSequence(&speak);
+        speak.printSequence();
     }
 }
 
@@ -146,6 +218,9 @@ int main()
     pcg::engine::cpp_api::generateCombination(colors.size(), { 0, 1, 5 }, combinationCallback);
 
     pcg::engine::cpp_api::setRandomGenerator(nullptr, nullptr);
+
+    std::cout << "Generate Sequence:" << std::endl;
+    generateSequence();
 
     return 0;
 }
