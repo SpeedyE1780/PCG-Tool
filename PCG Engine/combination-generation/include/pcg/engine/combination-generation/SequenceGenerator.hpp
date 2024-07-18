@@ -25,7 +25,7 @@ namespace pcg::engine::combination_generation
 
     /// @brief Generate a sequence starting from node
     /// @param node First node in sequence
-    void generateSequence(ISequenceNode* node);
+    void generateSequence(ISequenceNode& node);
 }
 
 #endif // PCG_ENGINE_COMBINATION_GENERATION_SEQUENCE_GENERATOR_HPP

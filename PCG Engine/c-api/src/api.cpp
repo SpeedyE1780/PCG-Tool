@@ -1,6 +1,7 @@
 #include <pcg/engine/c-api/api.hpp>
 
 #include <pcg/engine/combination-generation/CombinationGenerator.hpp>
+#include <pcg/engine/combination-generation/SequenceGenerator.hpp>
 
 #include <pcg/engine/level-generation/SimpleGeneration.hpp>
 #include <pcg/engine/level-generation/MultiDimensionalGeneration.hpp>
@@ -214,5 +215,35 @@ namespace pcg::engine::c_api
         }
 
         combination_generation::generateCombination(elementCount, activeElements, callback);
+    }
+
+    void generateSequence(SequenceNode* node)
+    {
+        class SequenceNodeWrapper : public combination_generation::ISequenceNode
+        {
+        public:
+            SequenceNodeWrapper(SequenceNode* node) : node(node)
+            {
+                for (int i = 0; i < node->nextCount; ++i)
+                {
+                    nextNodes.emplace_back(SequenceNodeWrapper(node + i));
+                }
+            }
+
+            virtual void setNext(ISequenceNode* nextNode) override { node->nextNode = dynamic_cast<SequenceNodeWrapper*>(nextNode)->node; }
+            virtual int getNextCount() const override { return nextNodes.size(); }
+            virtual ISequenceNode* getNodeAt(int index) const override { return &nextNodes[index]; }
+
+            virtual void generateSequence() const override
+            {
+            }
+
+        private:
+            SequenceNode* node;
+            mutable std::vector<SequenceNodeWrapper> nextNodes{};
+        };
+
+        SequenceNodeWrapper wrappedNode(node);
+        combination_generation::generateSequence(wrappedNode);
     }
 }

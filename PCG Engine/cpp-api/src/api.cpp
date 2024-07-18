@@ -211,7 +211,7 @@ namespace pcg::engine::cpp_api
 
     void generateSequence(combination_generation::ISequenceNode& node)
     {
-        combination_generation::generateSequence(&node);
+        combination_generation::generateSequence(node);
     }
 }
 

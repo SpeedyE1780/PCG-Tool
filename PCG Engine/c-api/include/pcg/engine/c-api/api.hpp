@@ -62,6 +62,13 @@ namespace pcg::engine::c_api
         blobbyDivisionHuge = 21,
     };
 
+    struct SequenceNode
+    {
+        SequenceNode* nextNodes;
+        int nextCount = 0;
+        SequenceNode* nextNode;
+    };
+
     /// @brief Set RNG's seed
     /// @param seed New RNG seed
     PCG_ENGINE_C_API_API void setSeed(unsigned int seed);
@@ -139,6 +146,9 @@ namespace pcg::engine::c_api
     /// @param activeElementsCount Number of elements in activeElementsIndex array
     /// @param callback Callback to add element to generated set
     PCG_ENGINE_C_API_API void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementsCount, generateCombinationCallback callback);
+    /// @brief Generate a sequence starting from node
+    /// @param node First node in sequence
+    PCG_ENGINE_C_API_API void generateSequence(SequenceNode* node);
 }
 
 #endif // PCG_ENGINE_C_API_API_HPP

@@ -4,15 +4,23 @@
 
 namespace pcg::engine::combination_generation
 {
-    void generateSequence(ISequenceNode* node)
+    namespace
     {
-        math::Random::resetSeed();
-
-        while (node->getNextCount() > 0)
+        void generateSequence(ISequenceNode* node)
         {
-            ISequenceNode* nextNode = node->getNodeAt(math::Random::number(node->getNextCount()));
-            node->setNext(nextNode);
-            node = nextNode;
+            math::Random::resetSeed();
+
+            while (node->getNextCount() > 0)
+            {
+                ISequenceNode* nextNode = node->getNodeAt(math::Random::number(node->getNextCount()));
+                node->setNext(nextNode);
+                node = nextNode;
+            }
         }
+    }
+
+    void generateSequence(ISequenceNode& node)
+    {
+        generateSequence(&node);
     }
 }
