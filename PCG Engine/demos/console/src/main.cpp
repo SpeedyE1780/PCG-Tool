@@ -2,8 +2,6 @@
 
 #include <pcg/engine/maze-generation/BlobbyDivision.hpp>
 
-#include <pcg/engine/combination-generation/SequenceGenerator.hpp>
-
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -88,14 +86,14 @@ namespace
         virtual int getNextCount() const override { return nextNodes.size(); }
         virtual ISequenceNode* getNodeAt(int index) const override { return nextNodes[index]; }
 
-        virtual void printSequence() const override
+        virtual void generateSequence() const override
         {
             std::cout << message;
 
             if (nextNode)
             {
                 std::cout << "->";
-                nextNode->printSequence();
+                nextNode->generateSequence();
             }
         }
 
@@ -136,8 +134,8 @@ namespace
 
         SequenceNode speak("Speak", { &guildMaster, &merchant, &smith });
 
-        pcg::engine::combination_generation::generateSequence(&speak);
-        speak.printSequence();
+        pcg::engine::cpp_api::generateSequence(speak);
+        speak.generateSequence();
     }
 }
 

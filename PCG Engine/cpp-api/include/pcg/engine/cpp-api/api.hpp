@@ -1,9 +1,11 @@
 #ifndef PCG_ENGINE_CPP_API_API_HPP
 #define PCG_ENGINE_CPP_API_API_HPP
 
-#include <pcg/engine/level-generation/GenerationData.hpp>
+#include <pcg/engine/combination-generation/SequenceGenerator.hpp>
 
 #include <pcg/engine/cpp-api/config.hpp>
+
+#include <pcg/engine/level-generation/GenerationData.hpp>
 
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/Vector3.hpp>
@@ -119,6 +121,9 @@ namespace pcg::engine::cpp_api
     /// @param activeElementsIndex Array of elements that must be included
     /// @param callback Callback to add element to generated set
     PCG_ENGINE_CPP_API_API void generateCombination(int elementCount, const std::vector<int>& activeElementsIndex, std::function<void(int, bool)>&& callback);
+    /// @brief Generate a sequence starting from node
+    /// @param node First node in sequence
+    PCG_ENGINE_CPP_API_API void generateSequence(combination_generation::ISequenceNode& node);
 }
 
 #endif // PCG_ENGINE_CPP_API_API_HPP

@@ -208,5 +208,10 @@ namespace pcg::engine::cpp_api
     {
         combination_generation::generateCombination(elementCount, activeElementsIndex, callback);
     }
+
+    void generateSequence(combination_generation::ISequenceNode& node)
+    {
+        combination_generation::generateSequence(&node);
+    }
 }
 
