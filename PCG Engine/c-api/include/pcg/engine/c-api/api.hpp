@@ -64,9 +64,9 @@ namespace pcg::engine::c_api
 
     struct SequenceNode
     {
-        SequenceNode* nextNodes;
+        SequenceNode* nextNodes = nullptr;
         int nextCount = 0;
-        SequenceNode* nextNode;
+        int nextNodeIndex = -1;
     };
 
     /// @brief Set RNG's seed
@@ -148,7 +148,7 @@ namespace pcg::engine::c_api
     PCG_ENGINE_C_API_API void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementsCount, generateCombinationCallback callback);
     /// @brief Generate a sequence starting from node
     /// @param node First node in sequence
-    PCG_ENGINE_C_API_API void generateSequence(SequenceNode* node);
+    PCG_ENGINE_C_API_API void generateSequence(SequenceNode& node);
 }
 
 #endif // PCG_ENGINE_C_API_API_HPP

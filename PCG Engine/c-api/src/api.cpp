@@ -217,29 +217,33 @@ namespace pcg::engine::c_api
         combination_generation::generateCombination(elementCount, activeElements, callback);
     }
 
-    void generateSequence(SequenceNode* node)
+    void generateSequence(SequenceNode& node)
     {
         class SequenceNodeWrapper : public combination_generation::ISequenceNode
         {
         public:
-            SequenceNodeWrapper(SequenceNode* node) : node(node)
+            SequenceNodeWrapper(SequenceNode& node) : node(node)
             {
-                for (int i = 0; i < node->nextCount; ++i)
+                for (int i = 0; i < node.nextCount; ++i)
                 {
-                    nextNodes.emplace_back(SequenceNodeWrapper(this->node->nextNodes + i));
+                    nextNodes.emplace_back(SequenceNodeWrapper(this->node.nextNodes[i]));
                 }
             }
 
-            virtual void setNext(ISequenceNode* nextNode) override { node->nextNode = dynamic_cast<SequenceNodeWrapper*>(nextNode)->node; }
+            virtual void setNext(ISequenceNode* nextNode) override { }
             virtual int getNextCount() const override { return nextNodes.size(); }
-            virtual ISequenceNode* getNodeAt(int index) const override { return &nextNodes[index]; }
+            virtual ISequenceNode* getNodeAt(int index) const override
+            {
+                node.nextNodeIndex = index;
+                return &nextNodes[index];
+            }
 
             virtual void generateSequence() const override
             {
             }
 
         private:
-            SequenceNode* node;
+            SequenceNode& node;
             mutable std::vector<SequenceNodeWrapper> nextNodes{};
         };
 
