@@ -24,4 +24,11 @@ namespace PCGAPI
         public float size;
         public Vector3 startPoint;
     }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public class SequenceNode
+    {
+        public int[] nextNodes;
+        public int nextCount;
+    }
 }
