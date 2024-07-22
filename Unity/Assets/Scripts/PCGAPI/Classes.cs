@@ -26,10 +26,10 @@ namespace PCGAPI
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    unsafe public struct SequenceNode
+    public class SequenceNode
     {
-        public SequenceNode* nextNodes;
+        public SequenceNode[] nextNodes;
         public int nextCount;
-        public SequenceNode* nextNode;
+        public SequenceNode nextNode;
     }
 }

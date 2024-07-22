@@ -26,7 +26,7 @@
         "XboxOne",
         "GameCoreScarlett"
     ],
-    "allowUnsafeCode": true,
+    "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
