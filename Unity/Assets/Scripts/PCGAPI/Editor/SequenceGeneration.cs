@@ -1,10 +1,10 @@
 using PCGAPI;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEditor.UIElements;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
+using UnityEditor.UIElements;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SequenceGeneration : EditorWindow
 {
@@ -60,7 +60,11 @@ public class SequenceGeneration : EditorWindow
             List<ISequenceNode> nodes = new List<ISequenceNode>() { sequenceNode };
             List<SequenceNode> sequenceNodes = new List<SequenceNode>() { new SequenceNode() };
             FlattenSequence(sequenceNode, 0, nodes, sequenceNodes);
-            PCGEngine.GenerateSequence(sequenceNodes.ToArray(), sequenceNodes.Count);
+            PCGEngine.GenerateSequence(sequenceNodes[0], index => sequenceNodes[index], index =>
+            {
+                sequenceNode.NextNode = nodes[index];
+                sequenceNode = sequenceNode.NextNode;
+            });
         }
     }
 }
