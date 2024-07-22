@@ -14,6 +14,13 @@
 
 namespace pcg::engine::c_api
 {
+
+    struct SequenceNode
+    {
+        int* nextNodes = nullptr;
+        int nextCount = 0;
+    };
+
     /// @brief Callback to indicate that a node was spawned at position
     typedef void (*addNodeCallback)(math::Vector3 position);
     /// @brief Callback to indicate that a node was spawned at this position and has these adjacent node
@@ -34,6 +41,8 @@ namespace pcg::engine::c_api
     typedef void (*generateCombinationCallback)(int elementIndex, bool included);
     /// @brief Function used to log message from the engine
     typedef void (*logMessage)(const char* message);
+    typedef SequenceNode& (*getSequenceNode)(int index);
+    typedef void (*addNodeToSequence)(int index);
 
     /// @brief Indicates which algorithm to use when generating mazes
     enum class MazeAlgorithm
@@ -60,13 +69,6 @@ namespace pcg::engine::c_api
         blobbyDivisionMedium = 19,
         blobbyDivisionLarge = 20,
         blobbyDivisionHuge = 21,
-    };
-
-    struct SequenceNode
-    {
-        SequenceNode* nextNodes = nullptr;
-        int nextCount = 0;
-        int nextNodeIndex = -1;
     };
 
     /// @brief Set RNG's seed
@@ -148,7 +150,9 @@ namespace pcg::engine::c_api
     PCG_ENGINE_C_API_API void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementsCount, generateCombinationCallback callback);
     /// @brief Generate a sequence starting from node
     /// @param node First node in sequence
-    PCG_ENGINE_C_API_API void generateSequence(SequenceNode& node);
+    /// @param getNode Callback to get node from array in calling code
+    /// @param addNode Callback to add node to sequence in calling code
+    PCG_ENGINE_C_API_API void generateSequence(SequenceNode& node, getSequenceNode getNode, addNodeToSequence addNode);
 }
 
 #endif // PCG_ENGINE_C_API_API_HPP

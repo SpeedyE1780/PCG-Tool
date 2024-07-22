@@ -217,37 +217,47 @@ namespace pcg::engine::c_api
         combination_generation::generateCombination(elementCount, activeElements, callback);
     }
 
-    void generateSequence(SequenceNode& node)
+    void generateSequence(SequenceNode& node, getSequenceNode getNode, addNodeToSequence addNode)
     {
         class SequenceNodeWrapper : public combination_generation::ISequenceNode
         {
         public:
-            SequenceNodeWrapper(SequenceNode& node) : node(node)
+            SequenceNodeWrapper(SequenceNode& node, int nodeIndex, getSequenceNode getNode, addNodeToSequence add) : node(node), nodeIndex(nodeIndex), addNode(add)
             {
                 for (int i = 0; i < node.nextCount; ++i)
                 {
-                    nextNodes.emplace_back(SequenceNodeWrapper(this->node.nextNodes[i]));
+                    int nextNodeIndex = node.nextNodes[i];
+                    nextNodes.emplace_back(SequenceNodeWrapper(getNode(nextNodeIndex), nextNodeIndex, getNode, addNode));
                 }
             }
 
-            virtual void setNext(ISequenceNode* nextNode) override { }
+            virtual void setNext(ISequenceNode* nextNode) override { next = dynamic_cast<SequenceNodeWrapper*>(nextNode); }
             virtual int getNextCount() const override { return nextNodes.size(); }
             virtual ISequenceNode* getNodeAt(int index) const override
             {
-                node.nextNodeIndex = index;
                 return &nextNodes[index];
             }
 
             virtual void generateSequence() const override
             {
+                addNode(nodeIndex);
+
+                if (next)
+                {
+                    next->generateSequence();
+                }
             }
 
         private:
             SequenceNode& node;
+            int nodeIndex;
+            addNodeToSequence addNode;
+            SequenceNodeWrapper* next = nullptr;
             mutable std::vector<SequenceNodeWrapper> nextNodes{};
         };
 
-        SequenceNodeWrapper wrappedNode(node);
+        SequenceNodeWrapper wrappedNode(node, 0, getNode, addNode);
         combination_generation::generateSequence(wrappedNode);
+        wrappedNode.generateSequence();
     }
 }
