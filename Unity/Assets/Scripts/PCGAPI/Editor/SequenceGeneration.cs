@@ -62,8 +62,7 @@ public class SequenceGeneration : EditorWindow
             FlattenSequence(sequenceNode, 0, nodes, sequenceNodes);
             PCGEngine.GenerateSequence(sequenceNodes[0], index => sequenceNodes[index], index =>
             {
-                sequenceNode.NextNode = nodes[index];
-                sequenceNode = sequenceNode.NextNode;
+                sequenceNode = nodes[index];
             });
         }
     }

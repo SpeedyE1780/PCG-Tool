@@ -8,10 +8,7 @@ namespace PCGAPI
     {
         [SerializeField]
         private List<SequenceNodeSO> nextNodes;
-        [SerializeField]
-        private SequenceNodeSO nextNode;
 
         public IEnumerable<ISequenceNode> NextNodes => nextNodes;
-        public ISequenceNode NextNode { get => nextNode; set => nextNode = (SequenceNodeSO)value; }
     }
 }
