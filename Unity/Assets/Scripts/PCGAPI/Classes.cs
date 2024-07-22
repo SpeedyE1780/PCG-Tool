@@ -30,6 +30,6 @@ namespace PCGAPI
     {
         public SequenceNode[] nextNodes;
         public int nextCount;
-        public SequenceNode nextNode;
+        public int nextNodeIndex = -1;
     }
 }

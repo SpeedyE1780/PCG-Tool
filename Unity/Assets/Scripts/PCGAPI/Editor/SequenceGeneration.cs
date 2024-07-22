@@ -24,12 +24,17 @@ public class SequenceGeneration : EditorWindow
         VisualElement uxmlElements = m_VisualTreeAsset.Instantiate();
         rootVisualElement.Add(uxmlElements);
 
-        startNode.Q<ObjectField>("SequenceNode");
+        startNode = rootVisualElement.Q<ObjectField>("SequenceNode");
         rootVisualElement.Q<Button>("Generate").clicked += GenerateSequence;
     }
 
     private void GenerateSequence()
     {
-
+        if (startNode.value != null)
+        {
+            ISequenceNode sequenceNode = (ISequenceNode)startNode.value;
+            SequenceNode sequence = sequenceNode.ToSequenceNode();
+            PCGEngine.GenerateSequence(ref sequence);
+        }
     }
 }
