@@ -14,6 +14,8 @@ public class SequenceGeneration : EditorWindow
 
     private ObjectField startNode;
     private UnsignedIntegerField seedField;
+    private TextField fileNameField;
+    private TextField folderPathField;
 
     [MenuItem("PCG/Sequence Generation")]
     public static void ShowExample()
@@ -30,6 +32,8 @@ public class SequenceGeneration : EditorWindow
 
         startNode = rootVisualElement.Q<ObjectField>("SequenceNode");
         seedField = rootVisualElement.Q<UnsignedIntegerField>("Seed");
+        fileNameField = rootVisualElement.Q<TextField>("FileName");
+        folderPathField = rootVisualElement.Q<TextField>("FolderPath");
         rootVisualElement.Q<Button>("Generate").clicked += GenerateSequence;
     }
 
@@ -57,23 +61,35 @@ public class SequenceGeneration : EditorWindow
 
     private void GenerateSequence()
     {
-        if (startNode.value != null)
+        if (startNode.value == null)
         {
-            ISequenceNode sequenceNode = (ISequenceNode)startNode.value;
-            List<ISequenceNode> nodes = new List<ISequenceNode>() { sequenceNode };
-            List<SequenceNode> sequenceNodes = new List<SequenceNode>() { new SequenceNode() };
-            FlattenSequence(sequenceNode, 0, nodes, sequenceNodes);
-
-            SequenceSO sequence = CreateInstance<SequenceSO>();
-
-            PCGEngine.SetSeed(seedField.value);
-            PCGEngine.GenerateSequence(sequenceNodes[0], index => sequenceNodes[index], index =>
-            {
-                sequence.AddNode(nodes[index]);
-            });
-
-            AssetDatabase.CreateAsset(sequence, $"Assets/ScriptableObjects/PCG/Sequence/Sequence{seedField.value}.asset");
-            AssetDatabase.SaveAssets();
+            Debug.LogWarning("Starting node is not set");
+            return;
         }
+
+        if (string.IsNullOrWhiteSpace(folderPathField.text))
+        {
+            Debug.LogWarning("Folder path is not set");
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(fileNameField.text))
+        {
+            Debug.LogWarning("File name not set");
+            return;
+        }
+
+        ISequenceNode sequenceNode = (ISequenceNode)startNode.value;
+        List<ISequenceNode> nodes = new List<ISequenceNode>() { sequenceNode };
+        List<SequenceNode> sequenceNodes = new List<SequenceNode>() { new SequenceNode() };
+        FlattenSequence(sequenceNode, 0, nodes, sequenceNodes);
+
+        SequenceSO sequence = CreateInstance<SequenceSO>();
+
+        PCGEngine.SetSeed(seedField.value);
+        PCGEngine.GenerateSequence(sequenceNodes[0], index => sequenceNodes[index], index => sequence.AddNode(nodes[index]));
+
+        AssetDatabase.CreateAsset(sequence, $"{folderPathField.text}/{fileNameField.text}{seedField.value}.asset");
+        AssetDatabase.SaveAssets();
     }
 }
