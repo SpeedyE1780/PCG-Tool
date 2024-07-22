@@ -226,7 +226,7 @@ namespace pcg::engine::c_api
             {
                 for (int i = 0; i < node->nextCount; ++i)
                 {
-                    nextNodes.emplace_back(SequenceNodeWrapper(node + i));
+                    nextNodes.emplace_back(SequenceNodeWrapper(this->node->nextNodes + i));
                 }
             }
 
