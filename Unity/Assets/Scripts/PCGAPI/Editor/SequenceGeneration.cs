@@ -1,5 +1,6 @@
 using PCGAPI;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -12,6 +13,7 @@ public class SequenceGeneration : EditorWindow
     private VisualTreeAsset m_VisualTreeAsset = default;
 
     private ObjectField startNode;
+    private UnsignedIntegerField seedField;
 
     [MenuItem("PCG/Sequence Generation")]
     public static void ShowExample()
@@ -27,6 +29,7 @@ public class SequenceGeneration : EditorWindow
         rootVisualElement.Add(uxmlElements);
 
         startNode = rootVisualElement.Q<ObjectField>("SequenceNode");
+        seedField = rootVisualElement.Q<UnsignedIntegerField>("Seed");
         rootVisualElement.Q<Button>("Generate").clicked += GenerateSequence;
     }
 
@@ -60,10 +63,17 @@ public class SequenceGeneration : EditorWindow
             List<ISequenceNode> nodes = new List<ISequenceNode>() { sequenceNode };
             List<SequenceNode> sequenceNodes = new List<SequenceNode>() { new SequenceNode() };
             FlattenSequence(sequenceNode, 0, nodes, sequenceNodes);
+
+            SequenceSO sequence = CreateInstance<SequenceSO>();
+
+            PCGEngine.SetSeed(seedField.value);
             PCGEngine.GenerateSequence(sequenceNodes[0], index => sequenceNodes[index], index =>
             {
-                sequenceNode = nodes[index];
+                sequence.AddNode(nodes[index]);
             });
+
+            AssetDatabase.CreateAsset(sequence, $"Assets/ScriptableObjects/PCG/Sequence/Sequence{seedField.value}.asset");
+            AssetDatabase.SaveAssets();
         }
     }
 }
