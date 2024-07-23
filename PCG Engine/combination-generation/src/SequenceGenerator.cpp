@@ -6,6 +6,8 @@ namespace pcg::engine::combination_generation
 {
     namespace
     {
+        /// @brief Generate a sequence starting from node
+        /// @param node Last node added to sequence
         void generateSequence(ISequenceNode* node)
         {
             math::Random::resetSeed();

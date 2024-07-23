@@ -214,4 +214,3 @@ namespace pcg::engine::cpp_api
         combination_generation::generateSequence(node);
     }
 }
-
