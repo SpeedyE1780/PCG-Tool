@@ -224,7 +224,7 @@ namespace pcg::engine::c_api
         public:
             SequenceNodeWrapper(SequenceNode& node, int nodeIndex, getSequenceNode getNode, addNodeToSequence add) : node(node), nodeIndex(nodeIndex), addNode(add)
             {
-                for (int i = 0; i < node.nextCount; ++i)
+                for (int i = 0; i < node.nextNodesLength; ++i)
                 {
                     int nextNodeIndex = node.nextNodes[i];
                     nextNodes.emplace_back(SequenceNodeWrapper(getNode(nextNodeIndex), nextNodeIndex, getNode, addNode));

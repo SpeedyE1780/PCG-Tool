@@ -29,4 +29,3 @@ namespace pcg::engine::combination_generation
 }
 
 #endif // PCG_ENGINE_COMBINATION_GENERATION_SEQUENCE_GENERATOR_HPP
-

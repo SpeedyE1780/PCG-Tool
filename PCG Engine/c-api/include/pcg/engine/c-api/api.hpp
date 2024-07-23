@@ -14,11 +14,13 @@
 
 namespace pcg::engine::c_api
 {
-
+    /// @brief SequenceNode contains all of the possible next nodes
     struct SequenceNode
     {
+        /// @brief Array of next node indices
         int* nextNodes = nullptr;
-        int nextCount = 0;
+        /// @brief Length of nextNodes
+        int nextNodesLength = 0;
     };
 
     /// @brief Callback to indicate that a node was spawned at position
@@ -41,7 +43,9 @@ namespace pcg::engine::c_api
     typedef void (*generateCombinationCallback)(int elementIndex, bool included);
     /// @brief Function used to log message from the engine
     typedef void (*logMessage)(const char* message);
+    /// @brief Function used to get node at index from calling code
     typedef SequenceNode& (*getSequenceNode)(int index);
+    /// @brief Function used to notify calling code to add node to sequence
     typedef void (*addNodeToSequence)(int index);
 
     /// @brief Indicates which algorithm to use when generating mazes
