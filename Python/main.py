@@ -10,17 +10,17 @@ def main():
     callback = lambda index, included: addElement(combination, nums[index], included)
     print("Generate first combination", end= ' ')
 
-    combinations.generateCombination(len(nums), callback)
+    combinations.generateCombination(nums, callback)
     print(combination)
 
     combination = []
     print("Generate combination with at least 7 elements", end= ' ')
-    combinations.generateCombinationWithMinimumElements(len(nums), 7, callback)
+    combinations.generateCombinationWithMinimumElements(nums, 7, callback)
     print(combination)
 
     combination = []
-    print("Generate combination with element 0, 3, 5 active", end= ' ')
-    combinations.generateCombinationWithActiveElements(len(nums), [0, 3, 5], 3, callback)
+    print("Generate combination with element 2, 3, 5 active", end= ' ')
+    combinations.generateCombinationWithActiveElements(nums, [2, 3, 5], 3, callback)
     print(combination)
 
 main()

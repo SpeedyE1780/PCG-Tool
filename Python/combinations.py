@@ -5,14 +5,19 @@ pcgDLL = ctypes.CDLL('./pcg-engine-c-apid.dll')
 
 combinationCallback = (ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_bool))
 
-def generateCombination(elementCount: int, callback : Callable[[int, bool], None]):
+def generateCombination(elements: list[int], callback : Callable[[int, bool], None]):
 
-    pcgDLL.generateCombination(elementCount, combinationCallback(callback))
+    pcgDLL.generateCombination(len(elements), combinationCallback(callback))
 
-def generateCombinationWithMinimumElements(elementCount :int , minimumElementCount: int, callback : Callable[[int, bool], None]):
+def generateCombinationWithMinimumElements(elements : list[int] , minimumElementCount: int, callback : Callable[[int, bool], None]):
 
-    pcgDLL.generateCombinationWithMinimumElementCount(elementCount, minimumElementCount, combinationCallback(callback))
+    pcgDLL.generateCombinationWithMinimumElementCount(len(elements), minimumElementCount, combinationCallback(callback))
 
-def generateCombinationWithActiveElements(elementCount: int, activeElementsIndex: list[int], activeElementsCount: int, callback: Callable[[int, bool], None]):
+def generateCombinationWithActiveElements(elements: list[int], activeElements : list[int], activeElementsCount: int, callback: Callable[[int, bool], None]):
 
-    pcgDLL.generateCombinationWithActiveElements(elementCount, (ctypes.c_int * len(activeElementsIndex))(*activeElementsIndex), activeElementsCount, combinationCallback(callback))
+    activeElementsIndex = []
+
+    for activeElement in activeElements:
+        activeElementsIndex.append(elements.index(activeElement))
+
+    pcgDLL.generateCombinationWithActiveElements(len(elements), (ctypes.c_int * len(activeElementsIndex))(*activeElementsIndex), activeElementsCount, combinationCallback(callback))
