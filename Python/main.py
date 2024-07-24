@@ -14,8 +14,13 @@ def main():
     print(combination)
 
     combination = []
-    print("Generate combination with at least 7 elements")
+    print("Generate combination with at least 7 elements", end= ' ')
     combinations.generateCombinationWithMinimumElements(len(nums), 7, callback)
+    print(combination)
+
+    combination = []
+    print("Generate combination with element 0, 3, 5 active", end= ' ')
+    combinations.generateCombinationWithActiveElements(len(nums), [0, 3, 5], 3, callback)
     print(combination)
 
 main()
