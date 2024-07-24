@@ -7,7 +7,15 @@ def addElement(combination , element, included):
 def main():
     nums = list(range(0, 16))
     combination = []
-    combinations.generateCombination(len(nums), lambda index, included: addElement(combination, nums[index], included))
+    callback = lambda index, included: addElement(combination, nums[index], included)
+    print("Generate first combination", end= ' ')
+
+    combinations.generateCombination(len(nums), callback)
+    print(combination)
+
+    combination = []
+    print("Generate combination with at least 7 elements")
+    combinations.generateCombinationWithMinimumElements(len(nums), 7, callback)
     print(combination)
 
 main()
