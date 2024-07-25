@@ -28,6 +28,63 @@
 
 namespace pcg::engine::c_api
 {
+    namespace
+    {
+        class SequenceNodeWrapper : public combination_generation::ISequenceNode
+        {
+        public:
+            SequenceNodeWrapper(SequenceNode& node) : node(node)
+            {
+            }
+
+            virtual void setNext(int nextNodeIndex) override
+            {
+                nextNode = nextNodeIndex;
+                next = std::make_unique<SequenceNodeWrapper>(getNode(nextNodeIndex));
+            }
+
+            virtual int getNextCount() const override { return node.possibilitiesCount; }
+            virtual ISequenceNode* getNext() const override { return next.get(); }
+
+            virtual void generateSequence() const override
+            {
+                addNode();
+
+                if (next)
+                {
+                    setNode(nextNode);
+                    next->generateSequence();
+                }
+            }
+
+            static void setCallbacks(addNodeToSequence add, getNextSequenceNode get, setNextSequenceNode set)
+            {
+                addNode = add;
+                getNode = get;
+                setNode = set;
+            }
+
+            static void resetCallbacks()
+            {
+                getNode = nullptr;
+                addNode = nullptr;
+                setNode = nullptr;
+            }
+
+        private:
+            static addNodeToSequence addNode;
+            static getNextSequenceNode getNode;
+            static setNextSequenceNode setNode;
+            SequenceNode& node;
+            int nextNode = -1;
+            std::unique_ptr<SequenceNodeWrapper> next = nullptr;
+        };
+
+        addNodeToSequence SequenceNodeWrapper::addNode = nullptr;
+        getNextSequenceNode SequenceNodeWrapper::getNode = nullptr;
+        setNextSequenceNode SequenceNodeWrapper::setNode = nullptr;
+    }
+
     void setSeed(unsigned int seed)
     {
         math::Random::updateSeed(seed);
@@ -219,46 +276,12 @@ namespace pcg::engine::c_api
         combination_generation::generateCombination(elementCount, activeElements, callback);
     }
 
-    void generateSequence(SequenceNode& node, getNextSequenceNode getNode, addNodeToSequence addNode)
+    void generateSequence(SequenceNode& node, getNextSequenceNode getNode, addNodeToSequence addNode, setNextSequenceNode setNode)
     {
-        class SequenceNodeWrapper : public combination_generation::ISequenceNode
-        {
-        public:
-            SequenceNodeWrapper(SequenceNode& node, getNextSequenceNode get, addNodeToSequence add) : node(node), getNode(get), addNode(add)
-            {
-            }
-
-            virtual void setNext(int nextNodeIndex) override
-            {
-                nextNode = nextNodeIndex;
-                next = std::make_unique<SequenceNodeWrapper>(getNode(nextNodeIndex), getNode, addNode);
-            }
-            virtual int getNextCount() const override { return node.possibilitiesCount; }
-            virtual ISequenceNode* getNext() const override
-            {
-                return next.get();
-            }
-
-            virtual void generateSequence() const override
-            {
-                addNode(nextNode);
-
-                if (next)
-                {
-                    next->generateSequence();
-                }
-            }
-
-        private:
-            SequenceNode& node;
-            getNextSequenceNode getNode;
-            addNodeToSequence addNode;
-            int nextNode = 0;
-            std::unique_ptr<SequenceNodeWrapper> next = nullptr;
-        };
-
-        SequenceNodeWrapper wrappedNode(node, getNode, addNode);
+        SequenceNodeWrapper::setCallbacks(addNode, getNode, setNode);
+        SequenceNodeWrapper wrappedNode(node);
         combination_generation::generateSequence(wrappedNode);
         wrappedNode.generateSequence();
+        SequenceNodeWrapper::resetCallbacks();
     }
 }

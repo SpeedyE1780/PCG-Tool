@@ -43,8 +43,10 @@ namespace pcg::engine::c_api
     typedef void (*logMessage)(const char* message);
     /// @brief Function used to get node at index from calling code
     typedef SequenceNode& (*getNextSequenceNode)(int index);
-    /// @brief Function used to notify calling code to add node to sequence
-    typedef void (*addNodeToSequence)(int index);
+    /// @brief Function used to notify calling code to add current node to sequence
+    typedef void (*addNodeToSequence)();
+    /// @brief Function used to notify calling code to update the current node in sequence
+    typedef void(*setNextSequenceNode)(int index);
 
     /// @brief Indicates which algorithm to use when generating mazes
     enum class MazeAlgorithm
@@ -152,9 +154,10 @@ namespace pcg::engine::c_api
     PCG_ENGINE_C_API_API void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementsCount, generateCombinationCallback callback);
     /// @brief Generate a sequence starting from node
     /// @param node First node in sequence
-    /// @param getNode Callback to get node from array in calling code
+    /// @param getNode Callback to get node from list of next nodes in calling code
     /// @param addNode Callback to add node to sequence in calling code
-    PCG_ENGINE_C_API_API void generateSequence(SequenceNode& node, getNextSequenceNode getNode, addNodeToSequence addNode);
+    /// @param setNode Callback to set next node in sequence in calling code
+    PCG_ENGINE_C_API_API void generateSequence(SequenceNode& node, getNextSequenceNode getNode, addNodeToSequence addNode, setNextSequenceNode setNode);
 }
 
 #endif // PCG_ENGINE_C_API_API_HPP
