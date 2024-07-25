@@ -8,17 +8,15 @@ namespace pcg::engine::combination_generation
     {
     public:
         virtual ~ISequenceNode() = default;
-
         /// @brief Set next node in sequence
-        /// @param node Next node in sequence
-        virtual void setNext(ISequenceNode* node) = 0;
+        /// @param nodeIndex Index of next node in sequence
+        virtual void setNext(int nodeIndex) = 0;
+        /// @brief Get next node in sequence
+        /// @return Next node in sequence
+        virtual ISequenceNode* getNext() const = 0;
         /// @brief Get next nodes count
-        /// @return Next ndoes count
+        /// @return Next nodes count
         virtual int getNextCount() const = 0;
-        /// @brief Get node at index in list of next nodes
-        /// @param index Index of node in list of next nodes
-        /// @return Node at index
-        virtual ISequenceNode* getNodeAt(int index) const = 0;
         /// @brief Generate sequence
         virtual void generateSequence() const = 0;
     };

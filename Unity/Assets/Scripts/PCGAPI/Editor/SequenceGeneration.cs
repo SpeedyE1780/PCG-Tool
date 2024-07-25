@@ -37,28 +37,6 @@ public class SequenceGeneration : EditorWindow
         rootVisualElement.Q<Button>("Generate").clicked += GenerateSequence;
     }
 
-    void FlattenSequence(ISequenceNode node, int index, List<ISequenceNode> nodes, List<SequenceNode> sequenceNodes)
-    {
-        SequenceNode current = sequenceNodes[index];
-        current.nextCount = node.NextNodes.Count();
-        current.nextNodes = new int[current.nextCount];
-
-        for (int i = 0; i < current.nextCount; i++)
-        {
-            current.nextNodes[i] = nodes.Count;
-            ISequenceNode nextNode = node.NextNodes.ElementAt(i);
-            nodes.Add(nextNode);
-            sequenceNodes.Add(new SequenceNode());
-        }
-
-        for (int i = 0; i < current.nextCount; i++)
-        {
-            int nextIndex = current.nextNodes[i];
-            ISequenceNode nextNode = nodes[nextIndex];
-            FlattenSequence(nextNode, nextIndex, nodes, sequenceNodes);
-        }
-    }
-
     private void GenerateSequence()
     {
         if (startNode.value == null)
@@ -80,14 +58,20 @@ public class SequenceGeneration : EditorWindow
         }
 
         ISequenceNode sequenceNode = (ISequenceNode)startNode.value;
-        List<ISequenceNode> nodes = new List<ISequenceNode>() { sequenceNode };
-        List<SequenceNode> sequenceNodes = new List<SequenceNode>() { new SequenceNode() };
-        FlattenSequence(sequenceNode, 0, nodes, sequenceNodes);
+        ISequenceNode current = sequenceNode;
 
         SequenceSO sequence = CreateInstance<SequenceSO>();
 
         PCGEngine.SetSeed(seedField.value);
-        PCGEngine.GenerateSequence(sequenceNodes[0], index => sequenceNodes[index], index => sequence.AddNode(nodes[index]));
+        PCGEngine.GenerateSequence(current.ToSequenceNode(), index =>
+        {
+            current = current.NextNodes.ElementAt(index);
+            return current.ToSequenceNode();
+        }, () => sequence.AddNode(sequenceNode),
+        index =>
+        {
+            sequenceNode = sequenceNode.NextNodes.ElementAt(index);
+        });
 
         AssetDatabase.CreateAsset(sequence, $"{folderPathField.text}/{fileNameField.text}{seedField.value}.asset");
         AssetDatabase.SaveAssets();

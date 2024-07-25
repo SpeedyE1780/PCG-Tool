@@ -14,9 +14,8 @@ namespace pcg::engine::combination_generation
 
             while (node->getNextCount() > 0)
             {
-                ISequenceNode* nextNode = node->getNodeAt(math::Random::number(node->getNextCount()));
-                node->setNext(nextNode);
-                node = nextNode;
+                node->setNext(math::Random::number(node->getNextCount()));
+                node = node->getNext();
             }
         }
     }
