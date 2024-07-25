@@ -82,9 +82,10 @@ namespace
         {
         }
 
-        virtual void setNext(ISequenceNode* node) override { nextNode = node; }
+        virtual void setNext(int nodeIndex) { nextNode = nextNodes[nodeIndex]; }
+        virtual ISequenceNode* getNext() const { return nextNode; }
+
         virtual int getNextCount() const override { return nextNodes.size(); }
-        virtual ISequenceNode* getNodeAt(int index) const override { return nextNodes[index]; }
 
         virtual void generateSequence() const override
         {

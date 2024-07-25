@@ -14,13 +14,11 @@
 
 namespace pcg::engine::c_api
 {
-    /// @brief SequenceNode contains all of the possible next nodes
+    /// @brief SequenceNode represents number of possibilities
     struct SequenceNode
     {
-        /// @brief Array of next node indices
-        int* nextNodes = nullptr;
         /// @brief Length of nextNodes
-        int nextNodesLength = 0;
+        int possibilitiesCount = 0;
     };
 
     /// @brief Callback to indicate that a node was spawned at position
@@ -44,7 +42,7 @@ namespace pcg::engine::c_api
     /// @brief Function used to log message from the engine
     typedef void (*logMessage)(const char* message);
     /// @brief Function used to get node at index from calling code
-    typedef SequenceNode& (*getSequenceNode)(int index);
+    typedef SequenceNode& (*getNextSequenceNode)(int index);
     /// @brief Function used to notify calling code to add node to sequence
     typedef void (*addNodeToSequence)(int index);
 
@@ -156,7 +154,7 @@ namespace pcg::engine::c_api
     /// @param node First node in sequence
     /// @param getNode Callback to get node from array in calling code
     /// @param addNode Callback to add node to sequence in calling code
-    PCG_ENGINE_C_API_API void generateSequence(SequenceNode& node, getSequenceNode getNode, addNodeToSequence addNode);
+    PCG_ENGINE_C_API_API void generateSequence(SequenceNode& node, getNextSequenceNode getNode, addNodeToSequence addNode);
 }
 
 #endif // PCG_ENGINE_C_API_API_HPP

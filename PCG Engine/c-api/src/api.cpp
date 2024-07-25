@@ -24,6 +24,8 @@
 
 #include <pcg/engine/utility/logging.hpp>
 
+#include <memory>
+
 namespace pcg::engine::c_api
 {
     void setSeed(unsigned int seed)
@@ -217,30 +219,29 @@ namespace pcg::engine::c_api
         combination_generation::generateCombination(elementCount, activeElements, callback);
     }
 
-    void generateSequence(SequenceNode& node, getSequenceNode getNode, addNodeToSequence addNode)
+    void generateSequence(SequenceNode& node, getNextSequenceNode getNode, addNodeToSequence addNode)
     {
         class SequenceNodeWrapper : public combination_generation::ISequenceNode
         {
         public:
-            SequenceNodeWrapper(SequenceNode& node, int nodeIndex, getSequenceNode getNode, addNodeToSequence add) : node(node), nodeIndex(nodeIndex), addNode(add)
+            SequenceNodeWrapper(SequenceNode& node, getNextSequenceNode get, addNodeToSequence add) : node(node), getNode(get), addNode(add)
             {
-                for (int i = 0; i < node.nextNodesLength; ++i)
-                {
-                    int nextNodeIndex = node.nextNodes[i];
-                    nextNodes.emplace_back(SequenceNodeWrapper(getNode(nextNodeIndex), nextNodeIndex, getNode, addNode));
-                }
             }
 
-            virtual void setNext(ISequenceNode* nextNode) override { next = dynamic_cast<SequenceNodeWrapper*>(nextNode); }
-            virtual int getNextCount() const override { return nextNodes.size(); }
-            virtual ISequenceNode* getNodeAt(int index) const override
+            virtual void setNext(int nextNodeIndex) override
             {
-                return &nextNodes[index];
+                nextNode = nextNodeIndex;
+                next = std::make_unique<SequenceNodeWrapper>(getNode(nextNodeIndex), getNode, addNode);
+            }
+            virtual int getNextCount() const override { return node.possibilitiesCount; }
+            virtual ISequenceNode* getNext() const override
+            {
+                return next.get();
             }
 
             virtual void generateSequence() const override
             {
-                addNode(nodeIndex);
+                addNode(nextNode);
 
                 if (next)
                 {
@@ -250,13 +251,13 @@ namespace pcg::engine::c_api
 
         private:
             SequenceNode& node;
-            int nodeIndex;
+            getNextSequenceNode getNode;
             addNodeToSequence addNode;
-            SequenceNodeWrapper* next = nullptr;
-            mutable std::vector<SequenceNodeWrapper> nextNodes{};
+            int nextNode = 0;
+            std::unique_ptr<SequenceNodeWrapper> next = nullptr;
         };
 
-        SequenceNodeWrapper wrappedNode(node, 0, getNode, addNode);
+        SequenceNodeWrapper wrappedNode(node, getNode, addNode);
         combination_generation::generateSequence(wrappedNode);
         wrappedNode.generateSequence();
     }
