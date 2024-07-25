@@ -35,6 +35,6 @@ namespace PCGAPI
         [DllImport(DLLName, EntryPoint = "generateCombinationWithActiveElements")]
         public static extern void GenerateCombination(int elementCount, int[] includedElementsIndex, int includedElementsCount, GenerateCombination generateCombination);
         [DllImport(DLLName, EntryPoint = "generateSequence")]
-        public static extern void GenerateSequence(SequenceNode sequenceNode, GetSequenceNode getNode, AddNodeToSequence addNode);
+        public static extern void GenerateSequence(SequenceNode sequenceNode, GetSequenceNode getNode, AddNodeToSequence addNode, SetSequenceNode setNode);
     }
 }

@@ -28,7 +28,6 @@ namespace PCGAPI
     [StructLayout(LayoutKind.Sequential)]
     public class SequenceNode
     {
-        public int[] nextNodes;
-        public int nextCount;
+        public int possibilitiesCount;
     }
 }
