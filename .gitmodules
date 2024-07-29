@@ -1,6 +1,6 @@
-[submodule "GAM703-Engine"]
-	path = GAM703-Engine
-	url = https://github.com/SpeedyE1780/GAM703-Engine.git
 [submodule "PCG Engine/3rd-party/gtest"]
 	path = PCG Engine/3rd-party/gtest
 	url = https://github.com/google/googletest.git
+[submodule "GAM703-Engine/engine"]
+	path = GAM703-Engine/engine
+	url = https://github.com/SpeedyE1780/GAM703-Engine.git
