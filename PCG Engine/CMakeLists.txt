@@ -21,7 +21,6 @@ add_subdirectory(3rd-party/gtest)
 add_subdirectory(c-api)
 add_subdirectory(combination-generation)
 add_subdirectory(cpp-api)
-add_subdirectory(demos/console)
 add_subdirectory(level-generation)
 add_subdirectory(math)
 add_subdirectory(maze-generation)
@@ -35,3 +34,9 @@ if (Doxygen_FOUND)
 else()
 	message(STATUS "Doxygen not found, no docs will be built")
 endif()
+
+add_executable(${PROJECT_NAME})
+
+target_sources(${PROJECT_NAME} PRIVATE "src/main.cpp")
+
+target_link_libraries(${PROJECT_NAME} PRIVATE pcg-engine-cpp-api)
