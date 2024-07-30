@@ -106,7 +106,7 @@ namespace pcg::engine::cpp_api
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param regionThreshold User defined region threshold
     /// @param callback Callback when a node is generated
-    void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback);
+    PCG_ENGINE_CPP_API_API void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback);
     /// @brief Generate a combination given a number of elements
     /// @param elementCount Number of element that are available in set
     /// @param callback Callback to add element to generated set
