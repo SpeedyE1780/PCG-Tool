@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.27)
 
-project(PCG-Engine)
-
-enable_testing()
+project(PCG-Demo-GAM703-Engine)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -16,27 +14,16 @@ else()
 set(COPY_DIRECTORY_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIG>)
 endif()
 
-add_subdirectory(3rd-party/gtest)
-
-add_subdirectory(c-api)
-add_subdirectory(combination-generation)
-add_subdirectory(cpp-api)
-add_subdirectory(level-generation)
-add_subdirectory(math)
-add_subdirectory(maze-generation)
-add_subdirectory(utility)
-
-find_package(Doxygen)
-if (Doxygen_FOUND)
-    add_subdirectory(docs)
-    add_dependencies(pcg-engine-c-api pcg-engine-docs)
-    add_dependencies(pcg-engine-cpp-api pcg-engine-docs)
-else()
-	message(STATUS "Doxygen not found, no docs will be built")
-endif()
-
 add_executable(${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME} PRIVATE "src/main.cpp")
 
+add_subdirectory(engine)
+add_subdirectory(pcg-engine-cpp-api)
+
 target_link_libraries(${PROJECT_NAME} PRIVATE pcg-engine-cpp-api)
+target_link_libraries(${PROJECT_NAME} PRIVATE game-components)
+
+add_dependencies(${PROJECT_NAME} copy-files)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIG>)
