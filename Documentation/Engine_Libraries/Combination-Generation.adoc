@@ -8,128 +8,57 @@
 
 == Description
 
-The Combination-Generation library is used to generate combinations from a given set.
+The Combination-Generation library is used to generate:
+
+* Combinations from a given set.
+
+* A node sequence.
 
 == Examples:
 
-** A combination given the number of elements in a list
+* A combination given the number of elements in a list
     
     Given: Red, Green, Blue, Purple, Yellow, Pink
     Output: Blue, Purple, Yellow
     
-** A combination with a given number of minimum elements from a list
+* A combination with a given number of minimum elements from a list
     
     Given: Red, Green, Blue, Purple, Yellow, Pink
     Minimum: 3 elements
     Output: Red, Blue, Purple, Yellow
     
-** A combination that must contain the elements passed in.
+* A combination that must contain the elements passed in.
     
     Given: Red, Green, Blue, Purple, Yellow, Pink
     Included Elements: Red, Green, Pink
     Output: Red, Green, Blue, Purple, Pink
 
+* Sequence generation: Given a start node choose a random element from a list of next nodes and repeat the process recursively until node is available.
+
+    Speak
+        Guildmaster
+            Kill
+                Goblin
+                Orc
+                Wolf
+            Defend
+                Town
+        Merchant
+            Retrieve
+                Stolen Gold
+                Amulet of Resistance
+        Smith
+            Craft
+                Sword
+                Dagger
+                Axe
+            Give
+                10 Logs
+                5 Gold Ingot
+    Sequence: Speak -> Merchant -> Retrieve -> Stolen Gold
+    Quest Speak to Merchant and retrieve the stolen gold
+
 == Dependencies
 
 - Math
-
 - Utility
-
-== Anonymous Functions
-
-* **int generateCombination(int elementCount)**
-
-** *Description:* Generate a combination by finding the number of combinations available (combinations = 1 << elementCount) and choosing a number between [1, combinations[.
-
-** *Arguments:*
-
-*** *int elementCount:* Number of elements in set.
-
-** *Return:* The selected combination.
-
-[NOTE]
-The number of possible combination in of a set of n elements is 2^n^. See this https://math.stackexchange.com/questions/3683167/why-is-2n-considered-to-be-all-the-possible-combinations-of-n-items[post] for more details.
-
-* *constexpr bool isElementActive(int index, int combination)*
-
-** *Description:* Check if an element is in the generated combination.
-
-** *Arguments:*
-
-*** *int index:* Position of element in set.
-
-*** *int combination:* Generated combination.
-
-** *Return:* True if element is in combination false otherwise.
-
-* **void toggleElements(int combination, int elementCount, utility::CallbackFunctor<void(int, bool)>&& callback)**
-
-** *Description:* Loops through each element in set and notifies game engine of element status (Included/Not Included in set).
-
-** *Arguments:*
-
-*** *int combination:* Generated combination.
-
-*** *int elementCount:* Number of element in set.
-
-*** *CallbackFunctor<void(int, bool)>&& callback:* Callback notifying game engine if current element is in set.
-
-* **constexpr int countActiveBits(int combination)**
-
-** *Description:* Checks number of active elements in combination.
-
-** *Arguments:*
-
-*** *int combination:* Generated combination.
-
-** *Return:* Number of active elements in combination.
-
-* **void activateRemainingBits(int& combination, int elementCount, int activeBits, int minimumBits)**
-
-** *Description:* Activate elements in combination until the minimum active element count is reached.
-
-** *Arguments:*
-
-*** *int& combination:* Generated combination that will be modified during call.
-
-*** *int elementCount:* Number of elements in set.
-
-*** *int activeBits:* Current number of active elements.
-
-*** *int minimumBits:* Minimum number of active elements.
-
-== Header Functions
-
-* **void generateCombination(int elementCount, utility::CallbackFunctor<void(int, bool)>&& callback)**
-
-** *Description:* Generates a combination.
-
-** *Arguments:*
-
-*** *int elementCount:* Number of elements in set.
-
-*** *CallbackFunctor<void(int, bool)>&& callback:* Callback notifying game engine if current element is in set.
-
-* **void generateCombination(int elementCount, int minElementCount, utility::CallbackFunctor<void(int, bool)>&& callback)**
-
-** *Description:* Generates a combination with at least minElementCount active.
-
-** *Arguments:*
-
-*** *int elementCount:* Number of elements in set.
-
-*** *int minElementCount:* Minimum number of elements in generated set.
-
-*** *CallbackFunctor<void(int, bool)>&& callback:* Callback notifying game engine if current element is in set.
-
-* **void generateCombination(int elementCount, const std::vector<int>& activeElementIndex, utility::CallbackFunctor<void(int, bool)>&& callback)**
-
-** *Description:* Generates a combination with all indices from activeElementIndex active.
-
-** *Arguments:*
-
-*** *int elementCount:* Number of elements in set.
-
-*** *const std::vector<int>& activeElementIndex:* Index of elements that must be added to the generated combination.
-
-*** *CallbackFunctor<void(int, bool)>&& callback:* Callback notifying game engine if current element is in set.
