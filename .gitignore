@@ -581,3 +581,4 @@ Unreal/DerivedDataCache/*
 
 /Unreal/enc_temp_folder
 /Documentation/**/*.html
+/Documentation/.vscode
