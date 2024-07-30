@@ -580,4 +580,4 @@ Unreal/DerivedDataCache/*
 !GAM703-Engine/pcg-engine-cpp-api/lib/*.lib
 
 /Unreal/enc_temp_folder
-/Documentation/**/*.html
+/Documentation/.vscode
