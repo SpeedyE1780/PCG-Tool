@@ -1,3 +1,4 @@
+﻿using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace PCGAPI
@@ -25,9 +26,9 @@ namespace PCGAPI
         public Vector3 startPoint;
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    public class SequenceNode
+    public interface ISequenceNode
     {
-        public int possibilitiesCount;
+        IEnumerable<ISequenceNode> NextNodes { get; }
+        int NextCount { get; }
     }
 }

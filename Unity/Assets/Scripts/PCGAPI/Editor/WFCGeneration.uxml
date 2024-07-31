@@ -4,8 +4,8 @@
     <engine:FloatField label="Node Size" value="0" name="Size" />
     <engine:UnsignedIntegerField label="Seed" value="0" name="Seed" />
     <engine:Vector3Field label="Start Position" name="StartPosition" />
-    <editor:EnumFlagsField label="Axes" value="-1" type="PCGAPI.Axis, PCGAPI" name="Axes" include-obsolete-values="false" />
-    <engine:EnumField label="Expansion Mode" value="BFS" type="PCGAPI.ExpansionMode, PCGAPI" name="ExpansionMode" />
+    <editor:EnumFlagsField label="Axes" value="-1" type="PCGAPI.Axis, PCG" name="Axes" include-obsolete-values="false" />
+    <engine:EnumField label="Expansion Mode" value="BFS" type="PCGAPI.ExpansionMode, PCG" name="ExpansionMode" />
     <engine:Toggle label="Frame by Frame" name="FramebyFrame" />
     <engine:Button text="Generate" name="GenerateButton" />
 </engine:UXML>

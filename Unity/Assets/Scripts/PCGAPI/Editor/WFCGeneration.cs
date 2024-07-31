@@ -27,7 +27,7 @@ namespace PCGAPI.Editor
         struct NodeInfo
         {
             public Vector3 position;
-            public Direction direction;
+            public LevelGenerationDirection direction;
         }
 
         [MenuItem("PCG/Wave Function Collapse Generation")]
@@ -108,7 +108,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetSeed(seedField.value);
 
-            Transform nodeParent = new GameObject("Multi Dimensional Generation").transform;
+            Transform nodeParent = new GameObject("Wave Function Collapse Generation").transform;
 
             GenerationParameters generationParameters = new GenerationParameters()
             {
@@ -121,7 +121,7 @@ namespace PCGAPI.Editor
             {
                 List<NodeInfo> nodes = new List<NodeInfo>();
 
-                void AddNodeInfo(Vector3 nodePosition, Direction adjacentNodes)
+                void AddNodeInfo(Vector3 nodePosition, LevelGenerationDirection adjacentNodes)
                 {
                     nodes.Add(new NodeInfo()
                     {
@@ -135,7 +135,7 @@ namespace PCGAPI.Editor
             }
             else
             {
-                void AddWFCNode(Vector3 nodePosition, Direction adjacentNodes)
+                void AddWFCNode(Vector3 nodePosition, LevelGenerationDirection adjacentNodes)
                 {
                     AddNode(nodeParent, nodePosition, adjacentNodes);
                 }
@@ -144,7 +144,7 @@ namespace PCGAPI.Editor
             }
         }
 
-        void AddNode(Transform nodeParent, Vector3 nodePosition, Direction adjacentNodes)
+        void AddNode(Transform nodeParent, Vector3 nodePosition, LevelGenerationDirection adjacentNodes)
         {
             UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
             IWFCNode node = Instantiate(wfcNode.gameObject, nodeParent).GetComponent<IWFCNode>();

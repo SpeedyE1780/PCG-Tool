@@ -21,7 +21,7 @@ public class GridWFCGeneration : EditorWindow
         public int x;
         public int y;
         public float size;
-        public Direction adjacentNodes;
+        public LevelGenerationDirection adjacentNodes;
     }
 
     private struct Node3DInfo
@@ -30,7 +30,7 @@ public class GridWFCGeneration : EditorWindow
         public int y;
         public int z;
         public float size;
-        public Direction adjacentNodes;
+        public LevelGenerationDirection adjacentNodes;
     }
 
     private delegate UnityEngine.Vector3 Place2DNode(int x, int y, float size);
@@ -169,13 +169,19 @@ public class GridWFCGeneration : EditorWindow
             return;
         }
 
+        if (gridSize.x <= 0 || gridSize.y <= 0)
+        {
+            Debug.LogWarning("Grid size is not valid");
+            return;
+        }
+
         Transform nodeParent = new GameObject("Grid 2D WFC Generation").transform;
 
         if (frameByFrameToggle.value)
         {
             List<Node2DInfo> nodes = new List<Node2DInfo>();
 
-            void AddNodeInfo(int x, int y, Direction adjacentNodes)
+            void AddNodeInfo(int x, int y, LevelGenerationDirection adjacentNodes)
             {
                 nodes.Add(new Node2DInfo()
                 {
@@ -191,7 +197,7 @@ public class GridWFCGeneration : EditorWindow
         }
         else
         {
-            void AddGridNode(int x, int y, Direction adjacentNodes)
+            void AddGridNode(int x, int y, LevelGenerationDirection adjacentNodes)
             {
                 AddNode(wfcNode, nodeParent, placingFunction, size, x, y, adjacentNodes);
             }
@@ -200,9 +206,9 @@ public class GridWFCGeneration : EditorWindow
         }
     }
 
-    void AddNode(IWFCNode node, Transform nodeParent, Place2DNode placingFunction, float nodeSize, int x, int y, Direction adjacentNodes)
+    void AddNode(IWFCNode node, Transform nodeParent, Place2DNode placingFunction, float nodeSize, int x, int y, LevelGenerationDirection adjacentNodes)
     {
-        if (adjacentNodes != Direction.none)
+        if (adjacentNodes != LevelGenerationDirection.none)
         {
             UnityEngine.Vector3 position = placingFunction(x, y, nodeSize);
             IWFCNode n = Instantiate(node.gameObject, nodeParent).GetComponent<IWFCNode>();
@@ -243,13 +249,19 @@ public class GridWFCGeneration : EditorWindow
             return;
         }
 
+        if (gridSize.x <= 0 || gridSize.y <= 0 || gridSize.z <= 0)
+        {
+            Debug.LogWarning("Grid size is not valid");
+            return;
+        }
+
         Transform nodeParent = new GameObject("Grid 3D WFC Generation").transform;
 
         if (frameByFrameToggle.value)
         {
             List<Node3DInfo> nodes = new List<Node3DInfo>();
 
-            void AddNodeInfo(int x, int y, int z, Direction adjacentNodes)
+            void AddNodeInfo(int x, int y, int z, LevelGenerationDirection adjacentNodes)
             {
                 nodes.Add(new Node3DInfo()
                 {
@@ -266,7 +278,7 @@ public class GridWFCGeneration : EditorWindow
         }
         else
         {
-            void AddGridNode(int x, int y, int z, Direction adjacentNodes)
+            void AddGridNode(int x, int y, int z, LevelGenerationDirection adjacentNodes)
             {
                 AddNode(wfcNode, nodeParent, size, x, y, z, adjacentNodes);
             }
@@ -275,9 +287,9 @@ public class GridWFCGeneration : EditorWindow
         }
     }
 
-    void AddNode(IWFCNode node, Transform nodeParent, float size, int x, int y, int z, Direction adjacentNodes)
+    void AddNode(IWFCNode node, Transform nodeParent, float size, int x, int y, int z, LevelGenerationDirection adjacentNodes)
     {
-        if (adjacentNodes != Direction.none)
+        if (adjacentNodes != LevelGenerationDirection.none)
         {
             UnityEngine.Vector3 position = new UnityEngine.Vector3(x * nodeSizeField.value, nodeSizeField.value * y, nodeSizeField.value * z);
             IWFCNode n = Instantiate(node.gameObject, nodeParent).GetComponent<IWFCNode>();

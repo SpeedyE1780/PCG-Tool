@@ -7,6 +7,6 @@ namespace PCGAPI
         Transform transform { get; }
         GameObject gameObject { get; }
 
-        void SetAdjacentNodes(Direction adjacentNodes);
+        void SetAdjacentNodes(LevelGenerationDirection adjacentNodes);
     }
 }

@@ -57,20 +57,22 @@ public class SequenceGeneration : EditorWindow
             return;
         }
 
-        ISequenceNode sequenceNode = (ISequenceNode)startNode.value;
-        ISequenceNode current = sequenceNode;
+        ISequenceNode current = (ISequenceNode)startNode.value;
 
         SequenceSO sequence = CreateInstance<SequenceSO>();
 
         PCGEngine.SetSeed(seedField.value);
-        PCGEngine.GenerateSequence(current.ToSequenceNode(), index =>
+        PCGEngine.GenerateSequence(current.NextCount, index =>
         {
+            sequence.AddNode(current);
+
+            if (index == -1)
+            {
+                return 0;
+            }
+
             current = current.NextNodes.ElementAt(index);
-            return current.ToSequenceNode();
-        }, () => sequence.AddNode(sequenceNode),
-        index =>
-        {
-            sequenceNode = sequenceNode.NextNodes.ElementAt(index);
+            return current.NextCount;
         });
 
         AssetDatabase.CreateAsset(sequence, $"{folderPathField.text}/{fileNameField.text}{seedField.value}.asset");

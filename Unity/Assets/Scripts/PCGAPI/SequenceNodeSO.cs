@@ -10,5 +10,7 @@ namespace PCGAPI
         private List<SequenceNodeSO> nextNodes;
 
         public IEnumerable<ISequenceNode> NextNodes => nextNodes;
+
+        public int NextCount => nextNodes.Count;
     }
 }

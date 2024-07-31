@@ -27,7 +27,7 @@ namespace PCGAPI.Editor
             public int x;
             public int y;
             public float size;
-            public Direction adjacentNodes;
+            public MazeDirection adjacentNodes;
         }
 
         [MenuItem("PCG/Maze Generation")]
@@ -113,7 +113,7 @@ namespace PCGAPI.Editor
             {
                 List<NodeInfo> nodes = new List<NodeInfo>();
 
-                void AddNodeInfo(int x, int y, Direction adjacentNodes)
+                void AddNodeInfo(int x, int y, MazeDirection adjacentNodes)
                 {
                     nodes.Add(new NodeInfo()
                     {
@@ -137,7 +137,7 @@ namespace PCGAPI.Editor
             }
             else
             {
-                void AddMazeNode(int x, int y, Direction adjacentNodes)
+                void AddMazeNode(int x, int y, MazeDirection adjacentNodes)
                 {
                     AddNode(nodeParent, new NodeInfo { x = x, y = y, adjacentNodes = adjacentNodes, size = nodeSize });
                 }
