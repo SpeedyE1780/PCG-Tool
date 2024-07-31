@@ -18,16 +18,9 @@ namespace PCGAPI
         public Vector3 startPoint;
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    public struct SequenceNode
-    {
-        public int possibilitiesCount;
-    }
-
     public interface ISequenceNode
     {
         IEnumerable<ISequenceNode> NextNodes { get; }
-
-        SequenceNode ToSequenceNode() => new SequenceNode() { possibilitiesCount = NextNodes.Count() };
+        int NextCount { get; }
     }
 }

@@ -32,7 +32,7 @@ namespace PCGAPI
         [LibraryImport(DLLName, EntryPoint = "generateCombinationWithActiveElements")]
         public static partial void GenerateCombination(int elementCount, in int[] includedElementsIndex, int includedElementsCount, GenerateCombination generateCombination);
         [LibraryImport(DLLName, EntryPoint = "generateSequence")]
-        public static partial void GenerateSequence(ref SequenceNode sequenceNode, GetSequenceNode getNode, AddNodeToSequence addNode, SetSequenceNode setNode);
+        public static partial void GenerateSequence(int nextNodes, UpdateSequence updateSequence);
     }
 #pragma warning restore CA1401 // P/Invokes should not be visible
 }

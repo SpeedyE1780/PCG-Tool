@@ -9,7 +9,5 @@
     public delegate void SetSeed(uint seed);
     public delegate int GenerateNumber(int min, int max);
     public delegate void LogFunction(string message);
-    public delegate SequenceNode GetSequenceNode(int index);
-    public delegate void SetSequenceNode(int index);
-    public delegate void AddNodeToSequence();
+    public delegate int UpdateSequence(int index);
 }
