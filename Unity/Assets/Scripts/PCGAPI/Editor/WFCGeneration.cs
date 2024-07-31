@@ -108,7 +108,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetSeed(seedField.value);
 
-            Transform nodeParent = new GameObject("Multi Dimensional Generation").transform;
+            Transform nodeParent = new GameObject("Wave Function Collapse Generation").transform;
 
             GenerationParameters generationParameters = new GenerationParameters()
             {
