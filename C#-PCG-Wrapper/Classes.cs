@@ -23,4 +23,11 @@ namespace PCGAPI
     {
         public int possibilitiesCount;
     }
+
+    public interface ISequenceNode
+    {
+        IEnumerable<ISequenceNode> NextNodes { get; }
+
+        SequenceNode ToSequenceNode() => new SequenceNode() { possibilitiesCount = NextNodes.Count() };
+    }
 }
