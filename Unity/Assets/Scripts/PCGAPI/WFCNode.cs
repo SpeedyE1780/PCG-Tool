@@ -17,19 +17,19 @@ namespace PCGAPI
         [SerializeField]
         private GameObject down;
 
-        private static bool HasNeighbour(Direction current, Direction direction)
+        private static bool HasNeighbour(LevelGenerationDirection current, LevelGenerationDirection direction)
         {
             return (current & direction) > 0;
         }
 
-        public void SetAdjacentNodes(Direction adjacentNodes)
+        public void SetAdjacentNodes(LevelGenerationDirection adjacentNodes)
         {
-            right.SetActive(!HasNeighbour(adjacentNodes, Direction.right));
-            left.SetActive(!HasNeighbour(adjacentNodes, Direction.left));
-            backward.SetActive(!HasNeighbour(adjacentNodes, Direction.backward));
-            forward.SetActive(!HasNeighbour(adjacentNodes, Direction.forward));
-            up.SetActive(HasNeighbour(adjacentNodes, Direction.up));
-            down.SetActive(HasNeighbour(adjacentNodes, Direction.down));
+            right.SetActive(!HasNeighbour(adjacentNodes, LevelGenerationDirection.right));
+            left.SetActive(!HasNeighbour(adjacentNodes, LevelGenerationDirection.left));
+            backward.SetActive(!HasNeighbour(adjacentNodes, LevelGenerationDirection.backward));
+            forward.SetActive(!HasNeighbour(adjacentNodes, LevelGenerationDirection.forward));
+            up.SetActive(HasNeighbour(adjacentNodes, LevelGenerationDirection.up));
+            down.SetActive(HasNeighbour(adjacentNodes, LevelGenerationDirection.down));
         }
     }
 }
