@@ -3,7 +3,7 @@ namespace PCGAPI
 {
     internal class DemoSequenceNode : ISequenceNode
     {
-        private readonly List<ISequenceNode> children = [];
+        private readonly List<ISequenceNode> children = new();
 
         public string Name { get; set; } = "";
         public IEnumerable<ISequenceNode> NextNodes => children;
