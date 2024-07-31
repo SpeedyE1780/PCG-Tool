@@ -41,7 +41,16 @@ namespace pcg::engine::c_api
                 next = std::make_unique<SequenceNodeWrapper>(updateSequence(nextNodeIndex));
             }
 
-            virtual int getNextCount() const override { return possibilitiesCount; }
+            virtual int getNextCount() const override
+            {
+                //Dirty fix to invoke update sequence on last node in sequence
+                if (possibilitiesCount <= 0)
+                {
+                    updateSequence(-1);
+                }
+
+                return possibilitiesCount;
+            }
             virtual ISequenceNode* getNext() const override { return next.get(); }
             virtual void generateSequence() const override { }
 
