@@ -6,19 +6,29 @@ PCGEngine.GenerateMaze(10, 10, true, MazeAlgorithm.aldousBroder, (x, y, directio
     Console.WriteLine(x + " " + y + " " + direction);
 });
 
-DemoSequenceNode node1 = new DemoSequenceNode();
-node1.Name = "node 1";
-DemoSequenceNode node2 = new DemoSequenceNode();
-node2.Name = "node 2";
+DemoSequenceNode node1 = new()
+{
+    Name = "node 1"
+};
+DemoSequenceNode node2 = new()
+{
+    Name = "node 2"
+};
 node1.AddNode(node2);
-DemoSequenceNode node3 = new DemoSequenceNode();
-node3.Name = "node 3";
-DemoSequenceNode node4 = new DemoSequenceNode();
-node4.Name = "node 4";
+DemoSequenceNode node3 = new()
+{
+    Name = "node 3"
+};
+DemoSequenceNode node4 = new()
+{
+    Name = "node 4"
+};
 node2.AddNode(node3);
 node2.AddNode(node4);
-DemoSequenceNode node5 = new DemoSequenceNode();
-node5.Name = "node 5";
+DemoSequenceNode node5 = new()
+{
+    Name = "node 5"
+};
 node4.AddNode(node5);
 
 ISequenceNode currentNode = node1;
@@ -48,7 +58,7 @@ PCGEngine.GenerateCombination(15, (index, active) =>
 
 internal class DemoSequenceNode : ISequenceNode
 {
-    private readonly List<ISequenceNode> children = new();
+    private readonly List<ISequenceNode> children = [];
 
     public string Name { get; set; } = "";
     public IEnumerable<ISequenceNode> NextNodes => children;

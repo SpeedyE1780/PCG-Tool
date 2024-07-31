@@ -2,7 +2,6 @@
 
 namespace PCGAPI
 {
-#pragma warning disable CA1401 // P/Invokes should not be visible
     public static class PCGEngine
     {
         public const string DLLName = "pcg-engine-c-api";
@@ -34,5 +33,4 @@ namespace PCGAPI
         [DllImport(DLLName, EntryPoint = "generateSequence")]
         public static extern void GenerateSequence(int nextNodes, UpdateSequence updateSequence);
     }
-#pragma warning restore CA1401 // P/Invokes should not be visible
 }
