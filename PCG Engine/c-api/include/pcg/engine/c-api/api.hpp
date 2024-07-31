@@ -110,15 +110,15 @@ namespace pcg::engine::c_api
     /// @param callback Callback when a node is generated
     PCG_ENGINE_C_API_API void waveFunctionCollapse3DGridGeneration(int width, int height, int depth, bool invokeAfterGeneration, addWFC3DGridNodeCallback callback);
     /// @brief Generate a maze using the passed in algorithm
-    /// @param width Width of grid
-    /// @param height Height of grid
+    /// @param width Grid width
+    /// @param height Grid Height
     /// @param invokeAferGeneration If true callback will only be called after all nodes are generated
     /// @param algorithm Algorithm that will be used to generate maze
     /// @param callback Callback when a node is generated
     PCG_ENGINE_C_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazeNodeCallback callback);
     /// @brief Generate a Growing Tree maze using a custom selection callback
-    /// @param width Width of grid
-    /// @param height Height of grid
+    /// @param width Grid width
+    /// @param height Grid Height
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param nodeCallback Callback used to select a node from pending growing tree nodes
     /// @param callback Callback when a node is generated

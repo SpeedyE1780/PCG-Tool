@@ -582,3 +582,6 @@ Unreal/DerivedDataCache/*
 
 /Unreal/enc_temp_folder
 /Documentation/.vscode
+
+# Add C# project files
+!C#-PCG-Wrapper/**/*.csproj

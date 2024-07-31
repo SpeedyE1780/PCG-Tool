@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>PCG Engine</title>
+<title>C# Wrapper</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,7 +436,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>PCG Engine</h1>
+<h1>C# Wrapper</h1>
 </div>
 <div id="content">
 <div id="preamble">
@@ -448,333 +448,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="Index.html">&lt; Index</a></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><a href="PCG-Engine.html">C++ PCG Engine &gt;</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="./../Engine_Libraries/Utility.html">&lt; Utility</a></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><a href="./Csharp-Wrapper.html">C# Wrapper &gt;</a></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_introduction">Introduction</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_what_is_the_procedural_content_generation_engine">What is the <strong>P</strong>rocedural <strong>C</strong>ontent <strong>G</strong>eneration Engine?</h3>
-<div class="paragraph">
-<p>The <strong>P</strong>rocedural <strong>C</strong>ontent <strong>G</strong>eneration (PCG) Engine is a C++ library that can be used with other engines like Unity, Unreal or even custom engines by including the engine&#8217;s DLL to your project.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_motivation">Motivation</h3>
-<div class="paragraph">
-<p>Looking at the list of software available on <a href="http://pcg.wikidot.com/category-pcg-software">The Procedural Content Generation Wiki</a> most of them were made during the development of <a href="https://store.steampowered.com/app/17390/SPORE/">Spore</a>, which was released back in September 2008 (16 years ago).</p>
-</div>
-<div class="paragraph">
-<p>Most of the software needs you to learn how to use it before being able to generate content with it. And not all of them support games engines.</p>
-</div>
-<div class="paragraph">
-<p>For example to use Unreal&#8217;s new <a href="https://dev.epicgames.com/community/learning/tutorials/j4xJ/unreal-engine-introduction-to-procedural-generation-plugin-in-ue5-3">Procedural Generation Plugin</a> you need to learn how to create a blueprint that will represent what you are trying to generate.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.youtube.com/watch?v=byouBYMuYPw">PCG Basics - Unreal 5.2 Tutorial - Part 1</a>
-<span class="image"><img src="images/UnrealPCG.jpg" alt="UnrealPCG"></span></p>
-</div>
-<div class="paragraph">
-<p>Another example is <a href="https://sceelix.com">Sceelix</a> who can be integrated with Unity. You&#8217;ll still need to learn the Node Graph to be able to generate content.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_risks">Risks</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>The DLL needs to be compatible with the engine/platform (For example Unreal is compiled with C++ 20. C++ 23 functions like std::to_underlying will cause errors if used).</p>
-</li>
-<li>
-<p>Debugging issues linked to the library is harder and requires having the debug DLL.</p>
-</li>
-<li>
-<p>Might be confused with AI and seen as a replacement for Level Designers.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_research_question">Research Question:</h3>
-<div class="paragraph">
-<p>Will creators prefer a simple window that allows you to generate levels or models variation with a simple button click?</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_what_does_it_offer">What Does It Offer?</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>This library is not here to replace level designer but to facilitate their work flow.</p>
-</li>
-<li>
-<p>It allows you to generate content during edit mode and tweak it to fit what you need</p>
-</li>
-<li>
-<p>You can also use it during play mode and generate content while the game is playing.</p>
-</li>
-<li>
-<p>At the moment you can generate:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Levels using:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>A linear level generation on the specified axes (X,Y,Z)</p>
-</li>
-<li>
-<p>A Wave Function Collapse generation that generates levels on the specified axes (X,Y,Z) where each node will have a path/wall to adjacent nodes.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Mazes</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#https://weblog.jamisbuck.org/2011/1/17/maze-generation-aldous-broder-algorithm">Aldous Broder&#8217;s Algorithm</a><br>
-<span class="image"><img src="images/Aldous-Broder.png" alt="Aldous Broder"></span></p>
-</li>
-<li>
-<p><a href="#https://weblog.jamisbuck.org/2011/1/20/maze-generation-wilson-s-algorithm">Wilson&#8217;s Algorithm</a><br>
-<span class="image"><img src="images/Wilson.png" alt="Wilson"></span></p>
-</li>
-<li>
-<p><a href="https://weblog.jamisbuck.org/2011/2/1/maze-generation-binary-tree-algorithm.html">Binary Tree Algorithm</a><br>
-<span class="image"><img src="images/BinaryTree.png" alt="BinaryTree"></span></p>
-</li>
-<li>
-<p><a href="https://weblog.jamisbuck.org/2011/2/3/maze-generation-sidewinder-algorithm.html">Sidewinder Algorithm</a><br>
-<span class="image"><img src="images/Sidewinder.png" alt="Sidewinder"></span></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Combinations:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>A combination given the number of elements in a list</p>
-<div class="literalblock">
-<div class="content">
-<pre>Given: Fire, Ice, Water, Air, Stone, Poison
-Output: Water, Air, Stone</pre>
-</div>
-</div>
-</li>
-<li>
-<p>A combination with a given number of minimum elements from a list</p>
-<div class="literalblock">
-<div class="content">
-<pre>Given: Fire, Ice, Water, Air, Stone, Poison
-Minimum: 3 elements
-Output: Fire, Water, Air, Stone</pre>
-</div>
-</div>
-</li>
-<li>
-<p>A combination that must contain the elements passed in.</p>
-<div class="literalblock">
-<div class="content">
-<pre>Given: Fire, Ice, Water, Air, Stone, Poison
-Included Elements: Fire, Ice, Poison
-Output: Fire, Ice, Water, Air, Poison</pre>
-</div>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_who_should_use_it">Who Should Use It?</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Ideally game creators who don&#8217;t have the experience or time to write PCG algorithms.</p>
-</li>
-<li>
-<p>Creators who want to add a procedural generation aspect to their game but the core game play loop doesn&#8217;t revolve around it.</p>
-</li>
-<li>
-<p>Artists who want to quickly create variations of their models by using different combinations of hair/outfits/accessories on their characters or have locations with a combination of different landmarks.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_why_use_it">Why Use It?</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>As a programmer you&#8217;ll be able to add procedurally generated content to your games by passing in callbacks that will spawn objects in your game.</p>
-</li>
-<li>
-<p>As a designer you&#8217;ll be able to generate your level with one button click then place your quest items/place of interest for the game.</p>
-</li>
-<li>
-<p>As an artist you&#8217;ll be able to import a model with multiple variations and generate a combination of each variation.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_who_shouldnt_use_it">Who Shouldn&#8217;t Use It?</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Games whose core game play loops revolves around PCG. I&#8217;d use it as a quick proof of concept to evaluate the game play loop around the generated content. As a programmer I&#8217;d rather have direct control over the core game play code.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Innes McKendrick one of the developers of No Man&#8217;s Sky speaks about the iteration and algorithms they used for procedural generation in a GDC Talk: <a href="https://youtu.be/sCRzxEEcO2Y?si=2CCcCRxETrUeaue_">Continuous World Generation in No Man&#8217;s Sky</a>
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_future_improvements">Future Improvements:</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Level Generation:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Implement Graph Rewriting/Cyclic Generation like in <a href="https://youtu.be/LRp9vLk7amg?si=HXGZ2lUwNPR5PqGt">Unexplored</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Maze Generation:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Implement Remaining Mazes from Jamis Buck presentation  <a href="https://www.jamisbuck.org/presentations/rubyconf2011/index.html#title-page">"Algorithm" is Not a Four-Letter Word</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Combinations:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Sequence generation: Given a start node choose a random element from a list of next nodes and repeat the process recursively until node is available.</p>
-<div class="literalblock">
-<div class="content">
-<pre>Speak
-    Guildmaster
-        Kill
-            Goblin
-            Orc
-            Wolf
-        Defend
-            Town
-    Merchant
-        Retrieve
-            Stolen Gold
-            Amulet of Resistance
-    Smith
-        Craft
-            Sword
-            Dagger
-            Axe
-        Give
-            10 Logs
-            5 Gold Ingot
-Sequence: Speak -&gt; Merchant -&gt; Retrieve -&gt; Stolen Gold
-Quest Speak to Merchant and retrieve the stolen gold</pre>
-</div>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Additional Languages</p>
-<div class="ulist">
-<ul>
-<li>
-<p>JavaScript: This engine could be transformed into a REST API  to allow JavaScript engines like PlayCanvas. A GET request will return a JSON containing all of the generated content&#8217;s information.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-The engine could then change to a Software as a Service (SaaS) by following this model.
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Python and PyGame using <a href="https://stackoverflow.com/questions/252417/how-can-i-use-a-dll-file-from-python">ctype</a></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how_it_works">How It Works</h2>
+<h2 id="_description">Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>After adding the unity package/plugin to Unity/Unreal new editor windows will be added to the engine. Each window represents a functionality of the engine (Level Generation, Maze Generation, Combination Generation&#8230;&#8203;).</p>
-</div>
-<div class="paragraph">
-<p>Each exposed function in the API takes a callback function that will be called when a node is generated:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>For level generation the position will be passed to the callback.</p>
-</li>
-<li>
-<p>For Wave Function Collapse and mazes the position and a flag of available neighbours is passed in.</p>
-</li>
-<li>
-<p>For combinations the index of the element and a boolean indicating if it&#8217;s in the set or not will be passed in.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Since Random Number Generators are the core of procedural content, The RNG function can be set to a user defined function that will be used with the given seed to generate content.</p>
+<p>The C# wrapper redefines all the exposed enums, callbacks and classes in C#.
+It contains the PCGEngine static class which communicates with the C-API Dll to call native C++ functions.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-31 19:13:14 +0300
+Last updated 2024-07-31 19:13:17 +0300
 </div>
 </div>
 </body>
