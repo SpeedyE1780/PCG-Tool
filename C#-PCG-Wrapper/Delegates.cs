@@ -34,6 +34,12 @@
     /// <param name="adjacentNodes">Spawned node adjacent nodes</param>
     public delegate void AddMazeNode(int x, int y, MazeDirection adjacentNodes);
     /// <summary>
+    /// User defined function to select next node in growing tree maze
+    /// </summary>
+    /// <param name="count">Next nodes count</param>
+    /// <returns>Next node index</returns>
+    public delegate int SelectNode(int count);
+    /// <summary>
     /// Notifies if element at index is included in combination or not
     /// </summary>
     /// <param name="elementIndex">Index of element in combination</param>

@@ -34,13 +34,33 @@ namespace PCGAPI
         /// <summary>
         /// Generate a maze using the passed in algorithm
         /// </summary>
-        /// <param name="width">Width of grid</param>
-        /// <param name="height">Height of grid</param>
+        /// <param name="width">Grid Width</param>
+        /// <param name="height">Grid Height</param>
         /// <param name="invokeAfterGeneration">If true callback will only be called after all nodes are generated</param>
         /// <param name="algorithm">Algorithm that will be used to generate maze</param>
         /// <param name="addMazeNode">Callback when a node is generated</param>
         [DllImport(DLLName, EntryPoint = "generateMaze")]
         public static extern void GenerateMaze(int width, int height, [MarshalAs(UnmanagedType.Bool)] bool invokeAfterGeneration, MazeAlgorithm algorithm, AddMazeNode addMazeNode);
+        /// <summary>
+        /// Generate a Growing Tree maze using a custom selection callback
+        /// </summary>
+        /// <param name="width">Grid width</param>
+        /// <param name="height">Grid height</param>
+        /// <param name="invokeAfterGeneration">If true callback will only be called after all nodes are generated</param>
+        /// <param name="nodeCallback">Callback used to select a node from pending growing tree nodes</param>
+        /// <param name="addMazeNode">Callback when a node is generated</param>
+        [DllImport(DLLName, EntryPoint = "generateGrowingTreeWithCustomSelection")]
+        public static extern void GenerateGrowingTreeMaze(int width, int height, [MarshalAs(UnmanagedType.Bool)] bool invokeAfterGeneration, SelectNode nodeCallback, AddMazeNode addMazeNode);
+        /// <summary>
+        /// Geneate maze using Blobby Division Algorithm
+        /// </summary>
+        /// <param name="width">Grid Width</param>
+        /// <param name="height">Grid Height</param>
+        /// <param name="invokeAfterGeneration">If true callback will only be called after all nodes are generated</param>
+        /// <param name="regionThreshold">User defined region threshold</param>
+        /// <param name="callback">Callback when a node is generated</param>
+        [DllImport(DLLName, EntryPoint = "generateBlobbyDivisionWithCustomRegionThreshold")]
+        public static extern void GenerateBlobbyDivisionMaze(int width, int height, bool invokeAfterGeneration, int regionThreshold, AddMazeNode callback);
         /// <summary>
         /// Generate a linear level on a single axis
         /// </summary>
