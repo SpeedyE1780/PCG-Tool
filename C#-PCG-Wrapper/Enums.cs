@@ -19,7 +19,7 @@
         xyz = x | y | z
     }
 
-    public enum Direction
+    public enum LevelGenerationDirection
     {
         none = 0,
         left = 1 << 0,
@@ -28,6 +28,15 @@
         backward = 1 << 3,
         up = 1 << 4,
         down = 1 << 5
+    }
+
+    public enum MazeDirection
+    {
+        none = 0,
+        left = 1 << 0,
+        right = 1 << 1,
+        forward = 1 << 2,
+        backward = 1 << 3,
     };
 
     public enum ExpansionMode
