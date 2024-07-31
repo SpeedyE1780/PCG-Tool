@@ -33,56 +33,29 @@ namespace pcg::engine::c_api
         class SequenceNodeWrapper : public combination_generation::ISequenceNode
         {
         public:
-            SequenceNodeWrapper(SequenceNode& node) : node(node)
-            {
-            }
+            SequenceNodeWrapper(int nodeCount) : possibilitiesCount(nodeCount) { }
 
             virtual void setNext(int nextNodeIndex) override
             {
                 nextNode = nextNodeIndex;
-                next = std::make_unique<SequenceNodeWrapper>(getNode(nextNodeIndex));
+                next = std::make_unique<SequenceNodeWrapper>(updateSequence(nextNodeIndex));
             }
 
-            virtual int getNextCount() const override { return node.possibilitiesCount; }
+            virtual int getNextCount() const override { return possibilitiesCount; }
             virtual ISequenceNode* getNext() const override { return next.get(); }
+            virtual void generateSequence() const override { }
 
-            virtual void generateSequence() const override
-            {
-                addNode();
-
-                if (next)
-                {
-                    setNode(nextNode);
-                    next->generateSequence();
-                }
-            }
-
-            static void setCallbacks(addNodeToSequence add, getNextSequenceNode get, setNextSequenceNode set)
-            {
-                addNode = add;
-                getNode = get;
-                setNode = set;
-            }
-
-            static void resetCallbacks()
-            {
-                getNode = nullptr;
-                addNode = nullptr;
-                setNode = nullptr;
-            }
+            static void setCallbacks(updateSequence get) { updateSequence = get; }
+            static void resetCallbacks() { updateSequence = nullptr; }
 
         private:
-            static addNodeToSequence addNode;
-            static getNextSequenceNode getNode;
-            static setNextSequenceNode setNode;
-            SequenceNode& node;
+            static updateSequence updateSequence;
+            int possibilitiesCount;
             int nextNode = -1;
             std::unique_ptr<SequenceNodeWrapper> next = nullptr;
         };
 
-        addNodeToSequence SequenceNodeWrapper::addNode = nullptr;
-        getNextSequenceNode SequenceNodeWrapper::getNode = nullptr;
-        setNextSequenceNode SequenceNodeWrapper::setNode = nullptr;
+        updateSequence SequenceNodeWrapper::updateSequence = nullptr;
     }
 
     void setSeed(unsigned int seed)
@@ -276,12 +249,11 @@ namespace pcg::engine::c_api
         combination_generation::generateCombination(elementCount, activeElements, callback);
     }
 
-    void generateSequence(SequenceNode& node, getNextSequenceNode getNode, addNodeToSequence addNode, setNextSequenceNode setNode)
+    void generateSequence(int nextNodeCount, updateSequence updateSequence)
     {
-        SequenceNodeWrapper::setCallbacks(addNode, getNode, setNode);
-        SequenceNodeWrapper wrappedNode(node);
+        SequenceNodeWrapper::setCallbacks(updateSequence);
+        SequenceNodeWrapper wrappedNode(nextNodeCount);
         combination_generation::generateSequence(wrappedNode);
-        wrappedNode.generateSequence();
         SequenceNodeWrapper::resetCallbacks();
     }
 }

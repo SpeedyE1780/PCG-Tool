@@ -14,13 +14,6 @@
 
 namespace pcg::engine::c_api
 {
-    /// @brief SequenceNode represents number of possibilities
-    struct SequenceNode
-    {
-        /// @brief Length of nextNodes
-        int possibilitiesCount = 0;
-    };
-
     /// @brief Callback to indicate that a node was spawned at position
     typedef void (*addNodeCallback)(math::Vector3 position);
     /// @brief Callback to indicate that a node was spawned at this position and has these adjacent node
@@ -41,8 +34,8 @@ namespace pcg::engine::c_api
     typedef void (*generateCombinationCallback)(int elementIndex, bool included);
     /// @brief Function used to log message from the engine
     typedef void (*logMessage)(const char* message);
-    /// @brief Function used to get node at index from calling code
-    typedef SequenceNode& (*getNextSequenceNode)(int index);
+    /// @brief Function used to add next node in sequence and returns next node possibility count
+    typedef int (*updateSequence)(int index);
     /// @brief Function used to notify calling code to add current node to sequence
     typedef void (*addNodeToSequence)();
     /// @brief Function used to notify calling code to update the current node in sequence
@@ -153,11 +146,9 @@ namespace pcg::engine::c_api
     /// @param callback Callback to add element to generated set
     PCG_ENGINE_C_API_API void generateCombinationWithActiveElements(int elementCount, int* activeElementsIndex, int activeElementsCount, generateCombinationCallback callback);
     /// @brief Generate a sequence starting from node
-    /// @param node First node in sequence
-    /// @param getNode Callback to get node from list of next nodes in calling code
-    /// @param addNode Callback to add node to sequence in calling code
-    /// @param setNode Callback to set next node in sequence in calling code
-    PCG_ENGINE_C_API_API void generateSequence(SequenceNode& node, getNextSequenceNode getNode, addNodeToSequence addNode, setNextSequenceNode setNode);
+    /// @param nextNodeCount Count of next nodes from first node in sequence
+    /// @param updateSequence Callback to add next node in sequence and returns next node possibility count
+    PCG_ENGINE_C_API_API void generateSequence(int nextNodeCount, updateSequence updateSequence);
 }
 
 #endif // PCG_ENGINE_C_API_API_HPP
