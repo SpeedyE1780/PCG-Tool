@@ -169,6 +169,12 @@ public class GridWFCGeneration : EditorWindow
             return;
         }
 
+        if (gridSize.x <= 0 || gridSize.y <= 0)
+        {
+            Debug.LogWarning("Grid size is not valid");
+            return;
+        }
+
         Transform nodeParent = new GameObject("Grid 2D WFC Generation").transform;
 
         if (frameByFrameToggle.value)
@@ -240,6 +246,12 @@ public class GridWFCGeneration : EditorWindow
         if (size == 0)
         {
             Debug.LogWarning("Node size not set");
+            return;
+        }
+
+        if (gridSize.x <= 0 || gridSize.y <= 0 || gridSize.z <= 0)
+        {
+            Debug.LogWarning("Grid size is not valid");
             return;
         }
 
