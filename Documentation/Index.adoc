@@ -9,3 +9,4 @@
 ** xref:Engine_Libraries/Math.adoc[Math]
 ** xref:Engine_Libraries/Maze.adoc[Maze-Generation]
 ** xref:Engine_Libraries/Utility.adoc[Utility]
+* xref:Wrappers/Csharp-Wrapper.adoc[C# Wrapper]

@@ -3,7 +3,7 @@
 [cols="<,>" frame=none, grid=none]
 |===
 |xref:Maze-Generation.adoc[< Maze-Generation]
-|xref:Utility.adoc[Utility >]
+|xref:./../Wrappers/Csharp-Wrapper.adoc[C# Wrapper >]
 |===
 
 == Description
