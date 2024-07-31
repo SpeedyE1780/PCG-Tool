@@ -56,6 +56,15 @@ namespace PCGAPI
                 currentNode = currentNode.NextNodes.ElementAt(index);
                 return currentNode.NextCount;
             });
+
+            Console.WriteLine("Generate combination with 15 elements");
+            PCGEngine.GenerateCombination(15, (index, active) =>
+            {
+                if(active)
+                {
+                    Console.WriteLine(index + 1);
+                }
+            });
         }
     }
 }
