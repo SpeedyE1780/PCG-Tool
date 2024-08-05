@@ -1,4 +1,5 @@
 from pcg import combinations, mazes, level_generation, math, utility
+import random
 
 class QuestSequence(combinations.SequenceNode):
 
@@ -139,6 +140,15 @@ def main() -> None:
     def logMessage(message):
         print(message)
 
+    def setSeed(seed):
+        print('Set seed to', seed)
+        random.seed(seed)
+        
+    def generateNumber(minimum, maximum):
+        print('generating number')
+        return random.randrange(minimum, maximum)
+
+    math.setRandomGenerator(setSeed, generateNumber)
     utility.setLoggingFunction(logMessage)
     combinationsDemo()
     mazeDemo()

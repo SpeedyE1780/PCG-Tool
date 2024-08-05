@@ -1,5 +1,8 @@
+from collections.abc import Callable
 import ctypes
 from enum import Flag
+
+pcgDLL = ctypes.CDLL('./pcg-engine-c-api.dll')
 
 class Vector3(ctypes.Structure):
     _fields_  = [("x", ctypes.c_float),
@@ -24,3 +27,21 @@ class Axes(Flag):
     XZ = X | Z
     YZ = Y | Z
     XYZ = X | Y | Z
+
+seedFunction = None
+randomNumberFunction = None
+
+seedCallback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_uint)
+randomNumberCallback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_int)
+
+def setSeed(seed: int):
+    pcgDLL.setSeed(seed)
+    
+def setRandomGenerator(setSeed : Callable[[int], None], randomNumber : Callable[[int, int], int]):
+    global seedFunction
+    global randomNumberFunction
+
+    seedFunction = seedCallback(setSeed)
+    randomNumberFunction = randomNumberCallback(randomNumber)
+
+    pcgDLL.setRandomGenerator(seedFunction, randomNumberFunction)
