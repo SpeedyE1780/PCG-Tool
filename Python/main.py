@@ -1,4 +1,4 @@
-from pcg import combinations, mazes, level_generation, math
+from pcg import combinations, mazes, level_generation, math, utility
 
 class QuestSequence(combinations.SequenceNode):
 
@@ -135,6 +135,11 @@ def levelGenerationDemo() -> None:
     level_generation.waveFunctionCollapse3DGridGeneration(10, 10, 10, True, lambda x, y, z, value : print(x, y, z, level_generation.Direction(value)))
 
 def main() -> None:
+
+    def logMessage(message):
+        print(message)
+
+    utility.setLoggingFunction(logMessage)
     combinationsDemo()
     mazeDemo()
     levelGenerationDemo()
