@@ -1,5 +1,4 @@
-import combinations
-import mazes
+from pcg import combinations, mazes
 
 class QuestSequence(combinations.SequenceNode):
 
