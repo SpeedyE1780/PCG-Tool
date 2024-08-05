@@ -1,4 +1,5 @@
 import combinations
+import mazes
 
 class QuestSequence(combinations.SequenceNode):
 
@@ -13,12 +14,15 @@ class QuestSequence(combinations.SequenceNode):
         if(self.nextNode):
             print('->', end='')
             self.nextNode.generateSequence()
+        else:
+            print()
 
 def addElement(combination , element, included) -> None:
     if included:
         combination.append(element)
 
-def main() -> None:
+def combinationsDemo() -> None :
+
     nums = list(range(0, 16))
     combination = []
     callback = lambda index, included: addElement(combination, nums[index], included)
@@ -97,5 +101,21 @@ def main() -> None:
     combinations.generateSequence(speak, lambda index : updateSequence(currentNode, sequence, index))
 
     speak.generateSequence()
+
+def mazeDemo() -> None:
+
+    def printMazeNode(x, y, value):
+        print(x, y, mazes.NodeValue(value))
+        
+    print(mazes.MazeAlgorithm.ALDOUS_BRODER)
+    mazes.generateMaze(10, 10, True, mazes.MazeAlgorithm.ALDOUS_BRODER, printMazeNode)
+    print("Growing Tree Custom Selection")
+    mazes.generateGrowingTreeWithCustomSelection(10, 10, True, lambda nextNodesLength : nextNodesLength - 2 if nextNodesLength - 2 > 0 else 0, printMazeNode)
+    print("Blobby Division")
+    mazes.generateBlobbyDivisionWithCustomThreshold(10, 10, True, 7, printMazeNode)
+
+def main() -> None:
+    combinationsDemo()
+    mazeDemo()
 
 main()
