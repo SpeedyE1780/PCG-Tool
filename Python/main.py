@@ -118,13 +118,17 @@ def levelGenerationDemo() -> None:
     def addNode(position : math.Vector3):
         print(position)
 
+    def addWFCNode(position : math.Vector3, direction : level_generation.Direction):
+        print(position, level_generation.Direction(direction))
+
     data = level_generation.GenerationData(10, 1, math.Vector3(0, 0, 0))
 
     print("Simple level generation")
     level_generation.simpleGeneration(data, math.Axes.POSITIVE_X, addNode)
     print("Multi Dimension Generation")
     level_generation.multiDimensionGeneration(data, math.Axes.XYZ, True, addNode)
-
+    print("WFC")
+    level_generation.waveFunctionCollapseGeneration(data, level_generation.ExpansionMode.BFS, math.Axes.XZ, addWFCNode)
 
 def main() -> None:
     combinationsDemo()
