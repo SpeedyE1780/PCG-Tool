@@ -1,4 +1,13 @@
+import ctypes
 from enum import Flag
+
+class Vector3(ctypes.Structure):
+    _fields_  = [("x", ctypes.c_float),
+                 ("y", ctypes.c_float),
+                 ("z", ctypes.c_float)]
+    
+    def __str__(self):
+        return "{0}, {1}, {2}".format(self.x, self.y, self.z)
 
 class Axes(Flag):
     NONE = 0
@@ -15,4 +24,3 @@ class Axes(Flag):
     XZ = X | Z
     YZ = Y | Z
     XYZ = X | Y | Z
-    
