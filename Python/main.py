@@ -122,6 +122,8 @@ def levelGenerationDemo() -> None:
 
     print("Simple level generation")
     level_generation.simpleGeneration(data, math.Axes.POSITIVE_X, addNode)
+    print("Multi Dimension Generation")
+    level_generation.multiDimensionGeneration(data, math.Axes.XYZ, True, addNode)
 
 
 def main() -> None:
