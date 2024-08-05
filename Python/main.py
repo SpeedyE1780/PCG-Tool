@@ -111,6 +111,8 @@ def mazeDemo() -> None:
     mazes.generateMaze(10, 10, True, mazes.MazeAlgorithm.ALDOUS_BRODER, printMazeNode)
     print("Growing Tree Custom Selection")
     mazes.generateGrowingTreeWithCustomSelection(10, 10, True, lambda nextNodesLength : nextNodesLength - 2 if nextNodesLength - 2 > 0 else 0, printMazeNode)
+    print("Blobby Division")
+    mazes.generateBlobbyDivisionWithCustomThreshold(10, 10, True, 7, printMazeNode)
 
 def main() -> None:
     combinationsDemo()
