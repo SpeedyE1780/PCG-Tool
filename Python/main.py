@@ -1,4 +1,4 @@
-from pcg import combinations, mazes
+from pcg import combinations, mazes, level_generation, math
 
 class QuestSequence(combinations.SequenceNode):
 
@@ -113,8 +113,20 @@ def mazeDemo() -> None:
     print("Blobby Division")
     mazes.generateBlobbyDivisionWithCustomThreshold(10, 10, True, 7, printMazeNode)
 
+def levelGenerationDemo() -> None:
+
+    def addNode(position : math.Vector3):
+        print(position)
+
+    data = level_generation.GenerationData(10, 1, math.Vector3(0, 0, 0))
+
+    print("Simple level generation")
+    level_generation.simpleGeneration(data, math.Axes.POSITIVE_X, addNode)
+
+
 def main() -> None:
     combinationsDemo()
     mazeDemo()
+    levelGenerationDemo()
 
 main()
