@@ -25,6 +25,8 @@ class GenerationData(ctypes.Structure):
 
 addNode = ctypes.CFUNCTYPE(ctypes.c_void_p, math.Vector3)
 addWFCNode = ctypes.CFUNCTYPE(ctypes.c_void_p, math.Vector3, ctypes.c_int)
+addGridWFCNode = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_int, ctypes.c_int)
+add3DGridWFCNode = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int)
 
 def simpleGeneration(generationData : GenerationData, axes : math.Axes, callback : Callable[[math.Vector3], None]) -> None:
 
@@ -35,3 +37,10 @@ def multiDimensionGeneration(generationData : GenerationData, axes : math.Axes, 
 
 def waveFunctionCollapseGeneration(generationData : GenerationData, mode : ExpansionMode, axes : math.Axes, callback : Callable[[math.Vector3, Direction], None]) -> None:
     pcgDLL.waveFunctionCollapseGeneration(ctypes.pointer(generationData), mode.value, axes.value, addWFCNode(callback))
+
+def waveFunctionCollapseGridGeneration(width : int, height : int, axes : math.Axes, invokeAfterGeneration : bool, callback : Callable[[int, int, Direction], None]):
+    pcgDLL.waveFunctionCollapseGridGeneration(width, height, axes.value, invokeAfterGeneration, addGridWFCNode(callback))
+
+def waveFunctionCollapse3DGridGeneration(width : int, height : int, depth : int, invokeAfterGeneration : bool, callback : Callable[[int, int, int, Direction], None]):
+    pcgDLL.waveFunctionCollapse3DGridGeneration(width, height, depth, invokeAfterGeneration, add3DGridWFCNode(callback))
+    

@@ -48,3 +48,4 @@ def generateGrowingTreeWithCustomSelection(width: int, height: int, invokeAfterG
 
 def generateBlobbyDivisionWithCustomThreshold(width: int, height: int, invokeAfterGeneration: bool, threshold : int, callback : Callable[[int, int, int], None]):
     pcgDLL.generateBlobbyDivisionWithCustomRegionThreshold(width, height, invokeAfterGeneration, threshold, mazeCallback(callback))
+    

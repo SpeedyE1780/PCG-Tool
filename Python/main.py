@@ -129,6 +129,10 @@ def levelGenerationDemo() -> None:
     level_generation.multiDimensionGeneration(data, math.Axes.XYZ, True, addNode)
     print("WFC")
     level_generation.waveFunctionCollapseGeneration(data, level_generation.ExpansionMode.BFS, math.Axes.XZ, addWFCNode)
+    print("Grid 2D WFC")
+    level_generation.waveFunctionCollapseGridGeneration(10, 10, math.Axes.XY, True, lambda x, y, value : print(x, y, level_generation.Direction(value)))
+    print("Grid 3D WFC")
+    level_generation.waveFunctionCollapse3DGridGeneration(10, 10, 10, True, lambda x, y, z, value : print(x, y, z, level_generation.Direction(value)))
 
 def main() -> None:
     combinationsDemo()
