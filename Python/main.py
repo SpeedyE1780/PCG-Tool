@@ -103,7 +103,14 @@ def combinationsDemo() -> None :
     speak.generateSequence()
 
 def mazeDemo() -> None:
-    mazes.generateMaze(10, 10, True, mazes.MazeAlgorithm.ALDOUS_BRODER, lambda x, y, value : print(x, y, mazes.NodeValue(value)))
+
+    def printMazeNode(x, y, value):
+        print(x, y, mazes.NodeValue(value))
+        
+    print(mazes.MazeAlgorithm.ALDOUS_BRODER)
+    mazes.generateMaze(10, 10, True, mazes.MazeAlgorithm.ALDOUS_BRODER, printMazeNode)
+    print("Growing Tree Custom Selection")
+    mazes.generateGrowingTreeWithCustomSelection(10, 10, True, lambda nextNodesLength : nextNodesLength - 2 if nextNodesLength - 2 > 0 else 0, printMazeNode)
 
 def main() -> None:
     combinationsDemo()

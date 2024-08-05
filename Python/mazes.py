@@ -36,7 +36,12 @@ class MazeAlgorithm(Enum):
     BLOBBY_DIVISION_HUGE = 21
 
 mazeCallback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_int, ctypes.c_int)
+growingTreeSelectionCallback = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_int)
 
 def generateMaze(width: int, height: int, invokeAfterGeneration: bool, algorithm : MazeAlgorithm, callback : Callable[[int, int, int], None]):
 
     pcgDLL.generateMaze(width, height, invokeAfterGeneration, algorithm.value, mazeCallback(callback))
+
+def generateGrowingTreeWithCustomSelection(width: int, height: int, invokeAfterGeneration: bool, selectionCallback : Callable[[int], int], callback : Callable[[int, int, int], None]):
+
+    pcgDLL.generateGrowingTreeWithCustomSelection(width, height, invokeAfterGeneration, growingTreeSelectionCallback(selectionCallback), mazeCallback(callback))
