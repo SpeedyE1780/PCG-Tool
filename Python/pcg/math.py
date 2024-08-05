@@ -24,3 +24,6 @@ class Axes(Flag):
     XZ = X | Z
     YZ = Y | Z
     XYZ = X | Y | Z
+
+seedFunction = None
+randomNumberFunction = None
