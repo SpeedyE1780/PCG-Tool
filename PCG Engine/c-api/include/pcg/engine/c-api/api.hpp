@@ -36,10 +36,6 @@ namespace pcg::engine::c_api
     typedef void (*logMessage)(const char* message);
     /// @brief Function used to add next node in sequence and returns next node possibility count
     typedef int (*updateSequence)(int index);
-    /// @brief Function used to notify calling code to add current node to sequence
-    typedef void (*addNodeToSequence)();
-    /// @brief Function used to notify calling code to update the current node in sequence
-    typedef void(*setNextSequenceNode)(int index);
 
     /// @brief Indicates which algorithm to use when generating mazes
     enum class MazeAlgorithm
