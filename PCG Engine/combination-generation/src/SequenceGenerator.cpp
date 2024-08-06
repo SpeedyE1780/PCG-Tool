@@ -10,8 +10,6 @@ namespace pcg::engine::combination_generation
         /// @param node Last node added to sequence
         void generateSequence(ISequenceNode* node)
         {
-            math::Random::resetSeed();
-
             while (node->getNextCount() > 0)
             {
                 node->setNext(math::Random::number(node->getNextCount()));

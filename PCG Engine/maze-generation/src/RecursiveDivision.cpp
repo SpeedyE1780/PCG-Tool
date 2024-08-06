@@ -172,8 +172,6 @@ namespace pcg::engine::maze_generation
 
     void recursiveDivision(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
-        math::Random::resetSeed();
-
         utility::logInfo("Recursive Division Maze Generation Started");
         Grid grid = generateOpenGrid(width, height);
         divide(grid, width, height, invokeAfterGeneration ? nullptr : &callback);

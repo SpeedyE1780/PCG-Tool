@@ -175,7 +175,6 @@ namespace pcg::engine::maze_generation
 
     void eller(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
-        math::Random::resetSeed();
         utility::logInfo("Eller Maze Generation Started");
 
         Grid grid = generateGrid(width, height);

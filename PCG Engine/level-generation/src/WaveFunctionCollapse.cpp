@@ -567,8 +567,6 @@ namespace pcg::engine::level_generation
 
     void waveFunctionCollapse(const GenerationData& data, ExpansionMode mode, math::Axis axes, utility::CallbackFunctor<void(math::Vector3, utility::enums::Direction)>&& callback)
     {
-        math::Random::resetSeed();
-
         if (mode == ExpansionMode::DFS)
         {
             utility::logInfo("DFS WFC Started");
@@ -586,7 +584,6 @@ namespace pcg::engine::level_generation
     void waveFunctionCollapse(int width, int height, math::Axis axes, bool invokeAfterGeneration, utility::CallbackFunctor<void(int, int, utility::enums::Direction)>&& callback)
     {
         utility::logInfo("2D Wave Function Collapse Started");
-        math::Random::resetSeed();
 
         Grid2DGenerator grid(width, height, axes);
         grid(invokeAfterGeneration ? nullptr : &callback);
@@ -602,7 +599,6 @@ namespace pcg::engine::level_generation
     void waveFunctionCollapse(int width, int height, int depth, bool invokeAfterGeneration, utility::CallbackFunctor<void(int, int, int, utility::enums::Direction)>&& callback)
     {
         utility::logInfo("3D Wave Function Collapse Started");
-        math::Random::resetSeed();
 
         std::default_random_engine randomEngine = math::Random::getDefaultEngine();
         std::vector<utility::enums::Direction> directions = getDirections(math::Axis::xyz);

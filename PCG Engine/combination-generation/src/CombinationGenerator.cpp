@@ -90,16 +90,12 @@ namespace pcg::engine::combination_generation
 
     void generateCombination(int elementCount, utility::CallbackFunctor<void(int, bool)>&& callback)
     {
-        math::Random::resetSeed();
-
         const int combination = generateCombination(elementCount);
         toggleElements(combination, elementCount, std::move(callback));
     }
 
     void generateCombination(int elementCount, int minElementCount, utility::CallbackFunctor<void(int, bool)>&& callback)
     {
-        math::Random::resetSeed();
-
         int combination = generateCombination(elementCount);
         int activeElements = countActiveBits(combination);
 
@@ -113,8 +109,6 @@ namespace pcg::engine::combination_generation
 
     void generateCombination(int elementCount, const std::vector<int>& activeElementIndex, utility::CallbackFunctor<void(int, bool)>&& callback)
     {
-        math::Random::resetSeed();
-
         int combination = generateCombination(elementCount);
         std::for_each(begin(activeElementIndex), end(activeElementIndex),
             [&combination](int elementIndex) { combination |= 1 << elementIndex; });

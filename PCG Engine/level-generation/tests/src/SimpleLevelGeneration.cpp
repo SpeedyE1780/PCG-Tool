@@ -118,7 +118,7 @@ namespace pcg::engine::level_generation::tests
                     return "NegativeZ";
                 }
                 default:
-                    break;
+                    return "";
                 }
             }
         };

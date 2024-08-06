@@ -1,5 +1,7 @@
 #include <pcg/engine/level-generation/WaveFunctionCollapse.hpp>
 
+#include <pcg/engine/math/random.hpp>
+
 #include <gtest/gtest.h>
 
 #include <functional>
@@ -9,6 +11,7 @@ namespace pcg::engine::level_generation::tests
 {
     TEST(WaveFunctionCollapse, BFS)
     {
+        math::Random::resetSeed();
         std::ofstream input("GoldenValues/WaveFunctionCollapse/BFS.txt");
 
         GenerationData data{ 200, 1, math::Vector3::zero };
@@ -23,6 +26,7 @@ namespace pcg::engine::level_generation::tests
 
     TEST(WaveFunctionCollapse, DFS)
     {
+        math::Random::resetSeed();
         std::ofstream input("GoldenValues/WaveFunctionCollapse/DFS.txt");
 
         GenerationData data{ 200, 1, math::Vector3::zero };
@@ -37,6 +41,7 @@ namespace pcg::engine::level_generation::tests
 
     TEST(WaveFunctionCollapse, Grid2D)
     {
+        math::Random::resetSeed();
         std::ofstream input("GoldenValues/WaveFunctionCollapse/Grid2D.txt");
 
         std::function<void(int, int, utility::enums::Direction)> callback = [&input](int x, int y, utility::enums::Direction direction)
@@ -49,6 +54,7 @@ namespace pcg::engine::level_generation::tests
 
     TEST(WaveFunctionCollapse, Grid3D)
     {
+        math::Random::resetSeed();
         std::ofstream input("GoldenValues/WaveFunctionCollapse/Grid3D.txt");
 
         std::function<void(int, int, int, utility::enums::Direction)> callback = [&input](int x, int y, int z, utility::enums::Direction direction)
