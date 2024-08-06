@@ -7,6 +7,7 @@ add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE 
 "src/Combinations.cpp"
 "src/main.cpp"
+"src/Sequences.cpp"
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE pcg-engine-combination-generation)
