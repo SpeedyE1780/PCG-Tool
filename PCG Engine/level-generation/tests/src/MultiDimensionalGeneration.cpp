@@ -1,5 +1,7 @@
 #include <pcg/engine/level-generation/MultiDimensionalGeneration.hpp>
 
+#include <pcg/engine/math/Random.hpp>
+
 #include <gtest/gtest.h>
 
 #include <fstream>
@@ -106,6 +108,7 @@ namespace pcg::engine::level_generation::tests
 
     TEST_P(MultiDimensionalGenerationTest, MultiDimensionalGenerationNoOverlap)
     {
+        math::Random::resetSeed();
         GenerationData data{ 150, 1, math::Vector3::zero };
         MultiDimensionalGenerationParam levelGenerationParam = GetParam();
         levelGenerationParam.fillPositionCheckers();
@@ -139,6 +142,7 @@ namespace pcg::engine::level_generation::tests
 
     TEST_P(MultiDimensionalGenerationTest, MultiDimensionalGenerationOverlap)
     {
+        math::Random::resetSeed();
         GenerationData data{ 150, 1, math::Vector3::zero };
         MultiDimensionalGenerationParam levelGenerationParam = GetParam();
         levelGenerationParam.fillPositionCheckers();

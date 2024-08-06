@@ -1,3 +1,5 @@
+#include <pcg/engine/math/random.hpp>
+
 #include <pcg/engine/maze-generation/AldousBroder.hpp>
 #include <pcg/engine/maze-generation/BinaryTree.hpp>
 #include <pcg/engine/maze-generation/BlobbyDivision.hpp>
@@ -109,6 +111,8 @@ namespace pcg::engine::maze_generation::tests
 
     TEST_P(MazeAlgorithmTest, Maze)
     {
+        math::Random::resetSeed();
+
         const auto& [fileName, mazeFunction] = GetParam();
         std::ostringstream oss{};
         oss << "GoldenValues/" << fileName << ".txt";
