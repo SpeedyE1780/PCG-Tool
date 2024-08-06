@@ -14,6 +14,7 @@ def generateCombination(elements: list, callback: Callable[[int, bool], None]) -
         elements (list): List containing all possible elements in combination
         callback (Callable[[int, bool], None]): Callback to indicate if element is included or no
     """
+
     pcgDLL.generateCombination(len(elements), combinationCallback(callback))
 
 
@@ -28,6 +29,7 @@ def generateCombinationWithMinimumElements(
         minimumElementCount (int): Minimum count of elements in combination
         callback (Callable[[int, bool], None]): Callback to indicate if element is included or no
     """
+
     pcgDLL.generateCombinationWithMinimumElementCount(
         len(elements), minimumElementCount, combinationCallback(callback)
     )
@@ -46,6 +48,7 @@ def generateCombinationWithIncludedElements(
         includedElements (list): List of elements that will be included in combination
         callback (Callable[[int, bool], None]): Callback to indicate if element is included or no
     """
+
     includedElementsIndex = []
 
     for activeElement in includedElements:
@@ -103,6 +106,7 @@ def generateSequence(
         sequenceNode (SequenceNode): Starting node in sequence
         callback (Callable[[int], int]): Callback to set next node in sequence and returns the possible next node count
     """
+
     pcgDLL.generateSequence(
         sequenceNode.nextNodeCount, updateSequenceCallback(callback)
     )

@@ -78,6 +78,7 @@ def setSeed(seed: int) -> None:
     Args:
         seed (int): RNG seed
     """
+    
     pcgDLL.setSeed(seed)
 
 

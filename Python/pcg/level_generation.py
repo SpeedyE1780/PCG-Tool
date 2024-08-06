@@ -78,6 +78,7 @@ def simpleGeneration(
         axis (math.Axes): Axis that will be used to generate level
         callback (Callable[[math.Vector3], None]): Callback used to add node to generated level
     """
+    
     pcgDLL.simpleGeneration(
         ctypes.pointer(generationData), axis.value, addNode(callback)
     )
@@ -98,6 +99,7 @@ def multiDimensionGeneration(
         disableOverlap (bool): Whether or not two nodes can overlap and have the same position
         callback (Callable[[math.Vector3], None]): Callback used to add node to generated level
     """
+    
     pcgDLL.multiDimensionGeneration(
         ctypes.pointer(generationData), axes.value, disableOverlap, addNode(callback)
     )
@@ -118,6 +120,7 @@ def waveFunctionCollapseGeneration(
         axes (math.Axes): Axes that will be used to generate level
         callback (Callable[[math.Vector3, Direction], None]): Callback used to add node to generated level
     """
+    
     pcgDLL.waveFunctionCollapseGeneration(
         ctypes.pointer(generationData), mode.value, axes.value, addWFCNode(callback)
     )
@@ -140,6 +143,7 @@ def waveFunctionCollapseGridGeneration(
         invokeAfterGeneration (bool): Wait until level is fully generated to invoke callback or invoke it while level is being generated
         callback (Callable[[int, int, Direction], None]): Callback used to add node to generated level
     """
+    
     pcgDLL.waveFunctionCollapseGridGeneration(
         width, height, axes.value, invokeAfterGeneration, addGridWFCNode(callback)
     )
@@ -163,6 +167,7 @@ def waveFunctionCollapse3DGridGeneration(
         invokeAfterGeneration (bool): Wait until level is fully generated to invoke callback or invoke it while level is being generated
         callback (Callable[[int, int, Direction], None]): Callback used to add node to generated level
     """
+    
     pcgDLL.waveFunctionCollapse3DGridGeneration(
         width, height, depth, invokeAfterGeneration, add3DGridWFCNode(callback)
     )
