@@ -72,6 +72,11 @@ namespace pcg::engine::c_api
         math::Random::updateSeed(seed);
     }
 
+    void resetSeed()
+    {
+        math::Random::resetSeed();
+    }
+
     void setRandomGenerator(setSeedCallback seed, generateNumberCallback generate)
     {
         math::Random::initializeRandom(seed, generate);

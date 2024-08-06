@@ -67,6 +67,8 @@ namespace pcg::engine::c_api
     /// @brief Set RNG's seed
     /// @param seed New RNG seed
     PCG_ENGINE_C_API_API void setSeed(unsigned int seed);
+    /// @brief Reset RNG seed
+    PCG_ENGINE_C_API_API void resetSeed();
     /// @brief Set functions used to set seed and generate numbers
     /// @param seed Function that will set the RNG seed
     /// @param generate Function used to generate numbers

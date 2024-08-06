@@ -30,6 +30,11 @@ namespace pcg::engine::cpp_api
         math::Random::updateSeed(seed);
     }
 
+    void resetSeed()
+    {
+        math::Random::resetSeed();
+    }
+
     void setRandomGenerator(std::function<void(unsigned int)>&& seed, std::function<int(int, int)>&& generate)
     {
         math::Random::initializeRandom(seed, generate);
