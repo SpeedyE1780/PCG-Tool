@@ -19,3 +19,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include/
 target_link_libraries(${PROJECT_NAME} PUBLIC pcg-engine-utility)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE pcg-engine-math)
+
+add_subdirectory(tests)
