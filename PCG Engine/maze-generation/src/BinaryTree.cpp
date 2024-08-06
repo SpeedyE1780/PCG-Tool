@@ -56,8 +56,6 @@ namespace pcg::engine::maze_generation
 
     void binaryTree(int width, int height, bool invokeAfterGeneration, Diagonal diagonal, MazeCallback&& callback)
     {
-        math::Random::resetSeed();
-
         switch (diagonal)
         {
         case Diagonal::NE:

@@ -429,8 +429,6 @@ namespace pcg::engine::maze_generation
 
     void blobbyDivision(int width, int height, bool invokeAfterGeneration, SubRegionSize regionSize, MazeCallback&& callback)
     {
-        math::Random::resetSeed();
-
         switch (regionSize)
         {
         case SubRegionSize::corridors:
@@ -455,7 +453,6 @@ namespace pcg::engine::maze_generation
 
     void blobbyDivision(int width, int height, bool invokeAfterGeneration, int regionThreshold, MazeCallback&& callback)
     {
-        math::Random::resetSeed();
         blobbyDivision(width, height, regionThreshold, invokeAfterGeneration, std::move(callback));
     }
 }

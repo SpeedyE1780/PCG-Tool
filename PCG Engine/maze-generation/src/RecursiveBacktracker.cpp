@@ -13,8 +13,6 @@ namespace pcg::engine::maze_generation
 {
     void recursiveBacktracker(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
     {
-        math::Random::resetSeed();
-
         utility::logInfo("Recursive Backtracker Maze Generation Started");
 
         Grid grid = generateGrid(width, height);
