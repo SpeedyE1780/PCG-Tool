@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>ca3b7b95-b2a1-4231-80eb-e3fba877fdd1</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>main.py</StartupFile>
+    <StartupFile>whack_a_mole.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -37,6 +37,7 @@
     <Content Include="pcg\__pycache__\utility.cpython-310.pyc" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="whack_a_mole.py" />
     <Compile Include="main.py" />
     <Compile Include="pcg\combinations.py" />
     <Compile Include="pcg\level_generation.py" />
