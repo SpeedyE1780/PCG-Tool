@@ -80,14 +80,10 @@ while Running:
 
         if event.type == pygame.MOUSEBUTTONUP:
             x, y = pygame.mouse.get_pos()
-            print("Mouse up at", x, y)
             moleRemaining = False
 
             for mole in moles:
                 moleRemaining |= mole.whack(x, y)
-
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            print("MOUSE DOWN")
 
     screen.fill(black)
 
