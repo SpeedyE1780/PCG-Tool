@@ -21,11 +21,21 @@ class Mole:
         self.radius = radius
         self.hasMole = False
 
+    def whack(self, x, y):
+        if x in range(self.x - self.radius, self.x + self.radius) and y in range(
+            self.y - self.radius, self.y + self.radius
+        ):
+            print("Whack")
+            self.hasMole = False
+
+        return self.hasMole
+
     def draw(self):
         pygame.draw.circle(screen, white, [self.x, self.y], self.radius)
-        if(self.hasMole):
+
+        if self.hasMole:
             pygame.draw.circle(screen, black, [self.x, self.y], self.radius * 0.5)
-        
+
     def addMole(self):
         self.hasMole = True
 
@@ -53,20 +63,41 @@ def drawGrid(
 
     return moles
 
+
 moleRemaining = False
 moles = []
 
+clock = pygame.time.Clock()
+fps = 60
+
 while Running:
+    clock.tick(fps)
+
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 Running = False
 
+        if event.type == pygame.MOUSEBUTTONUP:
+            x, y = pygame.mouse.get_pos()
+            print("Mouse up at", x, y)
+            moleRemaining = False
+
+            for mole in moles:
+                moleRemaining |= mole.whack(x, y)
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            print("MOUSE DOWN")
+
     screen.fill(black)
-    
+
     if not moleRemaining:
         moles = drawGrid(100, 100, 3, 3, 10, 5)
-        combinations.generateCombinationWithMinimumElements(moles, 1, lambda index, included: moles[index].addMole() if included else None)
+        combinations.generateCombinationWithMinimumElements(
+            moles,
+            1,
+            lambda index, included: moles[index].addMole() if included else None,
+        )
         moleRemaining = True
 
     for mole in moles:
