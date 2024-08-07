@@ -12,7 +12,7 @@ screen = pygame.display.set_mode(resolution)
 screen.fill(black)
 
 Running = True
-
+score = 0
 
 class Mole:
     def __init__(self, x, y, radius):
@@ -25,6 +25,8 @@ class Mole:
         if x in range(self.x - self.radius, self.x + self.radius) and y in range(
             self.y - self.radius, self.y + self.radius
         ):
+            global score
+            score += 1
             self.hasMole = False
 
         return self.hasMole
@@ -101,6 +103,8 @@ while Running:
     for mole in moles:
         mole.draw()
 
+    scoreText = pygame.font.Font(None, 36).render("Score: {0}".format(score),True, white)
+    screen.blit(scoreText, [1000, 100])
     pygame.display.update()
 
 pygame.quit()
