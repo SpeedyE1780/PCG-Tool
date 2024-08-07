@@ -14,6 +14,7 @@ screen.fill(black)
 Running = True
 score = 0
 
+
 class Mole:
     def __init__(self, x, y, radius):
         self.x = x
@@ -70,11 +71,14 @@ moles = []
 
 clock = pygame.time.Clock()
 fps = 60
-resetTime = 1500
+gameTime = 30
+resetTime = 2500
 time = resetTime
 
-while Running:
-    time -= clock.tick(fps)
+while Running and gameTime > 0:
+    deltaTime = clock.tick(fps)
+    time -= deltaTime
+    gameTime -= deltaTime * 0.001
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -103,8 +107,15 @@ while Running:
     for mole in moles:
         mole.draw()
 
-    scoreText = pygame.font.Font(None, 36).render("Score: {0}".format(score),True, white)
+    scoreText = pygame.font.Font(None, 36).render(
+        "Score: {0}".format(score), True, white
+    )
     screen.blit(scoreText, [1000, 100])
+    
+    gameTimeText = pygame.font.Font(None, 36).render(
+        "Time: {0:.2f}".format(gameTime), True, white
+    )
+    screen.blit(gameTimeText, [1000, 40])
     pygame.display.update()
 
 pygame.quit()
