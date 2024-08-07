@@ -25,7 +25,6 @@ class Mole:
         if x in range(self.x - self.radius, self.x + self.radius) and y in range(
             self.y - self.radius, self.y + self.radius
         ):
-            print("Whack")
             self.hasMole = False
 
         return self.hasMole
@@ -69,9 +68,11 @@ moles = []
 
 clock = pygame.time.Clock()
 fps = 60
+resetTime = 1500
+time = resetTime
 
 while Running:
-    clock.tick(fps)
+    time -= clock.tick(fps)
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -87,7 +88,7 @@ while Running:
 
     screen.fill(black)
 
-    if not moleRemaining:
+    if not moleRemaining or time <= 0:
         moles = drawGrid(100, 100, 3, 3, 10, 5)
         combinations.generateCombinationWithMinimumElements(
             moles,
@@ -95,6 +96,7 @@ while Running:
             lambda index, included: moles[index].addMole() if included else None,
         )
         moleRemaining = True
+        time = resetTime
 
     for mole in moles:
         mole.draw()
