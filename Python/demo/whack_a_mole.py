@@ -75,10 +75,22 @@ gameTime = 30
 resetTime = 2500
 time = resetTime
 
-while Running and gameTime > 0:
+while Running:
     deltaTime = clock.tick(fps)
     time -= deltaTime
     gameTime -= deltaTime * 0.001
+
+    if gameTime < 0:
+        gameOverText = pygame.font.Font(None, 36).render("GAME OVER!", True, white)
+        screen.blit(gameOverText, [1280 * 0.5, 720 * 0.5])
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    Running = False
+
+        continue
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -111,11 +123,12 @@ while Running and gameTime > 0:
         "Score: {0}".format(score), True, white
     )
     screen.blit(scoreText, [1000, 100])
-    
+
     gameTimeText = pygame.font.Font(None, 36).render(
         "Time: {0:.2f}".format(gameTime), True, white
     )
     screen.blit(gameTimeText, [1000, 40])
     pygame.display.update()
+
 
 pygame.quit()
