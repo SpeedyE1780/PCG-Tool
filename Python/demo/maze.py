@@ -13,8 +13,10 @@ screen.fill(black)
 
 Running = True
 
+
 def clamp(value, minValue, maxValue):
     return max(minValue, min(value, maxValue))
+
 
 def drawNode(x, y, length, adjacentNodes):
     if (adjacentNodes & mazes.NodeValue.FORWARD.value) == 0:
@@ -28,6 +30,10 @@ def drawNode(x, y, length, adjacentNodes):
         pygame.draw.line(screen, white, (x + length, y), (x + length, y + length))
 
 
+gridWidth = 10
+gridHeight = 10
+
+
 class Node:
     LENGTH = 20
     OFFSET = 0
@@ -36,7 +42,7 @@ class Node:
 
     def __init__(self, x, y, adjacent):
         self.x = x * (Node.LENGTH + Node.OFFSET) + Node.STARTX
-        self.y = (9 - y) * (Node.LENGTH + Node.OFFSET) + Node.STARTY
+        self.y = ((gridHeight - 1) - y) * (Node.LENGTH + Node.OFFSET) + Node.STARTY
         self.adjacentNodes = adjacent
 
     def draw(self):
@@ -58,8 +64,8 @@ def drawPlayer(x, y):
 
 
 mazes.generateMaze(
-    10,
-    10,
+    gridWidth,
+    gridHeight,
     True,
     mazes.MazeAlgorithm.ALDOUS_BRODER,
     lambda x, y, adjacent: nodes.update({(x, y): Node(x, y, adjacent)}),
@@ -79,8 +85,8 @@ while Running:
             if event.key == pygame.K_RIGHT:
                 px += 1
 
-    px = clamp(px, 0, 9)
-    py = clamp(py, 0, 9)
+    px = clamp(px, 0, gridWidth - 1)
+    py = clamp(py, 0, gridHeight - 1)
     screen.fill(black)
 
     for node in nodes:
