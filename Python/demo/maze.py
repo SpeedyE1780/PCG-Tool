@@ -29,24 +29,26 @@ def drawNode(x, y, length, adjacentNodes):
 class Node:
     LENGTH = 20
     OFFSET = 0
+    STARTX = 50
+    STARTY = 50
 
     def __init__(self, x, y, adjacent):
-        self.x = x * (Node.LENGTH + Node.OFFSET)
-        self.y = y * (Node.LENGTH + Node.OFFSET)
+        self.x = x * (Node.LENGTH + Node.OFFSET) + Node.STARTX
+        self.y = y * (Node.LENGTH + Node.OFFSET) + Node.STARTY
         self.adjacentNodes = adjacent
 
     def draw(self):
         drawNode(self.x, self.y, Node.LENGTH, self.adjacentNodes)
 
 
-nodes = []
+nodes = {}
 
 mazes.generateMaze(
     10,
     10,
     True,
     mazes.MazeAlgorithm.ALDOUS_BRODER,
-    lambda x, y, adjacent: nodes.append(Node(x, y, adjacent)),
+    lambda x, y, adjacent: nodes.update({(x, y): Node(x, y, adjacent)}),
 )
 
 while Running:
@@ -57,7 +59,7 @@ while Running:
 
     screen.fill(black)
     for node in nodes:
-        node.draw()
+        nodes[node].draw()
 
     pygame.display.update()
 
