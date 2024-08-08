@@ -14,17 +14,40 @@ screen.fill(black)
 Running = True
 
 
-def drawNode(x, y, length, up, down, left, right):
-    if up:
+def drawNode(x, y, length, adjacentNodes):
+    if (adjacentNodes & mazes.NodeValue.BACKWARD.value) == 0:
         pygame.draw.line(screen, white, (x, y), (x + length, y))
-    if down:
+    if (adjacentNodes & mazes.NodeValue.FORWARD.value) == 0:
         pygame.draw.line(screen, white, (x, y + length), (x + length, y + length))
 
-    if left:
+    if (adjacentNodes & mazes.NodeValue.LEFT.value) == 0:
         pygame.draw.line(screen, white, (x, y), (x, y + length))
-    if right:
+    if (adjacentNodes & mazes.NodeValue.RIGHT.value) == 0:
         pygame.draw.line(screen, white, (x + length, y), (x + length, y + length))
 
+
+class Node:
+    LENGTH = 20
+    OFFSET = 0
+
+    def __init__(self, x, y, adjacent):
+        self.x = x * (Node.LENGTH + Node.OFFSET)
+        self.y = y * (Node.LENGTH + Node.OFFSET)
+        self.adjacentNodes = adjacent
+
+    def draw(self):
+        drawNode(self.x, self.y, Node.LENGTH, self.adjacentNodes)
+
+
+nodes = []
+
+mazes.generateMaze(
+    10,
+    10,
+    True,
+    mazes.MazeAlgorithm.ALDOUS_BRODER,
+    lambda x, y, adjacent: nodes.append(Node(x, y, adjacent)),
+)
 
 while Running:
     for event in pygame.event.get():
@@ -33,7 +56,9 @@ while Running:
                 Running = False
 
     screen.fill(black)
-    drawNode(20, 20, 20, True, True, True, True)
+    for node in nodes:
+        node.draw()
+
     pygame.display.update()
 
 pygame.quit()
