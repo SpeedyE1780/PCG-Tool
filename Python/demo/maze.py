@@ -45,6 +45,9 @@ class Node:
         self.y = ((gridHeight - 1) - y) * (Node.LENGTH + Node.OFFSET) + Node.STARTY
         self.adjacentNodes = adjacent
 
+    def hasAdjacentNode(self, nodeValue):
+        return (self.adjacentNodes & nodeValue.value) > 0
+
     def draw(self):
         drawNode(self.x, self.y, Node.LENGTH, self.adjacentNodes)
 
@@ -55,17 +58,22 @@ px = 0
 py = 0
 
 
-def drawPlayer(x, y, color = white):
+def drawPlayer(x, y, color=white):
     x = x * (Node.LENGTH + Node.OFFSET) + (Node.STARTX + Node.LENGTH * 0.5)
-    y = ((gridHeight - 1) - y) * (Node.LENGTH + Node.OFFSET) + (Node.STARTY + Node.LENGTH * 0.5)
+    y = ((gridHeight - 1) - y) * (Node.LENGTH + Node.OFFSET) + (
+        Node.STARTY + Node.LENGTH * 0.5
+    )
 
     pygame.draw.circle(screen, color, (x, y), radius)
-    
-def drawStart(x = 0, y = 0):
+
+
+def drawStart(x=0, y=0):
     drawPlayer(x, y, (0, 255, 0))
 
-def drawEnd(x = gridWidth -1, y = gridHeight - 1):
+
+def drawEnd(x=gridWidth - 1, y=gridHeight - 1):
     drawPlayer(x, y, (255, 0, 0))
+
 
 mazes.generateMaze(
     gridWidth,
@@ -81,13 +89,17 @@ while Running:
             if event.key == pygame.K_ESCAPE:
                 Running = False
             if event.key == pygame.K_UP:
-                py -= 1
+                if nodes[(px, py)].hasAdjacentNode(mazes.NodeValue.FORWARD):
+                    py += 1
             if event.key == pygame.K_DOWN:
-                py += 1
+                if nodes[(px, py)].hasAdjacentNode(mazes.NodeValue.BACKWARD):
+                    py -= 1
             if event.key == pygame.K_LEFT:
-                px -= 1
+                if nodes[(px, py)].hasAdjacentNode(mazes.NodeValue.LEFT):
+                    px -= 1
             if event.key == pygame.K_RIGHT:
-                px += 1
+                if nodes[(px, py)].hasAdjacentNode(mazes.NodeValue.RIGHT):
+                    px += 1
 
     px = clamp(px, 0, gridWidth - 1)
     py = clamp(py, 0, gridHeight - 1)
