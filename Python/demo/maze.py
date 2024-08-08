@@ -30,8 +30,8 @@ def drawNode(x, y, length, adjacentNodes):
         pygame.draw.line(screen, white, (x + length, y), (x + length, y + length))
 
 
-gridWidth = 10
-gridHeight = 10
+gridWidth = 2
+gridHeight = 2
 
 
 class Node:
@@ -67,23 +67,34 @@ def drawPlayer(x, y, color=white):
     pygame.draw.circle(screen, color, (x, y), radius)
 
 
-def drawStart(x=0, y=0):
-    drawPlayer(x, y, (0, 255, 0))
+def drawStart():
+    drawPlayer(0, 0, (0, 255, 0))
 
 
-def drawEnd(x=gridWidth - 1, y=gridHeight - 1):
-    drawPlayer(x, y, (255, 0, 0))
+def drawEnd():
+    drawPlayer(gridWidth - 1, gridHeight - 1, (255, 0, 0))
 
 
-mazes.generateMaze(
-    gridWidth,
-    gridHeight,
-    True,
-    mazes.MazeAlgorithm.ALDOUS_BRODER,
-    lambda x, y, adjacent: nodes.update({(x, y): Node(x, y, adjacent)}),
-)
+def generateMaze():
+    mazes.generateMaze(
+        gridWidth,
+        gridHeight,
+        True,
+        mazes.MazeAlgorithm.ALDOUS_BRODER,
+        lambda x, y, adjacent: nodes.update({(x, y): Node(x, y, adjacent)}),
+    )
+
+
+generateMaze()
 
 while Running:
+    if px == gridWidth - 1 and py == gridHeight - 1:
+        px = 0
+        py = 0
+        gridWidth = clamp(gridWidth + 1, 2, 30)
+        gridHeight = clamp(gridHeight + 1, 2, 30)
+        generateMaze()
+
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
