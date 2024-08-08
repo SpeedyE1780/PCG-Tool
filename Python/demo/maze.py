@@ -17,9 +17,9 @@ def clamp(value, minValue, maxValue):
     return max(minValue, min(value, maxValue))
 
 def drawNode(x, y, length, adjacentNodes):
-    if (adjacentNodes & mazes.NodeValue.BACKWARD.value) == 0:
-        pygame.draw.line(screen, white, (x, y), (x + length, y))
     if (adjacentNodes & mazes.NodeValue.FORWARD.value) == 0:
+        pygame.draw.line(screen, white, (x, y), (x + length, y))
+    if (adjacentNodes & mazes.NodeValue.BACKWARD.value) == 0:
         pygame.draw.line(screen, white, (x, y + length), (x + length, y + length))
 
     if (adjacentNodes & mazes.NodeValue.LEFT.value) == 0:
@@ -36,7 +36,7 @@ class Node:
 
     def __init__(self, x, y, adjacent):
         self.x = x * (Node.LENGTH + Node.OFFSET) + Node.STARTX
-        self.y = y * (Node.LENGTH + Node.OFFSET) + Node.STARTY
+        self.y = (9 - y) * (Node.LENGTH + Node.OFFSET) + Node.STARTY
         self.adjacentNodes = adjacent
 
     def draw(self):
