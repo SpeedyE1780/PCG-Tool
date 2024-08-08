@@ -57,10 +57,9 @@ py = 0
 
 def drawPlayer(x, y, color = white):
     x = x * (Node.LENGTH + Node.OFFSET) + (Node.STARTX + Node.LENGTH * 0.5)
-    y = y * (Node.LENGTH + Node.OFFSET) + (Node.STARTY + Node.LENGTH * 0.5)
+    y = ((gridHeight - 1) - y) * (Node.LENGTH + Node.OFFSET) + (Node.STARTY + Node.LENGTH * 0.5)
 
     pygame.draw.circle(screen, color, (x, y), radius)
-    print(x, y)
     
 def drawStart(x = 0, y = 0):
     drawPlayer(x, y, (0, 255, 0))
