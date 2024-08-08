@@ -13,6 +13,8 @@ screen.fill(black)
 
 Running = True
 
+def clamp(value, minValue, maxValue):
+    return max(minValue, min(value, maxValue))
 
 def drawNode(x, y, length, adjacentNodes):
     if (adjacentNodes & mazes.NodeValue.BACKWARD.value) == 0:
@@ -77,6 +79,8 @@ while Running:
             if event.key == pygame.K_RIGHT:
                 px += 1
 
+    px = clamp(px, 0, 9)
+    py = clamp(py, 0, 9)
     screen.fill(black)
 
     for node in nodes:
