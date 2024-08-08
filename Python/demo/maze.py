@@ -55,13 +55,18 @@ px = 0
 py = 0
 
 
-def drawPlayer(x, y):
+def drawPlayer(x, y, color = white):
     x = x * (Node.LENGTH + Node.OFFSET) + (Node.STARTX + Node.LENGTH * 0.5)
     y = y * (Node.LENGTH + Node.OFFSET) + (Node.STARTY + Node.LENGTH * 0.5)
 
-    pygame.draw.circle(screen, white, (x, y), radius)
+    pygame.draw.circle(screen, color, (x, y), radius)
     print(x, y)
+    
+def drawStart(x = 0, y = 0):
+    drawPlayer(x, y, (0, 255, 0))
 
+def drawEnd(x = gridWidth -1, y = gridHeight - 1):
+    drawPlayer(x, y, (255, 0, 0))
 
 mazes.generateMaze(
     gridWidth,
@@ -92,6 +97,8 @@ while Running:
     for node in nodes:
         nodes[node].draw()
 
+    drawStart()
+    drawEnd()
     drawPlayer(px, py)
 
     pygame.display.update()
