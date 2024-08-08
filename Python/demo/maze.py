@@ -42,6 +42,18 @@ class Node:
 
 
 nodes = {}
+radius = 5
+px = 0
+py = 0
+
+
+def drawPlayer(x, y):
+    x = x * (Node.LENGTH + Node.OFFSET) + (Node.STARTX + Node.LENGTH * 0.5)
+    y = y * (Node.LENGTH + Node.OFFSET) + (Node.STARTY + Node.LENGTH * 0.5)
+
+    pygame.draw.circle(screen, white, (x, y), radius)
+    print(x, y)
+
 
 mazes.generateMaze(
     10,
@@ -56,10 +68,21 @@ while Running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 Running = False
+            if event.key == pygame.K_UP:
+                py -= 1
+            if event.key == pygame.K_DOWN:
+                py += 1
+            if event.key == pygame.K_LEFT:
+                px -= 1
+            if event.key == pygame.K_RIGHT:
+                px += 1
 
     screen.fill(black)
+
     for node in nodes:
         nodes[node].draw()
+
+    drawPlayer(px, py)
 
     pygame.display.update()
 
