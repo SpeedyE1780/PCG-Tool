@@ -110,3 +110,20 @@ def generateSequence(
     pcgDLL.generateSequence(
         sequenceNode.nextNodeCount, updateSequenceCallback(callback)
     )
+
+
+def generateCyclicSequence(
+    sequenceNode: SequenceNode, sequenceLength: int, callback: Callable[[int], int]
+) -> None:
+    """
+    Generate a sequence starting with sequenceNode with max length of sequenceLength
+
+    Args:
+        sequenceNode (SequenceNode): Starting node in sequence
+        sequenceLength (int): Max length of generated sequence
+        callback (Callable[[int], int]): Callback to set next node in sequence and returns the possible next node count
+    """
+
+    pcgDLL.generateCyclicSequence(
+        sequenceNode.nextNodeCount, sequenceLength, updateSequenceCallback(callback)
+    )

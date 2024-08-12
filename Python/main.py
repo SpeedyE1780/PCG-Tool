@@ -95,6 +95,8 @@ def combinationsDemo() -> None:
 
         if len(sequence) > 0:
             currentNode = sequence[-1]
+        else:
+            sequence.append(currentNode)
 
         currentNode.nextNode = currentNode.nextNodes[index]
         currentNode = currentNode.nextNode
@@ -106,6 +108,26 @@ def combinationsDemo() -> None:
     )
 
     speak.generateSequence()
+
+    red = QuestSequence("Red")
+    green = QuestSequence("Green")
+    blue = QuestSequence("Blue")
+    yellow = QuestSequence("Yellow")
+    red.addNextNodes([red, green, blue, yellow])
+    green.addNextNodes([red, green, blue, yellow])
+    blue.addNextNodes([red, green, blue, yellow])
+    yellow.addNextNodes([red, green, blue, yellow])
+    currentNode = red
+    sequence = []
+
+    combinations.generateCyclicSequence(
+        red, 10, lambda index: updateSequence(currentNode, sequence, index)
+    )
+
+    print("Color Sequence")
+
+    for node in sequence:
+        print(node.message)
 
 
 def mazeDemo() -> None:
