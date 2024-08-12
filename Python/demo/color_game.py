@@ -102,6 +102,8 @@ while Running:
                     highlight = True
                     lastPressed = node
 
+                    if node == sequence[currentNodeIndex]:
+                        currentNodeIndex += 1
     screen.fill(black)
 
     if not waitForUser:
@@ -132,5 +134,11 @@ while Running:
     if time <= 0 and waitForUser and highlight:
         highlight = False
         lastPressed.toggleHighlight(False)
+
+        if currentNodeIndex >= currentSequenceLength:
+            waitForUser = False
+            currentSequenceLength += 1
+            currentNodeIndex = -1
+            time = nextTime
 
 pygame.quit()
