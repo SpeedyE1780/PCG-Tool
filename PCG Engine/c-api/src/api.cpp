@@ -41,16 +41,7 @@ namespace pcg::engine::c_api
                 next = std::make_unique<SequenceNodeWrapper>(updateSequence(nextNodeIndex));
             }
 
-            virtual int getNextCount() const override
-            {
-                //Dirty fix to invoke update sequence on last node in sequence
-                if (possibilitiesCount <= 0)
-                {
-                    updateSequence(-1);
-                }
-
-                return possibilitiesCount;
-            }
+            virtual int getNextCount() const override { return possibilitiesCount; }
             virtual ISequenceNode* getNext() const override { return next.get(); }
             virtual ISequenceNode* getNextAt(int index) const override
             {
@@ -273,6 +264,8 @@ namespace pcg::engine::c_api
         SequenceNodeWrapper::setCallbacks(updateSequence);
         SequenceNodeWrapper wrappedNode(nextNodeCount);
         combination_generation::generateSequence(wrappedNode);
+        //Dirty fix to invoke update sequence on last node in sequence
+        updateSequence(-1);
         SequenceNodeWrapper::resetCallbacks();
     }
 
@@ -281,6 +274,8 @@ namespace pcg::engine::c_api
         SequenceNodeWrapper::setCallbacks(updateSequence);
         SequenceNodeWrapper wrappedNode(nextNodeCount);
         combination_generation::generateSequence(wrappedNode, sequenceLength);
+        //Dirty fix to invoke update sequence on last node in sequence
+        updateSequence(-1);
         SequenceNodeWrapper::resetCallbacks();
     }
 }
