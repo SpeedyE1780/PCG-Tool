@@ -147,6 +147,11 @@ namespace pcg::engine::c_api
     /// @param nextNodeCount Count of next nodes from first node in sequence
     /// @param updateSequence Callback to add next node in sequence and returns next node possibility count
     PCG_ENGINE_C_API_API void generateSequence(int nextNodeCount, updateSequence updateSequence);
+    /// @brief Generate a sequence starting from node
+    /// @param nextNodeCount Count of next nodes from first node in sequence
+    /// @param sequenceLength Length of generated sequence
+    /// @param updateSequence Callback to add next node in sequence and returns next node possibility count
+    PCG_ENGINE_C_API_API void generateCyclicSequence(int nextNodeCount, int sequenceLength, updateSequence updateSequence);
 }
 
 #endif // PCG_ENGINE_C_API_API_HPP

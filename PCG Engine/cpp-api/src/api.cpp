@@ -218,4 +218,9 @@ namespace pcg::engine::cpp_api
     {
         combination_generation::generateSequence(node);
     }
+
+    std::vector<combination_generation::ISequenceNode*> generateSequence(combination_generation::ISequenceNode& node, int count)
+    {
+        return combination_generation::generateSequence(node, count);
+    }
 }

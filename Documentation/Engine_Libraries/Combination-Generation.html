@@ -469,6 +469,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>A node sequence.</p>
 </li>
+<li>
+<p>A cyclic node sequence</p>
+</li>
 </ul>
 </div>
 </div>
@@ -508,11 +511,11 @@ Output: Red, Green, Blue, Purple, Pink</pre>
 </div>
 </li>
 <li>
-<p>Sequence generation: Given a start node choose a random element from a list of next nodes and repeat the process recursively until node is available.</p>
+<p>Sequence generation: Given a start node choose a random element from a list of next nodes and repeat the process recursively until no node is available.</p>
 <div class="literalblock">
 <div class="content">
 <pre>Speak
-    Guildmaster
+    Guild Master
         Kill
             Goblin
             Orc
@@ -536,7 +539,51 @@ Quest Speak to Merchant and retrieve the stolen gold</pre>
 </div>
 </div>
 </li>
+<li>
+<p>Cyclic Node Sequence: Given a start node and a count choose a random element from a list of next nodes and repeat the process recursively until the sequence length reaches the count.</p>
+</li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+ Cycles are allowed within next nodes list. A node can be available in its list of next nodes. A child node can have its parent as a next node
+</td>
+</tr>
+</table>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Red
+    Red
+    Green
+    Blue
+    Yellow
+Green
+    Red
+    Green
+    Blue
+    Yellow
+Blue
+    Red
+    Green
+    Blue
+    Yellow
+Yellow
+    Red
+    Green
+    Blue
+    Yellow</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Sequence: Red -&gt; Green -&gt; Yellow -&gt; Green -&gt; Green -&gt; Green -&gt; Blue</pre>
+</div>
 </div>
 </div>
 </div>
@@ -558,7 +605,7 @@ Quest Speak to Merchant and retrieve the stolen gold</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-06 14:41:27 +0300
+Last updated 2024-08-12 12:13:49 +0300
 </div>
 </div>
 </body>
