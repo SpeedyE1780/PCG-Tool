@@ -80,6 +80,7 @@ combinations.generateCyclicSequence(node, 100, updateSequence)
 sequence[0].toggleHighlight(True)
 lastPressed = None
 currentSequenceLength = 1
+reset = False
 
 while Running:
     deltaTime = clock.tick(fps)
@@ -104,7 +105,7 @@ while Running:
                     if node == sequence[currentNodeIndex]:
                         currentNodeIndex += 1
                     else:
-                        currentSequenceLength = 0
+                        reset = True
 
     screen.fill(black)
 
@@ -137,10 +138,16 @@ while Running:
         highlight = False
         lastPressed.toggleHighlight(False)
 
-        if currentNodeIndex >= currentSequenceLength:
+        if reset:
+            print("Reset Game")
+            waitForUser = False
+            currentNodeIndex = -1
+            currentSequenceLength = 1
+            reset = False
+        elif currentNodeIndex >= currentSequenceLength:
+            print("Increment Sequence")
             waitForUser = False
             currentSequenceLength += 1
             currentNodeIndex = -1
-            time = nextTime
 
 pygame.quit()
