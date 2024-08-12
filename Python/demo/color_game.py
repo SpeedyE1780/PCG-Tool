@@ -23,6 +23,7 @@ nextTime = 0.5
 time = nextTime
 currentNodeIndex = 0
 highlight = False
+waitForUser = False
 
 sequence = []
 nodes = [red, green, blue, yellow]
@@ -30,8 +31,8 @@ nodes = [red, green, blue, yellow]
 node = combinations.SequenceNode()
 node.addNextNodes(nodes)
 
-def updateSequence(index):
 
+def updateSequence(index):
     if index == -1:
         return 0
 
@@ -52,22 +53,68 @@ while Running:
 
     screen.fill(black)
 
-    pygame.draw.circle(
-        screen, red, [600, 320], 20, 0 if sequence[currentNodeIndex] == red and highlight else 1
-    )
-    pygame.draw.circle(
-        screen, green, [560, 360], 20, 0 if sequence[currentNodeIndex] == green and highlight else 1
-    )
-    pygame.draw.circle(
-        screen, blue, [640, 360], 20, 0 if sequence[currentNodeIndex] == blue and highlight else 1
-    )
-    pygame.draw.circle(
-        screen, yellow, [600, 400], 20, 0 if sequence[currentNodeIndex] == yellow and highlight else 1
-    )
+    if not waitForUser:
+        pygame.draw.circle(
+            screen,
+            red,
+            [600, 320],
+            20,
+            0 if sequence[currentNodeIndex] == red and highlight else 1,
+        )
+        pygame.draw.circle(
+            screen,
+            green,
+            [560, 360],
+            20,
+            0 if sequence[currentNodeIndex] == green and highlight else 1,
+        )
+        pygame.draw.circle(
+            screen,
+            blue,
+            [640, 360],
+            20,
+            0 if sequence[currentNodeIndex] == blue and highlight else 1,
+        )
+        pygame.draw.circle(
+            screen,
+            yellow,
+            [600, 400],
+            20,
+            0 if sequence[currentNodeIndex] == yellow and highlight else 1,
+        )
 
+    else:
+        pygame.draw.circle(
+            screen,
+            red,
+            [600, 320],
+            20,
+            1
+        )
+        pygame.draw.circle(
+            screen,
+            green,
+            [560, 360],
+            20,
+            1
+        )
+        pygame.draw.circle(
+            screen,
+            blue,
+            [640, 360],
+            20,
+            1
+        )
+        pygame.draw.circle(
+            screen,
+            yellow,
+            [600, 400],
+            20,
+            1
+        )
     pygame.display.update()
 
-    if time <= 0:
+    if time <= 0 and not waitForUser:
         time = nextTime
 
         if highlight:
@@ -76,6 +123,7 @@ while Running:
         highlight = not highlight
 
         if currentNodeIndex >= len(sequence):
-            Running = False
+            currentNodeIndex = 0
+            waitForUser = True
 
 pygame.quit()
