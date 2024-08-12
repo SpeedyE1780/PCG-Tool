@@ -90,7 +90,7 @@ while Running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 Running = False
-        if event.type == pygame.MOUSEBUTTONUP and waitForUser and not highlight:
+        if event.type == pygame.MOUSEBUTTONUP and waitForUser and not reset and currentNodeIndex < currentSequenceLength:
             x, y = pygame.mouse.get_pos()
             for node in nodes:
                 if node.isPressed(x, y):
