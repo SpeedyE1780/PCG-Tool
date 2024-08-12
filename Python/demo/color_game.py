@@ -76,9 +76,10 @@ def updateSequence(index):
     return node.nextNodeCount
 
 
-combinations.generateCyclicSequence(node, 3, updateSequence)
+combinations.generateCyclicSequence(node, 100, updateSequence)
 sequence[0].toggleHighlight(True)
 lastPressed = None
+currentSequenceLength = 1
 
 while Running:
     deltaTime = clock.tick(fps)
@@ -119,12 +120,12 @@ while Running:
         if highlight:
             sequence[currentNodeIndex].toggleHighlight(False)
             currentNodeIndex += 1
-            if currentNodeIndex < len(sequence):
+            if currentNodeIndex < currentSequenceLength:
                 sequence[currentNodeIndex].toggleHighlight(True)
 
         highlight = not highlight
 
-        if currentNodeIndex >= len(sequence):
+        if currentNodeIndex >= currentSequenceLength:
             currentNodeIndex = 0
             waitForUser = True
             
