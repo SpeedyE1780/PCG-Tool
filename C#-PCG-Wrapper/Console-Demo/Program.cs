@@ -33,8 +33,7 @@ node4.AddNode(node5);
 
 ISequenceNode currentNode = node1;
 
-Console.WriteLine("Genereate Sequence");
-PCGEngine.GenerateSequence(currentNode, index =>
+UpdateSequence updateSequence = index =>
 {
     Console.WriteLine(((DemoSequenceNode)currentNode).Name);
 
@@ -45,7 +44,10 @@ PCGEngine.GenerateSequence(currentNode, index =>
 
     currentNode = currentNode.NextNodes.ElementAt(index);
     return currentNode.NextCount;
-});
+};
+
+Console.WriteLine("Genereate Sequence");
+PCGEngine.GenerateSequence(currentNode, updateSequence);
 
 Console.WriteLine("Generate combination with 15 elements");
 PCGEngine.GenerateCombination(15, (index, active) =>
@@ -55,6 +57,24 @@ PCGEngine.GenerateCombination(15, (index, active) =>
         Console.WriteLine(index + 1);
     }
 });
+
+Console.WriteLine("Cyclic Sequence");
+
+DemoSequenceNode red = new() { Name = "Red" };
+DemoSequenceNode green = new() { Name = "Green" };
+DemoSequenceNode blue = new() { Name = "Blue" };
+DemoSequenceNode yellow = new() { Name = "Yellow" };
+
+DemoSequenceNode[] colors = [red, green, blue, yellow];
+
+red.AddNode(colors);
+green.AddNode(colors);
+blue.AddNode(colors);
+yellow.AddNode(colors);
+
+currentNode = red;
+
+PCGEngine.GenerateCyclicSequence(red, 10, updateSequence);
 
 internal class DemoSequenceNode : ISequenceNode
 {
@@ -67,5 +87,10 @@ internal class DemoSequenceNode : ISequenceNode
     public void AddNode(ISequenceNode node)
     {
         children.Add(node);
+    }
+
+    public void AddNode(IEnumerable<ISequenceNode> nodes)
+    {
+        children.AddRange(nodes);
     }
 }

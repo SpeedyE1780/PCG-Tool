@@ -148,5 +148,24 @@ namespace PCGAPI
         {
             GenerateSequence(node.NextCount, updateSequence);
         }
+
+        /// <summary>
+        /// Generate a sequence that can contain cycles starting with node
+        /// </summary>
+        /// <param name="nextNodeCount">Count of next nodes from first node in sequence</param>
+        /// <param name="sequenceLength">Max length of generated sequence</param>
+        /// <param name="updateSequence">Callback to add next node in sequence and returns next node possibility count</param>
+        [DllImport(DLLName, EntryPoint = "generateCyclicSequence")]
+        private static extern void GenerateCyclicSequence(int nextNodeCount, int sequenceLength, UpdateSequence updateSequence);
+        /// <summary>
+        /// Generate a sequence that can contain cycles starting with node
+        /// </summary>
+        /// <param name="node">First node in sequence</param>
+        /// <param name="sequenceLength">Max length of generated sequence</param>
+        /// <param name="updateSequence">Callback to add next node in sequence and returns next node possibility count</param>
+        public static void GenerateCyclicSequence(ISequenceNode node, int sequenceLength, UpdateSequence updateSequence)
+        {
+            GenerateCyclicSequence(node.NextCount, sequenceLength, updateSequence);
+        }
     }
 }
