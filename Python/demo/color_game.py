@@ -93,10 +93,9 @@ while Running:
             x, y = pygame.mouse.get_pos()
             for node in nodes:
                 if node.isPressed(x, y):
-
                     if not lastPressed == None:
                         lastPressed.toggleHighlight(False)
-                    
+
                     node.toggleHighlight(True)
                     time = nextTime
                     highlight = True
@@ -104,6 +103,9 @@ while Running:
 
                     if node == sequence[currentNodeIndex]:
                         currentNodeIndex += 1
+                    else:
+                        currentSequenceLength = 0
+
     screen.fill(black)
 
     if not waitForUser:
@@ -130,7 +132,7 @@ while Running:
         if currentNodeIndex >= currentSequenceLength:
             currentNodeIndex = 0
             waitForUser = True
-            
+
     if time <= 0 and waitForUser and highlight:
         highlight = False
         lastPressed.toggleHighlight(False)
