@@ -1,6 +1,6 @@
 import pygame
 import pygame.locals
-from pcg import combinations, math
+from pcg import combinations
 
 pygame.init()
 
