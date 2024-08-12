@@ -34,7 +34,7 @@ node4.AddNode(node5);
 ISequenceNode currentNode = node1;
 
 Console.WriteLine("Genereate Sequence");
-PCGEngine.GenerateSequence(currentNode.NextCount, index =>
+PCGEngine.GenerateSequence(currentNode, index =>
 {
     Console.WriteLine(((DemoSequenceNode)currentNode).Name);
 

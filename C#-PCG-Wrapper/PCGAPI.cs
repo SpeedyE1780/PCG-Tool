@@ -137,6 +137,16 @@ namespace PCGAPI
         /// <param name="nextNodes">Count of next nodes from first node in sequence</param>
         /// <param name="updateSequence">Callback to add next node in sequence and returns next node possibility count</param>
         [DllImport(DLLName, EntryPoint = "generateSequence")]
-        public static extern void GenerateSequence(int nextNodes, UpdateSequence updateSequence);
+        private static extern void GenerateSequence(int nextNodes, UpdateSequence updateSequence);
+
+        /// <summary>
+        /// Generate a sequence starting from node
+        /// </summary>
+        /// <param name="node">First node in sequence</param>
+        /// <param name="updateSequence">Callback to add next node in sequence and returns next node possibility count</param>
+        public static void GenerateSequence(ISequenceNode node, UpdateSequence updateSequence)
+        {
+            GenerateSequence(node.NextCount, updateSequence);
+        }
     }
 }
