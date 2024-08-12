@@ -16,6 +16,37 @@ yellow = (255, 255, 0)
 screen = pygame.display.set_mode(resolution)
 screen.fill(black)
 
+
+class ColorButton:
+    Radius = 20
+
+    def __init__(self, color, coordinates):
+        self.color = color
+        self.coordinates = coordinates
+        self.isHighlighted = False
+
+    def draw(self, highlight):
+        pygame.draw.circle(
+            screen,
+            self.color,
+            self.coordinates,
+            ColorButton.Radius,
+            0 if self.isHighlighted and highlight else 1,
+        )
+
+    def isPressed(self, x, y):
+        return x in range(
+            self.coordinates[0] - ColorButton.Radius,
+            self.coordinates[0] + ColorButton.Radius,
+        ) and y in range(
+            self.coordinates[1] - ColorButton.Radius,
+            self.coordinates[1] + ColorButton.Radius,
+        )
+
+    def toggleHighlight(self, highlight):
+        self.isHighlighted = highlight
+
+
 Running = True
 clock = pygame.time.Clock()
 fps = 60
@@ -26,7 +57,12 @@ highlight = False
 waitForUser = False
 
 sequence = []
-nodes = [red, green, blue, yellow]
+nodes = [
+    ColorButton(red, [600, 320]),
+    ColorButton(green, [560, 360]),
+    ColorButton(blue, [640, 360]),
+    ColorButton(yellow, [600, 400]),
+]
 
 node = combinations.SequenceNode()
 node.addNextNodes(nodes)
@@ -37,10 +73,11 @@ def updateSequence(index):
         return 0
 
     sequence.append(nodes[index])
-    return len(nodes[index])
+    return node.nextNodeCount
 
 
 combinations.generateCyclicSequence(node, 3, updateSequence)
+sequence[0].toggleHighlight(True)
 
 while Running:
     deltaTime = clock.tick(fps)
@@ -50,75 +87,33 @@ while Running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 Running = False
+        if event.type == pygame.MOUSEBUTTONUP and waitForUser:
+            x, y = pygame.mouse.get_pos()
+            for node in nodes:
+                if node.isPressed(x, y):
+                    node.toggleHighlight(True)
+                    highlight = True
 
     screen.fill(black)
 
     if not waitForUser:
-        pygame.draw.circle(
-            screen,
-            red,
-            [600, 320],
-            20,
-            0 if sequence[currentNodeIndex] == red and highlight else 1,
-        )
-        pygame.draw.circle(
-            screen,
-            green,
-            [560, 360],
-            20,
-            0 if sequence[currentNodeIndex] == green and highlight else 1,
-        )
-        pygame.draw.circle(
-            screen,
-            blue,
-            [640, 360],
-            20,
-            0 if sequence[currentNodeIndex] == blue and highlight else 1,
-        )
-        pygame.draw.circle(
-            screen,
-            yellow,
-            [600, 400],
-            20,
-            0 if sequence[currentNodeIndex] == yellow and highlight else 1,
-        )
+        for node in nodes:
+            node.draw(highlight)
 
     else:
-        pygame.draw.circle(
-            screen,
-            red,
-            [600, 320],
-            20,
-            1
-        )
-        pygame.draw.circle(
-            screen,
-            green,
-            [560, 360],
-            20,
-            1
-        )
-        pygame.draw.circle(
-            screen,
-            blue,
-            [640, 360],
-            20,
-            1
-        )
-        pygame.draw.circle(
-            screen,
-            yellow,
-            [600, 400],
-            20,
-            1
-        )
+        for node in nodes:
+            node.draw(highlight)
+
     pygame.display.update()
 
     if time <= 0 and not waitForUser:
         time = nextTime
 
         if highlight:
+            sequence[currentNodeIndex].toggleHighlight(False)
             currentNodeIndex += 1
+            if currentNodeIndex < len(sequence):
+                sequence[currentNodeIndex].toggleHighlight(True)
 
         highlight = not highlight
 
