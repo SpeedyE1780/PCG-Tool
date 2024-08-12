@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>ca3b7b95-b2a1-4231-80eb-e3fba877fdd1</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>demo\whack_a_mole.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
