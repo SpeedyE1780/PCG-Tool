@@ -33,6 +33,7 @@ namespace pcg::engine::combination_generation
     /// @brief Generate a sequence starting from node with a max number of nodes
     /// @param node First node in sequence
     /// @param count Max number of node in sequence
+    /// @return Vector containing sequence of nodes
     std::vector<ISequenceNode*> generateSequence(ISequenceNode& node, int count);
 }
 
