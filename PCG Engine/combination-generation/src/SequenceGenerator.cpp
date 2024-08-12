@@ -26,11 +26,10 @@ namespace pcg::engine::combination_generation
             sequence.reserve(count);
             sequence.push_back(node);
 
-            while (count > 0 && node->getNextCount() > 0)
+            while (sequence.size() < count && node->getNextCount() > 0)
             {
                 node = node->getNextAt(math::Random::number(node->getNextCount()));
                 sequence.push_back(node);
-                count--;
             }
 
             return sequence;
