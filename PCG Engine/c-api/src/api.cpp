@@ -52,6 +52,11 @@ namespace pcg::engine::c_api
                 return possibilitiesCount;
             }
             virtual ISequenceNode* getNext() const override { return next.get(); }
+            virtual ISequenceNode* getNextAt(int index) const override
+            {
+                next = std::make_unique<SequenceNodeWrapper>(updateSequence(index));
+                return next.get();
+            }
             virtual void generateSequence() const override { }
 
             static void setCallbacks(updateSequence get) { updateSequence = get; }
@@ -61,7 +66,7 @@ namespace pcg::engine::c_api
             static updateSequence updateSequence;
             int possibilitiesCount;
             int nextNode = -1;
-            std::unique_ptr<SequenceNodeWrapper> next = nullptr;
+            mutable std::unique_ptr<SequenceNodeWrapper> next = nullptr;
         };
 
         updateSequence SequenceNodeWrapper::updateSequence = nullptr;
@@ -268,6 +273,14 @@ namespace pcg::engine::c_api
         SequenceNodeWrapper::setCallbacks(updateSequence);
         SequenceNodeWrapper wrappedNode(nextNodeCount);
         combination_generation::generateSequence(wrappedNode);
+        SequenceNodeWrapper::resetCallbacks();
+    }
+
+    void generateCyclicSequence(int nextNodeCount, int sequenceLength, updateSequence updateSequence)
+    {
+        SequenceNodeWrapper::setCallbacks(updateSequence);
+        SequenceNodeWrapper wrappedNode(nextNodeCount);
+        combination_generation::generateSequence(wrappedNode, sequenceLength);
         SequenceNodeWrapper::resetCallbacks();
     }
 }
