@@ -20,23 +20,18 @@ namespace PCGAPI.Demo
         [SerializeField, Tooltip("Downward Stair")]
         private GameObject down;
 
-        private static bool HasNeighbour(LevelGenerationDirection current, LevelGenerationDirection direction)
-        {
-            return (current & direction) > 0;
-        }
-
         /// <summary>
         /// Toggle node's Wall/Stair
         /// </summary>
         /// <param name="adjacentNodes">Adjacent Nodes bit mask</param>
         public void SetAdjacentNodes(LevelGenerationDirection adjacentNodes)
         {
-            right.SetActive(!HasNeighbour(adjacentNodes, LevelGenerationDirection.right));
-            left.SetActive(!HasNeighbour(adjacentNodes, LevelGenerationDirection.left));
-            backward.SetActive(!HasNeighbour(adjacentNodes, LevelGenerationDirection.backward));
-            forward.SetActive(!HasNeighbour(adjacentNodes, LevelGenerationDirection.forward));
-            up.SetActive(HasNeighbour(adjacentNodes, LevelGenerationDirection.up));
-            down.SetActive(HasNeighbour(adjacentNodes, LevelGenerationDirection.down));
+            right.SetActive(!adjacentNodes.HasFlag(LevelGenerationDirection.right));
+            left.SetActive(!adjacentNodes.HasFlag(LevelGenerationDirection.left));
+            backward.SetActive(!adjacentNodes.HasFlag(LevelGenerationDirection.backward));
+            forward.SetActive(!adjacentNodes.HasFlag(LevelGenerationDirection.forward));
+            up.SetActive(adjacentNodes.HasFlag(LevelGenerationDirection.up));
+            down.SetActive(adjacentNodes.HasFlag(LevelGenerationDirection.down));
         }
     }
 }
