@@ -8,10 +8,13 @@ using UnityEngine.UIElements;
 
 namespace PCGAPI.Editor
 {
+    /// <summary>
+    /// lass used to create maze
+    /// </summary>
     public class MazeGenerationWindow : EditorWindow
     {
-        [SerializeField]
-        private VisualTreeAsset m_VisualTreeAsset = default;
+        [SerializeField, Tooltip("Maze Generation Window UXML File")]
+        private VisualTreeAsset windowUXML = default;
 
         private ObjectField nodeField;
         private Vector2IntField gridSizeField;
@@ -22,6 +25,9 @@ namespace PCGAPI.Editor
         private Toggle frameByFrameToggle;
         private IMazeNode mazeNode;
 
+        /// <summary>
+        /// Contains 2D grid node info
+        /// </summary>
         struct NodeInfo
         {
             public int x;
@@ -30,35 +36,22 @@ namespace PCGAPI.Editor
             public MazeDirection adjacentNodes;
         }
 
+        /// <summary>
+        /// Adds menu item to Unity Editor to open window
+        /// </summary>
         [MenuItem("PCG/Maze Generation")]
-        public static void OpenMazeWindow()
+        public static void OpenWindow()
         {
             MazeGenerationWindow wnd = GetWindow<MazeGenerationWindow>();
             wnd.titleContent = new GUIContent("Maze Generation");
         }
 
-        private void ValidateNodeField(ChangeEvent<Object> changeEvent)
-        {
-            if (changeEvent.newValue == null)
-            {
-                return;
-            }
-
-            GameObject newGameObject = changeEvent.newValue as GameObject;
-
-            if (newGameObject != null && newGameObject.TryGetComponent(out mazeNode))
-            {
-                return;
-            }
-
-            Debug.LogError($"{newGameObject.name} has no component that inherits from IMazeNode");
-            nodeField.value = changeEvent.previousValue; //this will call the event again
-        }
-
+        /// <summary>
+        /// Called when window is created
+        /// </summary>
         public void CreateGUI()
         {
-            // Instantiate UXML
-            VisualElement uxmlElements = m_VisualTreeAsset.Instantiate();
+            VisualElement uxmlElements = windowUXML.Instantiate();
             rootVisualElement.Add(uxmlElements);
 
             nodeField = rootVisualElement.Q<ObjectField>("NodeField");
@@ -70,12 +63,15 @@ namespace PCGAPI.Editor
             delayedInvoke = rootVisualElement.Q<Toggle>("DelayedInvoke");
 
             var generateButton = rootVisualElement.Q<Button>("GenerateButton");
-            generateButton.clicked += SpawnObject;
+            generateButton.clicked += GenerateMaze;
 
-            nodeField.RegisterValueChangedCallback(ValidateNodeField);
+            nodeField.RegisterValueChangedCallback((changeEvent) => WindowHelper.ValidateObjectField(ref mazeNode, nodeField, changeEvent));
         }
 
-        private void SpawnObject()
+        /// <summary>
+        /// Generate maze
+        /// </summary>
+        private void GenerateMaze()
         {
             static void Log(string msg)
             {
@@ -87,7 +83,7 @@ namespace PCGAPI.Editor
             float nodeSize = nodeSizeField.value;
             Vector2Int gridSize = gridSizeField.value;
 
-            if (nodeField.value == null)
+            if (mazeNode == null)
             {
                 Debug.LogWarning("Node not set");
                 return;
@@ -107,7 +103,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetSeed(seedField.value);
 
-            Transform nodeParent = new GameObject("MAZE").transform;
+            Transform nodeParent = new GameObject("Maze").transform;
 
             if (frameByFrameToggle.value)
             {
@@ -146,6 +142,12 @@ namespace PCGAPI.Editor
             }
         }
 
+        /// <summary>
+        /// Spawn node in world
+        /// </summary>
+        /// <param name="nodeParent">Node parent</param>
+        /// <param name="nodeInfo">Node info in grid</param>
+        /// <returns>Spawned node</returns>
         private IMazeNode AddNode(Transform nodeParent, NodeInfo nodeInfo)
         {
             UnityEngine.Vector3 position = new UnityEngine.Vector3(nodeInfo.x * nodeInfo.size, 0, nodeInfo.y * nodeInfo.size);
@@ -155,6 +157,11 @@ namespace PCGAPI.Editor
             return node;
         }
 
+        /// <summary>
+        /// Spawn maze all generation is completed
+        /// </summary>
+        /// <param name="nodes">List of nodes in maze</param>
+        /// <param name="nodeParent">Node parent</param>
         private IEnumerator DelayedGeneration(List<NodeInfo> nodes, Transform nodeParent)
         {
             foreach (NodeInfo node in nodes)
@@ -170,6 +177,11 @@ namespace PCGAPI.Editor
             }
         }
 
+        /// <summary>
+        /// Spawn maze while generation is still running
+        /// </summary>
+        /// <param name="nodes">List of nodes in maze</param>
+        /// <param name="nodeParent">Node parent</param>
         private IEnumerator Generation(List<NodeInfo> nodes, Transform nodeParent)
         {
             Dictionary<Vector2, IMazeNode> spawnedNodes = new Dictionary<Vector2, IMazeNode>();

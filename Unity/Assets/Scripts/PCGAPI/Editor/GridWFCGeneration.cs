@@ -97,7 +97,6 @@ namespace PCGAPI.Editor
         /// </summary>
         public void CreateGUI()
         {
-            // Instantiate UXML
             VisualElement gridWindow = windowUXML.Instantiate();
             rootVisualElement.Add(gridWindow);
             nodeField = rootVisualElement.Q<ObjectField>("Node");
