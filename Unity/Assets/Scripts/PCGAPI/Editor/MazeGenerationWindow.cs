@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 namespace PCGAPI.Editor
 {
     /// <summary>
-    /// lass used to create maze
+    /// Class used to create maze
     /// </summary>
     public class MazeGenerationWindow : EditorWindow
     {
