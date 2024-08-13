@@ -62,7 +62,7 @@ public class SequenceGeneration : EditorWindow
         SequenceSO sequence = CreateInstance<SequenceSO>();
 
         PCGEngine.SetSeed(seedField.value);
-        PCGEngine.GenerateSequence(current.NextCount, index =>
+        PCGEngine.GenerateSequence(current, index =>
         {
             sequence.AddNode(current);
 
