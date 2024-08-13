@@ -2,28 +2,30 @@ using UnityEngine;
 
 namespace PCGAPI.Demo
 {
+    /// <summary>
+    /// Class representing a node in generated mazes
+    /// </summary>
     public class MazeNode : MonoBehaviour, IMazeNode
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Right Wall")]
         private GameObject right;
-        [SerializeField]
+        [SerializeField, Tooltip("Left Wall")]
         private GameObject left;
-        [SerializeField]
+        [SerializeField, Tooltip("Forward Wall")]
         private GameObject forward;
-        [SerializeField]
+        [SerializeField, Tooltip("Backward Wall")]
         private GameObject backward;
 
-        private static bool HasNeighbour(MazeDirection current, MazeDirection direction)
-        {
-            return (current & direction) > 0;
-        }
-
+        /// <summary>
+        /// Toggle node's Wall/Stair
+        /// </summary>
+        /// <param name="adjacentNodes">Adjacent Nodes bit mask</param>
         public void SetAdjacentNodes(MazeDirection adjacentNodes)
         {
-            right.SetActive(!HasNeighbour(adjacentNodes, MazeDirection.right));
-            left.SetActive(!HasNeighbour(adjacentNodes, MazeDirection.left));
-            backward.SetActive(!HasNeighbour(adjacentNodes, MazeDirection.backward));
-            forward.SetActive(!HasNeighbour(adjacentNodes, MazeDirection.forward));
+            right.SetActive(!adjacentNodes.HasFlag(MazeDirection.right));
+            left.SetActive(!adjacentNodes.HasFlag(MazeDirection.left));
+            backward.SetActive(!adjacentNodes.HasFlag(MazeDirection.backward));
+            forward.SetActive(!adjacentNodes.HasFlag(MazeDirection.forward));
         }
     }
 }
