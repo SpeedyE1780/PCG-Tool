@@ -111,52 +111,18 @@ namespace PCGAPI.Editor
                 }
 
                 PCGEngine.MultiDimensionalGeneration(ref generationParameters, (Axis)axesField.value, disableOverlapToggle.value, AddNodePosition);
-                EditorCoroutineUtility.StartCoroutine(GenerateLevel(node, nodeParent, positions), this);
+                EditorCoroutineUtility.StartCoroutine(WindowHelper.GenerateLevel(node, nodeParent, positions), this);
             }
             else
             {
                 void SpawnNode(Vector3 nodePosition)
                 {
-                    AddNode(node, nodeParent, nodePosition);
+                    WindowHelper.SpawnNode(node, nodeParent, nodePosition);
                 }
 
                 PCGEngine.MultiDimensionalGeneration(ref generationParameters, (Axis)axesField.value, disableOverlapToggle.value, SpawnNode);
             }
 
-        }
-
-        /// <summary>
-        /// Spawn node in scene
-        /// </summary>
-        /// <param name="node">Node prefab</param>
-        /// <param name="parent">Node parent</param>
-        /// <param name="nodePosition">Node world position</param>
-        private void AddNode(GameObject node, Transform parent, Vector3 nodePosition)
-        {
-            UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
-            GameObject n = Instantiate(node, parent);
-            n.transform.position = position;
-        }
-
-        /// <summary>
-        /// Spawn nodes frame by frame
-        /// </summary>
-        /// <param name="node">Node prefab</param>
-        /// <param name="nodeParent">Node parent</param>
-        /// <param name="positions">Node world position</param>
-        private IEnumerator GenerateLevel(GameObject node, Transform nodeParent, List<Vector3> positions)
-        {
-            foreach (Vector3 position in positions)
-            {
-                if (nodeParent == null)
-                {
-                    Debug.LogError("Node parent was destroyed ending generation early");
-                    yield break;
-                }
-
-                AddNode(node, nodeParent, position);
-                yield return null;
-            }
         }
     }
 }
