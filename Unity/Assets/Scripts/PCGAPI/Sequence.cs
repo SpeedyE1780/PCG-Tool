@@ -3,12 +3,19 @@ using UnityEngine;
 
 namespace PCGAPI
 {
+    /// <summary>
+    /// Sequence is a SO that contains a list of nodes that form a sequence
+    /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/PCG/Sequence")]
     public class Sequence : ScriptableObject
     {
-        [SerializeField]
-        List<SequenceNode> sequence = new List<SequenceNode>();
+        [SerializeField, Tooltip("List of nodes in sequence")]
+        private List<SequenceNode> sequence = new List<SequenceNode>();
 
+        /// <summary>
+        /// Add a node to sequence
+        /// </summary>
+        /// <param name="node">Node added to sequence</param>
         public void AddNode(ISequenceNode node)
         {
             SequenceNode sequenceNode = node as SequenceNode;
