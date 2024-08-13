@@ -1,7 +1,9 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <editor:ObjectField label="Start Node" name="SequenceNode" type="PCGAPI.SequenceNodeSO, PCGAPI" />
+    <editor:ObjectField label="Start Node" name="SequenceNode" type="UnityEngine.ScriptableObject, UnityEngine.CoreModule" />
     <engine:TextField label="File Name" placeholder-text="File Name" name="FileName" />
     <engine:TextField label="Folder Path" placeholder-text="Folder Path" name="FolderPath" />
+    <engine:Toggle label="Cyclic Generation" name="CyclicToggle" />
+    <engine:UnsignedIntegerField label="SequenceLength" value="0" name="SequenceLength" />
     <engine:UnsignedIntegerField label="Seed" value="0" name="Seed" />
     <engine:Button text="Generate" name="Generate" />
 </engine:UXML>

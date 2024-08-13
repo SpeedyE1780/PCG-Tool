@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
@@ -8,10 +7,13 @@ using UnityEngine.UIElements;
 
 namespace PCGAPI.Editor
 {
+    /// <summary>
+    /// Class used to create level on multiple axes
+    /// </summary>
     public class MultiDimensionalGeneration : EditorWindow
     {
-        [SerializeField]
-        private VisualTreeAsset m_VisualTreeAsset = default;
+        [SerializeField, Tooltip("Multi Dimension Generation Window UXML File")]
+        private VisualTreeAsset windowUXML = default;
 
         private ObjectField nodeField;
         private UnsignedIntegerField nodeCountField;
@@ -22,20 +24,22 @@ namespace PCGAPI.Editor
         private Vector3Field startPosition;
         private Toggle frameByFrameToggle;
 
-        private GameObject node;
-        private Transform nodeParent;
-
+        /// <summary>
+        /// Adds menu item to Unity Editor to open window
+        /// </summary>
         [MenuItem("PCG/Multi Dimensional Generation")]
-        public static void ShowExample()
+        public static void OpenWindow()
         {
             MultiDimensionalGeneration wnd = GetWindow<MultiDimensionalGeneration>();
             wnd.titleContent = new GUIContent("Multi Dimensional Generation");
         }
 
+        /// <summary>
+        /// Called when window is created
+        /// </summary>
         public void CreateGUI()
         {
-            // Instantiate UXML
-            VisualElement uxmlElements = m_VisualTreeAsset.Instantiate();
+            VisualElement uxmlElements = windowUXML.Instantiate();
             rootVisualElement.Add(uxmlElements);
 
             nodeField = rootVisualElement.Q<ObjectField>("Node");
@@ -48,10 +52,13 @@ namespace PCGAPI.Editor
             frameByFrameToggle = rootVisualElement.Q<Toggle>("FrameByFrame");
 
             var generateButton = rootVisualElement.Q<Button>("GenerateButton");
-            generateButton.clicked += SpawnObject;
+            generateButton.clicked += GenerateLevel;
         }
 
-        private void SpawnObject()
+        /// <summary>
+        /// Generate level on selected axes
+        /// </summary>
+        private void GenerateLevel()
         {
             static void Log(string msg)
             {
@@ -60,7 +67,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetLoggingFunction(Log);
 
-            node = nodeField.value as GameObject;
+            GameObject node = nodeField.value as GameObject;
             uint nodeCount = nodeCountField.value;
             float size = nodeSizeField.value;
 
@@ -84,7 +91,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetSeed(seedField.value);
 
-            nodeParent = new GameObject("Multi Dimensional Generation").transform;
+            Transform nodeParent = new GameObject("Multi Dimensional Generation").transform;
 
             GenerationParameters generationParameters = new GenerationParameters()
             {
@@ -103,29 +110,18 @@ namespace PCGAPI.Editor
                 }
 
                 PCGEngine.MultiDimensionalGeneration(ref generationParameters, (Axis)axesField.value, disableOverlapToggle.value, AddNodePosition);
-                EditorCoroutineUtility.StartCoroutine(GenerateLevel(positions), this);
+                EditorCoroutineUtility.StartCoroutine(WindowHelper.GenerateLevel(node, nodeParent, positions), this);
             }
             else
             {
-            PCGEngine.MultiDimensionalGeneration(ref generationParameters, (Axis)axesField.value, disableOverlapToggle.value, AddNode);
+                void SpawnNode(Vector3 nodePosition)
+                {
+                    WindowHelper.SpawnNode(node, nodeParent, nodePosition);
+                }
+
+                PCGEngine.MultiDimensionalGeneration(ref generationParameters, (Axis)axesField.value, disableOverlapToggle.value, SpawnNode);
             }
 
-        }
-
-        private void AddNode(Vector3 nodePosition)
-        {
-            UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
-            GameObject n = Instantiate(node, nodeParent);
-            n.transform.position = position;
-        }
-
-        private IEnumerator GenerateLevel(List<Vector3> nodes)
-        {
-            foreach (Vector3 node in nodes)
-            {
-                AddNode(node);
-                yield return null;
-            }
         }
     }
 }

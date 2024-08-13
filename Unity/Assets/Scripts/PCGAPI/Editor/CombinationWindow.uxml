@@ -1,5 +1,5 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <editor:ObjectField label="Combination Set" type="PCGAPI.CombinationSet, PCGAPI" name="CombinationObject" />
+    <editor:ObjectField label="Combination Object" name="CombinationObject" type="UnityEngine.GameObject, UnityEngine.CoreModule" />
     <engine:UnsignedIntegerField label="Seed" value="0" name="Seed" />
     <engine:Button text="Generate" name="Generate" />
 </engine:UXML>

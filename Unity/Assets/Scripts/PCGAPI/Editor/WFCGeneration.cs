@@ -8,10 +8,13 @@ using UnityEngine.UIElements;
 
 namespace PCGAPI.Editor
 {
+    /// <summary>
+    /// Class used to generate levels using wave function collapse
+    /// </summary>
     public class WFCGeneration : EditorWindow
     {
-        [SerializeField]
-        private VisualTreeAsset m_VisualTreeAsset = default;
+        [SerializeField, Tooltip("Wave Function Collapse Generation Window UXML File")]
+        private VisualTreeAsset windowUXML = default;
 
         private ObjectField nodeField;
         private UnsignedIntegerField nodeCountField;
@@ -24,41 +27,31 @@ namespace PCGAPI.Editor
 
         private IWFCNode wfcNode;
 
+        /// <summary>
+        /// Struct representing node info in world
+        /// </summary>
         struct NodeInfo
         {
             public Vector3 position;
             public LevelGenerationDirection direction;
         }
 
+        /// <summary>
+        /// Adds menu item to Unity Editor to open window
+        /// </summary>
         [MenuItem("PCG/Wave Function Collapse Generation")]
-        public static void ShowExample()
+        public static void OpenWindow()
         {
             WFCGeneration wnd = GetWindow<WFCGeneration>();
             wnd.titleContent = new GUIContent("Wave Function Collapse Generation");
         }
 
-        private void ValidateNodeField(ChangeEvent<Object> changeEvent)
-        {
-            if (changeEvent.newValue == null)
-            {
-                return;
-            }
-
-            GameObject newGameObject = changeEvent.newValue as GameObject;
-
-            if (newGameObject != null && newGameObject.TryGetComponent(out wfcNode))
-            {
-                return;
-            }
-
-            Debug.LogError($"{newGameObject.name} has no component that inherits from IWFCNode");
-            nodeField.value = changeEvent.previousValue; //this will call the event again
-        }
-
+        /// <summary>
+        /// Called when window is created
+        /// </summary>
         public void CreateGUI()
         {
-            // Instantiate UXML
-            VisualElement uxmlElements = m_VisualTreeAsset.Instantiate();
+            VisualElement uxmlElements = windowUXML.Instantiate();
             rootVisualElement.Add(uxmlElements);
 
             nodeField = rootVisualElement.Q<ObjectField>("Node");
@@ -71,12 +64,15 @@ namespace PCGAPI.Editor
             frameByFrameToggle = rootVisualElement.Q<Toggle>("FramebyFrame");
 
             var generateButton = rootVisualElement.Q<Button>("GenerateButton");
-            generateButton.clicked += SpawnObject;
+            generateButton.clicked += GenerateLevel;
 
-            nodeField.RegisterValueChangedCallback(ValidateNodeField);
+            nodeField.RegisterValueChangedCallback(changeEvent => WindowHelper.ValidateGameObjectField(ref wfcNode, nodeField, changeEvent));
         }
 
-        private void SpawnObject()
+        /// <summary>
+        /// Generate level using selected node and axes using Wave Function Collapse
+        /// </summary>
+        private void GenerateLevel()
         {
             static void Log(string msg)
             {
@@ -144,6 +140,12 @@ namespace PCGAPI.Editor
             }
         }
 
+        /// <summary>
+        /// Spawn node in world space
+        /// </summary>
+        /// <param name="nodeParent">Node parent</param>
+        /// <param name="nodePosition">Node world position</param>
+        /// <param name="adjacentNodes">Adjacent nodes bit mask</param>
         void AddNode(Transform nodeParent, Vector3 nodePosition, LevelGenerationDirection adjacentNodes)
         {
             UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
@@ -152,6 +154,11 @@ namespace PCGAPI.Editor
             node.SetAdjacentNodes(adjacentNodes);
         }
 
+        /// <summary>
+        /// Spawn nodes in world frame by frame
+        /// </summary>
+        /// <param name="nodes">List of nodes to spawn</param>
+        /// <param name="nodeParent">Node parents</param>
         IEnumerator SpawnLevel(List<NodeInfo> nodes, Transform nodeParent)
         {
             foreach (NodeInfo node in nodes)
