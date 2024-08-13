@@ -72,14 +72,19 @@ namespace PCGAPI.Editor
         /// <returns>Spawned GameObject linked to prefab in case of prefabs</returns>
         public static GameObject SpawnGameObject(GameObject go, Transform parent)
         {
-            if(PrefabUtility.IsPartOfAnyPrefab(go))
+            GameObject spawnedGameObject = null;
+
+            if (PrefabUtility.IsPartOfAnyPrefab(go))
             {
-                return PrefabUtility.InstantiatePrefab(go, parent) as GameObject;
+                spawnedGameObject = PrefabUtility.InstantiatePrefab(go, parent) as GameObject;
             }
             else
             {
-                return Object.Instantiate(go, parent);
+                spawnedGameObject = Object.Instantiate(go, parent);
             }
+
+            spawnedGameObject.name = go.name + $"-{parent.childCount}";
+            return spawnedGameObject;
         }
 
         /// <summary>
