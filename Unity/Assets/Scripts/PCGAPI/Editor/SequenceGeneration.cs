@@ -1,81 +1,95 @@
-using PCGAPI;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class SequenceGeneration : EditorWindow
+namespace PCGAPI.Editor
 {
-    [SerializeField]
-    private VisualTreeAsset m_VisualTreeAsset = default;
-
-    private ObjectField startNode;
-    private UnsignedIntegerField seedField;
-    private TextField fileNameField;
-    private TextField folderPathField;
-
-    [MenuItem("PCG/Sequence Generation")]
-    public static void ShowExample()
+    /// <summary>
+    /// Class used to generate sequences
+    /// </summary>
+    public class SequenceGeneration : EditorWindow
     {
-        SequenceGeneration wnd = GetWindow<SequenceGeneration>();
-        wnd.titleContent = new GUIContent("Sequence Generation");
-    }
+        [SerializeField, Tooltip("Sequence Generation Window UXML File")]
+        private VisualTreeAsset windowUXML = default;
 
-    public void CreateGUI()
-    {
-        // Instantiate UXML
-        VisualElement uxmlElements = m_VisualTreeAsset.Instantiate();
-        rootVisualElement.Add(uxmlElements);
+        private ObjectField startNode;
+        private UnsignedIntegerField seedField;
+        private TextField fileNameField;
+        private TextField folderPathField;
+        private ISequenceNode sequenceNode;
 
-        startNode = rootVisualElement.Q<ObjectField>("SequenceNode");
-        seedField = rootVisualElement.Q<UnsignedIntegerField>("Seed");
-        fileNameField = rootVisualElement.Q<TextField>("FileName");
-        folderPathField = rootVisualElement.Q<TextField>("FolderPath");
-        rootVisualElement.Q<Button>("Generate").clicked += GenerateSequence;
-    }
-
-    private void GenerateSequence()
-    {
-        if (startNode.value == null)
+        /// <summary>
+        /// Adds menu item to Unity Editor to open window
+        /// </summary>
+        [MenuItem("PCG/Sequence Generation")]
+        public static void OpenWindow()
         {
-            Debug.LogWarning("Starting node is not set");
-            return;
+            SequenceGeneration wnd = GetWindow<SequenceGeneration>();
+            wnd.titleContent = new GUIContent("Sequence Generation");
         }
 
-        if (string.IsNullOrWhiteSpace(folderPathField.text))
+        /// <summary>
+        /// Called when window is created
+        /// </summary>
+        public void CreateGUI()
         {
-            Debug.LogWarning("Folder path is not set");
-            return;
+            VisualElement uxmlElements = windowUXML.Instantiate();
+            rootVisualElement.Add(uxmlElements);
+
+            startNode = rootVisualElement.Q<ObjectField>("SequenceNode");
+            seedField = rootVisualElement.Q<UnsignedIntegerField>("Seed");
+            fileNameField = rootVisualElement.Q<TextField>("FileName");
+            folderPathField = rootVisualElement.Q<TextField>("FolderPath");
+            rootVisualElement.Q<Button>("Generate").clicked += GenerateSequence;
+
+            startNode.RegisterValueChangedCallback(changeEvent => WindowHelper.ValidateObjectField(ref sequenceNode, startNode, changeEvent));
         }
 
-        if (string.IsNullOrWhiteSpace(fileNameField.text))
+        /// <summary>
+        /// Generate Sequence
+        /// </summary>
+        private void GenerateSequence()
         {
-            Debug.LogWarning("File name not set");
-            return;
-        }
-
-        ISequenceNode current = (ISequenceNode)startNode.value;
-
-        SequenceSO sequence = CreateInstance<SequenceSO>();
-
-        PCGEngine.SetSeed(seedField.value);
-        PCGEngine.GenerateSequence(current, index =>
-        {
-            sequence.AddNode(current);
-
-            if (index == -1)
+            if (sequenceNode == null)
             {
-                return 0;
+                Debug.LogWarning("Starting node is not set");
+                return;
             }
 
-            current = current.NextNodes.ElementAt(index);
-            return current.NextCount;
-        });
+            if (string.IsNullOrWhiteSpace(folderPathField.text))
+            {
+                Debug.LogWarning("Folder path is not set");
+                return;
+            }
 
-        AssetDatabase.CreateAsset(sequence, $"{folderPathField.text}/{fileNameField.text}{seedField.value}.asset");
-        AssetDatabase.SaveAssets();
+            if (string.IsNullOrWhiteSpace(fileNameField.text))
+            {
+                Debug.LogWarning("File name not set");
+                return;
+            }
+
+            ISequenceNode current = (ISequenceNode)startNode.value;
+
+            SequenceSO sequence = CreateInstance<SequenceSO>();
+
+            PCGEngine.SetSeed(seedField.value);
+            PCGEngine.GenerateSequence(current, index =>
+            {
+                sequence.AddNode(current);
+
+                if (index == -1)
+                {
+                    return 0;
+                }
+
+                current = current.NextNodes.ElementAt(index);
+                return current.NextCount;
+            });
+
+            AssetDatabase.CreateAsset(sequence, $"{folderPathField.text}/{fileNameField.text}{seedField.value}.asset");
+            AssetDatabase.SaveAssets();
+        }
     }
 }
