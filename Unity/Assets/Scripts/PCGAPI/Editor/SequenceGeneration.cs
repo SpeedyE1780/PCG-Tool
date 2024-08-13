@@ -18,6 +18,8 @@ namespace PCGAPI.Editor
         private UnsignedIntegerField seedField;
         private TextField fileNameField;
         private TextField folderPathField;
+        private Toggle cyclicToggle;
+        private UnsignedIntegerField sequenceLengthField;
         private ISequenceNode sequenceNode;
 
         /// <summary>
@@ -28,6 +30,15 @@ namespace PCGAPI.Editor
         {
             SequenceGeneration wnd = GetWindow<SequenceGeneration>();
             wnd.titleContent = new GUIContent("Sequence Generation");
+        }
+
+        /// <summary>
+        /// Show/hide sequence length when generating cyclic/non cyclic sequences
+        /// </summary>
+        /// <param name="visible">If field should be visible</param>
+        private void UpdateSequenceLengthDisplay(bool visible)
+        {
+            sequenceLengthField.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         /// <summary>
@@ -42,9 +53,15 @@ namespace PCGAPI.Editor
             seedField = rootVisualElement.Q<UnsignedIntegerField>("Seed");
             fileNameField = rootVisualElement.Q<TextField>("FileName");
             folderPathField = rootVisualElement.Q<TextField>("FolderPath");
-            rootVisualElement.Q<Button>("Generate").clicked += GenerateSequence;
+            cyclicToggle = rootVisualElement.Q<Toggle>("CyclicToggle");
+            sequenceLengthField = rootVisualElement.Q<UnsignedIntegerField>("SequenceLength");
 
-            startNode.RegisterValueChangedCallback(changeEvent => WindowHelper.ValidateObjectField(ref sequenceNode, startNode, changeEvent));
+            cyclicToggle.RegisterValueChangedCallback(changeEvent => UpdateSequenceLengthDisplay(changeEvent.newValue));
+            UpdateSequenceLengthDisplay(cyclicToggle.value);
+
+
+            rootVisualElement.Q<Button>("Generate").clicked += GenerateSequence;
+            startNode.RegisterValueChangedCallback(changeEvent => WindowHelper.ValidateScriptableObjectField(ref sequenceNode, startNode, changeEvent));
         }
 
         /// <summary>
@@ -70,12 +87,19 @@ namespace PCGAPI.Editor
                 return;
             }
 
+            if (cyclicToggle.value && sequenceLengthField.value == 0)
+            {
+                Debug.LogWarning("Sequence length must be greater than zero when generating cyclic sequence");
+                return;
+            }
+
             ISequenceNode current = (ISequenceNode)startNode.value;
 
             SequenceSO sequence = CreateInstance<SequenceSO>();
 
             PCGEngine.SetSeed(seedField.value);
-            PCGEngine.GenerateSequence(current, index =>
+
+            UpdateSequence callback = index =>
             {
                 sequence.AddNode(current);
 
@@ -86,7 +110,16 @@ namespace PCGAPI.Editor
 
                 current = current.NextNodes.ElementAt(index);
                 return current.NextCount;
-            });
+            };
+
+            if (cyclicToggle.value)
+            {
+                PCGEngine.GenerateCyclicSequence(current, (int)sequenceLengthField.value, callback);
+            }
+            else
+            {
+                PCGEngine.GenerateSequence(current, callback);
+            }
 
             AssetDatabase.CreateAsset(sequence, $"{folderPathField.text}/{fileNameField.text}{seedField.value}.asset");
             AssetDatabase.SaveAssets();
