@@ -28,29 +28,6 @@ namespace PCGAPI.Editor
         }
 
         /// <summary>
-        /// Validate that new object has an ICombination component
-        /// </summary>
-        /// <param name="changeEvent">Event containing old and new value</param>
-        private void ValidateCombinationField(ChangeEvent<Object> changeEvent)
-        {
-            if (changeEvent.newValue == null)
-            {
-                return;
-            }
-
-            GameObject newGameObject = changeEvent.newValue as GameObject;
-
-            if (newGameObject != null && newGameObject.TryGetComponent(out combination))
-            {
-                return;
-            }
-
-            Debug.LogError($"{newGameObject.name} has no component that inherits from ICombination");
-            //this will call the event again
-            combinationObjectField.value = changeEvent.previousValue;
-        }
-
-        /// <summary>
         /// Called when window is created
         /// </summary>
         public void CreateGUI()
@@ -59,7 +36,7 @@ namespace PCGAPI.Editor
             rootVisualElement.Add(combinationWindow);
 
             combinationObjectField = rootVisualElement.Q<ObjectField>("CombinationObject");
-            combinationObjectField.RegisterValueChangedCallback(ValidateCombinationField);
+            combinationObjectField.RegisterValueChangedCallback((changeEvent) => WindowHelper.ValidateObjectField(combination, combinationObjectField, changeEvent));
 
             seedField = rootVisualElement.Q<UnsignedIntegerField>("Seed");
 
