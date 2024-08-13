@@ -151,7 +151,7 @@ namespace PCGAPI.Editor
         private IMazeNode AddNode(Transform nodeParent, NodeInfo nodeInfo)
         {
             UnityEngine.Vector3 position = new UnityEngine.Vector3(nodeInfo.x * nodeInfo.size, 0, nodeInfo.y * nodeInfo.size);
-            IMazeNode node = Instantiate(mazeNode.gameObject, nodeParent).GetComponent<IMazeNode>();
+            IMazeNode node = WindowHelper.SpawnGameObject(mazeNode.gameObject, nodeParent).GetComponent<IMazeNode>();
             node.transform.localPosition = position;
             node.SetAdjacentNodes(nodeInfo.adjacentNodes);
             return node;

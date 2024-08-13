@@ -251,7 +251,7 @@ namespace PCGAPI.Editor
         void AddNode(IWFCNode node, Transform nodeParent, Place2DNode placingFunction, float nodeSize, int x, int y, LevelGenerationDirection adjacentNodes)
         {
             UnityEngine.Vector3 position = placingFunction(x, y, nodeSize);
-            IWFCNode n = Instantiate(node.gameObject, nodeParent).GetComponent<IWFCNode>();
+            IWFCNode n = WindowHelper.SpawnGameObject(node.gameObject, nodeParent).GetComponent<IWFCNode>();
             n.transform.position = position;
             n.SetAdjacentNodes(adjacentNodes);
         }
@@ -343,8 +343,8 @@ namespace PCGAPI.Editor
         /// <param name="adjacentNodes">Adjacent nodes bit mask</param>
         void AddNode(IWFCNode node, Transform nodeParent, float size, int x, int y, int z, LevelGenerationDirection adjacentNodes)
         {
-            UnityEngine.Vector3 position = new UnityEngine.Vector3(x * nodeSizeField.value, nodeSizeField.value * y, nodeSizeField.value * z);
-            IWFCNode n = Instantiate(node.gameObject, nodeParent).GetComponent<IWFCNode>();
+            UnityEngine.Vector3 position = new UnityEngine.Vector3(x * size, size * y, size * z);
+            IWFCNode n = WindowHelper.SpawnGameObject(node.gameObject, nodeParent).GetComponent<IWFCNode>();
             n.transform.position = position;
             n.SetAdjacentNodes(adjacentNodes);
         }
