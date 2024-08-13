@@ -130,7 +130,7 @@ namespace PCGAPI
         /// <param name="includedElementsCount">Number of elements in activeElementsIndex array</param>
         /// <param name="generateCombination">Callback to add element to generated set</param>
         [DllImport(DLLName, EntryPoint = "generateCombinationWithActiveElements")]
-        public static extern void GenerateCombination(int elementCount, in int[] includedElementsIndex, int includedElementsCount, GenerateCombination generateCombination);
+        public static extern void GenerateCombination(int elementCount, int[] includedElementsIndex, int includedElementsCount, GenerateCombination generateCombination);
         /// <summary>
         /// Generate a sequence starting from node
         /// </summary>
