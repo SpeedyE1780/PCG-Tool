@@ -31,7 +31,7 @@ namespace PCGAPI.Editor
         }
 
         [MenuItem("PCG/Wave Function Collapse Generation")]
-        public static void ShowExample()
+        public static void OpenWindow()
         {
             WFCGeneration wnd = GetWindow<WFCGeneration>();
             wnd.titleContent = new GUIContent("Wave Function Collapse Generation");

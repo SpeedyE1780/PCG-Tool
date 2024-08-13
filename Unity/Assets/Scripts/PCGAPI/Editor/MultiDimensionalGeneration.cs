@@ -29,7 +29,7 @@ namespace PCGAPI.Editor
         /// Adds menu item to Unity Editor to open window
         /// </summary>
         [MenuItem("PCG/Multi Dimensional Generation")]
-        public static void ShowExample()
+        public static void OpenWindow()
         {
             MultiDimensionalGeneration wnd = GetWindow<MultiDimensionalGeneration>();
             wnd.titleContent = new GUIContent("Multi Dimensional Generation");

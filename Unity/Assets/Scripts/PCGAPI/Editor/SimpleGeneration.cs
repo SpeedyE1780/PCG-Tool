@@ -24,7 +24,7 @@ namespace PCGAPI.Editor
         private Transform nodeParent;
 
         [MenuItem("PCG/Simple Generation")]
-        public static void ShowExample()
+        public static void OpenWindow()
         {
             SimpleGeneration wnd = GetWindow<SimpleGeneration>();
             wnd.titleContent = new GUIContent("Simple Generation");
