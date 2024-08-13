@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -84,6 +85,7 @@ namespace PCGAPI.Editor
             }
 
             spawnedGameObject.name = go.name + $"-{parent.childCount}";
+            EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
             return spawnedGameObject;
         }
 
