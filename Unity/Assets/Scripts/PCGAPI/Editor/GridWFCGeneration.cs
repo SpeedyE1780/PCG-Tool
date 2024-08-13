@@ -116,7 +116,7 @@ namespace PCGAPI.Editor
             var generateButton = rootVisualElement.Q<Button>("GenerateButton");
             generateButton.clicked += GenerateGrid;
 
-            nodeField.RegisterValueChangedCallback((changeEvent) => WindowHelper.ValidateObjectField(ref wfcNode, nodeField, changeEvent));
+            nodeField.RegisterValueChangedCallback((changeEvent) => WindowHelper.ValidateGameObjectField(ref wfcNode, nodeField, changeEvent));
         }
 
         /// <summary>

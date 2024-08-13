@@ -65,7 +65,7 @@ namespace PCGAPI.Editor
             var generateButton = rootVisualElement.Q<Button>("GenerateButton");
             generateButton.clicked += GenerateMaze;
 
-            nodeField.RegisterValueChangedCallback((changeEvent) => WindowHelper.ValidateObjectField(ref mazeNode, nodeField, changeEvent));
+            nodeField.RegisterValueChangedCallback((changeEvent) => WindowHelper.ValidateGameObjectField(ref mazeNode, nodeField, changeEvent));
         }
 
         /// <summary>

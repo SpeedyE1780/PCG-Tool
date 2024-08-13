@@ -9,7 +9,7 @@ namespace PCGAPI.Editor
     /// </summary>
     public static class WindowHelper
     {
-        public static void ValidateObjectField<T>(ref T component, ObjectField objectField, ChangeEvent<Object> changeEvent)
+        public static void ValidateGameObjectField<T>(ref T component, ObjectField objectField, ChangeEvent<Object> changeEvent)
         {
             if (changeEvent.newValue == null)
             {
@@ -23,7 +23,26 @@ namespace PCGAPI.Editor
                 return;
             }
 
-            Debug.LogError($"{newGameObject.name} has no component that inherits from {component}");
+            Debug.LogError($"{newGameObject.name} has no component that inherits from {typeof(T).Name}");
+            //this will call the event again
+            objectField.value = changeEvent.previousValue;
+        }
+
+        public static void ValidateScriptableObjectField<T>(ref T component, ObjectField objectField, ChangeEvent<Object> changeEvent) where T : class
+        {
+            if (changeEvent.newValue == null)
+            {
+                return;
+            }
+
+            component = changeEvent.newValue as T;
+
+            if (component != null)
+            {
+                return;
+            }
+
+            Debug.LogError($"New value can't be converted to {typeof(T).Name}");
             //this will call the event again
             objectField.value = changeEvent.previousValue;
         }
