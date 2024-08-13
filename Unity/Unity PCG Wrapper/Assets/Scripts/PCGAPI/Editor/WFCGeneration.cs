@@ -149,7 +149,7 @@ namespace PCGAPI.Editor
         void AddNode(Transform nodeParent, Vector3 nodePosition, LevelGenerationDirection adjacentNodes)
         {
             UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
-            IWFCNode node = Instantiate(wfcNode.gameObject, nodeParent).GetComponent<IWFCNode>();
+            IWFCNode node = WindowHelper.SpawnGameObject(wfcNode.gameObject, nodeParent).GetComponent<IWFCNode>();
             node.transform.position = position;
             node.SetAdjacentNodes(adjacentNodes);
         }

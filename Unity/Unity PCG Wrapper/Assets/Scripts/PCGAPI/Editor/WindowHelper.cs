@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -64,6 +66,30 @@ namespace PCGAPI.Editor
         }
 
         /// <summary>
+        /// Spawn a gameobject and maintain link in case of prefabs
+        /// </summary>
+        /// <param name="go">GameObject to spawn</param>
+        /// <param name="parent">GameObject parent</param>
+        /// <returns>Spawned GameObject linked to prefab in case of prefabs</returns>
+        public static GameObject SpawnGameObject(GameObject go, Transform parent)
+        {
+            GameObject spawnedGameObject = null;
+
+            if (PrefabUtility.IsPartOfAnyPrefab(go))
+            {
+                spawnedGameObject = PrefabUtility.InstantiatePrefab(go, parent) as GameObject;
+            }
+            else
+            {
+                spawnedGameObject = Object.Instantiate(go, parent);
+            }
+
+            spawnedGameObject.name = go.name + $"-{parent.childCount}";
+            EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
+            return spawnedGameObject;
+        }
+
+        /// <summary>
         /// Spawn node in scene
         /// </summary>
         /// <param name="node">Node prefab</param>
@@ -72,7 +98,7 @@ namespace PCGAPI.Editor
         public static void SpawnNode(GameObject node, Transform nodeParent, Vector3 nodePosition)
         {
             UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
-            GameObject n = Object.Instantiate(node, nodeParent);
+            GameObject n = SpawnGameObject(node, nodeParent);
             n.transform.position = position;
         }
 
