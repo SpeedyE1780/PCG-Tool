@@ -11,6 +11,13 @@ namespace PCGAPI.Editor
     /// </summary>
     public static class WindowHelper
     {
+        /// <summary>
+        /// Validate that new value has a component that inherits from T
+        /// </summary>
+        /// <typeparam name="T">Component base class</typeparam>
+        /// <param name="component">Component retrieved from new gameobject</param>
+        /// <param name="objectField">ObjectField whose value changed</param>
+        /// <param name="changeEvent">Change event</param>
         public static void ValidateGameObjectField<T>(ref T component, ObjectField objectField, ChangeEvent<Object> changeEvent)
         {
             if (changeEvent.newValue == null)
@@ -30,16 +37,23 @@ namespace PCGAPI.Editor
             objectField.value = changeEvent.previousValue;
         }
 
-        public static void ValidateScriptableObjectField<T>(ref T component, ObjectField objectField, ChangeEvent<Object> changeEvent) where T : class
+        /// <summary>
+        /// Validate that new scriptable object inherits from T
+        /// </summary>
+        /// <typeparam name="T">ScriptableObject derived class</typeparam>
+        /// <param name="scriptableObject">ScriptableObject that needs to inherit from T</param>
+        /// <param name="objectField">ObjectField whose value changed</param>
+        /// <param name="changeEvent">Change event</param>
+        public static void ValidateScriptableObjectField<T>(ref T scriptableObject, ObjectField objectField, ChangeEvent<Object> changeEvent) where T : class
         {
             if (changeEvent.newValue == null)
             {
                 return;
             }
 
-            component = changeEvent.newValue as T;
+            scriptableObject = changeEvent.newValue as T;
 
-            if (component != null)
+            if (scriptableObject != null)
             {
                 return;
             }
