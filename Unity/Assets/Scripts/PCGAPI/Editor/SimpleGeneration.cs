@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
@@ -8,10 +7,13 @@ using UnityEngine.UIElements;
 
 namespace PCGAPI.Editor
 {
+    /// <summary>
+    /// Class used to generate levels on a single axis
+    /// </summary>
     public class SimpleGeneration : EditorWindow
     {
-        [SerializeField]
-        private VisualTreeAsset m_VisualTreeAsset = default;
+        [SerializeField, Tooltip("Simple Generation Window UXML File")]
+        private VisualTreeAsset windowUXML = default;
 
         private ObjectField nodeField;
         private UnsignedIntegerField nodeCountField;
@@ -20,9 +22,9 @@ namespace PCGAPI.Editor
         private Vector3Field startPosition;
         private Toggle frameByFrameToggle;
 
-        private GameObject node;
-        private Transform nodeParent;
-
+        /// <summary>
+        /// Adds menu item to Unity Editor to open window
+        /// </summary>
         [MenuItem("PCG/Simple Generation")]
         public static void OpenWindow()
         {
@@ -30,10 +32,12 @@ namespace PCGAPI.Editor
             wnd.titleContent = new GUIContent("Simple Generation");
         }
 
+        /// <summary>
+        /// Called when window is created
+        /// </summary>
         public void CreateGUI()
         {
-            // Instantiate UXML
-            VisualElement uxmlElements = m_VisualTreeAsset.Instantiate();
+            VisualElement uxmlElements = windowUXML.Instantiate();
             rootVisualElement.Add(uxmlElements);
 
             nodeField = rootVisualElement.Q<ObjectField>("Node");
@@ -44,10 +48,13 @@ namespace PCGAPI.Editor
             frameByFrameToggle = rootVisualElement.Q<Toggle>("FramebyFrame");
 
             var generateButton = rootVisualElement.Q<Button>("GenerateButton");
-            generateButton.clicked += SpawnObject;
+            generateButton.clicked += GenerateLevel;
         }
 
-        private void SpawnObject()
+        /// <summary>
+        /// Spawns selected gameobject along chosen axis
+        /// </summary>
+        private void GenerateLevel()
         {
             static void Log(string msg)
             {
@@ -56,7 +63,7 @@ namespace PCGAPI.Editor
 
             PCGEngine.SetLoggingFunction(Log);
 
-            node = nodeField.value as GameObject;
+            GameObject node = nodeField.value as GameObject;
             uint nodeCount = nodeCountField.value;
             float size = nodeSizeField.value;
 
@@ -78,7 +85,7 @@ namespace PCGAPI.Editor
                 return;
             }
 
-            nodeParent = new GameObject("Simple Generation").transform;
+            Transform nodeParent = new GameObject("Simple Generation").transform;
 
             GenerationParameters generationParameters = new GenerationParameters()
             {
@@ -98,27 +105,16 @@ namespace PCGAPI.Editor
                 }
 
                 PCGEngine.SimpleGeneration(ref generationParameters, (Axis)(1 << axisField.index), AddNodePosition);
-                EditorCoroutineUtility.StartCoroutine(GenerateLevel(positions), this);
+                EditorCoroutineUtility.StartCoroutine(WindowHelper.GenerateLevel(node, nodeParent, positions), this);
             }
             else
             {
-                PCGEngine.SimpleGeneration(ref generationParameters, (Axis)(1 << axisField.index), AddNode);
-            }
-        }
+                void SpawnNode(Vector3 nodePosition)
+                {
+                    WindowHelper.SpawnNode(node, nodeParent, nodePosition);
+                }
 
-        private void AddNode(Vector3 nodePosition)
-        {
-            UnityEngine.Vector3 position = PCGEngine2Unity.PCGEngineVectorToUnity(nodePosition);
-            GameObject n = Instantiate(node, nodeParent);
-            n.transform.position = position;
-        }
-
-        private IEnumerator GenerateLevel(List<Vector3> nodes)
-        {
-            foreach (Vector3 node in nodes)
-            {
-                AddNode(node);
-                yield return null;
+                PCGEngine.SimpleGeneration(ref generationParameters, (Axis)(1 << axisField.index), SpawnNode);
             }
         }
     }
