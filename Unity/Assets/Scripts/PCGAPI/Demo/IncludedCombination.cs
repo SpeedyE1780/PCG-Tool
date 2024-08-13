@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PCGAPI
+namespace PCGAPI.Demo
 {
     /// <summary>
     /// Generate a combination that must include selected elements

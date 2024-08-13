@@ -1,0 +1,16 @@
+{
+    "name": "PCGAPI.Demo",
+    "rootNamespace": "PCGAPI.Demo",
+    "references": [
+        "GUID:781eec04083611f428c6cc573e70360e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

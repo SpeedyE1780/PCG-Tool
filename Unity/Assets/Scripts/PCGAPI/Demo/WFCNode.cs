@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PCGAPI
+namespace PCGAPI.Demo
 {
     public class WFCNode : MonoBehaviour, IWFCNode
     {

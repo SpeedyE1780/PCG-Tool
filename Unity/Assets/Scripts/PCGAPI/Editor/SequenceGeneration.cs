@@ -95,7 +95,7 @@ namespace PCGAPI.Editor
 
             ISequenceNode current = (ISequenceNode)startNode.value;
 
-            SequenceSO sequence = CreateInstance<SequenceSO>();
+            Sequence sequence = CreateInstance<Sequence>();
 
             PCGEngine.SetSeed(seedField.value);
 

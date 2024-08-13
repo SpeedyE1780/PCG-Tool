@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PCGAPI
+namespace PCGAPI.Demo
 {
     /// <summary>
     /// Generates a combination using a list of GameObject and a minimum count of element

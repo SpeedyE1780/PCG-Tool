@@ -4,10 +4,10 @@ using UnityEngine;
 namespace PCGAPI
 {
     [CreateAssetMenu(menuName = "Scriptable Objects/PCG/SequenceNode")]
-    public class SequenceNodeSO : ScriptableObject, ISequenceNode
+    public class SequenceNode : ScriptableObject, ISequenceNode
     {
         [SerializeField]
-        private List<SequenceNodeSO> nextNodes;
+        private List<SequenceNode> nextNodes;
 
         public IEnumerable<ISequenceNode> NextNodes => nextNodes;
 
