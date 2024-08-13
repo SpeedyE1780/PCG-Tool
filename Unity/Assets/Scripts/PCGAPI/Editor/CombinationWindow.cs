@@ -47,8 +47,8 @@ namespace PCGAPI.Editor
         private void GenerateCombination()
         {
             PCGEngine.SetSeed(seedField.value);
-            CombinationSet set = combinationObjectField.value as CombinationSet;
-            set.GenerateCombination();
+            ICombination combination = combinationObjectField.value as ICombination;
+            combination.GenerateCombination();
         }
     }
 }
