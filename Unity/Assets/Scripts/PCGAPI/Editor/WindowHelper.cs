@@ -9,7 +9,7 @@ namespace PCGAPI.Editor
     /// </summary>
     public static class WindowHelper
     {
-        public static void ValidateObjectField<T>(T component, ObjectField objectField, ChangeEvent<Object> changeEvent)
+        public static void ValidateObjectField<T>(ref T component, ObjectField objectField, ChangeEvent<Object> changeEvent)
         {
             if (changeEvent.newValue == null)
             {

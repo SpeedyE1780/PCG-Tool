@@ -36,7 +36,7 @@ namespace PCGAPI.Editor
             rootVisualElement.Add(combinationWindow);
 
             combinationObjectField = rootVisualElement.Q<ObjectField>("CombinationObject");
-            combinationObjectField.RegisterValueChangedCallback((changeEvent) => WindowHelper.ValidateObjectField(combination, combinationObjectField, changeEvent));
+            combinationObjectField.RegisterValueChangedCallback((changeEvent) => WindowHelper.ValidateObjectField(ref combination, combinationObjectField, changeEvent));
 
             seedField = rootVisualElement.Q<UnsignedIntegerField>("Seed");
 
