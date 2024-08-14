@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6446933294904534621}
   - component: {fileID: 5726105645821796696}
   - component: {fileID: 4336398259845409899}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1878865951023005766}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 1735892053602157142}
   - component: {fileID: 6369755806596663104}
   - component: {fileID: 4071970914778019732}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 7736906366617568125}
   - component: {fileID: 5550082768307396079}
   - component: {fileID: 6173339576005399361}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

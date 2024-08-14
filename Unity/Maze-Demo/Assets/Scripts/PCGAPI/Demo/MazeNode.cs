@@ -16,7 +16,7 @@ namespace PCGAPI.Demo
         [SerializeField, Tooltip("Backward Wall")]
         private GameObject backward;
         [SerializeField, Tooltip("GameObject spawned at intersection")]
-        private GameObject enemy;
+        private GameObject turret;
 
         /// <summary>
         /// Toggle node's Wall/Stair
@@ -31,7 +31,7 @@ namespace PCGAPI.Demo
 
             if ((!right.activeSelf || !left.activeSelf) && (!forward.activeSelf || !backward.activeSelf))
             {
-                Instantiate(enemy, transform.position, Quaternion.identity, transform);
+                Instantiate(turret, transform.position, Quaternion.identity, transform);
             }
         }
     }
