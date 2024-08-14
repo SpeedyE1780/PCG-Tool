@@ -1,0 +1,19 @@
+{
+    "name": "PCGAPI.Editor",
+    "rootNamespace": "PCGAPI.Editor",
+    "references": [
+        "GUID:781eec04083611f428c6cc573e70360e",
+        "GUID:478a2357cc57436488a56e564b08d223"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
