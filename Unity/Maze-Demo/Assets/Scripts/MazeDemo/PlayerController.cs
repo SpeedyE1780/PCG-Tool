@@ -26,7 +26,11 @@ namespace MazeDemo
         {
             rb.linearVelocity = velocity;
             velocity.y = 0;
-            rb.MoveRotation(Quaternion.LookRotation(velocity, Vector3.up));
+
+            if (velocity.sqrMagnitude > 0)
+            {
+                rb.MoveRotation(Quaternion.LookRotation(velocity, Vector3.up)); 
+            }
         }
     }
 }
