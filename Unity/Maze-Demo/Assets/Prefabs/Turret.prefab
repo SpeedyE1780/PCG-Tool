@@ -53,6 +53,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 8
+  projectile: {fileID: 1729321177435834178, guid: 9a67b5d3b154b4045b7fefa2454dd773, type: 3}
 --- !u!1 &3783372640669661947
 GameObject:
   m_ObjectHideFlags: 0
