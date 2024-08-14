@@ -25,6 +25,7 @@ namespace MazeDemo
         {
             if(other.attachedRigidbody.CompareTag("Player"))
             {
+                PlayerController.OnPlayerHitEvent.Invoke(other.attachedRigidbody.transform);
                 Destroy(gameObject);
             }
         }
