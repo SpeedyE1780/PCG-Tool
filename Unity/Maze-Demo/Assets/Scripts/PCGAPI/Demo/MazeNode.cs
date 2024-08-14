@@ -29,17 +29,7 @@ namespace PCGAPI.Demo
             backward.SetActive(!adjacentNodes.HasFlag(MazeDirection.backward));
             forward.SetActive(!adjacentNodes.HasFlag(MazeDirection.forward));
 
-            int adjacentCount = 0;
-
-            foreach (var wall in new GameObject[] { right, left, forward, backward })
-            {
-                if (!wall.activeSelf)
-                {
-                    adjacentCount++;
-                }
-            }
-
-            if (adjacentCount > 2)
+            if ((!right.activeSelf || !left.activeSelf) && (!forward.activeSelf || !backward.activeSelf))
             {
                 Instantiate(enemy, transform.position, Quaternion.identity, transform);
             }
