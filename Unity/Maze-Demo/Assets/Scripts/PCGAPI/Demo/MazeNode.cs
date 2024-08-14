@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 namespace PCGAPI.Demo
@@ -31,7 +32,21 @@ namespace PCGAPI.Demo
 
             if ((!right.activeSelf || !left.activeSelf) && (!forward.activeSelf || !backward.activeSelf))
             {
+#if UNITY_EDITOR
+
+                if (PrefabUtility.IsPartOfAnyPrefab(turret))
+                {
+                    GameObject spawnedGameObject = PrefabUtility.InstantiatePrefab(turret) as GameObject;
+                    spawnedGameObject.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+                    spawnedGameObject.transform.SetParent(transform);
+                }
+                else
+                {
+                    Instantiate(turret, transform.position, Quaternion.identity, transform);
+                }
+#else
                 Instantiate(turret, transform.position, Quaternion.identity, transform);
+#endif
             }
         }
     }
