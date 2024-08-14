@@ -15,6 +15,8 @@ namespace PCGAPI.Demo
         private GameObject forward;
         [SerializeField, Tooltip("Backward Wall")]
         private GameObject backward;
+        [SerializeField, Tooltip("GameObject spawned at intersection")]
+        private GameObject enemy;
 
         /// <summary>
         /// Toggle node's Wall/Stair
@@ -26,6 +28,21 @@ namespace PCGAPI.Demo
             left.SetActive(!adjacentNodes.HasFlag(MazeDirection.left));
             backward.SetActive(!adjacentNodes.HasFlag(MazeDirection.backward));
             forward.SetActive(!adjacentNodes.HasFlag(MazeDirection.forward));
+
+            int adjacentCount = 0;
+
+            foreach (var wall in new GameObject[] { right, left, forward, backward })
+            {
+                if (!wall.activeSelf)
+                {
+                    adjacentCount++;
+                }
+            }
+
+            if (adjacentCount > 2)
+            {
+                Instantiate(enemy, transform.position, Quaternion.identity, transform);
+            }
         }
     }
 }
