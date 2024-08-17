@@ -3,6 +3,7 @@
 
 #include "WFCGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
+#include "IWFCNode.h"
 #include "PCG2Unreal.h"
 
 void UWFCGenerationData::GenerateLevel() const
@@ -18,6 +19,12 @@ void UWFCGenerationData::GenerateLevel() const
 
     if (count == 0 || nodeSize == 0 || axes == 0)
     {
+        return;
+    }
+
+    if (!block->ImplementsInterface(UWFCNode::StaticClass()))
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, "Maze Block does not implement IMazeNode");
         return;
     }
 
@@ -40,7 +47,7 @@ void UWFCGenerationData::GenerateLevel() const
 void UWFCGenerationData::SpawnNode(pcg::engine::math::Vector3 position, pcg::engine::utility::enums::Direction adjacentNodes) const
 {
     UWorld* world = GEditor->GetEditorWorldContext().World();
-    AWFCBlock* spawnedBlock = world->SpawnActor<AWFCBlock>(block);
+    auto* spawnedBlock = world->SpawnActor<AActor>(block);
     spawnedBlock->SetActorLocation(PCGVectorToFVector(position));
-    spawnedBlock->UpdateMeshes(adjacentNodes);
+    Cast<IWFCNode>(spawnedBlock)->SetAdjacentNodes(adjacentNodes);
 }

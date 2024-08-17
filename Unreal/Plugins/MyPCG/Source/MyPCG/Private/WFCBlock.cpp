@@ -27,7 +27,7 @@ AWFCBlock::AWFCBlock()
     backward->SetupAttachment(RootComponent);
 }
 
-void AWFCBlock::UpdateMeshes(pcgEnums::Direction adjacentNodes)
+void AWFCBlock::SetAdjacentNodes(pcgEnums::Direction adjacentNodes)
 {
     left->SetVisibility(!pcgEnums::hasFlag(adjacentNodes, pcgEnums::Direction::left), true);
     right->SetVisibility(!pcgEnums::hasFlag(adjacentNodes, pcgEnums::Direction::right), true);
