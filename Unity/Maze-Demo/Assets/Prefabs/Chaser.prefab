@@ -211,6 +211,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1645575796962128241}
   target: {fileID: 0}
+  maxSpeed: 12
+  acceleration: 3
   delay: 2
   distanceThreshold: 1
 --- !u!1 &7462746123526050222

@@ -11,6 +11,10 @@ namespace MazeDemo
         [SerializeField]
         private Transform target;
         [SerializeField]
+        private float maxSpeed;
+        [SerializeField]
+        private float acceleration;
+        [SerializeField]
         private float delay;
         [SerializeField]
         private float distanceThreshold;
@@ -46,11 +50,10 @@ namespace MazeDemo
             while (chasing)
             {
                 agent.SetDestination(target.position);
+                agent.speed = Mathf.MoveTowards(agent.speed, maxSpeed, acceleration * Time.deltaTime);
 
                 if (!agent.pathPending && agent.remainingDistance < distanceThreshold)
                 {
-                    Debug.Log((transform.position - target.position).magnitude);
-                    Debug.Log(agent.remainingDistance);
                     Destroy(target.gameObject);
                     yield break;
                 }
