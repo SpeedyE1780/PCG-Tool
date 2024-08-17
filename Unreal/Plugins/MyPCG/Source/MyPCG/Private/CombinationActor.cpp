@@ -10,3 +10,8 @@ ACombinationActor::ACombinationActor()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
+void ACombinationActor::ToggleElement(int index, bool included)
+{
+    combinationSet[index]->SetVisibility(included, true);
+}
+

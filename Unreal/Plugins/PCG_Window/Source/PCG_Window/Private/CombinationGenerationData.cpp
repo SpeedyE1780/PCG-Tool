@@ -3,24 +3,23 @@
 
 #include "CombinationGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
+#include "ICombination.h"
 #include "Engine/Selection.h"
 
 void UCombinationGenerationData::GenerateCombination()
 {
-    GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, "GENERATING COMBINATION");
-
     FSelectionIterator  selectedActors = GEditor->GetSelectedActorIterator();
 
     while (selectedActors)
     {
-        if (auto* combinationActor = Cast<ACombinationActor>(*selectedActors))
+        if (auto* combinationActor = Cast<ICombination>(*selectedActors))
         {
             if (resetSeed)
             {
                 pcg::engine::cpp_api::setSeed(seed);
             }
 
-            pcg::engine::cpp_api::generateCombination(combinationActor->combinationSet.Num(),
+            pcg::engine::cpp_api::generateCombination(combinationActor->GetElementCount(),
                 [combinationActor](int elementIndex, bool includedInSet) {
                     combinationActor->ToggleElement(elementIndex, includedInSet);
                 });
