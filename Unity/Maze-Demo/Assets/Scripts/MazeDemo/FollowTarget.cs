@@ -15,6 +15,11 @@ namespace MazeDemo
 
         void LateUpdate()
         {
+            if (target == null)
+            {
+                return;
+            }
+
             if (localSpace)
             {
                 transform.position = target.TransformPoint(offset);

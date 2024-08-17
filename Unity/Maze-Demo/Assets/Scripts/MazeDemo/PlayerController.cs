@@ -5,6 +5,7 @@ namespace MazeDemo
     public class PlayerController : MonoBehaviour
     {
         public delegate void PlayerHit(Transform playerTransform);
+        public delegate void ReachEnd();
 
         [SerializeField]
         private Rigidbody rb;
@@ -15,6 +16,7 @@ namespace MazeDemo
         private Vector3 startPosition;
 
         public static PlayerHit OnPlayerHitEvent;
+        public static event ReachEnd OnReachEnd;
 
         private void Start()
         {
@@ -65,7 +67,9 @@ namespace MazeDemo
         {
             if(other.CompareTag("Finish"))
             {
-                Debug.Log("Reached End");
+                Destroy(gameObject);
+                Destroy(other.gameObject);
+                OnReachEnd?.Invoke();
             }
         }
     }

@@ -1,5 +1,6 @@
 using PCGAPI;
 using PCGAPI.Demo;
+using System.Collections;
 using UnityEngine;
 
 namespace MazeDemo
@@ -30,15 +31,39 @@ namespace MazeDemo
         [SerializeField]
         private Vector2Int endPoint;
 
+        private Transform mazeParent;
+
         private void Start()
         {
             PCGEngine.SetSeed(seed);
             GenerateMaze();
         }
 
+        private void OnEnable()
+        {
+            PlayerController.OnReachEnd += OnReachEnd;
+        }
+
+        private void OnDisable()
+        {
+            PlayerController.OnReachEnd -= OnReachEnd;
+        }
+
+        private void OnReachEnd()
+        {
+            StartCoroutine(SpawnNewMaze());
+        }
+
+        private IEnumerator SpawnNewMaze()
+        {
+            Destroy(mazeParent.gameObject);
+            yield return null;
+            GenerateMaze();
+        }
+
         private void GenerateMaze()
         {
-            Transform mazeParent = new GameObject("Maze").transform;
+            mazeParent = new GameObject("Maze").transform;
             mazeParent.SetParent(transform);
 
             PCGEngine.GenerateMaze(gridSize.x, gridSize.y, true, algorithm, (x, y, direction) =>
@@ -49,12 +74,14 @@ namespace MazeDemo
                 if (spawnPlayer)
                 {
                     GameObject spawnedPlayer = Instantiate(player, position, Quaternion.identity);
+                    spawnedPlayer.transform.SetParent(transform);
                     followCamera.Target = spawnedPlayer.transform;
                 }
 
                 if (x == endPoint.x - 1 && y == endPoint.y - 1)
                 {
-                    Instantiate(endPointPrefab, position, Quaternion.identity);
+                    GameObject endPoint = Instantiate(endPointPrefab, position, Quaternion.identity);
+                    endPoint.transform.SetParent(transform);
                 }
 
                 IMazeNode node = Instantiate(mazeNode, mazeParent).GetComponent<IMazeNode>();
