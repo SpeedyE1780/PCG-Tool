@@ -40,4 +40,5 @@ void USimpleGenerationData::SpawnNode(pcg::engine::math::Vector3 position) const
     UWorld* world = GEditor->GetEditorWorldContext().World();
     AActor* spawnedNode = world->SpawnActor(node);
     spawnedNode->SetActorLocation(PCGVectorToFVector(position));
+    spawnedNode->SetFolderPath("Simple Generation");
 }
