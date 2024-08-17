@@ -44,6 +44,7 @@ namespace MazeDemo
             {
                 UnityEngine.Vector3 position = new UnityEngine.Vector3(x * nodeSize, 0, y * nodeSize);
                 IMazeNode node = Instantiate(mazeNode, mazeParent).GetComponent<IMazeNode>();
+
                 node.SetAdjacentNodes(direction);
                 node.transform.position = position;
 
@@ -53,7 +54,7 @@ namespace MazeDemo
                     followCamera.Target = spawnedPlayer.transform;
                 }
 
-                if (x == endPoint.x && y == endPoint.y)
+                if (x == endPoint.x - 1 && y == endPoint.y - 1)
                 {
                     Instantiate(endPointPrefab, position, Quaternion.identity);
                 }

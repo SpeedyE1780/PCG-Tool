@@ -60,5 +60,13 @@ namespace MazeDemo
                 rb.MoveRotation(Quaternion.LookRotation(velocity, Vector3.up)); 
             }
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.CompareTag("Finish"))
+            {
+                Debug.Log("Reached End");
+            }
+        }
     }
 }

@@ -442,7 +442,7 @@ MonoBehaviour:
   nodeSize: 10
   seed: 0
   player: {fileID: 6209871856066660887, guid: f4117d412a7c4624a9d9fb0d7332d1a6, type: 3}
-  endPointPrefab: {fileID: 8327638796582787888, guid: 9a67b5d3b154b4045b7fefa2454dd773, type: 3}
+  endPointPrefab: {fileID: 9217193189138955250, guid: 4700b709baf06a74d86eeaf899600305, type: 3}
   followCamera: {fileID: 1111126143}
   startPoint: {x: 0, y: 0}
   endPoint: {x: 10, y: 10}
