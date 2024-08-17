@@ -43,5 +43,5 @@ class PCG_WINDOW_API UWFCGenerationData : public UObject
 
 private:
     void SpawnNode(pcg::engine::math::Vector3 position, pcg::engine::utility::enums::Direction adjacentNodes) const;
-
+    FString GetFolderName() const;
 };
