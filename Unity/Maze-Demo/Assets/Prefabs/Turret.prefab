@@ -49,11 +49,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 608335669915710785}
   range: 5
-  rotationSpeed: 30
+  rotationSpeed: 180
   mask:
     serializedVersion: 2
     m_Bits: 8
   projectile: {fileID: 1729321177435834178, guid: 9a67b5d3b154b4045b7fefa2454dd773, type: 3}
+  cooldown: 0.4
 --- !u!1 &3783372640669661947
 GameObject:
   m_ObjectHideFlags: 0
