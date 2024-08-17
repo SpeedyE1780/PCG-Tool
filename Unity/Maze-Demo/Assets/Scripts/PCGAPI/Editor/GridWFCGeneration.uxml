@@ -1,0 +1,15 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <editor:ObjectField label="Node" name="Node" type="UnityEngine.GameObject, UnityEngine.CoreModule" />
+    <engine:FloatField label="Node Size" name="NodeSize" />
+    <engine:UnsignedIntegerField label="Seed" name="Seed" />
+    <engine:DropdownField label="Grid Dimension" choices="2D Grid,3D Grid" index="0" name="GridDimension" />
+    <engine:VisualElement name="Grid2D">
+        <engine:EnumField label="Plane" type="PCGAPI.Editor.GridWFCGeneration+Plane, PCGAPI.Editor" name="2DPlane" value="XY" />
+        <engine:Vector2IntField label="Grid Size" name="Grid2DSize" />
+    </engine:VisualElement>
+    <engine:VisualElement name="Grid3D">
+        <engine:Vector3IntField label="GridSize" name="Grid3DSize" />
+    </engine:VisualElement>
+    <engine:Toggle label="Frame by Frame" name="FramebyFrame" />
+    <engine:Button text="Generate" name="GenerateButton" />
+</engine:UXML>

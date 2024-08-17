@@ -1,0 +1,55 @@
+using UnityEditor;
+using UnityEngine;
+
+namespace PCGAPI.Demo
+{
+    /// <summary>
+    /// Class representing a node in generated mazes
+    /// </summary>
+    public class MazeNode : MonoBehaviour, IMazeNode
+    {
+        [SerializeField, Tooltip("Right Wall")]
+        private GameObject right;
+        [SerializeField, Tooltip("Left Wall")]
+        private GameObject left;
+        [SerializeField, Tooltip("Forward Wall")]
+        private GameObject forward;
+        [SerializeField, Tooltip("Backward Wall")]
+        private GameObject backward;
+        [SerializeField, Tooltip("GameObject spawned at intersection")]
+        private GameObject turret;
+
+        public bool SpawnTurret { get; set; } = true;
+
+        /// <summary>
+        /// Toggle node's Wall/Stair
+        /// </summary>
+        /// <param name="adjacentNodes">Adjacent Nodes bit mask</param>
+        public void SetAdjacentNodes(MazeDirection adjacentNodes)
+        {
+            right.SetActive(!adjacentNodes.HasFlag(MazeDirection.right));
+            left.SetActive(!adjacentNodes.HasFlag(MazeDirection.left));
+            backward.SetActive(!adjacentNodes.HasFlag(MazeDirection.backward));
+            forward.SetActive(!adjacentNodes.HasFlag(MazeDirection.forward));
+
+            if (SpawnTurret && (!right.activeSelf || !left.activeSelf) && (!forward.activeSelf || !backward.activeSelf))
+            {
+#if UNITY_EDITOR
+
+                if (PrefabUtility.IsPartOfAnyPrefab(turret))
+                {
+                    GameObject spawnedGameObject = PrefabUtility.InstantiatePrefab(turret) as GameObject;
+                    spawnedGameObject.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+                    spawnedGameObject.transform.SetParent(transform);
+                }
+                else
+                {
+                    Instantiate(turret, transform.position, Quaternion.identity, transform);
+                }
+#else
+                Instantiate(turret, transform.position, Quaternion.identity, transform);
+#endif
+            }
+        }
+    }
+}
