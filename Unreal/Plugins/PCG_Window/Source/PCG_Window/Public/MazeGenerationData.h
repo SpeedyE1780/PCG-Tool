@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "MazeNode.h"
+#include "IMazeNode.h"
 #include "pcg/engine/maze-generation/Common.hpp"
 
 #include "MazeGenerationData.generated.h"

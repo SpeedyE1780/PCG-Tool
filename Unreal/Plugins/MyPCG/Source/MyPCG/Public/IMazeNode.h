@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "pcg/engine/maze-generation/Common.hpp"
-#include "MazeNode.generated.h"
+#include "IMazeNode.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
@@ -23,5 +23,5 @@ class MYPCG_API IMazeNode
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual void UpdateAdjacentNodes(pcg::engine::maze_generation::NodeValue adjacentNodes) = 0;
+	virtual void SetAdjacentNodes(pcg::engine::maze_generation::NodeValue adjacentNodes) = 0;
 };
