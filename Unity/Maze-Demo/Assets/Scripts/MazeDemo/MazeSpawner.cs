@@ -1,4 +1,5 @@
 using PCGAPI;
+using PCGAPI.Demo;
 using UnityEngine;
 
 namespace MazeDemo
@@ -43,12 +44,9 @@ namespace MazeDemo
             PCGEngine.GenerateMaze(gridSize.x, gridSize.y, true, algorithm, (x, y, direction) =>
             {
                 UnityEngine.Vector3 position = new UnityEngine.Vector3(x * nodeSize, 0, y * nodeSize);
-                IMazeNode node = Instantiate(mazeNode, mazeParent).GetComponent<IMazeNode>();
+                bool spawnPlayer = x == startPoint.x && y == startPoint.y;
 
-                node.SetAdjacentNodes(direction);
-                node.transform.position = position;
-
-                if (x == startPoint.x && y == startPoint.y)
+                if (spawnPlayer)
                 {
                     GameObject spawnedPlayer = Instantiate(player, position, Quaternion.identity);
                     followCamera.Target = spawnedPlayer.transform;
@@ -58,6 +56,16 @@ namespace MazeDemo
                 {
                     Instantiate(endPointPrefab, position, Quaternion.identity);
                 }
+
+                IMazeNode node = Instantiate(mazeNode, mazeParent).GetComponent<IMazeNode>();
+
+                if ((MazeNode)node != null)
+                {
+                    ((MazeNode)node).SpawnTurret = !spawnPlayer;
+                }
+
+                node.SetAdjacentNodes(direction);
+                node.transform.position = position;
             });
         }
     }

@@ -19,6 +19,8 @@ namespace PCGAPI.Demo
         [SerializeField, Tooltip("GameObject spawned at intersection")]
         private GameObject turret;
 
+        public bool SpawnTurret { get; set; } = true;
+
         /// <summary>
         /// Toggle node's Wall/Stair
         /// </summary>
@@ -30,7 +32,7 @@ namespace PCGAPI.Demo
             backward.SetActive(!adjacentNodes.HasFlag(MazeDirection.backward));
             forward.SetActive(!adjacentNodes.HasFlag(MazeDirection.forward));
 
-            if ((!right.activeSelf || !left.activeSelf) && (!forward.activeSelf || !backward.activeSelf))
+            if (SpawnTurret && (!right.activeSelf || !left.activeSelf) && (!forward.activeSelf || !backward.activeSelf))
             {
 #if UNITY_EDITOR
 

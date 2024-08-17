@@ -2,7 +2,8 @@
     "name": "MazeDemo",
     "rootNamespace": "MazeDemo",
     "references": [
-        "GUID:781eec04083611f428c6cc573e70360e"
+        "GUID:781eec04083611f428c6cc573e70360e",
+        "GUID:1a8d9b017336e294dbce8efac8da3a52"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
