@@ -11,6 +11,8 @@ namespace MazeDemo
         [SerializeField]
         private bool localSpace;
 
+        public Transform Target { get { return target; } set { target = value; } }
+
         void LateUpdate()
         {
             if (localSpace)
