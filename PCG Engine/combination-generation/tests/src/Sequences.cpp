@@ -92,6 +92,8 @@ namespace pcg::engine::combination_generation::tests
 
     TEST(Sequence, CyclicSequence)
     {
+        math::Random::resetSeed();
+
         SequenceNode red("Red");
         SequenceNode green("Green");
         SequenceNode blue("Blue");
@@ -105,7 +107,7 @@ namespace pcg::engine::combination_generation::tests
         yellow.addNextNodes(nextNodes);
 
         auto sequence = generateSequence(red, 10);
-        const auto expected = std::vector<ISequenceNode*>{ &red, &green, &yellow, &green, &green, &green, &blue, &red, &green, &red };
+        const auto expected = std::vector<ISequenceNode*>{ &red, &blue, &yellow, &blue, &green, &yellow, &green, &green, &green, &blue };
 
         EXPECT_TRUE(std::ranges::equal(sequence, expected));
     }
