@@ -212,6 +212,11 @@ void FPCG_WindowModule::RegisterMenus()
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenMultiDimensionGenerationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenWaveFunctionCollapseGenerationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenMazeWindow, PluginCommands);
+        }
+
+        {
+            FToolMenuSection& Section = PCGMenu->FindOrAddSection("CombinationGeneration");
+            Section.Label = FText::FromString("Combination Generation");
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenCombinationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenSequenceWindow, PluginCommands);
         }
