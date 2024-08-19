@@ -13,12 +13,14 @@
 #include "MultiDimensionGenerationWidget.h"
 #include "WFCGenerationWidget.h"
 #include "CombinationGenerationWidget.h"
+#include "SequenceGenerationWidget.h"
 
 static const FName SimpleGenerationID("SimpleGeneration");
 static const FName MultiDimensionID("MultiDimensionGeneration");
 static const FName WaveFunctionCollapseID("WaveFunctionCollapse");
 static const FName MazeGenerationID("MazeGeneration");
 static const FName CombinationGenerationID("CombinationGeneration");
+static const FName SequenceGenerationID("SequenceGeneration");
 
 #define LOCTEXT_NAMESPACE "FPCG_WindowModule"
 
@@ -58,6 +60,11 @@ void FPCG_WindowModule::StartupModule()
         FExecuteAction::CreateRaw(this, &FPCG_WindowModule::CombinationGeneration),
         FCanExecuteAction());
 
+    PluginCommands->MapAction(
+        FPCG_WindowCommands::Get().OpenSequenceWindow,
+        FExecuteAction::CreateRaw(this, &FPCG_WindowModule::SequenceGeneration),
+        FCanExecuteAction());
+
     UToolMenus::RegisterStartupCallback(FSimpleMulticastDelegate::FDelegate::CreateRaw(this, &FPCG_WindowModule::RegisterMenus));
 
     FGlobalTabmanager::Get()->RegisterNomadTabSpawner(SimpleGenerationID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnSimpleGeneration))
@@ -79,6 +86,10 @@ void FPCG_WindowModule::StartupModule()
     FGlobalTabmanager::Get()->RegisterNomadTabSpawner(CombinationGenerationID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnCombinationGeneration))
         .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Combination Generation"))
         .SetMenuType(ETabSpawnerMenuType::Hidden);
+
+    FGlobalTabmanager::Get()->RegisterNomadTabSpawner(SequenceGenerationID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnSequenceGeneration))
+        .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Sequence Generation"))
+        .SetMenuType(ETabSpawnerMenuType::Hidden);
 }
 
 void FPCG_WindowModule::ShutdownModule()
@@ -99,6 +110,7 @@ void FPCG_WindowModule::ShutdownModule()
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(WaveFunctionCollapseID);
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(MazeGenerationID);
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(CombinationGenerationID);
+    FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(SequenceGenerationID);
 }
 
 TSharedRef<SDockTab> FPCG_WindowModule::OnSimpleGeneration(const FSpawnTabArgs& SpawnTabArgs)
@@ -146,6 +158,15 @@ TSharedRef<SDockTab> FPCG_WindowModule::OnCombinationGeneration(const FSpawnTabA
         ];
 }
 
+TSharedRef<SDockTab> FPCG_WindowModule::OnSequenceGeneration(const FSpawnTabArgs& SpawnTabArgs)
+{
+    return SNew(SDockTab)
+        .TabRole(ETabRole::NomadTab)
+        [
+            SNew(SSequenceGenerationWidget)
+        ];
+}
+
 void FPCG_WindowModule::SimpleGeneration()
 {
     FGlobalTabmanager::Get()->TryInvokeTab(SimpleGenerationID);
@@ -171,6 +192,11 @@ void FPCG_WindowModule::CombinationGeneration()
     FGlobalTabmanager::Get()->TryInvokeTab(CombinationGenerationID);
 }
 
+void FPCG_WindowModule::SequenceGeneration()
+{
+    FGlobalTabmanager::Get()->TryInvokeTab(SequenceGenerationID);
+}
+
 void FPCG_WindowModule::RegisterMenus()
 {
     // Owner will be used for cleanup in call to UToolMenus::UnregisterOwner
@@ -187,6 +213,7 @@ void FPCG_WindowModule::RegisterMenus()
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenWaveFunctionCollapseGenerationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenMazeWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenCombinationWindow, PluginCommands);
+            Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenSequenceWindow, PluginCommands);
         }
     }
 }

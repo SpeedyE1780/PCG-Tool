@@ -24,4 +24,5 @@ public:
 	TSharedPtr< FUICommandInfo > OpenWaveFunctionCollapseGenerationWindow;
 	TSharedPtr< FUICommandInfo > OpenMazeWindow;
 	TSharedPtr< FUICommandInfo > OpenCombinationWindow;
+	TSharedPtr< FUICommandInfo > OpenSequenceWindow;
 };
