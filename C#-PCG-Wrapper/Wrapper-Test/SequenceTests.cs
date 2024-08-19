@@ -1,5 +1,4 @@
-﻿
-namespace PCGAPI.Tests
+﻿namespace PCGAPI.Tests
 {
     public class SequenceTests
     {
@@ -10,17 +9,77 @@ namespace PCGAPI.Tests
                 Name = name;
             }
 
+            public SequenceNode(string name, IEnumerable<ISequenceNode> next)
+            {
+                Name = name;
+                AddNodes(next);
+            }
+
             private readonly List<ISequenceNode> nextNodes = [];
             public string Name { get; set; } = "";
             public IEnumerable<ISequenceNode> NextNodes => nextNodes;
 
             public int NextCount => nextNodes.Count;
 
-            public void AddNode(IEnumerable<ISequenceNode> node)
+            public void AddNodes(IEnumerable<ISequenceNode> next)
             {
-                nextNodes.AddRange(node);
+                nextNodes.AddRange(next);
             }
+        }
 
+        [Fact]
+        public void Sequence()
+        {
+            PCGEngine.SetSeed(0);
+
+            SequenceNode goldIngots = new("5 Gold Ingots");
+            SequenceNode logs = new("10 Logs");
+            SequenceNode give = new("Give", [goldIngots, logs]);
+
+            SequenceNode axe = new("Axe");
+            SequenceNode dagger = new("Dagger");
+            SequenceNode sword = new("Sword");
+            SequenceNode craft = new("Craft", [axe, dagger, sword]);
+
+            SequenceNode smith = new("Smith", [give, craft]);
+
+            SequenceNode amulet = new("Amulet of Resistance");
+            SequenceNode stolenGold = new("Stolen Gold");
+            SequenceNode retrieve = new("Retrieve", [amulet, stolenGold]);
+
+            SequenceNode merchant = new("Merchant", [retrieve]);
+
+            SequenceNode town = new("Town");
+            SequenceNode defend = new("Defend", [town]);
+
+            SequenceNode wolf = new("Wolf");
+            SequenceNode orc = new("Orc");
+            SequenceNode goblin = new("Goblin");
+            SequenceNode kill = new("Kill", [wolf, orc, goblin]);
+
+            SequenceNode guildMaster = new("Guild Master", [kill, defend]);
+
+            SequenceNode speak = new("Speak", [guildMaster, merchant, smith]);
+
+            ISequenceNode currentNode = speak;
+            List<ISequenceNode> expected = new List<ISequenceNode> { speak, smith, craft, dagger };
+            List<ISequenceNode> sequence = new List<ISequenceNode>();
+
+            UpdateSequence updateSequence = index =>
+            {
+                sequence.Add(currentNode);
+                if (index == -1)
+                {
+                    return 0;
+                }
+
+                currentNode = currentNode.NextNodes.ElementAt(index);
+                return currentNode.NextCount;
+            };
+
+            PCGEngine.GenerateSequence(currentNode, updateSequence);
+
+            Assert.Equal(expected, sequence);
         }
 
         [Fact]
@@ -32,10 +91,10 @@ namespace PCGAPI.Tests
             SequenceNode blue = new("Blue");
             SequenceNode yellow = new("Yellow");
 
-            red.AddNode([red, green, blue, yellow]);
-            green.AddNode([red, green, blue, yellow]);
-            blue.AddNode([red, green, blue, yellow]);
-            yellow.AddNode([red, green, blue, yellow]);
+            red.AddNodes([red, green, blue, yellow]);
+            green.AddNodes([red, green, blue, yellow]);
+            blue.AddNodes([red, green, blue, yellow]);
+            yellow.AddNodes([red, green, blue, yellow]);
 
             ISequenceNode currentNode = red;
             List<ISequenceNode> expected = new List<ISequenceNode> {
