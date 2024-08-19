@@ -11,6 +11,7 @@ void FPCG_WindowCommands::RegisterCommands()
 	UI_COMMAND(OpenWaveFunctionCollapseGenerationWindow, "Wave Function Collapse Generation", "Open Window to Spawn Actor on Multiple Axis Following a Set of Rules", EUserInterfaceActionType::Button, FInputChord());
 	UI_COMMAND(OpenMazeWindow, "Maze Generation", "Open Window to Spawn Mazes", EUserInterfaceActionType::Button, FInputChord());
 	UI_COMMAND(OpenCombinationWindow, "Combination Window", "Open Window to Generate Combinations", EUserInterfaceActionType::Button, FInputChord());
+	UI_COMMAND(OpenSequenceWindow, "Sequence Window", "Open Window to Generate Sequences", EUserInterfaceActionType::Button, FInputChord());
 }
 
 #undef LOCTEXT_NAMESPACE

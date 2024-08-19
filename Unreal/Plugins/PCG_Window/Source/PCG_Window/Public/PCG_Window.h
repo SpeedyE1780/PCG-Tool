@@ -21,6 +21,7 @@ public:
 	void WaveFunctionCollapse();
 	void MazeGeneration();
 	void CombinationGeneration();
+	void SequenceGeneration();
 	
 private:
 
@@ -31,6 +32,7 @@ private:
 	TSharedRef<class SDockTab> OnWaveFunctionCollapse(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnMazeGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnCombinationGeneration(const class FSpawnTabArgs& SpawnTabArgs);
+	TSharedRef<class SDockTab> OnSequenceGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 
 private:
 	TSharedPtr<class FUICommandList> PluginCommands;

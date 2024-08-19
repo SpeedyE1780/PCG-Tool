@@ -42,5 +42,10 @@ void UMultiDimensionGenerationData::SpawnNode(pcg::engine::math::Vector3 positio
     UWorld* world = GEditor->GetEditorWorldContext().World();
     AActor* spawnedNode = world->SpawnActor(node);
     spawnedNode->SetActorLocation(PCGVectorToFVector(position));
+    spawnedNode->SetFolderPath(*GetFolderName());
 }
 
+FString UMultiDimensionGenerationData::GetFolderName() const
+{
+    return FString("Multi Dimensional Generation/").Append(FString::FromInt(seed));
+}

@@ -36,4 +36,5 @@ class PCG_WINDOW_API UMultiDimensionGenerationData : public UObject
 
 private:
     void SpawnNode(pcg::engine::math::Vector3 position) const;
+    FString GetFolderName() const;
 };

@@ -1,9 +1,11 @@
 #ifndef PCG_ENGINE_CPP_API_API_HPP
 #define PCG_ENGINE_CPP_API_API_HPP
 
-#include <pcg/engine/level-generation/GenerationData.hpp>
+#include <pcg/engine/combination-generation/SequenceGenerator.hpp>
 
 #include <pcg/engine/cpp-api/config.hpp>
+
+#include <pcg/engine/level-generation/GenerationData.hpp>
 
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/Vector3.hpp>
@@ -46,6 +48,8 @@ namespace pcg::engine::cpp_api
     /// @brief Set RNG's seed
     /// @param seed New RNG seed
     PCG_ENGINE_CPP_API_API void setSeed(unsigned int seed);
+    /// @brief Reset RNG seed
+    PCG_ENGINE_CPP_API_API void resetSeed();
     /// @brief Set functions used to set seed and generate numbers
     /// @param seed Function that will set the RNG seed
     /// @param generate Function used to generate numbers
@@ -70,6 +74,20 @@ namespace pcg::engine::cpp_api
     /// @param axes Axes flag indicating which axes are being used
     /// @param callback Callback when a node is generated
     PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, std::function<void(math::Vector3, utility::enums::Direction)>&& callback);
+    /// @brief Generate a grid using the Wave Function Collapse Algorithm
+    /// @param width Grid width
+    /// @param height Grid height
+    /// @param axes Axes flag indicating which axes are being used
+    /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+    /// @param callback Callback when a node is generated
+    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(int width, int height, math::Axis axes, bool invokeAfterGeneration, std::function<void(int, int, utility::enums::Direction)>&& callback);
+    /// @brief Generate a grid using the Wave Function Collapse Algorithm
+    /// @param width Grid width
+    /// @param height Grid height
+    /// @param depth Grid depth
+    /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
+    /// @param callback Callback when a node is generated
+    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(int width, int height, int depth, bool invokeAfterGeneration, std::function<void(int, int, int, utility::enums::Direction)>&& callback);
     /// @brief Generate a maze using the passed in algorithm
     /// @param width Width of grid
     /// @param height Height of grid
@@ -90,7 +108,7 @@ namespace pcg::engine::cpp_api
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param regionThreshold User defined region threshold
     /// @param callback Callback when a node is generated
-    void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback);
+    PCG_ENGINE_CPP_API_API void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback);
     /// @brief Generate a combination given a number of elements
     /// @param elementCount Number of element that are available in set
     /// @param callback Callback to add element to generated set
@@ -105,6 +123,14 @@ namespace pcg::engine::cpp_api
     /// @param activeElementsIndex Array of elements that must be included
     /// @param callback Callback to add element to generated set
     PCG_ENGINE_CPP_API_API void generateCombination(int elementCount, const std::vector<int>& activeElementsIndex, std::function<void(int, bool)>&& callback);
+    /// @brief Generate a sequence starting from node
+    /// @param node First node in sequence
+    PCG_ENGINE_CPP_API_API void generateSequence(combination_generation::ISequenceNode& node);
+    /// @brief Generate a sequence starting from node with a max number of nodes
+    /// @param node First node in sequence
+    /// @param count Max number of node in sequence
+    /// @return Vector containing sequence of nodes
+    PCG_ENGINE_CPP_API_API std::vector<combination_generation::ISequenceNode*> generateSequence(combination_generation::ISequenceNode& node, int count);
 }
 
 #endif // PCG_ENGINE_CPP_API_API_HPP

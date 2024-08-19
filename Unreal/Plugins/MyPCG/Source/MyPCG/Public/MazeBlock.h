@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "pcg/engine/maze-generation/Common.hpp"
-#include "MazeNode.h"
+#include "IMazeNode.h"
 #include "MazeBlock.generated.h"
 
 UCLASS()
@@ -17,7 +17,7 @@ public:
 	// Sets default values for this actor's properties
 	AMazeBlock();
 
-	virtual void UpdateAdjacentNodes(pcg::engine::maze_generation::NodeValue adjacentNodes) override;
+	virtual void SetAdjacentNodes(pcg::engine::maze_generation::NodeValue adjacentNodes) override;
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))

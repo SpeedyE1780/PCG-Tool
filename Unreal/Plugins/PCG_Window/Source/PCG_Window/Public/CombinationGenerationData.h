@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "CombinationActor.h"
 #include "CombinationGenerationData.generated.h"
 
 /**

@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "pcg/engine/utility/Enums.hpp"
+#include "IWFCNode.h"
 #include "WFCBlock.generated.h"
 
 UCLASS()
-class MYPCG_API AWFCBlock : public AActor
+class MYPCG_API AWFCBlock : public AActor, public IWFCNode
 {
 	GENERATED_BODY()
 	
@@ -16,7 +16,7 @@ public:
 	// Sets default values for this actor's properties
 	AWFCBlock();
 
-	void UpdateMeshes(pcg::engine::utility::enums::Direction adjacentNodes);
+	virtual void SetAdjacentNodes(pcg::engine::utility::enums::Direction adjacentNodes) override;
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
