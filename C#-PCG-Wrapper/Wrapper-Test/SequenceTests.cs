@@ -62,10 +62,10 @@
             SequenceNode speak = new("Speak", [guildMaster, merchant, smith]);
 
             ISequenceNode currentNode = speak;
-            List<ISequenceNode> expected = new List<ISequenceNode> { speak, smith, craft, dagger };
-            List<ISequenceNode> sequence = new List<ISequenceNode>();
+            List<ISequenceNode> expected = [speak, smith, craft, dagger];
+            List<ISequenceNode> sequence = [];
 
-            UpdateSequence updateSequence = index =>
+            int UpdateSequence(int index)
             {
                 sequence.Add(currentNode);
                 if (index == -1)
@@ -75,9 +75,9 @@
 
                 currentNode = currentNode.NextNodes.ElementAt(index);
                 return currentNode.NextCount;
-            };
+            }
 
-            PCGEngine.GenerateSequence(currentNode, updateSequence);
+            PCGEngine.GenerateSequence(currentNode, UpdateSequence);
 
             Assert.Equal(expected, sequence);
         }
@@ -97,7 +97,7 @@
             yellow.AddNodes([red, green, blue, yellow]);
 
             ISequenceNode currentNode = red;
-            List<ISequenceNode> expected = new List<ISequenceNode> {
+            List<ISequenceNode> expected = [
                 red,
                 blue,
                 yellow,
@@ -108,10 +108,10 @@
                 green,
                 green,
                 blue
-            };
-            List<ISequenceNode> sequence = new List<ISequenceNode>();
+            ];
+            List<ISequenceNode> sequence = [];
 
-            UpdateSequence updateSequence = index =>
+            int UpdateSequence(int index)
             {
                 sequence.Add(currentNode);
                 if (index == -1)
@@ -121,9 +121,9 @@
 
                 currentNode = currentNode.NextNodes.ElementAt(index);
                 return currentNode.NextCount;
-            };
+            }
 
-            PCGEngine.GenerateCyclicSequence(currentNode, 10, updateSequence);
+            PCGEngine.GenerateCyclicSequence(currentNode, 10, UpdateSequence);
 
             Assert.Equal(expected, sequence);
         }

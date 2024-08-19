@@ -18,7 +18,7 @@ namespace PCGAPI.Tests
             ResetSeed();
             var nums = GetNums();
             List<int> combination = [];
-            List<int> expected = new() { 1, 2, 3, 6 };
+            List<int> expected = [1, 2, 3, 6];
             PCGEngine.GenerateCombination(nums.Length, (index, included) =>
                 {
                     if (included)
@@ -36,7 +36,7 @@ namespace PCGAPI.Tests
             ResetSeed();
             var nums = GetNums();
             List<int> combination = [];
-            List<int> expected = new() { 1, 2, 3, 4, 5, 6, 8 };
+            List<int> expected = [1, 2, 3, 4, 5, 6, 8];
             PCGEngine.GenerateCombination(nums.Length, 7, (index, included) =>
                 {
                     if (included)
@@ -54,7 +54,7 @@ namespace PCGAPI.Tests
             ResetSeed();
             var nums = GetNums();
             List<int> combination = [];
-            List<int> expected = new() { 1, 2, 3, 6, 10 };
+            List<int> expected = [1, 2, 3, 6, 10];
             PCGEngine.GenerateCombination(nums.Length, [0, 2, 9], 3, (index, included) =>
                 {
                     if (included)
