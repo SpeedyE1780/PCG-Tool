@@ -19,7 +19,7 @@ class PCG_WINDOW_API USequenceGenerationData : public UObject
     void GenerateSequence();
 
     UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
-    TSubclassOf<UDataAsset> sequenceNode;
+    TObjectPtr<UDataAsset> sequenceNode;
     UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
     unsigned int seed;
     UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
