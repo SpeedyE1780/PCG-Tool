@@ -35,6 +35,54 @@ def updateSequence(
     sequence.append(currentNode)
     return currentNode.nextNodeCount
 
+def test_sequence(resetSeed):
+    gold = SequenceNode("5 Gold Ingots")
+    logs = SequenceNode("10 Logs")
+    give = SequenceNode("Give")
+    give.addNextNodes([gold, logs])
+
+    axe = SequenceNode("Axe")
+    dagger = SequenceNode("Dagger")
+    sword = SequenceNode("Sword")
+    craft = SequenceNode("Craft")
+    craft.addNextNodes([axe, dagger, sword])
+
+    smith = SequenceNode("Smith")
+    smith.addNextNodes([give, craft])
+
+    amulet = SequenceNode("Amulet of Resistance")
+    stolenGold = SequenceNode("Stolen Gold")
+    retrieve = SequenceNode("Retrieve")
+    retrieve.addNextNodes([amulet, stolenGold])
+
+    merchant = SequenceNode("Merchant")
+    merchant.addNextNodes([retrieve])
+
+    town = SequenceNode("Town")
+    defend = SequenceNode("Defend")
+    defend.addNextNodes([town])
+
+    wolf = SequenceNode("Wolf")
+    orc = SequenceNode("Orc")
+    goblin = SequenceNode("Goblin")
+    kill = SequenceNode("Kill")
+    kill.addNextNodes([wolf, orc, goblin])
+
+    guildMaster = SequenceNode("Guild Master")
+    guildMaster.addNextNodes([kill, defend])
+
+    speak = SequenceNode("Speak")
+    speak.addNextNodes([guildMaster, merchant, smith])
+
+    currentNode = speak
+    sequence = []
+    expected = [speak, smith, craft, dagger]
+    combinations.generateSequence(
+        speak, lambda index: updateSequence(currentNode, sequence, index)
+    )
+
+    assert len(sequence) == 4
+    assert expected == sequence
 
 def test_cyclicSequence(resetSeed):
     red = SequenceNode("Red")
