@@ -54,7 +54,7 @@ namespace pcg::engine::level_generation::tests
                 EXPECT_EQ(static_cast<utility::enums::Direction>(adjacent), adjacentNodes);
             };
 
-        waveFunctionCollapse(data, ExpansionMode::BFS, math::Axis::xyz, callback);
+        waveFunctionCollapse(data, ExpansionMode::DFS, math::Axis::xyz, callback);
     }
 
     TEST(WaveFunctionCollapse, Grid2D)
