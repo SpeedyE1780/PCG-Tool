@@ -15,10 +15,10 @@
 
             PCGEngine.WaveFunctionCollapseGeneration(ref parameters, mode, Axis.xyz, (position, adjacent) =>
             {
-                Tuple<Vector3, LevelGenerationDirection> expected = ConvertLineToWFCData(positions[index]);
+                (Vector3 expectedPosition, LevelGenerationDirection expectedAdjacent) = ConvertLineToWFCData(positions[index]);
                 index++;
-                Assert.Equal(expected.Item1, position);
-                Assert.Equal(expected.Item2, adjacent);
+                Assert.Equal(expectedPosition, position);
+                Assert.Equal(expectedAdjacent, adjacent);
             });
         }
 
