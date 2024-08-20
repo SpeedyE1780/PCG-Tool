@@ -1,6 +1,6 @@
 ﻿namespace PCGAPI.Tests
 {
-    public class SequenceTests
+    public class SequenceTests : PCGTest
     {
         class SequenceNode : ISequenceNode
         {
@@ -30,8 +30,6 @@
         [Fact]
         public void Sequence()
         {
-            PCGEngine.SetSeed(0);
-
             SequenceNode goldIngots = new("5 Gold Ingots");
             SequenceNode logs = new("10 Logs");
             SequenceNode give = new("Give", [goldIngots, logs]);
@@ -85,7 +83,6 @@
         [Fact]
         public void CyclicSequence()
         {
-            PCGEngine.SetSeed(0);
             SequenceNode red = new("Red");
             SequenceNode green = new("Green");
             SequenceNode blue = new("Blue");
