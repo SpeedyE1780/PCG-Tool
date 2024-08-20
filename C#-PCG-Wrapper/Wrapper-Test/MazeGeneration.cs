@@ -26,17 +26,15 @@ namespace PCGAPI.Tests.MazeGeneration
         [ClassData(typeof(MazeData))]
         public void Maze(MazeAlgorithm mazeAlgorithm, string filePath)
         {
-            var data = File.ReadAllLines(filePath);
+            var mazeNodes = File.ReadAllLines(filePath);
             int index = 0;
 
             PCGEngine.GenerateMaze(20, 20, false, mazeAlgorithm, (x, y, adjacent) =>
             {
-                (int expectedX, int expectedY, MazeDirection expectedAdjacent) = ConvertLineToMazeData(data[index]);
+                string expectedNode = mazeNodes[index];
                 index++;
 
-                Assert.Equal(expectedX, x);
-                Assert.Equal(expectedY, y);
-                Assert.Equal(expectedAdjacent, adjacent);
+                Assert.Equal(expectedNode, $"{x} {y} {(int)adjacent}");
             });
         }
     }
