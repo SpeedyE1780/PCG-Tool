@@ -15,6 +15,7 @@
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <EnableNativeCodeDebugging>True</EnableNativeCodeDebugging>
     <IsWindowsApplication>False</IsWindowsApplication>
+    <TestFramework>Pytest</TestFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,6 +39,7 @@
     <Content Include="pcg\__pycache__\utility.cpython-310.pyc" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="conftest.py" />
     <Compile Include="demo\color_game.py" />
     <Compile Include="demo\maze.py" />
     <Compile Include="demo\whack_a_mole.py" />
@@ -47,6 +49,8 @@
     <Compile Include="pcg\math.py" />
     <Compile Include="pcg\mazes.py" />
     <Compile Include="pcg\utility.py" />
+    <Compile Include="Combination_test.py" />
+    <Compile Include="Sequence_test.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.10" />
