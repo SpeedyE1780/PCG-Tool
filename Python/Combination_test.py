@@ -1,10 +1,5 @@
 import pytest
-from pcg import math, combinations
-
-
-@pytest.fixture
-def resetSeed():
-    math.setSeed(0)
+from pcg import combinations
 
 
 @pytest.fixture
