@@ -103,9 +103,9 @@ namespace PCGAPI.Tests.LevelGeneration
 
             PCGEngine.MultiDimensionalGeneration(ref parameters, axes, disableOverlap, position =>
             {
-                Vector3 expected = ConvertLineToVector3(positions[index]);
+                string expectedPosition = positions[index];
                 index++;
-                Assert.Equal(expected, position);
+                Assert.Equal(expectedPosition, $"{position.x} {position.y} {position.z}");
             });
         }
 
