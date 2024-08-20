@@ -39,5 +39,14 @@
             LevelGenerationDirection direction = (LevelGenerationDirection)int.Parse(wfcData[3]);
             return (x, y, z, direction);
         }
+
+        public static (int, int, MazeDirection) ConvertLineToMazeData(string line)
+        {
+            var wfcData = line.Split(' ');
+            int x = int.Parse(wfcData[0]);
+            int y = int.Parse(wfcData[1]);
+            MazeDirection direction = (MazeDirection)int.Parse(wfcData[2]);
+            return (x, y, direction);
+        }
     }
 }
