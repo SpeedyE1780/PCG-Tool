@@ -20,5 +20,24 @@
             LevelGenerationDirection direction = (LevelGenerationDirection)int.Parse(wfcData[3]);
             return (position, direction);
         }
+
+        public static (int, int, LevelGenerationDirection) ConvertLineToWFC2DData(string line)
+        {
+            var wfcData = line.Split(' ');
+            int x = int.Parse(wfcData[0]);
+            int y = int.Parse(wfcData[1]);
+            LevelGenerationDirection direction = (LevelGenerationDirection)int.Parse(wfcData[2]);
+            return (x, y, direction);
+        }
+
+        public static (int, int, int, LevelGenerationDirection) ConvertLineToWFC3DData(string line)
+        {
+            var wfcData = line.Split(' ');
+            int x = int.Parse(wfcData[0]);
+            int y = int.Parse(wfcData[1]);
+            int z = int.Parse(wfcData[2]);
+            LevelGenerationDirection direction = (LevelGenerationDirection)int.Parse(wfcData[3]);
+            return (x, y, z, direction);
+        }
     }
 }

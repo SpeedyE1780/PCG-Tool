@@ -35,5 +35,42 @@
             string filePath = "GoldenValues/WaveFunctionCollapse/DFS.txt";
             WaveFunctionCollapseTest(ExpansionMode.DFS, filePath);
         }
+
+        [Fact]
+        public void Grid2D()
+        {
+            string filePath = "GoldenValues/WaveFunctionCollapse/Grid2D.txt";
+            var positions = File.ReadAllLines(filePath);
+            int index = 0;
+
+            PCGEngine.WaveFunctionCollapseGeneration(10, 10, Axis.xz, false, (x, y, adjacentNode) =>
+            {
+                (int expectedX, int expectedY, LevelGenerationDirection expectedAdjacent) = ConvertLineToWFC2DData(positions[index]);
+                index++;
+
+                Assert.Equal(expectedX, x);
+                Assert.Equal(expectedY, y);
+                Assert.Equal(expectedAdjacent, adjacentNode);
+            });
+        }
+
+        [Fact]
+        public void Grid3D()
+        {
+            string filePath = "GoldenValues/WaveFunctionCollapse/Grid3D.txt";
+            var positions = File.ReadAllLines(filePath);
+            int index = 0;
+
+            PCGEngine.WaveFunctionCollapseGeneration(10, 10, 10, false, (x, y, z, adjacentNode) =>
+            {
+                (int expectedX, int expectedY, int expectedZ, LevelGenerationDirection expectedAdjacent) = ConvertLineToWFC3DData(positions[index]);
+                index++;
+
+                Assert.Equal(expectedX, x);
+                Assert.Equal(expectedY, y);
+                Assert.Equal(expectedZ, z);
+                Assert.Equal(expectedAdjacent, adjacentNode);
+            });
+        }
     }
 }
