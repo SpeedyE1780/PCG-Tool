@@ -1,4 +1,4 @@
-﻿namespace PCGAPI.Tests
+﻿namespace PCGAPI.Tests.LevelGeneration
 {
     public class WaveFunctionCollapse : PCGTest
     {

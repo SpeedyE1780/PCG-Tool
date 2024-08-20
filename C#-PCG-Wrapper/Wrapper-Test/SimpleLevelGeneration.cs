@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace PCGAPI.Tests
+namespace PCGAPI.Tests.LevelGeneration
 {
     public class SimpleLevelGeneration : PCGTest
     {

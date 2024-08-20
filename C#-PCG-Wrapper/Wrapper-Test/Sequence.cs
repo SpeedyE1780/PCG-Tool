@@ -1,6 +1,6 @@
-﻿namespace PCGAPI.Tests
+﻿namespace PCGAPI.Tests.CombinationGeneration
 {
-    public class SequenceTests : PCGTest
+    public class Sequence : PCGTest
     {
         class SequenceNode : ISequenceNode
         {
@@ -28,7 +28,7 @@
         }
 
         [Fact]
-        public void Sequence()
+        public void SimpleSequence()
         {
             SequenceNode goldIngots = new("5 Gold Ingots");
             SequenceNode logs = new("10 Logs");

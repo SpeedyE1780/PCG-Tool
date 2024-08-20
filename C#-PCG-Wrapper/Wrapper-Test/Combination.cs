@@ -1,6 +1,6 @@
-namespace PCGAPI.Tests
+namespace PCGAPI.Tests.CombinationGeneration
 {
-    public class CombinationTests : PCGTest
+    public class Combination : PCGTest
     {
         private readonly int[] nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
