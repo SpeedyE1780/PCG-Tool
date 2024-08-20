@@ -91,11 +91,11 @@ namespace PCGAPI.Tests.LevelGeneration
             }
         }
 
-        private void MultiDimensionGenerationTest(Axis axes, string filePath, bool disableOverlap)
+        private static void MultiDimensionGenerationTest(Axis axes, string filePath, bool disableOverlap)
         {
             var positions = File.ReadAllLines(filePath);
             int index = 0;
-            GenerationParameters parameters = new GenerationParameters()
+            GenerationParameters parameters = new()
             {
                 count = 150,
                 size = 1,

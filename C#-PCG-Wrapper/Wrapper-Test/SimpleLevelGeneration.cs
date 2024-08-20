@@ -5,7 +5,7 @@ namespace PCGAPI.Tests.LevelGeneration
     public class SimpleLevelGeneration : PCGTest
     {
         int index = 0;
-        int[] points = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        readonly int[] points = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
         class SimpleLevelGenerationData : IEnumerable<object[]>
         {
@@ -29,7 +29,7 @@ namespace PCGAPI.Tests.LevelGeneration
         [ClassData(typeof(SimpleLevelGenerationData))]
         public void SimpleGeneration(Axis axis)
         {
-            GenerationParameters parameters = new GenerationParameters()
+            GenerationParameters parameters = new()
             {
                 count = 10,
                 size = 1,

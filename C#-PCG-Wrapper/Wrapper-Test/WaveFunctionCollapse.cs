@@ -2,12 +2,12 @@
 {
     public class WaveFunctionCollapse : PCGTest
     {
-        private void WaveFunctionCollapseTest(ExpansionMode mode, string filePath)
+        private static void WaveFunctionCollapseTest(ExpansionMode mode, string filePath)
         {
             var positions = File.ReadAllLines(filePath);
             int index = 0;
 
-            GenerationParameters parameters = new GenerationParameters()
+            GenerationParameters parameters = new()
             {
                 count = 200,
                 size = 1
