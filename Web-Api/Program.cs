@@ -1,3 +1,6 @@
+using PCGAPI;
+using PCGAPI.WebAPI;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -20,7 +23,7 @@ app.MapPost("/combination/generate", (List<string> elements) =>
 {
     List<string> result = [];
 
-    PCGAPI.PCGEngine.GenerateCombination(elements.Count, (index, included) =>
+    PCGEngine.GenerateCombination(elements.Count, (index, included) =>
     {
         if (included)
         {
@@ -31,6 +34,23 @@ app.MapPost("/combination/generate", (List<string> elements) =>
     return result;
 })
 .WithName("GenerateCombination")
+.WithOpenApi();
+
+app.MapPost("/combination/generatewithminimumelement", (MinimumElementCombination combinationParameters) =>
+{
+    List<string> result = [];
+
+    PCGEngine.GenerateCombination(combinationParameters.ElementCount, combinationParameters.MinimumElements, (index, included) =>
+    {
+        if (included)
+        {
+            result.Add(combinationParameters[index]);
+        }
+    });
+
+    return result;
+})
+.WithName("GenerateCombinationWithMinimumElement")
 .WithOpenApi();
 
 app.Run();
