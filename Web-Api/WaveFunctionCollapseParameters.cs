@@ -2,7 +2,7 @@
 {
     public record WaveFunctionCollapseParameters(uint NodeCount, float NodeSize, Vector3 StartPosition, ExpansionMode ExpansionMode, Axis Axes)
     {
-        public GenerationParameters GetGenerationParameters() => new()
+        internal GenerationParameters GenerationParameters => new()
         {
             count = NodeCount,
             size = NodeSize,

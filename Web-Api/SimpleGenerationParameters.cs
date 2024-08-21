@@ -2,7 +2,7 @@
 {
     public record SimpleGenerationParameters(uint NodeCount, float NodeSize, Vector3 StartPosition, Axis Axes)
     {
-        public GenerationParameters GetGenerationParameters() => new()
+        internal GenerationParameters GenerationParameters => new()
         {
             count = NodeCount,
             size = NodeSize,

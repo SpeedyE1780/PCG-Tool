@@ -2,10 +2,10 @@
 {
     public record ActiveElementCombination(List<string> Elements, List<string> Included)
     {
-        public int ElementCount => Elements.Count;
-        public int IncludedCount => Included.Count;
-        public string this[int index] => Elements[index];
-        public int[] IncludedIndices
+        internal int ElementCount => Elements.Count;
+        internal int IncludedCount => Included.Count;
+        internal string this[int index] => Elements[index];
+        internal int[] IncludedIndices
         {
             get
             {

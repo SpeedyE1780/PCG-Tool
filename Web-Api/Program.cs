@@ -118,7 +118,7 @@ app.MapPost("/maze/generate", (MazeParameters mazeParameters) =>
 app.MapPost("/levelgeneration/multidimensiongeneration", (MultiDimensionParameters parameters) =>
 {
     List<PCGAPI.WebAPI.Vector3> positions = [];
-    GenerationParameters generationParameters = parameters.GetGenerationParameters();
+    GenerationParameters generationParameters = parameters.GenerationParameters;
     PCGEngine.MultiDimensionalGeneration(ref generationParameters, parameters.Axes, parameters.DisableOverlap, position =>
     {
         positions.Add(Vector3Helper.ToWebAPI(position));
@@ -132,7 +132,7 @@ app.MapPost("/levelgeneration/multidimensiongeneration", (MultiDimensionParamete
 app.MapPost("/levelgeneration/simplegeneration", (SimpleGenerationParameters parameters) =>
 {
     List<PCGAPI.WebAPI.Vector3> positions = [];
-    GenerationParameters generationParameters = parameters.GetGenerationParameters();
+    GenerationParameters generationParameters = parameters.GenerationParameters;
     PCGEngine.SimpleGeneration(ref generationParameters, parameters.Axes, position =>
     {
         positions.Add(Vector3Helper.ToWebAPI(position));
@@ -146,7 +146,7 @@ app.MapPost("/levelgeneration/simplegeneration", (SimpleGenerationParameters par
 app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/generate", (WaveFunctionCollapseParameters parameters) =>
 {
     List<WFCNode> nodes = [];
-    GenerationParameters generationParameters = parameters.GetGenerationParameters();
+    GenerationParameters generationParameters = parameters.GenerationParameters;
     PCGEngine.WaveFunctionCollapseGeneration(ref generationParameters, parameters.ExpansionMode, parameters.Axes, (position, adjacentNodes) =>
     {
         nodes.Add(new(Vector3Helper.ToWebAPI(position), adjacentNodes));
