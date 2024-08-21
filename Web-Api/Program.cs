@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 using PCGAPI;
 using PCGAPI.WebAPI;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -20,7 +21,7 @@ static List<IOpenApiAny> GetEnumDescription<T>() where T : struct, Enum
 
 static void AddEnumMapType<T>(SwaggerGenOptions setupAction) where T : struct, Enum
 {
-    setupAction.MapType<T>(() => new Microsoft.OpenApi.Models.OpenApiSchema()
+    setupAction.MapType<T>(() => new OpenApiSchema()
     {
         Type = "integer",
         Format = "int32",
@@ -38,6 +39,17 @@ builder.Services.AddSwaggerGen(setupAction =>
     AddEnumMapType<LevelGenerationDirection>(setupAction);
     AddEnumMapType<Axis>(setupAction);
     AddEnumMapType<ExpansionMode>(setupAction);
+
+    var vectorComponentSchema = new OpenApiSchema() { Type = "number", Format = "float" };
+    setupAction.MapType<Vector3>(() => new OpenApiSchema()
+    {
+        Type = "object",
+        Properties = {
+            new KeyValuePair<string, OpenApiSchema>("x",  vectorComponentSchema),
+            new KeyValuePair<string, OpenApiSchema>("y",  vectorComponentSchema),
+            new KeyValuePair<string, OpenApiSchema>("z",  vectorComponentSchema),
+        }
+    });
 });
 
 var app = builder.Build();
@@ -117,11 +129,11 @@ app.MapPost("/maze/generate", (MazeParameters mazeParameters) =>
 
 app.MapPost("/levelgeneration/multidimensiongeneration", (MultiDimensionParameters parameters) =>
 {
-    List<PCGAPI.WebAPI.Vector3> positions = [];
+    List<Vector3> positions = [];
     GenerationParameters generationParameters = parameters.GenerationParameters;
     PCGEngine.MultiDimensionalGeneration(ref generationParameters, parameters.Axes, parameters.DisableOverlap, position =>
     {
-        positions.Add(Vector3Helper.ToWebAPI(position));
+        positions.Add(position);
     });
 
     return positions;
@@ -131,11 +143,11 @@ app.MapPost("/levelgeneration/multidimensiongeneration", (MultiDimensionParamete
 
 app.MapPost("/levelgeneration/simplegeneration", (SimpleGenerationParameters parameters) =>
 {
-    List<PCGAPI.WebAPI.Vector3> positions = [];
+    List<Vector3> positions = [];
     GenerationParameters generationParameters = parameters.GenerationParameters;
     PCGEngine.SimpleGeneration(ref generationParameters, parameters.Axes, position =>
     {
-        positions.Add(Vector3Helper.ToWebAPI(position));
+        positions.Add(position);
     });
 
     return positions;
@@ -149,7 +161,7 @@ app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/generate", (WaveFun
     GenerationParameters generationParameters = parameters.GenerationParameters;
     PCGEngine.WaveFunctionCollapseGeneration(ref generationParameters, parameters.ExpansionMode, parameters.Axes, (position, adjacentNodes) =>
     {
-        nodes.Add(new(Vector3Helper.ToWebAPI(position), adjacentNodes));
+        nodes.Add(new(position, adjacentNodes));
     });
 
     return nodes;
