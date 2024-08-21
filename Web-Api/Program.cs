@@ -53,4 +53,21 @@ app.MapPost("/combination/generatewithminimumelement", (MinimumElementCombinatio
 .WithName("GenerateCombinationWithMinimumElement")
 .WithOpenApi();
 
+app.MapPost("/combination/generatewithactiveelement", (ActiveElementCombination combinationParameters) =>
+{
+    List<string> result = [];
+
+    PCGEngine.GenerateCombination(combinationParameters.ElementCount, combinationParameters.IncludedIndices, combinationParameters.IncludedCount, (index, included) =>
+    {
+        if (included)
+        {
+            result.Add(combinationParameters[index]);
+        }
+    });
+
+    return result;
+})
+.WithName("GenerateCombinationWithActiveElement")
+.WithOpenApi();
+
 app.Run();
