@@ -79,6 +79,22 @@ app.MapPost("/maze/generate", (MazeParameters mazeParameters) =>
             });
 
     return nodes;
-});
+})
+.WithName("Maze")
+.WithOpenApi();
+
+app.MapPost("/levelgeneration/multidimensiongeneration", (MultiDimensionParameters parameters) =>
+{
+    List<PCGAPI.WebAPI.Vector3> positions = [];
+    GenerationParameters generationParameters = parameters.GetGenerationParameters();
+    PCGEngine.MultiDimensionalGeneration(ref generationParameters, parameters.Axes, parameters.DisableOverlap, position =>
+    {
+        positions.Add(Vector3Helper.ToWebAPI(position));
+    });
+
+    return positions;
+})
+.WithName("LevelGenerationMultiDimension")
+.WithOpenApi();
 
 app.Run();
