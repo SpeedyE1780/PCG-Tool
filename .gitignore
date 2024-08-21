@@ -586,4 +586,5 @@ Unreal/DerivedDataCache/*
 
 # Add C# project files
 !C#-PCG-Wrapper/**/*.csproj
+!Web-Api/**/*.csproj
 /Python/GoldenValues
