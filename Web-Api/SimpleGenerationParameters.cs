@@ -1,6 +1,6 @@
 ﻿namespace PCGAPI.WebAPI
 {
-    public record MultiDimensionParameters(uint NodeCount, float NodeSize, Vector3 StartPosition, Axis Axes, bool DisableOverlap)
+    public record SimpleGenerationParameters(uint NodeCount, float NodeSize, Vector3 StartPosition, Axis Axes)
     {
         public GenerationParameters GetGenerationParameters() => new()
         {

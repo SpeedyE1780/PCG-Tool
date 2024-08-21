@@ -94,7 +94,21 @@ app.MapPost("/levelgeneration/multidimensiongeneration", (MultiDimensionParamete
 
     return positions;
 })
-.WithName("LevelGenerationMultiDimension")
+.WithName("LevelGenerationMultiDimensionGeneration")
+.WithOpenApi();
+
+app.MapPost("/levelgeneration/simplegeneration", (SimpleGenerationParameters parameters) =>
+{
+    List<PCGAPI.WebAPI.Vector3> positions = [];
+    GenerationParameters generationParameters = parameters.GetGenerationParameters();
+    PCGEngine.SimpleGeneration(ref generationParameters, parameters.Axes, position =>
+    {
+        positions.Add(Vector3Helper.ToWebAPI(position));
+    });
+
+    return positions;
+})
+.WithName("LevelGenerationSimpleGeneration")
 .WithOpenApi();
 
 app.Run();
