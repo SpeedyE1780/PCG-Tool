@@ -234,4 +234,28 @@ app.MapPost("/sequence/generate", (SequenceParameters parameters) =>
 .WithName("SequenceGenerate")
 .WithOpenApi();
 
+app.MapPost("/sequence/generatecyclicsequence", (CyclicSequenceParameters parameters) =>
+{
+    Dictionary<int, SequenceNodeImplementation> nodes = GenerateSequenceDictionary(parameters.Nodes);
+    List<int> sequence = [];
+
+    ISequenceNode currentNode = nodes[parameters.Start.ID];
+    PCGEngine.GenerateCyclicSequence(currentNode, parameters.SequenceLength, index =>
+    {
+        sequence.Add(((SequenceNodeImplementation)currentNode).ID);
+
+        if (index == -1)
+        {
+            return 0;
+        }
+
+        currentNode = currentNode.NextNodes.ElementAt(index);
+        return currentNode.NextCount;
+    });
+
+    return sequence;
+})
+.WithName("SequenceGenerateCyclicSequence")
+.WithOpenApi();
+
 app.Run();

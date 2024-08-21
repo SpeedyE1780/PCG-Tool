@@ -5,6 +5,10 @@ namespace PCGAPI.WebAPI
     {
     }
 
+    public record CyclicSequenceParameters(SequenceNode Start, List<SequenceNode> Nodes, int SequenceLength)
+    {
+    }
+
     public record SequenceNode(int ID, List<int> NextNodes)
     {
     }
