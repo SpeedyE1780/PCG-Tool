@@ -63,15 +63,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/combination/generate", (List<string> elements) =>
+app.MapPost("/combination/generate", (CombinationParameters parameters) =>
 {
     List<string> result = [];
 
-    PCGEngine.GenerateCombination(elements.Count, (index, included) =>
+    PCGEngine.GenerateCombination(parameters.Count, (index, included) =>
     {
         if (included)
         {
-            result.Add(elements[index]);
+            result.Add(parameters[index]);
         }
     });
 
