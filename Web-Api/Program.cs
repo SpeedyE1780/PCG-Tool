@@ -1,12 +1,43 @@
+using Microsoft.OpenApi.Any;
 using PCGAPI;
 using PCGAPI.WebAPI;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
+
+static List<IOpenApiAny> GetEnumDescription<T>() where T : struct, Enum
+{
+    List<IOpenApiAny> description = [];
+
+    foreach (var item in Enum.GetValuesAsUnderlyingType(typeof(T)))
+    {
+        string? name = Enum.GetName(typeof(T), item);
+        description.Add(new OpenApiString($"{item} ({name})"));
+    }
+
+    return description;
+}
+
+static void AddEnumMapType<T>(SwaggerGenOptions setupAction) where T : struct, Enum
+{
+    setupAction.MapType<T>(() => new Microsoft.OpenApi.Models.OpenApiSchema()
+    {
+        Type = "integer",
+        Format = "int32",
+        Enum = GetEnumDescription<T>()
+    });
+}
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(setupAction =>
+{
+    AddEnumMapType<MazeAlgorithm>(setupAction);
+    AddEnumMapType<MazeDirection>(setupAction);
+    AddEnumMapType<LevelGenerationDirection>(setupAction);
+    AddEnumMapType<Axis>(setupAction);
+});
 
 var app = builder.Build();
 
