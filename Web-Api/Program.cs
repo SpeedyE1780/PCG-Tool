@@ -143,7 +143,7 @@ app.MapPost("/levelgeneration/simplegeneration", (SimpleGenerationParameters par
 .WithName("LevelGenerationSimpleGeneration")
 .WithOpenApi();
 
-app.MapPost("/levelgeneration/wavefunctioncollapsegeneration", (WaveFunctionCollapseParameters parameters) =>
+app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/generate", (WaveFunctionCollapseParameters parameters) =>
 {
     List<WFCNode> nodes = [];
     GenerationParameters generationParameters = parameters.GetGenerationParameters();
@@ -155,6 +155,19 @@ app.MapPost("/levelgeneration/wavefunctioncollapsegeneration", (WaveFunctionColl
     return nodes;
 })
 .WithName("LevelGenerationWaveFunctionCollapseGeneration")
+.WithOpenApi();
+
+app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/grid2d", (GridWaveFunctionCollapseParameters2D parameters) =>
+{
+    List<GridWFCNode2D> nodes = [];
+    PCGEngine.WaveFunctionCollapseGeneration(parameters.Width, parameters.Height, parameters.Plane, true, (x, y, adjacentNodes) =>
+    {
+        nodes.Add(new(x, y, adjacentNodes));
+    });
+
+    return nodes;
+})
+.WithName("LevelGenerationWaveFunctionCollapseGenerationGrid2D")
 .WithOpenApi();
 
 app.Run();
