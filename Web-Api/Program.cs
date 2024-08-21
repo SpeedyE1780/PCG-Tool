@@ -183,4 +183,55 @@ app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/grid3d", (GridWaveF
 .WithName("LevelGenerationWaveFunctionCollapseGenerationGrid3D")
 .WithOpenApi();
 
+static Dictionary<int, SequenceNodeImplementation> GenerateSequenceDictionary(List<SequenceNode> sequenceNodes)
+{
+    Dictionary<int, SequenceNodeImplementation> nodes = [];
+
+    foreach (var node in sequenceNodes)
+    {
+        if (!nodes.TryGetValue(node.ID, out SequenceNodeImplementation? current))
+        {
+            current = new SequenceNodeImplementation(node.ID);
+            nodes[node.ID] = current;
+        }
+
+        foreach (var next in node.NextNodes)
+        {
+            if (!nodes.TryGetValue(next, out SequenceNodeImplementation? nextNode))
+            {
+                nextNode = new SequenceNodeImplementation(next);
+                nodes[next] = nextNode;
+            }
+
+            current.Children.Add(nextNode);
+        }
+    }
+
+    return nodes;
+}
+
+app.MapPost("/sequence/generate", (SequenceParameters parameters) =>
+{
+    Dictionary<int, SequenceNodeImplementation> nodes = GenerateSequenceDictionary(parameters.Nodes);
+    List<int> sequence = [];
+
+    ISequenceNode currentNode = nodes[parameters.Start.ID];
+    PCGEngine.GenerateSequence(currentNode, index =>
+    {
+        sequence.Add(((SequenceNodeImplementation)currentNode).ID);
+
+        if (index == -1)
+        {
+            return 0;
+        }
+
+        currentNode = currentNode.NextNodes.ElementAt(index);
+        return currentNode.NextCount;
+    });
+
+    return sequence;
+})
+.WithName("SequenceGenerate")
+.WithOpenApi();
+
 app.Run();
