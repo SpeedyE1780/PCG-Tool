@@ -1,6 +1,204 @@
 @Web_Api_HostAddress = http://localhost:5150
 
-GET {{Web_Api_HostAddress}}/weatherforecast/
+### GenerateCombination
+POST {{Web_Api_HostAddress}}/combination/generate
+Content-Type: application/json
 Accept: application/json
 
-###
+{
+  "elements": ["Red", "Blue", "Green", "Purple", "Pink", "Yellow"]
+}
+
+### GenerateCombinationWithMinimumElement
+POST {{Web_Api_HostAddress}}/combination/generatewithminimumelement
+Content-Type: application/json
+Accept: application/json
+
+{
+  "elements": ["Red", "Blue", "Green", "Purple", "Pink", "Yellow"],
+  "minimumElements": 5
+}
+
+### GenerateCombinationWithActiveElement
+POST {{Web_Api_HostAddress}}/combination/generatewithactiveelement
+Content-Type: application/json
+Accept: application/json
+
+{
+  "elements": ["Red", "Blue", "Green", "Purple", "Pink", "Yellow"],
+  "included": ["Red", "Green", "Pink"]
+}
+
+### Maze
+POST {{Web_Api_HostAddress}}/maze/generate
+Content-Type: application/json
+Accept: application/json
+
+{
+  "width": 10,
+  "height": 10,
+  "algorithm": 0
+}
+
+### LevelGenerationMultiDimensionGeneration
+POST {{Web_Api_HostAddress}}/levelgeneration/multidimensiongeneration
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nodeCount": 250,
+  "nodeSize": 1,
+  "startPosition": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "axes": 63,
+  "disableOverlap": true
+}
+
+### LevelGenerationSimpleGeneration
+POST {{Web_Api_HostAddress}}/levelgeneration/simplegeneration
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nodeCount": 250,
+  "nodeSize": 1,
+  "startPosition": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "axes": 1
+}
+
+### LevelGenerationWaveFunctionCollapseGeneration
+POST {{Web_Api_HostAddress}}/levelgeneration/wavefunctioncollapsegeneration/generate
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nodeCount": 250,
+  "nodeSize": 1,
+  "startPosition": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "expansionMode": 1,
+  "axes": 63
+}
+
+### LevelGenerationWaveFunctionCollapseGenerationGrid2D
+POST {{Web_Api_HostAddress}}/levelgeneration/wavefunctioncollapsegeneration/grid2d
+Content-Type: application/json
+Accept: application/json
+
+{
+  "width": 10,
+  "height": 10,
+  "plane": 51
+}
+
+### LevelGenerationWaveFunctionCollapseGenerationGrid3D
+POST {{Web_Api_HostAddress}}/levelgeneration/wavefunctioncollapsegeneration/grid3d
+Content-Type: application/json
+Accept: application/json
+
+{
+  "width": 10,
+  "height": 10,
+  "depth": 10
+}
+
+### SequenceGenerate
+POST {{Web_Api_HostAddress}}/sequence/generate
+Content-Type: application/json
+Accept: application/json
+
+{
+  "start": {
+    "id": 0,
+    "nextNodes": [
+      1, 2, 3, 4
+    ]
+  },
+  "nodes": [
+    {
+      "id": 0,
+      "nextNodes": [
+        1, 2, 3, 4
+      ]
+    },
+    {
+      "id": 1,
+      "nextNodes": [
+        2, 3, 4
+      ]
+    },
+    {
+      "id": 2,
+      "nextNodes": [
+        3, 4
+      ]
+    },
+    {
+      "id": 3,
+      "nextNodes": [
+        4
+      ]
+    },
+    {
+      "id": 4,
+      "nextNodes": []
+    }
+  ]
+}
+
+### SequenceGenerateCyclicSequence
+POST {{Web_Api_HostAddress}}/sequence/generatecyclicsequence
+Content-Type: application/json
+Accept: application/json
+
+{
+  "start": {
+    "id": 0,
+    "nextNodes": [
+      1, 2, 3, 4
+    ]
+  },
+  "nodes": [
+    {
+      "id": 0,
+      "nextNodes": [
+        1, 2, 3, 4
+      ]
+    },
+    {
+      "id": 1,
+      "nextNodes": [
+        1, 2, 3, 4
+      ]
+    },
+    {
+      "id": 2,
+      "nextNodes": [
+        1, 2, 3, 4
+      ]
+    },
+    {
+      "id": 3,
+      "nextNodes": [
+        1, 2, 3, 4
+      ]
+    },
+    {
+      "id": 4,
+      "nextNodes": [
+        1, 2, 3, 4
+      ]
+    }
+  ],
+  "sequenceLength": 20
+}
