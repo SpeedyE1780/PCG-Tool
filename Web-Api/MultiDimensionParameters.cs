@@ -6,7 +6,7 @@
         {
             count = NodeCount,
             size = NodeSize,
-            startPoint = StartPosition,
+            startPoint = Vector3Helper.ToEngine(StartPosition),
         };
     }
 }
