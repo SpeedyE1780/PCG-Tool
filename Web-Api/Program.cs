@@ -170,4 +170,17 @@ app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/grid2d", (GridWaveF
 .WithName("LevelGenerationWaveFunctionCollapseGenerationGrid2D")
 .WithOpenApi();
 
+app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/grid3d", (GridWaveFunctionCollapseParameters3D parameters) =>
+{
+    List<GridWFCNode3D> nodes = [];
+    PCGEngine.WaveFunctionCollapseGeneration(parameters.Width, parameters.Height, parameters.Depth, true, (x, y, z, adjacentNodes) =>
+    {
+        nodes.Add(new(x, y, z, adjacentNodes));
+    });
+
+    return nodes;
+})
+.WithName("LevelGenerationWaveFunctionCollapseGenerationGrid3D")
+.WithOpenApi();
+
 app.Run();
