@@ -37,6 +37,7 @@ builder.Services.AddSwaggerGen(setupAction =>
     AddEnumMapType<MazeDirection>(setupAction);
     AddEnumMapType<LevelGenerationDirection>(setupAction);
     AddEnumMapType<Axis>(setupAction);
+    AddEnumMapType<ExpansionMode>(setupAction);
 });
 
 var app = builder.Build();
@@ -140,6 +141,20 @@ app.MapPost("/levelgeneration/simplegeneration", (SimpleGenerationParameters par
     return positions;
 })
 .WithName("LevelGenerationSimpleGeneration")
+.WithOpenApi();
+
+app.MapPost("/levelgeneration/wavefunctioncollapsegeneration", (WaveFunctionCollapseParameters parameters) =>
+{
+    List<WFCNode> nodes = [];
+    GenerationParameters generationParameters = parameters.GetGenerationParameters();
+    PCGEngine.WaveFunctionCollapseGeneration(ref generationParameters, parameters.ExpansionMode, parameters.Axes, (position, adjacentNodes) =>
+    {
+        nodes.Add(new(Vector3Helper.ToWebAPI(position), adjacentNodes));
+    });
+
+    return nodes;
+})
+.WithName("LevelGenerationWaveFunctionCollapseGeneration")
 .WithOpenApi();
 
 app.Run();
