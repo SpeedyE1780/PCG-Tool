@@ -70,4 +70,15 @@ app.MapPost("/combination/generatewithactiveelement", (ActiveElementCombination 
 .WithName("GenerateCombinationWithActiveElement")
 .WithOpenApi();
 
+app.MapPost("/maze/generate", (MazeParameters mazeParameters) =>
+{
+    List<MazeNode> nodes = [];
+    PCGEngine.GenerateMaze(mazeParameters.Width, mazeParameters.Height, true, mazeParameters.Algorithm, (x, y, adjacentNodes) =>
+            {
+                nodes.Add(new MazeNode(x, y, adjacentNodes));
+            });
+
+    return nodes;
+});
+
 app.Run();
