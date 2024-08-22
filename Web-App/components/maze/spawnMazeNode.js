@@ -15,7 +15,7 @@ export default function SpawnMazeNode(x, y, adjacentNodes) {
     type: "box",
   });
 
-  if ((adjacentNodes & left) > 0) {
+  if ((adjacentNodes & left) == 0) {
     let leftWall = new pc.Entity();
     leftWall.setLocalScale(0.1, 1, 5);
     leftWall.setPosition(position.x + -2.5, position.y + 0.5, position.z + 0);
@@ -25,7 +25,7 @@ export default function SpawnMazeNode(x, y, adjacentNodes) {
     pc.app.root.addChild(leftWall);
   }
 
-  if ((adjacentNodes & right) > 0) {
+  if ((adjacentNodes & right) == 0) {
     let rightWall = new pc.Entity();
     rightWall.setLocalScale(0.1, 1, 5);
     rightWall.setPosition(position.x + 2.5, position.y + 0.5, position.z + 0);
@@ -35,7 +35,7 @@ export default function SpawnMazeNode(x, y, adjacentNodes) {
     pc.app.root.addChild(rightWall);
   }
 
-  if ((adjacentNodes & forward) > 0) {
+  if ((adjacentNodes & forward) == 0) {
     let forwardWall = new pc.Entity();
     forwardWall.setLocalScale(5, 1, 0.1);
     forwardWall.setPosition(
@@ -49,7 +49,7 @@ export default function SpawnMazeNode(x, y, adjacentNodes) {
     pc.app.root.addChild(forwardWall);
   }
 
-  if ((adjacentNodes & backward) > 0) {
+  if ((adjacentNodes & backward) == 0) {
     let backwardWall = new pc.Entity();
     backwardWall.setLocalScale(5, 1, 0.1);
     backwardWall.setPosition(
