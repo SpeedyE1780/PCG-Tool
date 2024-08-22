@@ -29,15 +29,16 @@ export default function Game() {
     box.addComponent("model", {
       type: "box",
     });
-    app.root.addChild(box);
 
-    // rotate the box
-    app.on("update", (dt) => box.rotate(10 * dt, 20 * dt, 30 * dt));
+    var Rotate = pc.createScript("rotate");
+    Rotate.prototype.update = function (dt) {
+      this.entity.rotate(10 * dt, 20 * dt, 30 * dt);
+    };
+
+    box.addComponent("script");
+    box.script.create("rotate");
+    app.root.addChild(box);
   }, []);
 
-  return (
-    <div>
-      <canvas id="application"></canvas>
-    </div>
-  );
+  return <canvas id="application"></canvas>;
 }
