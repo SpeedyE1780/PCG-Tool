@@ -1,50 +1,9 @@
 import { useEffect } from "react";
 import * as pc from "playcanvas";
 import CreateFlyCamera from "./flyCamera";
+import SpawnMazeNode from "../maze/spawnMazeNode";
 
 export default function Game() {
-  function SpawnMazeNode(walls) {
-    let ground = new pc.Entity();
-    ground.setLocalScale(5, 0.2, 5);
-    ground.addComponent("model", {
-      type: "box",
-    });
-
-    let leftWall = new pc.Entity();
-    leftWall.setLocalScale(0.1, 1, 5);
-    leftWall.setPosition(-2.5, 0.5, 0);
-    leftWall.addComponent("model", {
-      type: "box",
-    });
-
-    let rightWall = new pc.Entity();
-    rightWall.setLocalScale(0.1, 1, 5);
-    rightWall.setPosition(2.5, 0.5, 0);
-    rightWall.addComponent("model", {
-      type: "box",
-    });
-
-    let forwardWall = new pc.Entity();
-    forwardWall.setLocalScale(5, 1, 0.1);
-    forwardWall.setPosition(0, 0.5, -2.5);
-    forwardWall.addComponent("model", {
-      type: "box",
-    });
-
-    let backwardWall = new pc.Entity();
-    backwardWall.setLocalScale(5, 1, 0.1);
-    backwardWall.setPosition(0, 0.5, 2.5);
-    backwardWall.addComponent("model", {
-      type: "box",
-    });
-
-    pc.app.root.addChild(ground);
-    pc.app.root.addChild(leftWall);
-    pc.app.root.addChild(rightWall);
-    pc.app.root.addChild(forwardWall);
-    pc.app.root.addChild(backwardWall);
-  }
-
   useEffect(() => {
     // create a PlayCanvas application
     const canvas = document.getElementById("application");
@@ -75,7 +34,7 @@ export default function Game() {
     light.setEulerAngles(45, 45, 0);
     app.root.addChild(light);
 
-    SpawnMazeNode(0);
+    SpawnMazeNode(3);
   }, []);
 
   return <canvas id="application"></canvas>;
