@@ -39,8 +39,10 @@ builder.Services.AddSwaggerGen(setupAction =>
     AddEnumMapType<Axis>(setupAction);
     AddEnumMapType<ExpansionMode>(setupAction);
 });
+builder.Services.AddCors();
 
 var app = builder.Build();
+app.UseCors(builder => builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
