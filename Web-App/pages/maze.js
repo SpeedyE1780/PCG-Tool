@@ -14,6 +14,8 @@ export default function Maze() {
       algorithm: selectedAlgorithm,
     };
 
+    pc.app.fire("DestroyNode");
+
     var request = {
       method: "POST",
       headers: {
@@ -35,8 +37,6 @@ export default function Maze() {
     } else {
       alert("Error in result");
     }
-
-    pc.app.fire("DestroyNode");
   }
 
   return (
