@@ -27,6 +27,11 @@ export default function Home() {
               <h3>Multi Dimension Generation</h3>
             </a>
           </li>
+          <li>
+            <a href={"waveFunctionCollapse"}>
+              <h3>Wave Function Collapse Generation</h3>
+            </a>
+          </li>
         </ul>
       </main>
 
