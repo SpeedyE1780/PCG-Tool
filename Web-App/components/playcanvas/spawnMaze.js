@@ -1,4 +1,4 @@
-import SpawnMazeNode from "../maze/spawnMazeNode";
+import SpawnMazeNode from "./spawnMazeNode";
 
 export default function spawnMaze(mazeNodes) {
   mazeNodes.forEach((element) => {

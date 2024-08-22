@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import * as pc from "playcanvas";
 import CreateFlyCamera from "./flyCamera";
-import SpawnMazeNode from "../maze/spawnMazeNode";
 import createDestroyNode from "./destroyNode";
 
 export default function Game() {
