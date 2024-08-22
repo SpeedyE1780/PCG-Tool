@@ -34,7 +34,8 @@ export default function Game() {
     light.setEulerAngles(45, 45, 0);
     app.root.addChild(light);
 
-    SpawnMazeNode(3);
+    SpawnMazeNode(0, 0, 3);
+    SpawnMazeNode(0, 1, 3);
   }, []);
 
   return <canvas id="application"></canvas>;
