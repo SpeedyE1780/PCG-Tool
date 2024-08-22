@@ -1,20 +1,28 @@
 import { useEffect } from "react";
 import * as pc from "playcanvas";
+import CreateFLyCamera from "./flyCamera";
 
 export default function Game() {
-    useEffect(() => {
+  useEffect(() => {
     // create a PlayCanvas application
     const canvas = document.getElementById("application");
-    const app = new pc.Application(canvas);
+    const app = new pc.Application(canvas, {
+      mouse: new pc.Mouse(document.body),
+      keyboard: new pc.Keyboard(window),
+    });
     app.setCanvasResolution(pc.RESOLUTION_AUTO);
     app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
     app.start();
+
+    CreateFLyCamera();
 
     // create a camera
     const camera = new pc.Entity();
     camera.addComponent("camera", {
       clearColor: new pc.Color(0.3, 0.3, 0.7),
     });
+    camera.addComponent("script");
+    camera.script.create("flyCamera");
     camera.setPosition(0, 0, 3);
     app.root.addChild(camera);
 
