@@ -30,7 +30,7 @@ export default function Home() {
           </a>
 
           <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
+            href={"maze"}
             className={styles.card}
           >
             <h3>Examples &rarr;</h3>
