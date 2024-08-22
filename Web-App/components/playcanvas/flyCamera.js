@@ -2,7 +2,7 @@ import * as pc from "playcanvas";
 
 //https://github.com/playcanvas/engine/blob/main/scripts/camera/fly-camera.js
 
-export default function CreateFLyCamera() {
+export default function CreateFlyCamera() {
   var FlyCamera = pc.createScript("flyCamera");
 
   FlyCamera.attributes.add("speed", {

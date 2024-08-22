@@ -1,8 +1,50 @@
 import { useEffect } from "react";
 import * as pc from "playcanvas";
-import CreateFLyCamera from "./flyCamera";
+import CreateFlyCamera from "./flyCamera";
 
 export default function Game() {
+  function SpawnMazeNode(walls) {
+    let ground = new pc.Entity();
+    ground.setLocalScale(5, 0.2, 5);
+    ground.addComponent("model", {
+      type: "box",
+    });
+
+    let leftWall = new pc.Entity();
+    leftWall.setLocalScale(0.1, 1, 5);
+    leftWall.setPosition(-2.5, 0.5, 0);
+    leftWall.addComponent("model", {
+      type: "box",
+    });
+
+    let rightWall = new pc.Entity();
+    rightWall.setLocalScale(0.1, 1, 5);
+    rightWall.setPosition(2.5, 0.5, 0);
+    rightWall.addComponent("model", {
+      type: "box",
+    });
+
+    let forwardWall = new pc.Entity();
+    forwardWall.setLocalScale(5, 1, 0.1);
+    forwardWall.setPosition(0, 0.5, -2.5);
+    forwardWall.addComponent("model", {
+      type: "box",
+    });
+
+    let backwardWall = new pc.Entity();
+    backwardWall.setLocalScale(5, 1, 0.1);
+    backwardWall.setPosition(0, 0.5, 2.5);
+    backwardWall.addComponent("model", {
+      type: "box",
+    });
+
+    pc.app.root.addChild(ground);
+    pc.app.root.addChild(leftWall);
+    pc.app.root.addChild(rightWall);
+    pc.app.root.addChild(forwardWall);
+    pc.app.root.addChild(backwardWall);
+  }
+
   useEffect(() => {
     // create a PlayCanvas application
     const canvas = document.getElementById("application");
@@ -14,7 +56,7 @@ export default function Game() {
     app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
     app.start();
 
-    CreateFLyCamera();
+    CreateFlyCamera();
 
     // create a camera
     const camera = new pc.Entity();
@@ -23,7 +65,8 @@ export default function Game() {
     });
     camera.addComponent("script");
     camera.script.create("flyCamera");
-    camera.setPosition(0, 0, 3);
+    camera.setPosition(0, 5, 5);
+    camera.lookAt(0, 0, 0);
     app.root.addChild(camera);
 
     // create a light
@@ -32,20 +75,7 @@ export default function Game() {
     light.setEulerAngles(45, 45, 0);
     app.root.addChild(light);
 
-    // create a box
-    const box = new pc.Entity();
-    box.addComponent("model", {
-      type: "box",
-    });
-
-    var Rotate = pc.createScript("rotate");
-    Rotate.prototype.update = function (dt) {
-      this.entity.rotate(10 * dt, 20 * dt, 30 * dt);
-    };
-
-    box.addComponent("script");
-    box.script.create("rotate");
-    app.root.addChild(box);
+    SpawnMazeNode(0);
   }, []);
 
   return <canvas id="application"></canvas>;
