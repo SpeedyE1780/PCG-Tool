@@ -30,6 +30,7 @@ export default function CreateFLyCamera() {
 
   FlyCamera.prototype.initialize = function () {
     // Camera euler angle rotation around x and y axes
+    this.startPosition = this.entity.getPosition().clone();
     var eulers = this.entity.getLocalEulerAngles();
     this.ex = eulers.x;
     this.ey = eulers.y;
@@ -75,6 +76,10 @@ export default function CreateFLyCamera() {
       app.keyboard.isPressed(pc.KEY_D)
     ) {
       this.entity.translateLocal(speed * dt, 0, 0);
+    }
+
+    if (app.keyboard.isPressed(pc.KEY_SPACE)) {
+      this.entity.setPosition(this.startPosition);
     }
   };
 
