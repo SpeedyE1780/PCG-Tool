@@ -35,7 +35,7 @@ export default function CreateFlyCamera() {
     this.ex = eulers.x;
     this.ey = eulers.y;
     this.moved = false;
-    this.lmbDown = false;
+    this.rmbDown = false;
 
     // Disabling the context menu stops the browser displaying a menu when
     // you right-click the page
@@ -84,14 +84,8 @@ export default function CreateFlyCamera() {
   };
 
   FlyCamera.prototype.onMouseMove = function (event) {
-    if (!this.mode) {
-      if (!pc.Mouse.isPointerLocked()) {
-        return;
-      }
-    } else {
-      if (!this.lmbDown) {
-        return;
-      }
+    if (!this.rmbDown) {
+      return;
     }
 
     // Update the current Euler angles, clamp the pitch.
@@ -106,19 +100,19 @@ export default function CreateFlyCamera() {
   };
 
   FlyCamera.prototype.onMouseDown = function (event) {
-    if (event.button === 0) {
-      this.lmbDown = true;
+    if (event.button === 2) {
+      this.rmbDown = true;
 
-      // When the mouse button is clicked try and capture the pointer
-      if (!this.mode && !pc.Mouse.isPointerLocked()) {
-        this.app.mouse.enablePointerLock();
-      }
+      //   // When the mouse button is clicked try and capture the pointer
+      //   if (!this.mode && !pc.Mouse.isPointerLocked()) {
+      //     this.app.mouse.enablePointerLock();
+      //   }
     }
   };
 
   FlyCamera.prototype.onMouseUp = function (event) {
-    if (event.button === 0) {
-      this.lmbDown = false;
+    if (event.button === 2) {
+      this.rmbDown = false;
     }
   };
 }
