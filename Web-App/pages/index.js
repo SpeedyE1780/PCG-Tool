@@ -22,6 +22,11 @@ export default function Home() {
               <h3>Simple Generation</h3>
             </a>
           </li>
+          <li>
+            <a href={"multiDimensionGeneration"}>
+              <h3>Multi Dimension Generation</h3>
+            </a>
+          </li>
         </ul>
       </main>
 
