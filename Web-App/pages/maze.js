@@ -1,16 +1,40 @@
 import * as pc from "playcanvas";
 import Game from "../components/playcanvas/game";
+import spawnMaze from "../components/playcanvas/spawnMaze";
 
 export default function Maze() {
-  let width = 0;
-  let height = 0;
+  let Width = 0;
+  let Height = 0;
   let selectedAlgorithm = 0;
+
   async function generateMaze() {
-    console.log({
-      Width: width,
-      Height: height,
-      Maze: selectedAlgorithm,
-    });
+    const mazeParameters = {
+      width: Width,
+      height: Height,
+      algorithm: selectedAlgorithm,
+    };
+
+    var request = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(mazeParameters),
+    };
+
+    const result = await fetch("https://localhost:7060/maze/generate", request);
+
+    if (result.ok) {
+      result
+        .json()
+        .then((body) => {
+          console.log(body);
+          spawnMaze(body);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      alert("Error in result");
+    }
 
     pc.app.fire("DestroyNode");
   }
@@ -21,11 +45,11 @@ export default function Maze() {
         <h1>Maze Generation</h1>
         <input
           placeholder="Width"
-          onChange={(event) => (width = event.target.value)}
+          onChange={(event) => (Width = event.target.value)}
         ></input>
         <input
           placeholder="Height"
-          onChange={(event) => (height = event.target.value)}
+          onChange={(event) => (Height = event.target.value)}
         ></input>
         <select
           onChange={(event) => (selectedAlgorithm = event.target.selectedIndex)}
