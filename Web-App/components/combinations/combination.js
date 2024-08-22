@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getElementsFromElements } from "./common";
+import { getElementsFromInput } from "./common";
 
 export default function Combination() {
   let [combinationInfo, setCombination] = useState("");
@@ -7,7 +7,7 @@ export default function Combination() {
 
   async function GenerateCombination() {
     let combinationElements = {
-      elements: getElementsFromElements(input),
+      elements: getElementsFromInput(input),
     };
 
     var request = {

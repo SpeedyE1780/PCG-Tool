@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { getElementsFromInput } from "./common";
 
-export default function MinimumCombination() {
+export default function ActiveElementCombination() {
   let [combinationInfo, setCombination] = useState("");
   let input = "";
-  let minimum = 0;
+  let included = "";
 
   async function GenerateCombination() {
     let combinationElements = {
       elements: getElementsFromInput(input),
-      minimumElements: minimum,
+      included: getElementsFromInput(included),
     };
 
     var request = {
@@ -21,7 +21,7 @@ export default function MinimumCombination() {
     };
 
     const result = await fetch(
-      "https://localhost:7060/combination/generatewithminimumelement",
+      "https://localhost:7060/combination/generatewithactiveelement",
       request
     );
 
@@ -40,14 +40,14 @@ export default function MinimumCombination() {
 
   return (
     <div>
-      <h2>Minimum Element Combination</h2>
+      <h2>Active Element Combination</h2>
       <input
         onChange={(event) => (input = event.target.value)}
         placeholder="Elements"
       ></input>
       <input
-        onChange={(event) => (minimum = event.target.value)}
-        placeholder="Minimum Element Count"
+        onChange={(event) => (included = event.target.value)}
+        placeholder="Included Elements"
       ></input>
       <button onClick={GenerateCombination}>Generate</button>
       <h2>Combination: {combinationInfo}</h2>
