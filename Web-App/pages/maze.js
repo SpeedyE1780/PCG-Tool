@@ -1,3 +1,4 @@
+import * as pc from "playcanvas";
 import Game from "../components/playcanvas/game";
 
 export default function Maze() {
@@ -10,6 +11,8 @@ export default function Maze() {
       Height: height,
       Maze: selectedAlgorithm,
     });
+
+    pc.app.fire("DestroyNode");
   }
 
   return (

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import * as pc from "playcanvas";
 import CreateFlyCamera from "./flyCamera";
 import SpawnMazeNode from "../maze/spawnMazeNode";
+import createDestroyNode from "./destroyNode";
 
 export default function Game() {
   useEffect(() => {
@@ -16,6 +17,7 @@ export default function Game() {
     app.start();
 
     CreateFlyCamera();
+    createDestroyNode();
 
     // create a camera
     const camera = new pc.Entity();
@@ -34,8 +36,10 @@ export default function Game() {
     light.setEulerAngles(45, 45, 0);
     app.root.addChild(light);
 
-    SpawnMazeNode(0, 0, 3);
-    SpawnMazeNode(0, 1, 3);
+    SpawnMazeNode(0, 0, 2 | 4);
+    SpawnMazeNode(0, 1, 2 | 8);
+    SpawnMazeNode(1, 0, 1 | 4);
+    SpawnMazeNode(1, 1, 1 | 8);
   }, []);
 
   return <canvas id="application"></canvas>;

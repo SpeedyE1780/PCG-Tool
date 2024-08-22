@@ -1,6 +1,5 @@
 import * as pc from "playcanvas";
 
-const none = 0;
 const left = 1;
 const right = 2;
 const forward = 4;
@@ -14,6 +13,9 @@ export default function SpawnMazeNode(x, y, adjacentNodes) {
   ground.addComponent("model", {
     type: "box",
   });
+  ground.addComponent("script");
+  ground.script.create("destroyNode");
+  pc.app.root.addChild(ground);
 
   if ((adjacentNodes & left) == 0) {
     let leftWall = new pc.Entity();
@@ -22,6 +24,8 @@ export default function SpawnMazeNode(x, y, adjacentNodes) {
     leftWall.addComponent("model", {
       type: "box",
     });
+    leftWall.addComponent("script");
+    leftWall.script.create("destroyNode");
     pc.app.root.addChild(leftWall);
   }
 
@@ -32,6 +36,8 @@ export default function SpawnMazeNode(x, y, adjacentNodes) {
     rightWall.addComponent("model", {
       type: "box",
     });
+    rightWall.addComponent("script");
+    rightWall.script.create("destroyNode");
     pc.app.root.addChild(rightWall);
   }
 
@@ -41,11 +47,13 @@ export default function SpawnMazeNode(x, y, adjacentNodes) {
     forwardWall.setPosition(
       position.x + 0,
       position.y + 0.5,
-      position.z + -2.5
+      position.z + 2.5
     );
     forwardWall.addComponent("model", {
       type: "box",
     });
+    forwardWall.addComponent("script");
+    forwardWall.script.create("destroyNode");
     pc.app.root.addChild(forwardWall);
   }
 
@@ -55,13 +63,13 @@ export default function SpawnMazeNode(x, y, adjacentNodes) {
     backwardWall.setPosition(
       position.x + 0,
       position.y + 0.5,
-      position.z + 2.5
+      position.z + -2.5
     );
     backwardWall.addComponent("model", {
       type: "box",
     });
+    backwardWall.addComponent("script");
+    backwardWall.script.create("destroyNode");
     pc.app.root.addChild(backwardWall);
   }
-
-  pc.app.root.addChild(ground);
 }
