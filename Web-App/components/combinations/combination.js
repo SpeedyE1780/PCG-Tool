@@ -1,39 +1,22 @@
 import { useState } from "react";
 import { getElementsFromInput } from "./common";
+import { PCGRequest } from "../pcgRequest";
+
+let input = "";
 
 export default function Combination() {
   let [combinationInfo, setCombination] = useState("");
-  let input = "";
 
-  async function GenerateCombination() {
-    let combinationElements = {
+  function GenerateCombination() {
+    const combinationElements = {
       elements: getElementsFromInput(input),
     };
 
-    var request = {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(combinationElements),
-    };
-
-    const result = await fetch(
+    PCGRequest(
       "https://localhost:7060/combination/generate",
-      request
+      combinationElements,
+      (body) => setCombination(body)
     );
-
-    if (result.ok) {
-      result
-        .text()
-        .then((body) => {
-          combinationInfo = body;
-          setCombination(combinationInfo);
-        })
-        .catch((err) => console.log(err));
-    } else {
-      alert("Error in result");
-    }
   }
 
   return (

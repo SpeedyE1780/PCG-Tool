@@ -1,41 +1,24 @@
 import { useState } from "react";
 import { getElementsFromInput } from "./common";
+import { PCGRequest } from "../pcgRequest";
+
+let input = "";
+let minimum = 0;
 
 export default function MinimumCombination() {
   let [combinationInfo, setCombination] = useState("");
-  let input = "";
-  let minimum = 0;
 
-  async function GenerateCombination() {
-    let combinationElements = {
+  function GenerateCombination() {
+    const combinationElements = {
       elements: getElementsFromInput(input),
       minimumElements: minimum,
     };
 
-    var request = {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(combinationElements),
-    };
-
-    const result = await fetch(
+    PCGRequest(
       "https://localhost:7060/combination/generatewithminimumelement",
-      request
+      combinationElements,
+      (body) => setCombination(body)
     );
-
-    if (result.ok) {
-      result
-        .text()
-        .then((body) => {
-          combinationInfo = body;
-          setCombination(combinationInfo);
-        })
-        .catch((err) => console.log(err));
-    } else {
-      alert("Error in result");
-    }
   }
 
   return (
