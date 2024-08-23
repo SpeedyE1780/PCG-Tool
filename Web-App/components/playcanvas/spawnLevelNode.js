@@ -103,11 +103,7 @@ function SpawnWFCNode(position, adjacentNodes, size) {
   if ((adjacentNodes & up) != 0) {
     let upConnection = new pc.Entity();
     upConnection.setLocalScale(size * 0.2, size * 0.5, size * 0.2);
-    upConnection.setPosition(
-      position.x,
-      position.y + size * 0.25,
-      position.z
-    );
+    upConnection.setPosition(position.x, position.y + size * 0.25, position.z);
     upConnection.addComponent("model", {
       type: "box",
     });
@@ -141,5 +137,31 @@ export function SpawnWFCLevel(wfcNodes, size) {
       node.position.z
     );
     SpawnWFCNode(position, node.direction, size);
+  });
+}
+
+const XY = 15;
+const XZ = 51;
+const YZ = 60;
+export const Planes = [XY, XZ, YZ];
+
+export function SpawnWFCGrid(wfcNodes, plane) {
+  function getNodePosition(x, y) {
+    switch (plane) {
+      case XY: {
+        return new pc.Vec3(x, y, 0);
+      }
+      case XZ: {
+        return new pc.Vec3(x, 0, y);
+      }
+      case YZ: {
+        return new pc.Vec3(0, x, y);
+      }
+    }
+  }
+
+  wfcNodes.forEach((node) => {
+    const position = getNodePosition(node.x, node.y);
+    SpawnWFCNode(position, node.adjacentNodes, 1);
   });
 }
