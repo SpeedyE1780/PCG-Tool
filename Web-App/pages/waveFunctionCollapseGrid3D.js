@@ -1,17 +1,17 @@
 import * as pc from "playcanvas";
 import Game from "../components/playcanvas/game";
-import { Planes, SpawnWFCGrid } from "../components/playcanvas/spawnLevelNode";
+import { SpawnWFCGrid3D } from "../components/playcanvas/spawnLevelNode";
 
-export default function waveFunctionCollapseGrid2D() {
+export default function waveFunctionCollapseGrid3D() {
   let gridWidth = 0;
   let gridHeight = 0;
-  let gridPlane = Planes[0];
+  let gridDepth = 0;
 
   async function generateGrid() {
     let gridParameters = {
       width: gridWidth,
       height: gridHeight,
-      plane: gridPlane,
+      depth: gridDepth,
     };
 
     console.log(gridParameters);
@@ -27,7 +27,7 @@ export default function waveFunctionCollapseGrid2D() {
     };
 
     const result = await fetch(
-      "https://localhost:7060/levelgeneration/wavefunctioncollapsegeneration/grid2d",
+      "https://localhost:7060/levelgeneration/wavefunctioncollapsegeneration/grid3d",
       request
     );
 
@@ -36,7 +36,7 @@ export default function waveFunctionCollapseGrid2D() {
         .json()
         .then((body) => {
           console.log(body);
-          SpawnWFCGrid(body, gridPlane);
+          SpawnWFCGrid3D(body);
         })
         .catch((err) => console.log(err));
     } else {
@@ -47,7 +47,7 @@ export default function waveFunctionCollapseGrid2D() {
   return (
     <div style={{ display: "flex" }}>
       <div>
-        <h1>Wave Function Collapse Grid 2D Generation</h1>
+        <h1>Wave Function Collapse Grid 3D Generation</h1>
         <input
           placeholder="Grid Width"
           onChange={(event) => (gridWidth = event.target.value)}
@@ -56,15 +56,10 @@ export default function waveFunctionCollapseGrid2D() {
           placeholder="Grid Height"
           onChange={(event) => (gridHeight = event.target.value)}
         ></input>
-        <select
-          onChange={(event) => {
-            gridPlane = Planes[event.target.selectedIndex];
-          }}
-        >
-          <option value="XY"></option>
-          <option value="XZ"></option>
-          <option value="YZ"></option>
-        </select>
+        <input
+          placeholder="Grid Depth"
+          onChange={(event) => (gridDepth = event.target.value)}
+        ></input>
         <button onClick={generateGrid}>Generate</button>
       </div>
       <Game></Game>

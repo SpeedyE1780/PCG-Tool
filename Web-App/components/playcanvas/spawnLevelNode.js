@@ -165,3 +165,10 @@ export function SpawnWFCGrid(wfcNodes, plane) {
     SpawnWFCNode(position, node.adjacentNodes, 1);
   });
 }
+
+export function SpawnWFCGrid3D(wfcNodes) {
+  wfcNodes.forEach((node) => {
+    const position = new pc.Vec3(node.x, node.y, node.z);
+    SpawnWFCNode(position, node.adjacentNodes, 1);
+  });
+}

@@ -37,6 +37,11 @@ export default function Home() {
               <h3>Wave Function Collapse Grid 2D Generation</h3>
             </a>
           </li>
+          <li>
+            <a href={"waveFunctionCollapseGrid3D"}>
+              <h3>Wave Function Collapse Grid 3D Generation</h3>
+            </a>
+          </li>
         </ul>
       </main>
 
