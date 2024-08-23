@@ -4,7 +4,7 @@ import Viewer from "../components/playcanvas/viewer";
 import GridConfiguration from "../components/levelGeneration/gridConfiguration";
 import PCGMain from "../components/pcgMain";
 
-export default function Maze() {
+export default function MazeGeneration() {
   let gridConfig = {};
   let selectedAlgorithm = 0;
 

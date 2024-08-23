@@ -4,7 +4,7 @@ import Viewer from "../components/playcanvas/viewer";
 import GridConfiguration from "../components/levelGeneration/gridConfiguration";
 import PCGMain from "../components/pcgMain";
 
-export default function waveFunctionCollapseGrid3D() {
+export default function WaveFunctionCollapseGrid3DGeneration() {
   let gridConfig = {};
 
   async function generateGrid() {

@@ -112,11 +112,10 @@
 }
 
 .pcgHeader {
-  background-color: black;
+  background-color: white;
   display: flex;
 }
 
 .pcgHeaderLink {
-  color: white;
   margin: 5px;
 }

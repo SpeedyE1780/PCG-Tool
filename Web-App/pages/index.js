@@ -11,13 +11,13 @@ export default function Home() {
         <h1 className={styles.title}>Welcome to PCG Web APP!</h1>
         <ul>
           <li>
-            <Link href="combination">
-              <h3>Combination</h3>
+            <Link href="combinationGeneration">
+              <h3>Combination Generation</h3>
             </Link>
           </li>
           <li>
-            <Link href="maze">
-              <h3>Maze</h3>
+            <Link href="mazeGeneration">
+              <h3>Maze Generation</h3>
             </Link>
           </li>
           <li>

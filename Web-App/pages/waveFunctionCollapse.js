@@ -4,7 +4,7 @@ import Viewer from "../components/playcanvas/viewer";
 import GenerationParameters from "../components/levelGeneration/generationParameters";
 import PCGMain from "../components/pcgMain";
 
-export default function WaveFunctionCollapse() {
+export default function WaveFunctionCollapseGeneration() {
   let params = {};
   let expansion = 0;
 

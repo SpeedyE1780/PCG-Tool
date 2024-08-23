@@ -4,7 +4,7 @@ import Viewer from "../components/playcanvas/viewer";
 import GridConfiguration from "../components/levelGeneration/gridConfiguration";
 import PCGMain from "../components/pcgMain";
 
-export default function waveFunctionCollapseGrid2D() {
+export default function WaveFunctionCollapseGrid2DGeneration() {
   let gridConfig = {};
   let gridPlane = Planes[0];
 

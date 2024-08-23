@@ -7,10 +7,10 @@ export default function PCGHeader() {
       <Link href="/" className={styles.pcgHeaderLink}>
         Home
       </Link>
-      <Link href="/combination" className={styles.pcgHeaderLink}>
+      <Link href="/combinationGeneration" className={styles.pcgHeaderLink}>
         Combination
       </Link>
-      <Link href="/maze" className={styles.pcgHeaderLink}>
+      <Link href="/mazeGeneration" className={styles.pcgHeaderLink}>
         Maze
       </Link>
       <Link href="/multiDimensionGeneration" className={styles.pcgHeaderLink}>
