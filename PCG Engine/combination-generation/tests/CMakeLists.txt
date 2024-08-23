@@ -13,6 +13,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE pcg-engine-combination-generation)
 target_link_libraries(${PROJECT_NAME} PRIVATE pcg-engine-math)
 target_link_libraries(${PROJECT_NAME} PRIVATE gtest)
+target_link_libraries(${PROJECT_NAME} PRIVATE pcg-engine-tests)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 

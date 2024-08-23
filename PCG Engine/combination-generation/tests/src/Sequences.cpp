@@ -2,7 +2,11 @@
 
 #include <pcg/engine/math/random.hpp>
 
+#include <pcg/engine/tests/PCGTest.hpp>
+
 #include <gtest/gtest.h>
+
+using PCGTest = pcg::engine::tests::PCGTest;
 
 namespace pcg::engine::combination_generation::tests
 {
@@ -48,12 +52,31 @@ namespace pcg::engine::combination_generation::tests
             std::vector<SequenceNode*> nextNodes{};
             ISequenceNode* nextNode = nullptr;
         };
+
+        class Sequence : public PCGTest
+        {
+        protected:
+            virtual void SetUp() override
+            {
+                PCGTest::SetUp();
+
+                red.addNextNodes(nextNodes);
+                green.addNextNodes(nextNodes);
+                blue.addNextNodes(nextNodes);
+                yellow.addNextNodes(nextNodes);
+            }
+
+            SequenceNode red{ "Red" };
+            SequenceNode green{ "Green" };
+            SequenceNode blue{ "Blue" };
+            SequenceNode yellow{ "Yellow" };
+
+            std::vector<SequenceNode*> nextNodes{ &red, &green, &blue, &yellow };
+        };
     }
 
-    TEST(Sequence, QuestGeneration)
+    TEST_F(Sequence, QuestGeneration)
     {
-        math::Random::resetSeed();
-
         SequenceNode goldIngots("5 Gold Ingots");
         SequenceNode logs("10 Logs");
         SequenceNode give("Give", { &goldIngots, &logs });
@@ -90,44 +113,16 @@ namespace pcg::engine::combination_generation::tests
         EXPECT_EQ(craft.getNext(), &dagger);
     }
 
-    TEST(Sequence, CyclicSequence)
+    TEST_F(Sequence, CyclicSequence)
     {
-        math::Random::resetSeed();
-
-        SequenceNode red("Red");
-        SequenceNode green("Green");
-        SequenceNode blue("Blue");
-        SequenceNode yellow("Yellow");
-
-        std::vector<SequenceNode*> nextNodes{ &red, &green, &blue, &yellow };
-
-        red.addNextNodes(nextNodes);
-        green.addNextNodes(nextNodes);
-        blue.addNextNodes(nextNodes);
-        yellow.addNextNodes(nextNodes);
-
         auto sequence = generateSequence(red, 10);
         const auto expected = std::vector<ISequenceNode*>{ &red, &blue, &yellow, &blue, &green, &yellow, &green, &green, &green, &blue };
 
         EXPECT_TRUE(std::ranges::equal(sequence, expected));
     }
 
-    TEST(Sequence, EarlyExitFromSequence)
+    TEST_F(Sequence, EarlyExitFromSequence)
     {
-        math::Random::resetSeed();
-
-        SequenceNode red("Red");
-        SequenceNode green("Green");
-        SequenceNode blue("Blue");
-        SequenceNode yellow("Yellow");
-
-        std::vector<SequenceNode*> nextNodes{ &red, &green, &blue, &yellow };
-
-        red.addNextNodes(nextNodes);
-        green.addNextNodes(nextNodes);
-        blue.addNextNodes(nextNodes);
-        yellow.addNextNodes(nextNodes);
-
         generateSequence(red);
 
         EXPECT_EQ(red.getNext(), &blue);
