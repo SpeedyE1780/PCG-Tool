@@ -60,7 +60,7 @@ namespace pcg::engine::combination_generation::tests
         compareCombinations(combination, expected);
     }
 
-    TEST(Combination, CombinationWith1And3Active)
+    TEST(Combination, CombinationWith1And3And10Active)
     {
         math::Random::resetSeed();
         std::vector<int> elements(10);
@@ -76,6 +76,25 @@ namespace pcg::engine::combination_generation::tests
             };
 
         generateCombination(elements.size(), { 0, 2, 9 }, callback);
+        compareCombinations(combination, expected);
+    }
+
+    TEST(Combination, CombinationWithOutOfBoundsIndices)
+    {
+        math::Random::resetSeed();
+        std::vector<int> elements(10);
+        std::iota(begin(elements), end(elements), 1);
+        std::vector<int> combination{};
+        const std::vector<int> expected = { 1, 2, 3, 6, 10 };
+        std::function<void(int, bool)> callback = [&elements, &combination](int index, bool included)
+            {
+                if (included)
+                {
+                    combination.emplace_back(elements[index]);
+                }
+            };
+
+        generateCombination(elements.size(), { -1, 0, 2, 9, 11, 13, -2 }, callback);
         compareCombinations(combination, expected);
     }
 }
