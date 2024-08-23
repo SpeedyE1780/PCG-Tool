@@ -1,3 +1,5 @@
+import * as pc from 'playcanvas'
+
 const left = 1;
 const right = 2;
 const forward = 4;
