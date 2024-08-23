@@ -1,6 +1,7 @@
 import * as pc from "playcanvas";
 import { SpawnWFCLevel } from "../components/playcanvas/spawnLevelNode";
 import Game from "../components/playcanvas/game";
+import Viewer from "../components/playcanvas/viewer";
 
 export default function WaveFunctionCollapse() {
   let count = 0;
@@ -54,7 +55,7 @@ export default function WaveFunctionCollapse() {
   }
 
   return (
-    <div style={{ display: "flex" }}>
+    <Viewer>
       <div>
         <h1>Wave Function Collapse Generation</h1>
         <input
@@ -90,7 +91,6 @@ export default function WaveFunctionCollapse() {
         </select>
         <button onClick={generateLevel}>Generate</button>
       </div>
-      <Game></Game>
-    </div>
+    </Viewer>
   );
 }

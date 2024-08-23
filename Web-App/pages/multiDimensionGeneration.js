@@ -1,6 +1,7 @@
 import * as pc from "playcanvas";
 import Game from "../components/playcanvas/game";
 import { SpawnLevel } from "../components/playcanvas/spawnLevelNode";
+import Viewer from "../components/playcanvas/viewer";
 
 export default function MultiDimensionGeneration() {
   let count = 0;
@@ -54,7 +55,7 @@ export default function MultiDimensionGeneration() {
   }
 
   return (
-    <div style={{ display: "flex" }}>
+    <Viewer>
       <div>
         <h1>Simple Generation</h1>
         <input
@@ -91,7 +92,6 @@ export default function MultiDimensionGeneration() {
         <label>Disable Overlap</label>
         <button onClick={generateLevel}>Generate</button>
       </div>
-      <Game></Game>
-    </div>
+    </Viewer>
   );
 }

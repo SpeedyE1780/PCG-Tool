@@ -1,6 +1,7 @@
 import * as pc from "playcanvas";
 import Game from "../components/playcanvas/game";
 import { Planes, SpawnWFCGrid } from "../components/playcanvas/spawnLevelNode";
+import Viewer from "../components/playcanvas/viewer";
 
 export default function waveFunctionCollapseGrid2D() {
   let gridWidth = 0;
@@ -45,7 +46,7 @@ export default function waveFunctionCollapseGrid2D() {
   }
 
   return (
-    <div style={{ display: "flex" }}>
+    <Viewer>
       <div>
         <h1>Wave Function Collapse Grid 2D Generation</h1>
         <input
@@ -67,7 +68,6 @@ export default function waveFunctionCollapseGrid2D() {
         </select>
         <button onClick={generateGrid}>Generate</button>
       </div>
-      <Game></Game>
-    </div>
+    </Viewer>
   );
 }

@@ -1,6 +1,6 @@
 import * as pc from "playcanvas";
-import Game from "../components/playcanvas/game";
 import spawnMaze from "../components/playcanvas/spawnMaze";
+import Viewer from "../components/playcanvas/viewer";
 
 export default function Maze() {
   let Width = 0;
@@ -40,7 +40,7 @@ export default function Maze() {
   }
 
   return (
-    <div style={{ display: "flex" }}>
+    <Viewer>
       <div>
         <h1>Maze Generation</h1>
         <input
@@ -79,7 +79,6 @@ export default function Maze() {
         </select>
         <button onClick={generateMaze}>Generate</button>
       </div>
-      <Game></Game>
-    </div>
+    </Viewer>
   );
 }

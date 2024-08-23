@@ -1,6 +1,7 @@
 import * as pc from "playcanvas";
 import Game from "../components/playcanvas/game";
 import { SpawnLevel } from "../components/playcanvas/spawnLevelNode";
+import Viewer from "../components/playcanvas/viewer";
 
 export default function SimpleGeneration() {
   let count = 0;
@@ -52,7 +53,7 @@ export default function SimpleGeneration() {
   }
 
   return (
-    <div style={{ display: "flex" }}>
+    <Viewer>
       <div>
         <h1>Simple Generation</h1>
         <input
@@ -84,7 +85,6 @@ export default function SimpleGeneration() {
         ></input>
         <button onClick={generateLevel}>Generate</button>
       </div>
-      <Game></Game>
-    </div>
+    </Viewer>
   );
 }
