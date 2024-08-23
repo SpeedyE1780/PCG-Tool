@@ -24,6 +24,7 @@ add_subdirectory(cpp-api)
 add_subdirectory(level-generation)
 add_subdirectory(math)
 add_subdirectory(maze-generation)
+add_subdirectory(tests)
 add_subdirectory(utility)
 
 find_package(Doxygen)

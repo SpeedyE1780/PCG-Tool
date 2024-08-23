@@ -2,19 +2,34 @@
 
 #include <pcg/engine/math/random.hpp>
 
+#include <pcg/engine/tests/PCGTest.hpp>
+
 #include <gtest/gtest.h>
 
 #include <functional>
 #include <fstream>
 
+using PCGTest = pcg::engine::tests::PCGTest;
+
 namespace pcg::engine::level_generation::tests
 {
-    TEST(WaveFunctionCollapse, BFS)
+    namespace
     {
-        math::Random::resetSeed();
-        std::ifstream input("GoldenValues/WaveFunctionCollapse/BFS.txt");
+        class WaveFunctionCollapse : public PCGTest
+        {
+        protected:
+            virtual void SetUp() override
+            {
+                PCGTest::SetUp();
+            }
 
-        GenerationData data{ 200, 1, math::Vector3::zero };
+            GenerationData data{ 200, 1, math::Vector3::zero };
+        };
+    }
+
+    TEST_F(WaveFunctionCollapse, BFS)
+    {
+        std::ifstream input("GoldenValues/WaveFunctionCollapse/BFS.txt");
 
         std::function<void(math::Vector3, utility::enums::Direction)> callback = [&input](math::Vector3 position, utility::enums::Direction adjacentNodes)
             {
@@ -33,12 +48,9 @@ namespace pcg::engine::level_generation::tests
         waveFunctionCollapse(data, ExpansionMode::BFS, math::Axis::xyz, callback);
     }
 
-    TEST(WaveFunctionCollapse, DFS)
+    TEST_F(WaveFunctionCollapse, DFS)
     {
-        math::Random::resetSeed();
         std::ifstream input("GoldenValues/WaveFunctionCollapse/DFS.txt");
-
-        GenerationData data{ 200, 1, math::Vector3::zero };
 
         std::function<void(math::Vector3, utility::enums::Direction)> callback = [&input](math::Vector3 position, utility::enums::Direction adjacentNodes)
             {
@@ -57,9 +69,8 @@ namespace pcg::engine::level_generation::tests
         waveFunctionCollapse(data, ExpansionMode::DFS, math::Axis::xyz, callback);
     }
 
-    TEST(WaveFunctionCollapse, Grid2D)
+    TEST_F(WaveFunctionCollapse, Grid2D)
     {
-        math::Random::resetSeed();
         std::ifstream input("GoldenValues/WaveFunctionCollapse/Grid2D.txt");
 
         std::function<void(int, int, utility::enums::Direction)> callback = [&input](int x, int y, utility::enums::Direction adjacentNodes)
@@ -77,9 +88,8 @@ namespace pcg::engine::level_generation::tests
         waveFunctionCollapse(10, 10, math::Axis::xz, false, callback);
     }
 
-    TEST(WaveFunctionCollapse, Grid3D)
+    TEST_F(WaveFunctionCollapse, Grid3D)
     {
-        math::Random::resetSeed();
         std::ifstream input("GoldenValues/WaveFunctionCollapse/Grid3D.txt");
 
         std::function<void(int, int, int, utility::enums::Direction)> callback = [&input](int x, int y, int z, utility::enums::Direction adjacentNodes)

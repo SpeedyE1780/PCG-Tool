@@ -2,10 +2,14 @@
 
 #include <pcg/engine/math/Random.hpp>
 
+#include <pcg/engine/tests/PCGTest.hpp>
+
 #include <gtest/gtest.h>
 
 #include <functional>
 #include <numeric>
+
+using PCGTest = pcg::engine::tests::PCGTest;
 
 namespace pcg::engine::combination_generation::tests
 {
@@ -20,16 +24,25 @@ namespace pcg::engine::combination_generation::tests
                 EXPECT_EQ(combination[i], expected[i]);
             }
         }
+
+        class Combination : public PCGTest
+        {
+        protected:
+            virtual void SetUp() override
+            {
+                PCGTest::SetUp();
+                std::iota(begin(elements), end(elements), 1);
+            }
+
+            std::vector<int> elements = std::vector<int>(10);
+        };
     }
 
-    TEST(Combination, SimpleCombination)
+    TEST_F(Combination, SimpleCombination)
     {
-        math::Random::resetSeed();
-        std::vector<int> elements(10);
-        std::iota(begin(elements), end(elements), 1);
         std::vector<int> combination{};
         const std::vector<int> expected = { 1, 2, 3, 6 };
-        std::function<void(int, bool)> callback = [&elements, &combination](int index, bool included)
+        std::function<void(int, bool)> callback = [this, &combination](int index, bool included)
             {
                 if (included)
                 {
@@ -41,14 +54,11 @@ namespace pcg::engine::combination_generation::tests
         compareCombinations(combination, expected);
     }
 
-    TEST(Combination, CombinationWithMinimum7Elements)
+    TEST_F(Combination, CombinationWithMinimum7Elements)
     {
-        math::Random::resetSeed();
-        std::vector<int> elements(10);
-        std::iota(begin(elements), end(elements), 1);
         std::vector<int> combination{};
         const std::vector<int> expected = { 1, 2, 3, 4, 5, 6, 8 };
-        std::function<void(int, bool)> callback = [&elements, &combination](int index, bool included)
+        std::function<void(int, bool)> callback = [this, &combination](int index, bool included)
             {
                 if (included)
                 {
@@ -60,14 +70,11 @@ namespace pcg::engine::combination_generation::tests
         compareCombinations(combination, expected);
     }
 
-    TEST(Combination, CombinationWith1And3And10Active)
+    TEST_F(Combination, CombinationWith1And3And10Active)
     {
-        math::Random::resetSeed();
-        std::vector<int> elements(10);
-        std::iota(begin(elements), end(elements), 1);
         std::vector<int> combination{};
         const std::vector<int> expected = { 1, 2, 3, 6, 10 };
-        std::function<void(int, bool)> callback = [&elements, &combination](int index, bool included)
+        std::function<void(int, bool)> callback = [this, &combination](int index, bool included)
             {
                 if (included)
                 {
@@ -79,14 +86,11 @@ namespace pcg::engine::combination_generation::tests
         compareCombinations(combination, expected);
     }
 
-    TEST(Combination, CombinationWithOutOfBoundsIndices)
+    TEST_F(Combination, CombinationWithOutOfBoundsIndices)
     {
-        math::Random::resetSeed();
-        std::vector<int> elements(10);
-        std::iota(begin(elements), end(elements), 1);
         std::vector<int> combination{};
         const std::vector<int> expected = { 1, 2, 3, 6, 10 };
-        std::function<void(int, bool)> callback = [&elements, &combination](int index, bool included)
+        std::function<void(int, bool)> callback = [this, &combination](int index, bool included)
             {
                 if (included)
                 {
