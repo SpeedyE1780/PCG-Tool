@@ -104,9 +104,9 @@ $(function(){ initResizable(false); });
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af0c0ef71ff838f97deaa65622214044e" id="r_af0c0ef71ff838f97deaa65622214044e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0c0ef71ff838f97deaa65622214044e">~ISequenceNode</a> ()=default</td></tr>
 <tr class="separator:af0c0ef71ff838f97deaa65622214044e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a908a98faa96ab8444c0ac94856f713f9" id="r_a908a98faa96ab8444c0ac94856f713f9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a908a98faa96ab8444c0ac94856f713f9">setNext</a> (int nodeIndex)=0</td></tr>
-<tr class="memdesc:a908a98faa96ab8444c0ac94856f713f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set next node in sequence.  <br /></td></tr>
-<tr class="separator:a908a98faa96ab8444c0ac94856f713f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa00f329eedbb616e3ce5edacabb99a7f" id="r_aa00f329eedbb616e3ce5edacabb99a7f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa00f329eedbb616e3ce5edacabb99a7f">setNext</a> (<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> *nextNode)=0</td></tr>
+<tr class="memdesc:aa00f329eedbb616e3ce5edacabb99a7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set next node in sequence.  <br /></td></tr>
+<tr class="separator:aa00f329eedbb616e3ce5edacabb99a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aceccd21edb504f369f04615b849c9f88" id="r_aceccd21edb504f369f04615b849c9f88"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aceccd21edb504f369f04615b849c9f88">getNext</a> () const =0</td></tr>
 <tr class="memdesc:aceccd21edb504f369f04615b849c9f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get next node in sequence.  <br /></td></tr>
 <tr class="separator:aceccd21edb504f369f04615b849c9f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -266,8 +266,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a908a98faa96ab8444c0ac94856f713f9" name="a908a98faa96ab8444c0ac94856f713f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a908a98faa96ab8444c0ac94856f713f9">&#9670;&#160;</a></span>setNext()</h2>
+<a id="aa00f329eedbb616e3ce5edacabb99a7f" name="aa00f329eedbb616e3ce5edacabb99a7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa00f329eedbb616e3ce5edacabb99a7f">&#9670;&#160;</a></span>setNext()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,7 +278,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void pcg::engine::combination_generation::ISequenceNode::setNext </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nodeIndex</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> *</td>          <td class="paramname"><span class="paramname"><em>nextNode</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -292,7 +292,7 @@ Public Member Functions</h2></td></tr>
 <p>Set next node in sequence. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">nodeIndex</td><td>Index of next node in sequence </td></tr>
+    <tr><td class="paramname">nextNode</td><td>Next node in sequence </td></tr>
   </table>
   </dd>
 </dl>

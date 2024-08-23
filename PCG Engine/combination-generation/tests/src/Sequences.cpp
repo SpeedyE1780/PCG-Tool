@@ -22,7 +22,7 @@ namespace pcg::engine::combination_generation::tests
             {
             }
 
-            virtual void setNext(int nodeIndex) { nextNode = nextNodes[nodeIndex]; }
+            virtual void setNext(ISequenceNode* next) { nextNode = next; }
             virtual ISequenceNode* getNext() const { return nextNode; }
             virtual ISequenceNode* getNextAt(int index) const { return nextNodes[index]; }
             virtual int getNextCount() const override { return nextNodes.size(); }
@@ -110,5 +110,28 @@ namespace pcg::engine::combination_generation::tests
         const auto expected = std::vector<ISequenceNode*>{ &red, &blue, &yellow, &blue, &green, &yellow, &green, &green, &green, &blue };
 
         EXPECT_TRUE(std::ranges::equal(sequence, expected));
+    }
+
+    TEST(Sequence, EarlyExitFromSequence)
+    {
+        math::Random::resetSeed();
+
+        SequenceNode red("Red");
+        SequenceNode green("Green");
+        SequenceNode blue("Blue");
+        SequenceNode yellow("Yellow");
+
+        std::vector<SequenceNode*> nextNodes{ &red, &green, &blue, &yellow };
+
+        red.addNextNodes(nextNodes);
+        green.addNextNodes(nextNodes);
+        blue.addNextNodes(nextNodes);
+        yellow.addNextNodes(nextNodes);
+
+        generateSequence(red);
+
+        EXPECT_EQ(red.getNext(), &blue);
+        EXPECT_EQ(blue.getNext(), &yellow);
+        EXPECT_EQ(yellow.getNext(), nullptr);
     }
 }

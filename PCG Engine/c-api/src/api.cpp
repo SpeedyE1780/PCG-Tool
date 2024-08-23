@@ -35,11 +35,7 @@ namespace pcg::engine::c_api
         public:
             SequenceNodeWrapper(int nodeCount) : possibilitiesCount(nodeCount) { }
 
-            virtual void setNext(int nextNodeIndex) override
-            {
-                nextNode = nextNodeIndex;
-                next = std::make_unique<SequenceNodeWrapper>(updateSequence(nextNodeIndex));
-            }
+            virtual void setNext(combination_generation::ISequenceNode* nextNodeIndex) override { }
 
             virtual int getNextCount() const override { return possibilitiesCount; }
             virtual ISequenceNode* getNext() const override { return next.get(); }
@@ -56,7 +52,6 @@ namespace pcg::engine::c_api
         private:
             static updateSequence updateSequence;
             int possibilitiesCount;
-            int nextNode = -1;
             mutable std::unique_ptr<SequenceNodeWrapper> next = nullptr;
         };
 
