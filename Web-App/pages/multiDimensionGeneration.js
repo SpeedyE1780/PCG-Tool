@@ -1,26 +1,22 @@
 import * as pc from "playcanvas";
 import { SpawnLevel } from "../components/playcanvas/spawnLevelNode";
 import Viewer from "../components/playcanvas/viewer";
+import GenerationParameters from "../components/levelGeneration/generationParameters";
 
 export default function MultiDimensionGeneration() {
-  let count = 0;
-  let size = 1;
-  let xPosition = 0;
-  let yPosition = 0;
-  let zPosition = 0;
-  let axis = 0;
+  let params = {};
   let disable = false;
 
   async function generateLevel() {
     const generationParameters = {
-      nodeCount: count,
-      nodeSize: size,
+      nodeCount: params.count,
+      nodeSize: params.size,
       startPosition: {
-        x: xPosition,
-        y: yPosition,
-        z: zPosition,
+        x: params.xPosition,
+        y: params.yPosition,
+        z: params.zPosition,
       },
-      axes: axis,
+      axes: params.axis,
       disableOverlap: disable,
     };
     console.log(generationParameters);
@@ -45,7 +41,7 @@ export default function MultiDimensionGeneration() {
         .json()
         .then((body) => {
           console.log(body);
-          SpawnLevel(body, size);
+          SpawnLevel(body, generationParameters.nodeSize);
         })
         .catch((err) => console.log(err));
     } else {
@@ -55,34 +51,8 @@ export default function MultiDimensionGeneration() {
 
   return (
     <Viewer>
-      <h1>Simple Generation</h1>
-      <input
-        placeholder="Node Count"
-        onChange={(event) => (count = event.target.value)}
-      ></input>
-      <input
-        placeholder="Node Size"
-        onChange={(event) => (size = event.target.value)}
-      ></input>
-      <input
-        placeholder="Start Position X"
-        onChange={(event) => (xPosition = event.target.value)}
-      ></input>
-      <input
-        placeholder="Start Position Y"
-        onChange={(event) => (yPosition = event.target.value)}
-      ></input>
-      <input
-        placeholder="Start Position Z"
-        onChange={(event) => (zPosition = event.target.value)}
-      ></input>
-      <input
-        type="number"
-        placeholder="Axis"
-        onChange={(event) => {
-          axis = event.target.valueAsNumber;
-        }}
-      ></input>
+      <h1>Multi Dimension Generation</h1>
+      <GenerationParameters config={params}></GenerationParameters>
       <input
         type="checkbox"
         onChange={(event) => (disable = event.target.checked)}

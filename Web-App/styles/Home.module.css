@@ -94,8 +94,19 @@
   grid-template-columns: 20% 80%;
 }
 
-.viewerParams{
+.viewerParams {
   display: grid;
   grid-auto-rows: max-content;
   grid-template-columns: 100%;
+}
+
+.vector3Row {
+  display: grid;
+  grid-auto-rows: max-content;
+  grid-auto-columns: max-content;
+  grid-template-columns: 33% 33% 33%;
+}
+
+.rightAlignLabel{
+  text-align: right;
 }
