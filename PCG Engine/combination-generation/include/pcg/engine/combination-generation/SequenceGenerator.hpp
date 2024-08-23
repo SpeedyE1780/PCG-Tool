@@ -11,8 +11,8 @@ namespace pcg::engine::combination_generation
     public:
         virtual ~ISequenceNode() = default;
         /// @brief Set next node in sequence
-        /// @param nodeIndex Index of next node in sequence
-        virtual void setNext(int nodeIndex) = 0;
+        /// @param nextNode Next node in sequence
+        virtual void setNext(ISequenceNode* nextNode) = 0;
         /// @brief Get next node in sequence
         /// @return Next node in sequence
         virtual ISequenceNode* getNext() const = 0;

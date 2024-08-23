@@ -2,6 +2,8 @@
 
 #include <pcg/engine/math/random.hpp>
 
+#include <unordered_set>
+
 namespace pcg::engine::combination_generation
 {
     namespace
@@ -10,10 +12,20 @@ namespace pcg::engine::combination_generation
         /// @param node First node added to sequence
         void generateSequence(ISequenceNode* node)
         {
-            while (node->getNextCount() > 0)
+            std::unordered_set<ISequenceNode*> processedNodes{};
+
+            while (node->getNextCount() > 0 && processedNodes.find(node) == end(processedNodes))
             {
-                node->setNext(math::Random::number(node->getNextCount()));
-                node = node->getNext();
+                processedNodes.emplace(node);
+                ISequenceNode* next = node->getNextAt(math::Random::number(node->getNextCount()));
+
+                if (processedNodes.find(next) != end(processedNodes))
+                {
+                    return;
+                }
+
+                node->setNext(next);
+                node = next;
             }
         }
 

@@ -577,6 +577,7 @@ Unreal/DerivedDataCache/*
 !Unreal/Plugins/MyPCG/Source/ThirdPartyLibraries/PCGEngine/lib/*.dll
 !Python/*.dll
 !C#-PCG-Wrapper/*.dll
+!Web-Api/*.dll
 
 !GAM703-Engine/pcg-engine-cpp-api/dll/*.dll
 !GAM703-Engine/pcg-engine-cpp-api/lib/*.lib
