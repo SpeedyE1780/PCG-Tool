@@ -107,6 +107,16 @@
   grid-template-columns: 33% 33% 33%;
 }
 
-.rightAlignLabel{
+.rightAlignLabel {
   text-align: right;
+}
+
+.pcgHeader {
+  background-color: black;
+  display: flex;
+}
+
+.pcgHeaderLink {
+  color: white;
+  margin: 5px;
 }

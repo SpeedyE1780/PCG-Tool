@@ -2,6 +2,7 @@ import * as pc from "playcanvas";
 import { SpawnLevel } from "../components/playcanvas/spawnLevelNode";
 import Viewer from "../components/playcanvas/viewer";
 import GenerationParameters from "../components/levelGeneration/generationParameters";
+import PCGMain from "../components/pcgMain";
 
 export default function SimpleGeneration() {
   let params = {};
@@ -48,10 +49,12 @@ export default function SimpleGeneration() {
   }
 
   return (
-    <Viewer>
-      <h1>Simple Generation</h1>
-      <GenerationParameters config={params}></GenerationParameters>
-      <button onClick={generateLevel}>Generate</button>
-    </Viewer>
+    <PCGMain>
+      <Viewer>
+        <h1>Simple Generation</h1>
+        <GenerationParameters config={params}></GenerationParameters>
+        <button onClick={generateLevel}>Generate</button>
+      </Viewer>
+    </PCGMain>
   );
 }

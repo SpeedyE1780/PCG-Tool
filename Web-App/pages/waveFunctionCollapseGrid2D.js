@@ -2,6 +2,7 @@ import * as pc from "playcanvas";
 import { Planes, SpawnWFCGrid } from "../components/playcanvas/spawnLevelNode";
 import Viewer from "../components/playcanvas/viewer";
 import GridConfiguration from "../components/levelGeneration/gridConfiguration";
+import PCGMain from "../components/pcgMain";
 
 export default function waveFunctionCollapseGrid2D() {
   let gridConfig = {};
@@ -45,19 +46,21 @@ export default function waveFunctionCollapseGrid2D() {
   }
 
   return (
-    <Viewer>
-      <h1>Wave Function Collapse Grid 2D Generation</h1>
-      <GridConfiguration config={gridConfig}></GridConfiguration>
-      <select
-        onChange={(event) => {
-          gridPlane = Planes[event.target.selectedIndex];
-        }}
-      >
-        <option value="XY">XY</option>
-        <option value="XZ">XZ</option>
-        <option value="YZ">YZ</option>
-      </select>
-      <button onClick={generateGrid}>Generate</button>
-    </Viewer>
+    <PCGMain>
+      <Viewer>
+        <h1>Wave Function Collapse Grid 2D Generation</h1>
+        <GridConfiguration config={gridConfig}></GridConfiguration>
+        <select
+          onChange={(event) => {
+            gridPlane = Planes[event.target.selectedIndex];
+          }}
+        >
+          <option value="XY">XY</option>
+          <option value="XZ">XZ</option>
+          <option value="YZ">YZ</option>
+        </select>
+        <button onClick={generateGrid}>Generate</button>
+      </Viewer>
+    </PCGMain>
   );
 }

@@ -2,6 +2,7 @@ import * as pc from "playcanvas";
 import { SpawnLevel } from "../components/playcanvas/spawnLevelNode";
 import Viewer from "../components/playcanvas/viewer";
 import GenerationParameters from "../components/levelGeneration/generationParameters";
+import PCGMain from "../components/pcgMain";
 
 export default function MultiDimensionGeneration() {
   let params = {};
@@ -50,15 +51,17 @@ export default function MultiDimensionGeneration() {
   }
 
   return (
-    <Viewer>
-      <h1>Multi Dimension Generation</h1>
-      <GenerationParameters config={params}></GenerationParameters>
-      <input
-        type="checkbox"
-        onChange={(event) => (disable = event.target.checked)}
-      ></input>
-      <label>Disable Overlap</label>
-      <button onClick={generateLevel}>Generate</button>
-    </Viewer>
+    <PCGMain>
+      <Viewer>
+        <h1>Multi Dimension Generation</h1>
+        <GenerationParameters config={params}></GenerationParameters>
+        <input
+          type="checkbox"
+          onChange={(event) => (disable = event.target.checked)}
+        ></input>
+        <label>Disable Overlap</label>
+        <button onClick={generateLevel}>Generate</button>
+      </Viewer>
+    </PCGMain>
   );
 }

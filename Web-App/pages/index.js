@@ -1,46 +1,49 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
+import PCGHeader from "../components/pcgHeader";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div>
+      <PCGHeader></PCGHeader>
       <main>
         <h1 className={styles.title}>Welcome to PCG Web APP!</h1>
         <ul>
           <li>
-            <a href={"combination"}>
+            <Link href="combination">
               <h3>Combination</h3>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href={"maze"}>
+            <Link href="maze">
               <h3>Maze</h3>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href={"simpleGeneration"}>
+            <Link href="simpleGeneration">
               <h3>Simple Generation</h3>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href={"multiDimensionGeneration"}>
+            <Link href="multiDimensionGeneration">
               <h3>Multi Dimension Generation</h3>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href={"waveFunctionCollapse"}>
+            <Link href="waveFunctionCollapse">
               <h3>Wave Function Collapse Generation</h3>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href={"waveFunctionCollapseGrid2D"}>
+            <Link href="waveFunctionCollapseGrid2D">
               <h3>Wave Function Collapse Grid 2D Generation</h3>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href={"waveFunctionCollapseGrid3D"}>
+            <Link href="waveFunctionCollapseGrid3D">
               <h3>Wave Function Collapse Grid 3D Generation</h3>
-            </a>
+            </Link>
           </li>
         </ul>
       </main>

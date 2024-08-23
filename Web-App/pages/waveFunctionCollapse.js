@@ -2,6 +2,7 @@ import * as pc from "playcanvas";
 import { SpawnWFCLevel } from "../components/playcanvas/spawnLevelNode";
 import Viewer from "../components/playcanvas/viewer";
 import GenerationParameters from "../components/levelGeneration/generationParameters";
+import PCGMain from "../components/pcgMain";
 
 export default function WaveFunctionCollapse() {
   let params = {};
@@ -50,15 +51,17 @@ export default function WaveFunctionCollapse() {
   }
 
   return (
-    <Viewer>
-      <h1>Wave Function Collapse Generation</h1>
-      <GenerationParameters config={params}></GenerationParameters>
-      <label>Expansion Mode</label>
-      <select onChange={(event) => (expansion = event.target.selectedIndex)}>
-        <option value="BFS">Breadth First Search</option>
-        <option value="DFS">Depth First Search</option>
-      </select>
-      <button onClick={generateLevel}>Generate</button>
-    </Viewer>
+    <PCGMain>
+      <Viewer>
+        <h1>Wave Function Collapse Generation</h1>
+        <GenerationParameters config={params}></GenerationParameters>
+        <label>Expansion Mode</label>
+        <select onChange={(event) => (expansion = event.target.selectedIndex)}>
+          <option value="BFS">Breadth First Search</option>
+          <option value="DFS">Depth First Search</option>
+        </select>
+        <button onClick={generateLevel}>Generate</button>
+      </Viewer>
+    </PCGMain>
   );
 }

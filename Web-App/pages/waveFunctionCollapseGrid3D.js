@@ -2,6 +2,7 @@ import * as pc from "playcanvas";
 import { SpawnWFCGrid3D } from "../components/playcanvas/spawnLevelNode";
 import Viewer from "../components/playcanvas/viewer";
 import GridConfiguration from "../components/levelGeneration/gridConfiguration";
+import PCGMain from "../components/pcgMain";
 
 export default function waveFunctionCollapseGrid3D() {
   let gridConfig = {};
@@ -44,10 +45,12 @@ export default function waveFunctionCollapseGrid3D() {
   }
 
   return (
-    <Viewer>
-      <h1>Wave Function Collapse Grid 3D Generation</h1>
-      <GridConfiguration config={gridConfig} is3D={true}></GridConfiguration>
-      <button onClick={generateGrid}>Generate</button>
-    </Viewer>
+    <PCGMain>
+      <Viewer>
+        <h1>Wave Function Collapse Grid 3D Generation</h1>
+        <GridConfiguration config={gridConfig} is3D={true}></GridConfiguration>
+        <button onClick={generateGrid}>Generate</button>
+      </Viewer>
+    </PCGMain>
   );
 }
