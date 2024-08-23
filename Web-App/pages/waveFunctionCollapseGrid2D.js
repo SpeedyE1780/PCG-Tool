@@ -1,53 +1,36 @@
-import * as pc from "playcanvas";
-import { Planes, SpawnWFCGrid } from "../components/playcanvas/spawnLevelNode";
+import { Planes, SpawnWFCGrid } from "../components/playcanvas/spawnWFCLevel";
 import Viewer from "../components/playcanvas/viewer";
 import GridConfiguration from "../components/levelGeneration/gridConfiguration";
 import PCGMain from "../components/pcgMain";
+import { useState } from "react";
+import { PCGRequest } from "../components/pcgRequest";
+
+let gridConfig = {};
+let gridPlane = Planes[0];
 
 export default function WaveFunctionCollapseGrid2DGeneration() {
-  let gridConfig = {};
-  let gridPlane = Planes[0];
+  let [generatedJSON, setGeneratedJSON] = useState("");
 
-  async function generateGrid() {
-    let gridParameters = {
+  function generateGrid() {
+    const gridParameters = {
       width: gridConfig.width,
       height: gridConfig.height,
       plane: gridPlane,
     };
 
-    console.log(gridParameters);
-
-    pc.app.fire("DestroyNode");
-
-    var request = {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(gridParameters),
-    };
-
-    const result = await fetch(
+    PCGRequest(
       "https://localhost:7060/levelgeneration/wavefunctioncollapsegeneration/grid2d",
-      request
+      gridParameters,
+      (json) => {
+        setGeneratedJSON(json);
+        SpawnWFCGrid(JSON.parse(json), gridPlane);
+      }
     );
-
-    if (result.ok) {
-      result
-        .json()
-        .then((body) => {
-          console.log(body);
-          SpawnWFCGrid(body, gridPlane);
-        })
-        .catch((err) => console.log(err));
-    } else {
-      alert("Error in result");
-    }
   }
 
   return (
     <PCGMain>
-      <Viewer>
+      <Viewer responseJSON={generatedJSON}>
         <h1>Wave Function Collapse Grid 2D Generation</h1>
         <GridConfiguration config={gridConfig}></GridConfiguration>
         <select

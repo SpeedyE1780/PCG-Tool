@@ -1,29 +1,15 @@
 import * as pc from "playcanvas";
 
-function SpawnLevelNode(position, nodeSize) {
-  let node = new pc.Entity();
-  node.setPosition(position);
-  node.setLocalScale(nodeSize, nodeSize, nodeSize);
-  node.addComponent("model", {
-    type: "box",
-  });
-  node.addComponent("script");
-  node.script.create("destroyNode");
-  pc.app.root.addChild(node);
-}
-
-export function SpawnLevel(positions, nodeSize) {
-  positions.forEach((position) => {
-    SpawnLevelNode(new pc.Vec3(position.x, position.y, position.z), nodeSize);
-  });
-}
-
 const left = 1;
 const right = 2;
 const forward = 4;
 const backward = 8;
 const up = 16;
 const down = 32;
+const XY = 15;
+const XZ = 51;
+const YZ = 60;
+export const Planes = [XY, XZ, YZ];
 
 function SpawnWFCNode(position, adjacentNodes, size) {
   let ground = new pc.Entity();
@@ -130,6 +116,8 @@ function SpawnWFCNode(position, adjacentNodes, size) {
 }
 
 export function SpawnWFCLevel(wfcNodes, size) {
+  pc.app.fire("DestroyNode");
+
   wfcNodes.forEach((node) => {
     const position = new pc.Vec3(
       node.position.x,
@@ -139,11 +127,6 @@ export function SpawnWFCLevel(wfcNodes, size) {
     SpawnWFCNode(position, node.direction, size);
   });
 }
-
-const XY = 15;
-const XZ = 51;
-const YZ = 60;
-export const Planes = [XY, XZ, YZ];
 
 export function SpawnWFCGrid(wfcNodes, plane) {
   function getNodePosition(x, y) {
@@ -160,6 +143,7 @@ export function SpawnWFCGrid(wfcNodes, plane) {
     }
   }
 
+  pc.app.fire("DestroyNode");
   wfcNodes.forEach((node) => {
     const position = getNodePosition(node.x, node.y);
     SpawnWFCNode(position, node.adjacentNodes, 1);
@@ -167,6 +151,7 @@ export function SpawnWFCGrid(wfcNodes, plane) {
 }
 
 export function SpawnWFCGrid3D(wfcNodes) {
+  pc.app.fire("DestroyNode");
   wfcNodes.forEach((node) => {
     const position = new pc.Vec3(node.x, node.y, node.z);
     SpawnWFCNode(position, node.adjacentNodes, 1);

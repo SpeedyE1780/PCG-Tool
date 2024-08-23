@@ -1,48 +1,36 @@
-import * as pc from "playcanvas";
 import spawnMaze from "../components/playcanvas/spawnMaze";
 import Viewer from "../components/playcanvas/viewer";
 import GridConfiguration from "../components/levelGeneration/gridConfiguration";
 import PCGMain from "../components/pcgMain";
+import { useState } from "react";
+import { PCGRequest } from "../components/pcgRequest";
+
+let gridConfig = {};
+let selectedAlgorithm = 0;
 
 export default function MazeGeneration() {
-  let gridConfig = {};
-  let selectedAlgorithm = 0;
+  let [generatedJSON, setGeneratedJSON] = useState("");
 
-  async function generateMaze() {
+  function generateMaze() {
     const mazeParameters = {
       width: gridConfig.width,
       height: gridConfig.height,
       algorithm: selectedAlgorithm,
     };
 
-    pc.app.fire("DestroyNode");
-
-    var request = {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(mazeParameters),
-    };
-
-    const result = await fetch("https://localhost:7060/maze/generate", request);
-
-    if (result.ok) {
-      result
-        .json()
-        .then((body) => {
-          console.log(body);
-          spawnMaze(body);
-        })
-        .catch((err) => console.log(err));
-    } else {
-      alert("Error in result");
-    }
+    PCGRequest(
+      "https://localhost:7060/maze/generate",
+      mazeParameters,
+      (body) => {
+        setGeneratedJSON(body);
+        spawnMaze(JSON.parse(body));
+      }
+    );
   }
 
   return (
     <PCGMain>
-      <Viewer>
+      <Viewer responseJSON={generatedJSON}>
         <h1>Maze Generation</h1>
         <GridConfiguration config={gridConfig}></GridConfiguration>
         <labe>Maze Algorithm</labe>

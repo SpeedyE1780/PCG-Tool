@@ -1,14 +1,17 @@
-import * as pc from "playcanvas";
-import { SpawnLevel } from "../components/playcanvas/spawnLevelNode";
+import { SpawnLevel } from "../components/playcanvas/spawnLevel";
 import Viewer from "../components/playcanvas/viewer";
 import GenerationParameters from "../components/levelGeneration/generationParameters";
 import PCGMain from "../components/pcgMain";
+import { useState } from "react";
+import { PCGRequest } from "../components/pcgRequest";
+
+let params = {};
+let disable = false;
 
 export default function MultiDimensionGeneration() {
-  let params = {};
-  let disable = false;
+  let [generatedJSON, setGeneratedJSON] = useState("");
 
-  async function generateLevel() {
+  function generateLevel() {
     const generationParameters = {
       nodeCount: params.count,
       nodeSize: params.size,
@@ -20,39 +23,20 @@ export default function MultiDimensionGeneration() {
       axes: params.axis,
       disableOverlap: disable,
     };
-    console.log(generationParameters);
 
-    pc.app.fire("DestroyNode");
-
-    var request = {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(generationParameters),
-    };
-
-    const result = await fetch(
+    PCGRequest(
       "https://localhost:7060/levelgeneration/multidimensiongeneration",
-      request
+      generationParameters,
+      (body) => {
+        setGeneratedJSON(body);
+        SpawnLevel(JSON.parse(body), generationParameters.nodeSize);
+      }
     );
-
-    if (result.ok) {
-      result
-        .json()
-        .then((body) => {
-          console.log(body);
-          SpawnLevel(body, generationParameters.nodeSize);
-        })
-        .catch((err) => console.log(err));
-    } else {
-      alert("Error in result");
-    }
   }
 
   return (
     <PCGMain>
-      <Viewer>
+      <Viewer responseJSON={generatedJSON}>
         <h1>Multi Dimension Generation</h1>
         <GenerationParameters config={params}></GenerationParameters>
         <input

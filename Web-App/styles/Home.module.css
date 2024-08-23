@@ -94,10 +94,20 @@
   grid-template-columns: 20% 80%;
 }
 
+.viewerResponseArea {
+  resize: none;
+  flex-grow: 1;
+}
+
 .viewerParams {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   grid-auto-rows: max-content;
   grid-template-columns: 100%;
+}
+
+.viewerParams > *textarea:last-of-type {
+  resize: both;
 }
 
 .vector3Row {
