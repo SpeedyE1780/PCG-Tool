@@ -16,6 +16,11 @@ export default function Home() {
             </Link>
           </li>
           <li>
+            <Link href="cyclicSequenceGeneration">
+              <h3>Cyclic Sequence Generation</h3>
+            </Link>
+          </li>
+          <li>
             <Link href="mazeGeneration">
               <h3>Maze Generation</h3>
             </Link>

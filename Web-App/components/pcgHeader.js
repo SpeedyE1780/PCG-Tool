@@ -10,6 +10,9 @@ export default function PCGHeader() {
       <Link href="/combinationGeneration" className={styles.pcgHeaderLink}>
         Combination Generation
       </Link>
+      <Link href="/cyclicSequenceGeneration" className={styles.pcgHeaderLink}>
+        Cyclic Sequence Generation
+      </Link>
       <Link href="/mazeGeneration" className={styles.pcgHeaderLink}>
         Maze Generation
       </Link>
