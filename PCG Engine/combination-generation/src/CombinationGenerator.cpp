@@ -111,7 +111,14 @@ namespace pcg::engine::combination_generation
     {
         int combination = generateCombination(elementCount);
         std::for_each(begin(activeElementIndex), end(activeElementIndex),
-            [&combination](int elementIndex) { combination |= 1 << elementIndex; });
+            [&combination, elementCount](int elementIndex)
+            {
+                if (elementIndex >= 0 && elementIndex < elementCount)
+                {
+                    combination |= 1 << elementIndex;
+                }
+            });
+
         toggleElements(combination, elementCount, std::move(callback));
     }
 }
