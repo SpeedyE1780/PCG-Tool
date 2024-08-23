@@ -1,17 +1,16 @@
 import * as pc from "playcanvas";
 import { SpawnWFCGrid3D } from "../components/playcanvas/spawnLevelNode";
 import Viewer from "../components/playcanvas/viewer";
+import GridConfiguration from "../components/levelGeneration/gridConfiguration";
 
 export default function waveFunctionCollapseGrid3D() {
-  let gridWidth = 0;
-  let gridHeight = 0;
-  let gridDepth = 0;
+  let gridConfig = {};
 
   async function generateGrid() {
     let gridParameters = {
-      width: gridWidth,
-      height: gridHeight,
-      depth: gridDepth,
+      width: gridConfig.width,
+      height: gridConfig.height,
+      depth: gridConfig.depth,
     };
 
     console.log(gridParameters);
@@ -47,18 +46,7 @@ export default function waveFunctionCollapseGrid3D() {
   return (
     <Viewer>
       <h1>Wave Function Collapse Grid 3D Generation</h1>
-      <input
-        placeholder="Grid Width"
-        onChange={(event) => (gridWidth = event.target.value)}
-      ></input>
-      <input
-        placeholder="Grid Height"
-        onChange={(event) => (gridHeight = event.target.value)}
-      ></input>
-      <input
-        placeholder="Grid Depth"
-        onChange={(event) => (gridDepth = event.target.value)}
-      ></input>
+      <GridConfiguration config={gridConfig} is3D={true}></GridConfiguration>
       <button onClick={generateGrid}>Generate</button>
     </Viewer>
   );
