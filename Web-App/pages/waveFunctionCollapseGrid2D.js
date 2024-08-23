@@ -60,9 +60,9 @@ export default function waveFunctionCollapseGrid2D() {
           gridPlane = Planes[event.target.selectedIndex];
         }}
       >
-        <option value="XY"></option>
-        <option value="XZ"></option>
-        <option value="YZ"></option>
+        <option value="XY">XY</option>
+        <option value="XZ">XZ</option>
+        <option value="YZ">YZ</option>
       </select>
       <button onClick={generateGrid}>Generate</button>
     </Viewer>

@@ -84,8 +84,8 @@ export default function WaveFunctionCollapse() {
         }}
       ></input>
       <select onChange={(event) => (expansion = event.target.selectedIndex)}>
-        <option value="BFS"></option>
-        <option value="DFS"></option>
+        <option value="BFS">Breadth First Search</option>
+        <option value="DFS">Depth First Search</option>
       </select>
       <button onClick={generateLevel}>Generate</button>
     </Viewer>

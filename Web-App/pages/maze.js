@@ -41,42 +41,44 @@ export default function Maze() {
 
   return (
     <Viewer>
-        <h1>Maze Generation</h1>
-        <input
-          placeholder="Width"
-          onChange={(event) => (Width = event.target.value)}
-        ></input>
-        <input
-          placeholder="Height"
-          onChange={(event) => (Height = event.target.value)}
-        ></input>
-        <select
-          onChange={(event) => (selectedAlgorithm = event.target.selectedIndex)}
-        >
-          <option value="aldousBroder"></option>
-          <option value="wilson"></option>
-          <option value="binaryTreeNE"></option>
-          <option value="binaryTreeNW"></option>
-          <option value="binaryTreeSE"></option>
-          <option value="binaryTreeSW"></option>
-          <option value="sidewinder"></option>
-          <option value="eller"></option>
-          <option value="huntAndKill"></option>
-          <option value="recursiveBacktracker"></option>
-          <option value="recursiveDivision"></option>
-          <option value="kruskal"></option>
-          <option value="prim"></option>
-          <option value="growingTreeOldest"></option>
-          <option value="growingTreeMiddle"></option>
-          <option value="growingTreeNewest"></option>
-          <option value="growingTreeRandom"></option>
-          <option value="blobbyDivisionCorridors"></option>
-          <option value="blobbyDivisionSmall"></option>
-          <option value="blobbyDivisionMedium"></option>
-          <option value="blobbyDivisionLarge"></option>
-          <option value="blobbyDivisionHuge"></option>
-        </select>
-        <button onClick={generateMaze}>Generate</button>
+      <h1>Maze Generation</h1>
+      <input
+        placeholder="Width"
+        onChange={(event) => (Width = event.target.value)}
+      ></input>
+      <input
+        placeholder="Height"
+        onChange={(event) => (Height = event.target.value)}
+      ></input>
+      <select
+        onChange={(event) => (selectedAlgorithm = event.target.selectedIndex)}
+      >
+        <option value="aldousBroder">Aldous Broder</option>
+        <option value="wilson">Wilson</option>
+        <option value="binaryTreeNE">Binary Tree NE</option>
+        <option value="binaryTreeNW">Binary Tree NW</option>
+        <option value="binaryTreeSE">Binary Tree SE</option>
+        <option value="binaryTreeSW">Binary Tree SW</option>
+        <option value="sidewinder">Sidewinder</option>
+        <option value="eller">Eller</option>
+        <option value="huntAndKill">Hunt And Kill</option>
+        <option value="recursiveBacktracker">Recursive Backtracker</option>
+        <option value="recursiveDivision">Recursive Division</option>
+        <option value="kruskal">Kruskal</option>
+        <option value="prim">Prim</option>
+        <option value="growingTreeOldest">Growing Tree Oldest</option>
+        <option value="growingTreeMiddle">Growing Tree Middle</option>
+        <option value="growingTreeNewest">Growing Tree Newest</option>
+        <option value="growingTreeRandom">Growing Tree Random</option>
+        <option value="blobbyDivisionCorridors">
+          Blobby Division Corridors
+        </option>
+        <option value="blobbyDivisionSmall">Blobby Division Small</option>
+        <option value="blobbyDivisionMedium">Blobby Division Medium</option>
+        <option value="blobbyDivisionLarge">Blobby Division Large</option>
+        <option value="blobbyDivisionHuge">Blobby Division Huge</option>
+      </select>
+      <button onClick={generateMaze}>Generate</button>
     </Viewer>
   );
 }
