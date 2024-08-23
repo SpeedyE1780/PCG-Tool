@@ -102,12 +102,16 @@
 .viewerParams {
   display: flex;
   flex-direction: column;
-  grid-auto-rows: max-content;
-  grid-template-columns: 100%;
 }
 
-.viewerParams > *textarea:last-of-type {
-  resize: both;
+.sequenceParams{
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.nodesList {
+  display: flex;
+  flex-direction: column;
 }
 
 .vector3Row {

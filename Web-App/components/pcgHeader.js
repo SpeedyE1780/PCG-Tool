@@ -16,6 +16,9 @@ export default function PCGHeader() {
       <Link href="/multiDimensionGeneration" className={styles.pcgHeaderLink}>
         Multi Dimension Generation
       </Link>
+      <Link href="/sequenceGeneration" className={styles.pcgHeaderLink}>
+        Sequence Generation
+      </Link>
       <Link href="/simpleGeneration" className={styles.pcgHeaderLink}>
         Simple Generation
       </Link>

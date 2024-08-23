@@ -21,6 +21,11 @@ export default function Home() {
             </Link>
           </li>
           <li>
+            <Link href="sequenceGeneration">
+              <h3>Sequence Generation</h3>
+            </Link>
+          </li>
+          <li>
             <Link href="simpleGeneration">
               <h3>Simple Generation</h3>
             </Link>
