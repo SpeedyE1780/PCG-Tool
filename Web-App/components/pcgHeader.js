@@ -8,25 +8,34 @@ export default function PCGHeader() {
         Home
       </Link>
       <Link href="/combinationGeneration" className={styles.pcgHeaderLink}>
-        Combination
+        Combination Generation
       </Link>
       <Link href="/mazeGeneration" className={styles.pcgHeaderLink}>
-        Maze
+        Maze Generation
       </Link>
       <Link href="/multiDimensionGeneration" className={styles.pcgHeaderLink}>
-        Multi Dimension
+        Multi Dimension Generation
       </Link>
       <Link href="/simpleGeneration" className={styles.pcgHeaderLink}>
-        Simple Dimension
+        Simple Generation
       </Link>
-      <Link href="/waveFunctionCollapse" className={styles.pcgHeaderLink}>
-        Wave Function Collapse Dimension
+      <Link
+        href="/waveFunctionCollapseGeneration"
+        className={styles.pcgHeaderLink}
+      >
+        Wave Function Collapse Generation
       </Link>
-      <Link href="/waveFunctionCollapseGrid2D" className={styles.pcgHeaderLink}>
-        Grid 2D Wave Function Collapse Dimension
+      <Link
+        href="/waveFunctionCollapseGrid2DGeneration"
+        className={styles.pcgHeaderLink}
+      >
+        Grid 2D Wave Function Collapse Generation
       </Link>
-      <Link href="/waveFunctionCollapseGrid3D" className={styles.pcgHeaderLink}>
-        Grid 3D Wave Function Collapse Dimension
+      <Link
+        href="/waveFunctionCollapseGrid3DGeneration"
+        className={styles.pcgHeaderLink}
+      >
+        Grid 3D Wave Function Collapse Generation
       </Link>
     </header>
   );
