@@ -588,3 +588,37 @@ Unreal/DerivedDataCache/*
 !C#-PCG-Wrapper/**/*.csproj
 !Web-Api/**/*.csproj
 /Python/GoldenValues
+
+
+#NEXTJS gitignore
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+Web-App/node_modules
+Web-App/.pnp
+Web-App/.pnp.js
+
+# testing
+Web-App/coverage
+
+# next.js
+Web-App/.next/
+Web-App/out/
+
+# production
+Web-App/build
+
+# misc
+Web-App/.DS_Store
+
+# debug
+Web-App/npm-debug.log*
+Web-App/yarn-debug.log*
+Web-App/yarn-error.log*
+
+# local env files
+Web-App/.env.local
+Web-App/.env.development.local
+Web-App/.env.test.local
+Web-App/.env.production.local
+Web-App/.nvmrc
