@@ -1,16 +1,16 @@
 import * as pc from "playcanvas";
 import spawnMaze from "../components/playcanvas/spawnMaze";
 import Viewer from "../components/playcanvas/viewer";
+import GridConfiguration from "../components/levelGeneration/gridConfiguration";
 
 export default function Maze() {
-  let Width = 0;
-  let Height = 0;
+  let gridConfig = {};
   let selectedAlgorithm = 0;
 
   async function generateMaze() {
     const mazeParameters = {
-      width: Width,
-      height: Height,
+      width: gridConfig.width,
+      height: gridConfig.height,
       algorithm: selectedAlgorithm,
     };
 
@@ -42,14 +42,8 @@ export default function Maze() {
   return (
     <Viewer>
       <h1>Maze Generation</h1>
-      <input
-        placeholder="Width"
-        onChange={(event) => (Width = event.target.value)}
-      ></input>
-      <input
-        placeholder="Height"
-        onChange={(event) => (Height = event.target.value)}
-      ></input>
+      <GridConfiguration config={gridConfig}></GridConfiguration>
+      <labe>Maze Algorithm</labe>
       <select
         onChange={(event) => (selectedAlgorithm = event.target.selectedIndex)}
       >
@@ -78,7 +72,7 @@ export default function Maze() {
         <option value="sidewinder">Sidewinder</option>
         <option value="wilson">Wilson</option>
       </select>
-      <button onClick={generateMaze}>Generate</button>
+      <button onClick={generateMaze}>Generate Maze</button>
     </Viewer>
   );
 }
