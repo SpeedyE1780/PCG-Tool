@@ -41,7 +41,6 @@ export default function Maze() {
 
   return (
     <Viewer>
-      <div>
         <h1>Maze Generation</h1>
         <input
           placeholder="Width"
@@ -78,7 +77,6 @@ export default function Maze() {
           <option value="blobbyDivisionHuge"></option>
         </select>
         <button onClick={generateMaze}>Generate</button>
-      </div>
     </Viewer>
   );
 }

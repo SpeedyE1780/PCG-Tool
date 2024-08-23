@@ -1,5 +1,4 @@
 import * as pc from "playcanvas";
-import Game from "../components/playcanvas/game";
 import { SpawnLevel } from "../components/playcanvas/spawnLevelNode";
 import Viewer from "../components/playcanvas/viewer";
 
@@ -54,37 +53,35 @@ export default function SimpleGeneration() {
 
   return (
     <Viewer>
-      <div>
-        <h1>Simple Generation</h1>
-        <input
-          placeholder="Node Count"
-          onChange={(event) => (count = event.target.value)}
-        ></input>
-        <input
-          placeholder="Node Size"
-          onChange={(event) => (size = event.target.value)}
-        ></input>
-        <input
-          placeholder="Start Position X"
-          onChange={(event) => (xPosition = event.target.value)}
-        ></input>
-        <input
-          placeholder="Start Position Y"
-          onChange={(event) => (yPosition = event.target.value)}
-        ></input>
-        <input
-          placeholder="Start Position Z"
-          onChange={(event) => (zPosition = event.target.value)}
-        ></input>
-        <input
-          type="number"
-          placeholder="Axis"
-          onChange={(event) => {
-            axis = event.target.valueAsNumber;
-          }}
-        ></input>
-        <button onClick={generateLevel}>Generate</button>
-      </div>
+      <h1>Simple Generation</h1>
+      <input
+        placeholder="Node Count"
+        onChange={(event) => (count = event.target.value)}
+      ></input>
+      <input
+        placeholder="Node Size"
+        onChange={(event) => (size = event.target.value)}
+      ></input>
+      <input
+        placeholder="Start Position X"
+        onChange={(event) => (xPosition = event.target.value)}
+      ></input>
+      <input
+        placeholder="Start Position Y"
+        onChange={(event) => (yPosition = event.target.value)}
+      ></input>
+      <input
+        placeholder="Start Position Z"
+        onChange={(event) => (zPosition = event.target.value)}
+      ></input>
+      <input
+        type="number"
+        placeholder="Axis"
+        onChange={(event) => {
+          axis = event.target.valueAsNumber;
+        }}
+      ></input>
+      <button onClick={generateLevel}>Generate</button>
     </Viewer>
   );
 }

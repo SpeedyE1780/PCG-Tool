@@ -1,6 +1,5 @@
 import * as pc from "playcanvas";
 import { SpawnWFCLevel } from "../components/playcanvas/spawnLevelNode";
-import Game from "../components/playcanvas/game";
 import Viewer from "../components/playcanvas/viewer";
 
 export default function WaveFunctionCollapse() {
@@ -56,41 +55,39 @@ export default function WaveFunctionCollapse() {
 
   return (
     <Viewer>
-      <div>
-        <h1>Wave Function Collapse Generation</h1>
-        <input
-          placeholder="Node Count"
-          onChange={(event) => (count = event.target.value)}
-        ></input>
-        <input
-          placeholder="Node Size"
-          onChange={(event) => (size = event.target.value)}
-        ></input>
-        <input
-          placeholder="Start Position X"
-          onChange={(event) => (xPosition = event.target.value)}
-        ></input>
-        <input
-          placeholder="Start Position Y"
-          onChange={(event) => (yPosition = event.target.value)}
-        ></input>
-        <input
-          placeholder="Start Position Z"
-          onChange={(event) => (zPosition = event.target.value)}
-        ></input>
-        <input
-          type="number"
-          placeholder="Axis"
-          onChange={(event) => {
-            axis = event.target.valueAsNumber;
-          }}
-        ></input>
-        <select onChange={(event) => (expansion = event.target.selectedIndex)}>
-          <option value="BFS"></option>
-          <option value="DFS"></option>
-        </select>
-        <button onClick={generateLevel}>Generate</button>
-      </div>
+      <h1>Wave Function Collapse Generation</h1>
+      <input
+        placeholder="Node Count"
+        onChange={(event) => (count = event.target.value)}
+      ></input>
+      <input
+        placeholder="Node Size"
+        onChange={(event) => (size = event.target.value)}
+      ></input>
+      <input
+        placeholder="Start Position X"
+        onChange={(event) => (xPosition = event.target.value)}
+      ></input>
+      <input
+        placeholder="Start Position Y"
+        onChange={(event) => (yPosition = event.target.value)}
+      ></input>
+      <input
+        placeholder="Start Position Z"
+        onChange={(event) => (zPosition = event.target.value)}
+      ></input>
+      <input
+        type="number"
+        placeholder="Axis"
+        onChange={(event) => {
+          axis = event.target.valueAsNumber;
+        }}
+      ></input>
+      <select onChange={(event) => (expansion = event.target.selectedIndex)}>
+        <option value="BFS"></option>
+        <option value="DFS"></option>
+      </select>
+      <button onClick={generateLevel}>Generate</button>
     </Viewer>
   );
 }

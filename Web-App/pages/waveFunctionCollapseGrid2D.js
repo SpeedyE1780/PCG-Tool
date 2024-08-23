@@ -1,5 +1,4 @@
 import * as pc from "playcanvas";
-import Game from "../components/playcanvas/game";
 import { Planes, SpawnWFCGrid } from "../components/playcanvas/spawnLevelNode";
 import Viewer from "../components/playcanvas/viewer";
 
@@ -47,27 +46,25 @@ export default function waveFunctionCollapseGrid2D() {
 
   return (
     <Viewer>
-      <div>
-        <h1>Wave Function Collapse Grid 2D Generation</h1>
-        <input
-          placeholder="Grid Width"
-          onChange={(event) => (gridWidth = event.target.value)}
-        ></input>
-        <input
-          placeholder="Grid Height"
-          onChange={(event) => (gridHeight = event.target.value)}
-        ></input>
-        <select
-          onChange={(event) => {
-            gridPlane = Planes[event.target.selectedIndex];
-          }}
-        >
-          <option value="XY"></option>
-          <option value="XZ"></option>
-          <option value="YZ"></option>
-        </select>
-        <button onClick={generateGrid}>Generate</button>
-      </div>
+      <h1>Wave Function Collapse Grid 2D Generation</h1>
+      <input
+        placeholder="Grid Width"
+        onChange={(event) => (gridWidth = event.target.value)}
+      ></input>
+      <input
+        placeholder="Grid Height"
+        onChange={(event) => (gridHeight = event.target.value)}
+      ></input>
+      <select
+        onChange={(event) => {
+          gridPlane = Planes[event.target.selectedIndex];
+        }}
+      >
+        <option value="XY"></option>
+        <option value="XZ"></option>
+        <option value="YZ"></option>
+      </select>
+      <button onClick={generateGrid}>Generate</button>
     </Viewer>
   );
 }
