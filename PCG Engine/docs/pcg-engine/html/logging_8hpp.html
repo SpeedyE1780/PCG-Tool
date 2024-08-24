@@ -94,7 +94,7 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">logging.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="_callback_functor_8hpp_source.html">pcg/engine/utility/CallbackFunctor.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 </div>
 <p><a href="logging_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -110,9 +110,9 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af3e0a9a07c17d55c3ee21c69bfbd192a" id="r_af3e0a9a07c17d55c3ee21c69bfbd192a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepcg_1_1engine_1_1utility.html#af3e0a9a07c17d55c3ee21c69bfbd192a">pcg::engine::utility::setLoggingFunction</a> (<a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">CallbackFunctor</a>&lt; void(const char *)&gt; &amp;&amp;logFunction)</td></tr>
-<tr class="memdesc:af3e0a9a07c17d55c3ee21c69bfbd192a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set function used to log info from the engine.  <br /></td></tr>
-<tr class="separator:af3e0a9a07c17d55c3ee21c69bfbd192a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dde2868e0259e10a4497143154a513c" id="r_a2dde2868e0259e10a4497143154a513c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepcg_1_1engine_1_1utility.html#a2dde2868e0259e10a4497143154a513c">pcg::engine::utility::setLoggingFunction</a> (const std::function&lt; void(const char *)&gt; &amp;logFunction)</td></tr>
+<tr class="memdesc:a2dde2868e0259e10a4497143154a513c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set function used to log info from the engine.  <br /></td></tr>
+<tr class="separator:a2dde2868e0259e10a4497143154a513c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d942218e92632b8bee0f3e753d4fe35" id="r_a6d942218e92632b8bee0f3e753d4fe35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepcg_1_1engine_1_1utility.html#a6d942218e92632b8bee0f3e753d4fe35">pcg::engine::utility::logInfo</a> (const std::string &amp;message)</td></tr>
 <tr class="memdesc:a6d942218e92632b8bee0f3e753d4fe35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log info from engine.  <br /></td></tr>
 <tr class="separator:a6d942218e92632b8bee0f3e753d4fe35"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -90,7 +90,6 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">pcg::engine::utility Namespace Reference</div></div>
@@ -104,20 +103,11 @@ Namespaces</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html">enums</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">CallbackFunctor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templated callback functor.  <a href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor_3_01_r_07_args_8_8_8_08_4.html">CallbackFunctor&lt; R(Args...)&gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of CallbackFunctor&lt;T&gt; allowing the use of <a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html" title="Templated callback functor.">CallbackFunctor</a>&lt;R(Args...)  <a href="classpcg_1_1engine_1_1utility_1_1_callback_functor_3_01_r_07_args_8_8_8_08_4.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af3e0a9a07c17d55c3ee21c69bfbd192a" id="r_af3e0a9a07c17d55c3ee21c69bfbd192a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3e0a9a07c17d55c3ee21c69bfbd192a">setLoggingFunction</a> (<a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">CallbackFunctor</a>&lt; void(const char *)&gt; &amp;&amp;logFunction)</td></tr>
-<tr class="memdesc:af3e0a9a07c17d55c3ee21c69bfbd192a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set function used to log info from the engine.  <br /></td></tr>
-<tr class="separator:af3e0a9a07c17d55c3ee21c69bfbd192a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dde2868e0259e10a4497143154a513c" id="r_a2dde2868e0259e10a4497143154a513c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2dde2868e0259e10a4497143154a513c">setLoggingFunction</a> (const std::function&lt; void(const char *)&gt; &amp;logFunction)</td></tr>
+<tr class="memdesc:a2dde2868e0259e10a4497143154a513c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set function used to log info from the engine.  <br /></td></tr>
+<tr class="separator:a2dde2868e0259e10a4497143154a513c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d942218e92632b8bee0f3e753d4fe35" id="r_a6d942218e92632b8bee0f3e753d4fe35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d942218e92632b8bee0f3e753d4fe35">logInfo</a> (const std::string &amp;message)</td></tr>
 <tr class="memdesc:a6d942218e92632b8bee0f3e753d4fe35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log info from engine.  <br /></td></tr>
 <tr class="separator:a6d942218e92632b8bee0f3e753d4fe35"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,8 +120,8 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:abd9d0ac71cc39c34736c8e989449f4c9" id="r_abd9d0ac71cc39c34736c8e989449f4c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">CallbackFunctor</a>&lt; void(const char *)&gt; &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd9d0ac71cc39c34736c8e989449f4c9">logger</a> = [](const char*) {}</td></tr>
-<tr class="separator:abd9d0ac71cc39c34736c8e989449f4c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e885c23b6a9020b46cb94f7ab60a029" id="r_a0e885c23b6a9020b46cb94f7ab60a029"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(const char *)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e885c23b6a9020b46cb94f7ab60a029">logger</a> = [](const char*) {}</td></tr>
+<tr class="separator:a0e885c23b6a9020b46cb94f7ab60a029"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a73096b26e5e0e14fbdaf99363147cedd" name="a73096b26e5e0e14fbdaf99363147cedd"></a>
@@ -209,8 +199,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="af3e0a9a07c17d55c3ee21c69bfbd192a" name="af3e0a9a07c17d55c3ee21c69bfbd192a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3e0a9a07c17d55c3ee21c69bfbd192a">&#9670;&#160;</a></span>setLoggingFunction()</h2>
+<a id="a2dde2868e0259e10a4497143154a513c" name="a2dde2868e0259e10a4497143154a513c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dde2868e0259e10a4497143154a513c">&#9670;&#160;</a></span>setLoggingFunction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -218,7 +208,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void pcg::engine::utility::setLoggingFunction </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">CallbackFunctor</a>&lt; void(const char *)&gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>logFunction</em></span></td><td>)</td>
+          <td class="paramtype">const std::function&lt; void(const char *)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>logFunction</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -235,14 +225,14 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="abd9d0ac71cc39c34736c8e989449f4c9" name="abd9d0ac71cc39c34736c8e989449f4c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd9d0ac71cc39c34736c8e989449f4c9">&#9670;&#160;</a></span>logger</h2>
+<a id="a0e885c23b6a9020b46cb94f7ab60a029" name="a0e885c23b6a9020b46cb94f7ab60a029"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e885c23b6a9020b46cb94f7ab60a029">&#9670;&#160;</a></span>logger</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">CallbackFunctor</a>&lt;void(const char*)&gt;&amp;&amp; pcg::engine::utility::logger = [](const char*) {}</td>
+          <td class="memname">std::function&lt;void(const char*)&gt; pcg::engine::utility::logger = [](const char*) {}</td>
         </tr>
       </table>
 </div><div class="memdoc">

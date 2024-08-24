@@ -32,7 +32,7 @@ namespace pcg::engine::combination_generation
         /// @param combination Generated combination
         /// @param elementCount Number of element in set
         /// @param callback Callback notifying game engine if current element is in set
-        void toggleElements(int combination, int elementCount, utility::CallbackFunctor<void(int, bool)>&& callback)
+        void toggleElements(int combination, int elementCount, const std::function<void(int, bool)>& callback)
         {
             for (int elementIndex = 0; elementIndex < elementCount; ++elementIndex)
             {
@@ -88,13 +88,13 @@ namespace pcg::engine::combination_generation
         }
     }
 
-    void generateCombination(int elementCount, utility::CallbackFunctor<void(int, bool)>&& callback)
+    void generateCombination(int elementCount, const std::function<void(int, bool)>& callback)
     {
         const int combination = generateCombination(elementCount);
-        toggleElements(combination, elementCount, std::move(callback));
+        toggleElements(combination, elementCount, callback);
     }
 
-    void generateCombination(int elementCount, int minElementCount, utility::CallbackFunctor<void(int, bool)>&& callback)
+    void generateCombination(int elementCount, int minElementCount, const std::function<void(int, bool)>& callback)
     {
         int combination = generateCombination(elementCount);
         int activeElements = countActiveBits(combination);
@@ -104,10 +104,10 @@ namespace pcg::engine::combination_generation
             activateRemainingBits(combination, elementCount, activeElements, minElementCount);
         }
 
-        toggleElements(combination, elementCount, std::move(callback));
+        toggleElements(combination, elementCount, callback);
     }
 
-    void generateCombination(int elementCount, const std::vector<int>& activeElementIndex, utility::CallbackFunctor<void(int, bool)>&& callback)
+    void generateCombination(int elementCount, const std::vector<int>& activeElementIndex, const std::function<void(int, bool)>& callback)
     {
         int combination = generateCombination(elementCount);
         std::for_each(begin(activeElementIndex), end(activeElementIndex),
@@ -119,6 +119,6 @@ namespace pcg::engine::combination_generation
                 }
             });
 
-        toggleElements(combination, elementCount, std::move(callback));
+        toggleElements(combination, elementCount, callback);
     }
 }

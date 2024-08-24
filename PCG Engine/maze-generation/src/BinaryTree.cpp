@@ -19,7 +19,7 @@ namespace pcg::engine::maze_generation
         /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
         /// @param directions Vector containing the N/S and W/E pair of direction
         /// @param callback Callback when a node is generated
-        void binaryTree(int width, int height, bool invokeAfterGeneration, std::vector<NodeValue>&& directions, MazeCallback&& callback)
+        void binaryTree(int width, int height, bool invokeAfterGeneration, std::vector<NodeValue>&& directions, const MazeCallback& callback)
         {
             Grid grid = generateGrid(width, height);
             std::default_random_engine randomEngine = math::Random::getDefaultEngine();
@@ -54,35 +54,35 @@ namespace pcg::engine::maze_generation
         }
     }
 
-    void binaryTree(int width, int height, bool invokeAfterGeneration, Diagonal diagonal, MazeCallback&& callback)
+    void binaryTree(int width, int height, bool invokeAfterGeneration, Diagonal diagonal, const MazeCallback& callback)
     {
         switch (diagonal)
         {
         case Diagonal::NE:
         {
             utility::logInfo("Binary Tree NE Maze Generation Started");
-            binaryTree(width, height, invokeAfterGeneration, { NodeValue::forward, NodeValue::right }, std::move(callback));
+            binaryTree(width, height, invokeAfterGeneration, { NodeValue::forward, NodeValue::right }, callback);
             utility::logInfo("Binary Tree NE Maze Generation Ended");
             break;
         }
         case Diagonal::NW:
         {
             utility::logInfo("Binary Tree NW Maze Generation Started");
-            binaryTree(width, height, invokeAfterGeneration, { NodeValue::forward, NodeValue::left }, std::move(callback));
+            binaryTree(width, height, invokeAfterGeneration, { NodeValue::forward, NodeValue::left }, callback);
             utility::logInfo("Binary Tree NW Maze Generation Ended");
             break;
         }
         case Diagonal::SE:
         {
             utility::logInfo("Binary Tree SE Maze Generation Started");
-            binaryTree(width, height, invokeAfterGeneration, { NodeValue::backward, NodeValue::right }, std::move(callback));
+            binaryTree(width, height, invokeAfterGeneration, { NodeValue::backward, NodeValue::right }, callback);
             utility::logInfo("Binary Tree SE Maze Generation Ended");
             break;
         }
         case Diagonal::SW:
         {
             utility::logInfo("Binary Tree SW Maze Generation Started");
-            binaryTree(width, height, invokeAfterGeneration, { NodeValue::backward, NodeValue::left }, std::move(callback));
+            binaryTree(width, height, invokeAfterGeneration, { NodeValue::backward, NodeValue::left }, callback);
             utility::logInfo("Binary Tree SW Maze Generation Ended");
             break;
         }

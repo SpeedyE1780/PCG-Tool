@@ -97,7 +97,7 @@ $(function(){ initResizable(false); });
 <div class="textblock"><code>#include &lt;<a class="el" href="_generation_data_8hpp_source.html">pcg/engine/level-generation/GenerationData.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="math_2include_2pcg_2engine_2math_2enums_8hpp_source.html">pcg/engine/math/enums.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="vector3_8hpp_source.html">pcg/engine/math/vector3.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_callback_functor_8hpp_source.html">pcg/engine/utility/CallbackFunctor.hpp</a>&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="_multi_dimensional_generation_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -113,9 +113,9 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1271080ff201a845eac957055367acf7" id="r_a1271080ff201a845eac957055367acf7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepcg_1_1engine_1_1level__generation.html#a1271080ff201a845eac957055367acf7">pcg::engine::level_generation::multiDimensionalGeneration</a> (const <a class="el" href="structpcg_1_1engine_1_1level__generation_1_1_generation_data.html">GenerationData</a> &amp;data, <a class="el" href="namespacepcg_1_1engine_1_1math.html#a8baea8af717df5ea70816ad2b5fecec8">math::Axis</a> axis, bool disableOverlap, <a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt; void(<a class="el" href="structpcg_1_1engine_1_1math_1_1_vector3.html">math::Vector3</a>)&gt; &amp;&amp;callback)</td></tr>
-<tr class="memdesc:a1271080ff201a845eac957055367acf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a level on multiple axes.  <br /></td></tr>
-<tr class="separator:a1271080ff201a845eac957055367acf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0550b8ba69b860ed2d796113bf4f583d" id="r_a0550b8ba69b860ed2d796113bf4f583d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepcg_1_1engine_1_1level__generation.html#a0550b8ba69b860ed2d796113bf4f583d">pcg::engine::level_generation::multiDimensionalGeneration</a> (const <a class="el" href="structpcg_1_1engine_1_1level__generation_1_1_generation_data.html">GenerationData</a> &amp;data, <a class="el" href="namespacepcg_1_1engine_1_1math.html#a8baea8af717df5ea70816ad2b5fecec8">math::Axis</a> axis, bool disableOverlap, const std::function&lt; void(<a class="el" href="structpcg_1_1engine_1_1math_1_1_vector3.html">math::Vector3</a>)&gt; &amp;callback)</td></tr>
+<tr class="memdesc:a0550b8ba69b860ed2d796113bf4f583d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a level on multiple axes.  <br /></td></tr>
+<tr class="separator:a0550b8ba69b860ed2d796113bf4f583d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -103,7 +103,7 @@ namespace pcg::engine::maze_generation
         }
     }
 
-    void prim(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+    void prim(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
     {
         utility::logInfo("Prim Maze Generation Started");
 

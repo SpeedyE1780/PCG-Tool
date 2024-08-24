@@ -35,42 +35,42 @@ namespace pcg::engine::cpp_api
         math::Random::resetSeed();
     }
 
-    void setRandomGenerator(std::function<void(unsigned int)>&& seed, std::function<int(int, int)>&& generate)
+    void setRandomGenerator(const std::function<void(unsigned int)>& seed, const std::function<int(int, int)>& generate)
     {
         math::Random::initializeRandom(seed, generate);
     }
 
-    void setLoggingFunction(std::function<void(const char*)>&& logFunction)
+    void setLoggingFunction(const std::function<void(const char*)>& logFunction)
     {
         utility::setLoggingFunction(logFunction);
     }
 
-    void simpleGeneration(const level_generation::GenerationData& data, const math::Vector3& offset, std::function<void(math::Vector3)>&& callback)
+    void simpleGeneration(const level_generation::GenerationData& data, const math::Vector3& offset, const std::function<void(math::Vector3)>& callback)
     {
         level_generation::simpleGeneration(data, offset, callback);
     }
 
-    void multiDimensionGeneration(const level_generation::GenerationData& data, math::Axis axes, bool disableOverlap, std::function<void(math::Vector3)>&& callback)
+    void multiDimensionGeneration(const level_generation::GenerationData& data, math::Axis axes, bool disableOverlap, const std::function<void(math::Vector3)>& callback)
     {
         level_generation::multiDimensionalGeneration(data, axes, disableOverlap, callback);
     }
 
-    void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, std::function<void(math::Vector3, utility::enums::Direction)>&& callback)
+    void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, const std::function<void(math::Vector3, utility::enums::Direction)>& callback)
     {
         level_generation::waveFunctionCollapse(data, mode, axes, callback);
     }
 
-    void waveFunctionCollapseGeneration(int width, int height, math::Axis axes, bool invokeAfterGeneration, std::function<void(int, int, utility::enums::Direction)>&& callback)
+    void waveFunctionCollapseGeneration(int width, int height, math::Axis axes, bool invokeAfterGeneration, const std::function<void(int, int, utility::enums::Direction)>& callback)
     {
         level_generation::waveFunctionCollapse(width, height, axes, invokeAfterGeneration, callback);
     }
 
-    void waveFunctionCollapseGeneration(int width, int height, int depth, bool invokeAfterGeneration, std::function<void(int, int, int, utility::enums::Direction)>&& callback)
+    void waveFunctionCollapseGeneration(int width, int height, int depth, bool invokeAfterGeneration, const std::function<void(int, int, int, utility::enums::Direction)>& callback)
     {
         level_generation::waveFunctionCollapse(width, height, depth, invokeAfterGeneration, callback);
     }
 
-    void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback)
+    void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, const std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>& callback)
     {
         switch (algorithm)
         {
@@ -189,27 +189,27 @@ namespace pcg::engine::cpp_api
         }
     }
 
-    void generateGrowingTreeWithCustomSelection(int width, int height, bool invokeAfterGeneration, std::function<int(int)>&& nodeCallback, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback)
+    void generateGrowingTreeWithCustomSelection(int width, int height, bool invokeAfterGeneration, const std::function<int(int)>& nodeCallback, const std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>& callback)
     {
         maze_generation::growingTree(width, height, invokeAfterGeneration, nodeCallback, callback);
     }
 
-    void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback)
+    void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, const std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>& callback)
     {
         maze_generation::blobbyDivision(width, height, invokeAfterGeneration, regionThreshold, callback);
     }
 
-    void generateCombination(int elementCount, std::function<void(int, bool)>&& callback)
+    void generateCombination(int elementCount, const std::function<void(int, bool)>& callback)
     {
         combination_generation::generateCombination(elementCount, callback);
     }
 
-    void generateCombination(int elementCount, int minimumElementCount, std::function<void(int, bool)>&& callback)
+    void generateCombination(int elementCount, int minimumElementCount, const std::function<void(int, bool)>& callback)
     {
         combination_generation::generateCombination(elementCount, minimumElementCount, callback);
     }
 
-    void generateCombination(int elementCount, const std::vector<int>& activeElementsIndex, std::function<void(int, bool)>&& callback)
+    void generateCombination(int elementCount, const std::vector<int>& activeElementsIndex, const std::function<void(int, bool)>& callback)
     {
         combination_generation::generateCombination(elementCount, activeElementsIndex, callback);
     }
@@ -219,7 +219,7 @@ namespace pcg::engine::cpp_api
         combination_generation::generateSequence(node);
     }
 
-    void generateSequence(combination_generation::ISequenceNode& node, int count, std::function<void(combination_generation::ISequenceNode*)>&& callback)
+    void generateSequence(combination_generation::ISequenceNode& node, int count, const std::function<void(combination_generation::ISequenceNode*)>& callback)
     {
         return combination_generation::generateSequence(node, count, callback);
     }

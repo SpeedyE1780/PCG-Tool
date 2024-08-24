@@ -40,7 +40,7 @@ namespace pcg::engine::level_generation
         }
     }
 
-    void multiDimensionalGeneration(const GenerationData& data, math::Axis axes, bool disableOverlap, utility::CallbackFunctor<void(math::Vector3)>&& callback)
+    void multiDimensionalGeneration(const GenerationData& data, math::Axis axes, bool disableOverlap, const std::function<void(math::Vector3)>& callback)
     {
         utility::logInfo("Multi-Dimension Generation Started");
 

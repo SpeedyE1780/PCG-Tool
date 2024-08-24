@@ -103,25 +103,55 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aec4c597db50f9c2c6d5cbe65afe88d1d" id="r_aec4c597db50f9c2c6d5cbe65afe88d1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec4c597db50f9c2c6d5cbe65afe88d1d">generateCombination</a> (int elementCount, <a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt; void(int, bool)&gt; &amp;&amp;callback)</td></tr>
-<tr class="memdesc:aec4c597db50f9c2c6d5cbe65afe88d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a combination given a number of elements.  <br /></td></tr>
-<tr class="separator:aec4c597db50f9c2c6d5cbe65afe88d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a504ea504862056f9223f359586cbc855" id="r_a504ea504862056f9223f359586cbc855"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a504ea504862056f9223f359586cbc855">generateCombination</a> (int elementCount, int minElementCount, <a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt; void(int, bool)&gt; &amp;&amp;callback)</td></tr>
-<tr class="memdesc:a504ea504862056f9223f359586cbc855"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a combination with at least minimumElementCount elements.  <br /></td></tr>
-<tr class="separator:a504ea504862056f9223f359586cbc855"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97d9c81d261861a293731b31d0dbb011" id="r_a97d9c81d261861a293731b31d0dbb011"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97d9c81d261861a293731b31d0dbb011">generateCombination</a> (int elementCount, const std::vector&lt; int &gt; &amp;activeElementIndex, <a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt; void(int, bool)&gt; &amp;&amp;callback)</td></tr>
-<tr class="memdesc:a97d9c81d261861a293731b31d0dbb011"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a combination with the given elements active.  <br /></td></tr>
-<tr class="separator:a97d9c81d261861a293731b31d0dbb011"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5859c90c5de83f7740499b0279925715" id="r_a5859c90c5de83f7740499b0279925715"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5859c90c5de83f7740499b0279925715">generateCombination</a> (int elementCount, const std::function&lt; void(int, bool)&gt; &amp;callback)</td></tr>
+<tr class="memdesc:a5859c90c5de83f7740499b0279925715"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a combination given a number of elements.  <br /></td></tr>
+<tr class="separator:a5859c90c5de83f7740499b0279925715"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93481f88b28be86d3098e5cae44c0b2a" id="r_a93481f88b28be86d3098e5cae44c0b2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93481f88b28be86d3098e5cae44c0b2a">generateCombination</a> (int elementCount, int minElementCount, const std::function&lt; void(int, bool)&gt; &amp;callback)</td></tr>
+<tr class="memdesc:a93481f88b28be86d3098e5cae44c0b2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a combination with at least minimumElementCount elements.  <br /></td></tr>
+<tr class="separator:a93481f88b28be86d3098e5cae44c0b2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23ae83972be67d9c50441ce5e38ebf4f" id="r_a23ae83972be67d9c50441ce5e38ebf4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23ae83972be67d9c50441ce5e38ebf4f">generateCombination</a> (int elementCount, const std::vector&lt; int &gt; &amp;activeElementIndex, const std::function&lt; void(int, bool)&gt; &amp;callback)</td></tr>
+<tr class="memdesc:a23ae83972be67d9c50441ce5e38ebf4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a combination with the given elements active.  <br /></td></tr>
+<tr class="separator:a23ae83972be67d9c50441ce5e38ebf4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7a1f1e83f8e239cce15105665d7ae3e" id="r_af7a1f1e83f8e239cce15105665d7ae3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7a1f1e83f8e239cce15105665d7ae3e">generateSequence</a> (<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> &amp;node)</td></tr>
 <tr class="memdesc:af7a1f1e83f8e239cce15105665d7ae3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a sequence starting from node.  <br /></td></tr>
 <tr class="separator:af7a1f1e83f8e239cce15105665d7ae3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f245e49b561477e32fee9ccee6a0f06" id="r_a8f245e49b561477e32fee9ccee6a0f06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f245e49b561477e32fee9ccee6a0f06">generateSequence</a> (<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> &amp;node, int count, <a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt; void(<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> *)&gt; &amp;&amp;callback)</td></tr>
-<tr class="memdesc:a8f245e49b561477e32fee9ccee6a0f06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a sequence starting from node with a max number of nodes.  <br /></td></tr>
-<tr class="separator:a8f245e49b561477e32fee9ccee6a0f06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad87b5ee9c15086754419901e3437ded3" id="r_ad87b5ee9c15086754419901e3437ded3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad87b5ee9c15086754419901e3437ded3">generateSequence</a> (<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> &amp;node, int count, const std::function&lt; void(<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> *)&gt; &amp;callback)</td></tr>
+<tr class="memdesc:ad87b5ee9c15086754419901e3437ded3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a sequence starting from node with a max number of nodes.  <br /></td></tr>
+<tr class="separator:ad87b5ee9c15086754419901e3437ded3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a97d9c81d261861a293731b31d0dbb011" name="a97d9c81d261861a293731b31d0dbb011"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97d9c81d261861a293731b31d0dbb011">&#9670;&#160;</a></span>generateCombination() <span class="overload">[1/3]</span></h2>
+<a id="a5859c90c5de83f7740499b0279925715" name="a5859c90c5de83f7740499b0279925715"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5859c90c5de83f7740499b0279925715">&#9670;&#160;</a></span>generateCombination() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pcg::engine::combination_generation::generateCombination </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>elementCount</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::function&lt; void(int, bool)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generate a combination given a number of elements. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">elementCount</td><td>Number of element that are available in set </td></tr>
+    <tr><td class="paramname">callback</td><td>Callback to add element to generated set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a23ae83972be67d9c50441ce5e38ebf4f" name="a23ae83972be67d9c50441ce5e38ebf4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23ae83972be67d9c50441ce5e38ebf4f">&#9670;&#160;</a></span>generateCombination() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -139,7 +169,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt; void(int, bool)&gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const std::function&lt; void(int, bool)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -156,8 +186,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a504ea504862056f9223f359586cbc855" name="a504ea504862056f9223f359586cbc855"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a504ea504862056f9223f359586cbc855">&#9670;&#160;</a></span>generateCombination() <span class="overload">[2/3]</span></h2>
+<a id="a93481f88b28be86d3098e5cae44c0b2a" name="a93481f88b28be86d3098e5cae44c0b2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93481f88b28be86d3098e5cae44c0b2a">&#9670;&#160;</a></span>generateCombination() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -175,7 +205,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt; void(int, bool)&gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const std::function&lt; void(int, bool)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -185,36 +215,6 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">elementCount</td><td>Number of element that are available in set </td></tr>
     <tr><td class="paramname">minElementCount</td><td>Minimum number of elements in set </td></tr>
-    <tr><td class="paramname">callback</td><td>Callback to add element to generated set </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aec4c597db50f9c2c6d5cbe65afe88d1d" name="aec4c597db50f9c2c6d5cbe65afe88d1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec4c597db50f9c2c6d5cbe65afe88d1d">&#9670;&#160;</a></span>generateCombination() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void pcg::engine::combination_generation::generateCombination </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>elementCount</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt; void(int, bool)&gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Generate a combination given a number of elements. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">elementCount</td><td>Number of element that are available in set </td></tr>
     <tr><td class="paramname">callback</td><td>Callback to add element to generated set </td></tr>
   </table>
   </dd>
@@ -247,8 +247,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8f245e49b561477e32fee9ccee6a0f06" name="a8f245e49b561477e32fee9ccee6a0f06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f245e49b561477e32fee9ccee6a0f06">&#9670;&#160;</a></span>generateSequence() <span class="overload">[2/2]</span></h2>
+<a id="ad87b5ee9c15086754419901e3437ded3" name="ad87b5ee9c15086754419901e3437ded3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad87b5ee9c15086754419901e3437ded3">&#9670;&#160;</a></span>generateSequence() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -266,7 +266,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt; void(<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> *)&gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const std::function&lt; void(<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> *)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -49,7 +49,7 @@ namespace pcg::engine::maze_generation
         }
     }
 
-    void sidewinder(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+    void sidewinder(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
     {
         utility::logInfo("Sidewinder Maze Generation Started");
 

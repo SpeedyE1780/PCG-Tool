@@ -111,9 +111,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a9b4530757f2275f202eee6f2232ffecc" id="r_a9b4530757f2275f202eee6f2232ffecc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b4530757f2275f202eee6f2232ffecc">Grid</a> = std::vector&lt;<a class="el" href="#a1f8150aa32c522a6efb672a73dddd900">Directions</a>&gt;</td></tr>
 <tr class="memdesc:a9b4530757f2275f202eee6f2232ffecc"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D vector alias  <br /></td></tr>
 <tr class="separator:a9b4530757f2275f202eee6f2232ffecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6395a52d1b1dbfe97b722bdfd858ac73" id="r_a6395a52d1b1dbfe97b722bdfd858ac73"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> = <a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt;void(int, int, <a class="el" href="#acab135a5e7fc5abd594e83fdae337001">NodeValue</a>)&gt;</td></tr>
-<tr class="memdesc:a6395a52d1b1dbfe97b722bdfd858ac73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback used to notify a node was spawned/modified.  <br /></td></tr>
-<tr class="separator:a6395a52d1b1dbfe97b722bdfd858ac73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97c0ae4fe858736e8e59377d8c963d6b" id="r_a97c0ae4fe858736e8e59377d8c963d6b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> = std::function&lt;void(int, int, <a class="el" href="#acab135a5e7fc5abd594e83fdae337001">NodeValue</a>)&gt;</td></tr>
+<tr class="memdesc:a97c0ae4fe858736e8e59377d8c963d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback used to notify a node was spawned/modified.  <br /></td></tr>
+<tr class="separator:a97c0ae4fe858736e8e59377d8c963d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -167,19 +167,19 @@ Functions</h2></td></tr>
 <tr class="memitem:a91258cadfe5b406ee66af603744ab457" id="r_a91258cadfe5b406ee66af603744ab457"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; int, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91258cadfe5b406ee66af603744ab457">getAdjacentCoordinates</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a6150e0515f7202e2fb518f7206ed97dc">x</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#a0a2f84ed7838f07779ae24c5a9086d33">y</a>, <a class="el" href="#acab135a5e7fc5abd594e83fdae337001">NodeValue</a> <a class="el" href="_wave_function_collapse_8cpp.html#a5d3d166e3ca63032f0ac505722106b38">direction</a>)</td></tr>
 <tr class="memdesc:a91258cadfe5b406ee66af603744ab457"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get adjacent node x, y coordinates.  <br /></td></tr>
 <tr class="separator:a91258cadfe5b406ee66af603744ab457"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7654ed4f119c5c060902e6490dab10c0" id="r_a7654ed4f119c5c060902e6490dab10c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7654ed4f119c5c060902e6490dab10c0">invokeNodeCallback</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a6150e0515f7202e2fb518f7206ed97dc">x</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#a0a2f84ed7838f07779ae24c5a9086d33">y</a>, const <a class="el" href="#a9b4530757f2275f202eee6f2232ffecc">Grid</a> &amp;<a class="el" href="_wave_function_collapse_8cpp.html#a1c5a2b77cc3c2ca04a3437bb2823db6c">grid</a>, const <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memitem:a7654ed4f119c5c060902e6490dab10c0" id="r_a7654ed4f119c5c060902e6490dab10c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7654ed4f119c5c060902e6490dab10c0">invokeNodeCallback</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a6150e0515f7202e2fb518f7206ed97dc">x</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#a0a2f84ed7838f07779ae24c5a9086d33">y</a>, const <a class="el" href="#a9b4530757f2275f202eee6f2232ffecc">Grid</a> &amp;<a class="el" href="_wave_function_collapse_8cpp.html#a1c5a2b77cc3c2ca04a3437bb2823db6c">grid</a>, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
 <tr class="memdesc:a7654ed4f119c5c060902e6490dab10c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke callback on a single node.  <br /></td></tr>
 <tr class="separator:a7654ed4f119c5c060902e6490dab10c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc83c6bcb408602f9206fe55fc88bd6c" id="r_abc83c6bcb408602f9206fe55fc88bd6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc83c6bcb408602f9206fe55fc88bd6c">invokeNodeCallback</a> (const <a class="el" href="structpcg_1_1engine_1_1maze__generation_1_1_node_coordinates.html">NodeCoordinates</a> &amp;node, const <a class="el" href="#a9b4530757f2275f202eee6f2232ffecc">Grid</a> &amp;<a class="el" href="_wave_function_collapse_8cpp.html#a1c5a2b77cc3c2ca04a3437bb2823db6c">grid</a>, const <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memitem:abc83c6bcb408602f9206fe55fc88bd6c" id="r_abc83c6bcb408602f9206fe55fc88bd6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc83c6bcb408602f9206fe55fc88bd6c">invokeNodeCallback</a> (const <a class="el" href="structpcg_1_1engine_1_1maze__generation_1_1_node_coordinates.html">NodeCoordinates</a> &amp;node, const <a class="el" href="#a9b4530757f2275f202eee6f2232ffecc">Grid</a> &amp;<a class="el" href="_wave_function_collapse_8cpp.html#a1c5a2b77cc3c2ca04a3437bb2823db6c">grid</a>, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
 <tr class="memdesc:abc83c6bcb408602f9206fe55fc88bd6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke callback on a single node.  <br /></td></tr>
 <tr class="separator:abc83c6bcb408602f9206fe55fc88bd6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adee229a3e413cea98dac0211831fffc9" id="r_adee229a3e413cea98dac0211831fffc9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adee229a3e413cea98dac0211831fffc9">invokeNodePairCallback</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a6150e0515f7202e2fb518f7206ed97dc">x</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#a0a2f84ed7838f07779ae24c5a9086d33">y</a>, int adjacentX, int adjacentY, const <a class="el" href="#a9b4530757f2275f202eee6f2232ffecc">Grid</a> &amp;<a class="el" href="_wave_function_collapse_8cpp.html#a1c5a2b77cc3c2ca04a3437bb2823db6c">grid</a>, const <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memitem:adee229a3e413cea98dac0211831fffc9" id="r_adee229a3e413cea98dac0211831fffc9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adee229a3e413cea98dac0211831fffc9">invokeNodePairCallback</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a6150e0515f7202e2fb518f7206ed97dc">x</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#a0a2f84ed7838f07779ae24c5a9086d33">y</a>, int adjacentX, int adjacentY, const <a class="el" href="#a9b4530757f2275f202eee6f2232ffecc">Grid</a> &amp;<a class="el" href="_wave_function_collapse_8cpp.html#a1c5a2b77cc3c2ca04a3437bb2823db6c">grid</a>, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
 <tr class="memdesc:adee229a3e413cea98dac0211831fffc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke callback on a pair of adjacent node.  <br /></td></tr>
 <tr class="separator:adee229a3e413cea98dac0211831fffc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c511851c6a8e41c21385a09626a26f8" id="r_a4c511851c6a8e41c21385a09626a26f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c511851c6a8e41c21385a09626a26f8">invokeNodePairCallback</a> (const <a class="el" href="structpcg_1_1engine_1_1maze__generation_1_1_node_coordinates.html">NodeCoordinates</a> &amp;current, const <a class="el" href="structpcg_1_1engine_1_1maze__generation_1_1_node_coordinates.html">NodeCoordinates</a> &amp;adjacent, const <a class="el" href="#a9b4530757f2275f202eee6f2232ffecc">Grid</a> &amp;<a class="el" href="_wave_function_collapse_8cpp.html#a1c5a2b77cc3c2ca04a3437bb2823db6c">grid</a>, const <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memitem:a4c511851c6a8e41c21385a09626a26f8" id="r_a4c511851c6a8e41c21385a09626a26f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c511851c6a8e41c21385a09626a26f8">invokeNodePairCallback</a> (const <a class="el" href="structpcg_1_1engine_1_1maze__generation_1_1_node_coordinates.html">NodeCoordinates</a> &amp;current, const <a class="el" href="structpcg_1_1engine_1_1maze__generation_1_1_node_coordinates.html">NodeCoordinates</a> &amp;adjacent, const <a class="el" href="#a9b4530757f2275f202eee6f2232ffecc">Grid</a> &amp;<a class="el" href="_wave_function_collapse_8cpp.html#a1c5a2b77cc3c2ca04a3437bb2823db6c">grid</a>, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
 <tr class="memdesc:a4c511851c6a8e41c21385a09626a26f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke callback on a pair of adjacent node.  <br /></td></tr>
 <tr class="separator:a4c511851c6a8e41c21385a09626a26f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a914936e3ef471315978edb84ba8fe227" id="r_a914936e3ef471315978edb84ba8fe227"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a914936e3ef471315978edb84ba8fe227">invokeCallback</a> (const <a class="el" href="#a9b4530757f2275f202eee6f2232ffecc">Grid</a> &amp;<a class="el" href="_wave_function_collapse_8cpp.html#a1c5a2b77cc3c2ca04a3437bb2823db6c">grid</a>, const <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memitem:a914936e3ef471315978edb84ba8fe227" id="r_a914936e3ef471315978edb84ba8fe227"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a914936e3ef471315978edb84ba8fe227">invokeCallback</a> (const <a class="el" href="#a9b4530757f2275f202eee6f2232ffecc">Grid</a> &amp;<a class="el" href="_wave_function_collapse_8cpp.html#a1c5a2b77cc3c2ca04a3437bb2823db6c">grid</a>, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
 <tr class="memdesc:a914936e3ef471315978edb84ba8fe227"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loops over grid and invoke callback on each node.  <br /></td></tr>
 <tr class="separator:a914936e3ef471315978edb84ba8fe227"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8edacec1fd1cb6eeaaa82b10409a8221" id="r_a8edacec1fd1cb6eeaaa82b10409a8221"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a9b4530757f2275f202eee6f2232ffecc">Grid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8edacec1fd1cb6eeaaa82b10409a8221">generateGrid</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, <a class="el" href="#acab135a5e7fc5abd594e83fdae337001">NodeValue</a> defaultValue=<a class="el" href="#acab135a5e7fc5abd594e83fdae337001a334c4a4c42fdb79d7ebc3e73b517e6f8">NodeValue::none</a>)</td></tr>
@@ -209,48 +209,48 @@ Functions</h2></td></tr>
 <tr class="memitem:abe61df578ca365e08021b933cfadb349" id="r_abe61df578ca365e08021b933cfadb349"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpcg_1_1engine_1_1maze__generation_1_1_node_coordinates.html">NodeCoordinates</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe61df578ca365e08021b933cfadb349">getRandomStartingNode</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>)</td></tr>
 <tr class="memdesc:abe61df578ca365e08021b933cfadb349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a random starting node.  <br /></td></tr>
 <tr class="separator:abe61df578ca365e08021b933cfadb349"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5037c86b55148848ba5d94fccc8326b" id="r_aa5037c86b55148848ba5d94fccc8326b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5037c86b55148848ba5d94fccc8326b">aldousBroder</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:aa5037c86b55148848ba5d94fccc8326b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Aldous Broder Algorithm.  <br /></td></tr>
-<tr class="separator:aa5037c86b55148848ba5d94fccc8326b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a904d62dfdc94af55866a0f672e094312" id="r_a904d62dfdc94af55866a0f672e094312"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a904d62dfdc94af55866a0f672e094312">binaryTree</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#ac41e44342eb950ca8ab13e93fa9837ff">Diagonal</a> diagonal, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:a904d62dfdc94af55866a0f672e094312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Binary Tree Algorithm.  <br /></td></tr>
-<tr class="separator:a904d62dfdc94af55866a0f672e094312"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a319968b99ce39143d5fe442db96a72a8" id="r_a319968b99ce39143d5fe442db96a72a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a319968b99ce39143d5fe442db96a72a8">blobbyDivision</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#ad7497b51edfb792127930eeb274397e1">SubRegionSize</a> regionSize, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:a319968b99ce39143d5fe442db96a72a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Blobby Division Algorithm.  <br /></td></tr>
-<tr class="separator:a319968b99ce39143d5fe442db96a72a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9e118df4fafd5307e41ac467a0f5b96" id="r_ac9e118df4fafd5307e41ac467a0f5b96"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9e118df4fafd5307e41ac467a0f5b96">blobbyDivision</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, int regionThreshold, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:ac9e118df4fafd5307e41ac467a0f5b96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Blobby Division Algorithm.  <br /></td></tr>
-<tr class="separator:ac9e118df4fafd5307e41ac467a0f5b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa66fda82cbb08f88b6120666ea8d4b6a" id="r_aa66fda82cbb08f88b6120666ea8d4b6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa66fda82cbb08f88b6120666ea8d4b6a">eller</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:aa66fda82cbb08f88b6120666ea8d4b6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Eller Algorithm.  <br /></td></tr>
-<tr class="separator:aa66fda82cbb08f88b6120666ea8d4b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad30b0115ce0b0f5da71cf3f5bb20295c" id="r_ad30b0115ce0b0f5da71cf3f5bb20295c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad30b0115ce0b0f5da71cf3f5bb20295c">growingTree</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#aedcf6d5acabba209eaae34746f87ea00">GrowingTreeSelectionMethod</a> method, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:ad30b0115ce0b0f5da71cf3f5bb20295c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Growing Tree Algorithm.  <br /></td></tr>
-<tr class="separator:ad30b0115ce0b0f5da71cf3f5bb20295c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea2313362ef185f352f021b5a3c98f82" id="r_aea2313362ef185f352f021b5a3c98f82"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea2313362ef185f352f021b5a3c98f82">growingTree</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt; int(int)&gt; &amp;&amp;nodeSelectionCallback, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:aea2313362ef185f352f021b5a3c98f82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Growing Tree Algorithm.  <br /></td></tr>
-<tr class="separator:aea2313362ef185f352f021b5a3c98f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88bbce0a76b381e45c203ed219d09ec4" id="r_a88bbce0a76b381e45c203ed219d09ec4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88bbce0a76b381e45c203ed219d09ec4">huntAndKill</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:a88bbce0a76b381e45c203ed219d09ec4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Hunt and Kill Algorithm.  <br /></td></tr>
-<tr class="separator:a88bbce0a76b381e45c203ed219d09ec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0e3c6eb0346edb70b9965aec102b9c3" id="r_aa0e3c6eb0346edb70b9965aec102b9c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa0e3c6eb0346edb70b9965aec102b9c3">kruskal</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:aa0e3c6eb0346edb70b9965aec102b9c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Kruskal Algorithm.  <br /></td></tr>
-<tr class="separator:aa0e3c6eb0346edb70b9965aec102b9c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66203e00f3b124d0dbc5281b8d857cf6" id="r_a66203e00f3b124d0dbc5281b8d857cf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66203e00f3b124d0dbc5281b8d857cf6">prim</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:a66203e00f3b124d0dbc5281b8d857cf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Prim's Algorithm.  <br /></td></tr>
-<tr class="separator:a66203e00f3b124d0dbc5281b8d857cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0de0276b45d696f6326e2ceee46bdb38" id="r_a0de0276b45d696f6326e2ceee46bdb38"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0de0276b45d696f6326e2ceee46bdb38">recursiveBacktracker</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:a0de0276b45d696f6326e2ceee46bdb38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Recursive Backtracker Algorithm.  <br /></td></tr>
-<tr class="separator:a0de0276b45d696f6326e2ceee46bdb38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9583827453ba588239b2f79c6b32011a" id="r_a9583827453ba588239b2f79c6b32011a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9583827453ba588239b2f79c6b32011a">recursiveDivision</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:a9583827453ba588239b2f79c6b32011a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Recursive Division Algorithm.  <br /></td></tr>
-<tr class="separator:a9583827453ba588239b2f79c6b32011a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8262aacf90f7d0ee7a534c346fe44fe7" id="r_a8262aacf90f7d0ee7a534c346fe44fe7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8262aacf90f7d0ee7a534c346fe44fe7">sidewinder</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:a8262aacf90f7d0ee7a534c346fe44fe7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Sidewinder Algorithm.  <br /></td></tr>
-<tr class="separator:a8262aacf90f7d0ee7a534c346fe44fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4d08662e444a7197efbdb568b2b2a87" id="r_ab4d08662e444a7197efbdb568b2b2a87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4d08662e444a7197efbdb568b2b2a87">wilson</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;callback)</td></tr>
-<tr class="memdesc:ab4d08662e444a7197efbdb568b2b2a87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Wilson Algorithm.  <br /></td></tr>
-<tr class="separator:ab4d08662e444a7197efbdb568b2b2a87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c2daa7728faa6105c237a8e0269b890" id="r_a1c2daa7728faa6105c237a8e0269b890"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c2daa7728faa6105c237a8e0269b890">aldousBroder</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:a1c2daa7728faa6105c237a8e0269b890"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Aldous Broder Algorithm.  <br /></td></tr>
+<tr class="separator:a1c2daa7728faa6105c237a8e0269b890"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9c720fb7fd4f0cbb353efee1adf7507" id="r_ad9c720fb7fd4f0cbb353efee1adf7507"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad9c720fb7fd4f0cbb353efee1adf7507">binaryTree</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#ac41e44342eb950ca8ab13e93fa9837ff">Diagonal</a> diagonal, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:ad9c720fb7fd4f0cbb353efee1adf7507"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Binary Tree Algorithm.  <br /></td></tr>
+<tr class="separator:ad9c720fb7fd4f0cbb353efee1adf7507"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dd85876d4464aad0b4dd54542d137e0" id="r_a1dd85876d4464aad0b4dd54542d137e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1dd85876d4464aad0b4dd54542d137e0">blobbyDivision</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#ad7497b51edfb792127930eeb274397e1">SubRegionSize</a> regionSize, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:a1dd85876d4464aad0b4dd54542d137e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Blobby Division Algorithm.  <br /></td></tr>
+<tr class="separator:a1dd85876d4464aad0b4dd54542d137e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab50975ccb308b4bdf28554e2b45c658a" id="r_ab50975ccb308b4bdf28554e2b45c658a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab50975ccb308b4bdf28554e2b45c658a">blobbyDivision</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, int regionThreshold, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:ab50975ccb308b4bdf28554e2b45c658a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Blobby Division Algorithm.  <br /></td></tr>
+<tr class="separator:ab50975ccb308b4bdf28554e2b45c658a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a5bda1a3c41c486e0c1a7f9db2cb9c6" id="r_a1a5bda1a3c41c486e0c1a7f9db2cb9c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a5bda1a3c41c486e0c1a7f9db2cb9c6">eller</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:a1a5bda1a3c41c486e0c1a7f9db2cb9c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Eller Algorithm.  <br /></td></tr>
+<tr class="separator:a1a5bda1a3c41c486e0c1a7f9db2cb9c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a6bb817d09e2b478e0d511a0e8e2622" id="r_a4a6bb817d09e2b478e0d511a0e8e2622"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a6bb817d09e2b478e0d511a0e8e2622">growingTree</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, <a class="el" href="#aedcf6d5acabba209eaae34746f87ea00">GrowingTreeSelectionMethod</a> method, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:a4a6bb817d09e2b478e0d511a0e8e2622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Growing Tree Algorithm.  <br /></td></tr>
+<tr class="separator:a4a6bb817d09e2b478e0d511a0e8e2622"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa17d917c03699da3bde58d85e9ff840c" id="r_aa17d917c03699da3bde58d85e9ff840c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa17d917c03699da3bde58d85e9ff840c">growingTree</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, const std::function&lt; int(int)&gt; &amp;nodeSelectionCallback, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:aa17d917c03699da3bde58d85e9ff840c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Growing Tree Algorithm.  <br /></td></tr>
+<tr class="separator:aa17d917c03699da3bde58d85e9ff840c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46cd2275bee3de885ab4e509fb927ef1" id="r_a46cd2275bee3de885ab4e509fb927ef1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46cd2275bee3de885ab4e509fb927ef1">huntAndKill</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:a46cd2275bee3de885ab4e509fb927ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Hunt and Kill Algorithm.  <br /></td></tr>
+<tr class="separator:a46cd2275bee3de885ab4e509fb927ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c99f594ce754f523f3e84721643e9b9" id="r_a2c99f594ce754f523f3e84721643e9b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c99f594ce754f523f3e84721643e9b9">kruskal</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:a2c99f594ce754f523f3e84721643e9b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Kruskal Algorithm.  <br /></td></tr>
+<tr class="separator:a2c99f594ce754f523f3e84721643e9b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeff4f4c62bbe4aea9eae5eee55b2dae9" id="r_aeff4f4c62bbe4aea9eae5eee55b2dae9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeff4f4c62bbe4aea9eae5eee55b2dae9">prim</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:aeff4f4c62bbe4aea9eae5eee55b2dae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Prim's Algorithm.  <br /></td></tr>
+<tr class="separator:aeff4f4c62bbe4aea9eae5eee55b2dae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a299654eb338123da58871fe42da8d2c8" id="r_a299654eb338123da58871fe42da8d2c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a299654eb338123da58871fe42da8d2c8">recursiveBacktracker</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:a299654eb338123da58871fe42da8d2c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Recursive Backtracker Algorithm.  <br /></td></tr>
+<tr class="separator:a299654eb338123da58871fe42da8d2c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42cbfaa2bb316e67a70fdc395cdb3f67" id="r_a42cbfaa2bb316e67a70fdc395cdb3f67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42cbfaa2bb316e67a70fdc395cdb3f67">recursiveDivision</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:a42cbfaa2bb316e67a70fdc395cdb3f67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Recursive Division Algorithm.  <br /></td></tr>
+<tr class="separator:a42cbfaa2bb316e67a70fdc395cdb3f67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dd28c41520e2a7d238fd6b053b2250c" id="r_a0dd28c41520e2a7d238fd6b053b2250c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0dd28c41520e2a7d238fd6b053b2250c">sidewinder</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:a0dd28c41520e2a7d238fd6b053b2250c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Sidewinder Algorithm.  <br /></td></tr>
+<tr class="separator:a0dd28c41520e2a7d238fd6b053b2250c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accb954a2be7362e7e8d6fd33254ae0e1" id="r_accb954a2be7362e7e8d6fd33254ae0e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accb954a2be7362e7e8d6fd33254ae0e1">wilson</a> (int <a class="el" href="_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;callback)</td></tr>
+<tr class="memdesc:accb954a2be7362e7e8d6fd33254ae0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Wilson Algorithm.  <br /></td></tr>
+<tr class="separator:accb954a2be7362e7e8d6fd33254ae0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a1f8150aa32c522a6efb672a73dddd900" name="a1f8150aa32c522a6efb672a73dddd900"></a>
@@ -285,14 +285,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a6395a52d1b1dbfe97b722bdfd858ac73" name="a6395a52d1b1dbfe97b722bdfd858ac73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6395a52d1b1dbfe97b722bdfd858ac73">&#9670;&#160;</a></span>MazeCallback</h2>
+<a id="a97c0ae4fe858736e8e59377d8c963d6b" name="a97c0ae4fe858736e8e59377d8c963d6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97c0ae4fe858736e8e59377d8c963d6b">&#9670;&#160;</a></span>MazeCallback</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">pcg::engine::maze_generation::MazeCallback</a> = <a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt;void(int, int, <a class="el" href="#acab135a5e7fc5abd594e83fdae337001">NodeValue</a>)&gt;</td>
+          <td class="memname">using <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">pcg::engine::maze_generation::MazeCallback</a> = std::function&lt;void(int, int, <a class="el" href="#acab135a5e7fc5abd594e83fdae337001">NodeValue</a>)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -578,8 +578,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa5037c86b55148848ba5d94fccc8326b" name="aa5037c86b55148848ba5d94fccc8326b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5037c86b55148848ba5d94fccc8326b">&#9670;&#160;</a></span>aldousBroder()</h2>
+<a id="a1c2daa7728faa6105c237a8e0269b890" name="a1c2daa7728faa6105c237a8e0269b890"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c2daa7728faa6105c237a8e0269b890">&#9670;&#160;</a></span>aldousBroder()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -602,7 +602,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -620,8 +620,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a904d62dfdc94af55866a0f672e094312" name="a904d62dfdc94af55866a0f672e094312"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a904d62dfdc94af55866a0f672e094312">&#9670;&#160;</a></span>binaryTree()</h2>
+<a id="ad9c720fb7fd4f0cbb353efee1adf7507" name="ad9c720fb7fd4f0cbb353efee1adf7507"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9c720fb7fd4f0cbb353efee1adf7507">&#9670;&#160;</a></span>binaryTree()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -649,7 +649,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -668,8 +668,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac9e118df4fafd5307e41ac467a0f5b96" name="ac9e118df4fafd5307e41ac467a0f5b96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9e118df4fafd5307e41ac467a0f5b96">&#9670;&#160;</a></span>blobbyDivision() <span class="overload">[1/2]</span></h2>
+<a id="ab50975ccb308b4bdf28554e2b45c658a" name="ab50975ccb308b4bdf28554e2b45c658a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab50975ccb308b4bdf28554e2b45c658a">&#9670;&#160;</a></span>blobbyDivision() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -697,7 +697,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -716,8 +716,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a319968b99ce39143d5fe442db96a72a8" name="a319968b99ce39143d5fe442db96a72a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a319968b99ce39143d5fe442db96a72a8">&#9670;&#160;</a></span>blobbyDivision() <span class="overload">[2/2]</span></h2>
+<a id="a1dd85876d4464aad0b4dd54542d137e0" name="a1dd85876d4464aad0b4dd54542d137e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dd85876d4464aad0b4dd54542d137e0">&#9670;&#160;</a></span>blobbyDivision() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -745,7 +745,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -764,8 +764,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa66fda82cbb08f88b6120666ea8d4b6a" name="aa66fda82cbb08f88b6120666ea8d4b6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa66fda82cbb08f88b6120666ea8d4b6a">&#9670;&#160;</a></span>eller()</h2>
+<a id="a1a5bda1a3c41c486e0c1a7f9db2cb9c6" name="a1a5bda1a3c41c486e0c1a7f9db2cb9c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a5bda1a3c41c486e0c1a7f9db2cb9c6">&#9670;&#160;</a></span>eller()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -788,7 +788,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1009,8 +1009,56 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad30b0115ce0b0f5da71cf3f5bb20295c" name="ad30b0115ce0b0f5da71cf3f5bb20295c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad30b0115ce0b0f5da71cf3f5bb20295c">&#9670;&#160;</a></span>growingTree() <span class="overload">[1/2]</span></h2>
+<a id="aa17d917c03699da3bde58d85e9ff840c" name="aa17d917c03699da3bde58d85e9ff840c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa17d917c03699da3bde58d85e9ff840c">&#9670;&#160;</a></span>growingTree() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pcg::engine::maze_generation::growingTree </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>invokeAfterGeneration</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::function&lt; int(int)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>nodeSelectionCallback</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Geneate maze using Growing Tree Algorithm. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>Grid Width </td></tr>
+    <tr><td class="paramname">height</td><td>Grid Height </td></tr>
+    <tr><td class="paramname">invokeAfterGeneration</td><td>If true callback will only be called after all nodes are generated </td></tr>
+    <tr><td class="paramname">nodeSelectionCallback</td><td>Callback used to select a node from pending growing tree nodes </td></tr>
+    <tr><td class="paramname">callback</td><td>Callback when a node is generated </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4a6bb817d09e2b478e0d511a0e8e2622" name="a4a6bb817d09e2b478e0d511a0e8e2622"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a6bb817d09e2b478e0d511a0e8e2622">&#9670;&#160;</a></span>growingTree() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1038,7 +1086,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1057,56 +1105,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aea2313362ef185f352f021b5a3c98f82" name="aea2313362ef185f352f021b5a3c98f82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea2313362ef185f352f021b5a3c98f82">&#9670;&#160;</a></span>growingTree() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void pcg::engine::maze_generation::growingTree </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>invokeAfterGeneration</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt; int(int)&gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>nodeSelectionCallback</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Geneate maze using Growing Tree Algorithm. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">width</td><td>Grid Width </td></tr>
-    <tr><td class="paramname">height</td><td>Grid Height </td></tr>
-    <tr><td class="paramname">invokeAfterGeneration</td><td>If true callback will only be called after all nodes are generated </td></tr>
-    <tr><td class="paramname">nodeSelectionCallback</td><td>Callback used to select a node from pending growing tree nodes </td></tr>
-    <tr><td class="paramname">callback</td><td>Callback when a node is generated </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a88bbce0a76b381e45c203ed219d09ec4" name="a88bbce0a76b381e45c203ed219d09ec4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88bbce0a76b381e45c203ed219d09ec4">&#9670;&#160;</a></span>huntAndKill()</h2>
+<a id="a46cd2275bee3de885ab4e509fb927ef1" name="a46cd2275bee3de885ab4e509fb927ef1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46cd2275bee3de885ab4e509fb927ef1">&#9670;&#160;</a></span>huntAndKill()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1129,7 +1129,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1161,7 +1161,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1196,7 +1196,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1237,7 +1237,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1279,7 +1279,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1331,7 +1331,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1441,8 +1441,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa0e3c6eb0346edb70b9965aec102b9c3" name="aa0e3c6eb0346edb70b9965aec102b9c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0e3c6eb0346edb70b9965aec102b9c3">&#9670;&#160;</a></span>kruskal()</h2>
+<a id="a2c99f594ce754f523f3e84721643e9b9" name="a2c99f594ce754f523f3e84721643e9b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c99f594ce754f523f3e84721643e9b9">&#9670;&#160;</a></span>kruskal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1465,7 +1465,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1512,8 +1512,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a66203e00f3b124d0dbc5281b8d857cf6" name="a66203e00f3b124d0dbc5281b8d857cf6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66203e00f3b124d0dbc5281b8d857cf6">&#9670;&#160;</a></span>prim()</h2>
+<a id="aeff4f4c62bbe4aea9eae5eee55b2dae9" name="aeff4f4c62bbe4aea9eae5eee55b2dae9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeff4f4c62bbe4aea9eae5eee55b2dae9">&#9670;&#160;</a></span>prim()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1536,7 +1536,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1554,8 +1554,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0de0276b45d696f6326e2ceee46bdb38" name="a0de0276b45d696f6326e2ceee46bdb38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0de0276b45d696f6326e2ceee46bdb38">&#9670;&#160;</a></span>recursiveBacktracker()</h2>
+<a id="a299654eb338123da58871fe42da8d2c8" name="a299654eb338123da58871fe42da8d2c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a299654eb338123da58871fe42da8d2c8">&#9670;&#160;</a></span>recursiveBacktracker()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1578,7 +1578,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1596,8 +1596,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9583827453ba588239b2f79c6b32011a" name="a9583827453ba588239b2f79c6b32011a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9583827453ba588239b2f79c6b32011a">&#9670;&#160;</a></span>recursiveDivision()</h2>
+<a id="a42cbfaa2bb316e67a70fdc395cdb3f67" name="a42cbfaa2bb316e67a70fdc395cdb3f67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42cbfaa2bb316e67a70fdc395cdb3f67">&#9670;&#160;</a></span>recursiveDivision()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1620,7 +1620,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1638,8 +1638,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8262aacf90f7d0ee7a534c346fe44fe7" name="a8262aacf90f7d0ee7a534c346fe44fe7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8262aacf90f7d0ee7a534c346fe44fe7">&#9670;&#160;</a></span>sidewinder()</h2>
+<a id="a0dd28c41520e2a7d238fd6b053b2250c" name="a0dd28c41520e2a7d238fd6b053b2250c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dd28c41520e2a7d238fd6b053b2250c">&#9670;&#160;</a></span>sidewinder()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1662,7 +1662,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1680,8 +1680,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab4d08662e444a7197efbdb568b2b2a87" name="ab4d08662e444a7197efbdb568b2b2a87"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4d08662e444a7197efbdb568b2b2a87">&#9670;&#160;</a></span>wilson()</h2>
+<a id="accb954a2be7362e7e8d6fd33254ae0e1" name="accb954a2be7362e7e8d6fd33254ae0e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accb954a2be7362e7e8d6fd33254ae0e1">&#9670;&#160;</a></span>wilson()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1704,7 +1704,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a6395a52d1b1dbfe97b722bdfd858ac73">MazeCallback</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -260,7 +260,7 @@ namespace pcg::engine::maze_generation
         /// @param frontiers Vector containing the seeds of the two sub regions
         /// @param grid Grid representing maze
         /// @param callback User defined callback nullptr if callback should be invoked after maze generation
-        void growSubRegions(Region& region, std::vector<NodePointer>&& frontiers, Grid& grid, MazeCallback* callback)
+        void growSubRegions(Region& region, std::vector<NodePointer>&& frontiers, Grid& grid, const MazeCallback& callback)
         {
             utility::logInfo("Growing sub regions");
 
@@ -279,7 +279,7 @@ namespace pcg::engine::maze_generation
                     {
                         invokeNodePairCallback(node->coordinates.x, node->coordinates.y,
                             adjacentNode->coordinates.x, adjacentNode->coordinates.y,
-                            grid, *callback);
+                            grid, callback);
                     }
                 }
                 else
@@ -324,7 +324,7 @@ namespace pcg::engine::maze_generation
         /// @param subRegion Sub region used to find borders between the two sub regions
         /// @param grid Grid representing maze
         /// @param callback User defined callback nullptr if callback should be invoked after maze generation
-        void addWalls(const Region& region, const Region& subRegion, Grid& grid, MazeCallback* callback)
+        void addWalls(const Region& region, const Region& subRegion, Grid& grid, const MazeCallback& callback)
         {
             utility::logInfo("Adding walls seperation between regions");
             std::vector<WallInfo> walls = getWallInfo(region, subRegion);
@@ -343,7 +343,7 @@ namespace pcg::engine::maze_generation
 
                 if (callback)
                 {
-                    invokeNodePairCallback(wall.x, wall.y, x, y, grid, *callback);
+                    invokeNodePairCallback(wall.x, wall.y, x, y, grid, callback);
                 }
             }
         }
@@ -386,7 +386,7 @@ namespace pcg::engine::maze_generation
         /// @param grid Grid representing maze
         /// @param callback User defined callback nullptr if callback should be invoked after maze generation
         /// @return The two new sub regions
-        std::tuple<Region, Region> divideRegion(Region& region, Grid& grid, MazeCallback* callback)
+        std::tuple<Region, Region> divideRegion(Region& region, Grid& grid, const MazeCallback& callback)
         {
             auto [subRegion1, subRegion2] = plantSeed(region);
             growSubRegions(region, { subRegion1.getSeed(), subRegion2.getSeed() }, grid, callback);
@@ -400,7 +400,7 @@ namespace pcg::engine::maze_generation
         /// @param regionThreshold Region node count threshold
         /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
         /// @param callback Callback when a node is generated
-        void blobbyDivision(int width, int height, int regionThreshold, bool invokeAfterGeneration, MazeCallback&& callback)
+        void blobbyDivision(int width, int height, int regionThreshold, bool invokeAfterGeneration, const MazeCallback& callback)
         {
             utility::logInfo("Blobby Division Maze Generation Started");
 
@@ -413,7 +413,7 @@ namespace pcg::engine::maze_generation
                 Region region = std::move(regions.top());
                 regions.pop();
                 region.clearNodesRegion();
-                auto [subRegion1, subRegion2] = divideRegion(region, grid, invokeAfterGeneration ? nullptr : &callback);
+                auto [subRegion1, subRegion2] = divideRegion(region, grid, invokeAfterGeneration ? nullptr : callback);
                 region.clearNodesRegion();
                 addSubRegionsToStack(regions, subRegion1, subRegion2, regionThreshold);
             }
@@ -427,32 +427,32 @@ namespace pcg::engine::maze_generation
         }
     }
 
-    void blobbyDivision(int width, int height, bool invokeAfterGeneration, SubRegionSize regionSize, MazeCallback&& callback)
+    void blobbyDivision(int width, int height, bool invokeAfterGeneration, SubRegionSize regionSize, const MazeCallback& callback)
     {
         switch (regionSize)
         {
         case SubRegionSize::corridors:
-            blobbyDivision(width, height, minimumThreshold, invokeAfterGeneration, std::move(callback));
+            blobbyDivision(width, height, minimumThreshold, invokeAfterGeneration, callback);
             break;
         case SubRegionSize::small:
-            blobbyDivision(width, height, smallThreshold, invokeAfterGeneration, std::move(callback));
+            blobbyDivision(width, height, smallThreshold, invokeAfterGeneration, callback);
             break;
         case SubRegionSize::medium:
-            blobbyDivision(width, height, mediumThreshold, invokeAfterGeneration, std::move(callback));
+            blobbyDivision(width, height, mediumThreshold, invokeAfterGeneration, callback);
             break;
         case SubRegionSize::large:
-            blobbyDivision(width, height, largeThreshold, invokeAfterGeneration, std::move(callback));
+            blobbyDivision(width, height, largeThreshold, invokeAfterGeneration, callback);
             break;
         case SubRegionSize::huge:
-            blobbyDivision(width, height, hugeThreshold, invokeAfterGeneration, std::move(callback));
+            blobbyDivision(width, height, hugeThreshold, invokeAfterGeneration, callback);
             break;
         default:
             break;
         }
     }
 
-    void blobbyDivision(int width, int height, bool invokeAfterGeneration, int regionThreshold, MazeCallback&& callback)
+    void blobbyDivision(int width, int height, bool invokeAfterGeneration, int regionThreshold, const MazeCallback& callback)
     {
-        blobbyDivision(width, height, regionThreshold, invokeAfterGeneration, std::move(callback));
+        blobbyDivision(width, height, regionThreshold, invokeAfterGeneration, callback);
     }
 }

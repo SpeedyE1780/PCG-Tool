@@ -6,7 +6,7 @@
 
 namespace pcg::engine::level_generation
 {
-    void simpleGeneration(const GenerationData& data, const math::Vector3& offset, utility::CallbackFunctor<void(math::Vector3)>&& callback)
+    void simpleGeneration(const GenerationData& data, const math::Vector3& offset, const std::function<void(math::Vector3)>& callback)
     {
         utility::logInfo("Simple Generation Started");
         math::Vector3 position = data.startPoint;

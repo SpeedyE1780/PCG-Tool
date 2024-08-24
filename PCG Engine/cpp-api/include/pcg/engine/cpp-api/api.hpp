@@ -53,76 +53,76 @@ namespace pcg::engine::cpp_api
     /// @brief Set functions used to set seed and generate numbers
     /// @param seed Function that will set the RNG seed
     /// @param generate Function used to generate numbers
-    PCG_ENGINE_CPP_API_API void setRandomGenerator(std::function<void(unsigned int)>&& seed, std::function<int(int, int)>&& generate);
+    PCG_ENGINE_CPP_API_API void setRandomGenerator(const std::function<void(unsigned int)>& seed, const std::function<int(int, int)>& generate);
     /// @brief Set function used to log messages from the engine
     /// @param logFunction Function that will log engine messages
-    PCG_ENGINE_CPP_API_API void setLoggingFunction(std::function<void(const char*)>&& logFunction);
+    PCG_ENGINE_CPP_API_API void setLoggingFunction(const std::function<void(const char*)>& logFunction);
     /// @brief Generate a linear level on a single axis
     /// @param data Object containing number of nodes that need to be generated, node size & starting position
     /// @param offset Offset between nodes
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void simpleGeneration(const level_generation::GenerationData& data, const math::Vector3& offset, std::function<void(math::Vector3)>&& callback);
+    PCG_ENGINE_CPP_API_API void simpleGeneration(const level_generation::GenerationData& data, const math::Vector3& offset, const std::function<void(math::Vector3)>& callback);
     /// @brief Generate a level on multiple axes
     /// @param data Object containing number of nodes that need to be generated, node size & starting position
     /// @param axes Axes flag indicating which axes are being used
     /// @param disableOverlap If true nodes cannot be generated on top of one another
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void multiDimensionGeneration(const level_generation::GenerationData& data, math::Axis axes, bool disableOverlap, std::function<void(math::Vector3)>&& callback);
+    PCG_ENGINE_CPP_API_API void multiDimensionGeneration(const level_generation::GenerationData& data, math::Axis axes, bool disableOverlap, const std::function<void(math::Vector3)>& callback);
     /// @brief Generate a level using the Wave Function Collapse Algorithm
     /// @param data Object containing number of nodes that need to be generated, node size & starting position
     /// @param mode If Breadth-First Search (BFS) or Depth-First Search (DFS) expansion should be used
     /// @param axes Axes flag indicating which axes are being used
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, std::function<void(math::Vector3, utility::enums::Direction)>&& callback);
+    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, const std::function<void(math::Vector3, utility::enums::Direction)>& callback);
     /// @brief Generate a grid using the Wave Function Collapse Algorithm
     /// @param width Grid width
     /// @param height Grid height
     /// @param axes Axes flag indicating which axes are being used
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(int width, int height, math::Axis axes, bool invokeAfterGeneration, std::function<void(int, int, utility::enums::Direction)>&& callback);
+    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(int width, int height, math::Axis axes, bool invokeAfterGeneration, const std::function<void(int, int, utility::enums::Direction)>& callback);
     /// @brief Generate a grid using the Wave Function Collapse Algorithm
     /// @param width Grid width
     /// @param height Grid height
     /// @param depth Grid depth
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(int width, int height, int depth, bool invokeAfterGeneration, std::function<void(int, int, int, utility::enums::Direction)>&& callback);
+    PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(int width, int height, int depth, bool invokeAfterGeneration, const std::function<void(int, int, int, utility::enums::Direction)>& callback);
     /// @brief Generate a maze using the passed in algorithm
     /// @param width Width of grid
     /// @param height Height of grid
     /// @param invokeAferGeneration If true callback will only be called after all nodes are generated
     /// @param algorithm Algorithm that will be used to generate maze
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback);
+    PCG_ENGINE_CPP_API_API void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, const std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>& callback);
     /// @brief Generate a Growing Tree maze using a custom selection callback
     /// @param width Width of grid
     /// @param height Height of grid
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param nodeCallback Callback used to select a node from pending growing tree nodes
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void generateGrowingTreeWithCustomSelection(int width, int height, bool invokeAfterGeneration, std::function<int(int)>&& nodeCallback, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback);
+    PCG_ENGINE_CPP_API_API void generateGrowingTreeWithCustomSelection(int width, int height, bool invokeAfterGeneration, const std::function<int(int)>& nodeCallback, const std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>& callback);
     /// @brief Geneate maze using Blobby Division Algorithm
     /// @param width Grid Width
     /// @param height Grid Height
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param regionThreshold User defined region threshold
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>&& callback);
+    PCG_ENGINE_CPP_API_API void generateBlobbyDivisionWithCustomRegionThreshold(int width, int height, bool invokeAfterGeneration, int regionThreshold, const std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>& callback);
     /// @brief Generate a combination given a number of elements
     /// @param elementCount Number of element that are available in set
     /// @param callback Callback to add element to generated set
-    PCG_ENGINE_CPP_API_API void generateCombination(int elementCount, std::function<void(int, bool)>&& callback);
+    PCG_ENGINE_CPP_API_API void generateCombination(int elementCount, const std::function<void(int, bool)>& callback);
     /// @brief Generate a combination with at least minimumElementCount elements
     /// @param elementCount Number of element that are available in set
     /// @param minimumElementCount Minimum number of elements in set
     /// @param callback Callback to add element to generated set
-    PCG_ENGINE_CPP_API_API void generateCombination(int elementCount, int minimumElementCount, std::function<void(int, bool)>&& callback);
+    PCG_ENGINE_CPP_API_API void generateCombination(int elementCount, int minimumElementCount, const std::function<void(int, bool)>& callback);
     /// @brief Generate a combination with the given elements active
     /// @param elementCount Number of element that are available in set
     /// @param activeElementsIndex Array of elements that must be included
     /// @param callback Callback to add element to generated set
-    PCG_ENGINE_CPP_API_API void generateCombination(int elementCount, const std::vector<int>& activeElementsIndex, std::function<void(int, bool)>&& callback);
+    PCG_ENGINE_CPP_API_API void generateCombination(int elementCount, const std::vector<int>& activeElementsIndex, const std::function<void(int, bool)>& callback);
     /// @brief Generate a sequence starting from node
     /// @param node First node in sequence
     PCG_ENGINE_CPP_API_API void generateSequence(combination_generation::ISequenceNode& node);
@@ -130,7 +130,7 @@ namespace pcg::engine::cpp_api
     /// @param node First node in sequence
     /// @param count Max number of node in sequence
     /// @param callback Callback when node is added to sequence
-    PCG_ENGINE_CPP_API_API void generateSequence(combination_generation::ISequenceNode& node, int count, std::function<void(combination_generation::ISequenceNode*)>&& callback);
+    PCG_ENGINE_CPP_API_API void generateSequence(combination_generation::ISequenceNode& node, int count, const std::function<void(combination_generation::ISequenceNode*)>& callback);
 }
 
 #endif // PCG_ENGINE_CPP_API_API_HPP

@@ -20,7 +20,7 @@ namespace pcg::engine::maze_generation
         /// @param directions Directions to reach adjacent node
         /// @param randomEngine Random number generator used for shuffling
         /// @param callback User defined callback nullptr if callback should be invoked after maze generation
-        void walk(int x, int y, Grid& grid, std::vector<NodeValue>& directions, std::default_random_engine& randomEngine, MazeCallback* callback)
+        void walk(int x, int y, Grid& grid, std::vector<NodeValue>& directions, std::default_random_engine& randomEngine, const MazeCallback& callback)
         {
             utility::logInfo("Walking Started");
 
@@ -41,7 +41,7 @@ namespace pcg::engine::maze_generation
 
                         if (callback)
                         {
-                            invokeNodePairCallback(x, y, nx, ny, grid, *callback);
+                            invokeNodePairCallback(x, y, nx, ny, grid, callback);
                         }
 
                         x = nx;
@@ -88,7 +88,7 @@ namespace pcg::engine::maze_generation
         /// @param randomEngine Random number generator used for shuffling
         /// @param callback User defined callback nullptr if callback should be invoked after maze generation
         /// @return Node coordinate or std::nullopt if no node is found
-        std::optional<NodeCoordinates> hunt(Grid& grid, Directions& directions, int width, int height, std::default_random_engine& randomEngine, MazeCallback* callback)
+        std::optional<NodeCoordinates> hunt(Grid& grid, Directions& directions, int width, int height, std::default_random_engine& randomEngine, const MazeCallback& callback)
         {
             utility::logInfo("Hunting Started");
 
@@ -115,7 +115,7 @@ namespace pcg::engine::maze_generation
 
                     if (callback)
                     {
-                        invokeNodePairCallback(x, y, nx, ny, grid, *callback);
+                        invokeNodePairCallback(x, y, nx, ny, grid, callback);
                     }
 
                     utility::logInfo("Hunting Succeeded");
@@ -128,7 +128,7 @@ namespace pcg::engine::maze_generation
         }
     }
 
-    void huntAndKill(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+    void huntAndKill(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
     {
         utility::logInfo("Hunt And Kill Maze Generation Started");
 
@@ -137,7 +137,7 @@ namespace pcg::engine::maze_generation
         std::default_random_engine randomEngine = math::Random::getDefaultEngine();
 
         std::optional<NodeCoordinates> xYCoordinate{ getRandomStartingNode(width, height) };
-        MazeCallback* callbackPtr = invokeAfterGeneration ? nullptr : &callback;
+        const MazeCallback& callbackPtr = invokeAfterGeneration ? nullptr : callback;
 
         while (xYCoordinate.has_value())
         {

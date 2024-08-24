@@ -116,8 +116,7 @@ namespace pcg::engine::combination_generation::tests
     TEST_F(Sequence, CyclicSequence)
     {
         std::vector<ISequenceNode*> sequence{};
-        std::function<void(ISequenceNode*)> callback = [&sequence](ISequenceNode* node) {sequence.emplace_back(node); };
-        generateSequence(red, 10, callback);
+        generateSequence(red, 10, [&sequence](ISequenceNode* node) {sequence.emplace_back(node); });
         const auto expected = std::vector<ISequenceNode*>{ &red, &blue, &yellow, &blue, &green, &yellow, &green, &green, &green, &blue };
 
         EXPECT_TRUE(std::ranges::equal(sequence, expected));

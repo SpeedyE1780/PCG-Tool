@@ -1,9 +1,9 @@
 #ifndef PCG_ENGINE_MAZE_GENERATION_COMMON_HPP
 #define PCG_ENGINE_MAZE_GENERATION_COMMON_HPP
 
-#include <pcg/engine/utility/CallbackFunctor.hpp>
-
 #include <pcg/engine/utility/Enums.hpp>
+
+#include <functional>
 
 namespace pcg::engine::maze_generation
 {
@@ -21,7 +21,7 @@ namespace pcg::engine::maze_generation
     };
 
     /// @brief Callback used to notify a node was spawned/modified
-    using MazeCallback = utility::CallbackFunctor<void(int, int, NodeValue)>;
+    using MazeCallback = std::function<void(int, int, NodeValue)>;
 }
 
 #endif // PCG_ENGINE_MAZE_GENERATION_COMMON_HPP
