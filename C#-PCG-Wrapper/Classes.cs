@@ -34,6 +34,28 @@ namespace PCGAPI
             this.y = y;
             this.z = z;
         }
+
+        /// <summary>
+        /// Checks for equality between lhs and rhs
+        /// </summary>
+        /// <param name="lhs">Vector on the left side of ==</param>
+        /// <param name="rhs">Vector on the right side of ==</param>
+        /// <returns>True if lhs == rhs</returns>
+        public static bool operator ==(Vector3 lhs, Vector3 rhs)
+        {
+            return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
+        }
+
+        /// <summary>
+        /// Checks for inequality between lhs and rhs
+        /// </summary>
+        /// <param name="lhs">Vector on the left side of !=</param>
+        /// <param name="rhs">Vector on the right side of !=</param>
+        /// <returns>True if lhs != rhs</returns>
+        public static bool operator !=(Vector3 lhs, Vector3 rhs)
+        {
+            return !(lhs == rhs);
+        }
     }
 
     /// <summary>
