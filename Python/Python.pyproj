@@ -44,6 +44,8 @@
     <Compile Include="demo\maze.py" />
     <Compile Include="demo\whack_a_mole.py" />
     <Compile Include="main.py" />
+    <Compile Include="MazeGeneration_test.py" />
+    <Compile Include="MultiDimensionGeneration_test.py" />
     <Compile Include="pcg\combinations.py" />
     <Compile Include="pcg\level_generation.py" />
     <Compile Include="pcg\math.py" />
@@ -51,6 +53,8 @@
     <Compile Include="pcg\utility.py" />
     <Compile Include="Combination_test.py" />
     <Compile Include="Sequence_test.py" />
+    <Compile Include="SimpleGeneration_test.py" />
+    <Compile Include="WaveFunctionCollapse_test.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.10" />

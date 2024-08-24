@@ -10,12 +10,12 @@ def positions():
 @pytest.mark.parametrize(
     "axis, positionChecker",
     [
-        (math.Axes.POSITIVE_X, lambda position: position.x),
-        (math.Axes.NEGATIVE_X, lambda position: -position.x),
-        (math.Axes.POSITIVE_Y, lambda position: position.y),
-        (math.Axes.NEGATIVE_Y, lambda position: -position.y),
-        (math.Axes.POSITIVE_Z, lambda position: position.z),
-        (math.Axes.NEGATIVE_Z, lambda position: -position.z),
+        (math.Vector3(1, 0, 0), lambda position: position.x),
+        (math.Vector3(-1, 0, 0), lambda position: -position.x),
+        (math.Vector3(0, 1, 0), lambda position: position.y),
+        (math.Vector3(0, -1, 0), lambda position: -position.y),
+        (math.Vector3(0, 0, 1), lambda position: position.z),
+        (math.Vector3(0, 0, -1), lambda position: -position.z),
     ],
 )
 def test_simpleLevelGeneration(resetSeed, positions, axis, positionChecker):
