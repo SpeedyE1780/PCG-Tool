@@ -121,7 +121,7 @@ app.MapPost("/levelgeneration/multidimensiongeneration", (MultiDimensionParamete
 {
     List<PCGAPI.WebAPI.Vector3> positions = [];
     GenerationParameters generationParameters = parameters.GenerationParameters;
-    PCGEngine.MultiDimensionalGeneration(ref generationParameters, parameters.Axes, parameters.DisableOverlap, position =>
+    PCGEngine.MultiDimensionalGeneration(generationParameters, parameters.Axes, parameters.DisableOverlap, position =>
     {
         positions.Add(Vector3Helper.ToWebAPI(position));
     });
@@ -135,7 +135,7 @@ app.MapPost("/levelgeneration/simplegeneration", (SimpleGenerationParameters par
 {
     List<PCGAPI.WebAPI.Vector3> positions = [];
     GenerationParameters generationParameters = parameters.GenerationParameters;
-    PCGEngine.SimpleGeneration(ref generationParameters, parameters.Axes, position =>
+    PCGEngine.SimpleGeneration(generationParameters, Vector3Helper.ToEngine(parameters.Offset), position =>
     {
         positions.Add(Vector3Helper.ToWebAPI(position));
     });
@@ -149,7 +149,7 @@ app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/generate", (WaveFun
 {
     List<WFCNode> nodes = [];
     GenerationParameters generationParameters = parameters.GenerationParameters;
-    PCGEngine.WaveFunctionCollapseGeneration(ref generationParameters, parameters.ExpansionMode, parameters.Axes, (position, adjacentNodes) =>
+    PCGEngine.WaveFunctionCollapseGeneration(generationParameters, parameters.ExpansionMode, parameters.Axes, (position, adjacentNodes) =>
     {
         nodes.Add(new(Vector3Helper.ToWebAPI(position), adjacentNodes));
     });

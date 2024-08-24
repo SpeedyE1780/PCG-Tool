@@ -1,6 +1,6 @@
 ﻿namespace PCGAPI.WebAPI
 {
-    public record SimpleGenerationParameters(uint NodeCount, float NodeSize, Vector3 StartPosition, Axis Axes)
+    public record SimpleGenerationParameters(uint NodeCount, float NodeSize, Vector3 StartPosition, Vector3 Offset)
     {
         internal GenerationParameters GenerationParameters => new()
         {

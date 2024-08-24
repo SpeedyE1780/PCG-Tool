@@ -70,7 +70,11 @@ Accept: application/json
     "y": 0,
     "z": 0
   },
-  "axes": 1
+  "offset": {
+    "x": 0,
+    "y": 0,
+    "z": 1
+  }
 }
 
 ### LevelGenerationWaveFunctionCollapseGeneration
