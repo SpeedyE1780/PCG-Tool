@@ -13,7 +13,7 @@
                 size = 1
             };
 
-            PCGEngine.WaveFunctionCollapseGeneration(ref parameters, mode, Axis.xyz, (position, adjacent) =>
+            PCGEngine.WaveFunctionCollapseGeneration(parameters, mode, Axis.xyz, (position, adjacent) =>
             {
                 string expectedLevelNode = levelNodes[index];
                 index++;

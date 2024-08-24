@@ -101,7 +101,7 @@ namespace PCGAPI.Tests.LevelGeneration
                 size = 1,
             };
 
-            PCGEngine.MultiDimensionalGeneration(ref parameters, axes, disableOverlap, position =>
+            PCGEngine.MultiDimensionalGeneration(parameters, axes, disableOverlap, position =>
             {
                 string expectedPosition = positions[index];
                 index++;
