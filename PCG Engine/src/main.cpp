@@ -82,8 +82,9 @@ namespace
         {
         }
 
-        virtual void setNext(int nodeIndex) { nextNode = nextNodes[nodeIndex]; }
+        virtual void setNext(ISequenceNode* next) { nextNode = next; }
         virtual ISequenceNode* getNext() const { return nextNode; }
+        virtual ISequenceNode* getNextAt(int index) const { return nextNodes[index]; }
 
         virtual int getNextCount() const override { return nextNodes.size(); }
 
@@ -146,7 +147,7 @@ int main()
 
     std::cout << "Simple Generation" << std::endl;
     GenerationData data{ 10, 1, { 0, 0, 0 } };
-    simpleGeneration(data, Axis::negativeX, addPoints);
+    simpleGeneration(data, pcg::engine::math::Vector3::left, addPoints);
 
     std::cout << "2D Generation" << std::endl;
     multiDimensionGeneration(data, Axis::yz, true, addPoints);

@@ -8,7 +8,7 @@ namespace pcg::engine::utility
 {
     /// @brief Set function used to log info from the engine
     /// @param logFunction Function that will log engine messages
-    void setLoggingFunction(std::function<void(const char*)>&& logFunction);
+    void setLoggingFunction(const std::function<void(const char*)>& logFunction);
     /// @brief Log info from engine
     /// @param message Info message
     void logInfo(const std::string& message);

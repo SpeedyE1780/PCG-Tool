@@ -9,5 +9,5 @@ var searchData=
   ['multidimensionalgeneration_6',['multiDimensionalGeneration',['../namespacepcg_1_1engine_1_1level__generation.html#a0550b8ba69b860ed2d796113bf4f583d',1,'pcg::engine::level_generation']]],
   ['multidimensionalgeneration_2ecpp_7',['MultiDimensionalGeneration.cpp',['../_multi_dimensional_generation_8cpp.html',1,'']]],
   ['multidimensionalgeneration_2ehpp_8',['MultiDimensionalGeneration.hpp',['../_multi_dimensional_generation_8hpp.html',1,'']]],
-  ['multidimensiongeneration_9',['multiDimensionGeneration',['../namespacepcg_1_1engine_1_1c__api.html#a3b0925a3eb1ede18872fdc5388fbc11a',1,'pcg::engine::c_api::multiDimensionGeneration()'],['../namespacepcg_1_1engine_1_1cpp__api.html#a910e1920b14feec590604652fd005bdf',1,'pcg::engine::cpp_api::multiDimensionGeneration()']]]
+  ['multidimensiongeneration_9',['multiDimensionGeneration',['../namespacepcg_1_1engine_1_1c__api.html#a3b0925a3eb1ede18872fdc5388fbc11a',1,'pcg::engine::c_api::multiDimensionGeneration()'],['../namespacepcg_1_1engine_1_1cpp__api.html#af42bd987cb7dfb6d71d679916da82fda',1,'pcg::engine::cpp_api::multiDimensionGeneration()']]]
 ];

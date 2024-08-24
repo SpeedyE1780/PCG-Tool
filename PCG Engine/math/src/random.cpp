@@ -36,10 +36,10 @@ namespace pcg::engine::math
         updateSeed(seed);
     }
 
-    void Random::initializeRandom(std::function<void(unsigned int)>&& seed, std::function<int(int, int)>&& generate)
+    void Random::initializeRandom(const std::function<void(unsigned int)>& seed, const std::function<int(int, int)>& generate)
     {
-        initializeSeed = seed ? std::move(seed) : srand;
-        generateNumber = generate ? std::move(generate) : defaultNumberGenerator;
+        initializeSeed = seed ? seed : srand;
+        generateNumber = generate ? generate : defaultNumberGenerator;
         //Update new function seed to current seed value
         initializeSeed(Random::seed);
     }

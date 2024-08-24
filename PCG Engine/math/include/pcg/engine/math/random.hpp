@@ -12,7 +12,7 @@ namespace pcg::engine::math
         /// @brief Set functions used to intialize seed and generate numbers
         /// @param seed Function that will intialize the RNG seed
         /// @param generate Function used to generate numbers
-        static void initializeRandom(std::function<void(unsigned int)>&& seed, std::function<int(int, int)>&& generate);
+        static void initializeRandom(const std::function<void(unsigned int)>& seed, const std::function<int(int, int)>& generate);
 
         /// @brief Call initialize seed and update the stored seed value
         /// @param newSeed The new RNG seed

@@ -103,9 +103,9 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a8c2ec6a31aa7632c4c6a09c6bd06f65d" id="r_a8c2ec6a31aa7632c4c6a09c6bd06f65d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c2ec6a31aa7632c4c6a09c6bd06f65d">initializeRandom</a> (std::function&lt; void(unsigned int)&gt; &amp;&amp;<a class="el" href="#af5f3bc0a7b1623a35c1f13327faf6d2a">seed</a>, std::function&lt; int(int, int)&gt; &amp;&amp;generate)</td></tr>
-<tr class="memdesc:a8c2ec6a31aa7632c4c6a09c6bd06f65d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set functions used to intialize seed and generate numbers.  <br /></td></tr>
-<tr class="separator:a8c2ec6a31aa7632c4c6a09c6bd06f65d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5cd7599a38293892a0dab2b9052f4bb" id="r_af5cd7599a38293892a0dab2b9052f4bb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5cd7599a38293892a0dab2b9052f4bb">initializeRandom</a> (const std::function&lt; void(unsigned int)&gt; &amp;<a class="el" href="#af5f3bc0a7b1623a35c1f13327faf6d2a">seed</a>, const std::function&lt; int(int, int)&gt; &amp;generate)</td></tr>
+<tr class="memdesc:af5cd7599a38293892a0dab2b9052f4bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set functions used to intialize seed and generate numbers.  <br /></td></tr>
+<tr class="separator:af5cd7599a38293892a0dab2b9052f4bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa69a59c62558dbff41da47c48d64603" id="r_aaa69a59c62558dbff41da47c48d64603"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa69a59c62558dbff41da47c48d64603">updateSeed</a> (unsigned int newSeed)</td></tr>
 <tr class="memdesc:aaa69a59c62558dbff41da47c48d64603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call initialize seed and update the stored seed value.  <br /></td></tr>
 <tr class="separator:aaa69a59c62558dbff41da47c48d64603"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -285,8 +285,8 @@ template&lt;typename Element , typename Container &gt; </div>
 
 </div>
 </div>
-<a id="a8c2ec6a31aa7632c4c6a09c6bd06f65d" name="a8c2ec6a31aa7632c4c6a09c6bd06f65d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c2ec6a31aa7632c4c6a09c6bd06f65d">&#9670;&#160;</a></span>initializeRandom()</h2>
+<a id="af5cd7599a38293892a0dab2b9052f4bb" name="af5cd7599a38293892a0dab2b9052f4bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5cd7599a38293892a0dab2b9052f4bb">&#9670;&#160;</a></span>initializeRandom()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -297,12 +297,12 @@ template&lt;typename Element , typename Container &gt; </div>
         <tr>
           <td class="memname">void pcg::engine::math::Random::initializeRandom </td>
           <td>(</td>
-          <td class="paramtype">std::function&lt; void(unsigned int)&gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>seed</em></span>, </td>
+          <td class="paramtype">const std::function&lt; void(unsigned int)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>seed</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::function&lt; int(int, int)&gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>generate</em></span>&#160;)</td>
+          <td class="paramtype">const std::function&lt; int(int, int)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>generate</em></span>&#160;)</td>
         </tr>
       </table>
   </td>

@@ -18,9 +18,9 @@ namespace pcg::engine::utility
 
     std::function<void(const char*)> logger = [](const char*) {};
 
-    void setLoggingFunction(std::function<void(const char*)>&& logFunction)
+    void setLoggingFunction(const std::function<void(const char*)>& logFunction)
     {
-        logger = std::move(logFunction);
+        logger = logFunction;
     }
 
     void logInfo(const std::string& message)
