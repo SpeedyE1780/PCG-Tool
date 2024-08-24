@@ -14,6 +14,7 @@ export default function GenerationParameters(props) {
         onChange={(event) => (props.config.size = event.target.value)}
       ></input>
 
+      <label>Start Position</label>
       <div className={styles.vector3Row}>
         <label className={styles.rightAlignLabel}>X</label>
         <label className={styles.rightAlignLabel}>Y</label>
