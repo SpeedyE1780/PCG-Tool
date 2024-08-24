@@ -122,7 +122,7 @@ namespace pcg::engine::maze_generation
         /// @param width Grid width
         /// @param height Grid height
         /// @param callback User defined callback nullptr if callback should be invoked after maze generation
-        void divide(Grid& grid, int width, int height, MazeCallback* callback)
+        void divide(Grid& grid, int width, int height, const MazeCallback& callback)
         {
             std::stack<GridSection> sections{};
             sections.push({ 0, 0, width, height });
@@ -157,7 +157,7 @@ namespace pcg::engine::maze_generation
 
                     if (callback)
                     {
-                        invokeNodePairCallback(wallX, wallY, adjacentWallX, adjacentWallY, grid, *callback);
+                        invokeNodePairCallback(wallX, wallY, adjacentWallX, adjacentWallY, grid, callback);
                     }
 
                     std::tie(wallX, wallY) = getAdjacentCoordinates(wallX, wallY, wallDirection);
@@ -170,11 +170,11 @@ namespace pcg::engine::maze_generation
         }
     }
 
-    void recursiveDivision(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+    void recursiveDivision(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
     {
         utility::logInfo("Recursive Division Maze Generation Started");
         Grid grid = generateOpenGrid(width, height);
-        divide(grid, width, height, invokeAfterGeneration ? nullptr : &callback);
+        divide(grid, width, height, invokeAfterGeneration ? nullptr : callback);
 
         if (invokeAfterGeneration)
         {

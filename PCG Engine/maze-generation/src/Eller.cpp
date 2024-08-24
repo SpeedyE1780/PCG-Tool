@@ -118,7 +118,7 @@ namespace pcg::engine::maze_generation
         /// @param currentNode Current node coordinates
         /// @param grid Grid representing maze
         /// @param callback User defined callback nullptr if callback should be invoked after maze generation
-        void joinCells(EllerGenerationInfo& info, RowInfo& row, NodeCoordinates&& currentNode, Grid& grid, MazeCallback* callback)
+        void joinCells(EllerGenerationInfo& info, RowInfo& row, NodeCoordinates&& currentNode, Grid& grid, const MazeCallback& callback)
         {
             NodeCoordinates adjacentNode{ currentNode.x + 1, currentNode.y };
             info.initializeNodePair(currentNode, adjacentNode);
@@ -139,7 +139,7 @@ namespace pcg::engine::maze_generation
 
                 if (callback)
                 {
-                    invokeNodePairCallback(currentNode, adjacentNode, grid, *callback);
+                    invokeNodePairCallback(currentNode, adjacentNode, grid, callback);
                 }
             }
         }
@@ -149,7 +149,7 @@ namespace pcg::engine::maze_generation
         /// @param row Current row sets info
         /// @param grid Grid representing maze
         /// @param callback User defined callback nullptr if callback should be invoked after maze generation
-        void addVerticalConnections(EllerGenerationInfo& info, RowInfo& row, Grid& grid, MazeCallback* callback)
+        void addVerticalConnections(EllerGenerationInfo& info, RowInfo& row, Grid& grid, const MazeCallback& callback)
         {
             utility::logInfo("Adding vertical connections");
             for (auto& connectedSet : row.connectedSets)
@@ -166,20 +166,20 @@ namespace pcg::engine::maze_generation
 
                     if (callback)
                     {
-                        invokeNodePairCallback(x, row.yCoordinate, x, adjacentY, grid, *callback);
+                        invokeNodePairCallback(x, row.yCoordinate, x, adjacentY, grid, callback);
                     }
                 }
             }
         }
     }
 
-    void eller(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+    void eller(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
     {
         utility::logInfo("Eller Maze Generation Started");
 
         Grid grid = generateGrid(width, height);
         EllerGenerationInfo info{};
-        MazeCallback* callbackPtr = invokeAfterGeneration ? nullptr : &callback;
+        const MazeCallback& callbackPtr = invokeAfterGeneration ? nullptr : callback;
 
         for (int y = 0; y < height; ++y)
         {

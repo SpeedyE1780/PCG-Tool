@@ -21,8 +21,8 @@ namespace pcg::engine::math
         }
     }
 
-    utility::CallbackFunctor<void(unsigned int)> Random::initializeSeed = srand;
-    utility::CallbackFunctor<int(int, int)> Random::generateNumber = defaultNumberGenerator;
+    std::function<void(unsigned int)> Random::initializeSeed = srand;
+    std::function<int(int, int)> Random::generateNumber = defaultNumberGenerator;
     unsigned int Random::seed = 0;
 
     void Random::updateSeed(unsigned int newSeed)
@@ -36,7 +36,7 @@ namespace pcg::engine::math
         updateSeed(seed);
     }
 
-    void Random::initializeRandom(utility::CallbackFunctor<void(unsigned int)>&& seed, utility::CallbackFunctor<int(int, int)>&& generate)
+    void Random::initializeRandom(std::function<void(unsigned int)>&& seed, std::function<int(int, int)>&& generate)
     {
         initializeSeed = seed ? std::move(seed) : srand;
         generateNumber = generate ? std::move(generate) : defaultNumberGenerator;

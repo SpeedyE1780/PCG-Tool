@@ -115,7 +115,7 @@ namespace pcg::engine::maze_generation
         }
     }
 
-    void wilson(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+    void wilson(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
     {
         utility::logInfo("Wilson Maze Generation Started");
 

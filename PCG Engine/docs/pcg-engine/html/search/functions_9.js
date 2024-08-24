@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['logerror_0',['logError',['../namespacepcg_1_1engine_1_1utility.html#a73096b26e5e0e14fbdaf99363147cedd',1,'pcg::engine::utility']]],
-  ['loginfo_1',['logInfo',['../namespacepcg_1_1engine_1_1utility.html#a6d942218e92632b8bee0f3e753d4fe35',1,'pcg::engine::utility']]],
-  ['logwarning_2',['logWarning',['../namespacepcg_1_1engine_1_1utility.html#a5879a797abf84b220b99f313af067c3f',1,'pcg::engine::utility']]]
+  ['node_0',['Node',['../classpcg_1_1engine_1_1level__generation_1_1_node.html#a56483ab1e22b6b681ea6b40665778103',1,'pcg::engine::level_generation::Node']]],
+  ['number_1',['number',['../structpcg_1_1engine_1_1math_1_1_random.html#a8cd949df1653fa0333f330257c947919',1,'pcg::engine::math::Random::number(int minimum, int maximum)'],['../structpcg_1_1engine_1_1math_1_1_random.html#a2ba788070e414eac5c91ae2e03b404e7',1,'pcg::engine::math::Random::number(int maximum)']]]
 ];

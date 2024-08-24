@@ -12,7 +12,7 @@
 
 namespace pcg::engine::maze_generation
 {
-    void aldousBroder(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+    void aldousBroder(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
     {
         std::ostringstream oss{};
 

@@ -119,7 +119,7 @@ namespace pcg::engine::level_generation::tests
         std::ifstream input(oss.str());
         std::unordered_set<math::Vector3> positions{};
 
-        std::function<void(math::Vector3)> callback = [&levelGenerationParam, &input, &positions](math::Vector3 position)
+        multiDimensionalGeneration(data, levelGenerationParam.axis, true, [&levelGenerationParam, &input, &positions](math::Vector3 position)
             {
                 ASSERT_TRUE(positions.find(position) == positions.end());
                 positions.insert(position);
@@ -134,9 +134,7 @@ namespace pcg::engine::level_generation::tests
                 EXPECT_EQ(x, position.x);
                 EXPECT_EQ(y, position.y);
                 EXPECT_EQ(z, position.z);
-            };
-
-        multiDimensionalGeneration(data, levelGenerationParam.axis, true, callback);
+            });
         input.close();
     }
 
@@ -152,7 +150,7 @@ namespace pcg::engine::level_generation::tests
 
         std::ifstream input(oss.str());
 
-        std::function<void(math::Vector3)> callback = [&levelGenerationParam, &input](math::Vector3 position)
+        multiDimensionalGeneration(data, levelGenerationParam.axis, false, [&levelGenerationParam, &input](math::Vector3 position)
             {
                 int x = 0;
                 int y = 0;
@@ -164,9 +162,7 @@ namespace pcg::engine::level_generation::tests
                 EXPECT_EQ(x, position.x);
                 EXPECT_EQ(y, position.y);
                 EXPECT_EQ(z, position.z);
-            };
-
-        multiDimensionalGeneration(data, levelGenerationParam.axis, false, callback);
+            });
         input.close();
     }
 

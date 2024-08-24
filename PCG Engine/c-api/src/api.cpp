@@ -268,7 +268,7 @@ namespace pcg::engine::c_api
     {
         SequenceNodeWrapper::setCallbacks(updateSequence);
         SequenceNodeWrapper wrappedNode(nextNodeCount);
-        combination_generation::generateSequence(wrappedNode, sequenceLength, [](combination_generation::ISequenceNode* node) {});
+        combination_generation::generateSequence(wrappedNode, sequenceLength, nullptr);
         //Dirty fix to invoke update sequence on last node in sequence
         updateSequence(-1);
         SequenceNodeWrapper::resetCallbacks();

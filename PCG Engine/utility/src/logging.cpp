@@ -7,7 +7,7 @@ namespace pcg::engine::utility
         /// @brief Logs message functor functor
         /// @param logger Logger functor used to log message
         /// @param message Messaget that will be logged
-        void log(const CallbackFunctor<void(const char*)>& logger, const std::string& message)
+        void log(const std::function<void(const char*)>& logger, const std::string& message)
         {
             if (logger)
             {
@@ -16,9 +16,9 @@ namespace pcg::engine::utility
         }
     }
 
-    CallbackFunctor<void(const char*)>&& logger = [](const char*) {};
+    std::function<void(const char*)> logger = [](const char*) {};
 
-    void setLoggingFunction(CallbackFunctor<void(const char*)>&& logFunction)
+    void setLoggingFunction(std::function<void(const char*)>&& logFunction)
     {
         logger = std::move(logFunction);
     }
@@ -38,4 +38,3 @@ namespace pcg::engine::utility
         log(logger, "[ERROR] " + message);
     }
 }
-

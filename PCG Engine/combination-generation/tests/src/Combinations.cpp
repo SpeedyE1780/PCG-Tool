@@ -35,70 +35,63 @@ namespace pcg::engine::combination_generation::tests
             }
 
             std::vector<int> elements = std::vector<int>(10);
+            std::vector<int> combination{};
         };
     }
 
     TEST_F(Combination, SimpleCombination)
     {
-        std::vector<int> combination{};
         const std::vector<int> expected = { 1, 2, 3, 6 };
-        std::function<void(int, bool)> callback = [this, &combination](int index, bool included)
+
+        generateCombination(elements.size(), [this](int index, bool included)
             {
                 if (included)
                 {
                     combination.emplace_back(elements[index]);
                 }
-            };
-
-        generateCombination(elements.size(), callback);
+            });
         compareCombinations(combination, expected);
     }
 
     TEST_F(Combination, CombinationWithMinimum7Elements)
     {
-        std::vector<int> combination{};
         const std::vector<int> expected = { 1, 2, 3, 4, 5, 6, 8 };
-        std::function<void(int, bool)> callback = [this, &combination](int index, bool included)
+
+        generateCombination(elements.size(), 7, [this](int index, bool included)
             {
                 if (included)
                 {
                     combination.emplace_back(elements[index]);
                 }
-            };
-
-        generateCombination(elements.size(), 7, callback);
+            });
         compareCombinations(combination, expected);
     }
 
     TEST_F(Combination, CombinationWith1And3And10Active)
     {
-        std::vector<int> combination{};
         const std::vector<int> expected = { 1, 2, 3, 6, 10 };
-        std::function<void(int, bool)> callback = [this, &combination](int index, bool included)
+
+        generateCombination(elements.size(), { 0, 2, 9 }, [this](int index, bool included)
             {
                 if (included)
                 {
                     combination.emplace_back(elements[index]);
                 }
-            };
-
-        generateCombination(elements.size(), { 0, 2, 9 }, callback);
+            });
         compareCombinations(combination, expected);
     }
 
     TEST_F(Combination, CombinationWithOutOfBoundsIndices)
     {
-        std::vector<int> combination{};
         const std::vector<int> expected = { 1, 2, 3, 6, 10 };
-        std::function<void(int, bool)> callback = [this, &combination](int index, bool included)
+
+        generateCombination(elements.size(), { -1, 0, 2, 9, 11, 13, -2 }, [this](int index, bool included)
             {
                 if (included)
                 {
                     combination.emplace_back(elements[index]);
                 }
-            };
-
-        generateCombination(elements.size(), { -1, 0, 2, 9, 11, 13, -2 }, callback);
+            });
         compareCombinations(combination, expected);
     }
 }

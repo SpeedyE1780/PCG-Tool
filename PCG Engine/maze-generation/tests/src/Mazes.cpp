@@ -23,76 +23,76 @@ namespace pcg::engine::maze_generation::tests
 {
     namespace
     {
-        void binaryTreeNE(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        void binaryTreeNE(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
         {
-            binaryTree(width, height, invokeAfterGeneration, Diagonal::NE, std::move(callback));
+            binaryTree(width, height, invokeAfterGeneration, Diagonal::NE, callback);
         }
 
-        void binaryTreeNW(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        void binaryTreeNW(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
         {
-            binaryTree(width, height, invokeAfterGeneration, Diagonal::NW, std::move(callback));
+            binaryTree(width, height, invokeAfterGeneration, Diagonal::NW, callback);
         }
 
-        void binaryTreeSE(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        void binaryTreeSE(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
         {
-            binaryTree(width, height, invokeAfterGeneration, Diagonal::SE, std::move(callback));
+            binaryTree(width, height, invokeAfterGeneration, Diagonal::SE, callback);
         }
 
-        void binaryTreeSW(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        void binaryTreeSW(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
         {
-            binaryTree(width, height, invokeAfterGeneration, Diagonal::SW, std::move(callback));
+            binaryTree(width, height, invokeAfterGeneration, Diagonal::SW, callback);
         }
 
-        void blobbyDivisionCorridors(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        void blobbyDivisionCorridors(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
         {
-            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::corridors, std::move(callback));
+            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::corridors, callback);
         }
 
-        void blobbyDivisionSmall(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        void blobbyDivisionSmall(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
         {
-            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::small, std::move(callback));
+            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::small, callback);
         }
 
-        void blobbyDivisionMedium(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        void blobbyDivisionMedium(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
         {
-            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::medium, std::move(callback));
+            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::medium, callback);
         }
 
-        void blobbyDivisionLarge(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        void blobbyDivisionLarge(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
         {
-            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::large, std::move(callback));
+            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::large, callback);
         }
 
-        void blobbyDivisionHuge(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        void blobbyDivisionHuge(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
         {
-            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::huge, std::move(callback));
+            blobbyDivision(width, height, invokeAfterGeneration, SubRegionSize::huge, callback);
         }
 
-        void growingTreeOldest(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        void growingTreeOldest(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
         {
-            growingTree(width, height, invokeAfterGeneration, GrowingTreeSelectionMethod::oldest, std::move(callback));
+            growingTree(width, height, invokeAfterGeneration, GrowingTreeSelectionMethod::oldest, callback);
         }
 
-        void growingTreeMiddle(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        void growingTreeMiddle(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
         {
-            growingTree(width, height, invokeAfterGeneration, GrowingTreeSelectionMethod::middle, std::move(callback));
+            growingTree(width, height, invokeAfterGeneration, GrowingTreeSelectionMethod::middle, callback);
         }
 
-        void growingTreeNewest(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        void growingTreeNewest(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
         {
-            growingTree(width, height, invokeAfterGeneration, GrowingTreeSelectionMethod::newest, std::move(callback));
+            growingTree(width, height, invokeAfterGeneration, GrowingTreeSelectionMethod::newest, callback);
         }
 
-        void growingTreeRandom(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+        void growingTreeRandom(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
         {
-            growingTree(width, height, invokeAfterGeneration, GrowingTreeSelectionMethod::random, std::move(callback));
+            growingTree(width, height, invokeAfterGeneration, GrowingTreeSelectionMethod::random, callback);
         }
     }
 
     struct MazeParameters
     {
         std::string fileName;
-        std::function<void(int, int, bool, MazeCallback&&)> function;
+        std::function<void(int, int, bool, const MazeCallback&)> function;
     };
 
     class MazeAlgorithmTest : public ::testing::TestWithParam<MazeParameters> 
@@ -119,7 +119,7 @@ namespace pcg::engine::maze_generation::tests
 
         std::ifstream input(oss.str());
 
-        std::function<void(int, int, NodeValue)> callback = [&input](int x, int y, NodeValue value)
+        mazeFunction(20, 20, false, [&input](int x, int y, NodeValue value)
             {
                 int goldenX = 0;
                 int goldenY = 0;
@@ -129,9 +129,7 @@ namespace pcg::engine::maze_generation::tests
                 EXPECT_EQ(goldenX, x);
                 EXPECT_EQ(goldenY, y);
                 EXPECT_EQ(goldenValue, static_cast<int>(value));
-            };
-
-        mazeFunction(20, 20, false, callback);
+            });
 
         input.close();
     }

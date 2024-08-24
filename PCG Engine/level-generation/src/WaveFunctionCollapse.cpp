@@ -233,7 +233,7 @@ namespace pcg::engine::level_generation
         /// @param directions Directions that can be used to reach adjacent node
         /// @param callback Callback when a node is generated
         template<typename NodeCollection>
-        void waveFunctionCollapse(const GenerationData& data, std::vector<utility::enums::Direction>&& directions, utility::CallbackFunctor<void(math::Vector3, utility::enums::Direction)>&& callback)
+        void waveFunctionCollapse(const GenerationData& data, std::vector<utility::enums::Direction>&& directions, const std::function<void(math::Vector3, utility::enums::Direction)>& callback)
         {
             NodeCollection pendingNodes{};
             NodeMap spawnedNodes{};
@@ -376,7 +376,7 @@ namespace pcg::engine::level_generation
                 setCallbacks(axes);
             }
 
-            void operator()(utility::CallbackFunctor<void(int, int, utility::enums::Direction)>* callback)
+            void operator()(const std::function<void(int, int, utility::enums::Direction)>& callback)
             {
                 while (!pending.empty())
                 {
@@ -404,23 +404,23 @@ namespace pcg::engine::level_generation
                 return utility::enums::hasFlag(grid[y][x], direction);
             }
 
-            void updateNodesValue(utility::CallbackFunctor<void(int, int, utility::enums::Direction)>* callback)
+            void updateNodesValue(const std::function<void(int, int, utility::enums::Direction)>& callback)
             {
                 updateNodeValue(callback);
                 updateAdjacentNodeValue(callback);
             }
 
-            void updateNodeValue(utility::CallbackFunctor<void(int, int, utility::enums::Direction)>* callback)
+            void updateNodeValue(const std::function<void(int, int, utility::enums::Direction)>& callback)
             {
                 grid[y][x] |= direction;
 
                 if (callback)
                 {
-                    invokeCallback(*callback);
+                    invokeCallback(callback);
                 }
             }
 
-            void updateAdjacentNodeValue(utility::CallbackFunctor<void(int, int, utility::enums::Direction)>* callback)
+            void updateAdjacentNodeValue(const std::function<void(int, int, utility::enums::Direction)>& callback)
             {
                 auto [adjacentX, adjacentY, adjacentDirection] = getAdjacentNode(x, y, direction);
                 grid[adjacentY][adjacentX] |= adjacentDirection;
@@ -428,16 +428,16 @@ namespace pcg::engine::level_generation
 
                 if (callback)
                 {
-                    invokeCallback(*callback);
+                    invokeCallback(callback);
                 }
             }
 
-            void invokeCallback(const utility::CallbackFunctor<void(int, int, utility::enums::Direction)>& callback)
+            void invokeCallback(const std::function<void(int, int, utility::enums::Direction)>& callback)
             {
                 callback(x, y, grid[y][x]);
             }
 
-            void invokeGridCallback(const utility::CallbackFunctor<void(int, int, utility::enums::Direction)>& callback)
+            void invokeGridCallback(const std::function<void(int, int, utility::enums::Direction)>& callback)
             {
                 for (int y = 0; y < height; ++y)
                 {
@@ -482,7 +482,7 @@ namespace pcg::engine::level_generation
                 }
             }
 
-            void processNode(utility::CallbackFunctor<void(int, int, utility::enums::Direction)>* callback)
+            void processNode(const std::function<void(int, int, utility::enums::Direction)>& callback)
             {
                 if (isOutOfBounds() || hasFlag())
                 {
@@ -506,7 +506,7 @@ namespace pcg::engine::level_generation
             GetAdjacentNodeCallback getAdjacentNode = nullptr;
         };
 
-        void processNode(std::vector<std::vector<std::vector<utility::enums::Direction>>>& grid, std::queue<std::tuple<int, int, int>>& pending, int x, int y, int z, utility::enums::Direction direction, utility::CallbackFunctor<void(int, int, int, utility::enums::Direction)>* callback)
+        void processNode(std::vector<std::vector<std::vector<utility::enums::Direction>>>& grid, std::queue<std::tuple<int, int, int>>& pending, int x, int y, int z, utility::enums::Direction direction, const std::function<void(int, int, int, utility::enums::Direction)>& callback)
         {
             if (x == 0 && utility::enums::hasFlag(direction, utility::enums::Direction::left)
                 || x == grid[z][y].size() - 1 && utility::enums::hasFlag(direction, utility::enums::Direction::right)
@@ -522,7 +522,7 @@ namespace pcg::engine::level_generation
             grid[z][y][x] |= direction;
             if (callback)
             {
-                (*callback)(x, y, z, grid[z][y][x]);
+                callback(x, y, z, grid[z][y][x]);
             }
 
             if (utility::enums::hasFlag(direction, utility::enums::Direction::left))
@@ -559,34 +559,34 @@ namespace pcg::engine::level_generation
             grid[z][y][x] |= direction;
             if (callback)
             {
-                (*callback)(x, y, z, grid[z][y][x]);
+                callback(x, y, z, grid[z][y][x]);
             }
             pending.emplace(std::make_tuple(x, y, z));
         }
     }
 
-    void waveFunctionCollapse(const GenerationData& data, ExpansionMode mode, math::Axis axes, utility::CallbackFunctor<void(math::Vector3, utility::enums::Direction)>&& callback)
+    void waveFunctionCollapse(const GenerationData& data, ExpansionMode mode, math::Axis axes, const std::function<void(math::Vector3, utility::enums::Direction)>& callback)
     {
         if (mode == ExpansionMode::DFS)
         {
             utility::logInfo("DFS WFC Started");
-            waveFunctionCollapse<std::stack<math::Vector3>>(data, getDirections(axes), std::move(callback));
+            waveFunctionCollapse<std::stack<math::Vector3>>(data, getDirections(axes), callback);
             utility::logInfo("DFS WFC Ended");
         }
         else if (mode == ExpansionMode::BFS)
         {
             utility::logInfo("BFS WFC Started");
-            waveFunctionCollapse<std::queue<math::Vector3>>(data, getDirections(axes), std::move(callback));
+            waveFunctionCollapse<std::queue<math::Vector3>>(data, getDirections(axes), callback);
             utility::logInfo("BFS WFC Ended");
         }
     }
 
-    void waveFunctionCollapse(int width, int height, math::Axis axes, bool invokeAfterGeneration, utility::CallbackFunctor<void(int, int, utility::enums::Direction)>&& callback)
+    void waveFunctionCollapse(int width, int height, math::Axis axes, bool invokeAfterGeneration, const std::function<void(int, int, utility::enums::Direction)>& callback)
     {
         utility::logInfo("2D Wave Function Collapse Started");
 
         Grid2DGenerator grid(width, height, axes);
-        grid(invokeAfterGeneration ? nullptr : &callback);
+        grid(invokeAfterGeneration ? nullptr : callback);
 
         if (invokeAfterGeneration)
         {
@@ -596,7 +596,7 @@ namespace pcg::engine::level_generation
         utility::logInfo("2D Wave Function Collapse Ended");
     }
 
-    void waveFunctionCollapse(int width, int height, int depth, bool invokeAfterGeneration, utility::CallbackFunctor<void(int, int, int, utility::enums::Direction)>&& callback)
+    void waveFunctionCollapse(int width, int height, int depth, bool invokeAfterGeneration, const std::function<void(int, int, int, utility::enums::Direction)>& callback)
     {
         utility::logInfo("3D Wave Function Collapse Started");
 
@@ -621,7 +621,7 @@ namespace pcg::engine::level_generation
 
             for (int i = 0; i < adjacents; ++i)
             {
-                processNode(grid, pending, x, y, z, directions[i], invokeAfterGeneration ? nullptr : &callback);
+                processNode(grid, pending, x, y, z, directions[i], invokeAfterGeneration ? nullptr : callback);
             }
 
             std::shuffle(begin(directions), end(directions), randomEngine);

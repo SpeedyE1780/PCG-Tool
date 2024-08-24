@@ -11,7 +11,7 @@
 
 namespace pcg::engine::maze_generation
 {
-    void recursiveBacktracker(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+    void recursiveBacktracker(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
     {
         utility::logInfo("Recursive Backtracker Maze Generation Started");
 

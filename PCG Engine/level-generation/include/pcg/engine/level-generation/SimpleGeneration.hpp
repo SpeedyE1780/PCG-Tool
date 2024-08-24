@@ -5,7 +5,7 @@
 
 #include <pcg/engine/math/vector3.hpp>
 
-#include <pcg/engine/utility/CallbackFunctor.hpp>
+#include <functional>
 
 namespace pcg::engine::level_generation
 {
@@ -13,7 +13,7 @@ namespace pcg::engine::level_generation
     /// @param data Object containing number of nodes that need to be generated, node size & starting position
     /// @param offset Offset between nodes
     /// @param callback Callback when a node is generated
-    void simpleGeneration(const GenerationData& data, const math::Vector3& offset, utility::CallbackFunctor<void(math::Vector3)>&& callback);
+    void simpleGeneration(const GenerationData& data, const math::Vector3& offset, const std::function<void(math::Vector3)>& callback);
 }
 
 #endif // PCG_ENGINE_LEVEL_GENERATION_SIMPLE_GENERATION_HPP

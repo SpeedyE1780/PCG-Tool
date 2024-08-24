@@ -77,7 +77,7 @@ namespace pcg::engine::maze_generation
         }
     }
 
-    void kruskal(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback)
+    void kruskal(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback)
     {
         utility::logInfo("Kruskal Maze Generation Started");
         Grid grid = generateGrid(width, height);
