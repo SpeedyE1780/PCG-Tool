@@ -115,9 +115,9 @@ Functions</h2></td></tr>
 <tr class="memitem:af7a1f1e83f8e239cce15105665d7ae3e" id="r_af7a1f1e83f8e239cce15105665d7ae3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7a1f1e83f8e239cce15105665d7ae3e">generateSequence</a> (<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> &amp;node)</td></tr>
 <tr class="memdesc:af7a1f1e83f8e239cce15105665d7ae3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a sequence starting from node.  <br /></td></tr>
 <tr class="separator:af7a1f1e83f8e239cce15105665d7ae3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ee170a4845a26493131927d4b60921e" id="r_a0ee170a4845a26493131927d4b60921e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ee170a4845a26493131927d4b60921e">generateSequence</a> (<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> &amp;node, int count)</td></tr>
-<tr class="memdesc:a0ee170a4845a26493131927d4b60921e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a sequence starting from node with a max number of nodes.  <br /></td></tr>
-<tr class="separator:a0ee170a4845a26493131927d4b60921e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f245e49b561477e32fee9ccee6a0f06" id="r_a8f245e49b561477e32fee9ccee6a0f06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f245e49b561477e32fee9ccee6a0f06">generateSequence</a> (<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> &amp;node, int count, <a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt; void(<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> *)&gt; &amp;&amp;callback)</td></tr>
+<tr class="memdesc:a8f245e49b561477e32fee9ccee6a0f06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a sequence starting from node with a max number of nodes.  <br /></td></tr>
+<tr class="separator:a8f245e49b561477e32fee9ccee6a0f06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a97d9c81d261861a293731b31d0dbb011" name="a97d9c81d261861a293731b31d0dbb011"></a>
@@ -247,21 +247,26 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0ee170a4845a26493131927d4b60921e" name="a0ee170a4845a26493131927d4b60921e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ee170a4845a26493131927d4b60921e">&#9670;&#160;</a></span>generateSequence() <span class="overload">[2/2]</span></h2>
+<a id="a8f245e49b561477e32fee9ccee6a0f06" name="a8f245e49b561477e32fee9ccee6a0f06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f245e49b561477e32fee9ccee6a0f06">&#9670;&#160;</a></span>generateSequence() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> * &gt; pcg::engine::combination_generation::generateSequence </td>
+          <td class="memname">void pcg::engine::combination_generation::generateSequence </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>count</em></span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>count</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpcg_1_1engine_1_1utility_1_1_callback_functor.html">utility::CallbackFunctor</a>&lt; void(<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">ISequenceNode</a> *)&gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -271,10 +276,10 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">node</td><td>First node in sequence </td></tr>
     <tr><td class="paramname">count</td><td>Max number of node in sequence </td></tr>
+    <tr><td class="paramname">callback</td><td>Callback indicating which was the next node added </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Vector containing sequence of nodes </dd></dl>
 
 </div>
 </div>

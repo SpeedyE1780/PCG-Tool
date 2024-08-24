@@ -180,9 +180,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a5705f5c1c423be8a531067e5d2069ec1" id="r_a5705f5c1c423be8a531067e5d2069ec1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="cpp-api_2include_2pcg_2engine_2cpp-api_2config_8hpp.html#a9712c6dbe563323e258b3ab2b1d3596b">PCG_ENGINE_CPP_API_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5705f5c1c423be8a531067e5d2069ec1">generateSequence</a> (<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">combination_generation::ISequenceNode</a> &amp;node)</td></tr>
 <tr class="memdesc:a5705f5c1c423be8a531067e5d2069ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a sequence starting from node.  <br /></td></tr>
 <tr class="separator:a5705f5c1c423be8a531067e5d2069ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73166a5f8163d228e72080480cfdee26" id="r_a73166a5f8163d228e72080480cfdee26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="cpp-api_2include_2pcg_2engine_2cpp-api_2config_8hpp.html#a9712c6dbe563323e258b3ab2b1d3596b">PCG_ENGINE_CPP_API_API</a> std::vector&lt; <a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">combination_generation::ISequenceNode</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73166a5f8163d228e72080480cfdee26">generateSequence</a> (<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">combination_generation::ISequenceNode</a> &amp;node, int count)</td></tr>
-<tr class="memdesc:a73166a5f8163d228e72080480cfdee26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a sequence starting from node with a max number of nodes.  <br /></td></tr>
-<tr class="separator:a73166a5f8163d228e72080480cfdee26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5854d79624998a32dbac4246105f0f82" id="r_a5854d79624998a32dbac4246105f0f82"><td class="memItemLeft" align="right" valign="top"><a class="el" href="cpp-api_2include_2pcg_2engine_2cpp-api_2config_8hpp.html#a9712c6dbe563323e258b3ab2b1d3596b">PCG_ENGINE_CPP_API_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5854d79624998a32dbac4246105f0f82">generateSequence</a> (<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">combination_generation::ISequenceNode</a> &amp;node, int count, std::function&lt; void(<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">combination_generation::ISequenceNode</a> *)&gt; &amp;&amp;callback)</td></tr>
+<tr class="memdesc:a5854d79624998a32dbac4246105f0f82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a sequence starting from node with a max number of nodes.  <br /></td></tr>
+<tr class="separator:a5854d79624998a32dbac4246105f0f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a3b103dc1be17704e35596299472d9561" name="a3b103dc1be17704e35596299472d9561"></a>
@@ -505,21 +505,26 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a73166a5f8163d228e72080480cfdee26" name="a73166a5f8163d228e72080480cfdee26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73166a5f8163d228e72080480cfdee26">&#9670;&#160;</a></span>generateSequence() <span class="overload">[2/2]</span></h2>
+<a id="a5854d79624998a32dbac4246105f0f82" name="a5854d79624998a32dbac4246105f0f82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5854d79624998a32dbac4246105f0f82">&#9670;&#160;</a></span>generateSequence() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">combination_generation::ISequenceNode</a> * &gt; pcg::engine::cpp_api::generateSequence </td>
+          <td class="memname">void pcg::engine::cpp_api::generateSequence </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">combination_generation::ISequenceNode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>count</em></span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>count</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::function&lt; void(<a class="el" href="classpcg_1_1engine_1_1combination__generation_1_1_i_sequence_node.html">combination_generation::ISequenceNode</a> *)&gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -529,10 +534,10 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">node</td><td>First node in sequence </td></tr>
     <tr><td class="paramname">count</td><td>Max number of node in sequence </td></tr>
+    <tr><td class="paramname">callback</td><td>Callback when node is added to sequence </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Vector containing sequence of nodes </dd></dl>
 
 </div>
 </div>
