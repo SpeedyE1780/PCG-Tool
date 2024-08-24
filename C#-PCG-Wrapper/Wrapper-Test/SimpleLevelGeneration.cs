@@ -9,14 +9,23 @@ namespace PCGAPI.Tests.LevelGeneration
 
         class SimpleLevelGenerationData : IEnumerable<object[]>
         {
+            public static readonly Vector3 right = new(1, 0, 0);
+            public static readonly Vector3 left = new(-1, 0, 0);
+            public static readonly Vector3 up = new(0, 1, 0);
+            public static readonly Vector3 down = new(0, -1, 0);
+            public static readonly Vector3 forward = new(0, 0, 1);
+            public static readonly Vector3 backward = new(0, 0, -1);
+            public static readonly Vector3 zero = new(0, 0, 0);
+
             public IEnumerator<object[]> GetEnumerator()
             {
-                yield return new object[] { Axis.positiveX };
-                yield return new object[] { Axis.negativeX };
-                yield return new object[] { Axis.positiveY };
-                yield return new object[] { Axis.negativeY };
-                yield return new object[] { Axis.positiveZ };
-                yield return new object[] { Axis.negativeZ };
+                yield return new object[] { right };
+                yield return new object[] { left };
+                yield return new object[] { up };
+                yield return new object[] { down };
+                yield return new object[] { forward };
+                yield return new object[] { backward };
+                yield return new object[] { zero };
             }
 
             IEnumerator IEnumerable.GetEnumerator()
@@ -27,7 +36,7 @@ namespace PCGAPI.Tests.LevelGeneration
 
         [Theory]
         [ClassData(typeof(SimpleLevelGenerationData))]
-        public void SimpleGeneration(Axis axis)
+        public void SimpleGeneration(Vector3 offset)
         {
             GenerationParameters parameters = new()
             {
@@ -35,40 +44,37 @@ namespace PCGAPI.Tests.LevelGeneration
                 size = 1,
             };
 
-            PCGEngine.SimpleGeneration(ref parameters, axis, position =>
+            PCGEngine.SimpleGeneration(parameters, offset, position =>
             {
-                switch (axis)
+                if (offset == SimpleLevelGenerationData.right)
                 {
-                    case Axis.positiveX:
-                        {
-                            Assert.Equal(points[index], position.x);
-                            break;
-                        }
-                    case Axis.negativeX:
-                        {
-                            Assert.Equal(-points[index], position.x);
-                            break;
-                        }
-                    case Axis.positiveY:
-                        {
-                            Assert.Equal(points[index], position.y);
-                            break;
-                        }
-                    case Axis.negativeY:
-                        {
-                            Assert.Equal(-points[index], position.y);
-                            break;
-                        }
-                    case Axis.positiveZ:
-                        {
-                            Assert.Equal(points[index], position.z);
-                            break;
-                        }
-                    case Axis.negativeZ:
-                        {
-                            Assert.Equal(-points[index], position.z);
-                            break;
-                        }
+                    Assert.Equal(points[index], position.x);
+                }
+                if (offset == SimpleLevelGenerationData.left)
+                {
+                    Assert.Equal(-points[index], position.x);
+                }
+                if (offset == SimpleLevelGenerationData.up)
+                {
+                    Assert.Equal(points[index], position.y);
+                }
+                if (offset == SimpleLevelGenerationData.down)
+                {
+                    Assert.Equal(-points[index], position.y);
+                }
+                if (offset == SimpleLevelGenerationData.forward)
+                {
+                    Assert.Equal(points[index], position.z);
+                }
+                if (offset == SimpleLevelGenerationData.backward)
+                {
+                    Assert.Equal(-points[index], position.z);
+                }
+                if (offset == SimpleLevelGenerationData.zero)
+                {
+                    Assert.Equal(0, position.x);
+                    Assert.Equal(0, position.y);
+                    Assert.Equal(0, position.z);
                 }
 
                 index += 1;

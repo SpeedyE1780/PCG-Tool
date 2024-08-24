@@ -34,6 +34,47 @@ namespace PCGAPI
             this.y = y;
             this.z = z;
         }
+
+        /// <summary>
+        /// Checks for equality between this and other
+        /// </summary>
+        /// <param name="other">Object being compared to this</param>
+        /// <returns>True if this == object</returns>
+        public override bool Equals(object other)
+        {
+            return this == (Vector3)other;
+        }
+
+        /// <summary>
+        /// Returns the instance hash code
+        /// </summary>
+        /// <returns>The instance hash code</returns>
+        public override int GetHashCode()
+        {
+            return (x.GetHashCode() << 0) ^ (y.GetHashCode() << 1) ^ (z.GetHashCode() << 2);
+        }
+
+        /// <summary>
+        /// Checks for equality between lhs and rhs
+        /// </summary>
+        /// <param name="lhs">Vector on the left side of ==</param>
+        /// <param name="rhs">Vector on the right side of ==</param>
+        /// <returns>True if lhs == rhs</returns>
+        public static bool operator ==(Vector3 lhs, Vector3 rhs)
+        {
+            return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
+        }
+
+        /// <summary>
+        /// Checks for inequality between lhs and rhs
+        /// </summary>
+        /// <param name="lhs">Vector on the left side of !=</param>
+        /// <param name="rhs">Vector on the right side of !=</param>
+        /// <returns>True if lhs != rhs</returns>
+        public static bool operator !=(Vector3 lhs, Vector3 rhs)
+        {
+            return !(lhs == rhs);
+        }
     }
 
     /// <summary>

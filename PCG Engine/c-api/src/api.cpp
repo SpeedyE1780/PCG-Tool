@@ -78,9 +78,9 @@ namespace pcg::engine::c_api
         utility::setLoggingFunction(logFunction);
     }
 
-    void simpleGeneration(const level_generation::GenerationData& data, math::Axis axis, addNodeCallback callback)
+    void simpleGeneration(const level_generation::GenerationData& data, const math::Vector3& offset, addNodeCallback callback)
     {
-        level_generation::simpleGeneration(data, axis, callback);
+        level_generation::simpleGeneration(data, offset, callback);
     }
 
     void multiDimensionGeneration(const level_generation::GenerationData& data, math::Axis axes, bool disableOverlap, addNodeCallback callback)

@@ -65,10 +65,10 @@ namespace PCGAPI
         /// Generate a linear level on a single axis
         /// </summary>
         /// <param name="generationParameters">Object containing number of nodes that need to be generated, node size and starting position</param>
-        /// <param name="axis">Axis used during level generation (X, Y or Z)</param>
+        /// <param name="offset">Offset between nodes</param>
         /// <param name="addNode">Callback when a node is generated</param>
         [DllImport(DLLName, EntryPoint = "simpleGeneration")]
-        public static extern void SimpleGeneration(ref GenerationParameters generationParameters, Axis axis, AddNode addNode);
+        public static extern void SimpleGeneration(GenerationParameters generationParameters, Vector3 offset, AddNode addNode);
         /// <summary>
         /// Generate a level on multiple axes
         /// </summary>
@@ -77,7 +77,7 @@ namespace PCGAPI
         /// <param name="disableOverlap">If true nodes cannot be generated on top of one another</param>
         /// <param name="addNode">Callback when a node is generated</param>
         [DllImport(DLLName, EntryPoint = "multiDimensionGeneration")]
-        public static extern void MultiDimensionalGeneration(ref GenerationParameters generationParameters, Axis axis, [MarshalAs(UnmanagedType.Bool)] bool disableOverlap, AddNode addNode);
+        public static extern void MultiDimensionalGeneration(GenerationParameters generationParameters, Axis axis, [MarshalAs(UnmanagedType.Bool)] bool disableOverlap, AddNode addNode);
         /// <summary>
         /// Generate a level using the Wave Function Collapse Algorithm
         /// </summary>
@@ -86,7 +86,7 @@ namespace PCGAPI
         /// <param name="axis">Axes flag indicating which axes are being used</param>
         /// <param name="addNode">Callback when a node is generated</param>
         [DllImport(DLLName, EntryPoint = "waveFunctionCollapseGeneration")]
-        public static extern void WaveFunctionCollapseGeneration(ref GenerationParameters generationParameters, ExpansionMode mode, Axis axis, AddWFCNode addNode);
+        public static extern void WaveFunctionCollapseGeneration(GenerationParameters generationParameters, ExpansionMode mode, Axis axis, AddWFCNode addNode);
         /// <summary>
         ///  Generate a grid using the Wave Function Collapse Algorithm
         /// </summary>

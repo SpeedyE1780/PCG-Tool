@@ -6,76 +6,72 @@ namespace pcg::engine::level_generation::tests
 {
     struct SimpleLevelGenerationParam
     {
-        SimpleLevelGenerationParam(math::Axis axis) : axis(axis)
+        SimpleLevelGenerationParam(math::Vector3 offset) : offset(offset)
         {
         }
 
         void setCallback()
         {
-            switch (axis)
-            {
-            case math::Axis::positiveX:
+            if (offset == math::Vector3::right)
             {
                 callback = [this](math::Vector3 position)
                     {
                         EXPECT_EQ(position.x, points[index]);
                         index += 1;
                     };
-                break;
             }
-            case math::Axis::negativeX:
+            else if (offset == math::Vector3::left)
             {
                 callback = [this](math::Vector3 position)
                     {
                         EXPECT_EQ(position.x, -points[index]);
                         index += 1;
                     };
-                break;
             }
-            case math::Axis::positiveY:
+            else if (offset == math::Vector3::up)
             {
                 callback = [this](math::Vector3 position)
                     {
                         EXPECT_EQ(position.y, points[index]);
                         index += 1;
                     };
-                break;
             }
-            case math::Axis::negativeY:
+            else if (offset == math::Vector3::down)
             {
                 callback = [this](math::Vector3 position)
                     {
                         EXPECT_EQ(position.y, -points[index]);
                         index += 1;
                     };
-                break;
             }
-            case math::Axis::positiveZ:
+            else if (offset == math::Vector3::forward)
             {
                 callback = [this](math::Vector3 position)
                     {
                         EXPECT_EQ(position.z, points[index]);
                         index += 1;
                     };
-                break;
             }
-            case math::Axis::negativeZ:
+            else if (offset == math::Vector3::backward)
             {
                 callback = [this](math::Vector3 position)
                     {
                         EXPECT_EQ(position.z, -points[index]);
                         index += 1;
                     };
-                break;
             }
-            default:
+            else if (offset == math::Vector3::zero)
             {
-                break;
-            }
+                callback = [this](math::Vector3 position)
+                    {
+                        EXPECT_EQ(position.x, 0);
+                        EXPECT_EQ(position.y, 0);
+                        EXPECT_EQ(position.z, 0);
+                    };
             }
         }
 
-        math::Axis axis;
+        math::Vector3 offset;
         std::function<void(math::Vector3)> callback = nullptr;
 
     private:
@@ -91,36 +87,37 @@ namespace pcg::engine::level_generation::tests
             template <class ParamType>
             std::string operator()(const testing::TestParamInfo<ParamType>& info) const
             {
-                switch (static_cast<SimpleLevelGenerationParam>(info.param).axis)
-                {
-                case math::Axis::positiveX:
+                const auto& offset = static_cast<SimpleLevelGenerationParam>(info.param).offset;
+
+                if (offset == math::Vector3::right)
                 {
                     return "PositiveX";
                 }
-                case math::Axis::negativeX:
+                else if (offset == math::Vector3::left)
                 {
                     return "NegativeX";
                 }
-                case math::Axis::positiveY:
+                else if (offset == math::Vector3::up)
                 {
                     return "PositiveY";
                 }
-                case math::Axis::negativeY:
+                else if (offset == math::Vector3::down)
                 {
                     return "NegativeY";
                 }
-                case math::Axis::positiveZ:
+                else if (offset == math::Vector3::forward)
                 {
                     return "PositiveZ";
                 }
-                case math::Axis::negativeZ:
+                else if (offset == math::Vector3::backward)
                 {
                     return "NegativeZ";
                 }
-                default:
-                    return "";
+                else if (offset == math::Vector3::zero)
+                {
+                    return "Zero";
                 }
-            }
+            };
         };
     };
 
@@ -130,19 +127,20 @@ namespace pcg::engine::level_generation::tests
         SimpleLevelGenerationParam levelGenerationParam = GetParam();
         levelGenerationParam.setCallback();
 
-        simpleGeneration(data, levelGenerationParam.axis, levelGenerationParam.callback);
+        simpleGeneration(data, levelGenerationParam.offset, levelGenerationParam.callback);
     }
 
     INSTANTIATE_TEST_CASE_P(
         SimpleLevelGenerationTests,
         SimpleLevelGenerationTest,
         ::testing::Values(
-            SimpleLevelGenerationParam(math::Axis::positiveX),
-            SimpleLevelGenerationParam(math::Axis::negativeX),
-            SimpleLevelGenerationParam(math::Axis::positiveY),
-            SimpleLevelGenerationParam(math::Axis::negativeY),
-            SimpleLevelGenerationParam(math::Axis::positiveZ),
-            SimpleLevelGenerationParam(math::Axis::negativeZ)
+            SimpleLevelGenerationParam(math::Vector3::right),
+            SimpleLevelGenerationParam(math::Vector3::left),
+            SimpleLevelGenerationParam(math::Vector3::up),
+            SimpleLevelGenerationParam(math::Vector3::down),
+            SimpleLevelGenerationParam(math::Vector3::forward),
+            SimpleLevelGenerationParam(math::Vector3::backward),
+            SimpleLevelGenerationParam(math::Vector3::zero)
         ),
         SimpleLevelGenerationTest::PrintToStringParamName());
 }
