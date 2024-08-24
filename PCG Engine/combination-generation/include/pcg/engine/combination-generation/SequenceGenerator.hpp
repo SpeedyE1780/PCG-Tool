@@ -1,7 +1,7 @@
 #ifndef PCG_ENGINE_COMBINATION_GENERATION_SEQUENCE_GENERATOR_HPP
 #define PCG_ENGINE_COMBINATION_GENERATION_SEQUENCE_GENERATOR_HPP
 
-#include <vector>
+#include <pcg/engine/utility/CallbackFunctor.hpp>
 
 namespace pcg::engine::combination_generation
 {
@@ -33,8 +33,8 @@ namespace pcg::engine::combination_generation
     /// @brief Generate a sequence starting from node with a max number of nodes
     /// @param node First node in sequence
     /// @param count Max number of node in sequence
-    /// @return Vector containing sequence of nodes
-    std::vector<ISequenceNode*> generateSequence(ISequenceNode& node, int count);
+    /// @param callback Callback indicating which was the next node added
+    void generateSequence(ISequenceNode& node, int count, utility::CallbackFunctor<void(ISequenceNode*)>&& callback);
 }
 
 #endif // PCG_ENGINE_COMBINATION_GENERATION_SEQUENCE_GENERATOR_HPP
