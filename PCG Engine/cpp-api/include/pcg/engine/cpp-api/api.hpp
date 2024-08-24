@@ -129,8 +129,8 @@ namespace pcg::engine::cpp_api
     /// @brief Generate a sequence starting from node with a max number of nodes
     /// @param node First node in sequence
     /// @param count Max number of node in sequence
-    /// @return Vector containing sequence of nodes
-    PCG_ENGINE_CPP_API_API std::vector<combination_generation::ISequenceNode*> generateSequence(combination_generation::ISequenceNode& node, int count);
+    /// @param callback Callback when node is added to sequence
+    PCG_ENGINE_CPP_API_API void generateSequence(combination_generation::ISequenceNode& node, int count, std::function<void(combination_generation::ISequenceNode*)>&& callback);
 }
 
 #endif // PCG_ENGINE_CPP_API_API_HPP
