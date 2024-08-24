@@ -59,9 +59,9 @@ namespace pcg::engine::cpp_api
     PCG_ENGINE_CPP_API_API void setLoggingFunction(std::function<void(const char*)>&& logFunction);
     /// @brief Generate a linear level on a single axis
     /// @param data Object containing number of nodes that need to be generated, node size & starting position
-    /// @param axis Axis used during level generation (X, Y or Z)
+    /// @param offset Offset between nodes
     /// @param callback Callback when a node is generated
-    PCG_ENGINE_CPP_API_API void simpleGeneration(const level_generation::GenerationData& data, math::Axis axis, std::function<void(math::Vector3)>&& callback);
+    PCG_ENGINE_CPP_API_API void simpleGeneration(const level_generation::GenerationData& data, const math::Vector3& offset, std::function<void(math::Vector3)>&& callback);
     /// @brief Generate a level on multiple axes
     /// @param data Object containing number of nodes that need to be generated, node size & starting position
     /// @param axes Axes flag indicating which axes are being used
