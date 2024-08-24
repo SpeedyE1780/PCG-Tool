@@ -36,7 +36,7 @@ export default function SimpleGeneration() {
     <PCGMain>
       <Viewer responseJSON={generatedJSON}>
         <h1>Simple Generation</h1>
-        <GenerationParameters config={params}></GenerationParameters>
+        <GenerationParameters hideAxis={true} config={params}></GenerationParameters>
         <button onClick={generateLevel}>Generate</button>
       </Viewer>
     </PCGMain>

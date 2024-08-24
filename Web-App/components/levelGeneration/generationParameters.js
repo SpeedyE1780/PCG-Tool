@@ -37,14 +37,16 @@ export default function GenerationParameters(props) {
         ></input>
       </div>
 
-      <label>Generation Axis</label>
-      <input
-        type="number"
-        placeholder="Axis"
-        onChange={(event) => {
-          props.config.axis = event.target.valueAsNumber;
-        }}
-      ></input>
+      {!props.hideAxis && <label>Generation Axis</label>}
+      {!props.hideAxis && (
+        <input
+          type="number"
+          placeholder="Axis"
+          onChange={(event) => {
+            props.config.axis = event.target.valueAsNumber;
+          }}
+        ></input>
+      )}
     </div>
   );
 }
