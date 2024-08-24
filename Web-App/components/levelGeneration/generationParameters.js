@@ -1,4 +1,5 @@
 import styles from "../../styles/Home.module.css";
+import Vector3 from "./vector3";
 
 export default function GenerationParameters(props) {
   return (
@@ -15,28 +16,11 @@ export default function GenerationParameters(props) {
       ></input>
 
       <label>Start Position</label>
-      <div className={styles.vector3Row}>
-        <label className={styles.rightAlignLabel}>X</label>
-        <label className={styles.rightAlignLabel}>Y</label>
-        <label className={styles.rightAlignLabel}>Z</label>
-      </div>
-      <div className={styles.vector3Row}>
-        <input
-          className={styles.rightAlignLabel}
-          placeholder="0"
-          onChange={(event) => (props.config.xPosition = event.target.value)}
-        ></input>
-        <input
-          className={styles.rightAlignLabel}
-          placeholder="0"
-          onChange={(event) => (props.config.yPosition = event.target.value)}
-        ></input>
-        <input
-          className={styles.rightAlignLabel}
-          placeholder="0"
-          onChange={(event) => (props.config.zPosition = event.target.value)}
-        ></input>
-      </div>
+      <Vector3
+        onXChange={(event) => (props.config.xPosition = event.target.value)}
+        onYChange={(event) => (props.config.yPosition = event.target.value)}
+        onZChange={(event) => (props.config.zPosition = event.target.value)}
+      ></Vector3>
 
       {!props.hideAxis && <label>Generation Axis</label>}
       {!props.hideAxis && (
