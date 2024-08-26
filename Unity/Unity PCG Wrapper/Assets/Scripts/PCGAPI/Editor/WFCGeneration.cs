@@ -126,7 +126,7 @@ namespace PCGAPI.Editor
                     });
                 }
 
-                PCGEngine.WaveFunctionCollapseGeneration(ref generationParameters, (ExpansionMode)expansionModeField.value, (Axis)axesField.value, AddNodeInfo);
+                PCGEngine.WaveFunctionCollapseGeneration(generationParameters, (ExpansionMode)expansionModeField.value, (Axis)axesField.value, AddNodeInfo);
                 EditorCoroutineUtility.StartCoroutine(SpawnLevel(nodes, nodeParent), this);
             }
             else
@@ -136,7 +136,7 @@ namespace PCGAPI.Editor
                     AddNode(nodeParent, nodePosition, adjacentNodes);
                 }
 
-                PCGEngine.WaveFunctionCollapseGeneration(ref generationParameters, (ExpansionMode)expansionModeField.value, (Axis)axesField.value, AddWFCNode);
+                PCGEngine.WaveFunctionCollapseGeneration(generationParameters, (ExpansionMode)expansionModeField.value, (Axis)axesField.value, AddWFCNode);
             }
         }
 

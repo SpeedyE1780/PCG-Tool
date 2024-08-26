@@ -109,7 +109,7 @@ namespace PCGAPI.Editor
                     positions.Add(nodePosition);
                 }
 
-                PCGEngine.MultiDimensionalGeneration(ref generationParameters, (Axis)axesField.value, disableOverlapToggle.value, AddNodePosition);
+                PCGEngine.MultiDimensionalGeneration(generationParameters, (Axis)axesField.value, disableOverlapToggle.value, AddNodePosition);
                 EditorCoroutineUtility.StartCoroutine(WindowHelper.GenerateLevel(node, nodeParent, positions), this);
             }
             else
@@ -119,7 +119,7 @@ namespace PCGAPI.Editor
                     WindowHelper.SpawnNode(node, nodeParent, nodePosition);
                 }
 
-                PCGEngine.MultiDimensionalGeneration(ref generationParameters, (Axis)axesField.value, disableOverlapToggle.value, SpawnNode);
+                PCGEngine.MultiDimensionalGeneration(generationParameters, (Axis)axesField.value, disableOverlapToggle.value, SpawnNode);
             }
 
         }
