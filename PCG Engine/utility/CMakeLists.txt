@@ -10,7 +10,6 @@ target_sources(${PROJECT_NAME} PRIVATE
 "src/logging.cpp"
 
 #HPP
-"include/pcg/engine/utility/CallbackFunctor.hpp"
 "include/pcg/engine/utility/Concepts.hpp"
 "include/pcg/engine/utility/Enums.hpp"
 "include/pcg/engine/utility/logging.hpp"

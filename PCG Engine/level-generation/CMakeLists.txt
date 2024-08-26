@@ -6,6 +6,7 @@ add_library(${PROJECT_NAME} STATIC)
 
 target_sources(${PROJECT_NAME} PRIVATE
 #CPP
+"src/GridWaveFunctionCollapse.cpp"
 "src/MultiDimensionalGeneration.cpp"
 "src/Node.cpp"
 "src/SimpleGeneration.cpp"
@@ -13,6 +14,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 
 #HPP
 "include/pcg/engine/level-generation/GenerationData.hpp"
+"include/pcg/engine/level-generation/GridWaveFunctionCollapse.hpp"
 "include/pcg/engine/level-generation/MultiDimensionalGeneration.hpp"
 "include/pcg/engine/level-generation/Node.hpp"
 "include/pcg/engine/level-generation/SimpleGeneration.hpp"
