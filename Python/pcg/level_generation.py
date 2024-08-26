@@ -129,7 +129,7 @@ def waveFunctionCollapseGeneration(
 def waveFunctionCollapseGridGeneration(
     width: int,
     height: int,
-    axes: math.Axes,
+    plane: math.Plane,
     invokeAfterGeneration: bool,
     callback: Callable[[int, int, Direction], None],
 ) -> None:
@@ -139,13 +139,13 @@ def waveFunctionCollapseGridGeneration(
     Args:
         width (int): Grid width
         height (int): Grid height
-        axes (math.Axes): Axes that will be used to generate level
+        plane (math.Plane): Plane that will be used to generate level
         invokeAfterGeneration (bool): Wait until level is fully generated to invoke callback or invoke it while level is being generated
         callback (Callable[[int, int, Direction], None]): Callback used to add node to generated level
     """
 
     pcgDLL.waveFunctionCollapseGridGeneration(
-        width, height, axes.value, invokeAfterGeneration, addGridWFCNode(callback)
+        width, height, plane.value, invokeAfterGeneration, addGridWFCNode(callback)
     )
 
 

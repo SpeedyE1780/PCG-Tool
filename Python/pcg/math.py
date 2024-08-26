@@ -62,6 +62,16 @@ class Axes(Flag):
     """XYZ Space"""
 
 
+class Plane(Flag):
+    "Plane used with 2D grid generation"
+    XY = Axes.XY.value
+    """XY Plane"""
+    XZ = Axes.XZ.value
+    """XZ Plane"""
+    YZ = Axes.YZ.value
+    """YZ Plane"""
+
+
 seedFunction = None
 """Seed function used to set the RNG seed"""
 randomNumberFunction = None
@@ -78,7 +88,7 @@ def setSeed(seed: int) -> None:
     Args:
         seed (int): RNG seed
     """
-    
+
     pcgDLL.setSeed(seed)
 
 
