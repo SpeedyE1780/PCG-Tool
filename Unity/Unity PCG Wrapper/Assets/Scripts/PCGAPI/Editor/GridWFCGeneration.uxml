@@ -4,7 +4,7 @@
     <engine:UnsignedIntegerField label="Seed" name="Seed" />
     <engine:DropdownField label="Grid Dimension" choices="2D Grid,3D Grid" index="0" name="GridDimension" />
     <engine:VisualElement name="Grid2D">
-        <engine:EnumField label="Plane" type="PCGAPI.Editor.GridWFCGeneration+Plane, PCGAPI.Editor" name="2DPlane" value="XY" />
+        <engine:EnumField label="Plane" type="PCGAPI.Plane, PCG" name="2DPlane" value="xy" />
         <engine:Vector2IntField label="Grid Size" name="Grid2DSize" />
     </engine:VisualElement>
     <engine:VisualElement name="Grid3D">
