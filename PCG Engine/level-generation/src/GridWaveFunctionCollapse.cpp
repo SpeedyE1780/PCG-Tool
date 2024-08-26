@@ -88,75 +88,69 @@ namespace pcg::engine::level_generation
                 || z == depth - 1 && utility::enums::hasFlag(direction, utility::enums::Direction::forward);
         }
 
-        GridNodeValue getAdjacentOnXYPlane(int x, int y, utility::enums::Direction direction)
+        int getAdjacentOnXAxis(int x, utility::enums::Direction direction)
         {
             if (utility::enums::hasFlag(direction, utility::enums::Direction::left))
             {
-                x -= 1;
+                return x - 1;
             }
             else if (utility::enums::hasFlag(direction, utility::enums::Direction::right))
             {
-                x += 1;
+                return x + 1;
             }
-            else if (utility::enums::hasFlag(direction, utility::enums::Direction::up))
+
+            return x;
+        }
+
+        int getAdjacentOnYAxis(int y, utility::enums::Direction direction)
+        {
+            if (utility::enums::hasFlag(direction, utility::enums::Direction::up))
             {
-                y += 1;
+                return y + 1;
             }
             else if (utility::enums::hasFlag(direction, utility::enums::Direction::down))
             {
-                y -= 1;
+                return y - 1;
             }
 
-            direction = utility::enums::getFlippedDirection(direction);
+            return y;
+        }
 
+        int getAdjacentOnZAxis(int z, utility::enums::Direction direction)
+        {
+            if (utility::enums::hasFlag(direction, utility::enums::Direction::forward))
+            {
+                return z + 1;
+            }
+            else if (utility::enums::hasFlag(direction, utility::enums::Direction::backward))
+            {
+                return z - 1;
+            }
+
+            return z;
+        }
+
+        GridNodeValue getAdjacentOnXYPlane(int x, int y, utility::enums::Direction direction)
+        {
+            x = getAdjacentOnXAxis(x, direction);
+            y = getAdjacentOnYAxis(y, direction);
+            direction = utility::enums::getFlippedDirection(direction);
             return { x, y, direction };
         }
 
         GridNodeValue getAdjacentOnXZPlane(int x, int y, utility::enums::Direction direction)
         {
-            if (utility::enums::hasFlag(direction, utility::enums::Direction::left))
-            {
-                x -= 1;
-            }
-            else if (utility::enums::hasFlag(direction, utility::enums::Direction::right))
-            {
-                x += 1;
-            }
-            else if (utility::enums::hasFlag(direction, utility::enums::Direction::forward))
-            {
-                y += 1;
-            }
-            else if (utility::enums::hasFlag(direction, utility::enums::Direction::backward))
-            {
-                y -= 1;
-            }
-
+            x = getAdjacentOnXAxis(x, direction);
+            y = getAdjacentOnZAxis(y, direction);
             direction = utility::enums::getFlippedDirection(direction);
-
             return { x, y, direction };
         }
 
         GridNodeValue getAdjacentOnYZPlane(int x, int y, utility::enums::Direction direction)
         {
-            if (utility::enums::hasFlag(direction, utility::enums::Direction::down))
-            {
-                x -= 1;
-            }
-            else if (utility::enums::hasFlag(direction, utility::enums::Direction::up))
-            {
-                x += 1;
-            }
-            else if (utility::enums::hasFlag(direction, utility::enums::Direction::forward))
-            {
-                y += 1;
-            }
-            else if (utility::enums::hasFlag(direction, utility::enums::Direction::backward))
-            {
-                y -= 1;
-            }
-
+            x = getAdjacentOnYAxis(x, direction);
+            y = getAdjacentOnZAxis(y, direction);
             direction = utility::enums::getFlippedDirection(direction);
-
             return { x, y, direction };
         }
 
