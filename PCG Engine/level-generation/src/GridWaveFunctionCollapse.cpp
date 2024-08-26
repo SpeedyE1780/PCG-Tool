@@ -62,6 +62,14 @@ namespace pcg::engine::level_generation
             return directions;
         }
 
+        /// @brief Get directions from chosen plane
+        /// @param plane Plane that will be used to generate level
+        /// @return Vector containing all directions used
+        std::vector<utility::enums::Direction> getDirections(math::Plane plane)
+        {
+            return getDirections(static_cast<math::Axis>(plane));
+        }
+
         bool isAdjacentOutOfXBounds(int x, int width, utility::enums::Direction direction)
         {
             return x == 0 && utility::enums::hasFlag(direction, utility::enums::Direction::left) ||
@@ -161,18 +169,18 @@ namespace pcg::engine::level_generation
         class Grid2DGenerator
         {
         public:
-            Grid2DGenerator(int width, int height, math::Axis axes) :
+            Grid2DGenerator(int width, int height, math::Plane plane) :
                 grid(height, std::vector<utility::enums::Direction>(width, utility::enums::Direction::none)),
                 width(width),
                 height(height),
                 x(math::Random::number(width)),
                 y(math::Random::number(height)),
                 randomEngine(math::Random::getDefaultEngine()),
-                directions(getDirections(axes))
+                directions(getDirections(plane))
             {
                 std::shuffle(begin(directions), end(directions), randomEngine);
                 pending.emplace(std::make_pair(x, y));
-                setCallbacks(axes);
+                setCallbacks(plane);
             }
 
             void operator()(const std::function<void(int, int, utility::enums::Direction)>& callback)
@@ -248,25 +256,25 @@ namespace pcg::engine::level_generation
             }
 
         private:
-            void setCallbacks(math::Axis axes)
+            void setCallbacks(math::Plane plane)
             {
-                switch (axes)
+                switch (plane)
                 {
-                case pcg::engine::math::Axis::xy:
+                case math::Plane::xy:
                 {
                     firstAxisCheck = isAdjacentOutOfXBounds;
                     secondAxisCheck = isAdjacentOutOfYBounds;
                     getAdjacentNode = getAdjacentOnXYPlane;
                     break;
                 }
-                case pcg::engine::math::Axis::xz:
+                case math::Plane::xz:
                 {
                     firstAxisCheck = isAdjacentOutOfXBounds;
                     secondAxisCheck = isAdjacentOutOfZBounds;
                     getAdjacentNode = getAdjacentOnXZPlane;
                     break;
                 }
-                case pcg::engine::math::Axis::yz:
+                case math::Plane::yz:
                 {
                     firstAxisCheck = isAdjacentOutOfYBounds;
                     secondAxisCheck = isAdjacentOutOfZBounds;
@@ -364,11 +372,11 @@ namespace pcg::engine::level_generation
         }
     }
 
-    void waveFunctionCollapse(int width, int height, math::Axis axes, bool invokeAfterGeneration, const std::function<void(int, int, utility::enums::Direction)>& callback)
+    void waveFunctionCollapse(int width, int height, math::Plane plane, bool invokeAfterGeneration, const std::function<void(int, int, utility::enums::Direction)>& callback)
     {
         utility::logInfo("2D Wave Function Collapse Started");
 
-        Grid2DGenerator grid(width, height, axes);
+        Grid2DGenerator grid(width, height, plane);
         grid(invokeAfterGeneration ? nullptr : callback);
 
         if (invokeAfterGeneration)
