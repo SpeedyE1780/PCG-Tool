@@ -18,8 +18,8 @@ namespace PCGAPI.Editor
         private ObjectField nodeField;
         private UnsignedIntegerField nodeCountField;
         private FloatField nodeSizeField;
-        private DropdownField axisField;
         private Vector3Field startPosition;
+        private Vector3Field offset;
         private Toggle frameByFrameToggle;
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace PCGAPI.Editor
             nodeField = rootVisualElement.Q<ObjectField>("Node");
             nodeCountField = rootVisualElement.Q<UnsignedIntegerField>("Count");
             nodeSizeField = rootVisualElement.Q<FloatField>("Size");
-            axisField = rootVisualElement.Q<DropdownField>("Axis");
+            offset = rootVisualElement.Q<Vector3Field>("NodeOffset");
             startPosition = rootVisualElement.Q<Vector3Field>("StartPosition");
             frameByFrameToggle = rootVisualElement.Q<Toggle>("FramebyFrame");
 
@@ -104,7 +104,7 @@ namespace PCGAPI.Editor
                     positions.Add(nodePosition);
                 }
 
-                PCGEngine.SimpleGeneration(ref generationParameters, (Axis)(1 << axisField.index), AddNodePosition);
+                PCGEngine.SimpleGeneration(generationParameters, PCGEngine2Unity.UnityToPCGEngineVector(offset.value), AddNodePosition);
                 EditorCoroutineUtility.StartCoroutine(WindowHelper.GenerateLevel(node, nodeParent, positions), this);
             }
             else
@@ -114,7 +114,7 @@ namespace PCGAPI.Editor
                     WindowHelper.SpawnNode(node, nodeParent, nodePosition);
                 }
 
-                PCGEngine.SimpleGeneration(ref generationParameters, (Axis)(1 << axisField.index), SpawnNode);
+                PCGEngine.SimpleGeneration(generationParameters, PCGEngine2Unity.UnityToPCGEngineVector(offset.value), SpawnNode);
             }
         }
     }

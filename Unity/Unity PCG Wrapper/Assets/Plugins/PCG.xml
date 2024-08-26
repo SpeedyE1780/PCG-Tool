@@ -32,6 +32,35 @@
             <param name="y">Value of y axis</param>
             <param name="z">Value of z axis</param>
         </member>
+        <member name="M:PCGAPI.Vector3.Equals(System.Object)">
+            <summary>
+            Checks for equality between this and other
+            </summary>
+            <param name="other">Object being compared to this</param>
+            <returns>True if this == object</returns>
+        </member>
+        <member name="M:PCGAPI.Vector3.GetHashCode">
+            <summary>
+            Returns the instance hash code
+            </summary>
+            <returns>The instance hash code</returns>
+        </member>
+        <member name="M:PCGAPI.Vector3.op_Equality(PCGAPI.Vector3,PCGAPI.Vector3)">
+            <summary>
+            Checks for equality between lhs and rhs
+            </summary>
+            <param name="lhs">Vector on the left side of ==</param>
+            <param name="rhs">Vector on the right side of ==</param>
+            <returns>True if lhs == rhs</returns>
+        </member>
+        <member name="M:PCGAPI.Vector3.op_Inequality(PCGAPI.Vector3,PCGAPI.Vector3)">
+            <summary>
+            Checks for inequality between lhs and rhs
+            </summary>
+            <param name="lhs">Vector on the left side of !=</param>
+            <param name="rhs">Vector on the right side of !=</param>
+            <returns>True if lhs != rhs</returns>
+        </member>
         <member name="T:PCGAPI.GenerationParameters">
             <summary>
             Parameters used to generate levels
@@ -219,6 +248,26 @@
         <member name="F:PCGAPI.Axis.xyz">
             <summary>
             XYZ Plane
+            </summary>
+        </member>
+        <member name="T:PCGAPI.Plane">
+            <summary>
+            Plane used in level generation
+            </summary>
+        </member>
+        <member name="F:PCGAPI.Plane.xy">
+            <summary>
+            XY Plane
+            </summary>
+        </member>
+        <member name="F:PCGAPI.Plane.xz">
+            <summary>
+            XZ Plane
+            </summary>
+        </member>
+        <member name="F:PCGAPI.Plane.yz">
+            <summary>
+            YZ Plane
             </summary>
         </member>
         <member name="T:PCGAPI.LevelGenerationDirection">
@@ -480,15 +529,15 @@
             <param name="regionThreshold">User defined region threshold</param>
             <param name="callback">Callback when a node is generated</param>
         </member>
-        <member name="M:PCGAPI.PCGEngine.SimpleGeneration(PCGAPI.GenerationParameters@,PCGAPI.Axis,PCGAPI.AddNode)">
+        <member name="M:PCGAPI.PCGEngine.SimpleGeneration(PCGAPI.GenerationParameters,PCGAPI.Vector3,PCGAPI.AddNode)">
             <summary>
             Generate a linear level on a single axis
             </summary>
             <param name="generationParameters">Object containing number of nodes that need to be generated, node size and starting position</param>
-            <param name="axis">Axis used during level generation (X, Y or Z)</param>
+            <param name="offset">Offset between nodes</param>
             <param name="addNode">Callback when a node is generated</param>
         </member>
-        <member name="M:PCGAPI.PCGEngine.MultiDimensionalGeneration(PCGAPI.GenerationParameters@,PCGAPI.Axis,System.Boolean,PCGAPI.AddNode)">
+        <member name="M:PCGAPI.PCGEngine.MultiDimensionalGeneration(PCGAPI.GenerationParameters,PCGAPI.Axis,System.Boolean,PCGAPI.AddNode)">
             <summary>
             Generate a level on multiple axes
             </summary>
@@ -497,7 +546,7 @@
             <param name="disableOverlap">If true nodes cannot be generated on top of one another</param>
             <param name="addNode">Callback when a node is generated</param>
         </member>
-        <member name="M:PCGAPI.PCGEngine.WaveFunctionCollapseGeneration(PCGAPI.GenerationParameters@,PCGAPI.ExpansionMode,PCGAPI.Axis,PCGAPI.AddWFCNode)">
+        <member name="M:PCGAPI.PCGEngine.WaveFunctionCollapseGeneration(PCGAPI.GenerationParameters,PCGAPI.ExpansionMode,PCGAPI.Axis,PCGAPI.AddWFCNode)">
             <summary>
             Generate a level using the Wave Function Collapse Algorithm
             </summary>
@@ -506,13 +555,13 @@
             <param name="axis">Axes flag indicating which axes are being used</param>
             <param name="addNode">Callback when a node is generated</param>
         </member>
-        <member name="M:PCGAPI.PCGEngine.WaveFunctionCollapseGeneration(System.Int32,System.Int32,PCGAPI.Axis,System.Boolean,PCGAPI.AddWFCGridNode)">
+        <member name="M:PCGAPI.PCGEngine.WaveFunctionCollapseGeneration(System.Int32,System.Int32,PCGAPI.Plane,System.Boolean,PCGAPI.AddWFCGridNode)">
             <summary>
              Generate a grid using the Wave Function Collapse Algorithm
             </summary>
             <param name="x">Grid width</param>
             <param name="y">Grid height</param>
-            <param name="axes">Axes flag indicating which axes are being used</param>
+            <param name="plane">Plane indicating on which plane is the grid being spawned</param>
             <param name="invokeAfterGeneration">If true callback will only be called after all nodes are generated</param>
             <param name="addNode">Callback when a node is generated</param>
         </member>
@@ -541,7 +590,7 @@
             <param name="minimumElementCount">Minimum number of elements in set</param>
             <param name="generateCombination">Callback to add element to generated set</param>
         </member>
-        <member name="M:PCGAPI.PCGEngine.GenerateCombination(System.Int32,System.Int32[]@,System.Int32,PCGAPI.GenerateCombination)">
+        <member name="M:PCGAPI.PCGEngine.GenerateCombination(System.Int32,System.Int32[],System.Int32,PCGAPI.GenerateCombination)">
             <summary>
             Generate a combination with the given elements active
             </summary>

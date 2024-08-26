@@ -14,16 +14,6 @@ namespace PCGAPI.Editor
     public class GridWFCGeneration : EditorWindow
     {
         /// <summary>
-        /// Plane used to generate 2D grid level
-        /// </summary>
-        private enum Plane
-        {
-            XY = Axis.xy,
-            XZ = Axis.xz,
-            YZ = Axis.yz,
-        }
-
-        /// <summary>
         /// Contains all info related to a node in 2D grid
         /// </summary>
         private struct Node2DInfo
@@ -165,15 +155,15 @@ namespace PCGAPI.Editor
         {
             switch (gridPlane)
             {
-                case Plane.XY:
+                case Plane.xy:
                     {
                         return (int x, int y, float size) => { return new UnityEngine.Vector3(x * size, y * size, 0); };
                     }
-                case Plane.XZ:
+                case Plane.xz:
                     {
                         return (int x, int y, float size) => { return new UnityEngine.Vector3(x * size, 0, y * size); };
                     }
-                case Plane.YZ:
+                case Plane.yz:
                     {
                         return (int x, int y, float size) => { return new UnityEngine.Vector3(0, x * size, y * size); };
                     }
@@ -220,7 +210,7 @@ namespace PCGAPI.Editor
                     }
                 }
 
-                PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, (Axis)grid2DPlane.value, true, AddNodeInfo);
+                PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, (Plane)grid2DPlane.value, true, AddNodeInfo);
                 EditorCoroutineUtility.StartCoroutine(Spawn2DGrid(nodes, wfcNode, nodeParent, placingFunction), this);
             }
             else
@@ -234,7 +224,7 @@ namespace PCGAPI.Editor
                     }
                 }
 
-                PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, (Axis)grid2DPlane.value, true, AddGridNode);
+                PCGEngine.WaveFunctionCollapseGeneration(gridSize.x, gridSize.y, (Plane)grid2DPlane.value, true, AddGridNode);
             }
         }
 
