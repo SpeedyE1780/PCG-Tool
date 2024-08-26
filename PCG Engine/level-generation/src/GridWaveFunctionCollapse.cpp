@@ -157,10 +157,11 @@ namespace pcg::engine::level_generation
         class Grid2DGenerator
         {
         public:
-            Grid2DGenerator(int width, int height, math::Plane plane) :
+            Grid2DGenerator(int width, int height, const std::function<void(int, int, utility::enums::Direction)>& callback, math::Plane plane) :
                 grid(height, std::vector<utility::enums::Direction>(width, utility::enums::Direction::none)),
                 width(width),
                 height(height),
+                callback(callback),
                 x(math::Random::number(width)),
                 y(math::Random::number(height)),
                 randomEngine(math::Random::getDefaultEngine()),
@@ -171,7 +172,7 @@ namespace pcg::engine::level_generation
                 setCallbacks(plane);
             }
 
-            void operator()(const std::function<void(int, int, utility::enums::Direction)>& callback)
+            void operator()()
             {
                 while (!pending.empty())
                 {
@@ -182,7 +183,7 @@ namespace pcg::engine::level_generation
                     for (int i = 0; i < adjacents; ++i)
                     {
                         direction = directions[i];
-                        processNode(callback);
+                        processNode();
                     }
 
                     std::shuffle(begin(directions), end(directions), randomEngine);
@@ -199,23 +200,23 @@ namespace pcg::engine::level_generation
                 return utility::enums::hasFlag(grid[y][x], direction);
             }
 
-            void updateNodesValue(const std::function<void(int, int, utility::enums::Direction)>& callback)
+            void updateNodesValue()
             {
-                updateNodeValue(callback);
-                updateAdjacentNodeValue(callback);
+                updateNodeValue();
+                updateAdjacentNodeValue();
             }
 
-            void updateNodeValue(const std::function<void(int, int, utility::enums::Direction)>& callback)
+            void updateNodeValue()
             {
                 grid[y][x] |= direction;
 
                 if (callback)
                 {
-                    invokeCallback(callback);
+                    invokeCallback();
                 }
             }
 
-            void updateAdjacentNodeValue(const std::function<void(int, int, utility::enums::Direction)>& callback)
+            void updateAdjacentNodeValue()
             {
                 auto [adjacentX, adjacentY, adjacentDirection] = getAdjacentNode(x, y, direction);
                 grid[adjacentY][adjacentX] |= adjacentDirection;
@@ -223,22 +224,22 @@ namespace pcg::engine::level_generation
 
                 if (callback)
                 {
-                    invokeCallback(callback);
+                    invokeCallback();
                 }
             }
 
-            void invokeCallback(const std::function<void(int, int, utility::enums::Direction)>& callback)
+            void invokeCallback()
             {
                 callback(x, y, grid[y][x]);
             }
 
-            void invokeGridCallback(const std::function<void(int, int, utility::enums::Direction)>& callback)
+            void invokeGridCallback(const std::function<void(int, int, utility::enums::Direction)>& delayedCallback)
             {
                 for (int y = 0; y < height; ++y)
                 {
                     for (int x = 0; x < width; ++x)
                     {
-                        callback(x, y, grid[y][x]);
+                        delayedCallback(x, y, grid[y][x]);
                     }
                 }
             }
@@ -277,19 +278,20 @@ namespace pcg::engine::level_generation
                 }
             }
 
-            void processNode(const std::function<void(int, int, utility::enums::Direction)>& callback)
+            void processNode()
             {
                 if (isOutOfBounds() || hasFlag())
                 {
                     return;
                 }
 
-                updateNodesValue(callback);
+                updateNodesValue();
             }
 
             Grid2D grid;
             int width;
             int height;
+            std::function<void(int, int, utility::enums::Direction)> callback;
             int x;
             int y;
             std::default_random_engine randomEngine;
@@ -364,8 +366,8 @@ namespace pcg::engine::level_generation
     {
         utility::logInfo("2D Wave Function Collapse Started");
 
-        Grid2DGenerator grid(width, height, plane);
-        grid(invokeAfterGeneration ? nullptr : callback);
+        Grid2DGenerator grid(width, height, invokeAfterGeneration ? nullptr : callback, plane);
+        grid();
 
         if (invokeAfterGeneration)
         {
