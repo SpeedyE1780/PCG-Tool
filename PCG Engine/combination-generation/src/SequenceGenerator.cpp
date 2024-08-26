@@ -35,14 +35,22 @@ namespace pcg::engine::combination_generation
         /// @param callback Callback indicating which was the next node added
         void generateSequence(ISequenceNode* node, int count, const std::function<void(ISequenceNode*)>& callback)
         {
-            callback(node);
+            if (callback)
+            {
+                callback(node);
+            }
+
             count -= 1;
 
             while (count > 0 && node->getNextCount() > 0)
             {
                 node = node->getNextAt(math::Random::number(node->getNextCount()));
-                callback(node);
                 count -= 1;
+
+                if (callback)
+                {
+                    callback(node);
+                }
             }
         }
     }

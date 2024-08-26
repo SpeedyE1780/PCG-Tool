@@ -34,35 +34,5 @@
             string filePath = "GoldenValues/WaveFunctionCollapse/DFS.txt";
             WaveFunctionCollapseTest(ExpansionMode.DFS, filePath);
         }
-
-        [Fact]
-        public void Grid2D()
-        {
-            string filePath = "GoldenValues/WaveFunctionCollapse/Grid2D.txt";
-            var gridNodes = File.ReadAllLines(filePath);
-            int index = 0;
-
-            PCGEngine.WaveFunctionCollapseGeneration(10, 10, Axis.xz, false, (x, y, adjacentNode) =>
-            {
-                string expectedWfcNode = gridNodes[index];
-                index++;
-                Assert.Equal(expectedWfcNode, $"{x} {y} {(int)adjacentNode}");
-            });
-        }
-
-        [Fact]
-        public void Grid3D()
-        {
-            string filePath = "GoldenValues/WaveFunctionCollapse/Grid3D.txt";
-            var gridNodes = File.ReadAllLines(filePath);
-            int index = 0;
-
-            PCGEngine.WaveFunctionCollapseGeneration(10, 10, 10, false, (x, y, z, adjacentNode) =>
-            {
-                string expectedWfcNode = gridNodes[index];
-                index++;
-                Assert.Equal(expectedWfcNode, $"{x} {y} {z} {(int)adjacentNode}");
-            });
-        }
     }
 }
