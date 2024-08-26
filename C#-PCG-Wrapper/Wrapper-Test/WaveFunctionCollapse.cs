@@ -42,7 +42,7 @@
             var gridNodes = File.ReadAllLines(filePath);
             int index = 0;
 
-            PCGEngine.WaveFunctionCollapseGeneration(10, 10, Axis.xz, false, (x, y, adjacentNode) =>
+            PCGEngine.WaveFunctionCollapseGeneration(10, 10, Plane.xz, false, (x, y, adjacentNode) =>
             {
                 string expectedWfcNode = gridNodes[index];
                 index++;

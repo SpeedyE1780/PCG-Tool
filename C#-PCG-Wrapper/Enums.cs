@@ -65,6 +65,25 @@
     }
 
     /// <summary>
+    /// Plane used in level generation
+    /// </summary>
+    public enum Plane
+    {
+        /// <summary>
+        /// XY Plane
+        /// </summary>
+        xy = Axis.xy,
+        /// <summary>
+        /// XZ Plane
+        /// </summary>
+        xz = Axis.xz,
+        /// <summary>
+        /// YZ Plane
+        /// </summary>
+        yz = Axis.yz,
+    }
+
+    /// <summary>
     /// Indicates adjacent nodes for generated nodes in levels
     /// </summary>
     public enum LevelGenerationDirection

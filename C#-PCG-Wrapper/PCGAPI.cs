@@ -92,11 +92,11 @@ namespace PCGAPI
         /// </summary>
         /// <param name="x">Grid width</param>
         /// <param name="y">Grid height</param>
-        /// <param name="axes">Axes flag indicating which axes are being used</param>
+        /// <param name="plane">Plane indicating on which plane is the grid being spawned</param>
         /// <param name="invokeAfterGeneration">If true callback will only be called after all nodes are generated</param>
         /// <param name="addNode">Callback when a node is generated</param>
         [DllImport(DLLName, EntryPoint = "waveFunctionCollapseGridGeneration")]
-        public static extern void WaveFunctionCollapseGeneration(int x, int y, Axis axes, [MarshalAs(UnmanagedType.Bool)] bool invokeAfterGeneration, AddWFCGridNode addNode);
+        public static extern void WaveFunctionCollapseGeneration(int x, int y, Plane plane, [MarshalAs(UnmanagedType.Bool)] bool invokeAfterGeneration, AddWFCGridNode addNode);
         /// <summary>
         /// Generate a grid using the Wave Function Collapse Algorithm
         /// </summary>
