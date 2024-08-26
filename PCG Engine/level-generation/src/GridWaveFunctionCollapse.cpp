@@ -20,7 +20,7 @@ namespace pcg::engine::level_generation
         using Pending2DNode = std::queue<std::tuple<int, int>>;
         using GridNodeValue = std::tuple<int, int, utility::enums::Direction>;
         using BoundCheckCallback = std::function<bool(int, int, utility::enums::Direction)>;
-        using GetAdjacentNodeCallback = std::function<GridNodeValue(int&, int&, utility::enums::Direction&)>;
+        using GetAdjacentNodeCallback = std::function<GridNodeValue(int, int, utility::enums::Direction)>;
 
         /// @brief Get directions from chosen axes
         /// @param axes Axes that will be used to generate level
