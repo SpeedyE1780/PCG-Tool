@@ -70,7 +70,7 @@ namespace pcg::engine::level_generation::tests
     {
         std::ifstream input("GoldenValues/WaveFunctionCollapse/Grid2D.txt");
 
-        waveFunctionCollapse(10, 10, math::Axis::xz, false, [&input](int x, int y, utility::enums::Direction adjacentNodes)
+        waveFunctionCollapse(10, 10, math::Plane::xz, false, [&input](int x, int y, utility::enums::Direction adjacentNodes)
             {
                 int expectedX = 0;
                 int expectedY = 0;

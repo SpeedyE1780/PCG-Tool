@@ -93,23 +93,21 @@ namespace pcg::engine::level_generation
             if (utility::enums::hasFlag(direction, utility::enums::Direction::left))
             {
                 x -= 1;
-                direction = utility::enums::Direction::right;
             }
             else if (utility::enums::hasFlag(direction, utility::enums::Direction::right))
             {
                 x += 1;
-                direction = utility::enums::Direction::left;
             }
             else if (utility::enums::hasFlag(direction, utility::enums::Direction::up))
             {
                 y += 1;
-                direction = utility::enums::Direction::down;
             }
             else if (utility::enums::hasFlag(direction, utility::enums::Direction::down))
             {
                 y -= 1;
-                direction = utility::enums::Direction::up;
             }
+
+            direction = utility::enums::getFlippedDirection(direction);
 
             return { x, y, direction };
         }
@@ -119,23 +117,21 @@ namespace pcg::engine::level_generation
             if (utility::enums::hasFlag(direction, utility::enums::Direction::left))
             {
                 x -= 1;
-                direction = utility::enums::Direction::right;
             }
             else if (utility::enums::hasFlag(direction, utility::enums::Direction::right))
             {
                 x += 1;
-                direction = utility::enums::Direction::left;
             }
             else if (utility::enums::hasFlag(direction, utility::enums::Direction::forward))
             {
                 y += 1;
-                direction = utility::enums::Direction::backward;
             }
             else if (utility::enums::hasFlag(direction, utility::enums::Direction::backward))
             {
                 y -= 1;
-                direction = utility::enums::Direction::forward;
             }
+
+            direction = utility::enums::getFlippedDirection(direction);
 
             return { x, y, direction };
         }
@@ -145,23 +141,21 @@ namespace pcg::engine::level_generation
             if (utility::enums::hasFlag(direction, utility::enums::Direction::down))
             {
                 x -= 1;
-                direction = utility::enums::Direction::up;
             }
             else if (utility::enums::hasFlag(direction, utility::enums::Direction::up))
             {
                 x += 1;
-                direction = utility::enums::Direction::down;
             }
             else if (utility::enums::hasFlag(direction, utility::enums::Direction::forward))
             {
                 y += 1;
-                direction = utility::enums::Direction::backward;
             }
             else if (utility::enums::hasFlag(direction, utility::enums::Direction::backward))
             {
                 y -= 1;
-                direction = utility::enums::Direction::forward;
             }
+
+            direction = utility::enums::getFlippedDirection(direction);
 
             return { x, y, direction };
         }
