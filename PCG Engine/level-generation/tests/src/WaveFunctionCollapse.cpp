@@ -1,3 +1,4 @@
+#include <pcg/engine/level-generation/GridWaveFunctionCollapse.hpp>
 #include <pcg/engine/level-generation/WaveFunctionCollapse.hpp>
 
 #include <pcg/engine/math/random.hpp>
