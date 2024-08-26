@@ -17,10 +17,13 @@ namespace pcg::engine::level_generation
     namespace
     {
         using Grid2D = std::vector<std::vector<utility::enums::Direction>>;
+        using Grid3D = std::vector<std::vector<std::vector<utility::enums::Direction>>>;
         using Pending2DNode = std::queue<std::tuple<int, int>>;
-        using GridNodeValue = std::tuple<int, int, utility::enums::Direction>;
+        using Pending3DNode = std::queue<std::tuple<int, int, int>>;
+        using Grid2DNodeValue = std::tuple<int, int, utility::enums::Direction>;
         using BoundCheckCallback = std::function<bool(int, int, utility::enums::Direction)>;
-        using GetAdjacentNodeCallback = std::function<GridNodeValue(int, int, utility::enums::Direction)>;
+        using GetAdjacentNodeCallback = std::function<Grid2DNodeValue(int, int, utility::enums::Direction)>;
+        using Grid3DNodeValue = std::tuple<int, int, int, utility::enums::Direction>;
 
         /// @brief Get directions from chosen axes
         /// @param axes Axes that will be used to generate level
@@ -130,7 +133,7 @@ namespace pcg::engine::level_generation
             return z;
         }
 
-        GridNodeValue getAdjacentOnXYPlane(int x, int y, utility::enums::Direction direction)
+        Grid2DNodeValue getAdjacentOnXYPlane(int x, int y, utility::enums::Direction direction)
         {
             x = getAdjacentOnXAxis(x, direction);
             y = getAdjacentOnYAxis(y, direction);
@@ -138,7 +141,7 @@ namespace pcg::engine::level_generation
             return { x, y, direction };
         }
 
-        GridNodeValue getAdjacentOnXZPlane(int x, int y, utility::enums::Direction direction)
+        Grid2DNodeValue getAdjacentOnXZPlane(int x, int y, utility::enums::Direction direction)
         {
             x = getAdjacentOnXAxis(x, direction);
             y = getAdjacentOnZAxis(y, direction);
@@ -146,12 +149,21 @@ namespace pcg::engine::level_generation
             return { x, y, direction };
         }
 
-        GridNodeValue getAdjacentOnYZPlane(int x, int y, utility::enums::Direction direction)
+        Grid2DNodeValue getAdjacentOnYZPlane(int x, int y, utility::enums::Direction direction)
         {
             x = getAdjacentOnYAxis(x, direction);
             y = getAdjacentOnZAxis(y, direction);
             direction = utility::enums::getFlippedDirection(direction);
             return { x, y, direction };
+        }
+
+        Grid3DNodeValue getAdjacent3DNode(int x, int y, int z, utility::enums::Direction direction)
+        {
+            x = getAdjacentOnXAxis(x, direction);
+            y = getAdjacentOnYAxis(y, direction);
+            z = getAdjacentOnZAxis(z, direction);
+            direction = utility::enums::getFlippedDirection(direction);
+            return { x, y, z, direction };
         }
 
         class Grid2DGenerator
@@ -202,6 +214,18 @@ namespace pcg::engine::level_generation
                 }
             }
 
+            void invokeGridCallback(const std::function<void(int, int, utility::enums::Direction)>& delayedCallback)
+            {
+                for (int y = 0; y < height; ++y)
+                {
+                    for (int x = 0; x < width; ++x)
+                    {
+                        delayedCallback(x, y, grid[y][x]);
+                    }
+                }
+            }
+
+        private:
             bool isOutOfBounds() const
             {
                 return firstAxisCheck(x, width, direction) || secondAxisCheck(y, height, direction);
@@ -245,18 +269,6 @@ namespace pcg::engine::level_generation
                 callback(x, y, grid[y][x]);
             }
 
-            void invokeGridCallback(const std::function<void(int, int, utility::enums::Direction)>& delayedCallback)
-            {
-                for (int y = 0; y < height; ++y)
-                {
-                    for (int x = 0; x < width; ++x)
-                    {
-                        delayedCallback(x, y, grid[y][x]);
-                    }
-                }
-            }
-
-        private:
             void setCallbacks(math::Plane plane)
             {
                 switch (plane)
@@ -315,63 +327,144 @@ namespace pcg::engine::level_generation
             GetAdjacentNodeCallback getAdjacentNode = nullptr;
         };
 
-        void processNode(std::vector<std::vector<std::vector<utility::enums::Direction>>>& grid, std::queue<std::tuple<int, int, int>>& pending, int x, int y, int z, utility::enums::Direction direction, const std::function<void(int, int, int, utility::enums::Direction)>& callback)
+        class Grid3DGenerator
         {
-            if (x == 0 && utility::enums::hasFlag(direction, utility::enums::Direction::left)
-                || x == grid[z][y].size() - 1 && utility::enums::hasFlag(direction, utility::enums::Direction::right)
-                || y == 0 && utility::enums::hasFlag(direction, utility::enums::Direction::down)
-                || y == grid[z].size() - 1 && utility::enums::hasFlag(direction, utility::enums::Direction::up)
-                || z == 0 && utility::enums::hasFlag(direction, utility::enums::Direction::backward)
-                || z == grid.size() - 1 && utility::enums::hasFlag(direction, utility::enums::Direction::forward)
-                || utility::enums::hasFlag(grid[z][y][x], direction))
+        public:
+            Grid3DGenerator(int width, int height, int depth, const std::function<void(int, int, int, utility::enums::Direction)>& callback) :
+                grid(depth,
+                    std::vector<std::vector<utility::enums::Direction>>(height, std::vector<utility::enums::Direction>(width, utility::enums::Direction::none))),
+                width(width),
+                height(height),
+                depth(depth),
+                callback(callback),
+                x(math::Random::number(width)),
+                y(math::Random::number(height)),
+                z(math::Random::number(depth)),
+                randomEngine(math::Random::getDefaultEngine()),
+                directions(getDirections(math::Axis::xyz))
             {
-                return;
+                std::shuffle(begin(directions), end(directions), randomEngine);
+                pending.emplace(std::make_tuple(x, y, z));
             }
 
-            grid[z][y][x] |= direction;
-            if (callback)
+            void operator()()
+            {
+                while (!pending.empty())
+                {
+                    std::tie(x, y, z) = pending.front();
+                    pending.pop();
+                    int adjacents = math::Random::number(1, directions.size());
+
+                    for (auto currentDirection : directions)
+                    {
+                        direction = currentDirection;
+
+                        if (hasFlag())
+                        {
+                            continue;
+                        }
+
+                        processNode();
+                        adjacents -= 1;
+
+                        if (adjacents <= 0)
+                        {
+                            break;
+                        }
+                    }
+
+                    std::shuffle(begin(directions), end(directions), randomEngine);
+                }
+            }
+
+            void invokeGridCallback(const std::function<void(int, int, int, utility::enums::Direction)>& delayedCallback)
+            {
+                for (int z = 0; z < depth; z++)
+                {
+                    for (int y = 0; y < height; ++y)
+                    {
+                        for (int x = 0; x < width; ++x)
+                        {
+                            delayedCallback(x, y, z, grid[z][y][x]);
+                        }
+                    }
+                }
+            }
+
+        private:
+            bool hasFlag() const
+            {
+                return utility::enums::hasFlag(grid[z][y][x], direction);
+            }
+
+            bool isOutOfBounds() const
+            {
+                return isAdjacentOutOfXBounds(x, width, direction) ||
+                    isAdjacentOutOfYBounds(y, height, direction) ||
+                    isAdjacentOutOfZBounds(z, depth, direction);
+            }
+
+            void updateNodesValue()
+            {
+                updateNodeValue();
+                updateAdjacentNodeValue();
+            }
+
+            void updateNodeValue()
+            {
+                grid[z][y][x] |= direction;
+
+                if (callback)
+                {
+                    invokeCallback();
+                }
+            }
+
+            void updateAdjacentNodeValue()
+            {
+                auto [adjacentX, adjacentY, adjacentZ, adjacentDirection] = getAdjacent3DNode(x, y, z, direction);
+                grid[adjacentZ][adjacentY][adjacentX] |= adjacentDirection;
+                pending.emplace(std::make_tuple(adjacentX, adjacentY, adjacentZ));
+
+                if (callback)
+                {
+                    invokeCallbackOnAdjacent(adjacentX, adjacentY, adjacentZ);
+                }
+            }
+
+            void invokeCallback()
             {
                 callback(x, y, z, grid[z][y][x]);
             }
 
-            if (utility::enums::hasFlag(direction, utility::enums::Direction::left))
+            void invokeCallbackOnAdjacent(int adjacentX, int adjacentY, int adjacentZ)
             {
-                x -= 1;
-                direction = utility::enums::Direction::right;
-            }
-            else if (utility::enums::hasFlag(direction, utility::enums::Direction::right))
-            {
-                x += 1;
-                direction = utility::enums::Direction::left;
-            }
-            else if (utility::enums::hasFlag(direction, utility::enums::Direction::up))
-            {
-                y += 1;
-                direction = utility::enums::Direction::down;
-            }
-            else if (utility::enums::hasFlag(direction, utility::enums::Direction::down))
-            {
-                y -= 1;
-                direction = utility::enums::Direction::up;
-            }
-            else if (utility::enums::hasFlag(direction, utility::enums::Direction::forward))
-            {
-                z += 1;
-                direction = utility::enums::Direction::backward;
-            }
-            else if (utility::enums::hasFlag(direction, utility::enums::Direction::backward))
-            {
-                z -= 1;
-                direction = utility::enums::Direction::forward;
+                callback(adjacentX, adjacentY, adjacentZ, grid[adjacentZ][adjacentY][adjacentX]);
             }
 
-            grid[z][y][x] |= direction;
-            if (callback)
+            void processNode()
             {
-                callback(x, y, z, grid[z][y][x]);
+                if (isOutOfBounds() || hasFlag())
+                {
+                    return;
+                }
+
+                updateNodesValue();
             }
-            pending.emplace(std::make_tuple(x, y, z));
-        }
+
+            Grid3D grid;
+            int width;
+            int height;
+            int depth;
+            std::function<void(int, int, int, utility::enums::Direction)> callback;
+            int x;
+            int y;
+            int z;
+            std::default_random_engine randomEngine;
+            std::vector<utility::enums::Direction> directions;
+            utility::enums::Direction direction = utility::enums::Direction::none;
+            Pending3DNode pending{};
+        };
     }
 
     void waveFunctionCollapse(int width, int height, math::Plane plane, bool invokeAfterGeneration, const std::function<void(int, int, utility::enums::Direction)>& callback)
@@ -393,45 +486,12 @@ namespace pcg::engine::level_generation
     {
         utility::logInfo("3D Wave Function Collapse Started");
 
-        std::default_random_engine randomEngine = math::Random::getDefaultEngine();
-        std::vector<utility::enums::Direction> directions = getDirections(math::Axis::xyz);
-        std::shuffle(begin(directions), end(directions), randomEngine);
-        std::vector<std::vector<std::vector<utility::enums::Direction>>> grid(depth,
-            std::vector<std::vector<utility::enums::Direction>>(height, std::vector<utility::enums::Direction>(width, utility::enums::Direction::none)));
-
-        const int startX = math::Random::number(width);
-        const int startY = math::Random::number(height);
-        const int startZ = math::Random::number(depth);
-        std::queue<std::tuple<int, int, int>> pending;
-        pending.emplace(std::make_tuple(startX, startY, startZ));
-
-        while (!pending.empty())
-        {
-            const auto& [x, y, z] = std::move(pending.front());
-            pending.pop();
-
-            const int adjacents = math::Random::number(directions.size());
-
-            for (int i = 0; i < adjacents; ++i)
-            {
-                processNode(grid, pending, x, y, z, directions[i], invokeAfterGeneration ? nullptr : callback);
-            }
-
-            std::shuffle(begin(directions), end(directions), randomEngine);
-        }
+        Grid3DGenerator grid(width, height, depth, invokeAfterGeneration ? nullptr : callback);
+        grid();
 
         if (invokeAfterGeneration)
         {
-            for (int z = 0; z < depth; ++z)
-            {
-                for (int y = 0; y < height; ++y)
-                {
-                    for (int x = 0; x < width; ++x)
-                    {
-                        callback(x, y, z, grid[z][y][x]);
-                    }
-                }
-            }
+            grid.invokeGridCallback(callback);
         }
 
         utility::logInfo("3D Wave Function Collapse Ended");
