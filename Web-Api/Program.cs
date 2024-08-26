@@ -38,6 +38,7 @@ builder.Services.AddSwaggerGen(setupAction =>
     AddEnumMapType<LevelGenerationDirection>(setupAction);
     AddEnumMapType<Axis>(setupAction);
     AddEnumMapType<ExpansionMode>(setupAction);
+    AddEnumMapType<Plane>(setupAction);
 });
 builder.Services.AddCors();
 
