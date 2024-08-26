@@ -56,7 +56,6 @@ namespace pcg::engine::level_generation::tests
                 EXPECT_EQ(expectedX, x);
                 EXPECT_EQ(expectedY, y);
                 EXPECT_EQ(static_cast<utility::enums::Direction>(adjacent), adjacentNodes);
-
             });
     }
 

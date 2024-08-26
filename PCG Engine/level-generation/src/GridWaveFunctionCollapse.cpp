@@ -260,13 +260,18 @@ namespace pcg::engine::level_generation
 
                 if (callback)
                 {
-                    invokeCallback();
+                    invokeCallbackOnAdjacent(adjacentX, adjacentY);
                 }
             }
 
             void invokeCallback()
             {
                 callback(x, y, grid[y][x]);
+            }
+
+            void invokeCallbackOnAdjacent(int adjacentX, int adjacentY)
+            {
+                callback(adjacentX, adjacentY, grid[adjacentY][adjacentX]);
             }
 
             void setCallbacks(math::Plane plane)
