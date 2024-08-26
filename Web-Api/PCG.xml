@@ -250,6 +250,26 @@
             XYZ Plane
             </summary>
         </member>
+        <member name="T:PCGAPI.Plane">
+            <summary>
+            Plane used in level generation
+            </summary>
+        </member>
+        <member name="F:PCGAPI.Plane.xy">
+            <summary>
+            XY Plane
+            </summary>
+        </member>
+        <member name="F:PCGAPI.Plane.xz">
+            <summary>
+            XZ Plane
+            </summary>
+        </member>
+        <member name="F:PCGAPI.Plane.yz">
+            <summary>
+            YZ Plane
+            </summary>
+        </member>
         <member name="T:PCGAPI.LevelGenerationDirection">
             <summary>
             Indicates adjacent nodes for generated nodes in levels
@@ -535,13 +555,13 @@
             <param name="axis">Axes flag indicating which axes are being used</param>
             <param name="addNode">Callback when a node is generated</param>
         </member>
-        <member name="M:PCGAPI.PCGEngine.WaveFunctionCollapseGeneration(System.Int32,System.Int32,PCGAPI.Axis,System.Boolean,PCGAPI.AddWFCGridNode)">
+        <member name="M:PCGAPI.PCGEngine.WaveFunctionCollapseGeneration(System.Int32,System.Int32,PCGAPI.Plane,System.Boolean,PCGAPI.AddWFCGridNode)">
             <summary>
              Generate a grid using the Wave Function Collapse Algorithm
             </summary>
             <param name="x">Grid width</param>
             <param name="y">Grid height</param>
-            <param name="axes">Axes flag indicating which axes are being used</param>
+            <param name="plane">Plane indicating on which plane is the grid being spawned</param>
             <param name="invokeAfterGeneration">If true callback will only be called after all nodes are generated</param>
             <param name="addNode">Callback when a node is generated</param>
         </member>

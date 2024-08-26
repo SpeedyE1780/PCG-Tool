@@ -1,6 +1,6 @@
 ﻿namespace PCGAPI.WebAPI
 {
-    public record GridWaveFunctionCollapseParameters2D(int Width, int Height, Axis Plane)
+    public record GridWaveFunctionCollapseParameters2D(int Width, int Height, Plane Plane)
     {
     }
 
