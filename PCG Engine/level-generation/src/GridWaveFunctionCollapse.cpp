@@ -472,7 +472,7 @@ namespace pcg::engine::level_generation
         };
     }
 
-    void waveFunctionCollapse(int width, int height, math::Plane plane, bool invokeAfterGeneration, const std::function<void(int, int, utility::enums::Direction)>& callback)
+    void gridWaveFunctionCollapse(int width, int height, math::Plane plane, bool invokeAfterGeneration, const std::function<void(int, int, utility::enums::Direction)>& callback)
     {
         utility::logInfo("2D Wave Function Collapse Started");
 
@@ -487,7 +487,7 @@ namespace pcg::engine::level_generation
         utility::logInfo("2D Wave Function Collapse Ended");
     }
 
-    void waveFunctionCollapse(int width, int height, int depth, bool invokeAfterGeneration, const std::function<void(int, int, int, utility::enums::Direction)>& callback)
+    void gridWaveFunctionCollapse(int width, int height, int depth, bool invokeAfterGeneration, const std::function<void(int, int, int, utility::enums::Direction)>& callback)
     {
         utility::logInfo("3D Wave Function Collapse Started");
 

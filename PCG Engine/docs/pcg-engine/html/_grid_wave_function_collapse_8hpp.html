@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PCG Engine: maze-generation/include/pcg/engine/maze-generation/Wilson.hpp File Reference</title>
+<title>PCG Engine: level-generation/include/pcg/engine/level-generation/GridWaveFunctionCollapse.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,7 +83,7 @@ $(function(){ initResizable(false); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_da302b05b7da5484473c2c19c93231a9.html">maze-generation</a></li><li class="navelem"><a class="el" href="dir_089d35ca24f48600a012df374bbfe071.html">include</a></li><li class="navelem"><a class="el" href="dir_7e0cfe9db9b33efdb9158b2c42695453.html">pcg</a></li><li class="navelem"><a class="el" href="dir_3e7a60df0d660b271a0870135e388071.html">engine</a></li><li class="navelem"><a class="el" href="dir_b26585b7b89c361b71af8207b3c1bd59.html">maze-generation</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_0aa1de4b2c342dd16a0eba63bcb222e1.html">level-generation</a></li><li class="navelem"><a class="el" href="dir_b08c71c2794b330abd7d5b20fb4a029f.html">include</a></li><li class="navelem"><a class="el" href="dir_4a53646ad945627256767a97823d09d6.html">pcg</a></li><li class="navelem"><a class="el" href="dir_0554017d6aa352432583dbe9e1a866e7.html">engine</a></li><li class="navelem"><a class="el" href="dir_addaa187f80de6f9810dd18d4463ac3d.html">level-generation</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
@@ -91,12 +91,14 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">Wilson.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">GridWaveFunctionCollapse.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="_common_8hpp_source.html">pcg/engine/maze-generation/Common.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="math_2include_2pcg_2engine_2math_2enums_8hpp_source.html">pcg/engine/math/enums.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="utility_2include_2pcg_2engine_2utility_2enums_8hpp_source.html">pcg/engine/utility/Enums.hpp</a>&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
 </div>
-<p><a href="_wilson_8hpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="_grid_wave_function_collapse_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -104,14 +106,17 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepcg_1_1engine.html">pcg::engine</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepcg_1_1engine_1_1maze__generation.html">pcg::engine::maze_generation</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepcg_1_1engine_1_1level__generation.html">pcg::engine::level_generation</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:accb954a2be7362e7e8d6fd33254ae0e1" id="r_accb954a2be7362e7e8d6fd33254ae0e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepcg_1_1engine_1_1maze__generation.html#accb954a2be7362e7e8d6fd33254ae0e1">pcg::engine::maze_generation::wilson</a> (int <a class="el" href="_grid_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_grid_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, bool invokeAfterGeneration, const <a class="el" href="namespacepcg_1_1engine_1_1maze__generation.html#a97c0ae4fe858736e8e59377d8c963d6b">MazeCallback</a> &amp;<a class="el" href="_grid_wave_function_collapse_8cpp.html#aa080fcd829f452f640455cd69cf1de22">callback</a>)</td></tr>
-<tr class="memdesc:accb954a2be7362e7e8d6fd33254ae0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geneate maze using Wilson Algorithm.  <br /></td></tr>
-<tr class="separator:accb954a2be7362e7e8d6fd33254ae0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6d3a987f79a8a953125e3f38b744f1c" id="r_ab6d3a987f79a8a953125e3f38b744f1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepcg_1_1engine_1_1level__generation.html#ab6d3a987f79a8a953125e3f38b744f1c">pcg::engine::level_generation::gridWaveFunctionCollapse</a> (int <a class="el" href="_grid_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_grid_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, <a class="el" href="namespacepcg_1_1engine_1_1math.html#af1b96967061c702b0cfc153bd933befe">math::Plane</a> plane, bool invokeAfterGeneration, const std::function&lt; void(int, int, <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a>)&gt; &amp;<a class="el" href="_grid_wave_function_collapse_8cpp.html#aa080fcd829f452f640455cd69cf1de22">callback</a>)</td></tr>
+<tr class="memdesc:ab6d3a987f79a8a953125e3f38b744f1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a grid using the Wave Function Collapse Algorithm.  <br /></td></tr>
+<tr class="separator:ab6d3a987f79a8a953125e3f38b744f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6462766eec1ff2b90032e383150431c" id="r_ad6462766eec1ff2b90032e383150431c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepcg_1_1engine_1_1level__generation.html#ad6462766eec1ff2b90032e383150431c">pcg::engine::level_generation::gridWaveFunctionCollapse</a> (int <a class="el" href="_grid_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_grid_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, int <a class="el" href="_grid_wave_function_collapse_8cpp.html#acb5ba97551079e0b072c62c21d784ac5">depth</a>, bool invokeAfterGeneration, const std::function&lt; void(int, int, int, <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a>)&gt; &amp;<a class="el" href="_grid_wave_function_collapse_8cpp.html#aa080fcd829f452f640455cd69cf1de22">callback</a>)</td></tr>
+<tr class="memdesc:ad6462766eec1ff2b90032e383150431c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a grid using the Wave Function Collapse Algorithm.  <br /></td></tr>
+<tr class="separator:ad6462766eec1ff2b90032e383150431c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

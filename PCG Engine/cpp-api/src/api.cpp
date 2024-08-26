@@ -2,6 +2,7 @@
 
 #include <pcg/engine/cpp-api/api.hpp>
 
+#include <pcg/engine/level-generation/GridWaveFunctionCollapse.hpp>
 #include <pcg/engine/level-generation/SimpleGeneration.hpp>
 #include <pcg/engine/level-generation/MultiDimensionalGeneration.hpp>
 #include <pcg/engine/level-generation/WaveFunctionCollapse.hpp>
@@ -60,14 +61,14 @@ namespace pcg::engine::cpp_api
         level_generation::waveFunctionCollapse(data, mode, axes, callback);
     }
 
-    void waveFunctionCollapseGeneration(int width, int height, math::Axis axes, bool invokeAfterGeneration, const std::function<void(int, int, utility::enums::Direction)>& callback)
+    void gridWaveFunctionCollapseGeneration(int width, int height, math::Plane plane, bool invokeAfterGeneration, const std::function<void(int, int, utility::enums::Direction)>& callback)
     {
-        level_generation::waveFunctionCollapse(width, height, axes, invokeAfterGeneration, callback);
+        level_generation::gridWaveFunctionCollapse(width, height, plane, invokeAfterGeneration, callback);
     }
 
-    void waveFunctionCollapseGeneration(int width, int height, int depth, bool invokeAfterGeneration, const std::function<void(int, int, int, utility::enums::Direction)>& callback)
+    void gridWaveFunctionCollapseGeneration(int width, int height, int depth, bool invokeAfterGeneration, const std::function<void(int, int, int, utility::enums::Direction)>& callback)
     {
-        level_generation::waveFunctionCollapse(width, height, depth, invokeAfterGeneration, callback);
+        level_generation::gridWaveFunctionCollapse(width, height, depth, invokeAfterGeneration, callback);
     }
 
     void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, const std::function<void(int x, int y, maze_generation::NodeValue adjacentNodes)>& callback)
