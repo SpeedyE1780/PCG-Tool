@@ -18,10 +18,6 @@ namespace pcg::engine::level_generation::tests
         class WaveFunctionCollapse : public PCGTest
         {
         protected:
-            virtual void SetUp() override
-            {
-                PCGTest::SetUp();
-            }
 
             GenerationData data{ 200, 1, math::Vector3::zero };
         };
