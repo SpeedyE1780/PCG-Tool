@@ -129,6 +129,13 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a8baea8af717df5ea70816ad2b5fecec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Axis bitflag indicating which axes are enabled.  <a href="#a8baea8af717df5ea70816ad2b5fecec8">More...</a><br /></td></tr>
 <tr class="separator:a8baea8af717df5ea70816ad2b5fecec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1b96967061c702b0cfc153bd933befe" id="r_af1b96967061c702b0cfc153bd933befe"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1b96967061c702b0cfc153bd933befe">Plane</a> { <a class="el" href="#af1b96967061c702b0cfc153bd933befea334c4a4c42fdb79d7ebc3e73b517e6f8">none</a> = 0
+, <a class="el" href="#af1b96967061c702b0cfc153bd933befea3e44107170a520582ade522fa73c1d15">xy</a> = Axis::xy
+, <a class="el" href="#af1b96967061c702b0cfc153bd933befeadbd69ee9ae289a85ea34dbef8435d7c1">xz</a> = Axis::xz
+, <a class="el" href="#af1b96967061c702b0cfc153bd933befea2151a2bc77807b81113febbf50c4bc95">yz</a> = Axis::yz
+ }</td></tr>
+<tr class="memdesc:af1b96967061c702b0cfc153bd933befe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plane used with 2D grid generation.  <a href="#af1b96967061c702b0cfc153bd933befe">More...</a><br /></td></tr>
+<tr class="separator:af1b96967061c702b0cfc153bd933befe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -141,7 +148,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a2f1d3b0279f9502aa0e36122a8b83be7" id="r_a2f1d3b0279f9502aa0e36122a8b83be7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; const <a class="el" href="structpcg_1_1engine_1_1math_1_1_vector3.html">Vector3</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f1d3b0279f9502aa0e36122a8b83be7">getUnitVectors</a> (<a class="el" href="#a8baea8af717df5ea70816ad2b5fecec8">Axis</a> axes)</td></tr>
 <tr class="memdesc:a2f1d3b0279f9502aa0e36122a8b83be7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get vector containing unit vectors of given axes.  <br /></td></tr>
 <tr class="separator:a2f1d3b0279f9502aa0e36122a8b83be7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a712df93e66d145a30262d55f74d180f5" id="r_a712df93e66d145a30262d55f74d180f5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpcg_1_1engine_1_1math_1_1_vector3.html">math::Vector3</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a712df93e66d145a30262d55f74d180f5">getUnitVectorFromDirection</a> (<a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> <a class="el" href="_wave_function_collapse_8cpp.html#a5d3d166e3ca63032f0ac505722106b38">direction</a>)</td></tr>
+<tr class="memitem:a712df93e66d145a30262d55f74d180f5" id="r_a712df93e66d145a30262d55f74d180f5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpcg_1_1engine_1_1math_1_1_vector3.html">math::Vector3</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a712df93e66d145a30262d55f74d180f5">getUnitVectorFromDirection</a> (<a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> <a class="el" href="_grid_wave_function_collapse_8cpp.html#a5d3d166e3ca63032f0ac505722106b38">direction</a>)</td></tr>
 <tr class="memdesc:a712df93e66d145a30262d55f74d180f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a unit vector from a direction.  <br /></td></tr>
 <tr class="separator:a712df93e66d145a30262d55f74d180f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -182,6 +189,36 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a8baea8af717df5ea70816ad2b5fecec8adbd69ee9ae289a85ea34dbef8435d7c1" name="a8baea8af717df5ea70816ad2b5fecec8adbd69ee9ae289a85ea34dbef8435d7c1"></a>xz&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a8baea8af717df5ea70816ad2b5fecec8a2151a2bc77807b81113febbf50c4bc95" name="a8baea8af717df5ea70816ad2b5fecec8a2151a2bc77807b81113febbf50c4bc95"></a>yz&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a8baea8af717df5ea70816ad2b5fecec8ad16fb36f0911f878998c136191af705e" name="a8baea8af717df5ea70816ad2b5fecec8ad16fb36f0911f878998c136191af705e"></a>xyz&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="af1b96967061c702b0cfc153bd933befe" name="af1b96967061c702b0cfc153bd933befe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1b96967061c702b0cfc153bd933befe">&#9670;&#160;</a></span>Plane</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#af1b96967061c702b0cfc153bd933befe">pcg::engine::math::Plane</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Plane used with 2D grid generation. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af1b96967061c702b0cfc153bd933befea334c4a4c42fdb79d7ebc3e73b517e6f8" name="af1b96967061c702b0cfc153bd933befea334c4a4c42fdb79d7ebc3e73b517e6f8"></a>none&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af1b96967061c702b0cfc153bd933befea3e44107170a520582ade522fa73c1d15" name="af1b96967061c702b0cfc153bd933befea3e44107170a520582ade522fa73c1d15"></a>xy&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af1b96967061c702b0cfc153bd933befeadbd69ee9ae289a85ea34dbef8435d7c1" name="af1b96967061c702b0cfc153bd933befeadbd69ee9ae289a85ea34dbef8435d7c1"></a>xz&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af1b96967061c702b0cfc153bd933befea2151a2bc77807b81113febbf50c4bc95" name="af1b96967061c702b0cfc153bd933befea2151a2bc77807b81113febbf50c4bc95"></a>yz&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

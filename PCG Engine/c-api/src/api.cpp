@@ -3,6 +3,7 @@
 #include <pcg/engine/combination-generation/CombinationGenerator.hpp>
 #include <pcg/engine/combination-generation/SequenceGenerator.hpp>
 
+#include <pcg/engine/level-generation/GridWaveFunctionCollapse.hpp>
 #include <pcg/engine/level-generation/SimpleGeneration.hpp>
 #include <pcg/engine/level-generation/MultiDimensionalGeneration.hpp>
 #include <pcg/engine/level-generation/WaveFunctionCollapse.hpp>
@@ -93,14 +94,14 @@ namespace pcg::engine::c_api
         level_generation::waveFunctionCollapse(data, mode, axes, callback);
     }
 
-    void waveFunctionCollapseGridGeneration(int width, int height, math::Axis axes, bool invokeAfterGeneration, addWFCGridNodeCallback callback)
+    void waveFunctionCollapseGridGeneration(int width, int height, math::Plane plane, bool invokeAfterGeneration, addWFCGridNodeCallback callback)
     {
-        level_generation::waveFunctionCollapse(width, height, axes, invokeAfterGeneration, callback);
+        level_generation::gridWaveFunctionCollapse(width, height, plane, invokeAfterGeneration, callback);
     }
 
     void waveFunctionCollapse3DGridGeneration(int width, int height, int depth, bool invokeAfterGeneration, addWFC3DGridNodeCallback callback)
     {
-        level_generation::waveFunctionCollapse(width, height, depth, invokeAfterGeneration, callback);
+        level_generation::gridWaveFunctionCollapse(width, height, depth, invokeAfterGeneration, callback);
     }
 
     void generateMaze(int width, int height, bool invokeAferGeneration, MazeAlgorithm algorithm, addMazeNodeCallback callback)

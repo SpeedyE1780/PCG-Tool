@@ -46,7 +46,7 @@ namespace pcg::engine::level_generation::tests
         oss << "GoldenValues/WaveFunctionCollapse/" << fileName << ".txt";
         std::ifstream input(oss.str());
 
-        waveFunctionCollapse(10, 10, plane, false, [&input](int x, int y, utility::enums::Direction adjacentNodes)
+        gridWaveFunctionCollapse(10, 10, plane, false, [&input](int x, int y, utility::enums::Direction adjacentNodes)
             {
                 int expectedX = 0;
                 int expectedY = 0;
@@ -72,7 +72,7 @@ namespace pcg::engine::level_generation::tests
     {
         std::ifstream input("GoldenValues/WaveFunctionCollapse/Grid3D.txt");
 
-        waveFunctionCollapse(10, 10, 10, false, [&input](int x, int y, int z, utility::enums::Direction adjacentNodes)
+        gridWaveFunctionCollapse(10, 10, 10, false, [&input](int x, int y, int z, utility::enums::Direction adjacentNodes)
             {
                 int expectedX = 0;
                 int expectedY = 0;
