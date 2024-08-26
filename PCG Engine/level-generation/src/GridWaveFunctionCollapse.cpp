@@ -178,12 +178,24 @@ namespace pcg::engine::level_generation
                 {
                     std::tie(x, y) = pending.front();
                     pending.pop();
-                    const int adjacents = math::Random::number(directions.size());
+                    int adjacents = math::Random::number(1, directions.size());
 
-                    for (int i = 0; i < adjacents; ++i)
+                    for (auto currentDirection : directions)
                     {
-                        direction = directions[i];
+                        direction = currentDirection;
+
+                        if (hasFlag())
+                        {
+                            continue;
+                        }
+
                         processNode();
+                        adjacents -= 1;
+
+                        if (adjacents <= 0)
+                        {
+                            break;
+                        }
                     }
 
                     std::shuffle(begin(directions), end(directions), randomEngine);
