@@ -1,10 +1,10 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <editor:ObjectField label="Maze Node" name="NodeField" type="UnityEngine.GameObject, UnityEngine.CoreModule" />
-    <engine:Vector2IntField label="Grid Size" name="GridSize" />
-    <engine:FloatField label="Node Size" value="0" name="NodeSize" />
-    <engine:UnsignedIntegerField label="Seed" value="0" name="Seed" />
-    <engine:EnumField label="Algorithm" type="PCGAPI.MazeAlgorithm, PCG" name="MazeAlgorithm" />
-    <engine:Toggle label="Frame by Frame" name="FrameByFrame" />
-    <engine:Toggle label="Delayed Invoke" name="DelayedInvoke" />
-    <engine:Button text="Generate" name="GenerateButton" />
+    <editor:ObjectField label="Maze Node" name="NodeField" type="UnityEngine.GameObject, UnityEngine.CoreModule" tooltip="GameObject spawned in grid inheirts from IMazeNode" />
+    <engine:Vector2IntField label="Grid Size" name="GridSize" tooltip="Size of 2D Grid" />
+    <engine:FloatField label="Node Size" value="0" name="NodeSize" tooltip="Size of spawned GameObject" />
+    <engine:UnsignedIntegerField label="Seed" value="0" name="Seed" tooltip="PCG API seed" />
+    <engine:EnumField label="Algorithm" type="PCGAPI.MazeAlgorithm, PCG" name="MazeAlgorithm" tooltip="Algorithm used to generate maze" />
+    <engine:Toggle label="Frame by Frame" name="FrameByFrame" tooltip="Spawn nodes frame by frame" />
+    <engine:Toggle label="Delayed Invoke" name="DelayedInvoke" tooltip="Generate entire maze then spawn nodes" />
+    <engine:Button text="Generate" name="GenerateButton" tooltip="Generate maze" />
 </engine:UXML>

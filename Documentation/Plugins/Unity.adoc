@@ -5,3 +5,167 @@
 |xref:./../Wrappers/Python-Wrapper.adoc[< Python Wrapper]
 |xref:./Unreal.adoc[Unreal Plugin >]
 |===
+
+== Description
+
+The unity package contains:
+
+- **The C# Wrapper DLLs:** The C# Wrapper can be used with Unity during play mode to generate content procedurally.
+
+- **The PCGAPI.Editor and PCGAPI.Demo Assemblies:** The PCGAPI.Editor assembly adds editor windows to invoke the C# Wrapper functions and generate content during edit mode.
+ 
+== PCG Windows
+
+=== Overview
+
+The Windows are added to the PCG Menu item.
+
+image:images/Unity/UnityMenuItems.png[]
+
+=== Level Generation
+
+=== Simple Generation
+
+image:images/Unity/SimpleGeneration.png[]
+
+==== Inputs
+
+- **Node:** GameObject spawned to create level.
+
+- **Node Count:** Number of nodes spawned.
+
+- **Node Size:** Size of spawned GameObject.
+
+- **Start Position:** Position of starting node.
+
+- **Node Offset:** Offset between spawned GameObjects.
+
+- **Frame by Frame:** Spawn one node per frame or entire level in one frame.
+
+=== Multi Dimension Generation
+
+image:images/Unity/MultiDimension.png[]
+
+==== Inputs
+
+- **Node:** GameObject spawned to create level.
+
+- **Node Count:** Number of nodes spawned.
+
+- **Node Size:** Size of spawned GameObject.
+
+- **Seed:** Seed used to generate level.
+
+- **Disable Overlap:** Prevent nodes spawning on top of one another.
+
+- **Start Position:** Position of starting node.
+
+- **Axes:** Axes used to spawn level.
+
+- **Frame by Frame:** Spawn one node per frame or entire level in one frame.
+
+==== Wave Function Collapse Generation
+
+image:images/Unity/WFCBFS.png[]
+
+image:images/Unity/WFCDFS.png[]
+
+==== Inputs
+
+- **Node:** GameObject that has a component inheriting from IWFCNode will be spawned to create level.
+
+- **Node Count:** Number of nodes spawned.
+
+- **Node Size:** Size of spawned GameObject.
+
+- **Seed:** Seed used to generate level.
+
+- **Start Position:** Position of starting node.
+
+- **Axes:** Axes used to spawn level.
+
+- **Expansion Mode:** Choose between a Breadth-First Search(Circular Shape Level) and Depth-First Search (More Linear Shape Level)
+
+- **Frame by Frame:** Spawn one node per frame or entire level in one frame.
+
+=== Grid Wave Function Collapse Generation
+
+==== Grid 2D
+
+image:images/Unity/Grid2DWFC.png[]
+
+==== Grid 3D
+
+image:images/Unity/Grid3DWFC.png[]
+
+==== Inputs
+
+- **Node:** GameObject that has a component inheriting from IWFCNode will be spawned to create grid.
+
+- **Node Size:** Size of spawned GameObject.
+
+- **Seed:** Seed used to generate grid.
+
+- **Grid Dimension:** Choose between a 2D grid and a 3D grid.
+
+- **Plane:** Choose on which plane is the 2D grid spawned.
+
+- **Grid Size:** Choose the grid dimension.
+
+- **Frame by Frame:** Spawn one node per frame or entire grid in one frame.
+
+=== Maze Generation
+
+image:images/Unity/MazeWindow.png[]
+
+==== Inputs
+
+- **Maze Node:** GameObject that has a component inheriting from IMazeNode will be spawned to create grid.
+
+- **Grid Size:** Size of generated grid.
+
+- **Node Size:** Size of spawned GameObject.
+
+- **Seed:** Seed used to generate maze.
+
+- **Maze Algorithm:** Algorithm used to generate maze.
+
+- **Frame by Frame:** Spawn one node per frame or entire grid in one frame.
+
+- **Delayed Invoke:** Spawn nodes after maze is generated.
+
+=== Combination / Sequence Generation
+
+=== Combination Generation
+
+image:images/Unity/CombinationWindow.png[]
+
+==== Inputs
+
+- **Combination Object:** GameObject that has a component inheriting from ICombination.
+
+- **Seed:** Seed used to generate combination.
+
+=== Sequence Generation
+
+==== Linear Sequence
+
+image:images/Unity/SequenceGeneration.png[]
+
+==== Cyclic Sequence
+
+image:images/Unity/CyclicSequence.png[]
+
+==== Inputs
+
+- **Start Node:** First node in sequence.
+
+- **File Name:** Name of generated Sequence ScriptableObject.
+
+- **Folder Path:** Folder where generated sequence is saved.
+
+- **Cyclic Generation:** Enable cyclic sequences.
+
+- **Sequence Length:** Length of cyclic sequence.
+
+- **Seed:** Seed used to generate sequence.

@@ -439,6 +439,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>Unity Package</h1>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <table class="tableblock frame-none grid-none stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -452,9 +454,295 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tbody>
 </table>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_description">Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The unity package contains:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>The C# Wrapper DLLs:</strong> The C# Wrapper can be used with Unity during play mode to generate content procedurally.</p>
+</li>
+<li>
+<p><strong>The PCGAPI.Editor and PCGAPI.Demo Assemblies:</strong> The PCGAPI.Editor assembly adds editor windows to invoke the C# Wrapper functions and generate content during edit mode.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pcg_windows">PCG Windows</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_overview">Overview</h3>
+<div class="paragraph">
+<p>The Windows are added to the PCG Menu item.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unity/UnityMenuItems.png" alt="UnityMenuItems"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_level_generation">Level Generation</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_simple_generation">Simple Generation</h3>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unity/SimpleGeneration.png" alt="SimpleGeneration"></span></p>
+</div>
+<div class="sect3">
+<h4 id="_inputs">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Node:</strong> GameObject spawned to create level.</p>
+</li>
+<li>
+<p><strong>Node Count:</strong> Number of nodes spawned.</p>
+</li>
+<li>
+<p><strong>Node Size:</strong> Size of spawned GameObject.</p>
+</li>
+<li>
+<p><strong>Start Position:</strong> Position of starting node.</p>
+</li>
+<li>
+<p><strong>Node Offset:</strong> Offset between spawned GameObjects.</p>
+</li>
+<li>
+<p><strong>Frame by Frame:</strong> Spawn one node per frame or entire level in one frame.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_multi_dimension_generation">Multi Dimension Generation</h3>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unity/MultiDimension.png" alt="MultiDimension"></span></p>
+</div>
+<div class="sect3">
+<h4 id="_inputs_2">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Node:</strong> GameObject spawned to create level.</p>
+</li>
+<li>
+<p><strong>Node Count:</strong> Number of nodes spawned.</p>
+</li>
+<li>
+<p><strong>Node Size:</strong> Size of spawned GameObject.</p>
+</li>
+<li>
+<p><strong>Seed:</strong> Seed used to generate level.</p>
+</li>
+<li>
+<p><strong>Disable Overlap:</strong> Prevent nodes spawning on top of one another.</p>
+</li>
+<li>
+<p><strong>Start Position:</strong> Position of starting node.</p>
+</li>
+<li>
+<p><strong>Axes:</strong> Axes used to spawn level.</p>
+</li>
+<li>
+<p><strong>Frame by Frame:</strong> Spawn one node per frame or entire level in one frame.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_wave_function_collapse_generation">Wave Function Collapse Generation</h4>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unity/WFCBFS.png" alt="WFCBFS"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unity/WFCDFS.png" alt="WFCDFS"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inputs_3">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Node:</strong> GameObject that has a component inheriting from IWFCNode will be spawned to create level.</p>
+</li>
+<li>
+<p><strong>Node Count:</strong> Number of nodes spawned.</p>
+</li>
+<li>
+<p><strong>Node Size:</strong> Size of spawned GameObject.</p>
+</li>
+<li>
+<p><strong>Seed:</strong> Seed used to generate level.</p>
+</li>
+<li>
+<p><strong>Start Position:</strong> Position of starting node.</p>
+</li>
+<li>
+<p><strong>Axes:</strong> Axes used to spawn level.</p>
+</li>
+<li>
+<p><strong>Expansion Mode:</strong> Choose between a Breadth-First Search(Circular Shape Level) and Depth-First Search (More Linear Shape Level)</p>
+</li>
+<li>
+<p><strong>Frame by Frame:</strong> Spawn one node per frame or entire level in one frame.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_grid_wave_function_collapse_generation">Grid Wave Function Collapse Generation</h3>
+<div class="sect3">
+<h4 id="_grid_2d">Grid 2D</h4>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unity/Grid2DWFC.png" alt="Grid2DWFC"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_grid_3d">Grid 3D</h4>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unity/Grid3DWFC.png" alt="Grid3DWFC"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inputs_4">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Node:</strong> GameObject that has a component inheriting from IWFCNode will be spawned to create grid.</p>
+</li>
+<li>
+<p><strong>Node Size:</strong> Size of spawned GameObject.</p>
+</li>
+<li>
+<p><strong>Seed:</strong> Seed used to generate grid.</p>
+</li>
+<li>
+<p><strong>Grid Dimension:</strong> Choose between a 2D grid and a 3D grid.</p>
+</li>
+<li>
+<p><strong>Plane:</strong> Choose on which plane is the 2D grid spawned.</p>
+</li>
+<li>
+<p><strong>Grid Size:</strong> Choose the grid dimension.</p>
+</li>
+<li>
+<p><strong>Frame by Frame:</strong> Spawn one node per frame or entire grid in one frame.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_maze_generation">Maze Generation</h3>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unity/MazeWindow.png" alt="MazeWindow"></span></p>
+</div>
+<div class="sect3">
+<h4 id="_inputs_5">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Maze Node:</strong> GameObject that has a component inheriting from IMazeNode will be spawned to create grid.</p>
+</li>
+<li>
+<p><strong>Grid Size:</strong> Size of generated grid.</p>
+</li>
+<li>
+<p><strong>Node Size:</strong> Size of spawned GameObject.</p>
+</li>
+<li>
+<p><strong>Seed:</strong> Seed used to generate maze.</p>
+</li>
+<li>
+<p><strong>Maze Algorithm:</strong> Algorithm used to generate maze.</p>
+</li>
+<li>
+<p><strong>Frame by Frame:</strong> Spawn one node per frame or entire grid in one frame.</p>
+</li>
+<li>
+<p><strong>Delayed Invoke:</strong> Spawn nodes after maze is generated.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_combination_sequence_generation">Combination / Sequence Generation</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_combination_generation">Combination Generation</h3>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unity/CombinationWindow.png" alt="CombinationWindow"></span></p>
+</div>
+<div class="sect3">
+<h4 id="_inputs_6">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Combination Object:</strong> GameObject that has a component inheriting from ICombination.</p>
+</li>
+<li>
+<p><strong>Seed:</strong> Seed used to generate combination.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sequence_generation">Sequence Generation</h3>
+<div class="sect3">
+<h4 id="_linear_sequence">Linear Sequence</h4>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unity/SequenceGeneration.png" alt="SequenceGeneration"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cyclic_sequence">Cyclic Sequence</h4>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unity/CyclicSequence.png" alt="CyclicSequence"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inputs_7">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Start Node:</strong> First node in sequence.</p>
+</li>
+<li>
+<p><strong>File Name:</strong> Name of generated Sequence ScriptableObject.</p>
+</li>
+<li>
+<p><strong>Folder Path:</strong> Folder where generated sequence is saved.</p>
+</li>
+<li>
+<p><strong>Cyclic Generation:</strong> Enable cyclic sequences.</p>
+</li>
+<li>
+<p><strong>Sequence Length:</strong> Length of cyclic sequence.</p>
+</li>
+<li>
+<p><strong>Seed:</strong> Seed used to generate sequence.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-27 17:57:39 +0300
+Last updated 2024-08-27 23:28:40 +0300
 </div>
 </div>
 </body>
