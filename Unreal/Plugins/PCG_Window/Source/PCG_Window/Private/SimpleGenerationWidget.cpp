@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SimpleGenerationWidget.h"
+#include "PCG_Window/LevelGeneration/SimpleGenerationWidget.h"
 #include "PropertyEditorModule.h"
 
 void SSimpleGenerationWidget::Construct(const FArguments& InArgs)

@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "WFCGenerationWidget.h"
+#include "PCG_Window/LevelGeneration/WFCGenerationWidget.h"
 
 void SWFCGenerationWidget::Construct(const FArguments& InArgs)
 {

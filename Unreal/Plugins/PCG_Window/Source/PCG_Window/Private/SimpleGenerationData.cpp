@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SimpleGenerationData.h"
+#include "PCG_Window/LevelGeneration/SimpleGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
-#include "PCG2Unreal.h"
+#include "MyPCG/PCG2Unreal.h"
 
 void USimpleGenerationData::GenerateLevel() const
 {
@@ -16,7 +16,7 @@ void USimpleGenerationData::GenerateLevel() const
         return;
     }
 
-    if (count == 0 || nodeSize == 0 || axes == EGenerationAxis::none)
+    if (count == 0 || nodeSize == 0)
     {
         return;
     }
@@ -28,7 +28,7 @@ void USimpleGenerationData::GenerateLevel() const
         FVectorToPCGVector(startPosition)
     };
 
-    pcg::engine::cpp_api::simpleGeneration(data, static_cast<pcg::engine::math::Axis>(axes),
+    pcg::engine::cpp_api::simpleGeneration(data, FVectorToPCGVector(offset),
         [this](pcg::engine::math::Vector3 position)
         {
             SpawnNode(position);

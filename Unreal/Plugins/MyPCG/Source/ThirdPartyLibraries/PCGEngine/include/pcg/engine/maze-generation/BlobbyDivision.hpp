@@ -21,14 +21,14 @@ namespace pcg::engine::maze_generation
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param regionSize Defines region size
     /// @param callback Callback when a node is generated
-    void blobbyDivision(int width, int height, bool invokeAfterGeneration, SubRegionSize regionSize, MazeCallback&& callback);
+    void blobbyDivision(int width, int height, bool invokeAfterGeneration, SubRegionSize regionSize, const MazeCallback& callback);
     /// @brief Geneate maze using Blobby Division Algorithm
     /// @param width Grid Width
     /// @param height Grid Height
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param regionThreshold User defined region threshold
     /// @param callback Callback when a node is generated
-    void blobbyDivision(int width, int height, bool invokeAfterGeneration, int regionThreshold, MazeCallback&& callback);
+    void blobbyDivision(int width, int height, bool invokeAfterGeneration, int regionThreshold, const MazeCallback& callback);
 }
 
 #endif // PCG_ENGINE_MAZE_GENERATION_BLOBBY_DIVISION_HPP

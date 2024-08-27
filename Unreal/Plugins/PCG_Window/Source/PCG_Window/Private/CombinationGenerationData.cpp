@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "CombinationGenerationData.h"
+#include "PCG_Window/CombinationGeneration/CombinationGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
-#include "ICombination.h"
+#include "MyPCG/CombinationGeneration/ICombination.h"
 #include "Engine/Selection.h"
 
-void UCombinationGenerationData::GenerateCombination()
+void UCombinationGenerationData::GenerateCombination() const
 {
     FSelectionIterator  selectedActors = GEditor->GetSelectedActorIterator();
 

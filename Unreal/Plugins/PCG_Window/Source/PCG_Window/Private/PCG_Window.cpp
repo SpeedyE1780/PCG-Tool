@@ -8,19 +8,31 @@
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Text/STextBlock.h"
 #include "ToolMenus.h"
-#include "MazeGenerationWidget.h"
-#include "SimpleGenerationWidget.h"
-#include "MultiDimensionGenerationWidget.h"
-#include "WFCGenerationWidget.h"
-#include "CombinationGenerationWidget.h"
-#include "SequenceGenerationWidget.h"
+
+#include "PCG_Window/CombinationGeneration/CombinationGenerationWidget.h"
+
+#include "PCG_Window/MazeGeneration/MazeGenerationWidget.h"
+
+#include "PCG_Window/LevelGeneration/SimpleGenerationWidget.h"
+#include "PCG_Window/LevelGeneration/MultiDimensionGenerationWidget.h"
+#include "PCG_Window/LevelGeneration/WFCGenerationWidget.h"
+#include "PCG_Window/LevelGeneration/GridWFCGenerationWidget.h"
+#include "PCG_Window/LevelGeneration/Grid3DWFCGenerationWidget.h"
+
+#include "PCG_Window/SequenceGeneration/SequenceGenerationWidget.h"
+#include "PCG_Window/SequenceGeneration/CyclicSequenceGenerationWidget.h"
 
 static const FName SimpleGenerationID("SimpleGeneration");
 static const FName MultiDimensionID("MultiDimensionGeneration");
 static const FName WaveFunctionCollapseID("WaveFunctionCollapse");
+static const FName Grid2DWaveFunctionCollapseID("Grid2DWaveFunctionCollapse");
+static const FName Grid3DWaveFunctionCollapseID("Grid3DWaveFunctionCollapse");
+
 static const FName MazeGenerationID("MazeGeneration");
+
 static const FName CombinationGenerationID("CombinationGeneration");
 static const FName SequenceGenerationID("SequenceGeneration");
+static const FName CyclicSequenceGenerationID("CyclicSequenceGeneration");
 
 #define LOCTEXT_NAMESPACE "FPCG_WindowModule"
 
@@ -51,6 +63,16 @@ void FPCG_WindowModule::StartupModule()
         FCanExecuteAction());
 
     PluginCommands->MapAction(
+        FPCG_WindowCommands::Get().OpenGrid2DWaveFunctionCollapseGenerationWindow,
+        FExecuteAction::CreateRaw(this, &FPCG_WindowModule::Grid2DWaveFunctionCollapse),
+        FCanExecuteAction());
+
+    PluginCommands->MapAction(
+        FPCG_WindowCommands::Get().OpenGrid3DWaveFunctionCollapseGenerationWindow,
+        FExecuteAction::CreateRaw(this, &FPCG_WindowModule::Grid3DWaveFunctionCollapse),
+        FCanExecuteAction());
+
+    PluginCommands->MapAction(
         FPCG_WindowCommands::Get().OpenMazeWindow,
         FExecuteAction::CreateRaw(this, &FPCG_WindowModule::MazeGeneration),
         FCanExecuteAction());
@@ -63,6 +85,11 @@ void FPCG_WindowModule::StartupModule()
     PluginCommands->MapAction(
         FPCG_WindowCommands::Get().OpenSequenceWindow,
         FExecuteAction::CreateRaw(this, &FPCG_WindowModule::SequenceGeneration),
+        FCanExecuteAction());
+
+    PluginCommands->MapAction(
+        FPCG_WindowCommands::Get().OpenCyclicSequenceWindow,
+        FExecuteAction::CreateRaw(this, &FPCG_WindowModule::CyclicSequenceGeneration),
         FCanExecuteAction());
 
     UToolMenus::RegisterStartupCallback(FSimpleMulticastDelegate::FDelegate::CreateRaw(this, &FPCG_WindowModule::RegisterMenus));
@@ -79,6 +106,14 @@ void FPCG_WindowModule::StartupModule()
         .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Wave Function Collapse Generation"))
         .SetMenuType(ETabSpawnerMenuType::Hidden);
 
+    FGlobalTabmanager::Get()->RegisterNomadTabSpawner(Grid2DWaveFunctionCollapseID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnGrid2DWaveFunctionCollapse))
+        .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Grid 2D Wave Function Collapse Generation"))
+        .SetMenuType(ETabSpawnerMenuType::Hidden);
+
+    FGlobalTabmanager::Get()->RegisterNomadTabSpawner(Grid3DWaveFunctionCollapseID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnGrid3DWaveFunctionCollapse))
+        .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Grid 3D Wave Function Collapse Generation"))
+        .SetMenuType(ETabSpawnerMenuType::Hidden);
+
     FGlobalTabmanager::Get()->RegisterNomadTabSpawner(MazeGenerationID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnMazeGeneration))
         .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Maze Generation"))
         .SetMenuType(ETabSpawnerMenuType::Hidden);
@@ -89,6 +124,10 @@ void FPCG_WindowModule::StartupModule()
 
     FGlobalTabmanager::Get()->RegisterNomadTabSpawner(SequenceGenerationID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnSequenceGeneration))
         .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Sequence Generation"))
+        .SetMenuType(ETabSpawnerMenuType::Hidden);
+
+    FGlobalTabmanager::Get()->RegisterNomadTabSpawner(CyclicSequenceGenerationID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnCyclicSequenceGeneration))
+        .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Cyclic Sequence Generation"))
         .SetMenuType(ETabSpawnerMenuType::Hidden);
 }
 
@@ -108,9 +147,14 @@ void FPCG_WindowModule::ShutdownModule()
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(SimpleGenerationID);
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(MultiDimensionID);
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(WaveFunctionCollapseID);
+    FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(Grid2DWaveFunctionCollapseID);
+    FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(Grid3DWaveFunctionCollapseID);
+
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(MazeGenerationID);
+
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(CombinationGenerationID);
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(SequenceGenerationID);
+    FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(CyclicSequenceGenerationID);
 }
 
 TSharedRef<SDockTab> FPCG_WindowModule::OnSimpleGeneration(const FSpawnTabArgs& SpawnTabArgs)
@@ -133,10 +177,28 @@ TSharedRef<SDockTab> FPCG_WindowModule::OnMultiDimensionGeneration(const FSpawnT
 
 TSharedRef<SDockTab> FPCG_WindowModule::OnWaveFunctionCollapse(const FSpawnTabArgs& SpawnTabArgs)
 {
-        return SNew(SDockTab)
+    return SNew(SDockTab)
         .TabRole(ETabRole::NomadTab)
         [
             SNew(SWFCGenerationWidget)
+        ];
+}
+
+TSharedRef<SDockTab> FPCG_WindowModule::OnGrid2DWaveFunctionCollapse(const FSpawnTabArgs& SpawnTabArgs)
+{
+    return SNew(SDockTab)
+        .TabRole(ETabRole::NomadTab)
+        [
+            SNew(SGridWFCGenerationWidget)
+        ];
+}
+
+TSharedRef<SDockTab> FPCG_WindowModule::OnGrid3DWaveFunctionCollapse(const FSpawnTabArgs& SpawnTabArgs)
+{
+    return SNew(SDockTab)
+        .TabRole(ETabRole::NomadTab)
+        [
+            SNew(SGrid3DWFCGenerationWidget)
         ];
 }
 
@@ -167,6 +229,15 @@ TSharedRef<SDockTab> FPCG_WindowModule::OnSequenceGeneration(const FSpawnTabArgs
         ];
 }
 
+TSharedRef<SDockTab> FPCG_WindowModule::OnCyclicSequenceGeneration(const FSpawnTabArgs& SpawnTabArgs)
+{
+    return SNew(SDockTab)
+        .TabRole(ETabRole::NomadTab)
+        [
+            SNew(SCylicSequenceGenerationWidget)
+        ];
+}
+
 void FPCG_WindowModule::SimpleGeneration()
 {
     FGlobalTabmanager::Get()->TryInvokeTab(SimpleGenerationID);
@@ -180,6 +251,16 @@ void FPCG_WindowModule::MultiDimensionGeneration()
 void FPCG_WindowModule::WaveFunctionCollapse()
 {
     FGlobalTabmanager::Get()->TryInvokeTab(WaveFunctionCollapseID);
+}
+
+void FPCG_WindowModule::Grid2DWaveFunctionCollapse()
+{
+    FGlobalTabmanager::Get()->TryInvokeTab(Grid2DWaveFunctionCollapseID);
+}
+
+void FPCG_WindowModule::Grid3DWaveFunctionCollapse()
+{
+    FGlobalTabmanager::Get()->TryInvokeTab(Grid3DWaveFunctionCollapseID);
 }
 
 void FPCG_WindowModule::MazeGeneration()
@@ -197,6 +278,11 @@ void FPCG_WindowModule::SequenceGeneration()
     FGlobalTabmanager::Get()->TryInvokeTab(SequenceGenerationID);
 }
 
+void FPCG_WindowModule::CyclicSequenceGeneration()
+{
+    FGlobalTabmanager::Get()->TryInvokeTab(CyclicSequenceGenerationID);
+}
+
 void FPCG_WindowModule::RegisterMenus()
 {
     // Owner will be used for cleanup in call to UToolMenus::UnregisterOwner
@@ -211,6 +297,13 @@ void FPCG_WindowModule::RegisterMenus()
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenSimpleGenerationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenMultiDimensionGenerationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenWaveFunctionCollapseGenerationWindow, PluginCommands);
+            Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenGrid2DWaveFunctionCollapseGenerationWindow, PluginCommands);
+            Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenGrid3DWaveFunctionCollapseGenerationWindow, PluginCommands);
+        }
+
+        {
+            FToolMenuSection& Section = PCGMenu->FindOrAddSection("MazeGeneration");
+            Section.Label = FText::FromString("Maze Generation");
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenMazeWindow, PluginCommands);
         }
 
@@ -218,7 +311,13 @@ void FPCG_WindowModule::RegisterMenus()
             FToolMenuSection& Section = PCGMenu->FindOrAddSection("CombinationGeneration");
             Section.Label = FText::FromString("Combination Generation");
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenCombinationWindow, PluginCommands);
+        }
+
+        {
+            FToolMenuSection& Section = PCGMenu->FindOrAddSection("SequenceGeneration");
+            Section.Label = FText::FromString("Sequence Generation");
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenSequenceWindow, PluginCommands);
+            Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenCyclicSequenceWindow, PluginCommands);
         }
     }
 }

@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SequenceNodeAsset.h"
+#include "MyPCG/SequenceGeneration/SequenceNodeAsset.h"
 
-void USequenceNodeAsset::setNext(int nodeIndex)
+void USequenceNodeAsset::setNext(pcg::engine::combination_generation::ISequenceNode* next)
 {
-    nextNode = nextNodes[nodeIndex];
+    nextNode = (USequenceNodeAsset*)next;
 }
 
 pcg::engine::combination_generation::ISequenceNode* USequenceNodeAsset::getNext() const

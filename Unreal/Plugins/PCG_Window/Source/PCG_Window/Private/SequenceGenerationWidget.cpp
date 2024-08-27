@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SequenceGenerationWidget.h"
+#include "PCG_Window/SequenceGeneration/SequenceGenerationWidget.h"
 #include "PropertyEditorModule.h"
 
 void SSequenceGenerationWidget::Construct(const FArguments& InArgs)

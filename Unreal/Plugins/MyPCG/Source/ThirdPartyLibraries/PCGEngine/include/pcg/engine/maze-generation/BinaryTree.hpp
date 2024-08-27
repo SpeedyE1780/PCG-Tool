@@ -20,7 +20,7 @@ namespace pcg::engine::maze_generation
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param diagonal Diagonal along which generation is taking place
     /// @param callback Callback when a node is generated
-    void binaryTree(int width, int height, bool invokeAfterGeneration, Diagonal diagonal, MazeCallback&& callback);
+    void binaryTree(int width, int height, bool invokeAfterGeneration, Diagonal diagonal, const MazeCallback& callback);
 }
 
 #endif // PCG_ENGINE_MAZE_GENERATION_BINARY_TREE_HPP

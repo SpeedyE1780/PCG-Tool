@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MazeGenerationData.h"
+#include "PCG_Window/MazeGeneration/MazeGenerationData.h"
+#include "MyPCG/MazeGeneration/IMazeNode.h"
 #include "pcg/engine/cpp-api/api.hpp"
 
 namespace maze_generation = pcg::engine::maze_generation;
@@ -23,7 +24,7 @@ namespace
     }
 }
 
-void UMazeGenerationData::GenerateMaze()
+void UMazeGenerationData::GenerateMaze() const
 {
     GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, "GENERATING MAZE");
 
@@ -53,7 +54,7 @@ void UMazeGenerationData::GenerateMaze()
         });
 }
 
-void UMazeGenerationData::SpawnBlock(int x, int y, maze_generation::NodeValue adjacentNodes)
+void UMazeGenerationData::SpawnBlock(int x, int y, maze_generation::NodeValue adjacentNodes) const
 {
     UWorld* world = GEditor->GetEditorWorldContext().World();
     auto* block = world->SpawnActor<AActor>(levelBlock);

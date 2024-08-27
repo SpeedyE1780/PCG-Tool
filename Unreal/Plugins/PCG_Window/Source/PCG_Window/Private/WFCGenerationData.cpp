@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "WFCGenerationData.h"
+#include "PCG_Window/LevelGeneration/WFCGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
-#include "IWFCNode.h"
-#include "PCG2Unreal.h"
+#include "MyPCG/LevelGeneration/IWFCNode.h"
+#include "MyPCG/PCG2Unreal.h"
 
 namespace
 {
@@ -40,7 +40,7 @@ void UWFCGenerationData::GenerateLevel() const
 
     if (!block->ImplementsInterface(UWFCNode::StaticClass()))
     {
-        GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, "Maze Block does not implement IMazeNode");
+        GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, "Block does not implement IWFCNode");
         return;
     }
 

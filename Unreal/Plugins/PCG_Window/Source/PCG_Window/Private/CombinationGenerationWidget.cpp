@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "CombinationGenerationWidget.h"
+#include "PCG_Window/CombinationGeneration/CombinationGenerationWidget.h"
 #include "PropertyEditorModule.h"
 
 void SCombinationGenerationWidget::Construct(const FArguments& InArgs)

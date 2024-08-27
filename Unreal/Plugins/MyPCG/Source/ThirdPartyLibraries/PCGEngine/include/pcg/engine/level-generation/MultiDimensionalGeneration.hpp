@@ -6,8 +6,7 @@
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/vector3.hpp>
 
-#include <pcg/engine/utility/CallbackFunctor.hpp>
-
+#include <functional>
 #include <vector>
 
 namespace pcg::engine::level_generation
@@ -17,7 +16,7 @@ namespace pcg::engine::level_generation
     /// @param axis Axis used to spawn adjacent nodes
     /// @param disableOverlap If true nodes cannot be generated on top of one another
     /// @param callback Callback when a node is generated
-    void multiDimensionalGeneration(const GenerationData& data, math::Axis axis, bool disableOverlap, utility::CallbackFunctor<void(math::Vector3)>&& callback);
+    void multiDimensionalGeneration(const GenerationData& data, math::Axis axis, bool disableOverlap, const std::function<void(math::Vector3)>& callback);
 }
 
 #endif // PCG_ENGINE_LEVEL_GENERATION_MULTI_DIMENSIONAL_GENERATION_HPP

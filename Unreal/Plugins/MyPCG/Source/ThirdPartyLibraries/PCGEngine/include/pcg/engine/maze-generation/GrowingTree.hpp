@@ -20,14 +20,14 @@ namespace pcg::engine::maze_generation
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param method Callback used to select the next node
     /// @param callback Callback when a node is generated
-    void growingTree(int width, int height, bool invokeAfterGeneration, GrowingTreeSelectionMethod method, MazeCallback&& callback);
+    void growingTree(int width, int height, bool invokeAfterGeneration, GrowingTreeSelectionMethod method, const MazeCallback& callback);
     /// @brief Geneate maze using Growing Tree Algorithm
     /// @param width Grid Width
     /// @param height Grid Height
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param nodeSelectionCallback Callback used to select a node from pending growing tree nodes
     /// @param callback Callback when a node is generated
-    void growingTree(int width, int height, bool invokeAfterGeneration, utility::CallbackFunctor<int(int)>&& nodeSelectionCallback, MazeCallback&& callback);
+    void growingTree(int width, int height, bool invokeAfterGeneration, const std::function<int(int)>& nodeSelectionCallback, const MazeCallback& callback);
 }
 
 #endif // PCG_ENGINE_MAZE_GENERATION_GROWING_TREE_HPP
