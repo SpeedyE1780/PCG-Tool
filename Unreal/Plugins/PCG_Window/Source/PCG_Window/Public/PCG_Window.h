@@ -20,6 +20,7 @@ public:
 	void MultiDimensionGeneration();
 	void WaveFunctionCollapse();
 	void Grid2DWaveFunctionCollapse();
+	void Grid3DWaveFunctionCollapse();
 
 	void MazeGeneration();
 
@@ -35,6 +36,7 @@ private:
 	TSharedRef<class SDockTab> OnMultiDimensionGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnWaveFunctionCollapse(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnGrid2DWaveFunctionCollapse(const class FSpawnTabArgs& SpawnTabArgs);
+	TSharedRef<class SDockTab> OnGrid3DWaveFunctionCollapse(const class FSpawnTabArgs& SpawnTabArgs);
 
 	TSharedRef<class SDockTab> OnMazeGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 

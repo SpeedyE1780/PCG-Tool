@@ -10,6 +10,7 @@ void FPCG_WindowCommands::RegisterCommands()
 	UI_COMMAND(OpenMultiDimensionGenerationWindow, "Multi Dimension Generation", "Open Window to Spawn Actor on Multiple Axis", EUserInterfaceActionType::Button, FInputChord());
 	UI_COMMAND(OpenWaveFunctionCollapseGenerationWindow, "Wave Function Collapse Generation", "Open Window to Spawn Actor on Multiple Axis Following a Set of Rules", EUserInterfaceActionType::Button, FInputChord());
 	UI_COMMAND(OpenGrid2DWaveFunctionCollapseGenerationWindow, "2D Grid Wave Function Collapse Generation", "Open Window to Spawn Actor on a 2D Grid Following a Set of Rules", EUserInterfaceActionType::Button, FInputChord());
+	UI_COMMAND(OpenGrid3DWaveFunctionCollapseGenerationWindow, "3D Grid Wave Function Collapse Generation", "Open Window to Spawn Actor on a 2D Grid Following a Set of Rules", EUserInterfaceActionType::Button, FInputChord());
 
 	UI_COMMAND(OpenMazeWindow, "Maze Generation", "Open Window to Spawn Mazes", EUserInterfaceActionType::Button, FInputChord());
 

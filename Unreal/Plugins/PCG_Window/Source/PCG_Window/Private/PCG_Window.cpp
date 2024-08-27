@@ -17,6 +17,7 @@
 #include "PCG_Window/LevelGeneration/MultiDimensionGenerationWidget.h"
 #include "PCG_Window/LevelGeneration/WFCGenerationWidget.h"
 #include "PCG_Window/LevelGeneration/GridWFCGenerationWidget.h"
+#include "PCG_Window/LevelGeneration/Grid3DWFCGenerationWidget.h"
 
 #include "PCG_Window/SequenceGeneration/SequenceGenerationWidget.h"
 #include "PCG_Window/SequenceGeneration/CyclicSequenceGenerationWidget.h"
@@ -25,6 +26,7 @@ static const FName SimpleGenerationID("SimpleGeneration");
 static const FName MultiDimensionID("MultiDimensionGeneration");
 static const FName WaveFunctionCollapseID("WaveFunctionCollapse");
 static const FName Grid2DWaveFunctionCollapseID("Grid2DWaveFunctionCollapse");
+static const FName Grid3DWaveFunctionCollapseID("Grid3DWaveFunctionCollapse");
 
 static const FName MazeGenerationID("MazeGeneration");
 
@@ -66,6 +68,11 @@ void FPCG_WindowModule::StartupModule()
         FCanExecuteAction());
 
     PluginCommands->MapAction(
+        FPCG_WindowCommands::Get().OpenGrid3DWaveFunctionCollapseGenerationWindow,
+        FExecuteAction::CreateRaw(this, &FPCG_WindowModule::Grid3DWaveFunctionCollapse),
+        FCanExecuteAction());
+
+    PluginCommands->MapAction(
         FPCG_WindowCommands::Get().OpenMazeWindow,
         FExecuteAction::CreateRaw(this, &FPCG_WindowModule::MazeGeneration),
         FCanExecuteAction());
@@ -103,6 +110,10 @@ void FPCG_WindowModule::StartupModule()
         .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Grid 2D Wave Function Collapse Generation"))
         .SetMenuType(ETabSpawnerMenuType::Hidden);
 
+    FGlobalTabmanager::Get()->RegisterNomadTabSpawner(Grid3DWaveFunctionCollapseID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnGrid3DWaveFunctionCollapse))
+        .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Grid 3D Wave Function Collapse Generation"))
+        .SetMenuType(ETabSpawnerMenuType::Hidden);
+
     FGlobalTabmanager::Get()->RegisterNomadTabSpawner(MazeGenerationID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnMazeGeneration))
         .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Maze Generation"))
         .SetMenuType(ETabSpawnerMenuType::Hidden);
@@ -137,6 +148,7 @@ void FPCG_WindowModule::ShutdownModule()
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(MultiDimensionID);
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(WaveFunctionCollapseID);
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(Grid2DWaveFunctionCollapseID);
+    FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(Grid3DWaveFunctionCollapseID);
 
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(MazeGenerationID);
 
@@ -178,6 +190,15 @@ TSharedRef<SDockTab> FPCG_WindowModule::OnGrid2DWaveFunctionCollapse(const FSpaw
         .TabRole(ETabRole::NomadTab)
         [
             SNew(SGridWFCGenerationWidget)
+        ];
+}
+
+TSharedRef<SDockTab> FPCG_WindowModule::OnGrid3DWaveFunctionCollapse(const FSpawnTabArgs& SpawnTabArgs)
+{
+    return SNew(SDockTab)
+        .TabRole(ETabRole::NomadTab)
+        [
+            SNew(SGrid3DWFCGenerationWidget)
         ];
 }
 
@@ -237,6 +258,11 @@ void FPCG_WindowModule::Grid2DWaveFunctionCollapse()
     FGlobalTabmanager::Get()->TryInvokeTab(Grid2DWaveFunctionCollapseID);
 }
 
+void FPCG_WindowModule::Grid3DWaveFunctionCollapse()
+{
+    FGlobalTabmanager::Get()->TryInvokeTab(Grid3DWaveFunctionCollapseID);
+}
+
 void FPCG_WindowModule::MazeGeneration()
 {
     FGlobalTabmanager::Get()->TryInvokeTab(MazeGenerationID);
@@ -272,6 +298,7 @@ void FPCG_WindowModule::RegisterMenus()
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenMultiDimensionGenerationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenWaveFunctionCollapseGenerationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenGrid2DWaveFunctionCollapseGenerationWindow, PluginCommands);
+            Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenGrid3DWaveFunctionCollapseGenerationWindow, PluginCommands);
         }
 
         {
