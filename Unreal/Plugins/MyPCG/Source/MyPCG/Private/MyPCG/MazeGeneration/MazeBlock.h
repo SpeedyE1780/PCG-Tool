@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "pcg/engine/maze-generation/Common.hpp"
-#include "IMazeNode.h"
+#include "MyPCG/MazeGeneration/IMazeNode.h"
 #include "MazeBlock.generated.h"
 
 UCLASS()

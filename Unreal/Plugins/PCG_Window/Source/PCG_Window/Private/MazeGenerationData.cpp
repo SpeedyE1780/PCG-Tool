@@ -2,6 +2,7 @@
 
 
 #include "PCG_Window/MazeGeneration/MazeGenerationData.h"
+#include "MyPCG/MazeGeneration/IMazeNode.h"
 #include "pcg/engine/cpp-api/api.hpp"
 
 namespace maze_generation = pcg::engine::maze_generation;

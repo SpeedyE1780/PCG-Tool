@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MazeBlock.h"
+#include "MyPCG/MazeGeneration/MazeBlock.h"
 #include "pcg/engine/utility/Enums.hpp"
 
 namespace maze_generation = pcg::engine::maze_generation;
