@@ -17,7 +17,7 @@ class PCG_WINDOW_API USequenceGenerationData : public UObject
     GENERATED_BODY()
 
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "Sequence Generation Data")
-    void GenerateSequence();
+    void GenerateSequence() const;
 
     UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
     TObjectPtr<UDataAsset> sequenceNode;
@@ -31,6 +31,6 @@ class PCG_WINDOW_API USequenceGenerationData : public UObject
     TObjectPtr<USequenceList> sequence;
 
 private:
-    void GenerateCyclicSequence();
-    void GenerateLinearSequence();
+    void GenerateCyclicSequence() const;
+    void GenerateLinearSequence() const;
 };

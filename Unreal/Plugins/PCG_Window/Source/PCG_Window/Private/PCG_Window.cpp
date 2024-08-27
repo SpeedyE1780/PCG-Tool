@@ -17,7 +17,7 @@
 #include "PCG_Window/LevelGeneration/MultiDimensionGenerationWidget.h"
 #include "PCG_Window/LevelGeneration/WFCGenerationWidget.h"
 
-#include "SequenceGenerationWidget.h"
+#include "PCG_Window/SequenceGeneration/SequenceGenerationWidget.h"
 
 static const FName SimpleGenerationID("SimpleGeneration");
 static const FName MultiDimensionID("MultiDimensionGeneration");
@@ -227,6 +227,11 @@ void FPCG_WindowModule::RegisterMenus()
             FToolMenuSection& Section = PCGMenu->FindOrAddSection("CombinationGeneration");
             Section.Label = FText::FromString("Combination Generation");
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenCombinationWindow, PluginCommands);
+        }
+
+        {
+            FToolMenuSection& Section = PCGMenu->FindOrAddSection("SequenceGeneration");
+            Section.Label = FText::FromString("Sequence Generation");
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenSequenceWindow, PluginCommands);
         }
     }

@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SequenceGenerationData.h"
+#include "PCG_Window/SequenceGeneration/SequenceGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
 #include "ISequenceNode.h"
 #include "Sequence.h"
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "UObject/SavePackage.h"
 
-void USequenceGenerationData::GenerateCyclicSequence()
+void USequenceGenerationData::GenerateCyclicSequence() const
 {
     if (auto* node = Cast<ISequenceNode>(sequenceNode))
     {
@@ -23,7 +23,7 @@ void USequenceGenerationData::GenerateCyclicSequence()
     }
 }
 
-void USequenceGenerationData::GenerateLinearSequence()
+void USequenceGenerationData::GenerateLinearSequence() const
 {
     if (auto* node = Cast<ISequenceNode>(sequenceNode))
     {
@@ -31,7 +31,7 @@ void USequenceGenerationData::GenerateLinearSequence()
     }
 }
 
-void USequenceGenerationData::GenerateSequence()
+void USequenceGenerationData::GenerateSequence() const
 {
     pcg::engine::cpp_api::setSeed(seed);
 
