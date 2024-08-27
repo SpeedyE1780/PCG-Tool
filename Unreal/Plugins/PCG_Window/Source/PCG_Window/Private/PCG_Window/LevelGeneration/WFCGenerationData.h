@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "pcg/engine/math/Vector3.hpp"
-#include "GenerationAxisEnum.h"
+#include "MyPCG/PCGEnums.h"
 #include "WFCGenerationData.generated.h"
 
 UENUM(BlueprintType)

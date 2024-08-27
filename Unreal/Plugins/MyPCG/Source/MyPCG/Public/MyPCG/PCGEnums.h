@@ -4,7 +4,7 @@
 
 #include <pcg/engine/math/enums.hpp>
 #include "CoreMinimal.h"
-#include "GenerationAxisEnum.generated.h"
+#include "PCGEnums.generated.h"
 
 namespace math = pcg::engine::math;
 
