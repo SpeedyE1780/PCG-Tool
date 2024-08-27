@@ -12,18 +12,14 @@ void USequenceGenerationData::GenerateCyclicSequence()
 {
     if (auto* node = Cast<ISequenceNode>(sequenceNode))
     {
-        TArray<TObjectPtr<UDataAsset>> sequence{};
         pcg::engine::cpp_api::generateSequence(node->getPCGSequenceNode(),
             sequenceLength,
-            [&sequence](pcg::engine::combination_generation::ISequenceNode* node)
+            [this](pcg::engine::combination_generation::ISequenceNode* node)
             {
-                sequence.Add((UDataAsset*)node);
+                sequence->AddNode((UDataAsset*)node);
             });
 
-        for (auto& n : sequence)
-        {
-            GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::White, n.GetName());
-        }
+        sequence->MarkPackageDirty();
     }
 }
 

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "Engine/DataAsset.h"
+#include "SequenceList.h"
 #include "SequenceGenerationData.generated.h"
 
 /**
@@ -26,6 +27,8 @@ class PCG_WINDOW_API USequenceGenerationData : public UObject
     bool cyclicSequence;
     UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
     unsigned int sequenceLength;
+    UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
+    TObjectPtr<USequenceList> sequence;
 
 private:
     void GenerateCyclicSequence();
