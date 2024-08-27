@@ -8,5 +8,14 @@
 
 == Description
 
-The C# wrapper redefines all the exposed enums, callbacks and classes in C#.
-It contains the PCGEngine static class which communicates with the C-API Dll to call native C++ functions.
+The C# wrapper is a class library that allows calling native C++ code using the DLLImport attribute.
+
+== How it works
+
+The library's root namespace is PCGAPI. It redefines all the exposed C++ enums, callbacks and classes in C#.
+
+The PCGEngine static class is used to call the C API functions.
+
+== Unit Testing
+
+A xUnit project is added to compare the Wrapper's output to the Golden Values used in the C++ Library.
