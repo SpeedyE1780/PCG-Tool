@@ -18,24 +18,24 @@ The Combination Generation library is used to generate:
 
 == Examples:
 
-* A combination given the number of elements in a list
+* **A combination given the number of elements in a list**
     
     Given: Red, Green, Blue, Purple, Yellow, Pink
     Output: Blue, Purple, Yellow
     
-* A combination with a given number of minimum elements from a list
+* **A combination with a given number of minimum elements from a list**
     
     Given: Red, Green, Blue, Purple, Yellow, Pink
     Minimum: 3 elements
     Output: Red, Blue, Purple, Yellow
     
-* A combination that must contain the elements passed in.
+* **A combination that must contain the elements passed in.**
     
     Given: Red, Green, Blue, Purple, Yellow, Pink
     Included Elements: Red, Green, Pink
     Output: Red, Green, Blue, Purple, Pink
 
-* Sequence: Given a start node choose a random element from a list of next nodes and repeat the process until no node is available.
+* **Sequence:** Given a start node choose a random element from a list of next nodes and repeat the process until no node is available.
 
     Speak
         Guild Master
@@ -61,7 +61,7 @@ The Combination Generation library is used to generate:
     Sequence: Speak -> Merchant -> Retrieve -> Stolen Gold
     Quest Speak to Merchant and retrieve the stolen gold
 
-* Cyclic Sequence: Given a start node and a count choose a random element from a list of next nodes and repeat the process until the sequence length reaches the count.
+* **Cyclic Sequence:** Given a start node and a count choose a random element from a list of next nodes and repeat the process until the sequence length reaches the count.
 
 [NOTE]
  Cycles are allowed within next nodes list. A node can be available in its list of next nodes. A child node can have its parent as a next node
