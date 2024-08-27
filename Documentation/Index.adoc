@@ -16,3 +16,7 @@
 * Wrappers
 ** xref:Wrappers/Csharp-Wrapper.adoc[C# Wrapper]
 ** xref:Wrappers/Python-Wrapper.adoc[Python Wrapper]
+
+* Packages/Plugins:
+** xref:Plugins/Unity.adoc[Unity Package]
+** xref:Plugins/Unreal.adoc[Unreal Plugin]
