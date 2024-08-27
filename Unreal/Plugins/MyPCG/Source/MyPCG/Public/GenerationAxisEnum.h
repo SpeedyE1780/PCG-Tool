@@ -19,3 +19,12 @@ enum class EGenerationAxis : uint8
     forward = math::Axis::positiveZ,
     backward = math::Axis::negativeZ
 };
+
+UENUM(BlueprintType)
+enum class EGenerationPlane : uint8
+{
+    None = 0,
+    XY = math::Plane::xy,
+    XZ = math::Plane::xz,
+    YZ = math::Plane::yz
+};

@@ -40,7 +40,7 @@ void UWFCGenerationData::GenerateLevel() const
 
     if (!block->ImplementsInterface(UWFCNode::StaticClass()))
     {
-        GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, "Maze Block does not implement IMazeNode");
+        GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, "Block does not implement IWFCNode");
         return;
     }
 

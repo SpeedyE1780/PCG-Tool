@@ -19,7 +19,10 @@ public:
 	void SimpleGeneration();
 	void MultiDimensionGeneration();
 	void WaveFunctionCollapse();
+	void Grid2DWaveFunctionCollapse();
+
 	void MazeGeneration();
+
 	void CombinationGeneration();
 	void SequenceGeneration();
 	void CyclicSequenceGeneration();
@@ -31,7 +34,10 @@ private:
 	TSharedRef<class SDockTab> OnSimpleGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnMultiDimensionGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnWaveFunctionCollapse(const class FSpawnTabArgs& SpawnTabArgs);
+	TSharedRef<class SDockTab> OnGrid2DWaveFunctionCollapse(const class FSpawnTabArgs& SpawnTabArgs);
+
 	TSharedRef<class SDockTab> OnMazeGeneration(const class FSpawnTabArgs& SpawnTabArgs);
+
 	TSharedRef<class SDockTab> OnCombinationGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnSequenceGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnCyclicSequenceGeneration(const class FSpawnTabArgs& SpawnTabArgs);
