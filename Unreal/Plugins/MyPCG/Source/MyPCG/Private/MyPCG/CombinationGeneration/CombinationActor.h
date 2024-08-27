@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "ICombination.h"
+#include "MyPCG/CombinationGeneration/ICombination.h"
 #include "CombinationActor.generated.h"
 
 UCLASS()

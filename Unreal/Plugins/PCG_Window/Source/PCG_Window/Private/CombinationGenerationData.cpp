@@ -3,7 +3,7 @@
 
 #include "PCG_Window/CombinationGeneration/CombinationGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
-#include "ICombination.h"
+#include "MyPCG/CombinationGeneration/ICombination.h"
 #include "Engine/Selection.h"
 
 void UCombinationGenerationData::GenerateCombination() const
