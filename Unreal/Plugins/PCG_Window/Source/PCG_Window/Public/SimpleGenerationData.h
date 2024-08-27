@@ -26,9 +26,9 @@ class PCG_WINDOW_API USimpleGenerationData : public UObject
     UPROPERTY(EditAnywhere, Category = "Linear Generation Data")
     float nodeSize;
     UPROPERTY(EditAnywhere, Category = "Linear Generation Data")
-    EGenerationAxis axes;
-    UPROPERTY(EditAnywhere, Category = "Linear Generation Data")
     FVector startPosition;
+    UPROPERTY(EditAnywhere, Category = "Linear Generation Data")
+    FVector offset;
 
 private:
     void SpawnNode(pcg::engine::math::Vector3 position) const;

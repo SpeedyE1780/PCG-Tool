@@ -16,7 +16,7 @@ void USimpleGenerationData::GenerateLevel() const
         return;
     }
 
-    if (count == 0 || nodeSize == 0 || axes == EGenerationAxis::none)
+    if (count == 0 || nodeSize == 0)
     {
         return;
     }
@@ -28,7 +28,7 @@ void USimpleGenerationData::GenerateLevel() const
         FVectorToPCGVector(startPosition)
     };
 
-    pcg::engine::cpp_api::simpleGeneration(data, static_cast<pcg::engine::math::Axis>(axes),
+    pcg::engine::cpp_api::simpleGeneration(data, FVectorToPCGVector(offset),
         [this](pcg::engine::math::Vector3 position)
         {
             SpawnNode(position);
