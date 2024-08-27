@@ -16,7 +16,7 @@ class MYPCG_API USequenceNodeAsset : public UDataAsset, public ISequenceNode, pu
     GENERATED_BODY()
 
 public:
-    virtual void setNext(int nodeIndex) override;
+    virtual void setNext(pcg::engine::combination_generation::ISequenceNode* nextNode) override;
     virtual pcg::engine::combination_generation::ISequenceNode* getNext() const override;
     virtual pcg::engine::combination_generation::ISequenceNode* getNextAt(int index) const override;
     virtual int getNextCount() const override;
