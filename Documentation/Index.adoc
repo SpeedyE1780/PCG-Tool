@@ -5,12 +5,12 @@
 ** xref:PCG-Engine.adoc[C++ PCG Engine]
 
 * Engine Libraries
-** xref:Engine_Libraries/C-API.adoc[C-API]
+** xref:Engine_Libraries/C-API.adoc[C API]
 ** xref:Engine_Libraries/Combination-Generation.adoc[Combination Generation]
-** xref:Engine_Libraries/Cpp-API.adoc[Cpp-API]
-** xref:Engine_Libraries/Level-Generation.adoc[Level-Generation]
+** xref:Engine_Libraries/Cpp-API.adoc[Cpp API]
+** xref:Engine_Libraries/Level-Generation.adoc[Level Generation]
 ** xref:Engine_Libraries/Math.adoc[Math]
-** xref:Engine_Libraries/Maze-Generation.adoc[Maze-Generation]
+** xref:Engine_Libraries/Maze-Generation.adoc[Maze Generation]
 ** xref:Engine_Libraries/Utility.adoc[Utility]
 
 * Wrappers
