@@ -3,7 +3,7 @@
 
 #include "PCG_Window/LevelGeneration/Grid3DWFCGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
-#include "IWFCNode.h"
+#include "MyPCG/LevelGeneration/IWFCNode.h"
 #include "PCG2Unreal.h"
 
 void UGrid3DWFCGenerationData::GenerateLevel() const

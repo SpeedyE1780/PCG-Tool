@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "WFCBlock.h"
+#include "MyPCG/LevelGeneration/WFCBlock.h"
 #include "pcg/engine/level-generation/Node.hpp"
 
 namespace pcgEnums = pcg::engine::utility::enums;

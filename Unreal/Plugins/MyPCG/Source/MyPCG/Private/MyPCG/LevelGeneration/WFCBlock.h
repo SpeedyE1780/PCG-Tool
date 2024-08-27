@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "IWFCNode.h"
+#include "MyPCG/LevelGeneration/IWFCNode.h"
 #include "WFCBlock.generated.h"
 
 UCLASS()
