@@ -1,8 +1,7 @@
 #ifndef PCG_ENGINE_MATH_RANDOM_HPP
 #define PCG_ENGINE_MATH_RANDOM_HPP
 
-#include <pcg/engine/utility/CallbackFunctor.hpp>
-
+#include <functional>
 #include <random>
 
 namespace pcg::engine::math
@@ -13,7 +12,7 @@ namespace pcg::engine::math
         /// @brief Set functions used to intialize seed and generate numbers
         /// @param seed Function that will intialize the RNG seed
         /// @param generate Function used to generate numbers
-        static void initializeRandom(utility::CallbackFunctor<void(unsigned int)>&& seed, utility::CallbackFunctor<int(int, int)>&& generate);
+        static void initializeRandom(const std::function<void(unsigned int)>& seed, const std::function<int(int, int)>& generate);
 
         /// @brief Call initialize seed and update the stored seed value
         /// @param newSeed The new RNG seed
@@ -59,9 +58,9 @@ namespace pcg::engine::math
         /// @brief Current RNG seed
         static unsigned int seed;
         /// @brief Function used to set the RNG seed
-        static utility::CallbackFunctor<void(unsigned int)> initializeSeed;
+        static std::function<void(unsigned int)> initializeSeed;
         /// @brief Function used to generate a number between [min, max[
-        static utility::CallbackFunctor<int(int, int)> generateNumber;
+        static std::function<int(int, int)> generateNumber;
     };
 }
 

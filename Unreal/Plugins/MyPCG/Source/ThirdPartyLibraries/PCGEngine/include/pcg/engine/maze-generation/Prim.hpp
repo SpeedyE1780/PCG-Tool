@@ -10,7 +10,7 @@ namespace pcg::engine::maze_generation
     /// @param height Grid Height
     /// @param invokeAfterGeneration If true callback will only be called after all nodes are generated
     /// @param callback Callback when a node is generated
-    void prim(int width, int height, bool invokeAfterGeneration, MazeCallback&& callback);
+    void prim(int width, int height, bool invokeAfterGeneration, const MazeCallback& callback);
 }
 
 #endif // PCG_ENGINE_MAZE_GENERATION_PRIM_HPP

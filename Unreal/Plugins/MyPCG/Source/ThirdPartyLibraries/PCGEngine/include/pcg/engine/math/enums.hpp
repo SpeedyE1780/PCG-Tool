@@ -21,6 +21,15 @@ namespace pcg::engine::math
         yz = y | z,
         xyz = x | y | z
     };
+
+    /// @brief Plane used with 2D grid generation
+    enum class Plane
+    {
+        none = 0,
+        xy = Axis::xy,
+        xz = Axis::xz,
+        yz = Axis::yz
+    };
 }
 
 #endif // PCG_ENGINE_MATH_ENUMS_HPP
