@@ -1,0 +1,7 @@
+= Web APP
+
+[cols="<,>" frame=none, grid=none]
+|===
+|xref:Web-Api.adoc[< Web API]
+|xref:Web-App.adoc[Web APP >]
+|===
