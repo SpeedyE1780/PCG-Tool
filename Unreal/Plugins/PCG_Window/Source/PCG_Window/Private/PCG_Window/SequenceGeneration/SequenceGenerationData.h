@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "Engine/DataAsset.h"
-#include "SequenceList.h"
+#include "MyPCG/SequenceGeneration/SequenceList.h"
 #include "SequenceGenerationData.generated.h"
 
 /**

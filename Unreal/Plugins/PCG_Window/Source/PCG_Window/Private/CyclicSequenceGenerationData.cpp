@@ -3,8 +3,7 @@
 
 #include "PCG_Window/SequenceGeneration/CyclicSequenceGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
-#include "ISequenceNode.h"
-#include "Sequence.h"
+#include "MyPCG/SequenceGeneration/ISequenceNode.h"
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "UObject/SavePackage.h"
 

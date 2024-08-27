@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
-#include "ISequenceNode.h"
+#include "MyPCG/SequenceGeneration/ISequenceNode.h"
 #include "SequenceNodeAsset.generated.h"
 
 /**
