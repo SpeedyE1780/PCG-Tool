@@ -26,4 +26,8 @@ class PCG_WINDOW_API USequenceGenerationData : public UObject
     bool cyclicSequence;
     UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
     unsigned int sequenceLength;
+
+private:
+    void GenerateCyclicSequence();
+    void GenerateLinearSequence();
 };
