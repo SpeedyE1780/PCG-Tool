@@ -15,7 +15,7 @@ class PCG_WINDOW_API UCombinationGenerationData : public UObject
     GENERATED_BODY()
 
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "Combination Generation Data")
-    void GenerateCombination();
+    void GenerateCombination() const;
 
     UPROPERTY(EditAnywhere, Category = "Combination Generation Data")
     unsigned int seed;

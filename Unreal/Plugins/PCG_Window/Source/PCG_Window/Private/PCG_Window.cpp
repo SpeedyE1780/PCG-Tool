@@ -12,7 +12,7 @@
 #include "SimpleGenerationWidget.h"
 #include "MultiDimensionGenerationWidget.h"
 #include "WFCGenerationWidget.h"
-#include "CombinationGenerationWidget.h"
+#include "PCG_Window/CombinationGeneration/CombinationGenerationWidget.h"
 #include "SequenceGenerationWidget.h"
 
 static const FName SimpleGenerationID("SimpleGeneration");
