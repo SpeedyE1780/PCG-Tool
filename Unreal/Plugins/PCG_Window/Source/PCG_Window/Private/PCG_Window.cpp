@@ -8,7 +8,7 @@
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Text/STextBlock.h"
 #include "ToolMenus.h"
-#include "MazeGenerationWidget.h"
+#include "PCG_Window/MazeGeneration/MazeGenerationWidget.h"
 #include "SimpleGenerationWidget.h"
 #include "MultiDimensionGenerationWidget.h"
 #include "WFCGenerationWidget.h"
@@ -133,7 +133,7 @@ TSharedRef<SDockTab> FPCG_WindowModule::OnMultiDimensionGeneration(const FSpawnT
 
 TSharedRef<SDockTab> FPCG_WindowModule::OnWaveFunctionCollapse(const FSpawnTabArgs& SpawnTabArgs)
 {
-        return SNew(SDockTab)
+    return SNew(SDockTab)
         .TabRole(ETabRole::NomadTab)
         [
             SNew(SWFCGenerationWidget)
@@ -211,6 +211,11 @@ void FPCG_WindowModule::RegisterMenus()
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenSimpleGenerationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenMultiDimensionGenerationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenWaveFunctionCollapseGenerationWindow, PluginCommands);
+        }
+
+        {
+            FToolMenuSection& Section = PCGMenu->FindOrAddSection("MazeGeneration");
+            Section.Label = FText::FromString("Maze Generation");
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenMazeWindow, PluginCommands);
         }
 

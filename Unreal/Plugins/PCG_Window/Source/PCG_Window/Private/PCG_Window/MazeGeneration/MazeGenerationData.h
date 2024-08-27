@@ -45,7 +45,7 @@ class PCG_WINDOW_API UMazeGenerationData : public UObject
     GENERATED_BODY()
 
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "Maze Generation Data")
-    void GenerateMaze();
+    void GenerateMaze() const;
 
     UPROPERTY(EditAnywhere, Category = "Maze Generation Data")
     EMazeAlgorithm mazeAlgorithm;
@@ -62,6 +62,6 @@ class PCG_WINDOW_API UMazeGenerationData : public UObject
     unsigned int seed;
 
 private:
-    void SpawnBlock(int x, int y, pcg::engine::maze_generation::NodeValue adjacentNodes);
+    void SpawnBlock(int x, int y, pcg::engine::maze_generation::NodeValue adjacentNodes) const;
     FString GetFolderName() const;
 };

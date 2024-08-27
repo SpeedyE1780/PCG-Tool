@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
-#include "MazeGenerationData.h"
+#include "PCG_Window/MazeGeneration/MazeGenerationData.h"
 
 /**
  *
