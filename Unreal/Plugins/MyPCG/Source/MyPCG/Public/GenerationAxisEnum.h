@@ -2,17 +2,20 @@
 
 #pragma once
 
+#include <pcg/engine/math/enums.hpp>
 #include "CoreMinimal.h"
 #include "GenerationAxisEnum.generated.h"
+
+namespace math = pcg::engine::math;
 
 UENUM(BlueprintType, meta = (Bitflags, UseEnumValuesAsMaskValuesInEditor = "true"))
 enum class EGenerationAxis : uint8
 {
-    none = 0,
-    left = 1 << 0,
-    right = 1 << 1,
-    up = 1 << 2,
-    down = 1 << 3,
-    forward = 1 << 4,
-    backward = 1 << 5
+    none = math::Axis::none,
+    right = math::Axis::positiveX,
+    left = math::Axis::negativeX,
+    up = math::Axis::positiveY,
+    down = math::Axis::negativeY,
+    forward = math::Axis::positiveZ,
+    backward = math::Axis::negativeZ
 };
