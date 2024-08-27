@@ -8,7 +8,7 @@
 
 == Description
 
-The C-API DLL is used to communicate with languages like C# using P/Invoke, Python using CType... it depends on all the libraries and allows to start generating content by passing in user defined callback to notify what was generated.
+The C-API DLL is used to communicate with languages like C# using P/Invoke, Python using CType... It depends on all the libraries and allows to start generating content by passing in user defined callback to notify what was generated.
 
 == Dependencies
 
