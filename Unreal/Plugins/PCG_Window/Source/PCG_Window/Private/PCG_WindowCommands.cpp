@@ -12,6 +12,7 @@ void FPCG_WindowCommands::RegisterCommands()
 	UI_COMMAND(OpenMazeWindow, "Maze Generation", "Open Window to Spawn Mazes", EUserInterfaceActionType::Button, FInputChord());
 	UI_COMMAND(OpenCombinationWindow, "Combination Generation", "Open Window to Generate Combinations", EUserInterfaceActionType::Button, FInputChord());
 	UI_COMMAND(OpenSequenceWindow, "Sequence Generation", "Open Window to Generate Sequences", EUserInterfaceActionType::Button, FInputChord());
+	UI_COMMAND(OpenCyclicSequenceWindow, "Cyclic Sequence Generation", "Open Window to Generate Cyclic Sequences", EUserInterfaceActionType::Button, FInputChord());
 }
 
 #undef LOCTEXT_NAMESPACE

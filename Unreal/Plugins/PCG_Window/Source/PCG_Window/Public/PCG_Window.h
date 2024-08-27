@@ -22,6 +22,7 @@ public:
 	void MazeGeneration();
 	void CombinationGeneration();
 	void SequenceGeneration();
+	void CyclicSequenceGeneration();
 	
 private:
 
@@ -33,6 +34,7 @@ private:
 	TSharedRef<class SDockTab> OnMazeGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnCombinationGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnSequenceGeneration(const class FSpawnTabArgs& SpawnTabArgs);
+	TSharedRef<class SDockTab> OnCyclicSequenceGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 
 private:
 	TSharedPtr<class FUICommandList> PluginCommands;

@@ -18,6 +18,7 @@
 #include "PCG_Window/LevelGeneration/WFCGenerationWidget.h"
 
 #include "PCG_Window/SequenceGeneration/SequenceGenerationWidget.h"
+#include "PCG_Window/SequenceGeneration/CyclicSequenceGenerationWidget.h"
 
 static const FName SimpleGenerationID("SimpleGeneration");
 static const FName MultiDimensionID("MultiDimensionGeneration");
@@ -25,6 +26,7 @@ static const FName WaveFunctionCollapseID("WaveFunctionCollapse");
 static const FName MazeGenerationID("MazeGeneration");
 static const FName CombinationGenerationID("CombinationGeneration");
 static const FName SequenceGenerationID("SequenceGeneration");
+static const FName CyclicSequenceGenerationID("CyclicSequenceGeneration");
 
 #define LOCTEXT_NAMESPACE "FPCG_WindowModule"
 
@@ -69,6 +71,11 @@ void FPCG_WindowModule::StartupModule()
         FExecuteAction::CreateRaw(this, &FPCG_WindowModule::SequenceGeneration),
         FCanExecuteAction());
 
+    PluginCommands->MapAction(
+        FPCG_WindowCommands::Get().OpenCyclicSequenceWindow,
+        FExecuteAction::CreateRaw(this, &FPCG_WindowModule::CyclicSequenceGeneration),
+        FCanExecuteAction());
+
     UToolMenus::RegisterStartupCallback(FSimpleMulticastDelegate::FDelegate::CreateRaw(this, &FPCG_WindowModule::RegisterMenus));
 
     FGlobalTabmanager::Get()->RegisterNomadTabSpawner(SimpleGenerationID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnSimpleGeneration))
@@ -94,6 +101,10 @@ void FPCG_WindowModule::StartupModule()
     FGlobalTabmanager::Get()->RegisterNomadTabSpawner(SequenceGenerationID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnSequenceGeneration))
         .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Sequence Generation"))
         .SetMenuType(ETabSpawnerMenuType::Hidden);
+
+    FGlobalTabmanager::Get()->RegisterNomadTabSpawner(CyclicSequenceGenerationID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnCyclicSequenceGeneration))
+        .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Cyclic Sequence Generation"))
+        .SetMenuType(ETabSpawnerMenuType::Hidden);
 }
 
 void FPCG_WindowModule::ShutdownModule()
@@ -115,6 +126,7 @@ void FPCG_WindowModule::ShutdownModule()
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(MazeGenerationID);
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(CombinationGenerationID);
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(SequenceGenerationID);
+    FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(CyclicSequenceGenerationID);
 }
 
 TSharedRef<SDockTab> FPCG_WindowModule::OnSimpleGeneration(const FSpawnTabArgs& SpawnTabArgs)
@@ -171,6 +183,15 @@ TSharedRef<SDockTab> FPCG_WindowModule::OnSequenceGeneration(const FSpawnTabArgs
         ];
 }
 
+TSharedRef<SDockTab> FPCG_WindowModule::OnCyclicSequenceGeneration(const FSpawnTabArgs& SpawnTabArgs)
+{
+    return SNew(SDockTab)
+        .TabRole(ETabRole::NomadTab)
+        [
+            SNew(SCylicSequenceGenerationWidget)
+        ];
+}
+
 void FPCG_WindowModule::SimpleGeneration()
 {
     FGlobalTabmanager::Get()->TryInvokeTab(SimpleGenerationID);
@@ -199,6 +220,11 @@ void FPCG_WindowModule::CombinationGeneration()
 void FPCG_WindowModule::SequenceGeneration()
 {
     FGlobalTabmanager::Get()->TryInvokeTab(SequenceGenerationID);
+}
+
+void FPCG_WindowModule::CyclicSequenceGeneration()
+{
+    FGlobalTabmanager::Get()->TryInvokeTab(CyclicSequenceGenerationID);
 }
 
 void FPCG_WindowModule::RegisterMenus()
@@ -233,6 +259,7 @@ void FPCG_WindowModule::RegisterMenus()
             FToolMenuSection& Section = PCGMenu->FindOrAddSection("SequenceGeneration");
             Section.Label = FText::FromString("Sequence Generation");
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenSequenceWindow, PluginCommands);
+            Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenCyclicSequenceWindow, PluginCommands);
         }
     }
 }
