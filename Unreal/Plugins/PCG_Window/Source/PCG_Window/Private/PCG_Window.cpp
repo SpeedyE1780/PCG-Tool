@@ -8,11 +8,15 @@
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Text/STextBlock.h"
 #include "ToolMenus.h"
-#include "PCG_Window/MazeGeneration/MazeGenerationWidget.h"
-#include "SimpleGenerationWidget.h"
-#include "MultiDimensionGenerationWidget.h"
-#include "WFCGenerationWidget.h"
+
 #include "PCG_Window/CombinationGeneration/CombinationGenerationWidget.h"
+
+#include "PCG_Window/MazeGeneration/MazeGenerationWidget.h"
+
+#include "PCG_Window/LevelGeneration/SimpleGenerationWidget.h"
+#include "PCG_Window/LevelGeneration/MultiDimensionGenerationWidget.h"
+#include "PCG_Window/LevelGeneration/WFCGenerationWidget.h"
+
 #include "SequenceGenerationWidget.h"
 
 static const FName SimpleGenerationID("SimpleGeneration");

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
-#include "SimpleGenerationData.h"
+#include "PCG_Window/LevelGeneration/SimpleGenerationData.h"
 
 /**
  * 

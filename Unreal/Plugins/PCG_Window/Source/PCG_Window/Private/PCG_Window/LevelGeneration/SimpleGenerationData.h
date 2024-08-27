@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "pcg/engine/math/Vector3.hpp"
-#include "GenerationAxisEnum.h"
 #include "SimpleGenerationData.generated.h"
 
 /**

@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "WFCGenerationData.h"
+#include "PCG_Window/LevelGeneration/WFCGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
 #include "IWFCNode.h"
 #include "PCG2Unreal.h"

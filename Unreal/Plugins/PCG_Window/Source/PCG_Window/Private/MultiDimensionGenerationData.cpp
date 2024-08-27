@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MultiDimensionGenerationData.h"
+#include "PCG_Window/LevelGeneration/MultiDimensionGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
 #include "PCG2Unreal.h"
 

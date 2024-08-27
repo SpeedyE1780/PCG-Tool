@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
-#include "WFCGenerationData.h"
+#include "PCG_Window/LevelGeneration/WFCGenerationData.h"
 
 /**
  * 

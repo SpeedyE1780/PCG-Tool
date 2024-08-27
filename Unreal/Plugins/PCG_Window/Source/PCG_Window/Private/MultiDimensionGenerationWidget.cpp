@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MultiDimensionGenerationWidget.h"
+#include "PCG_Window/LevelGeneration/MultiDimensionGenerationWidget.h"
 
 void SMultiDimensionGenerationWidget::Construct(const FArguments& InArgs)
 {
