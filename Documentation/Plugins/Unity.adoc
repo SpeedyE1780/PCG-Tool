@@ -8,7 +8,7 @@
 
 == Description
 
-The unity package contains:
+The Unity package contains:
 
 - **The C# Wrapper DLLs:** The C# Wrapper can be used with Unity during play mode to generate content procedurally.
 
@@ -108,9 +108,9 @@ image:images/Unity/Grid3DWFC.png[]
 
 - **Grid Dimension:** Choose between a 2D grid and a 3D grid.
 
-- **Plane:** Choose on which plane is the 2D grid spawned.
+- **Plane:** Plane on which the 2D grid spawned.
 
-- **Grid Size:** Choose the grid dimension.
+- **Grid Size:** The grid dimension on each axis
 
 - **Frame by Frame:** Spawn one node per frame or entire grid in one frame.
 
