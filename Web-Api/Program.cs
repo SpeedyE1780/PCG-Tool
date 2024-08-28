@@ -34,6 +34,13 @@ static void AddEnumMapType<T>(SwaggerGenOptions setupAction) where T : struct, E
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(setupAction =>
 {
+    setupAction.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
+    {
+        Version = "v1",
+        Title = "PCG Engine API",
+        Description = "A web API for generating procedural content"
+    });
+
     var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     setupAction.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
 
