@@ -448,7 +448,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="Cpp-API.html">&lt; CPP-API</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="Cpp-API.html">&lt; CPP API</a></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock"><a href="Math.html">Math &gt;</a></p></td>
 </tr>
 </tbody>
@@ -459,7 +459,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Level-Generation library is used to generate levels using a simple generation or the Wave Function Collapse Algorithm.</p>
+<p>The Level Generation library is used to generate levels using a simple generation algorithm or the Wave Function Collapse Algorithm.</p>
 </div>
 </div>
 </div>
@@ -469,7 +469,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Simple Generation:</p>
+<p><strong>Simple Generation:</strong></p>
 <div class="ulist">
 <ul>
 <li>
@@ -480,19 +480,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Choose a starting position.</p>
 </li>
 <li>
-<p>Choose an axis to spawn nodes (X, Y, Z).</p>
-</li>
-<li>
-<p>Choose a direction to follow on axis (positive/negative).</p>
+<p>Choose an axis to spawn nodes by passing in a unit vector.</p>
 </li>
 <li>
 <p>Spawn node on starting positions.</p>
 </li>
 <li>
-<p>Offset next position by node size.</p>
+<p>Offset next position by axis * node size.</p>
 </li>
 <li>
-<p>Spawn new node on offset position.</p>
+<p>Spawn new node on new position.</p>
 </li>
 <li>
 <p>Repeat until node count is reached.</p>
@@ -504,7 +501,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>Multi Dimension Generation:</p>
+<p><strong>Multi Dimension Generation:</strong></p>
 <div class="ulist">
 <ul>
 <li>
@@ -515,22 +512,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Choose a starting position.</p>
 </li>
 <li>
-<p>Choose axes (X, Y, Z) and direction (positive, negative) to use.</p>
+<p>Choose axes (+/-X, +/-Y, +/-Z) to use.</p>
 </li>
 <li>
 <p>Spawn node on starting position.</p>
 </li>
 <li>
-<p>Choose a direction on the chosen axes (example: positive X).</p>
+<p>Choose a random axis (example: positive X).</p>
 </li>
 <li>
-<p>Offset position by node size on chosen direction</p>
+<p>Offset position by node size on chosen axis</p>
 </li>
 <li>
 <p>If overlap is disabled make sure no node is spawned on position. If a node is spawned chose a different direction and get a new position.</p>
 </li>
 <li>
-<p>Spawn new node on offset position.</p>
+<p>Spawn new node on new position.</p>
 </li>
 <li>
 <p>Repeat until node count is reached or all position are overlapping when overlap is disabled.</p>
@@ -542,7 +539,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>Wave Function Collapse:</p>
+<p><strong>Wave Function Collapse:</strong></p>
 <div class="ulist">
 <ul>
 <li>
@@ -550,13 +547,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Choose expansion mode Breadth-First Search (BFS) / Depth-First Search (DFS)</p>
+<p>Choose expansion mode Breadth-First Search (<strong>BFS</strong>) / Depth-First Search (<strong>DFS</strong>)</p>
 </li>
 <li>
 <p>Choose a starting position.</p>
 </li>
 <li>
-<p>Choose axes (X, Y, Z) and direction (positive, negative) to use.</p>
+<p>Choose axes (+/-X, +/-Y, +/-Z) to use.</p>
 </li>
 <li>
 <p>Spawn node on starting position.</p>
@@ -568,10 +565,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Add adjacent nodes to spawned node.</p>
 </li>
 <li>
-<p>If adjacent node already exists removed adjacent node from pending nodes and spawned node.</p>
-</li>
-<li>
-<p>Add pending adjacent nodes to stack(DFS)/queue(BFS).</p>
+<p>If adjacent node already exists do nothing else add pending adjacent nodes to stack (DFS) / queue (BFS).</p>
 </li>
 <li>
 <p>Add spawned node as adjacent node to pending nodes.</p>
@@ -597,7 +591,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Note</div>
 </td>
 <td class="content">
-A BFS Expansion creates a more connected maze that expands in a rectangular like shape. A DFS Expansion creates a more linear maze that follows a main path and has some rooms alongside the path.
+A <strong>BFS</strong> Expansion creates a more connected maze that expands in a rectangular like shape. A <strong>DFS</strong> Expansion creates a more linear maze that follows a main path and has some rooms alongside the path.
 </td>
 </tr>
 </table>
@@ -605,7 +599,7 @@ A BFS Expansion creates a more connected maze that expands in a rectangular like
 <div class="ulist">
 <ul>
 <li>
-<p>Grid 2D/3D Wave Function Collapse.</p>
+<p><strong>Grid 2D/3D Wave Function Collapse:</strong></p>
 <div class="ulist">
 <ul>
 <li>
@@ -649,10 +643,10 @@ A BFS Expansion creates a more connected maze that expands in a rectangular like
 <div class="ulist">
 <ul>
 <li>
-<p>Math</p>
+<p><a href="./Math.html">Math</a></p>
 </li>
 <li>
-<p>Utility</p>
+<p><a href="./Utility.html">Utility</a></p>
 </li>
 </ul>
 </div>
@@ -661,7 +655,7 @@ A BFS Expansion creates a more connected maze that expands in a rectangular like
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-12 12:13:51 +0300
+Last updated 2024-08-28 12:36:40 +0300
 </div>
 </div>
 </body>

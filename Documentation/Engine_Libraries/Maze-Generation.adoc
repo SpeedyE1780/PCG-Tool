@@ -8,7 +8,7 @@
 
 == Description
 
-The Maze library is used to generate mazes using Algorithms from https://www.jamisbuck.org/presentations/rubyconf2011/index.html#title-page[Jamis Buck's presentation]
+The Maze Generation library is used to generate mazes using Algorithms from https://www.jamisbuck.org/presentations/rubyconf2011/index.html#title-page[Jamis Buck's presentation]
 
 == Algorithms
 
@@ -152,5 +152,5 @@ The Maze library is used to generate mazes using Algorithms from https://www.jam
 
 == Dependencies
 
-- Math
-- Utility
+- xref:./Math.adoc[Math]
+- xref:./Utility.adoc[Utility]

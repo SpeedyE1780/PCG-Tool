@@ -1,15 +1,15 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <editor:ObjectField label="Node" name="Node" type="UnityEngine.GameObject, UnityEngine.CoreModule" />
-    <engine:FloatField label="Node Size" name="NodeSize" />
-    <engine:UnsignedIntegerField label="Seed" name="Seed" />
-    <engine:DropdownField label="Grid Dimension" choices="2D Grid,3D Grid" index="0" name="GridDimension" />
+    <editor:ObjectField label="Node" name="Node" type="UnityEngine.GameObject, UnityEngine.CoreModule" tooltip="GameObject spawned in grid inheirts from IWFCNode" />
+    <engine:FloatField label="Node Size" name="NodeSize" tooltip="Size of spawned GameObject" />
+    <engine:UnsignedIntegerField label="Seed" name="Seed" tooltip="PCG API seed" />
+    <engine:DropdownField label="Grid Dimension" choices="2D Grid,3D Grid" index="0" name="GridDimension" tooltip="Choose between 2D and 3D Grid" />
     <engine:VisualElement name="Grid2D">
-        <engine:EnumField label="Plane" type="PCGAPI.Plane, PCG" name="2DPlane" value="xy" />
-        <engine:Vector2IntField label="Grid Size" name="Grid2DSize" />
+        <engine:EnumField label="Plane" type="PCGAPI.Plane, PCG" name="2DPlane" value="xy" tooltip="Plane on which grid is generated" />
+        <engine:Vector2IntField label="Grid Size" name="Grid2DSize" tooltip="Size of 2D Grid" />
     </engine:VisualElement>
     <engine:VisualElement name="Grid3D">
-        <engine:Vector3IntField label="GridSize" name="Grid3DSize" />
+        <engine:Vector3IntField label="GridSize" name="Grid3DSize" tooltip="Size of 3D Grid" />
     </engine:VisualElement>
-    <engine:Toggle label="Frame by Frame" name="FramebyFrame" />
-    <engine:Button text="Generate" name="GenerateButton" />
+    <engine:Toggle label="Frame by Frame" name="FramebyFrame" tooltip="Spawn nodes frame by frame or in one shot" />
+    <engine:Button text="Generate" name="GenerateButton" tooltip="Generate Grid" />
 </engine:UXML>

@@ -2,58 +2,56 @@
 
 [cols="<,>" frame=none, grid=none]
 |===
-|xref:Cpp-API.adoc[< CPP-API]
+|xref:Cpp-API.adoc[< CPP API]
 |xref:Math.adoc[Math >]
 |===
 
 == Description
 
-The Level-Generation library is used to generate levels using a simple generation or the Wave Function Collapse Algorithm.
+The Level Generation library is used to generate levels using a simple generation algorithm or the Wave Function Collapse Algorithm.
 
 == Algorithms:
 
-* Simple Generation:
+* **Simple Generation:**
     
     - Steps:
         . Choose a starting position.
-        . Choose an axis to spawn nodes (X, Y, Z).
-        . Choose a direction to follow on axis (positive/negative).
+        . Choose an axis to spawn nodes by passing in a unit vector.
         . Spawn node on starting positions.
-        . Offset next position by node size.
-        . Spawn new node on offset position.
+        . Offset next position by axis * node size.
+        . Spawn new node on new position.
         . Repeat until node count is reached.
 
-* Multi Dimension Generation:
+* **Multi Dimension Generation:**
 
     - Steps:
         . Choose a starting position.
-        . Choose axes (X, Y, Z) and direction (positive, negative) to use.
+        . Choose axes (+/-X, +/-Y, +/-Z) to use.
         . Spawn node on starting position.
-        . Choose a direction on the chosen axes (example: positive X).
-        . Offset position by node size on chosen direction
+        . Choose a random axis (example: positive X).
+        . Offset position by node size on chosen axis
         . If overlap is disabled make sure no node is spawned on position. If a node is spawned chose a different direction and get a new position.
-        . Spawn new node on offset position.
+        . Spawn new node on new position.
         . Repeat until node count is reached or all position are overlapping when overlap is disabled.
         
-* Wave Function Collapse:
+* **Wave Function Collapse:**
     
     - Steps:
-        . Choose expansion mode Breadth-First Search (BFS) / Depth-First Search (DFS)
+        . Choose expansion mode Breadth-First Search (**BFS**) / Depth-First Search (**DFS**)
         . Choose a starting position.
-        . Choose axes (X, Y, Z) and direction (positive, negative) to use.
+        . Choose axes (+/-X, +/-Y, +/-Z) to use.
         . Spawn node on starting position.
         . Chose a number of adjacent nodes.
         . Add adjacent nodes to spawned node.
-        . If adjacent node already exists removed adjacent node from pending nodes and spawned node.
-        . Add pending adjacent nodes to stack(DFS)/queue(BFS).
+        . If adjacent node already exists do nothing else add pending adjacent nodes to stack (DFS) / queue (BFS).
         . Add spawned node as adjacent node to pending nodes.
         . Get next element in queue/stack.
         . Repeat until node count is reached or no more pending nodes.
         
 [NOTE]
-A BFS Expansion creates a more connected maze that expands in a rectangular like shape. A DFS Expansion creates a more linear maze that follows a main path and has some rooms alongside the path.
+A **BFS** Expansion creates a more connected maze that expands in a rectangular like shape. A **DFS** Expansion creates a more linear maze that follows a main path and has some rooms alongside the path.
 
-* Grid 2D/3D Wave Function Collapse.
+* **Grid 2D/3D Wave Function Collapse:**
 
     - Steps:
         . Choose a starting node in the grid.
@@ -66,5 +64,5 @@ A BFS Expansion creates a more connected maze that expands in a rectangular like
 
 == Dependencies
 
-- Math
-- Utility
+- xref:./Math.adoc[Math]
+- xref:./Utility.adoc[Utility]

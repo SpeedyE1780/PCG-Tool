@@ -3,10 +3,19 @@
 [cols="<,>" frame=none, grid=none]
 |===
 |xref:./Csharp-Wrapper.adoc[< C# Wrapper]
-|xref:./Python-Wrapper.adoc[Python >]
+|xref:./../Plugins/Unity.adoc[Unity Package >]
 |===
 
 == Description
 
+The Python Wrapper is a collection of files used to call native C++ code using ctypes.
+
+== How it works
+
 The Python wrapper redefines all the exposed enums, callbacks and classes in Python.
-It contains multiple modules in the pcg folder which communicates with the C-API Dll to call native C++ functions.
+
+It contains multiple modules in the pcg folder which communicates with the C API Dll to call native C++ functions.
+
+== Unit Testing
+
+Unit tests using the pytest framework are added to the root folder and used to compare the Python output to the Golden Values used in the C++ Library

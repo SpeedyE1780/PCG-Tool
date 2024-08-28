@@ -29,34 +29,6 @@ Accept: application/json
   "included": ["Red", "Green", "Pink"]
 }
 
-### Maze
-POST {{Web_Api_HostAddress}}/maze/generate
-Content-Type: application/json
-Accept: application/json
-
-{
-  "width": 10,
-  "height": 10,
-  "algorithm": 0
-}
-
-### LevelGenerationMultiDimensionGeneration
-POST {{Web_Api_HostAddress}}/levelgeneration/multidimensiongeneration
-Content-Type: application/json
-Accept: application/json
-
-{
-  "nodeCount": 250,
-  "nodeSize": 1,
-  "startPosition": {
-    "x": 0,
-    "y": 0,
-    "z": 0
-  },
-  "axes": 63,
-  "disableOverlap": true
-}
-
 ### LevelGenerationSimpleGeneration
 POST {{Web_Api_HostAddress}}/levelgeneration/simplegeneration
 Content-Type: application/json
@@ -75,6 +47,23 @@ Accept: application/json
     "y": 0,
     "z": 1
   }
+}
+
+### LevelGenerationMultiDimensionGeneration
+POST {{Web_Api_HostAddress}}/levelgeneration/multidimensiongeneration
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nodeCount": 250,
+  "nodeSize": 1,
+  "startPosition": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "axes": 63,
+  "disableOverlap": true
 }
 
 ### LevelGenerationWaveFunctionCollapseGeneration
@@ -114,6 +103,17 @@ Accept: application/json
   "width": 10,
   "height": 10,
   "depth": 10
+}
+
+### Maze
+POST {{Web_Api_HostAddress}}/maze/generate
+Content-Type: application/json
+Accept: application/json
+
+{
+  "width": 10,
+  "height": 10,
+  "algorithm": 0
 }
 
 ### SequenceGenerate

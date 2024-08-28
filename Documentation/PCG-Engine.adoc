@@ -22,23 +22,24 @@ It can also directly include headers from the static libraries and use the decla
 
 === C-API
 
-The C-API is used  to communicate with languages that can only communicate with a C-API like C# (Unity Engine).
+The C-API is used  to communicate with languages that can only communicate with a C-API like C# (Unity Engine) / Python (pygame).
 
-It uses function pointers to pass callback from C# to C++. A pointer to the first element in a array and an int representing the size to pass in arrays of T.
+It uses function pointers to pass callback from the caller to C++. A pointer to the first element in a array and an int representing the size to pass in arrays of T.
 
-A C# class needs to be created with functions that call the C-API DLL functions using the DLLImport attribute.
+Wrapper functions need to be defined to call the C++ code. (DLL Import for C#, ctypes for Python...)
 
-The C++ enums/constants needs to be declared again in C#.
+
+The C++ enums/constants needs to be declared again in the calling code.
 
 [NOTE]
 C++/CLI is not compatible with Unity because of the **J**ust **I**n **T**ime compiler crashing during compilation. This https://forum.unity.com/threads/is-c-cli-forbidden-in-unity.700115/[post] in the Unity forum explains the issue in more details.
 
 == Targets List
 
-* xref:Engine_Libraries/C-API.adoc[C-API]
+* xref:Engine_Libraries/C-API.adoc[C API]
 * xref:Engine_Libraries/Combination-Generation.adoc[Combination Generation]
-* xref:Engine_Libraries/Cpp-API.adoc[Cpp-API]
-* xref:Engine_Libraries/Level-Generation.adoc[Level-Generation]
+* xref:Engine_Libraries/Cpp-API.adoc[Cpp API]
+* xref:Engine_Libraries/Level-Generation.adoc[Level Generation]
 * xref:Engine_Libraries/Math.adoc[Math]
-* xref:Engine_Libraries/Maze.adoc[Maze-Generation]
+* xref:Engine_Libraries/Maze.adoc[Maze Generation]
 * xref:Engine_Libraries/Utility.adoc[Utility]

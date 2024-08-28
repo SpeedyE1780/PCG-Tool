@@ -60,6 +60,7 @@ export default function SequenceGeneration() {
           ></input>
         </div>
         <button onClick={generateSequence}>Generate</button>
+        <label>Generated JSON</label>
         <textarea
           className={styles.viewerResponseArea}
           readOnly={true}

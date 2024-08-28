@@ -1,4 +1,3 @@
-import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import PCGHeader from "../components/pcgHeader";
 import Link from "next/link";
@@ -8,66 +7,70 @@ export default function Home() {
     <div>
       <PCGHeader></PCGHeader>
       <main>
-        <h1 className={styles.title}>Welcome to PCG Web APP!</h1>
+        <h1 className={styles.title}>PCG Engine Web APP!</h1>
         <ul>
           <li>
-            <Link href="combinationGeneration">
-              <h3>Combination Generation</h3>
-            </Link>
+            <div>
+              <h2>Level Generation</h2>
+              <ul>
+                <li>
+                  <Link href="simpleGeneration">
+                    <h3>Simple Generation</h3>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="multiDimensionGeneration">
+                    <h3>Multi Dimension Generation</h3>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="waveFunctionCollapseGeneration">
+                    <h3>Wave Function Collapse Generation</h3>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="waveFunctionCollapseGrid2DGeneration">
+                    <h3>Wave Function Collapse Grid 2D Generation</h3>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="waveFunctionCollapseGrid3DGeneration">
+                    <h3>Wave Function Collapse Grid 3D Generation</h3>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="mazeGeneration">
+                    <h3>Maze Generation</h3>
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </li>
+
           <li>
-            <Link href="cyclicSequenceGeneration">
-              <h3>Cyclic Sequence Generation</h3>
-            </Link>
-          </li>
-          <li>
-            <Link href="mazeGeneration">
-              <h3>Maze Generation</h3>
-            </Link>
-          </li>
-          <li>
-            <Link href="sequenceGeneration">
-              <h3>Sequence Generation</h3>
-            </Link>
-          </li>
-          <li>
-            <Link href="simpleGeneration">
-              <h3>Simple Generation</h3>
-            </Link>
-          </li>
-          <li>
-            <Link href="multiDimensionGeneration">
-              <h3>Multi Dimension Generation</h3>
-            </Link>
-          </li>
-          <li>
-            <Link href="waveFunctionCollapseGeneration">
-              <h3>Wave Function Collapse Generation</h3>
-            </Link>
-          </li>
-          <li>
-            <Link href="waveFunctionCollapseGrid2DGeneration">
-              <h3>Wave Function Collapse Grid 2D Generation</h3>
-            </Link>
-          </li>
-          <li>
-            <Link href="waveFunctionCollapseGrid3DGeneration">
-              <h3>Wave Function Collapse Grid 3D Generation</h3>
-            </Link>
+            <div>
+              <h2>Combination / Sequence Generation</h2>
+              <ul>
+                <li>
+                  <Link href="combinationGeneration">
+                    <h3>Combination Generation</h3>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="sequenceGeneration">
+                    <h3>Sequence Generation</h3>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="cyclicSequenceGeneration">
+                    <h3>Cyclic Sequence Generation</h3>
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </li>
         </ul>
       </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <img src="/vercel.svg" alt="Vercel" className={styles.logo} />
-        </a>
-      </footer>
 
       <style jsx>{`
         main {
