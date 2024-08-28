@@ -1,7 +1,13 @@
-= Web APP
+= PCG Engine Web APP
 
 [cols="<,>" frame=none, grid=none]
 |===
 |xref:Web-Api.adoc[< PCG Engine Web API]
-|xref:Web-App.adoc[Web APP >]
+|xref:Web-App.adoc[PCG Engine Web APP >]
 |===
+
+== Description
+
+The PCG Engine Web APP is used to give custom inputs to the engine and preview its result on the web.
+
+For level generation the PlayCanvas engine is used to display the generated level.
