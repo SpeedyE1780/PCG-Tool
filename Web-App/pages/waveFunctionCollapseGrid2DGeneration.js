@@ -33,6 +33,7 @@ export default function WaveFunctionCollapseGrid2DGeneration() {
       <Viewer responseJSON={generatedJSON}>
         <h1>Wave Function Collapse Grid 2D Generation</h1>
         <GridConfiguration config={gridConfig}></GridConfiguration>
+        <label>Grid Plane</label>
         <select
           onChange={(event) => {
             gridPlane = Planes[event.target.selectedIndex];

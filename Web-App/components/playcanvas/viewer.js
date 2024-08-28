@@ -6,6 +6,7 @@ export default function Viewer({ children, ...props }) {
     <div className={styles.viewer}>
       <div className={styles.viewerParams}>
         {children}
+        <label>Generated JSON</label>
         <textarea
           className={styles.viewerResponseArea}
           value={props.responseJSON}
