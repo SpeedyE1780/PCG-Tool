@@ -2,6 +2,7 @@ using Microsoft.OpenApi.Any;
 using PCGAPI;
 using PCGAPI.WebAPI;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,9 @@ static void AddEnumMapType<T>(SwaggerGenOptions setupAction) where T : struct, E
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(setupAction =>
 {
+    var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    setupAction.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
+
     AddEnumMapType<MazeAlgorithm>(setupAction);
     AddEnumMapType<MazeDirection>(setupAction);
     AddEnumMapType<LevelGenerationDirection>(setupAction);
@@ -54,54 +58,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/combination/generate", (CombinationParameters parameters) =>
-{
-    List<string> result = [];
-
-    PCGEngine.GenerateCombination(parameters.Count, (index, included) =>
-    {
-        if (included)
-        {
-            result.Add(parameters[index]);
-        }
-    });
-
-    return result;
-})
+app.MapPost("/combination/generate", CombinationRequests.GenerateCombination)
 .WithName("GenerateCombination")
 .WithOpenApi();
 
-app.MapPost("/combination/generatewithminimumelement", (MinimumElementCombination combinationParameters) =>
-{
-    List<string> result = [];
-
-    PCGEngine.GenerateCombination(combinationParameters.ElementCount, combinationParameters.MinimumElements, (index, included) =>
-    {
-        if (included)
-        {
-            result.Add(combinationParameters[index]);
-        }
-    });
-
-    return result;
-})
+app.MapPost("/combination/generatewithminimumelement", CombinationRequests.GenerateCombinationWithMinimumElement)
 .WithName("GenerateCombinationWithMinimumElement")
 .WithOpenApi();
 
-app.MapPost("/combination/generatewithactiveelement", (ActiveElementCombination combinationParameters) =>
-{
-    List<string> result = [];
-
-    PCGEngine.GenerateCombination(combinationParameters.ElementCount, combinationParameters.IncludedIndices, combinationParameters.IncludedCount, (index, included) =>
-    {
-        if (included)
-        {
-            result.Add(combinationParameters[index]);
-        }
-    });
-
-    return result;
-})
+app.MapPost("/combination/generatewithactiveelement", CombinationRequests.GenerateCombinationWithActiveElement)
 .WithName("GenerateCombinationWithActiveElement")
 .WithOpenApi();
 
