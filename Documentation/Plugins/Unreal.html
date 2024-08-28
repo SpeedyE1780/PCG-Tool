@@ -439,6 +439,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>Unreal Plugin</h1>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <table class="tableblock frame-none grid-none stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -447,14 +449,294 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="./Unity.html">&lt; Unity Package</a></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><a href="./../Web/Web-Api.html">Web API &gt;</a></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><a href="./../Web/Web-Api.html">PCG Engine Web API &gt;</a></p></td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_description">Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Unreal plugin contains:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>My PCG Plugin:</strong> This plugin adds the C++ PCG Engine library to the Unreal project and contains some helper functions to convert from the PCG Engine library to Unreal.</p>
+</li>
+<li>
+<p><strong>PCG_Window Plugin:</strong> This Plugin adds editor windows to invoke the PCG library and generate content during edit mode.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pcg_windows">PCG Windows</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_overview">Overview</h3>
+<div class="paragraph">
+<p>The windows are added to the PCG Window menu item.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unreal/Overview.png" alt="Overview"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_level_generation">Level Generation</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_simple_generation">Simple Generation</h3>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unreal/SimpleLevel.png" alt="SimpleLevel"></span></p>
+</div>
+<div class="sect3">
+<h4 id="_inputs">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Count:</strong> Number of nodes spawned.</p>
+</li>
+<li>
+<p><strong>Node:</strong> Actor spawned to create level.</p>
+</li>
+<li>
+<p><strong>Node Size:</strong> Size of spawned Actor.</p>
+</li>
+<li>
+<p><strong>Start Position:</strong> Position of starting node.</p>
+</li>
+<li>
+<p><strong>Offset:</strong> Offset between spawned Actors.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_multi_dimension_generation">Multi Dimension Generation</h4>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unreal/MultiDimension.png" alt="MultiDimension"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inputs_2">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Count:</strong> Number of nodes spawned.</p>
+</li>
+<li>
+<p><strong>Node:</strong> Actor spawned to create level.</p>
+</li>
+<li>
+<p><strong>Node Size:</strong> Size of spawned Actor.</p>
+</li>
+<li>
+<p><strong>Axes:</strong> Axes used to spawn level.</p>
+</li>
+<li>
+<p><strong>Seed:</strong> Seed used to generate level.</p>
+</li>
+<li>
+<p><strong>Disable Overlap:</strong> Prevent nodes spawning on top of one another.</p>
+</li>
+<li>
+<p><strong>Start Position:</strong> Position of starting node.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_wave_function_collapse_generation">Wave Function Collapse Generation</h4>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unreal/WFCBFS.png" alt="WFCBFS"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unreal/WFCDFS.png" alt="WFCDFS"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inputs_3">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Count:</strong> Number of nodes spawned.</p>
+</li>
+<li>
+<p><strong>Block:</strong> BP that inherits from IWFCNode that will be spawned to create level.</p>
+</li>
+<li>
+<p><strong>Node Size:</strong> Size of spawned Actor.</p>
+</li>
+<li>
+<p><strong>Expansion Mode:</strong> Choose between a Breadth-First Search(Circular Shape Level) and Depth-First Search (More Linear Shape Level)</p>
+</li>
+<li>
+<p><strong>Axes:</strong> Axes used to spawn level.</p>
+</li>
+<li>
+<p><strong>Start Position:</strong> Position of starting node.</p>
+</li>
+<li>
+<p><strong>Seed:</strong> Seed used to generate level.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_grid_wave_function_collapse_generation">Grid Wave Function Collapse Generation</h3>
+<div class="sect3">
+<h4 id="_grid_2d">Grid 2D</h4>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unreal/WFCGrid2D.png" alt="WFCGrid2D"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_grid_3d">Grid 3D</h4>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unreal/WFCGrid3D.png" alt="WFCGrid3D"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inputs_4">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Grid Size:</strong> The grid dimension on each axis.</p>
+</li>
+<li>
+<p><strong>Block:</strong> BP that inherits from IWFCNode that will be spawned to create level.</p>
+</li>
+<li>
+<p><strong>Node Size:</strong> Size of spawned Actor.</p>
+</li>
+<li>
+<p><strong>Plane:</strong> Plane on which the 2D grid spawned.</p>
+</li>
+<li>
+<p><strong>Seed:</strong> Seed used to generate grid.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maze_generation">Maze Generation</h4>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unreal/Maze.png" alt="Maze"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inputs_5">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Maze Algorithm:</strong> Algorithm used to generate maze.</p>
+</li>
+<li>
+<p><strong>Level Block:</strong> BP that inherits from IMazeNode that will be spawned to create level.</p>
+</li>
+<li>
+<p><strong>Grid Size:</strong> Size of generated grid.</p>
+</li>
+<li>
+<p><strong>Node Size:</strong> Size of spawned Actor.</p>
+</li>
+<li>
+<p><strong>Seed:</strong> Seed used to generate maze.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_combination_sequence_generation">Combination / Sequence Generation</h3>
+<div class="sect3">
+<h4 id="_combination_generation">Combination Generation</h4>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unreal/Combination.png" alt="Combination"></span></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This windows affects the selected actors in the level.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inputs_6">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Seed:</strong> Seed used to generate combination.</p>
+</li>
+<li>
+<p><strong>Reset Seed:</strong> Reset the seed to the selected seed.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sequence_generation">Sequence Generation</h4>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unreal/Sequence.png" alt="Sequence"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inputs_7">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Sequence Nodes:</strong> First node in sequence.</p>
+</li>
+<li>
+<p><strong>Seed:</strong>* Seed used to generate sequence.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cyclic_sequence_generation">Cyclic Sequence Generation</h4>
+<div class="paragraph">
+<p><span class="image"><img src="images/Unreal/CyclicSequence.png" alt="CyclicSequence"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inputs_8">Inputs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Sequence Node:</strong> First node in sequence.</p>
+</li>
+<li>
+<p><strong>Sequence:</strong> Data asset containing generated sequence.</p>
+</li>
+<li>
+<p><strong>Seed:</strong> Seed used to generate sequence.</p>
+</li>
+<li>
+<p><strong>Sequence Length:</strong> Length of generated sequence.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-27 18:01:11 +0300
+Last updated 2024-08-28 12:36:47 +0300
 </div>
 </div>
 </body>
