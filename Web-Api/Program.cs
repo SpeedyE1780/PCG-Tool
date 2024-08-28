@@ -65,97 +65,40 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/combination/generate", CombinationRequests.GenerateCombination)
+app.MapPost("/combination/generate", CombinationGeneration.GenerateCombination)
 .WithName("GenerateCombination")
 .WithOpenApi();
 
-app.MapPost("/combination/generatewithminimumelement", CombinationRequests.GenerateCombinationWithMinimumElement)
+app.MapPost("/combination/generatewithminimumelement", CombinationGeneration.GenerateCombinationWithMinimumElement)
 .WithName("GenerateCombinationWithMinimumElement")
 .WithOpenApi();
 
-app.MapPost("/combination/generatewithactiveelement", CombinationRequests.GenerateCombinationWithActiveElement)
+app.MapPost("/combination/generatewithactiveelement", CombinationGeneration.GenerateCombinationWithActiveElement)
 .WithName("GenerateCombinationWithActiveElement")
 .WithOpenApi();
 
-app.MapPost("/maze/generate", (MazeParameters mazeParameters) =>
-{
-    List<MazeNode> nodes = [];
-    PCGEngine.GenerateMaze(mazeParameters.Width, mazeParameters.Height, true, mazeParameters.Algorithm, (x, y, adjacentNodes) =>
-            {
-                nodes.Add(new MazeNode(x, y, adjacentNodes));
-            });
-
-    return nodes;
-})
-.WithName("Maze")
-.WithOpenApi();
-
-app.MapPost("/levelgeneration/multidimensiongeneration", (MultiDimensionParameters parameters) =>
-{
-    List<PCGAPI.WebAPI.Vector3> positions = [];
-    GenerationParameters generationParameters = parameters.GenerationParameters;
-    PCGEngine.MultiDimensionalGeneration(generationParameters, parameters.Axes, parameters.DisableOverlap, position =>
-    {
-        positions.Add(Vector3Helper.ToWebAPI(position));
-    });
-
-    return positions;
-})
-.WithName("LevelGenerationMultiDimensionGeneration")
-.WithOpenApi();
-
-app.MapPost("/levelgeneration/simplegeneration", (SimpleGenerationParameters parameters) =>
-{
-    List<PCGAPI.WebAPI.Vector3> positions = [];
-    GenerationParameters generationParameters = parameters.GenerationParameters;
-    PCGEngine.SimpleGeneration(generationParameters, Vector3Helper.ToEngine(parameters.Offset), position =>
-    {
-        positions.Add(Vector3Helper.ToWebAPI(position));
-    });
-
-    return positions;
-})
+app.MapPost("/levelgeneration/simplegeneration", LevelGeneration.SimpleLevelGeneration)
 .WithName("LevelGenerationSimpleGeneration")
 .WithOpenApi();
 
-app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/generate", (WaveFunctionCollapseParameters parameters) =>
-{
-    List<WFCNode> nodes = [];
-    GenerationParameters generationParameters = parameters.GenerationParameters;
-    PCGEngine.WaveFunctionCollapseGeneration(generationParameters, parameters.ExpansionMode, parameters.Axes, (position, adjacentNodes) =>
-    {
-        nodes.Add(new(Vector3Helper.ToWebAPI(position), adjacentNodes));
-    });
+app.MapPost("/levelgeneration/multidimensiongeneration", LevelGeneration.MultiDimensionLevelGeneration)
+.WithName("LevelGenerationMultiDimensionGeneration")
+.WithOpenApi();
 
-    return nodes;
-})
+app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/generate", LevelGeneration.WaveFunctionCollapseGeneration)
 .WithName("LevelGenerationWaveFunctionCollapseGeneration")
 .WithOpenApi();
 
-app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/grid2d", (GridWaveFunctionCollapseParameters2D parameters) =>
-{
-    List<GridWFCNode2D> nodes = [];
-    PCGEngine.WaveFunctionCollapseGeneration(parameters.Width, parameters.Height, parameters.Plane, true, (x, y, adjacentNodes) =>
-    {
-        nodes.Add(new(x, y, adjacentNodes));
-    });
-
-    return nodes;
-})
+app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/grid2d", LevelGeneration.Grid2DWaveFunctionCollapseGeneration)
 .WithName("LevelGenerationWaveFunctionCollapseGenerationGrid2D")
 .WithOpenApi();
 
-app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/grid3d", (GridWaveFunctionCollapseParameters3D parameters) =>
-{
-    List<GridWFCNode3D> nodes = [];
-    PCGEngine.WaveFunctionCollapseGeneration(parameters.Width, parameters.Height, parameters.Depth, true, (x, y, z, adjacentNodes) =>
-    {
-        nodes.Add(new(x, y, z, adjacentNodes));
-    });
-
-    return nodes;
-})
+app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/grid3d", LevelGeneration.Grid3DWaveFunctionCollapseGeneration)
 .WithName("LevelGenerationWaveFunctionCollapseGenerationGrid3D")
+.WithOpenApi();
+
+app.MapPost("/maze/generate", LevelGeneration.MazeGeneration)
+.WithName("MazeGeneration")
 .WithOpenApi();
 
 static Dictionary<int, SequenceNodeImplementation> GenerateSequenceDictionary(List<SequenceNode> sequenceNodes)
