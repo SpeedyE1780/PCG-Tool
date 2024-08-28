@@ -1,0 +1,18 @@
+# Tuesday 20/08/2024
+
+[Test Fixtures](https://dev.to/tkarropoulos/harnessing-class-fixtures-in-xunit-3cij)
+[xUnit Test Fixtures](https://xunit.net/docs/shared-context)
+[xUnit Parametrized Tests](https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/)
+[C# pass int for Class template](https://stackoverflow.com/questions/69219916/generics-passing-an-int-value-instead-of-type)
+[C# return anonymous type](https://stackoverflow.com/questions/10073319/returning-anonymous-type-in-c-sharp)
+[Unpack tuple C#](https://stackoverflow.com/questions/8514816/tuples-and-unpacking-assignment-support-in-c)
+[pytest vs unit test](https://www.reddit.com/r/Python/comments/18bjv0y/pytest_over_unittest/)
+[pytest command not recognized](https://stackoverflow.com/questions/35998992/py-test-command-not-found-but-library-is-installed)
+[Pytest test functions not found](https://www.tutorialspoint.com/pytest/pytest_identifying_test_files_and_functions.htm)
+[Pytest share fixture across files](https://www.tutorialspoint.com/pytest/pytest_conftest_py.htm)
+[Python read shortcut file](https://stackoverflow.com/questions/397125/reading-the-target-of-a-lnk-file-in-python)
+[Pytest parameterized tests](https://www.tutorialspoint.com/pytest/pytest_parameterizing_tests.htm)
+[Python string formatting](https://www.w3schools.com/python/ref_string_format.asp)
+[ASP.Net Core Web API](https://www.youtube.com/watch?v=fyBhV9pWRg8)
+[GET vs POST](https://www.w3schools.com/tags/ref_httpmethods.asp)
+[Record vs Classes C#](https://learn.microsoft.com/en-us/answers/questions/1003951/c-difference-between-record-and-class)
