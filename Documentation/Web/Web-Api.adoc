@@ -1,7 +1,11 @@
-= Web API
+= PCG Engine Web API
 
 [cols="<,>" frame=none, grid=none]
 |===
 |xref:./../Plugins/Unreal.adoc[< Unreal Plugin]
 |xref:Web-App.adoc[Web APP >]
 |===
+
+== Description
+
+The PCG Engine Web API is a REST API used to generate content procedurally by returning a json representing the generated content.
