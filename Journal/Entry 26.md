@@ -1,0 +1,17 @@
+# Tuesday 09/07/2024
+
+[C++ Interface Unreal](https://www.stevestreeting.com/2020/11/02/ue4-c---interfaces---hints-n-tips/)
+[Interfaces in Unreal Engine](https://dev.epicgames.com/documentation/en-us/unreal-engine/interfaces-in-unreal-engine)
+[Cyclic Generation Reddit](https://www.reddit.com/r/gamedev/comments/4xjdj7/cyclic_dungeon_generation_in_unexplored/)
+[Cyclic Generation Reddit Article](https://ctrl500.com/tech/handcrafted-feel-dungeon-generation-unexplored-explores-cyclic-dungeon-generation/)
+[Making Meaningful Dungeons with Cyclic Generation](https://dicegoblin.blog/making-meaningful-dungeons-with-cyclic-dungeon-generation/)
+[Sera Victory ITCH Cyclic Dungeons](https://sersavictory.itch.io/cyclic-dungeon-generation)
+[Dungeon Generation in Unexplored](https://www.boristhebrave.com/2021/04/10/dungeon-generation-in-unexplored/)
+[Cyclic Dungeon Generation explained in 47 seconds](https://www.youtube.com/watch?v=_wvkTT-6P3Q&list=PLKrfA5RMeajfna6xcOe8WThxcDlxL58Xw)
+[Graph Rewriting](https://www.boristhebrave.com/2021/04/02/graph-rewriting/)
+[Dungeon Architect](https://dungeonarchitect.dev/unity#)
+[Parametrized Tests](https://www.sandordargo.com/blog/2019/04/24/parameterized-testing-with-gtest)
+[Better parametrized tests name](https://stackoverflow.com/questions/17964100/can-i-give-better-names-to-value-parameterized-tests-in-gtest)
+[Generate Suffix for parametrized tests](https://stackoverflow.com/questions/46023379/generate-suffix-for-test-according-to-parameter-in-gtest-frame-work)
+[EPC2016 - Joris Dormans - Cyclic Dungeon Generation](https://www.youtube.com/watch?v=mA6PacEZX9M)
+[Procedural Generation in Game Design](https://www.taylorfrancis.com/books/edit/10.1201/9781315156378/procedural-generation-game-design-tanya-short-tarn-adams?refId=813ac13d-5fc3-42f9-8707-4f4293779917&context=ubx)
