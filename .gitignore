@@ -623,3 +623,4 @@ Web-App/.env.development.local
 Web-App/.env.test.local
 Web-App/.env.production.local
 Web-App/.nvmrc
+.vscode/settings.json

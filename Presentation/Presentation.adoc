@@ -1,0 +1,77 @@
+= Presentation
+
+== High Level Concept
+
+=== Description
+
+The **P**rocedural **C**ontent **G**eneration (PCG) Engine is a C++ library used to generate content procedurally.
+
+=== Aim of Project
+
+The aim of the PCG Engine is to be usable with no knowledge of how procedural algorithm work. You just pass in a callback and let the engine do all the work and notify you when something is generated.
+
+=== What Was Proposed
+
+- **Level Generation:**
+
+    * [x] **Simple Generation:** Spawn nodes following a unit vector.
+
+    * [x] **Multi Dimension Generation:** Spawn nodes on the chosen axes.
+
+    * [x] **Wave Function Collapse Generation:** Spawn nodes on the chosen axes where each node has a set of adjacent nodes.
+
+[NOTE]
+The Wave Function Collapse algorithm was created by https://github.com/mxgmn/WaveFunctionCollapse/blob/master/README.md[Maxim Gumin].
+It is very similar to an AI concept: Constraint Satisfaction Problem (CSP) explained in Artificial Intelligence a Modern Approach Third Edition p202.
+In my implementation the graph is initially empty and each node is added iteratively when a node is added it adds its adjacent node to the graph and create a constraint between them that needs to be satisfied.
+
+    * [x] **Grid 2D / 3D Wave Function Collapse Generation:** Spawn nodes in the grid where each node has a set of adjacent nodes.
+
+    * [ ] **Graph Rewriting:** Allow passing in rules and patterns to the generation algorithm and subgraphs that matches rules to given patterns.
+
+    * [x] **Maze Generation:** Spawn nodes with adjacent nodes to form a maze following a chosen algorithm.
+
+- **Combination Generation:**
+
+[NOTE]
+A set of n elements has 2^n^ possible subsets as proven by the Binomial Theorem (Discrete Mathematics and Its Applications, Seventh Edition
+by Rosen, Kenneth p 417).
+A set can be represented using a n bit number(Discrete Mathematics and Its Applications, Seventh Edition
+by Rosen, Kenneth p 134). If the x^th^ is 1 then the x^th^ element in the set is included in the set.
+To generate a combination I generate a random number between 0 and 2^n^ and check the which bit is active. 
+
+    * [x] **Combination:** Generate a combination from a set of elements.
+
+    * [x] **Combination with Minimum Elements:** Generate a combination from a set with at least x elements.
+
+    * [x] **Combination with Active Elements:** Generate a combination from a set with chosen elements active.
+
+- **Sequence Generation:**
+
+    * [x] **Linear Sequence:** Given a start node choose a random next node and repeat the process until the current node has no next node.
+
+    * [x] **Cyclic Sequence:** Given a start node choose a random next node and repeat the process until the chosen length is reached.
+
+- **Languages:**
+
+    * [x] **C#:** A C# library is available that wraps the C++ library and allows calling the native functions.
+
+    * [x] **Python:** A Python library is available that wraps the C++ library and allows calling the native functions.
+
+- **Engines:**
+
+    * [x] **Unity:** A Unity package was developed that relies on the C# Wrapper.
+    The package adds editor windows that allows generating content during edit mode. Content can also be generated during play mode using only the C# Wrapper if the editor windows are not needed.
+
+    * [x] **Unreal:** An Unreal plugin was developed that adds the C++ library as a third party and allows generating content during runtime.
+    A second plugin was developed that adds editor window and allows generating content during edit mode.
+
+- **Web Services:**
+
+    * [x] **PCG Web API:** The PCG Web API is an ASP.NET Core REST API.
+     It takes the parameters in the request body and uses the C# Wrapper to generate content and returns the result as JSON in the response.
+
+    * [x] **PCG Web APP:** The PCG Web APP is a web application that allows preview the engine's functionality on the web.
+    It shows the result of combinations and sequences as text output.
+    It displays the result of level generation using the PlayCanvas engine and allows moving around in the scene to look at the result.
+    The generated JSON can be copied from the text area where it is displayed.
