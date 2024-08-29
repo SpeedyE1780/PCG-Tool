@@ -151,11 +151,27 @@ The generated JSON can be copied from the text area where it is displayed.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-4[Week 4]
 
-I implemented the remaining algorithms from Jamis Buck presentation: https://www.jamisbuck.org/presentations/rubyconf2011/index.html["Algorithm" is not a four letter word.]
+- **Developments:**
+
+    * Implement the remaining algorithms from Jamis Buck presentation: https://www.jamisbuck.org/presentations/rubyconf2011/index.html["Algorithm" is not a four letter word.]
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/2999506/non-member-conversion-functions-casting-different-types-e-g-directx-vector-to[{cpp} conversion function]? `operator int() const`
+
+    * https://stackoverflow.com/questions/644629/base-enum-class-inheritance[{cpp} enum inheritance]? No.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-5[Week 5]
 
-I implemented the new maze changes in Unity and Unreal and added a general documentation page.
+- **Developments:**
+
+    * Implement new maze changes in Unity and Unreal
+    
+    * Add a general documentation page for maze target.
+
+- **Questions:**
+
+    * https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-creation[.lib file importance]? The .lib file resolve external references to exported DLL functions.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-6[Week 6]
 
