@@ -175,9 +175,23 @@ The generated JSON can be copied from the text area where it is displayed.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-6[Week 6]
 
-I added golden value tests to the maze generation target to preserve the output after implementing new issues.
+- **Developments:**
 
-I added the grid wave function collapse to the level generation target and implemented it with Unity.
+    * Add golden value tests to the maze generation target to preserve the output after implementing new issues.
+
+    * Add the grid wave function collapse to the level generation target and implement it with Unity.
+
+- **Questions:**
+
+    * https://www.sandordargo.com/blog/2019/04/24/parameterized-testing-with-gtest[How to create {cpp} parametrized tests]?
+
+        1. Inherit from testing::TestWithParam<T>
+
+        2. Use TEST_P(ClassName, TestName)
+
+        3. INSTANTIATE_TEST_CASE_P(TestPrefix, ClassName, Values) 
+
+    * https://stackoverflow.com/questions/46023379/generate-suffix-for-test-according-to-parameter-in-gtest-frame-work[Generate suffix for {cpp} parametrized test]? Pass in functor as 4th argument to generate a string from the test's argument.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-7[Week 7]
 
