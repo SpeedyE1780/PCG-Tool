@@ -1,4 +1,4 @@
-= Presentation
+= PCG Engine Presentation
 
 == High Level Concept
 
@@ -84,13 +84,46 @@ The generated JSON can be copied from the text area where it is displayed.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-1[Week 1]
 
-During the first week my main objective was to create an MVP to test the communication between the engine and different engines (ex: Unity, Unreal, GAM703 Engine).
+- **Developments:**
+
+    * During the first week my main objective was to create an MVP to test the communication between the engine and different engines (ex: Unity, Unreal, GAM703 Engine).
+
+- **Questions:**
+
+    * https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10[Is C++/CLI compatible with unity]? No following this https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10[comment] the transition from a Non **J**ust **I**n **T**ime compiled language to a JIT language causes a crash.
+
+    * https://stackoverflow.com/questions/1533916/how-to-set-up-a-c-function-so-that-it-can-be-used-by-p-invoke/1533956#1533956[Disable name mangling to use function with P/Invoke]? export function using `extern "C"`.
+
+    * https://stackoverflow.com/questions/4804494/p-invoking-function-via-a-mangled-name[Invoke function who's name is mangled]? Modify the EntryPoint of the DllImport attribute.
+
+    * Use C++ enums in C#? https://stackoverflow.com/a/57546086[Re-declare enums in C#] or https://stackoverflow.com/a/18786[Use the PInvoke Interop Assistant tool to generate enums in C#]
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-2[Week 2]
 
-I did some refactoring in the engine and Unity then started implementing the maze generation algorithms.
+- **Developments:**
 
-I created the C API DLL and CPP API DLL that are used with Unity and Unreal.
+    * Refactors in the engine and Unity.
+
+    * Implement the maze generation algorithms.
+
+    * Create C DLL and CPP DLL that are used with Unity and Unreal.
+
+- **Questions:**
+
+    * Adding Third Party Libraries in Unreal? https://unrealcommunity.wiki/adding-custom-third-party-library-to-plugin-from-scratch-867b28[Unreal wiki third party plugin.]
+
+    * https://www.gamedev.net/forums/topic/690804-problem-with-enum-and-binary-or-operator/[Should enums be used as flags]? Personally I prefer using enums as flags since it's a common practice that's used in multiple projects.
+    It can give you type safety you can't compare two different enums but you can compare two different std::bitset that don't represent the same thing.
+
+    * https://discussions.unity.com/t/how-to-step-into-a-native-c-dll-in-visual-studio/631995[How to debug native DLL in Unity project]? Open the native project in visual studio and attach the debugger to the unity project once the native code is called the breakpoint will be hit.
+
+    * https://forums.unrealengine.com/t/c-bitmask-enums-appear-to-be-offset-by-1/370610[Declare enum as flag in Unreal]?
+    1. Add the meta = (Bitflags) to the UENUM macro
+    2. Add meta=(Bitmask, BitmaskEnum = "(EnumType)") to the UPROPERTY macro
+
+    * How to add details panel to Unreal Widget? https://codekittah.medium.com/custom-details-panels-in-unreal-engine-fpropertyeditormodule-6fe41ba7c339[Add details panel to Unreal widget]
+
+    * https://forums.unrealengine.com/t/getting-world-in-a-editor-plugin/324825[Get world in an editor window]? `GEditor->GetEditorWorldContext().World()`
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-3[Week 3]
 
@@ -183,3 +216,7 @@ Added documentation for Unity, Unreal, REST API and Web app.
 Add journal entries to repo.
 
 Add readme as a general overview for the repo.
+
+== Value and Future Work
+
+
