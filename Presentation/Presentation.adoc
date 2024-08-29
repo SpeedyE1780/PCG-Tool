@@ -2,7 +2,7 @@
 
 == High Level Concept
 
-=== Description
+=== Elevator Pitch
 
 The **P**rocedural **C**ontent **G**eneration (PCG) Engine is a C++ library used to generate content procedurally.
 
@@ -14,22 +14,25 @@ The aim of the PCG Engine is to be usable with no knowledge of how procedural al
 
 - **Level Generation:**
 
-    * [x] **Simple Generation:** Spawn nodes following a unit vector.
+[x] **Simple Generation:** Spawn nodes following a unit vector.
 
-    * [x] **Multi Dimension Generation:** Spawn nodes on the chosen axes.
+[x] **Multi Dimension Generation:** Spawn nodes on the chosen axes.
 
-    * [x] **Wave Function Collapse Generation:** Spawn nodes on the chosen axes where each node has a set of adjacent nodes.
+[x] **Wave Function Collapse Generation:** Spawn nodes on the chosen axes where each node has a set of adjacent nodes.
 
 [NOTE]
 The Wave Function Collapse algorithm was created by https://github.com/mxgmn/WaveFunctionCollapse/blob/master/README.md[Maxim Gumin].
 It is very similar to an AI concept: Constraint Satisfaction Problem (CSP) explained in Artificial Intelligence a Modern Approach Third Edition p202.
 In my implementation the graph is initially empty and each node is added iteratively when a node is added it adds its adjacent node to the graph and create a constraint between them that needs to be satisfied.
 
-    * [x] **Grid 2D / 3D Wave Function Collapse Generation:** Spawn nodes in the grid where each node has a set of adjacent nodes.
+[x] **Grid 2D / 3D Wave Function Collapse Generation:** Spawn nodes in the grid where each node has a set of adjacent nodes.
 
-    * [ ] **Graph Rewriting:** Allow passing in rules and patterns to the generation algorithm and subgraphs that matches rules to given patterns.
+[ ] **Graph Rewriting:** Allow passing in rules and patterns to the generation algorithm and subgraphs that matches rules to given patterns.
 
-    * [x] **Maze Generation:** Spawn nodes with adjacent nodes to form a maze following a chosen algorithm.
+[x] **Maze Generation:** Spawn nodes with adjacent nodes to form a maze following a chosen algorithm.
+
+[NOTE]
+The maze algorithm are taken from Jamis Buck presentation: https://www.jamisbuck.org/presentations/rubyconf2011/index.html["Algorithm" is not a four letter word.] and his Better Recursive Division Algorithm https://weblog.jamisbuck.org/2015/1/15/better-recursive-division-algorithm.html[blog]
 
 - **Combination Generation:**
 
@@ -40,38 +43,143 @@ A set can be represented using a n bit number(Discrete Mathematics and Its Appli
 by Rosen, Kenneth p 134). If the x^th^ is 1 then the x^th^ element in the set is included in the set.
 To generate a combination I generate a random number between 0 and 2^n^ and check the which bit is active. 
 
-    * [x] **Combination:** Generate a combination from a set of elements.
+[x] **Combination:** Generate a combination from a set of elements.
 
-    * [x] **Combination with Minimum Elements:** Generate a combination from a set with at least x elements.
+[x] **Combination with Minimum Elements:** Generate a combination from a set with at least x elements.
 
-    * [x] **Combination with Active Elements:** Generate a combination from a set with chosen elements active.
+[x] **Combination with Active Elements:** Generate a combination from a set with chosen elements active.
 
 - **Sequence Generation:**
 
-    * [x] **Linear Sequence:** Given a start node choose a random next node and repeat the process until the current node has no next node.
+[x] **Linear Sequence:** Given a start node choose a random next node and repeat the process until the current node has no next node.
 
-    * [x] **Cyclic Sequence:** Given a start node choose a random next node and repeat the process until the chosen length is reached.
+[x] **Cyclic Sequence:** Given a start node choose a random next node and repeat the process until the chosen length is reached.
 
 - **Languages:**
 
-    * [x] **C#:** A C# library is available that wraps the C++ library and allows calling the native functions.
+[x] **C#:** A C# library is available that wraps the C++ library and allows calling the native functions.
 
-    * [x] **Python:** A Python library is available that wraps the C++ library and allows calling the native functions.
+[x] **Python:** A Python library is available that wraps the C++ library and allows calling the native functions.
 
 - **Engines:**
 
-    * [x] **Unity:** A Unity package was developed that relies on the C# Wrapper.
-    The package adds editor windows that allows generating content during edit mode. Content can also be generated during play mode using only the C# Wrapper if the editor windows are not needed.
+[x] **Unity:** A Unity package was developed that relies on the C# Wrapper.
+The package adds editor windows that allows generating content during edit mode.
+Content can also be generated during play mode using only the C# Wrapper if the editor windows are not needed.
 
-    * [x] **Unreal:** An Unreal plugin was developed that adds the C++ library as a third party and allows generating content during runtime.
-    A second plugin was developed that adds editor window and allows generating content during edit mode.
+[x] **Unreal:** An Unreal plugin was developed that adds the C++ library as a third party and allows generating content during runtime.
+A second plugin was developed that adds editor window and allows generating content during edit mode.
 
 - **Web Services:**
 
-    * [x] **PCG Web API:** The PCG Web API is an ASP.NET Core REST API.
-     It takes the parameters in the request body and uses the C# Wrapper to generate content and returns the result as JSON in the response.
+[x] **PCG Web API:** The PCG Web API is an ASP.NET Core REST API.
+It takes the parameters in the request body and uses the C# Wrapper to generate content and returns the result as JSON in the response.
 
-    * [x] **PCG Web APP:** The PCG Web APP is a web application that allows preview the engine's functionality on the web.
-    It shows the result of combinations and sequences as text output.
-    It displays the result of level generation using the PlayCanvas engine and allows moving around in the scene to look at the result.
-    The generated JSON can be copied from the text area where it is displayed.
+[x] **PCG Web APP:** The PCG Web APP is a web application that allows preview the engine's functionality on the web.
+It shows the result of combinations and sequences as text output.
+It displays the result of level generation using the PlayCanvas engine and allows moving around in the scene to look at the result.
+The generated JSON can be copied from the text area where it is displayed.
+
+== Development Approach and Answers
+
+=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-1[Week 1]
+
+During the first week my main objective was to create an MVP to test the communication between the engine and different engines (ex: Unity, Unreal, GAM703 Engine).
+
+=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-2[Week 2]
+
+I did some refactoring in the engine and Unity then started implementing the maze generation algorithms.
+
+I created the C API DLL and CPP API DLL that are used with Unity and Unreal.
+
+=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-3[Week 3]
+
+I added combination generation.
+
+I did some refactoring in the engine.
+
+I added general documentation for the engine using asciidoc for the proposal submission.
+
+=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-4[Week 4]
+
+I implemented the remaining algorithms from Jamis Buck presentation: https://www.jamisbuck.org/presentations/rubyconf2011/index.html["Algorithm" is not a four letter word.]
+
+=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-5[Week 5]
+
+I implemented the new maze changes in Unity and Unreal and added a general documentation page.
+
+=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-6[Week 6]
+
+I added golden value tests to the maze generation target to preserve the output after implementing new issues.
+
+I added the grid wave function collapse to the level generation target and implemented it with Unity.
+
+=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-7[Week 7]
+
+I added golden value tests to the level generation target to preserve the output after implementing new issues.
+
+I updated the level generation documentation.
+
+I added sequence generation to C++ engine.
+
+=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-8[Week 8]
+
+I added sequence generation to Unity.
+
+I added sequence generation documentation.
+
+I added a python wrapper for the combination wrapper.
+
+I refactored the sequence generation to facilitate the C# and Python implementation.
+
+=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-9[Week 9]
+
+I fixed the project structure.
+
+I updated the PCG Engine documentation.
+
+I separated the C# wrapper from unity and implemented it in a separate project as a class library.
+
+=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-10[Week 10]
+
+I finished wrapping the C++ library in python and added documentation.
+
+I added a combination demo and maze demo using pygame to the python wrapper.
+
+I added combination generation tests and fixed an issue where the test order would change the results because the RNG seed wasn't reset between tests
+
+=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-11[Week 11]
+
+I added cyclic sequence generation and added its implementation in the C# and python wrappers.
+
+I fixed an issue where prefabs spawned during edit mode in Unity would lose its link to the prefab.
+
+I added a Unity maze game demo.
+
+=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-12[Week 12]
+
+I updated the unreal plugin.
+
+I added unit tests to the C# and Python wrappers to make sure the output matches the golden values used with the C++ targets.
+
+I developed the PCG REST API and the PCG web app to preview the results of the web api using playcanvas.
+
+Added some edge cases tests in non cyclic sequences and combination generations.
+
+Replaced the simpleGeneration function to take a vector offset instead of the axis argument.
+
+Replace the return of the cyclic sequence generation from a vector to a callback.
+
+Delete CallbackFunctor class that is basically a clone of std::function.
+
+=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-13[Week 13]
+
+Did some small refactoring.
+
+Updated the wrappers, web services and plugins engine implementation.
+
+Added documentation for Unity, Unreal, REST API and Web app.
+
+Add journal entries to repo.
+
+Add readme as a general overview for the repo.

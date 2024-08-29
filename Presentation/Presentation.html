@@ -443,7 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_high_level_concept">High Level Concept</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_description">Description</h3>
+<h3 id="_elevator_pitch">Elevator Pitch</h3>
 <div class="paragraph">
 <p>The <strong>P</strong>rocedural <strong>C</strong>ontent <strong>G</strong>eneration (PCG) Engine is a C++ library used to generate content procedurally.</p>
 </div>
@@ -460,21 +460,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul>
 <li>
 <p><strong>Level Generation:</strong></p>
-<div class="ulist checklist">
-<ul class="checklist">
-<li>
-<p>&#10003; <strong>Simple Generation:</strong> Spawn nodes following a unit vector.</p>
-</li>
-<li>
-<p>&#10003; <strong>Multi Dimension Generation:</strong> Spawn nodes on the chosen axes.</p>
-</li>
-<li>
-<p>&#10003; <strong>Wave Function Collapse Generation:</strong> Spawn nodes on the chosen axes where each node has a set of adjacent nodes.</p>
 </li>
 </ul>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>[x] <strong>Simple Generation:</strong> Spawn nodes following a unit vector.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Multi Dimension Generation:</strong> Spawn nodes on the chosen axes.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Wave Function Collapse Generation:</strong> Spawn nodes on the chosen axes where each node has a set of adjacent nodes.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -490,23 +486,19 @@ In my implementation the graph is initially empty and each node is added iterati
 </tr>
 </table>
 </div>
-<div class="ulist checklist">
-<ul class="checklist">
-<li>
-<p>&#10003; <strong>Grid 2D / 3D Wave Function Collapse Generation:</strong> Spawn nodes in the grid where each node has a set of adjacent nodes.</p>
-</li>
-<li>
-<p>&#10063; <strong>Graph Rewriting:</strong> Allow passing in rules and patterns to the generation algorithm and subgraphs that matches rules to given patterns.</p>
-</li>
-<li>
-<p>&#10003; <strong>Maze Generation:</strong> Spawn nodes with adjacent nodes to form a maze following a chosen algorithm.</p>
+<div class="paragraph">
+<p>[x] <strong>Grid 2D / 3D Wave Function Collapse Generation:</strong> Spawn nodes in the grid where each node has a set of adjacent nodes.</p>
+</div>
+<div class="paragraph">
+<p>[ ] <strong>Graph Rewriting:</strong> Allow passing in rules and patterns to the generation algorithm and subgraphs that matches rules to given patterns.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Maze Generation:</strong> Spawn nodes with adjacent nodes to form a maze following a chosen algorithm.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
 <p><strong>Combination Generation:</strong></p>
-</li>
-</ul>
-</div>
 </li>
 </ul>
 </div>
@@ -526,16 +518,15 @@ To generate a combination I generate a random number between 0 and 2<sup>n</sup>
 </tr>
 </table>
 </div>
-<div class="ulist checklist">
-<ul class="checklist">
-<li>
-<p>&#10003; <strong>Combination:</strong> Generate a combination from a set of elements.</p>
-</li>
-<li>
-<p>&#10003; <strong>Combination with Minimum Elements:</strong> Generate a combination from a set with at least x elements.</p>
-</li>
-<li>
-<p>&#10003; <strong>Combination with Active Elements:</strong> Generate a combination from a set with chosen elements active.</p>
+<div class="paragraph">
+<p>[x] <strong>Combination:</strong> Generate a combination from a set of elements.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Combination with Minimum Elements:</strong> Generate a combination from a set with at least x elements.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Combination with Active Elements:</strong> Generate a combination from a set with chosen elements active.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -543,12 +534,12 @@ To generate a combination I generate a random number between 0 and 2<sup>n</sup>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>&#10003; <strong>Linear Sequence:</strong> Given a start node choose a random next node and repeat the process until the current node has no next node.</p>
-</li>
-<li>
-<p>&#10003; <strong>Cyclic Sequence:</strong> Given a start node choose a random next node and repeat the process until the chosen length is reached.</p>
+<div class="paragraph">
+<p>[x] <strong>Linear Sequence:</strong> Given a start node choose a random next node and repeat the process until the current node has no next node.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Cyclic Sequence:</strong> Given a start node choose a random next node and repeat the process until the chosen length is reached.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -556,12 +547,12 @@ To generate a combination I generate a random number between 0 and 2<sup>n</sup>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>&#10003; <strong>C#:</strong> A C# library is available that wraps the C++ library and allows calling the native functions.</p>
-</li>
-<li>
-<p>&#10003; <strong>Python:</strong> A Python library is available that wraps the C++ library and allows calling the native functions.</p>
+<div class="paragraph">
+<p>[x] <strong>C#:</strong> A C# library is available that wraps the C++ library and allows calling the native functions.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Python:</strong> A Python library is available that wraps the C++ library and allows calling the native functions.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -569,14 +560,15 @@ To generate a combination I generate a random number between 0 and 2<sup>n</sup>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>&#10003; <strong>Unity:</strong> A Unity package was developed that relies on the C# Wrapper.
-The package adds editor windows that allows generating content during edit mode. Content can also be generated during play mode using only the C# Wrapper if the editor windows are not needed.</p>
-</li>
-<li>
-<p>&#10003; <strong>Unreal:</strong> An Unreal plugin was developed that adds the C++ library as a third party and allows generating content during runtime.
+<div class="paragraph">
+<p>[x] <strong>Unity:</strong> A Unity package was developed that relies on the C# Wrapper.
+The package adds editor windows that allows generating content during edit mode.
+Content can also be generated during play mode using only the C# Wrapper if the editor windows are not needed.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Unreal:</strong> An Unreal plugin was developed that adds the C++ library as a third party and allows generating content during runtime.
 A second plugin was developed that adds editor window and allows generating content during edit mode.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -584,26 +576,29 @@ A second plugin was developed that adds editor window and allows generating cont
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>&#10003; <strong>PCG Web API:</strong> The PCG Web API is an ASP.NET Core REST API.
+<div class="paragraph">
+<p>[x] <strong>PCG Web API:</strong> The PCG Web API is an ASP.NET Core REST API.
 It takes the parameters in the request body and uses the C# Wrapper to generate content and returns the result as JSON in the response.</p>
-</li>
-<li>
-<p>&#10003; <strong>PCG Web APP:</strong> The PCG Web APP is a web application that allows preview the engine&#8217;s functionality on the web.
+</div>
+<div class="paragraph">
+<p>[x] <strong>PCG Web APP:</strong> The PCG Web APP is a web application that allows preview the engine&#8217;s functionality on the web.
 It shows the result of combinations and sequences as text output.
 It displays the result of level generation using the PlayCanvas engine and allows moving around in the scene to look at the result.
 The generated JSON can be copied from the text area where it is displayed.</p>
-</li>
-</ul>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_development_approach_and_answers">Development Approach and Answers</h2>
+<div class="sectionbody">
+
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-29 12:45:51 +0300
+Last updated 2024-08-29 14:07:18 +0300
 </div>
 </div>
 </body>
