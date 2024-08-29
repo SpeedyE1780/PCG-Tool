@@ -4,7 +4,7 @@
 
 === Elevator Pitch
 
-The **P**rocedural **C**ontent **G**eneration (PCG) Engine is a C++ library used to generate content procedurally.
+The **P**rocedural **C**ontent **G**eneration (PCG) Engine is a {cpp} library used to generate content procedurally.
 
 === Aim of Project
 
@@ -57,9 +57,9 @@ To generate a combination I generate a random number between 0 and 2^n^ and chec
 
 - **Languages:**
 
-[x] **C#:** A C# library is available that wraps the C++ library and allows calling the native functions.
+[x] **C#:** A C# library is available that wraps the {cpp} library and allows calling the native functions.
 
-[x] **Python:** A Python library is available that wraps the C++ library and allows calling the native functions.
+[x] **Python:** A Python library is available that wraps the {cpp} library and allows calling the native functions.
 
 - **Engines:**
 
@@ -67,7 +67,7 @@ To generate a combination I generate a random number between 0 and 2^n^ and chec
 The package adds editor windows that allows generating content during edit mode.
 Content can also be generated during play mode using only the C# Wrapper if the editor windows are not needed.
 
-[x] **Unreal:** An Unreal plugin was developed that adds the C++ library as a third party and allows generating content during runtime.
+[x] **Unreal:** An Unreal plugin was developed that adds the {cpp} library as a third party and allows generating content during runtime.
 A second plugin was developed that adds editor window and allows generating content during edit mode.
 
 - **Web Services:**
@@ -90,13 +90,13 @@ The generated JSON can be copied from the text area where it is displayed.
 
 - **Questions:**
 
-    * https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10[Is C++/CLI compatible with unity]? No following this https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10[comment] the transition from a Non **J**ust **I**n **T**ime compiled language to a JIT language causes a crash.
+    * https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10[Is {cpp}/CLI compatible with unity]? No following this https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10[comment] the transition from a Non **J**ust **I**n **T**ime compiled language to a JIT language causes a crash.
 
     * https://stackoverflow.com/questions/1533916/how-to-set-up-a-c-function-so-that-it-can-be-used-by-p-invoke/1533956#1533956[Disable name mangling to use function with P/Invoke]? export function using `extern "C"`.
 
     * https://stackoverflow.com/questions/4804494/p-invoking-function-via-a-mangled-name[Invoke function who's name is mangled]? Modify the EntryPoint of the DllImport attribute.
 
-    * Use C++ enums in C#? https://stackoverflow.com/a/57546086[Re-declare enums in C#] or https://stackoverflow.com/a/18786[Use the PInvoke Interop Assistant tool to generate enums in C#]
+    * Use {cpp} enums in C#? https://stackoverflow.com/a/57546086[Re-declare enums in C#] or https://stackoverflow.com/a/18786[Use the PInvoke Interop Assistant tool to generate enums in C#]
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-2[Week 2]
 
@@ -127,11 +127,27 @@ The generated JSON can be copied from the text area where it is displayed.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-3[Week 3]
 
-I added combination generation.
+- **Developments:**
 
-I did some refactoring in the engine.
+    * Add combination generation.
 
-I added general documentation for the engine using asciidoc for the proposal submission.
+    * Refactors in the {cpp} engine.
+
+    * Add general documentation for the engine using asciidoc for the proposal submission.
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/7230621/how-can-i-iterate-over-a-packed-variadic-template-argument-list[Iterate over variadic template]? https://stackoverflow.com/a/50892567[Stack Overflow answer]`for(const auto p : {things...})`
+
+    * https://stackoverflow.com/questions/17032310/how-to-make-a-variadic-is-same[Check variadic template types]? https://stackoverflow.com/a/39550575[Stack Overflow answer] `concept are_same = std::conjunction_v<std::is_same<T, Ts>...>;`
+
+    * https://stackoverflow.com/questions/30101191/can-i-call-a-c-function-from-javascript[Call {cpp} function from JS]? https://stackoverflow.com/a/32237343[Stack Overflow answer] Wrap {cpp} to web service.
+
+    * https://forums.unrealengine.com/t/what-versions-of-c-are-compatible-with-ue/657406/2[Unreal {cpp} standard]? {cpp} 17
+
+    * https://forums.unrealengine.com/t/how-to-get-selected-objects-in-editor/320900/3[Get selected actors in Unreal]? `GEditor->GetSelectedActors()`
+
+    * https://stackoverflow.com/questions/252417/how-can-i-use-a-dll-file-from-python[Use {cpp} DLL with Python]? Using ctypes native DLL functions can be called.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-4[Week 4]
 
@@ -153,7 +169,7 @@ I added golden value tests to the level generation target to preserve the output
 
 I updated the level generation documentation.
 
-I added sequence generation to C++ engine.
+I added sequence generation to {cpp} engine.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-8[Week 8]
 
@@ -175,7 +191,7 @@ I separated the C# wrapper from unity and implemented it in a separate project a
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-10[Week 10]
 
-I finished wrapping the C++ library in python and added documentation.
+I finished wrapping the {cpp} library in python and added documentation.
 
 I added a combination demo and maze demo using pygame to the python wrapper.
 
@@ -193,7 +209,7 @@ I added a Unity maze game demo.
 
 I updated the unreal plugin.
 
-I added unit tests to the C# and Python wrappers to make sure the output matches the golden values used with the C++ targets.
+I added unit tests to the C# and Python wrappers to make sure the output matches the golden values used with the {cpp} targets.
 
 I developed the PCG REST API and the PCG web app to preview the results of the web api using playcanvas.
 

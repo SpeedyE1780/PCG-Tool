@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>Presentation</title>
+<title>PCG Engine Presentation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,7 +436,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Presentation</h1>
+<h1>PCG Engine Presentation</h1>
 </div>
 <div id="content">
 <div class="sect1">
@@ -494,6 +494,18 @@ In my implementation the graph is initially empty and each node is added iterati
 </div>
 <div class="paragraph">
 <p>[x] <strong>Maze Generation:</strong> Spawn nodes with adjacent nodes to form a maze following a chosen algorithm.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The maze algorithm are taken from Jamis Buck presentation: <a href="https://www.jamisbuck.org/presentations/rubyconf2011/index.html">"Algorithm" is not a four letter word.</a> and his Better Recursive Division Algorithm <a href="https://weblog.jamisbuck.org/2015/1/15/better-recursive-division-algorithm.html">blog</a>
+</td>
+</tr>
+</table>
 </div>
 <div class="ulist">
 <ul>
@@ -592,13 +604,278 @@ The generated JSON can be copied from the text area where it is displayed.</p>
 <div class="sect1">
 <h2 id="_development_approach_and_answers">Development Approach and Answers</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_week_1"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-1">Week 1</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>During the first week my main objective was to create an MVP to test the communication between the engine and different engines (ex: Unity, Unreal, GAM703 Engine).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10">Is C++/CLI compatible with unity</a>? No following this <a href="https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10">comment</a> the transition from a Non <strong>J</strong>ust <strong>I</strong>n <strong>T</strong>ime compiled language to a JIT language causes a crash.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/1533916/how-to-set-up-a-c-function-so-that-it-can-be-used-by-p-invoke/1533956#1533956">Disable name mangling to use function with P/Invoke</a>? export function using <code>extern "C"</code>.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/4804494/p-invoking-function-via-a-mangled-name">Invoke function who&#8217;s name is mangled</a>? Modify the EntryPoint of the DllImport attribute.</p>
+</li>
+<li>
+<p>Use C++ enums in C#? <a href="https://stackoverflow.com/a/57546086">Re-declare enums in C#</a> or <a href="https://stackoverflow.com/a/18786">Use the PInvoke Interop Assistant tool to generate enums in C#</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_2"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-2">Week 2</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Refactors in the engine and Unity.</p>
+</li>
+<li>
+<p>Implement the maze generation algorithms.</p>
+</li>
+<li>
+<p>Create C DLL and CPP DLL that are used with Unity and Unreal.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Adding Third Party Libraries in Unreal? <a href="https://unrealcommunity.wiki/adding-custom-third-party-library-to-plugin-from-scratch-867b28">Unreal wiki third party plugin.</a></p>
+</li>
+<li>
+<p><a href="https://www.gamedev.net/forums/topic/690804-problem-with-enum-and-binary-or-operator/">Should enums be used as flags</a>? Personally I prefer using enums as flags since it&#8217;s a common practice that&#8217;s used in multiple projects.
+It can give you type safety you can&#8217;t compare two different enums but you can compare two different std::bitset that don&#8217;t represent the same thing.</p>
+</li>
+<li>
+<p><a href="https://discussions.unity.com/t/how-to-step-into-a-native-c-dll-in-visual-studio/631995">How to debug native DLL in Unity project</a>? Open the native project in visual studio and attach the debugger to the unity project once the native code is called the breakpoint will be hit.</p>
+</li>
+<li>
+<p><a href="https://forums.unrealengine.com/t/c-bitmask-enums-appear-to-be-offset-by-1/370610">Declare enum as flag in Unreal</a>?</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add the meta = (Bitflags) to the UENUM macro</p>
+</li>
+<li>
+<p>Add meta=(Bitmask, BitmaskEnum = "(EnumType)") to the UPROPERTY macro</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>How to add details panel to Unreal Widget? <a href="https://codekittah.medium.com/custom-details-panels-in-unreal-engine-fpropertyeditormodule-6fe41ba7c339">Add details panel to Unreal widget</a></p>
+</li>
+<li>
+<p><a href="https://forums.unrealengine.com/t/getting-world-in-a-editor-plugin/324825">Get world in an editor window</a>? <code>GEditor&#8594;GetEditorWorldContext().World()</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_3"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-3">Week 3</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add combination generation.</p>
+</li>
+<li>
+<p>Refactors in the C++ engine.</p>
+</li>
+<li>
+<p>Add general documentation for the engine using asciidoc for the proposal submission.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/7230621/how-can-i-iterate-over-a-packed-variadic-template-argument-list">Iterate over variadic template</a>? <a href="https://stackoverflow.com/a/50892567">Stack Overflow answer</a><code>for(const auto p : {things&#8230;&#8203;})</code></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/17032310/how-to-make-a-variadic-is-same">Check variadic template types</a>? <a href="https://stackoverflow.com/a/39550575">Stack Overflow answer</a> <code>concept are_same = std::conjunction_v&lt;std::is_same&lt;T, Ts&gt;&#8230;&#8203;&gt;;</code></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/30101191/can-i-call-a-c-function-from-javascript" class="bare">https://stackoverflow.com/questions/30101191/can-i-call-a-c-function-from-javascript</a>[Call C from JS]? Convert C to web service.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_4"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-4">Week 4</a></h3>
+<div class="paragraph">
+<p>I implemented the remaining algorithms from Jamis Buck presentation: <a href="https://www.jamisbuck.org/presentations/rubyconf2011/index.html">"Algorithm" is not a four letter word.</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_5"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-5">Week 5</a></h3>
+<div class="paragraph">
+<p>I implemented the new maze changes in Unity and Unreal and added a general documentation page.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_6"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-6">Week 6</a></h3>
+<div class="paragraph">
+<p>I added golden value tests to the maze generation target to preserve the output after implementing new issues.</p>
+</div>
+<div class="paragraph">
+<p>I added the grid wave function collapse to the level generation target and implemented it with Unity.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_7"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-7">Week 7</a></h3>
+<div class="paragraph">
+<p>I added golden value tests to the level generation target to preserve the output after implementing new issues.</p>
+</div>
+<div class="paragraph">
+<p>I updated the level generation documentation.</p>
+</div>
+<div class="paragraph">
+<p>I added sequence generation to C++ engine.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_8"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-8">Week 8</a></h3>
+<div class="paragraph">
+<p>I added sequence generation to Unity.</p>
+</div>
+<div class="paragraph">
+<p>I added sequence generation documentation.</p>
+</div>
+<div class="paragraph">
+<p>I added a python wrapper for the combination wrapper.</p>
+</div>
+<div class="paragraph">
+<p>I refactored the sequence generation to facilitate the C# and Python implementation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_9"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-9">Week 9</a></h3>
+<div class="paragraph">
+<p>I fixed the project structure.</p>
+</div>
+<div class="paragraph">
+<p>I updated the PCG Engine documentation.</p>
+</div>
+<div class="paragraph">
+<p>I separated the C# wrapper from unity and implemented it in a separate project as a class library.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_10"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-10">Week 10</a></h3>
+<div class="paragraph">
+<p>I finished wrapping the C++ library in python and added documentation.</p>
+</div>
+<div class="paragraph">
+<p>I added a combination demo and maze demo using pygame to the python wrapper.</p>
+</div>
+<div class="paragraph">
+<p>I added combination generation tests and fixed an issue where the test order would change the results because the RNG seed wasn&#8217;t reset between tests</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_11"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-11">Week 11</a></h3>
+<div class="paragraph">
+<p>I added cyclic sequence generation and added its implementation in the C# and python wrappers.</p>
+</div>
+<div class="paragraph">
+<p>I fixed an issue where prefabs spawned during edit mode in Unity would lose its link to the prefab.</p>
+</div>
+<div class="paragraph">
+<p>I added a Unity maze game demo.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_12"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-12">Week 12</a></h3>
+<div class="paragraph">
+<p>I updated the unreal plugin.</p>
+</div>
+<div class="paragraph">
+<p>I added unit tests to the C# and Python wrappers to make sure the output matches the golden values used with the C++ targets.</p>
+</div>
+<div class="paragraph">
+<p>I developed the PCG REST API and the PCG web app to preview the results of the web api using playcanvas.</p>
+</div>
+<div class="paragraph">
+<p>Added some edge cases tests in non cyclic sequences and combination generations.</p>
+</div>
+<div class="paragraph">
+<p>Replaced the simpleGeneration function to take a vector offset instead of the axis argument.</p>
+</div>
+<div class="paragraph">
+<p>Replace the return of the cyclic sequence generation from a vector to a callback.</p>
+</div>
+<div class="paragraph">
+<p>Delete CallbackFunctor class that is basically a clone of std::function.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_13"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-13">Week 13</a></h3>
+<div class="paragraph">
+<p>Did some small refactoring.</p>
+</div>
+<div class="paragraph">
+<p>Updated the wrappers, web services and plugins engine implementation.</p>
+</div>
+<div class="paragraph">
+<p>Added documentation for Unity, Unreal, REST API and Web app.</p>
+</div>
+<div class="paragraph">
+<p>Add journal entries to repo.</p>
+</div>
+<div class="paragraph">
+<p>Add readme as a general overview for the repo.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_value_and_future_work">Value and Future Work</h2>
+<div class="sectionbody">
 
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-29 14:07:18 +0300
+Last updated 2024-08-29 19:31:51 +0300
 </div>
 </div>
 </body>
