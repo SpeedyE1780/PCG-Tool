@@ -280,11 +280,37 @@ The generated JSON can be copied from the text area where it is displayed.
     
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-10[Week 10]
 
-I finished wrapping the {cpp} library in python and added documentation.
+- **Developments:**
 
-I added a combination demo and maze demo using pygame to the python wrapper.
+    * Wrap the {cpp} library in python and added documentation.
 
-I added combination generation tests and fixed an issue where the test order would change the results because the RNG seed wasn't reset between tests
+    * Add a combination demo and maze demo using pygame to the python wrapper.
+
+    * Add {cpp} combination generation tests and fixed an issue where the test order would change the results because the RNG seed wasn't reset between tests.
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/49672264/cmake-add-d-suffix-for-debug-build-of-static-library[Add debug suffix to DLL/Lib with Cmake]? `set(CMAKE_DEBUG_POSTFIX d)` for all targets or `set_target_properties(<target-name> PROPERTIES DEBUG_POSTFIX "d")` for chosen targets.
+
+    * https://docs.python.org/3/howto/enum.html[How to declare enums in Python]?
+
+    * https://stackoverflow.com/questions/394809/does-python-have-a-ternary-conditional-operator[Ternary operator in Python]? `x if condition else y`.
+
+    * https://stackoverflow.com/questions/42127593/should-python-class-filenames-also-be-camelcased[Python naming conventions]?
+
+    * https://www.digitalocean.com/community/tutorials/python-str-repr-functions[Override the 'toString()' method in Python]? Implement the `++__str__++` function.
+
+    * https://stackoverflow.com/questions/56129479/how-to-debug-a-dll-in-visual-studio-that-i-call-from-python-using-ctypes[Enable native debugging in Python project]?
+
+    * https://stackoverflow.com/questions/17301091/python-lifetime-of-module-global-variables[Lifetime of module global variables]? The logging and rng callbacks are global variables who are either deleted manually or when the script exits.
+
+    * https://www.w3schools.com/python/python_variables_global.asp[Assign global variable in function body]? `global x x = 1`
+
+    * https://www.geeksforgeeks.org/python-docstrings/[Python documentation conventions]?
+
+    * https://stackoverflow.com/questions/6060813/how-to-document-fields-and-properties-in-python[Document a variable in Python]?
+
+    * https://stackoverflow.com/questions/1995615/how-can-i-format-a-decimal-to-always-show-2-decimal-places[How to format a string in Python]?
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-11[Week 11]
 
