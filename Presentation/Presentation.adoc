@@ -197,27 +197,62 @@ The generated JSON can be copied from the text area where it is displayed.
 
 - **Developments:**
 
-    - Add golden value tests to level generation target to preserve the output after implementing new issues.
+    * Add golden value tests to level generation target to preserve the output after implementing new issues.
 
-    - Update the level generation documentation.
+    * Update the level generation documentation.
 
-    - Add sequence generation to {cpp} engine.
+    * Add sequence generation to {cpp} engine.
 
 - **Questions:**
 
-    - https://discussions.unity.com/t/is-there-any-reason-to-use-unsafe-code-in-unity-in-2023/920022[Using unsafe in Unity]?
+    * https://discussions.unity.com/t/is-there-any-reason-to-use-unsafe-code-in-unity-in-2023/920022[Using unsafe in Unity]?
 
-    - https://stackoverflow.com/questions/2415017/convert-from-double-array-to-pointer[Convert C# Array in to Pointer]? `fixed int* ptr = array`
+    * https://stackoverflow.com/questions/2415017/convert-from-double-array-to-pointer[Convert C# Array in to Pointer]? `fixed int* ptr = array`
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-8[Week 8]
 
-I added sequence generation to Unity.
+- **Developments:**
 
-I added sequence generation documentation.
+    * Add sequence generation to Unity.
 
-I added a python wrapper for the combination wrapper.
+    * Document sequence generation.
 
-I refactored the sequence generation to facilitate the C# and Python implementation.
+    * Add a python wrapper for the combination target.
+
+    * Refactor sequence generation to facilitate the C# and Python implementation.
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/3355014/structlayout-only-for-struct[Can StructLayout be used with classes]? Yes.
+
+    * https://stackoverflow.com/questions/55093619/marshaling-c-sharp-struct-with-array-of-structs-and-size-param-index[Marshal class containing a class Array]? Use byte arrays.
+
+    * https://stackoverflow.com/questions/20597006/how-to-pass-a-pointer-from-c-sharp-to-native-function-in-dll[Pass an IntPtr to {cpp}]?
+
+    * https://stackoverflow.com/questions/8162994/why-arent-static-data-members-allowed-in-local-classes[Can local classes have static variables in {cpp}]? No because local classes have no linkage.
+
+    * https://stackoverflow.com/questions/5714616/usage-of-local-class-in-c-function[Local classes usage in {cpp}]?
+
+    * https://stackoverflow.com/questions/5081875/ctypes-beginner[How to use ctypes in Python]?
+
+    * https://stackoverflow.com/questions/40843039/how-can-i-write-a-simple-callback-function[Create lambda in Python]? `lambda x, y: add(x, y)`
+
+    * https://stackoverflow.com/questions/20309456/how-do-i-call-a-function-from-another-py-file[How to import functions from files in Python]?
+
+    * https://stackoverflow.com/questions/6434482/python-function-overloading[Why overloading doesn't work in Python]? Overloaded method is chosen at compile time the alternative in Python is Multiple Dispatch.
+
+    * https://stackoverflow.com/questions/4145775/how-do-i-convert-a-python-list-into-a-c-array-by-using-ctypes[How to pass an array using ctypes]?
+
+    * https://stackoverflow.com/questions/1615813/how-to-use-c-classes-with-ctypes[Use {cpp} class in Python]?
+
+    * https://stackoverflow.com/questions/27663205/passing-a-python-object-to-c-module[Define a {cpp} class in Python]? The class needs to inherit from `ctypes.Structure` and set the `++_fields_++` variable
+
+    * https://stackoverflow.com/questions/72036758/unhashable-type-in-python[Ctypes Unhashable type error]? `ctypes.pointer` was used with a class type instead of class instance.
+
+    * https://stackoverflow.com/questions/33005127/python-ctypes-callback-function-gives-typeerror-invalid-result-type-for-callba[Ctypes type error invalid result type for function]? This is a bug in ctypes only primitive types can be returned from a function.
+
+    * https://stackoverflow.com/questions/1942298/wrapping-a-c-library-in-python-c-cython-or-ctypes[Ctypes vs Cython]? Cython sounds better if the library is being written from scratch.
+    Since my library is already written and I just need to call the exposed functions using ctypes felt like a better choice.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-9[Week 9]
 
