@@ -86,28 +86,28 @@ The generated JSON can be copied from the text area where it is displayed.
 
 - **Developments:**
 
-    * During the first few weeks (Week 1 -> Week 3) the main focus was to develop the {cpp} engine and integrate the engine with Unity and Unreal.
+    * During the first few weeks (Week 1 -> Week 3): The main focus was to develop the {cpp} engine and integrate the engine with Unity and Unreal.
     After integrating the engine with the different game engines I added more content generation to it (maze, combination generation) and created editor windows to showcase the engine for my proposal.
 
-    * During Week 4 -> Week 7 I added the remaining algorithms that were mentioned in my proposal (remaining mazes in Jamis Buck https://www.jamisbuck.org/presentations/rubyconf2011/index.html[presentation], grid wave function collapse, sequence generation).
+    * During Week 4 -> Week 7: I added the remaining algorithms that were mentioned in my proposal (remaining mazes in Jamis Buck https://www.jamisbuck.org/presentations/rubyconf2011/index.html[presentation], grid wave function collapse, sequence generation).
     I added unit test using golden values.
     Finally I added a high level documentation for the engine.
 
-    * During Week 8 -> Week 11 I created the C# wrappers and python wrappers.
+    * During Week 8 -> Week 11: I created the C# wrappers and python wrappers.
     I updated the Unity package and the engine documentation.
     I created a few demos in pygame and Unity.
     I added the possibility to generate sequences that can contain cycles.
 
-    * During Week 12 I updated the Unreal Plugin.
+    * During Week 12: I updated the Unreal Plugin.
     I developed the Web API/APP to preview the engine's results using PlayCanvas and the generated json can be retrieved and used anywhere.
 
-    * During Week 13 I made sure everything is up to date for the presentation.
+    * During Week 13: I made sure everything is up to date for the presentation.
     I added the missing documentation and journal entries.
     Finally I wrote this presentation.
 
 - **Biggest Questions and Issues:**
 
-=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-1[Week 1]
+=== Week 1 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-1[(Github Issues)]
 
 - **Developments:**
 
@@ -143,7 +143,7 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * Use {cpp} enums in C#? https://stackoverflow.com/a/57546086[Re-declare enums in C#] or https://stackoverflow.com/a/18786[Use the PInvoke Interop Assistant tool to generate enums in C#]
 
-=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-2[Week 2]
+=== Week 2 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-2[(Github Issues)]
 
 - **Developments:**
 
@@ -170,7 +170,7 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * https://forums.unrealengine.com/t/getting-world-in-a-editor-plugin/324825[Get world in an editor window]? `GEditor->GetEditorWorldContext().World()`
 
-=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-3[Week 3]
+=== Week 3 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-3[(Github Issues)]
 
 - **Developments:**
 
@@ -194,7 +194,7 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * https://stackoverflow.com/questions/252417/how-can-i-use-a-dll-file-from-python[Use {cpp} DLL with Python]? Using ctypes native DLL functions can be called.
 
-=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-4[Week 4]
+=== Week 4 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-4[(Github Issues)]
 
 - **Developments:**
 
@@ -206,7 +206,7 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * https://stackoverflow.com/questions/644629/base-enum-class-inheritance[{cpp} enum inheritance]? No.
 
-=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-5[Week 5]
+=== Week 5 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-5[(Github Issues)]
 
 - **Developments:**
 
@@ -218,7 +218,7 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-creation[.lib file importance]? The .lib file resolve external references to exported DLL functions.
 
-=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-6[Week 6]
+=== Week 6 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-6[(Github Issues)]
 
 - **Developments:**
 
@@ -238,7 +238,7 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * https://stackoverflow.com/questions/46023379/generate-suffix-for-test-according-to-parameter-in-gtest-frame-work[Generate suffix for {cpp} parametrized test]? Pass in functor as 4th argument to generate a string from the test's argument.
 
-=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-7[Week 7]
+=== Week 7 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-7[(Github Issues)]
 
 - **Developments:**
 
@@ -254,7 +254,7 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * https://stackoverflow.com/questions/2415017/convert-from-double-array-to-pointer[Convert C# Array in to Pointer]? `fixed int* ptr = array`
 
-=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-8[Week 8]
+=== Week 8 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-8[(Github Issues)]
 
 - **Developments:**
 
@@ -299,7 +299,7 @@ The generated JSON can be copied from the text area where it is displayed.
     * https://stackoverflow.com/questions/1942298/wrapping-a-c-library-in-python-c-cython-or-ctypes[Ctypes vs Cython]? Cython sounds better if the library is being written from scratch.
     Since my library is already written and I just need to call the exposed functions using ctypes felt like a better choice.
 
-=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-9[Week 9]
+=== Week 9 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-9[(Github Issues)]
 
 - **Developments:**
 
@@ -323,7 +323,7 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * https://discussions.unity.com/t/unable-to-load-attribute-info-on-field-are-you-missing-a-reference/887696/4[Unity typecache error unable to load attribute error]? This means that either the DLL is compiled with a .net version that isn't supported. Or the type used with in the editor window hasn't been loaded from the DLL yet.
     
-=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-10[Week 10]
+=== Week 10 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-10[(Github Issues)]
 
 - **Developments:**
 
@@ -357,7 +357,7 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * https://stackoverflow.com/questions/1995615/how-can-i-format-a-decimal-to-always-show-2-decimal-places[How to format a string in Python]?
 
-=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-11[Week 11]
+=== Week 11 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-11[(Github Issues)]
 
 - **Developments:**
 
@@ -381,7 +381,7 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * https://forums.unrealengine.com/t/does-ue-4-10-support-uclass-ustruct-in-namespaces/352448/6[Why namespace aren't supported in Unreal]?
 
-=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-12[Week 12]
+=== Week 12 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-12[(Github Issues)]
 
 - **Developments:**
 
@@ -463,7 +463,7 @@ The generated JSON can be copied from the text area where it is displayed.
     * https://www.reddit.com/r/react/comments/12m3uwu/comment/jg95r8p/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button[Hide element in component based on props]? `{isShown && <p>Shown</p>}`
 
 
-=== https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-13[Week 13]
+=== Week 13 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-13[(Github Issues)]
 
 - **Developments:**
 
