@@ -195,11 +195,19 @@ The generated JSON can be copied from the text area where it is displayed.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-7[Week 7]
 
-I added golden value tests to the level generation target to preserve the output after implementing new issues.
+- **Developments:**
 
-I updated the level generation documentation.
+    - Add golden value tests to level generation target to preserve the output after implementing new issues.
 
-I added sequence generation to {cpp} engine.
+    - Update the level generation documentation.
+
+    - Add sequence generation to {cpp} engine.
+
+- **Questions:**
+
+    - https://discussions.unity.com/t/is-there-any-reason-to-use-unsafe-code-in-unity-in-2023/920022[Using unsafe in Unity]?
+
+    - https://stackoverflow.com/questions/2415017/convert-from-double-array-to-pointer[Convert C# Array in to Pointer]? `fixed int* ptr = array`
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-8[Week 8]
 
