@@ -256,12 +256,28 @@ The generated JSON can be copied from the text area where it is displayed.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-9[Week 9]
 
-I fixed the project structure.
+- **Developments:**
 
-I updated the PCG Engine documentation.
+    * Fix the project structure.
 
-I separated the C# wrapper from unity and implemented it in a separate project as a class library.
+    * Update PCG Engine documentation.
 
+    * Change C# wrapper to a class library and use the generated DLL with Unity.
+    
+- **Questions:**
+
+    * https://stackoverflow.com/questions/49581761/dll-export-symbol-of-function-from-static-linked-library[Export symbols from static libraries]? Add the export macro the desired functions.
+
+    * https://stackoverflow.com/questions/2028264/visual-studio-with-doxygen-for-documentation-or-should-we-use-something-else[Setup doxygen documentation with C#]? Just use the XML comments since doxygen supports parsing XML.
+
+    * https://stackoverflow.com/questions/58950859/default-implementation-in-interface-is-not-seen-by-the-compiler[Use default interface implementation in C# class]?
+
+    * https://stackoverflow.com/questions/4074585/attempted-to-read-or-write-protected-memory-this-is-often-an-indication-that-ot[How to enable native debugging in C# project]? Enable the option in the project settings.
+
+    * https://stackoverflow.com/questions/9577487/pointer-is-pointing-to-0x1-is-checking-for-null-valid[Pointer address is 0x1]? This means a null pointer is being dereferenced.
+
+    * https://discussions.unity.com/t/unable-to-load-attribute-info-on-field-are-you-missing-a-reference/887696/4[Unity typecache error unable to load attribute error]? This means that either the DLL is compiled with a .net version that isn't supported. Or the type used with in the editor window hasn't been loaded from the DLL yet.
+    
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-10[Week 10]
 
 I finished wrapping the {cpp} library in python and added documentation.
