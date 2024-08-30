@@ -420,15 +420,23 @@ The generated JSON can be copied from the text area where it is displayed.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-13[Week 13]
 
-Did some small refactoring.
+- **Developments:**
 
-Updated the wrappers, web services and plugins engine implementation.
+    * Small refactoring.
 
-Added documentation for Unity, Unreal, REST API and Web app.
+    * Update the wrappers, web services and plugins engine implementation.
 
-Add journal entries to repo.
+    * Add documentation for Unity, Unreal, REST API and Web app.
 
-Add readme as a general overview for the repo.
+    * Add journal entries to repo.
+
+    * Add readme as a general overview for the repo.
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/68954850/how-to-specify-swagger-specification-extensions-via-code[Add extensions to swagger api info]?
+
+    * https://stackoverflow.com/questions/58622/how-to-document-python-code-using-doxygen[How to use doxygen with Python docstrings]?
 
 == Value and Future Work
 
