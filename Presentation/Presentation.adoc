@@ -570,10 +570,18 @@ Looking at other procedural content generation tools:
     * https://www.world-machine.com[World Machine]
     * https://dungeonarchitect.dev[Dungeon Architect]
     
-These tools focus on one aspect of content generation and they do it well but most only support one engine / language.
+- **Not as Advanced:** These tools focus on one aspect of content generation and they do it well but most only support one engine / language.
 
-Some of them use a visual designer to set up the rules of the algorithm and then generate the content. Having a designer is something that I would love to implement.
+- **No Visual Designer:** Some of them use a visual designer to set up the rules of the algorithm and then generate the content. Having a designer is something that I would love to implement.
 The designer gives the users more control over the behavior of the algorithm.
 On the other hand the game creator needs to learn how to use this designer and sometimes if this level of control isn't needed this can be a waste of time.
 
+== Potential for Future Work
 
+- Add graph rewriting for level generation and implement a visual designer to set the rules.
+
+- Add a "4D" level generation the 4^th^ dimension can be something like time for example a node can have a portal to the future and the corresponding node has a portal to the past similar to https://store.steampowered.com/app/2109770/Kingmakers/[Kingmakers]
+
+- Enable https://weblog.jamisbuck.org/2011/3/4/maze-generation-weave-mazes.html[Weaves] in mazes.
+
+- Make the project open source and allow anyone to add new algorithms to the engine, optimizations, wrappers, etc...
