@@ -338,19 +338,85 @@ The generated JSON can be copied from the text area where it is displayed.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-12[Week 12]
 
-I updated the unreal plugin.
+- **Developments:**
 
-I added unit tests to the C# and Python wrappers to make sure the output matches the golden values used with the {cpp} targets.
+    * Update the unreal plugin.
 
-I developed the PCG REST API and the PCG web app to preview the results of the web api using playcanvas.
+    * Add unit tests to the C# and Python wrappers to make sure the output matches the golden values used with the {cpp} targets.
 
-Added some edge cases tests in non cyclic sequences and combination generations.
+    * Develop the PCG REST API and the PCG web app to preview the results of the web api using PlayCanvas.
 
-Replaced the simpleGeneration function to take a vector offset instead of the axis argument.
+    * Add edge cases tests in non cyclic sequences and combination generations.
 
-Replace the return of the cyclic sequence generation from a vector to a callback.
+    * Replace the simpleGeneration function to take a vector offset instead of the axis argument.
 
-Delete CallbackFunctor class that is basically a clone of std::function.
+    * Replace the return of the cyclic sequence generation from a vector to a callback. Because of corrupt values when returning vector in different DLL.
+
+    * Delete CallbackFunctor class that is basically a clone of std::function.
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/75538025/restrictions-on-cast-unreal[Unreal dynamic_cast restrictions]? Unreal redefines dynamic_cast in a macro and forces the classes to inherit from UObject if it doesn't a static_assert will fail.
+
+    * https://forums.unrealengine.com/t/casting-c-syntax-and-ue-syntax/29652[Casting in Unreal using C Casts]? Since Unreal forces dynamic_cast to use classes inheriting from UObject I need to use C cast to cast from my DLL interface back to Unreal types.
+
+    * https://www.codeproject.com/Questions/473616/Parameterplusvaluespluscorruptionpluswhenplusonepl[DLL value is corrupted when returned in calling DLL]? When two DLL are compiled differently values returned from one DLL can become corrupted when returned in second DLL.
+    The returned vector containing the cyclic sequence had valid values in the pcg engine but when it reached the unreal stack it's values where corrupted.
+
+    * https://www.reddit.com/r/dotnet/comments/15qr7ew/nunit_xunit_or_mstest/[Which testing framework to use with C#]?
+
+    * https://xunit.net/docs/shared-context[Test Fixutres with xUnit]?
+
+    * https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/[Parametrized tests with xUnit]?
+
+    * https://stackoverflow.com/questions/69219916/generics-passing-an-int-value-instead-of-type[C# pass int to template]? This is not possible in C#.
+
+    * https://stackoverflow.com/questions/10073319/returning-anonymous-type-in-c-sharp[C# return anonymous type]? This is not possible.
+
+    * https://stackoverflow.com/questions/8514816/tuples-and-unpacking-assignment-support-in-c[Unpack tuple in C#]? `(int x, int y) = Tuple<int, int>`
+
+    * https://www.reddit.com/r/Python/comments/18bjv0y/pytest_over_unittest/[Which test framework to use with Python]?
+
+    * https://stackoverflow.com/questions/35998992/py-test-command-not-found-but-library-is-installed[Python module not found]? `python -m pytest`.
+
+    * https://www.tutorialspoint.com/pytest/pytest_identifying_test_files_and_functions.htm[Pytest not found]?
+
+        1. Test files need to have a test suffix
+
+        2. Test functions need to have a test prefix
+
+    * https://www.tutorialspoint.com/pytest/pytest_conftest_py.htm[Python share fixtures with multiple files]? Define fixture in conftest.py.
+
+    * https://www.tutorialspoint.com/pytest/pytest_parameterizing_tests.htm[Define parametrized test in pytest]? `@pytest.mark.parametrize`
+
+    * https://learn.microsoft.com/en-us/answers/questions/1003951/c-difference-between-record-and-class[C# Class vs Records]? Records are used for data only types.
+
+    * https://stackoverflow.com/questions/978061/http-get-with-request-body[Add request body to GET request]? It is possible to add a body but it breaks semantics and is not recommended. The better option is to use a POST request.
+
+    * https://stackoverflow.com/questions/78119582/what-is-api-http-file-in-net-8[HTTP file in ASP.NET Core project]? This file is used to test the api.
+
+    * https://stackoverflow.com/questions/69802631/cors-policy-in-javascript-and-net-minimal-api[How to fix CORS errors in REST API]? Add the cors service and allows any origin, method and headers.
+
+    * https://nextjs.org/learn/react-foundations/updating-state[How to update NextJS UI when value changes]?
+
+    * https://stackoverflow.com/questions/60457262/next-js-layout-component-pass-props-to-children[How to pass children to NextJS component]?
+
+    * https://stackoverflow.com/questions/49701408/css-grid-auto-height-rows-sizing-to-content[Fix grid height with CSS]?
+
+    * https://stackoverflow.com/questions/72946973/how-to-access-a-state-of-an-component-from-another-component-in-next-js[Modify state of child component using parent]?
+
+    * https://stackoverflow.com/questions/90178/make-a-div-fill-the-height-of-the-remaining-screen-space[HTML use 100% height]?
+
+    * https://stackoverflow.com/questions/68412819/how-to-persist-a-variable-between-renders-in-react-hooks[Fix variables being reset after useState value changes]? Moving the variables outside the function scope fixes this error and persist the current values.
+
+    * https://stackoverflow.com/questions/69667313/make-a-new-div-element-for-each-element-in-an-array-with-jsx[Add elements in component based on array passed in]?
+
+    * https://stackoverflow.com/questions/3549540/google-test-fixtures[Create TEST_F with gtest {cpp}]?
+
+    * https://stackoverflow.com/questions/25461585/operator-overloading-equals[Operator== != overloading in C#]
+
+    * https://www.reddit.com/r/react/comments/12m3uwu/comment/jg95r8p/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button[Hide element in component based on props]? `{isShown && <p>Shown</p>}`
+
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-13[Week 13]
 

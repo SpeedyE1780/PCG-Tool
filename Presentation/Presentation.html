@@ -445,7 +445,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="_elevator_pitch">Elevator Pitch</h3>
 <div class="paragraph">
-<p>The <strong>P</strong>rocedural <strong>C</strong>ontent <strong>G</strong>eneration (PCG) Engine is a C++ library used to generate content procedurally.</p>
+<p>The <strong>P</strong>rocedural <strong>C</strong>ontent <strong>G</strong>eneration (PCG) Engine is a C&#43;&#43; library used to generate content procedurally.</p>
 </div>
 </div>
 <div class="sect2">
@@ -560,10 +560,10 @@ To generate a combination I generate a random number between 0 and 2<sup>n</sup>
 </ul>
 </div>
 <div class="paragraph">
-<p>[x] <strong>C#:</strong> A C# library is available that wraps the C++ library and allows calling the native functions.</p>
+<p>[x] <strong>C#:</strong> A C# library is available that wraps the C&#43;&#43; library and allows calling the native functions.</p>
 </div>
 <div class="paragraph">
-<p>[x] <strong>Python:</strong> A Python library is available that wraps the C++ library and allows calling the native functions.</p>
+<p>[x] <strong>Python:</strong> A Python library is available that wraps the C&#43;&#43; library and allows calling the native functions.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -578,7 +578,7 @@ The package adds editor windows that allows generating content during edit mode.
 Content can also be generated during play mode using only the C# Wrapper if the editor windows are not needed.</p>
 </div>
 <div class="paragraph">
-<p>[x] <strong>Unreal:</strong> An Unreal plugin was developed that adds the C++ library as a third party and allows generating content during runtime.
+<p>[x] <strong>Unreal:</strong> An Unreal plugin was developed that adds the C&#43;&#43; library as a third party and allows generating content during runtime.
 A second plugin was developed that adds editor window and allows generating content during edit mode.</p>
 </div>
 <div class="ulist">
@@ -623,7 +623,7 @@ The generated JSON can be copied from the text area where it is displayed.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10">Is C++/CLI compatible with unity</a>? No following this <a href="https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10">comment</a> the transition from a Non <strong>J</strong>ust <strong>I</strong>n <strong>T</strong>ime compiled language to a JIT language causes a crash.</p>
+<p><a href="https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10">Is C&#43;&#43;/CLI compatible with unity</a>? No following this <a href="https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10">comment</a> the transition from a Non <strong>J</strong>ust <strong>I</strong>n <strong>T</strong>ime compiled language to a JIT language causes a crash.</p>
 </li>
 <li>
 <p><a href="https://stackoverflow.com/questions/1533916/how-to-set-up-a-c-function-so-that-it-can-be-used-by-p-invoke/1533956#1533956">Disable name mangling to use function with P/Invoke</a>? export function using <code>extern "C"</code>.</p>
@@ -632,7 +632,7 @@ The generated JSON can be copied from the text area where it is displayed.</p>
 <p><a href="https://stackoverflow.com/questions/4804494/p-invoking-function-via-a-mangled-name">Invoke function who&#8217;s name is mangled</a>? Modify the EntryPoint of the DllImport attribute.</p>
 </li>
 <li>
-<p>Use C++ enums in C#? <a href="https://stackoverflow.com/a/57546086">Re-declare enums in C#</a> or <a href="https://stackoverflow.com/a/18786">Use the PInvoke Interop Assistant tool to generate enums in C#</a></p>
+<p>Use C&#43;&#43; enums in C#? <a href="https://stackoverflow.com/a/57546086">Re-declare enums in C#</a> or <a href="https://stackoverflow.com/a/18786">Use the PInvoke Interop Assistant tool to generate enums in C#</a></p>
 </li>
 </ul>
 </div>
@@ -711,7 +711,7 @@ It can give you type safety you can&#8217;t compare two different enums but you 
 <p>Add combination generation.</p>
 </li>
 <li>
-<p>Refactors in the C++ engine.</p>
+<p>Refactors in the C&#43;&#43; engine.</p>
 </li>
 <li>
 <p>Add general documentation for the engine using asciidoc for the proposal submission.</p>
@@ -730,7 +730,16 @@ It can give you type safety you can&#8217;t compare two different enums but you 
 <p><a href="https://stackoverflow.com/questions/17032310/how-to-make-a-variadic-is-same">Check variadic template types</a>? <a href="https://stackoverflow.com/a/39550575">Stack Overflow answer</a> <code>concept are_same = std::conjunction_v&lt;std::is_same&lt;T, Ts&gt;&#8230;&#8203;&gt;;</code></p>
 </li>
 <li>
-<p><a href="https://stackoverflow.com/questions/30101191/can-i-call-a-c-function-from-javascript" class="bare">https://stackoverflow.com/questions/30101191/can-i-call-a-c-function-from-javascript</a>[Call C from JS]? Convert C to web service.</p>
+<p><a href="https://stackoverflow.com/questions/30101191/can-i-call-a-c-function-from-javascript">Call C&#43;&#43; function from JS</a>? <a href="https://stackoverflow.com/a/32237343">Stack Overflow answer</a> Wrap C&#43;&#43; to web service.</p>
+</li>
+<li>
+<p><a href="https://forums.unrealengine.com/t/what-versions-of-c-are-compatible-with-ue/657406/2">Unreal C&#43;&#43; standard</a>? C&#43;&#43; 17</p>
+</li>
+<li>
+<p><a href="https://forums.unrealengine.com/t/how-to-get-selected-objects-in-editor/320900/3">Get selected actors in Unreal</a>? <code>GEditor&#8594;GetSelectedActors()</code></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/252417/how-can-i-use-a-dll-file-from-python">Use C&#43;&#43; DLL with Python</a>? Using ctypes native DLL functions can be called.</p>
 </li>
 </ul>
 </div>
@@ -740,110 +749,519 @@ It can give you type safety you can&#8217;t compare two different enums but you 
 </div>
 <div class="sect2">
 <h3 id="_week_4"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-4">Week 4</a></h3>
-<div class="paragraph">
-<p>I implemented the remaining algorithms from Jamis Buck presentation: <a href="https://www.jamisbuck.org/presentations/rubyconf2011/index.html">"Algorithm" is not a four letter word.</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Implement the remaining algorithms from Jamis Buck presentation: <a href="https://www.jamisbuck.org/presentations/rubyconf2011/index.html">"Algorithm" is not a four letter word.</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/2999506/non-member-conversion-functions-casting-different-types-e-g-directx-vector-to">C&#43;&#43; conversion function</a>? <code>operator int() const</code></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/644629/base-enum-class-inheritance">C&#43;&#43; enum inheritance</a>? No.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_week_5"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-5">Week 5</a></h3>
-<div class="paragraph">
-<p>I implemented the new maze changes in Unity and Unreal and added a general documentation page.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Implement new maze changes in Unity and Unreal</p>
+</li>
+<li>
+<p>Add a general documentation page for maze target.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-creation">.lib file importance</a>? The .lib file resolve external references to exported DLL functions.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_week_6"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-6">Week 6</a></h3>
-<div class="paragraph">
-<p>I added golden value tests to the maze generation target to preserve the output after implementing new issues.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add golden value tests to the maze generation target to preserve the output after implementing new issues.</p>
+</li>
+<li>
+<p>Add the grid wave function collapse to the level generation target and implement it with Unity.</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>I added the grid wave function collapse to the level generation target and implemented it with Unity.</p>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.sandordargo.com/blog/2019/04/24/parameterized-testing-with-gtest">How to create C&#43;&#43; parametrized tests</a>?</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Inherit from testing::TestWithParam&lt;T&gt;</p>
+</li>
+<li>
+<p>Use TEST_P(ClassName, TestName)</p>
+</li>
+<li>
+<p>INSTANTIATE_TEST_CASE_P(TestPrefix, ClassName, Values)</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/46023379/generate-suffix-for-test-according-to-parameter-in-gtest-frame-work">Generate suffix for C&#43;&#43; parametrized test</a>? Pass in functor as 4th argument to generate a string from the test&#8217;s argument.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_week_7"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-7">Week 7</a></h3>
-<div class="paragraph">
-<p>I added golden value tests to the level generation target to preserve the output after implementing new issues.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add golden value tests to level generation target to preserve the output after implementing new issues.</p>
+</li>
+<li>
+<p>Update the level generation documentation.</p>
+</li>
+<li>
+<p>Add sequence generation to C&#43;&#43; engine.</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>I updated the level generation documentation.</p>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://discussions.unity.com/t/is-there-any-reason-to-use-unsafe-code-in-unity-in-2023/920022">Using unsafe in Unity</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/2415017/convert-from-double-array-to-pointer">Convert C# Array in to Pointer</a>? <code>fixed int* ptr = array</code></p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>I added sequence generation to C++ engine.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_week_8"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-8">Week 8</a></h3>
-<div class="paragraph">
-<p>I added sequence generation to Unity.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add sequence generation to Unity.</p>
+</li>
+<li>
+<p>Document sequence generation.</p>
+</li>
+<li>
+<p>Add a python wrapper for the combination target.</p>
+</li>
+<li>
+<p>Refactor sequence generation to facilitate the C# and Python implementation.</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>I added sequence generation documentation.</p>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/3355014/structlayout-only-for-struct">Can StructLayout be used with classes</a>? Yes.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/55093619/marshaling-c-sharp-struct-with-array-of-structs-and-size-param-index">Marshal class containing a class Array</a>? Use byte arrays.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/20597006/how-to-pass-a-pointer-from-c-sharp-to-native-function-in-dll">Pass an IntPtr to C&#43;&#43;</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/8162994/why-arent-static-data-members-allowed-in-local-classes">Can local classes have static variables in C&#43;&#43;</a>? No because local classes have no linkage.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/5714616/usage-of-local-class-in-c-function">Local classes usage in C&#43;&#43;</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/5081875/ctypes-beginner">How to use ctypes in Python</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/40843039/how-can-i-write-a-simple-callback-function">Create lambda in Python</a>? <code>lambda x, y: add(x, y)</code></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/20309456/how-do-i-call-a-function-from-another-py-file">How to import functions from files in Python</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/6434482/python-function-overloading">Why overloading doesn&#8217;t work in Python</a>? Overloaded method is chosen at compile time the alternative in Python is Multiple Dispatch.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/4145775/how-do-i-convert-a-python-list-into-a-c-array-by-using-ctypes">How to pass an array using ctypes</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/1615813/how-to-use-c-classes-with-ctypes">Use C&#43;&#43; class in Python</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/27663205/passing-a-python-object-to-c-module">Define a C&#43;&#43; class in Python</a>? The class needs to inherit from <code>ctypes.Structure</code> and set the <code>_fields_</code> variable</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/72036758/unhashable-type-in-python">Ctypes Unhashable type error</a>? <code>ctypes.pointer</code> was used with a class type instead of class instance.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/33005127/python-ctypes-callback-function-gives-typeerror-invalid-result-type-for-callba">Ctypes type error invalid result type for function</a>? This is a bug in ctypes only primitive types can be returned from a function.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/1942298/wrapping-a-c-library-in-python-c-cython-or-ctypes">Ctypes vs Cython</a>? Cython sounds better if the library is being written from scratch.
+Since my library is already written and I just need to call the exposed functions using ctypes felt like a better choice.</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>I added a python wrapper for the combination wrapper.</p>
-</div>
-<div class="paragraph">
-<p>I refactored the sequence generation to facilitate the C# and Python implementation.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_week_9"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-9">Week 9</a></h3>
-<div class="paragraph">
-<p>I fixed the project structure.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Fix the project structure.</p>
+</li>
+<li>
+<p>Update PCG Engine documentation.</p>
+</li>
+<li>
+<p>Change C# wrapper to a class library and use the generated DLL with Unity.</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>I updated the PCG Engine documentation.</p>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/49581761/dll-export-symbol-of-function-from-static-linked-library">Export symbols from static libraries</a>? Add the export macro the desired functions.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/2028264/visual-studio-with-doxygen-for-documentation-or-should-we-use-something-else">Setup doxygen documentation with C#</a>? Just use the XML comments since doxygen supports parsing XML.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/58950859/default-implementation-in-interface-is-not-seen-by-the-compiler">Use default interface implementation in C# class</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/4074585/attempted-to-read-or-write-protected-memory-this-is-often-an-indication-that-ot">How to enable native debugging in C# project</a>? Enable the option in the project settings.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/9577487/pointer-is-pointing-to-0x1-is-checking-for-null-valid">Pointer address is 0x1</a>? This means a null pointer is being dereferenced.</p>
+</li>
+<li>
+<p><a href="https://discussions.unity.com/t/unable-to-load-attribute-info-on-field-are-you-missing-a-reference/887696/4">Unity typecache error unable to load attribute error</a>? This means that either the DLL is compiled with a .net version that isn&#8217;t supported. Or the type used with in the editor window hasn&#8217;t been loaded from the DLL yet.</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>I separated the C# wrapper from unity and implemented it in a separate project as a class library.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_week_10"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-10">Week 10</a></h3>
-<div class="paragraph">
-<p>I finished wrapping the C++ library in python and added documentation.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Wrap the C&#43;&#43; library in python and added documentation.</p>
+</li>
+<li>
+<p>Add a combination demo and maze demo using pygame to the python wrapper.</p>
+</li>
+<li>
+<p>Add C&#43;&#43; combination generation tests and fixed an issue where the test order would change the results because the RNG seed wasn&#8217;t reset between tests.</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>I added a combination demo and maze demo using pygame to the python wrapper.</p>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/49672264/cmake-add-d-suffix-for-debug-build-of-static-library">Add debug suffix to DLL/Lib with Cmake</a>? <code>set(CMAKE_DEBUG_POSTFIX d)</code> for all targets or <code>set_target_properties(&lt;target-name&gt; PROPERTIES DEBUG_POSTFIX "d")</code> for chosen targets.</p>
+</li>
+<li>
+<p><a href="https://docs.python.org/3/howto/enum.html">How to declare enums in Python</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/394809/does-python-have-a-ternary-conditional-operator">Ternary operator in Python</a>? <code>x if condition else y</code>.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/42127593/should-python-class-filenames-also-be-camelcased">Python naming conventions</a>?</p>
+</li>
+<li>
+<p><a href="https://www.digitalocean.com/community/tutorials/python-str-repr-functions">Override the 'toString()' method in Python</a>? Implement the <code>__str__</code> function.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/56129479/how-to-debug-a-dll-in-visual-studio-that-i-call-from-python-using-ctypes">Enable native debugging in Python project</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/17301091/python-lifetime-of-module-global-variables">Lifetime of module global variables</a>? The logging and rng callbacks are global variables who are either deleted manually or when the script exits.</p>
+</li>
+<li>
+<p><a href="https://www.w3schools.com/python/python_variables_global.asp">Assign global variable in function body</a>? <code>global x x = 1</code></p>
+</li>
+<li>
+<p><a href="https://www.geeksforgeeks.org/python-docstrings/">Python documentation conventions</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/6060813/how-to-document-fields-and-properties-in-python">Document a variable in Python</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/1995615/how-can-i-format-a-decimal-to-always-show-2-decimal-places">How to format a string in Python</a>?</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>I added combination generation tests and fixed an issue where the test order would change the results because the RNG seed wasn&#8217;t reset between tests</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_week_11"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-11">Week 11</a></h3>
-<div class="paragraph">
-<p>I added cyclic sequence generation and added its implementation in the C# and python wrappers.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add cyclic sequence generation to engine and wrappers.</p>
+</li>
+<li>
+<p>Maintain prefabs links when spawning from editor window.</p>
+</li>
+<li>
+<p>Add Unity maze game demo.</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>I fixed an issue where prefabs spawned during edit mode in Unity would lose its link to the prefab.</p>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/29932342/is-there-a-way-to-ignore-calculating-language-statistics-for-a-directory-on-gith">Ignore folder from language statistics</a>? Add folder in the .gitattributes as <code>linguist-vendored</code></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/2152077/is-it-possible-to-get-cmake-to-build-both-a-static-and-shared-library-at-the-sam">Make target both static and shared</a>? Create two target with different names with the same source files.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/32994598/how-to-include-documentation-in-dll-to-show-method-summary-in-unity3d#:~:text=Under%20the%20"Build"%20side%20tab,put%20the%20documentation%20into%20Intellisense">Import C# DLL documentation in Unity</a>? Add the .xml file in the same folder as the DLL.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/1096568/how-can-i-use-interface-as-a-c-sharp-generic-type-constraint">Constrain Template type to be an interface</a>? This is not possible.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/1339976/how-to-check-if-any-flags-of-a-flag-combination-are-set">Check if flag is active in a C# Enum</a>? Enums has the <code>HasFlag</code> method that is used to check flags.</p>
+</li>
+<li>
+<p><a href="https://forums.unrealengine.com/t/does-ue-4-10-support-uclass-ustruct-in-namespaces/352448/6">Why namespace aren&#8217;t supported in Unreal</a>?</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>I added a Unity maze game demo.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_week_12"><a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-12">Week 12</a></h3>
-<div class="paragraph">
-<p>I updated the unreal plugin.</p>
-</div>
-<div class="paragraph">
-<p>I added unit tests to the C# and Python wrappers to make sure the output matches the golden values used with the C++ targets.</p>
-</div>
-<div class="paragraph">
-<p>I developed the PCG REST API and the PCG web app to preview the results of the web api using playcanvas.</p>
-</div>
-<div class="paragraph">
-<p>Added some edge cases tests in non cyclic sequences and combination generations.</p>
-</div>
-<div class="paragraph">
-<p>Replaced the simpleGeneration function to take a vector offset instead of the axis argument.</p>
-</div>
-<div class="paragraph">
-<p>Replace the return of the cyclic sequence generation from a vector to a callback.</p>
-</div>
-<div class="paragraph">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Update the unreal plugin.</p>
+</li>
+<li>
+<p>Add unit tests to the C# and Python wrappers to make sure the output matches the golden values used with the C&#43;&#43; targets.</p>
+</li>
+<li>
+<p>Develop the PCG REST API and the PCG web app to preview the results of the web api using PlayCanvas.</p>
+</li>
+<li>
+<p>Add edge cases tests in non cyclic sequences and combination generations.</p>
+</li>
+<li>
+<p>Replace the simpleGeneration function to take a vector offset instead of the axis argument.</p>
+</li>
+<li>
+<p>Replace the return of the cyclic sequence generation from a vector to a callback. Because of corrupt values when returning vector in different DLL.</p>
+</li>
+<li>
 <p>Delete CallbackFunctor class that is basically a clone of std::function.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/75538025/restrictions-on-cast-unreal">Unreal dynamic_cast restrictions</a>? Unreal redefines dynamic_cast in a macro and forces the classes to inherit from UObject if it doesn&#8217;t a static_assert will fail.</p>
+</li>
+<li>
+<p><a href="https://forums.unrealengine.com/t/casting-c-syntax-and-ue-syntax/29652">Casting in Unreal using C Casts</a>? Since Unreal forces dynamic_cast to use classes inheriting from UObject I need to use C cast to cast from my DLL interface back to Unreal types.</p>
+</li>
+<li>
+<p><a href="https://www.codeproject.com/Questions/473616/Parameterplusvaluespluscorruptionpluswhenplusonepl">DLL value is corrupted when returned in calling DLL</a>? When two DLL are compiled differently values returned from one DLL can become corrupted when returned in second DLL.
+The returned vector containing the cyclic sequence had valid values in the pcg engine but when it reached the unreal stack it&#8217;s values where corrupted.</p>
+</li>
+<li>
+<p><a href="https://www.reddit.com/r/dotnet/comments/15qr7ew/nunit_xunit_or_mstest/">Which testing framework to use with C#</a>?</p>
+</li>
+<li>
+<p><a href="https://xunit.net/docs/shared-context">Test Fixutres with xUnit</a>?</p>
+</li>
+<li>
+<p><a href="https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/">Parametrized tests with xUnit</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/69219916/generics-passing-an-int-value-instead-of-type">C# pass int to template</a>? This is not possible in C#.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/10073319/returning-anonymous-type-in-c-sharp">C# return anonymous type</a>? This is not possible.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/8514816/tuples-and-unpacking-assignment-support-in-c">Unpack tuple in C#</a>? <code>(int x, int y) = Tuple&lt;int, int&gt;</code></p>
+</li>
+<li>
+<p><a href="https://www.reddit.com/r/Python/comments/18bjv0y/pytest_over_unittest/">Which test framework to use with Python</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/35998992/py-test-command-not-found-but-library-is-installed">Python module not found</a>? <code>python -m pytest</code>.</p>
+</li>
+<li>
+<p><a href="https://www.tutorialspoint.com/pytest/pytest_identifying_test_files_and_functions.htm">Pytest not found</a>?</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Test files need to have a test suffix</p>
+</li>
+<li>
+<p>Test functions need to have a test prefix</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><a href="https://www.tutorialspoint.com/pytest/pytest_conftest_py.htm">Python share fixtures with multiple files</a>? Define fixture in conftest.py.</p>
+</li>
+<li>
+<p><a href="https://www.tutorialspoint.com/pytest/pytest_parameterizing_tests.htm">Define parametrized test in pytest</a>? <code>@pytest.mark.parametrize</code></p>
+</li>
+<li>
+<p><a href="https://learn.microsoft.com/en-us/answers/questions/1003951/c-difference-between-record-and-class">C# Class vs Records</a>? Records are used for data only types.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/978061/http-get-with-request-body">Add request body to GET request</a>? It is possible to add a body but it breaks semantics and is not recommended. The better option is to use a POST request.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/78119582/what-is-api-http-file-in-net-8">HTTP file in ASP.NET Core project</a>? This file is used to test the api.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/69802631/cors-policy-in-javascript-and-net-minimal-api">How to fix CORS errors in REST API</a>? Add the cors service and allows any origin, method and headers.</p>
+</li>
+<li>
+<p><a href="https://nextjs.org/learn/react-foundations/updating-state">How to update NextJS UI when value changes</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/60457262/next-js-layout-component-pass-props-to-children">How to pass children to NextJS component</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/49701408/css-grid-auto-height-rows-sizing-to-content">Fix grid height with CSS</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/72946973/how-to-access-a-state-of-an-component-from-another-component-in-next-js">Modify state of child component using parent</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/90178/make-a-div-fill-the-height-of-the-remaining-screen-space">HTML use 100% height</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/68412819/how-to-persist-a-variable-between-renders-in-react-hooks">Fix variables being reset after useState value changes</a>? Moving the variables outside the function scope fixes this error and persist the current values.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/69667313/make-a-new-div-element-for-each-element-in-an-array-with-jsx">Add elements in component based on array passed in</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/3549540/google-test-fixtures">Create TEST_F with gtest C&#43;&#43;</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/25461585/operator-overloading-equals" class="bare">https://stackoverflow.com/questions/25461585/operator-overloading-equals</a></p>
+</li>
+<li>
+<p><a href="https://www.reddit.com/r/react/comments/12m3uwu/comment/jg95r8p/?utm_source=share&amp;utm_medium=web3x&amp;utm_name=web3xcss&amp;utm_term=1&amp;utm_content=share_button">Hide element in component based on props</a>? <code>{isShown &amp;&amp; &lt;p&gt;Shown&lt;/p&gt;}</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -875,7 +1293,7 @@ It can give you type safety you can&#8217;t compare two different enums but you 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-29 19:31:51 +0300
+Last updated 2024-08-30 13:07:32 +0300
 </div>
 </div>
 </body>
