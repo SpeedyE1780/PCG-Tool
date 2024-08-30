@@ -314,11 +314,27 @@ The generated JSON can be copied from the text area where it is displayed.
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-11[Week 11]
 
-I added cyclic sequence generation and added its implementation in the C# and python wrappers.
+- **Developments:**
 
-I fixed an issue where prefabs spawned during edit mode in Unity would lose its link to the prefab.
+    * Add cyclic sequence generation to engine and wrappers.
 
-I added a Unity maze game demo.
+    * Maintain prefabs links when spawning from editor window.
+
+    * Add Unity maze game demo.
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/29932342/is-there-a-way-to-ignore-calculating-language-statistics-for-a-directory-on-gith[Ignore folder from language statistics]? Add folder in the .gitattributes as `linguist-vendored`
+
+    * https://stackoverflow.com/questions/2152077/is-it-possible-to-get-cmake-to-build-both-a-static-and-shared-library-at-the-sam[Make target both static and shared]? Create two target with different names with the same source files.
+
+    * https://stackoverflow.com/questions/32994598/how-to-include-documentation-in-dll-to-show-method-summary-in-unity3d#:~:text=Under%20the%20"Build"%20side%20tab,put%20the%20documentation%20into%20Intellisense[Import C# DLL documentation in Unity]? Add the .xml file in the same folder as the DLL.
+
+    * https://stackoverflow.com/questions/1096568/how-can-i-use-interface-as-a-c-sharp-generic-type-constraint[Constrain Template type to be an interface]? This is not possible.
+
+    * https://stackoverflow.com/questions/1339976/how-to-check-if-any-flags-of-a-flag-combination-are-set[Check if flag is active in a C# Enum]? Enums has the `HasFlag` method that is used to check flags.
+
+    * https://forums.unrealengine.com/t/does-ue-4-10-support-uclass-ustruct-in-namespaces/352448/6[Why namespace aren't supported in Unreal]?
 
 === https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-12[Week 12]
 
