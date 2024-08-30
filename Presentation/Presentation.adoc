@@ -81,7 +81,7 @@ It shows the result of combinations and sequences as text output.
 It displays the result of level generation using the PlayCanvas engine and allows moving around in the scene to look at the result.
 The generated JSON can be copied from the text area where it is displayed.
 
-== Development Approach and Answers https://github.com/users/SpeedyE1780/projects/3/[(Github Project)]
+== Development Approach https://github.com/users/SpeedyE1780/projects/3/[(Github Project)]
 
 === Recap
 
@@ -543,6 +543,37 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * https://stackoverflow.com/questions/58622/how-to-document-python-code-using-doxygen[How to use doxygen with Python docstrings]?
 
-== Value and Future Work
+== Value of Engine
+
+=== Advantages
+
+- **Diversity:** Supports multiple types of procedural generation (Level Generation, Maze Generation, Combination Generation, Sequence Generation).
+
+- **Support:** Works with multiple languages/engines.
+If the engine does not support a programming language yet: The REST API or web app can return a JSON file representing the generated content.
+The game developer just need to parse the JSON file and decide what happens next.
+
+- **Ease of Use:** Equivalent of calling any functions and doesn't need any knowledge of how the function works.
+All the user does is pass a callback that define how the generated content is used / instantiated.
+
+- **Lack of Dependency:** Only the DLLs are needed to generate content. If the content is generated at runtime then the DLL will need to be shipped with the executable. If the content is generated at edit time there is no need to ship the DLL.
+
+- **Web APP:** This allows anyone to play with the engine if the result interest them they could integrate the engine in their projects or simply use the generated JSON.
+
+=== Disadvantages
+
+Looking at other procedural content generation tools:
+
+    * https://dev.epicgames.com/documentation/en-us/unreal-engine/procedural-content-generation-overview[Unreal Procedural Content Generation Framework]
+    * https://sceelix.com[Sccelix]
+    * https://www.astrolog.org/labyrnth/daedalus.htm[Daedalus]
+    * https://www.world-machine.com[World Machine]
+    * https://dungeonarchitect.dev[Dungeon Architect]
+    
+These tools focus on one aspect of content generation and they do it well but most only support one engine / language.
+
+Some of them use a visual designer to set up the rules of the algorithm and then generate the content. Having a designer is something that I would love to implement.
+The designer gives the users more control over the behavior of the algorithm.
+On the other hand the game creator needs to learn how to use this designer and sometimes if this level of control isn't needed this can be a waste of time.
 
 

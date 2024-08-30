@@ -603,7 +603,7 @@ The generated JSON can be copied from the text area where it is displayed.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_development_approach_and_answers_github_project">Development Approach and Answers <a href="https://github.com/users/SpeedyE1780/projects/3/">(Github Project)</a></h2>
+<h2 id="_development_approach_github_project">Development Approach <a href="https://github.com/users/SpeedyE1780/projects/3/">(Github Project)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_recap">Recap</h3>
@@ -1486,15 +1486,72 @@ The returned vector containing the cyclic sequence had valid values in the pcg e
 </div>
 </div>
 <div class="sect1">
-<h2 id="_value_and_future_work">Value and Future Work</h2>
+<h2 id="_value_of_engine">Value of Engine</h2>
 <div class="sectionbody">
-
+<div class="sect2">
+<h3 id="_advantages">Advantages</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Diversity:</strong> Supports multiple types of procedural generation (Level Generation, Maze Generation, Combination Generation, Sequence Generation).</p>
+</li>
+<li>
+<p><strong>Support:</strong> Works with multiple languages/engines.
+If the engine does not support a programming language yet: The REST API or web app can return a JSON file representing the generated content.
+The game developer just need to parse the JSON file and decide what happens next.</p>
+</li>
+<li>
+<p><strong>Ease of Use:</strong> Equivalent of calling any functions and doesn&#8217;t need any knowledge of how the function works.
+All the user does is pass a callback that define how the generated content is used / instantiated.</p>
+</li>
+<li>
+<p><strong>Lack of Dependency:</strong> Only the DLLs are needed to generate content. If the content is generated at runtime then the DLL will need to be shipped with the executable. If the content is generated at edit time there is no need to ship the DLL.</p>
+</li>
+<li>
+<p><strong>Web APP:</strong> This allows anyone to play with the engine if the result interest them they could integrate the engine in their projects or simply use the generated JSON.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_disadvantages">Disadvantages</h3>
+<div class="paragraph">
+<p>Looking at other procedural content generation tools:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/procedural-content-generation-overview">Unreal Procedural Content Generation Framework</a></p>
+</li>
+<li>
+<p><a href="https://sceelix.com">Sccelix</a></p>
+</li>
+<li>
+<p><a href="https://www.astrolog.org/labyrnth/daedalus.htm">Daedalus</a></p>
+</li>
+<li>
+<p><a href="https://www.world-machine.com">World Machine</a></p>
+</li>
+<li>
+<p><a href="https://dungeonarchitect.dev">Dungeon Architect</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These tools focus on one aspect of content generation and they do it well but most only support one engine / language.</p>
+</div>
+<div class="paragraph">
+<p>Some of them use a visual designer to set up the rules of the algorithm and then generate the content. Having a designer is something that I would love to implement.
+The designer gives the users more control over the behavior of the algorithm.
+On the other hand the game creator needs to learn how to use this designer and sometimes if this level of control isn&#8217;t needed this can be a waste of time.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-30 15:16:21 +0300
+Last updated 2024-08-30 16:13:28 +0300
 </div>
 </div>
 </body>
