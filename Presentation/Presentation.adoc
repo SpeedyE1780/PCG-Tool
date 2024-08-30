@@ -40,8 +40,9 @@ The maze algorithm are taken from Jamis Buck presentation: https://www.jamisbuck
 A set of n elements has 2^n^ possible subsets as proven by the Binomial Theorem (Discrete Mathematics and Its Applications, Seventh Edition
 by Rosen, Kenneth p 417).
 A set can be represented using a n bit number(Discrete Mathematics and Its Applications, Seventh Edition
-by Rosen, Kenneth p 134). If the x^th^ is 1 then the x^th^ element in the set is included in the set.
-To generate a combination I generate a random number between 0 and 2^n^ and check the which bit is active. 
+by Rosen, Kenneth p 134).
+If the bit is 1 then the element is included in the combination.
+To generate a combination I generate a random number between 0 and 2^n^ and check which bits are active. 
 
 [x] **Combination:** Generate a combination from a set of elements.
 
@@ -64,18 +65,18 @@ To generate a combination I generate a random number between 0 and 2^n^ and chec
 - **Engines:**
 
 [x] **Unity:** A Unity package was developed that relies on the C# Wrapper.
-The package adds editor windows that allows generating content during edit mode.
+The package adds editor windows to generate content during edit mode.
 Content can also be generated during play mode using only the C# Wrapper if the editor windows are not needed.
 
-[x] **Unreal:** An Unreal plugin was developed that adds the {cpp} library as a third party and allows generating content during runtime.
-A second plugin was developed that adds editor window and allows generating content during edit mode.
+[x] **Unreal:** An Unreal plugin was developed that adds the {cpp} library as a third party library and allows generating content during runtime.
+A second plugin was developed that adds editor window to generate content during edit mode.
 
 - **Web Services:**
 
 [x] **PCG Web API:** The PCG Web API is an ASP.NET Core REST API.
 It takes the parameters in the request body and uses the C# Wrapper to generate content and returns the result as JSON in the response.
 
-[x] **PCG Web APP:** The PCG Web APP is a web application that allows preview the engine's functionality on the web.
+[x] **PCG Web APP:** The PCG Web APP is a web application that previews the engine's functionality on the web.
 It shows the result of combinations and sequences as text output.
 It displays the result of level generation using the PlayCanvas engine and allows moving around in the scene to look at the result.
 The generated JSON can be copied from the text area where it is displayed.
@@ -86,22 +87,22 @@ The generated JSON can be copied from the text area where it is displayed.
 
 - **Developments:**
 
-    * During the first few weeks (Week 1 -> Week 3): The main focus was to develop the {cpp} engine and integrate the engine with Unity and Unreal.
+    * **During the first few weeks (Week 1 -> Week 3):** The main focus was to develop the {cpp} engine and integrate the engine with Unity and Unreal.
     After integrating the engine with the different game engines I added more content generation to it (maze, combination generation) and created editor windows to showcase the engine for my proposal.
 
-    * During Week 4 -> Week 7: I added the remaining algorithms that were mentioned in my proposal (remaining mazes in Jamis Buck https://www.jamisbuck.org/presentations/rubyconf2011/index.html[presentation], grid wave function collapse, sequence generation).
+    * **During Week 4 -> Week 7:** I added the remaining algorithms that were mentioned in my proposal (remaining mazes in Jamis Buck https://www.jamisbuck.org/presentations/rubyconf2011/index.html[presentation], grid wave function collapse, sequence generation).
     I added unit test using golden values.
     Finally I added a high level documentation for the engine.
 
-    * During Week 8 -> Week 11: I created the C# wrappers and python wrappers.
+    * **During Week 8 -> Week 11:** I created the C# wrappers and python wrappers.
     I updated the Unity package and the engine documentation.
     I created a few demos in pygame and Unity.
     I added the possibility to generate sequences that can contain cycles.
 
-    * During Week 12: I updated the Unreal Plugin.
-    I developed the Web API/APP to preview the engine's results using PlayCanvas and the generated json can be retrieved and used anywhere.
+    * **During Week 12:** I updated the Unreal Plugin.
+    I developed the Web API/APP to preview the engine's results.
 
-    * During Week 13: I made sure everything is up to date for the presentation.
+    * **During Week 13:** I made sure everything is up to date for the presentation.
     I added the missing documentation and journal entries.
     Finally I wrote this presentation.
 
@@ -120,7 +121,7 @@ The generated JSON can be copied from the text area where it is displayed.
     * How to add a third party libraries to unreal and create editor windows?
 
         Third party libraries can be added when generating a new plugin in the unreal editor.
-        A editor plugin can also be created to add editor windows to Unreal.
+        An editor plugin can also be created to add editor windows to Unreal.
 
     * How to debug a native DLL?
 
@@ -132,23 +133,23 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * Ctypes vs Cython?
 
-        Cython would have been a better option if the module was in charge of the generation logic. Since the logic is already implemented in the {cpp} library it made more sense to simply wrap the library with ctypes.
+        Cython would have been a better option if the module was in charge of the generation logic. Since the logic is already implemented in the C++ library it made more sense to simply wrap the library with ctypes.
 
     * How to output the PCG Engine response in the Web App?
 
-        Using the useState with NextJS I was able to update the UI when I receive the output of a combination / sequence generation.
+        Using useState with NextJS I was able to update the UI when I receive the output of a combination / sequence generation.
         For level generation I integrated the PlayCanvas engine and added a fly over camera to be able to navigate the generated content in the scene.
 
 - **What went wrong:**
 
     * Unreal {cpp} standard: In the engine I use std::to_underlying to cast my enums.
     This function is available starting {cpp} 23.
-    Unreal doesn't {cpp} 23, I had to redefine it in my engine's header.
+    Since Unreal doesn't support {cpp} 23, I had to redefine it in my engine's header.
 
     * Using the DLL without the .lib in {cpp} would result in unresolved external errors when using functions from the DLL.
 
     * {cpp} Unit test weren't resetting the generation seed so the output was dependent on the order the test ran.
-    Using a text fixture I'm resetting the seed.
+    Using a text fixture to reset the seed fixed it.
 
     * Sequence generation had multiple issues. In {cpp} the algorithm just calls an interface function but this doesn't work in the wrappers.
     A callback is used to mimic this interface function call.
