@@ -480,7 +480,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </td>
 <td class="content">
 The Wave Function Collapse algorithm was created by <a href="https://github.com/mxgmn/WaveFunctionCollapse/blob/master/README.md">Maxim Gumin</a>.
-It is very similar to an AI concept: Constraint Satisfaction Problem (CSP) explained in Artificial Intelligence a Modern Approach Third Edition p202.
+It is very similar to an AI concept: Constraint Satisfaction Problem (CSP)<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.
 In my implementation the graph is initially empty and each node is added iteratively when a node is added it adds its adjacent node to the graph and create a constraint between them that needs to be satisfied.
 </td>
 </tr>
@@ -521,10 +521,8 @@ The maze algorithm are taken from Jamis Buck presentation: <a href="https://www.
 <div class="title">Note</div>
 </td>
 <td class="content">
-A set of n elements has 2<sup>n</sup> possible subsets as proven by the Binomial Theorem (Discrete Mathematics and Its Applications, Seventh Edition
-by Rosen, Kenneth p 417).
-A set can be represented using a n bit number(Discrete Mathematics and Its Applications, Seventh Edition
-by Rosen, Kenneth p 134).
+A set of n elements has 2<sup>n</sup> possible subsets as proven by the Binomial Theorem.<sup class="footnote" id="_footnote_combinationBook">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>
+A set can be represented using a n bit number.<sup class="footnoteref">[<a class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>
 If the bit is 1 then the element is included in the combination.
 To generate a combination I generate a random number between 0 and 2<sup>n</sup> and check which bits are active.
 </td>
@@ -1502,7 +1500,7 @@ The game developer just need to parse the JSON file and decide what happens next
 </li>
 <li>
 <p><strong>Ease of Use:</strong> Equivalent of calling any functions and doesn&#8217;t need any knowledge of how the function works.
-All the user does is pass a callback that define how the generated content is used / instantiated.</p>
+All the user does is pass a callback that defines how the generated content is used / instantiated.</p>
 </li>
 <li>
 <p><strong>Lack of Dependency:</strong> Only the DLLs are needed to generate content. If the content is generated at runtime then the DLL will need to be shipped with the executable. If the content is generated at edit time there is no need to ship the DLL.</p>
@@ -1564,7 +1562,7 @@ On the other hand the game creator needs to learn how to use this designer and s
 <p>Add a "4D" level generation the 4<sup>th</sup> dimension can be something like time for example a node can have a portal to the future and the corresponding node has a portal to the past similar to <a href="https://store.steampowered.com/app/2109770/Kingmakers/">Kingmakers</a></p>
 </li>
 <li>
-<p>Enable <a href="https://weblog.jamisbuck.org/2011/3/4/maze-generation-weave-mazes.html">Weaves</a> in mazes.</p>
+<p>Enable <a href="https://weblog.jamisbuck.org/2011/3/4/maze-generation-weave-mazes.html">Weaves</a> in mazes. Implement more maze algorithm from the <a href="https://pragprog.com/titles/jbmaze/mazes-for-programmers/">Maze for Programmers</a> book by Jamis Buck.</p>
 </li>
 <li>
 <p>Make the project open source and allow anyone to add new algorithms to the engine, optimizations, wrappers, etc&#8230;&#8203;</p>
@@ -1574,9 +1572,18 @@ On the other hand the game creator needs to learn how to use this designer and s
 </div>
 </div>
 </div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. RUSSEL, Stuart and NORVIG, Peter. 2009. Artificial Intelligence a Modern Approach. 3^rd^ edn. NJ: Pearson.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. ROSEN, Kenneth H. 2011. Discrete Mathematics and Its Applications. 7^th^ edn. McGraw Hill
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-30 17:10:05 +0300
+Last updated 2024-08-30 18:14:09 +0300
 </div>
 </div>
 </body>

@@ -1,5 +1,9 @@
 = PCG Engine Presentation
 
+:fn-aibook: footnote:[RUSSEL, Stuart and NORVIG, Peter. 2009. Artificial Intelligence a Modern Approach. 3^rd^ edn. NJ: Pearson.]
+
+:fn-combination: footnote:combinationBook[ROSEN, Kenneth H. 2011. Discrete Mathematics and Its Applications. 7^th^ edn. McGraw Hill]
+
 == High Level Concept
 
 === Elevator Pitch
@@ -22,7 +26,7 @@ The aim of the PCG Engine is to be usable with no knowledge of how procedural al
 
 [NOTE]
 The Wave Function Collapse algorithm was created by https://github.com/mxgmn/WaveFunctionCollapse/blob/master/README.md[Maxim Gumin].
-It is very similar to an AI concept: Constraint Satisfaction Problem (CSP) explained in Artificial Intelligence a Modern Approach Third Edition p202.
+It is very similar to an AI concept: Constraint Satisfaction Problem (CSP){fn-aibook}.
 In my implementation the graph is initially empty and each node is added iteratively when a node is added it adds its adjacent node to the graph and create a constraint between them that needs to be satisfied.
 
 [x] **Grid 2D / 3D Wave Function Collapse Generation:** Spawn nodes in the grid where each node has a set of adjacent nodes.
@@ -37,10 +41,8 @@ The maze algorithm are taken from Jamis Buck presentation: https://www.jamisbuck
 - **Combination Generation:**
 
 [NOTE]
-A set of n elements has 2^n^ possible subsets as proven by the Binomial Theorem (Discrete Mathematics and Its Applications, Seventh Edition
-by Rosen, Kenneth p 417).
-A set can be represented using a n bit number(Discrete Mathematics and Its Applications, Seventh Edition
-by Rosen, Kenneth p 134).
+A set of n elements has 2^n^ possible subsets as proven by the Binomial Theorem.{fn-combination}
+A set can be represented using a n bit number.{fn-combination}
 If the bit is 1 then the element is included in the combination.
 To generate a combination I generate a random number between 0 and 2^n^ and check which bits are active. 
 
@@ -554,7 +556,7 @@ If the engine does not support a programming language yet: The REST API or web a
 The game developer just need to parse the JSON file and decide what happens next.
 
 - **Ease of Use:** Equivalent of calling any functions and doesn't need any knowledge of how the function works.
-All the user does is pass a callback that define how the generated content is used / instantiated.
+All the user does is pass a callback that defines how the generated content is used / instantiated.
 
 - **Lack of Dependency:** Only the DLLs are needed to generate content. If the content is generated at runtime then the DLL will need to be shipped with the executable. If the content is generated at edit time there is no need to ship the DLL.
 
@@ -582,6 +584,6 @@ On the other hand the game creator needs to learn how to use this designer and s
 
 - Add a "4D" level generation the 4^th^ dimension can be something like time for example a node can have a portal to the future and the corresponding node has a portal to the past similar to https://store.steampowered.com/app/2109770/Kingmakers/[Kingmakers]
 
-- Enable https://weblog.jamisbuck.org/2011/3/4/maze-generation-weave-mazes.html[Weaves] in mazes.
+- Enable https://weblog.jamisbuck.org/2011/3/4/maze-generation-weave-mazes.html[Weaves] in mazes. Implement more maze algorithm from the https://pragprog.com/titles/jbmaze/mazes-for-programmers/[Maze for Programmers] book by Jamis Buck.
 
 - Make the project open source and allow anyone to add new algorithms to the engine, optimizations, wrappers, etc...
