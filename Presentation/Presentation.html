@@ -640,7 +640,112 @@ Finally I wrote this presentation.</p>
 </div>
 </li>
 <li>
-<p><strong>Biggest Questions and Issues:</strong></p>
+<p><strong>Biggest Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>How to invoke C&#43;&#43; functions in C# and Python?</p>
+<div class="literalblock">
+<div class="content">
+<pre>Using P/Invoke I can call native functions in C#.
+Using ctypes I can call native functions in Python.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Should I keep name mangling?</p>
+<div class="literalblock">
+<div class="content">
+<pre>I disabled name mangling early in the project since having to update the entry point in C# was something I kept forgetting.
+It was a good thing I did because python and ctypes needs to use the function name and if name mangling was still active I'd have to disable it.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>How to add a third party libraries to unreal and create editor windows?</p>
+<div class="literalblock">
+<div class="content">
+<pre>Third party libraries can be added when generating a new plugin in the unreal editor.
+A editor plugin can also be created to add editor windows to Unreal.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>How to debug a native DLL?</p>
+<div class="literalblock">
+<div class="content">
+<pre>Most of the time it was simply a setting in the project. If not I can attach to the process and the breakpoints will be hit.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>How to invoke C&#43;&#43; functions in JavaScript?</p>
+<div class="literalblock">
+<div class="content">
+<pre>The solution was to create a REST API and get the json response from the server.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ctypes vs Cython?</p>
+<div class="literalblock">
+<div class="content">
+<pre>Cython would have been a better option if the module was in charge of the generation logic. Since the logic is already implemented in the {cpp} library it made more sense to simply wrap the library with ctypes.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>How to output the PCG Engine response in the Web App?</p>
+<div class="literalblock">
+<div class="content">
+<pre>Using the useState with NextJS I was able to update the UI when I receive the output of a combination / sequence generation.
+For level generation I integrated the PlayCanvas engine and added a fly over camera to be able to navigate the generated content in the scene.</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>What went wrong:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Unreal C&#43;&#43; standard: In the engine I use std::to_underlying to cast my enums.
+This function is available starting C&#43;&#43; 23.
+Unreal doesn&#8217;t C&#43;&#43; 23, I had to redefine it in my engine&#8217;s header.</p>
+</li>
+<li>
+<p>Using the DLL without the .lib in C&#43;&#43; would result in unresolved external errors when using functions from the DLL.</p>
+</li>
+<li>
+<p>C&#43;&#43; Unit test weren&#8217;t resetting the generation seed so the output was dependent on the order the test ran.
+Using a text fixture I&#8217;m resetting the seed.</p>
+</li>
+<li>
+<p>Sequence generation had multiple issues. In C&#43;&#43; the algorithm just calls an interface function but this doesn&#8217;t work in the wrappers.
+A callback is used to mimic this interface function call.</p>
+</li>
+<li>
+<p>ctypes callback can only return primitive types.
+This was an issue for sequence generation but the callback approach avoided this issue.</p>
+</li>
+<li>
+<p>In the python wrapper passing callbacks to log the engine output or generate random number would cause crashes because the callback was deleted from memory.
+Using global variables for these specific callbacks solved it.</p>
+</li>
+<li>
+<p>Returning a vector representing the generated cyclic sequence would be corrupted when read from a different DLL because of different compile settings.
+I replaced it with a callback that notifies the caller when a node needs to be added to the sequence.</p>
+</li>
+<li>
+<p>Unreal doesn&#8217;t allow dynamic_casting objects that don&#8217;t inherit from UObject. The alternative was to use a C cast <code>(int*)x</code></p>
+</li>
+<li>
+<p>CORS errors between the Web APP and REST API. This was easy to fix by adding the cors service.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1388,7 +1493,7 @@ The returned vector containing the cyclic sequence had valid values in the pcg e
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-30 13:51:41 +0300
+Last updated 2024-08-30 14:59:54 +0300
 </div>
 </div>
 </body>

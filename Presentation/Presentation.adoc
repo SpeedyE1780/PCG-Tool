@@ -105,7 +105,66 @@ The generated JSON can be copied from the text area where it is displayed.
     I added the missing documentation and journal entries.
     Finally I wrote this presentation.
 
-- **Biggest Questions and Issues:**
+- **Biggest Questions:**
+
+    * How to invoke {cpp} functions in C# and Python?
+
+        Using P/Invoke I can call native functions in C#.
+        Using ctypes I can call native functions in Python.
+
+    * Should I keep name mangling?
+
+        I disabled name mangling early in the project since having to update the entry point in C# was something I kept forgetting.
+        It was a good thing I did because python and ctypes needs to use the function name and if name mangling was still active I'd have to disable it.
+
+    * How to add a third party libraries to unreal and create editor windows?
+
+        Third party libraries can be added when generating a new plugin in the unreal editor.
+        A editor plugin can also be created to add editor windows to Unreal.
+
+    * How to debug a native DLL?
+
+        Most of the time it was simply a setting in the project. If not I can attach to the process and the breakpoints will be hit.
+
+    * How to invoke {cpp} functions in JavaScript?
+
+        The solution was to create a REST API and get the json response from the server.
+
+    * Ctypes vs Cython?
+
+        Cython would have been a better option if the module was in charge of the generation logic. Since the logic is already implemented in the {cpp} library it made more sense to simply wrap the library with ctypes.
+
+    * How to output the PCG Engine response in the Web App?
+
+        Using the useState with NextJS I was able to update the UI when I receive the output of a combination / sequence generation.
+        For level generation I integrated the PlayCanvas engine and added a fly over camera to be able to navigate the generated content in the scene.
+
+- **What went wrong:**
+
+    * Unreal {cpp} standard: In the engine I use std::to_underlying to cast my enums.
+    This function is available starting {cpp} 23.
+    Unreal doesn't {cpp} 23, I had to redefine it in my engine's header.
+
+    * Using the DLL without the .lib in {cpp} would result in unresolved external errors when using functions from the DLL.
+
+    * {cpp} Unit test weren't resetting the generation seed so the output was dependent on the order the test ran.
+    Using a text fixture I'm resetting the seed.
+
+    * Sequence generation had multiple issues. In {cpp} the algorithm just calls an interface function but this doesn't work in the wrappers.
+    A callback is used to mimic this interface function call.
+
+    * ctypes callback can only return primitive types.
+    This was an issue for sequence generation but the callback approach avoided this issue.
+
+    * In the python wrapper passing callbacks to log the engine output or generate random number would cause crashes because the callback was deleted from memory.
+    Using global variables for these specific callbacks solved it.
+
+    * Returning a vector representing the generated cyclic sequence would be corrupted when read from a different DLL because of different compile settings.
+    I replaced it with a callback that notifies the caller when a node needs to be added to the sequence.
+
+    * Unreal doesn't allow dynamic_casting objects that don't inherit from UObject. The alternative was to use a C cast `(int*)x`
+
+    * CORS errors between the Web APP and REST API. This was easy to fix by adding the cors service.
 
 === Week 1 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-1[(Github Issues)]
 
