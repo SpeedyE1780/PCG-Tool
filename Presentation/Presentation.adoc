@@ -81,7 +81,7 @@ A second plugin was developed that adds editor window to generate content during
 [x] **PCG Web API https://youtu.be/P_mNN8f9NCI[(Demo)]:** The PCG Web API is an ASP.NET Core REST API.
 It takes the parameters in the request body and uses the C# Wrapper to generate content and returns the result as JSON in the response.
 
-[x] **PCG Web APP:** The PCG Web APP is a web application that previews the engine's functionality on the web.
+[x] **PCG Web APP https://youtu.be/EbdXR-TMIEI[(Demo)]:** The PCG Web APP is a web application that previews the engine's functionality on the web.
 It shows the result of combinations and sequences as text output.
 It displays the result of level generation using the PlayCanvas engine and allows moving around in the scene to look at the result.
 The generated JSON can be copied from the text area where it is displayed.
