@@ -29,6 +29,9 @@ The Wave Function Collapse algorithm was created by https://github.com/mxgmn/Wav
 It is very similar to an AI concept: Constraint Satisfaction Problem (CSP){fn-aibook}.
 In my implementation the graph is initially empty and each node is added iteratively when a node is added it adds its adjacent node to the graph and create a constraint between them that needs to be satisfied.
 
+[.text-center]
+image:images/CSP.png[CSP Example]
+
 [x] **Grid 2D / 3D Wave Function Collapse Generation:** Spawn nodes in the grid where each node has a set of adjacent nodes.
 
 [ ] **Graph Rewriting:** Allow passing in rules and patterns to the generation algorithm and subgraphs that matches rules to given patterns.
