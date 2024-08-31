@@ -394,7 +394,7 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * Wrap the {cpp} library in python and added documentation.
 
-    * Add a combination demo and maze demo using pygame to the python wrapper.
+    * Add a https://youtu.be/-mJ4iyE9V8I[combination] and https://youtu.be/9M1DBgNr38Q[maze] demo using pygame to the python wrapper.
 
     * Add {cpp} combination generation tests and fixed an issue where the test order would change the results because the RNG seed wasn't reset between tests.
 
@@ -426,11 +426,15 @@ The generated JSON can be copied from the text area where it is displayed.
 
 - **Developments:**
 
+    * Update Unity package.
+
     * Add cyclic sequence generation to engine and wrappers.
 
     * Maintain prefabs links when spawning from editor window.
 
     * Add Unity maze game demo.
+
+    * Add python https://youtu.be/OtXPXMLDZlk[cyclic generation] demo.
 
 - **Questions:**
 
