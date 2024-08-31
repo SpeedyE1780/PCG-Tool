@@ -1,0 +1,598 @@
+= PCG Engine Presentation
+
+:fn-aibook: footnote:[RUSSEL, Stuart and NORVIG, Peter. 2009. Artificial Intelligence a Modern Approach. 3^rd^ edn. NJ: Pearson.]
+
+:fn-combination: footnote:combinationBook[ROSEN, Kenneth H. 2011. Discrete Mathematics and Its Applications. 7^th^ edn. McGraw Hill]
+
+== High Level Concept
+
+=== Elevator Pitch
+
+The **P**rocedural **C**ontent **G**eneration (PCG) Engine is a {cpp} library used to generate content procedurally.
+
+=== Aim of Project
+
+The aim of the PCG Engine is to be usable with no knowledge of how procedural algorithm work. You just pass in a callback and let the engine do all the work and notify you when something is generated.
+
+=== What Was Proposed
+
+- **Level Generation:**
+
+[x] **Simple Generation:** Spawn nodes following a unit vector.
+
+[x] **Multi Dimension Generation:** Spawn nodes on the chosen axes.
+
+[x] **Wave Function Collapse Generation:** Spawn nodes on the chosen axes where each node has a set of adjacent nodes.
+
+[NOTE]
+The Wave Function Collapse algorithm was created by https://github.com/mxgmn/WaveFunctionCollapse/blob/master/README.md[Maxim Gumin].
+It is very similar to an AI concept: Constraint Satisfaction Problem (CSP){fn-aibook}.
+In my implementation the graph is initially empty and each node is added iteratively when a node is added it adds its adjacent node to the graph and create a constraint between them that needs to be satisfied.
+
+[.text-center]
+image:images/CSP.png[CSP Example]
+
+[x] **Grid 2D / 3D Wave Function Collapse Generation:** Spawn nodes in the grid where each node has a set of adjacent nodes.
+
+[ ] **Graph Rewriting:** Allow passing in rules and patterns to the generation algorithm and subgraphs that matches rules to given patterns.
+
+[x] **Maze Generation:** Spawn nodes with adjacent nodes to form a maze following a chosen algorithm.
+
+[NOTE]
+The maze algorithm are taken from Jamis Buck presentation: https://www.jamisbuck.org/presentations/rubyconf2011/index.html["Algorithm" is not a four letter word.] and his Better Recursive Division Algorithm https://weblog.jamisbuck.org/2015/1/15/better-recursive-division-algorithm.html[blog]
+
+- **Combination Generation:**
+
+[NOTE]
+A set of n elements has 2^n^ possible subsets as proven by the Binomial Theorem.{fn-combination}
+A set can be represented using a n bit number.{fn-combination}
+If the bit is 1 then the element is included in the combination.
+To generate a combination I generate a random number between 0 and 2^n^ and check which bits are active. 
+
+[x] **Combination:** Generate a combination from a set of elements.
+
+[x] **Combination with Minimum Elements:** Generate a combination from a set with at least x elements.
+
+[x] **Combination with Active Elements:** Generate a combination from a set with chosen elements active.
+
+- **Sequence Generation:**
+
+[x] **Linear Sequence:** Given a start node choose a random next node and repeat the process until the current node has no next node.
+
+[x] **Cyclic Sequence:** Given a start node choose a random next node and repeat the process until the chosen length is reached.
+
+- **Languages:**
+
+[x] **C#:** A C# library is available that wraps the {cpp} library and allows calling the native functions.
+
+[x] **Python:** A Python library is available that wraps the {cpp} library and allows calling the native functions.
+
+- **Engines:**
+
+[x] **Unity https://youtu.be/w16gru7T23M[(Demo)]:** A Unity package was developed that relies on the C# Wrapper.
+The package adds editor windows to generate content during edit mode.
+Content can also be generated during play mode using only the C# Wrapper if the editor windows are not needed.
+
+[x] **Unreal:** An Unreal plugin was developed that adds the {cpp} library as a third party library and allows generating content during runtime.
+A second plugin was developed that adds editor window to generate content during edit mode.
+
+- **Web Services:**
+
+[x] **PCG Web API https://youtu.be/P_mNN8f9NCI[(Demo)]:** The PCG Web API is an ASP.NET Core REST API.
+It takes the parameters in the request body and uses the C# Wrapper to generate content and returns the result as JSON in the response.
+
+[x] **PCG Web APP https://youtu.be/EbdXR-TMIEI[(Demo)]:** The PCG Web APP is a web application that previews the engine's functionality on the web.
+It shows the result of combinations and sequences as text output.
+It displays the result of level generation using the PlayCanvas engine and allows moving around in the scene to look at the result.
+The generated JSON can be copied from the text area where it is displayed.
+
+== Development Approach https://github.com/users/SpeedyE1780/projects/3/[(Github Project)]
+
+=== Recap
+
+- **Developments:**
+
+    * **During the first few weeks (Week 1 -> Week 3):** The main focus was to develop the {cpp} engine and integrate the engine with Unity and Unreal.
+    After integrating the engine with the different game engines I added more content generation to it (maze, combination generation) and created editor windows to showcase the engine for my proposal.
+
+    * **During Week 4 -> Week 7:** I added the remaining algorithms that were mentioned in my proposal (remaining mazes in Jamis Buck https://www.jamisbuck.org/presentations/rubyconf2011/index.html[presentation], grid wave function collapse, sequence generation).
+    I added unit test using golden values.
+    Finally I added a high level documentation for the engine.
+
+    * **During Week 8 -> Week 11:** I created the C# wrappers and python wrappers.
+    I updated the Unity package and the engine documentation.
+    I created a few demos in pygame and Unity.
+    I added the possibility to generate sequences that can contain cycles.
+
+    * **During Week 12:** I updated the Unreal Plugin.
+    I developed the Web API/APP to preview the engine's results.
+
+    * **During Week 13:** I made sure everything is up to date for the presentation.
+    I added the missing documentation and journal entries.
+    Finally I wrote this presentation.
+
+- **Biggest Questions:**
+
+    * How to invoke {cpp} functions in C# and Python?
+
+        Using P/Invoke I can call native functions in C#.
+        Using ctypes I can call native functions in Python.
+
+    * Should I keep name mangling?
+
+        I disabled name mangling early in the project since having to update the entry point in C# was something I kept forgetting.
+        It was a good thing I did because python and ctypes needs to use the function name and if name mangling was still active I'd have to disable it.
+
+    * How to add a third party libraries to unreal and create editor windows?
+
+        Third party libraries can be added when generating a new plugin in the unreal editor.
+        An editor plugin can also be created to add editor windows to Unreal.
+
+    * How to debug a native DLL?
+
+        Most of the time it was simply a setting in the project. If not I can attach to the process and the breakpoints will be hit.
+
+    * How to invoke {cpp} functions in JavaScript?
+
+        The solution was to create a REST API and get the json response from the server.
+
+    * Ctypes vs Cython?
+
+        Cython would have been a better option if the module was in charge of the generation logic. Since the logic is already implemented in the C++ library it made more sense to simply wrap the library with ctypes.
+
+    * How to output the PCG Engine response in the Web App?
+
+        Using useState with NextJS I was able to update the UI when I receive the output of a combination / sequence generation.
+        For level generation I integrated the PlayCanvas engine and added a fly over camera to be able to navigate the generated content in the scene.
+
+- **What went wrong:**
+
+    * Unreal {cpp} standard: In the engine I use std::to_underlying to cast my enums.
+    This function is available starting {cpp} 23.
+    Since Unreal doesn't support {cpp} 23, I had to redefine it in my engine's header.
+
+    * Using the DLL without the .lib in {cpp} would result in unresolved external errors when using functions from the DLL.
+
+    * {cpp} Unit test weren't resetting the generation seed so the output was dependent on the order the test ran.
+    Using a text fixture to reset the seed fixed it.
+
+    * Sequence generation had multiple issues. In {cpp} the algorithm just calls an interface function but this doesn't work in the wrappers.
+    A callback is used to mimic this interface function call.
+
+    * ctypes callback can only return primitive types.
+    This was an issue for sequence generation but the callback approach avoided this issue.
+
+    * In the python wrapper passing callbacks to log the engine output or generate random number would cause crashes because the callback was deleted from memory.
+    Using global variables for these specific callbacks solved it.
+
+    * Returning a vector representing the generated cyclic sequence would be corrupted when read from a different DLL because of different compile settings.
+    I replaced it with a callback that notifies the caller when a node needs to be added to the sequence.
+
+    * Unreal doesn't allow dynamic_casting objects that don't inherit from UObject. The alternative was to use a C cast `(int*)x`
+
+    * CORS errors between the Web APP and REST API. This was easy to fix by adding the cors service.
+
+=== Week 1 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-1[(Github Issues)]
+
+- **Developments:**
+
+    * Create PCG editor windows in Unity to generate content.
+
+    * Generate content with coroutines.
+
+    * Add 1D, 2D, 3D level generators.
+
+    * Create {cpp} PCG Engine.
+
+    * Move generators to PCG Engine.
+
+    * Add seed to PCG Engine generation.
+
+    * Add user defined random number generator callbacks.
+
+    * Add user defined logging callbacks.
+
+    * Add a wave function collapse generator to PCG Engine.
+
+    * Implement engine with GAM703 as a small demo.
+
+    * Implement engine with Unreal project as a plugin.
+
+- **Questions:**
+
+    * https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10[Is {cpp}/CLI compatible with unity]? No following this https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10[comment] the transition from a Non **J**ust **I**n **T**ime compiled language to a JIT language causes a crash.
+
+    * https://stackoverflow.com/questions/1533916/how-to-set-up-a-c-function-so-that-it-can-be-used-by-p-invoke/1533956#1533956[Disable name mangling to use function with P/Invoke]? export function using `extern "C"`.
+
+    * https://stackoverflow.com/questions/4804494/p-invoking-function-via-a-mangled-name[Invoke function who's name is mangled]? Modify the EntryPoint of the DllImport attribute.
+
+    * Use {cpp} enums in C#? https://stackoverflow.com/a/57546086[Re-declare enums in C#] or https://stackoverflow.com/a/18786[Use the PInvoke Interop Assistant tool to generate enums in C#]
+
+=== Week 2 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-2[(Github Issues)]
+
+- **Developments:**
+
+    * Refactors in the engine and Unity.
+
+    * Implement the maze generation algorithms.
+
+    * Create C DLL and CPP DLL that are used with Unity and Unreal.
+
+- **Questions:**
+
+    * Adding Third Party Libraries in Unreal? https://unrealcommunity.wiki/adding-custom-third-party-library-to-plugin-from-scratch-867b28[Unreal wiki third party plugin.]
+
+    * https://www.gamedev.net/forums/topic/690804-problem-with-enum-and-binary-or-operator/[Should enums be used as flags]? Personally I prefer using enums as flags since it's a common practice that's used in multiple projects.
+    It can give you type safety you can't compare two different enums but you can compare two different std::bitset that don't represent the same thing.
+
+    * https://discussions.unity.com/t/how-to-step-into-a-native-c-dll-in-visual-studio/631995[How to debug native DLL in Unity project]? Open the native project in visual studio and attach the debugger to the unity project once the native code is called the breakpoint will be hit.
+
+    * https://forums.unrealengine.com/t/c-bitmask-enums-appear-to-be-offset-by-1/370610[Declare enum as flag in Unreal]?
+    1. Add the meta = (Bitflags) to the UENUM macro
+    2. Add meta=(Bitmask, BitmaskEnum = "(EnumType)") to the UPROPERTY macro
+
+    * How to add details panel to Unreal Widget? https://codekittah.medium.com/custom-details-panels-in-unreal-engine-fpropertyeditormodule-6fe41ba7c339[Add details panel to Unreal widget]
+
+    * https://forums.unrealengine.com/t/getting-world-in-a-editor-plugin/324825[Get world in an editor window]? `GEditor->GetEditorWorldContext().World()`
+
+=== Week 3 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-3[(Github Issues)]
+
+- **Developments:**
+
+    * Add combination generation.
+
+    * Refactors in the {cpp} engine.
+
+    * Add general documentation for the engine using asciidoc for the proposal submission.
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/7230621/how-can-i-iterate-over-a-packed-variadic-template-argument-list[Iterate over variadic template]? https://stackoverflow.com/a/50892567[Stack Overflow answer]`for(const auto p : {things...})`
+
+    * https://stackoverflow.com/questions/17032310/how-to-make-a-variadic-is-same[Check variadic template types]? https://stackoverflow.com/a/39550575[Stack Overflow answer] `concept are_same = std::conjunction_v<std::is_same<T, Ts>...>;`
+
+    * https://stackoverflow.com/questions/30101191/can-i-call-a-c-function-from-javascript[Call {cpp} function from JS]? https://stackoverflow.com/a/32237343[Stack Overflow answer] Wrap {cpp} to web service.
+
+    * https://forums.unrealengine.com/t/what-versions-of-c-are-compatible-with-ue/657406/2[Unreal {cpp} standard]? {cpp} 17
+
+    * https://forums.unrealengine.com/t/how-to-get-selected-objects-in-editor/320900/3[Get selected actors in Unreal]? `GEditor->GetSelectedActors()`
+
+    * https://stackoverflow.com/questions/252417/how-can-i-use-a-dll-file-from-python[Use {cpp} DLL with Python]? Using ctypes native DLL functions can be called.
+
+=== Week 4 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-4[(Github Issues)]
+
+- **Developments:**
+
+    * Implement the remaining algorithms from Jamis Buck presentation: https://www.jamisbuck.org/presentations/rubyconf2011/index.html["Algorithm" is not a four letter word.]
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/2999506/non-member-conversion-functions-casting-different-types-e-g-directx-vector-to[{cpp} conversion function]? `operator int() const`
+
+    * https://stackoverflow.com/questions/644629/base-enum-class-inheritance[{cpp} enum inheritance]? No.
+
+=== Week 5 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-5[(Github Issues)]
+
+- **Developments:**
+
+    * Implement new maze changes in Unity and Unreal
+    
+    * Add a general documentation page for maze target.
+
+- **Questions:**
+
+    * https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-creation[.lib file importance]? The .lib file resolve external references to exported DLL functions.
+
+=== Week 6 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-6[(Github Issues)]
+
+- **Developments:**
+
+    * Add golden value tests to the maze generation target to preserve the output after implementing new issues.
+
+    * Add the grid wave function collapse to the level generation target and implement it with Unity.
+
+- **Questions:**
+
+    * https://www.sandordargo.com/blog/2019/04/24/parameterized-testing-with-gtest[How to create {cpp} parametrized tests]?
+
+        1. Inherit from testing::TestWithParam<T>
+
+        2. Use TEST_P(ClassName, TestName)
+
+        3. INSTANTIATE_TEST_CASE_P(TestPrefix, ClassName, Values) 
+
+    * https://stackoverflow.com/questions/46023379/generate-suffix-for-test-according-to-parameter-in-gtest-frame-work[Generate suffix for {cpp} parametrized test]? Pass in functor as 4th argument to generate a string from the test's argument.
+
+=== Week 7 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-7[(Github Issues)]
+
+- **Developments:**
+
+    * Add golden value tests to level generation target to preserve the output after implementing new issues.
+
+    * Update the level generation documentation.
+
+    * Add sequence generation to {cpp} engine.
+
+- **Questions:**
+
+    * https://discussions.unity.com/t/is-there-any-reason-to-use-unsafe-code-in-unity-in-2023/920022[Using unsafe in Unity]?
+
+    * https://stackoverflow.com/questions/2415017/convert-from-double-array-to-pointer[Convert C# Array in to Pointer]? `fixed int* ptr = array`
+
+=== Week 8 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-8[(Github Issues)]
+
+- **Developments:**
+
+    * Add sequence generation to Unity.
+
+    * Document sequence generation.
+
+    * Add a python wrapper for the combination target.
+
+    * Refactor sequence generation to facilitate the C# and Python implementation.
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/3355014/structlayout-only-for-struct[Can StructLayout be used with classes]? Yes.
+
+    * https://stackoverflow.com/questions/55093619/marshaling-c-sharp-struct-with-array-of-structs-and-size-param-index[Marshal class containing a class Array]? Use byte arrays.
+
+    * https://stackoverflow.com/questions/20597006/how-to-pass-a-pointer-from-c-sharp-to-native-function-in-dll[Pass an IntPtr to {cpp}]?
+
+    * https://stackoverflow.com/questions/8162994/why-arent-static-data-members-allowed-in-local-classes[Can local classes have static variables in {cpp}]? No because local classes have no linkage.
+
+    * https://stackoverflow.com/questions/5714616/usage-of-local-class-in-c-function[Local classes usage in {cpp}]?
+
+    * https://stackoverflow.com/questions/5081875/ctypes-beginner[How to use ctypes in Python]?
+
+    * https://stackoverflow.com/questions/40843039/how-can-i-write-a-simple-callback-function[Create lambda in Python]? `lambda x, y: add(x, y)`
+
+    * https://stackoverflow.com/questions/20309456/how-do-i-call-a-function-from-another-py-file[How to import functions from files in Python]?
+
+    * https://stackoverflow.com/questions/6434482/python-function-overloading[Why overloading doesn't work in Python]? Overloaded method is chosen at compile time the alternative in Python is Multiple Dispatch.
+
+    * https://stackoverflow.com/questions/4145775/how-do-i-convert-a-python-list-into-a-c-array-by-using-ctypes[How to pass an array using ctypes]?
+
+    * https://stackoverflow.com/questions/1615813/how-to-use-c-classes-with-ctypes[Use {cpp} class in Python]?
+
+    * https://stackoverflow.com/questions/27663205/passing-a-python-object-to-c-module[Define a {cpp} class in Python]? The class needs to inherit from `ctypes.Structure` and set the `++_fields_++` variable
+
+    * https://stackoverflow.com/questions/72036758/unhashable-type-in-python[Ctypes Unhashable type error]? `ctypes.pointer` was used with a class type instead of class instance.
+
+    * https://stackoverflow.com/questions/33005127/python-ctypes-callback-function-gives-typeerror-invalid-result-type-for-callba[Ctypes type error invalid result type for function]? This is a bug in ctypes only primitive types can be returned from a function.
+
+    * https://stackoverflow.com/questions/1942298/wrapping-a-c-library-in-python-c-cython-or-ctypes[Ctypes vs Cython]? Cython sounds better if the library is being written from scratch.
+    Since my library is already written and I just need to call the exposed functions using ctypes felt like a better choice.
+
+=== Week 9 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-9[(Github Issues)]
+
+- **Developments:**
+
+    * Fix the project structure.
+
+    * Update PCG Engine documentation.
+
+    * Change C# wrapper to a class library and use the generated DLL with Unity.
+    
+- **Questions:**
+
+    * https://stackoverflow.com/questions/49581761/dll-export-symbol-of-function-from-static-linked-library[Export symbols from static libraries]? Add the export macro the desired functions.
+
+    * https://stackoverflow.com/questions/2028264/visual-studio-with-doxygen-for-documentation-or-should-we-use-something-else[Setup doxygen documentation with C#]? Just use the XML comments since doxygen supports parsing XML.
+
+    * https://stackoverflow.com/questions/58950859/default-implementation-in-interface-is-not-seen-by-the-compiler[Use default interface implementation in C# class]?
+
+    * https://stackoverflow.com/questions/4074585/attempted-to-read-or-write-protected-memory-this-is-often-an-indication-that-ot[How to enable native debugging in C# project]? Enable the option in the project settings.
+
+    * https://stackoverflow.com/questions/9577487/pointer-is-pointing-to-0x1-is-checking-for-null-valid[Pointer address is 0x1]? This means a null pointer is being dereferenced.
+
+    * https://discussions.unity.com/t/unable-to-load-attribute-info-on-field-are-you-missing-a-reference/887696/4[Unity typecache error unable to load attribute error]? This means that either the DLL is compiled with a .net version that isn't supported. Or the type used with in the editor window hasn't been loaded from the DLL yet.
+    
+=== Week 10 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-10[(Github Issues)]
+
+- **Developments:**
+
+    * Wrap the {cpp} library in python and added documentation.
+
+    * Add a https://youtu.be/-mJ4iyE9V8I[combination] and https://youtu.be/9M1DBgNr38Q[maze] demo using pygame to the python wrapper.
+
+    * Add {cpp} combination generation tests and fixed an issue where the test order would change the results because the RNG seed wasn't reset between tests.
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/49672264/cmake-add-d-suffix-for-debug-build-of-static-library[Add debug suffix to DLL/Lib with Cmake]? `set(CMAKE_DEBUG_POSTFIX d)` for all targets or `set_target_properties(<target-name> PROPERTIES DEBUG_POSTFIX "d")` for chosen targets.
+
+    * https://docs.python.org/3/howto/enum.html[How to declare enums in Python]?
+
+    * https://stackoverflow.com/questions/394809/does-python-have-a-ternary-conditional-operator[Ternary operator in Python]? `x if condition else y`.
+
+    * https://stackoverflow.com/questions/42127593/should-python-class-filenames-also-be-camelcased[Python naming conventions]?
+
+    * https://www.digitalocean.com/community/tutorials/python-str-repr-functions[Override the 'toString()' method in Python]? Implement the `++__str__++` function.
+
+    * https://stackoverflow.com/questions/56129479/how-to-debug-a-dll-in-visual-studio-that-i-call-from-python-using-ctypes[Enable native debugging in Python project]?
+
+    * https://stackoverflow.com/questions/17301091/python-lifetime-of-module-global-variables[Lifetime of module global variables]? The logging and rng callbacks are global variables who are either deleted manually or when the script exits.
+
+    * https://www.w3schools.com/python/python_variables_global.asp[Assign global variable in function body]? `global x x = 1`
+
+    * https://www.geeksforgeeks.org/python-docstrings/[Python documentation conventions]?
+
+    * https://stackoverflow.com/questions/6060813/how-to-document-fields-and-properties-in-python[Document a variable in Python]?
+
+    * https://stackoverflow.com/questions/1995615/how-can-i-format-a-decimal-to-always-show-2-decimal-places[How to format a string in Python]?
+
+=== Week 11 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-11[(Github Issues)]
+
+- **Developments:**
+
+    * Update Unity package.
+
+    * Add cyclic sequence generation to engine and wrappers.
+
+    * Maintain prefabs links when spawning from editor window.
+
+    * Add Unity maze game demo.
+
+    * Add python https://youtu.be/OtXPXMLDZlk[cyclic generation] demo.
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/29932342/is-there-a-way-to-ignore-calculating-language-statistics-for-a-directory-on-gith[Ignore folder from language statistics]? Add folder in the .gitattributes as `linguist-vendored`
+
+    * https://stackoverflow.com/questions/2152077/is-it-possible-to-get-cmake-to-build-both-a-static-and-shared-library-at-the-sam[Make target both static and shared]? Create two target with different names with the same source files.
+
+    * https://stackoverflow.com/questions/32994598/how-to-include-documentation-in-dll-to-show-method-summary-in-unity3d#:~:text=Under%20the%20"Build"%20side%20tab,put%20the%20documentation%20into%20Intellisense[Import C# DLL documentation in Unity]? Add the .xml file in the same folder as the DLL.
+
+    * https://stackoverflow.com/questions/1096568/how-can-i-use-interface-as-a-c-sharp-generic-type-constraint[Constrain Template type to be an interface]? This is not possible.
+
+    * https://stackoverflow.com/questions/1339976/how-to-check-if-any-flags-of-a-flag-combination-are-set[Check if flag is active in a C# Enum]? Enums has the `HasFlag` method that is used to check flags.
+
+    * https://forums.unrealengine.com/t/does-ue-4-10-support-uclass-ustruct-in-namespaces/352448/6[Why namespace aren't supported in Unreal]?
+
+=== Week 12 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-12[(Github Issues)]
+
+- **Developments:**
+
+    * Update the unreal plugin.
+
+    * Add unit tests to the C# and Python wrappers to make sure the output matches the golden values used with the {cpp} targets.
+
+    * Develop the PCG REST API and the PCG web app to preview the results of the web api using PlayCanvas.
+
+    * Add edge cases tests in non cyclic sequences and combination generations.
+
+    * Replace the simpleGeneration function to take a vector offset instead of the axis argument.
+
+    * Replace the return of the cyclic sequence generation from a vector to a callback. Because of corrupt values when returning vector in different DLL.
+
+    * Delete CallbackFunctor class that is basically a clone of std::function.
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/75538025/restrictions-on-cast-unreal[Unreal dynamic_cast restrictions]? Unreal redefines dynamic_cast in a macro and forces the classes to inherit from UObject if it doesn't a static_assert will fail.
+
+    * https://forums.unrealengine.com/t/casting-c-syntax-and-ue-syntax/29652[Casting in Unreal using C Casts]? Since Unreal forces dynamic_cast to use classes inheriting from UObject I need to use C cast to cast from my DLL interface back to Unreal types.
+
+    * https://www.codeproject.com/Questions/473616/Parameterplusvaluespluscorruptionpluswhenplusonepl[DLL value is corrupted when returned in calling DLL]? When two DLL are compiled differently values returned from one DLL can become corrupted when returned in second DLL.
+    The returned vector containing the cyclic sequence had valid values in the pcg engine but when it reached the unreal stack it's values where corrupted.
+
+    * https://www.reddit.com/r/dotnet/comments/15qr7ew/nunit_xunit_or_mstest/[Which testing framework to use with C#]?
+
+    * https://xunit.net/docs/shared-context[Test Fixutres with xUnit]?
+
+    * https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/[Parametrized tests with xUnit]?
+
+    * https://stackoverflow.com/questions/69219916/generics-passing-an-int-value-instead-of-type[C# pass int to template]? This is not possible in C#.
+
+    * https://stackoverflow.com/questions/10073319/returning-anonymous-type-in-c-sharp[C# return anonymous type]? This is not possible.
+
+    * https://stackoverflow.com/questions/8514816/tuples-and-unpacking-assignment-support-in-c[Unpack tuple in C#]? `(int x, int y) = Tuple<int, int>`
+
+    * https://www.reddit.com/r/Python/comments/18bjv0y/pytest_over_unittest/[Which test framework to use with Python]?
+
+    * https://stackoverflow.com/questions/35998992/py-test-command-not-found-but-library-is-installed[Python module not found]? `python -m pytest`.
+
+    * https://www.tutorialspoint.com/pytest/pytest_identifying_test_files_and_functions.htm[Pytest not found]?
+
+        1. Test files need to have a test suffix
+
+        2. Test functions need to have a test prefix
+
+    * https://www.tutorialspoint.com/pytest/pytest_conftest_py.htm[Python share fixtures with multiple files]? Define fixture in conftest.py.
+
+    * https://www.tutorialspoint.com/pytest/pytest_parameterizing_tests.htm[Define parametrized test in pytest]? `@pytest.mark.parametrize`
+
+    * https://learn.microsoft.com/en-us/answers/questions/1003951/c-difference-between-record-and-class[C# Class vs Records]? Records are used for data only types.
+
+    * https://stackoverflow.com/questions/978061/http-get-with-request-body[Add request body to GET request]? It is possible to add a body but it breaks semantics and is not recommended. The better option is to use a POST request.
+
+    * https://stackoverflow.com/questions/78119582/what-is-api-http-file-in-net-8[HTTP file in ASP.NET Core project]? This file is used to test the api.
+
+    * https://stackoverflow.com/questions/69802631/cors-policy-in-javascript-and-net-minimal-api[How to fix CORS errors in REST API]? Add the cors service and allows any origin, method and headers.
+
+    * https://nextjs.org/learn/react-foundations/updating-state[How to update NextJS UI when value changes]?
+
+    * https://stackoverflow.com/questions/60457262/next-js-layout-component-pass-props-to-children[How to pass children to NextJS component]?
+
+    * https://stackoverflow.com/questions/49701408/css-grid-auto-height-rows-sizing-to-content[Fix grid height with CSS]?
+
+    * https://stackoverflow.com/questions/72946973/how-to-access-a-state-of-an-component-from-another-component-in-next-js[Modify state of child component using parent]?
+
+    * https://stackoverflow.com/questions/90178/make-a-div-fill-the-height-of-the-remaining-screen-space[HTML use 100% height]?
+
+    * https://stackoverflow.com/questions/68412819/how-to-persist-a-variable-between-renders-in-react-hooks[Fix variables being reset after useState value changes]? Moving the variables outside the function scope fixes this error and persist the current values.
+
+    * https://stackoverflow.com/questions/69667313/make-a-new-div-element-for-each-element-in-an-array-with-jsx[Add elements in component based on array passed in]?
+
+    * https://stackoverflow.com/questions/3549540/google-test-fixtures[Create TEST_F with gtest {cpp}]?
+
+    * https://stackoverflow.com/questions/25461585/operator-overloading-equals[Operator== != overloading in C#]
+
+    * https://www.reddit.com/r/react/comments/12m3uwu/comment/jg95r8p/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button[Hide element in component based on props]? `{isShown && <p>Shown</p>}`
+
+
+=== Week 13 https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-13[(Github Issues)]
+
+- **Developments:**
+
+    * Small refactoring.
+
+    * Update the wrappers, web services and plugins engine implementation.
+
+    * Add documentation for Unity, Unreal, REST API and Web app.
+
+    * Add journal entries to repo.
+
+    * Add readme as a general overview for the repo.
+
+- **Questions:**
+
+    * https://stackoverflow.com/questions/68954850/how-to-specify-swagger-specification-extensions-via-code[Add extensions to swagger api info]?
+
+    * https://stackoverflow.com/questions/58622/how-to-document-python-code-using-doxygen[How to use doxygen with Python docstrings]?
+
+== Value of Engine
+
+=== Advantages
+
+- **Diversity:** Supports multiple types of procedural generation (Level Generation, Maze Generation, Combination Generation, Sequence Generation).
+
+- **Support:** Works with multiple languages/engines.
+If the engine does not support a programming language yet: The REST API or web app can return a JSON file representing the generated content.
+The game developer just need to parse the JSON file and decide what happens next.
+
+- **Ease of Use:** Equivalent of calling any functions and doesn't need any knowledge of how the function works.
+All the user does is pass a callback that defines how the generated content is used / instantiated.
+
+- **Lack of Dependency:** Only the DLLs are needed to generate content. If the content is generated at runtime then the DLL will need to be shipped with the executable. If the content is generated at edit time there is no need to ship the DLL.
+
+- **Web APP:** This allows anyone to play with the engine if the result interest them they could integrate the engine in their projects or simply use the generated JSON.
+
+=== Disadvantages
+
+Looking at other procedural content generation tools:
+
+    * https://dev.epicgames.com/documentation/en-us/unreal-engine/procedural-content-generation-overview[Unreal Procedural Content Generation Framework]
+    * https://sceelix.com[Sccelix]
+    * https://www.astrolog.org/labyrnth/daedalus.htm[Daedalus]
+    * https://www.world-machine.com[World Machine]
+    * https://dungeonarchitect.dev[Dungeon Architect]
+    
+The disadvantages are:
+    
+- **Not as Advanced:** These tools focus on one aspect of content generation and they do it well but most only support one engine / language (ex: Daedalus support all kind of maze generation).
+
+- **No Visual Designer:** Some of them use a visual designer to set up the rules of the algorithm and then generate the content. Having a designer is something that I would love to implement (ex: Dungeon Architect uses a visual designer to set the dungeon rules and themes).
+The designer gives the users more control over the behavior of the algorithm.
+On the other hand the game creator needs to learn how to use this designer and sometimes if this level of control isn't needed this can be a waste of time.
+
+== Potential for Future Work
+
+- Add graph rewriting for level generation and implement a visual designer to set the rules.
+
+- Add a "4D" level generation the 4^th^ dimension can be something like time for example a node can have a portal to the future and the corresponding node has a portal to the past similar to https://store.steampowered.com/app/2109770/Kingmakers/[Kingmakers]
+
+- Enable https://weblog.jamisbuck.org/2011/3/4/maze-generation-weave-mazes.html[Weaves] in mazes. Implement more maze algorithm from the https://pragprog.com/titles/jbmaze/mazes-for-programmers/[Maze for Programmers] book by Jamis Buck.
+
+- Make the project open source and allow anyone to add new algorithms to the engine, optimizations, wrappers, etc...

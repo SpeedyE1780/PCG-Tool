@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.22">
+<title>PCG Engine Presentation</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>PCG Engine Presentation</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_high_level_concept">High Level Concept</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_elevator_pitch">Elevator Pitch</h3>
+<div class="paragraph">
+<p>The <strong>P</strong>rocedural <strong>C</strong>ontent <strong>G</strong>eneration (PCG) Engine is a C&#43;&#43; library used to generate content procedurally.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aim_of_project">Aim of Project</h3>
+<div class="paragraph">
+<p>The aim of the PCG Engine is to be usable with no knowledge of how procedural algorithm work. You just pass in a callback and let the engine do all the work and notify you when something is generated.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_was_proposed">What Was Proposed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Level Generation:</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Simple Generation:</strong> Spawn nodes following a unit vector.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Multi Dimension Generation:</strong> Spawn nodes on the chosen axes.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Wave Function Collapse Generation:</strong> Spawn nodes on the chosen axes where each node has a set of adjacent nodes.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The Wave Function Collapse algorithm was created by <a href="https://github.com/mxgmn/WaveFunctionCollapse/blob/master/README.md">Maxim Gumin</a>.
+It is very similar to an AI concept: Constraint Satisfaction Problem (CSP)<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.
+In my implementation the graph is initially empty and each node is added iteratively when a node is added it adds its adjacent node to the graph and create a constraint between them that needs to be satisfied.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph text-center">
+<p><span class="image"><img src="images/CSP.png" alt="CSP Example"></span></p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Grid 2D / 3D Wave Function Collapse Generation:</strong> Spawn nodes in the grid where each node has a set of adjacent nodes.</p>
+</div>
+<div class="paragraph">
+<p>[ ] <strong>Graph Rewriting:</strong> Allow passing in rules and patterns to the generation algorithm and subgraphs that matches rules to given patterns.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Maze Generation:</strong> Spawn nodes with adjacent nodes to form a maze following a chosen algorithm.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The maze algorithm are taken from Jamis Buck presentation: <a href="https://www.jamisbuck.org/presentations/rubyconf2011/index.html">"Algorithm" is not a four letter word.</a> and his Better Recursive Division Algorithm <a href="https://weblog.jamisbuck.org/2015/1/15/better-recursive-division-algorithm.html">blog</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Combination Generation:</strong></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+A set of n elements has 2<sup>n</sup> possible subsets as proven by the Binomial Theorem.<sup class="footnote" id="_footnote_combinationBook">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>
+A set can be represented using a n bit number.<sup class="footnoteref">[<a class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>
+If the bit is 1 then the element is included in the combination.
+To generate a combination I generate a random number between 0 and 2<sup>n</sup> and check which bits are active.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Combination:</strong> Generate a combination from a set of elements.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Combination with Minimum Elements:</strong> Generate a combination from a set with at least x elements.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Combination with Active Elements:</strong> Generate a combination from a set with chosen elements active.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Sequence Generation:</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Linear Sequence:</strong> Given a start node choose a random next node and repeat the process until the current node has no next node.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Cyclic Sequence:</strong> Given a start node choose a random next node and repeat the process until the chosen length is reached.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Languages:</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>[x] <strong>C#:</strong> A C# library is available that wraps the C&#43;&#43; library and allows calling the native functions.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Python:</strong> A Python library is available that wraps the C&#43;&#43; library and allows calling the native functions.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Engines:</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Unity <a href="https://youtu.be/w16gru7T23M">(Demo)</a>:</strong> A Unity package was developed that relies on the C# Wrapper.
+The package adds editor windows to generate content during edit mode.
+Content can also be generated during play mode using only the C# Wrapper if the editor windows are not needed.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>Unreal:</strong> An Unreal plugin was developed that adds the C&#43;&#43; library as a third party library and allows generating content during runtime.
+A second plugin was developed that adds editor window to generate content during edit mode.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Web Services:</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>[x] <strong>PCG Web API <a href="https://youtu.be/P_mNN8f9NCI">(Demo)</a>:</strong> The PCG Web API is an ASP.NET Core REST API.
+It takes the parameters in the request body and uses the C# Wrapper to generate content and returns the result as JSON in the response.</p>
+</div>
+<div class="paragraph">
+<p>[x] <strong>PCG Web APP <a href="https://youtu.be/EbdXR-TMIEI">(Demo)</a>:</strong> The PCG Web APP is a web application that previews the engine&#8217;s functionality on the web.
+It shows the result of combinations and sequences as text output.
+It displays the result of level generation using the PlayCanvas engine and allows moving around in the scene to look at the result.
+The generated JSON can be copied from the text area where it is displayed.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_development_approach_github_project">Development Approach <a href="https://github.com/users/SpeedyE1780/projects/3/">(Github Project)</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_recap">Recap</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>During the first few weeks (Week 1 &#8594; Week 3):</strong> The main focus was to develop the C&#43;&#43; engine and integrate the engine with Unity and Unreal.
+After integrating the engine with the different game engines I added more content generation to it (maze, combination generation) and created editor windows to showcase the engine for my proposal.</p>
+</li>
+<li>
+<p><strong>During Week 4 &#8594; Week 7:</strong> I added the remaining algorithms that were mentioned in my proposal (remaining mazes in Jamis Buck <a href="https://www.jamisbuck.org/presentations/rubyconf2011/index.html">presentation</a>, grid wave function collapse, sequence generation).
+I added unit test using golden values.
+Finally I added a high level documentation for the engine.</p>
+</li>
+<li>
+<p><strong>During Week 8 &#8594; Week 11:</strong> I created the C# wrappers and python wrappers.
+I updated the Unity package and the engine documentation.
+I created a few demos in pygame and Unity.
+I added the possibility to generate sequences that can contain cycles.</p>
+</li>
+<li>
+<p><strong>During Week 12:</strong> I updated the Unreal Plugin.
+I developed the Web API/APP to preview the engine&#8217;s results.</p>
+</li>
+<li>
+<p><strong>During Week 13:</strong> I made sure everything is up to date for the presentation.
+I added the missing documentation and journal entries.
+Finally I wrote this presentation.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Biggest Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>How to invoke C&#43;&#43; functions in C# and Python?</p>
+<div class="literalblock">
+<div class="content">
+<pre>Using P/Invoke I can call native functions in C#.
+Using ctypes I can call native functions in Python.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Should I keep name mangling?</p>
+<div class="literalblock">
+<div class="content">
+<pre>I disabled name mangling early in the project since having to update the entry point in C# was something I kept forgetting.
+It was a good thing I did because python and ctypes needs to use the function name and if name mangling was still active I'd have to disable it.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>How to add a third party libraries to unreal and create editor windows?</p>
+<div class="literalblock">
+<div class="content">
+<pre>Third party libraries can be added when generating a new plugin in the unreal editor.
+An editor plugin can also be created to add editor windows to Unreal.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>How to debug a native DLL?</p>
+<div class="literalblock">
+<div class="content">
+<pre>Most of the time it was simply a setting in the project. If not I can attach to the process and the breakpoints will be hit.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>How to invoke C&#43;&#43; functions in JavaScript?</p>
+<div class="literalblock">
+<div class="content">
+<pre>The solution was to create a REST API and get the json response from the server.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ctypes vs Cython?</p>
+<div class="literalblock">
+<div class="content">
+<pre>Cython would have been a better option if the module was in charge of the generation logic. Since the logic is already implemented in the C++ library it made more sense to simply wrap the library with ctypes.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>How to output the PCG Engine response in the Web App?</p>
+<div class="literalblock">
+<div class="content">
+<pre>Using useState with NextJS I was able to update the UI when I receive the output of a combination / sequence generation.
+For level generation I integrated the PlayCanvas engine and added a fly over camera to be able to navigate the generated content in the scene.</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>What went wrong:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Unreal C&#43;&#43; standard: In the engine I use std::to_underlying to cast my enums.
+This function is available starting C&#43;&#43; 23.
+Since Unreal doesn&#8217;t support C&#43;&#43; 23, I had to redefine it in my engine&#8217;s header.</p>
+</li>
+<li>
+<p>Using the DLL without the .lib in C&#43;&#43; would result in unresolved external errors when using functions from the DLL.</p>
+</li>
+<li>
+<p>C&#43;&#43; Unit test weren&#8217;t resetting the generation seed so the output was dependent on the order the test ran.
+Using a text fixture to reset the seed fixed it.</p>
+</li>
+<li>
+<p>Sequence generation had multiple issues. In C&#43;&#43; the algorithm just calls an interface function but this doesn&#8217;t work in the wrappers.
+A callback is used to mimic this interface function call.</p>
+</li>
+<li>
+<p>ctypes callback can only return primitive types.
+This was an issue for sequence generation but the callback approach avoided this issue.</p>
+</li>
+<li>
+<p>In the python wrapper passing callbacks to log the engine output or generate random number would cause crashes because the callback was deleted from memory.
+Using global variables for these specific callbacks solved it.</p>
+</li>
+<li>
+<p>Returning a vector representing the generated cyclic sequence would be corrupted when read from a different DLL because of different compile settings.
+I replaced it with a callback that notifies the caller when a node needs to be added to the sequence.</p>
+</li>
+<li>
+<p>Unreal doesn&#8217;t allow dynamic_casting objects that don&#8217;t inherit from UObject. The alternative was to use a C cast <code>(int*)x</code></p>
+</li>
+<li>
+<p>CORS errors between the Web APP and REST API. This was easy to fix by adding the cors service.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_1_github_issues">Week 1 <a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-1">(Github Issues)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Create PCG editor windows in Unity to generate content.</p>
+</li>
+<li>
+<p>Generate content with coroutines.</p>
+</li>
+<li>
+<p>Add 1D, 2D, 3D level generators.</p>
+</li>
+<li>
+<p>Create C&#43;&#43; PCG Engine.</p>
+</li>
+<li>
+<p>Move generators to PCG Engine.</p>
+</li>
+<li>
+<p>Add seed to PCG Engine generation.</p>
+</li>
+<li>
+<p>Add user defined random number generator callbacks.</p>
+</li>
+<li>
+<p>Add user defined logging callbacks.</p>
+</li>
+<li>
+<p>Add a wave function collapse generator to PCG Engine.</p>
+</li>
+<li>
+<p>Implement engine with GAM703 as a small demo.</p>
+</li>
+<li>
+<p>Implement engine with Unreal project as a plugin.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10">Is C&#43;&#43;/CLI compatible with unity</a>? No following this <a href="https://discussions.unity.com/t/is-c-cli-forbidden-in-unity/748312/10">comment</a> the transition from a Non <strong>J</strong>ust <strong>I</strong>n <strong>T</strong>ime compiled language to a JIT language causes a crash.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/1533916/how-to-set-up-a-c-function-so-that-it-can-be-used-by-p-invoke/1533956#1533956">Disable name mangling to use function with P/Invoke</a>? export function using <code>extern "C"</code>.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/4804494/p-invoking-function-via-a-mangled-name">Invoke function who&#8217;s name is mangled</a>? Modify the EntryPoint of the DllImport attribute.</p>
+</li>
+<li>
+<p>Use C&#43;&#43; enums in C#? <a href="https://stackoverflow.com/a/57546086">Re-declare enums in C#</a> or <a href="https://stackoverflow.com/a/18786">Use the PInvoke Interop Assistant tool to generate enums in C#</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_2_github_issues">Week 2 <a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-2">(Github Issues)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Refactors in the engine and Unity.</p>
+</li>
+<li>
+<p>Implement the maze generation algorithms.</p>
+</li>
+<li>
+<p>Create C DLL and CPP DLL that are used with Unity and Unreal.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Adding Third Party Libraries in Unreal? <a href="https://unrealcommunity.wiki/adding-custom-third-party-library-to-plugin-from-scratch-867b28">Unreal wiki third party plugin.</a></p>
+</li>
+<li>
+<p><a href="https://www.gamedev.net/forums/topic/690804-problem-with-enum-and-binary-or-operator/">Should enums be used as flags</a>? Personally I prefer using enums as flags since it&#8217;s a common practice that&#8217;s used in multiple projects.
+It can give you type safety you can&#8217;t compare two different enums but you can compare two different std::bitset that don&#8217;t represent the same thing.</p>
+</li>
+<li>
+<p><a href="https://discussions.unity.com/t/how-to-step-into-a-native-c-dll-in-visual-studio/631995">How to debug native DLL in Unity project</a>? Open the native project in visual studio and attach the debugger to the unity project once the native code is called the breakpoint will be hit.</p>
+</li>
+<li>
+<p><a href="https://forums.unrealengine.com/t/c-bitmask-enums-appear-to-be-offset-by-1/370610">Declare enum as flag in Unreal</a>?</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add the meta = (Bitflags) to the UENUM macro</p>
+</li>
+<li>
+<p>Add meta=(Bitmask, BitmaskEnum = "(EnumType)") to the UPROPERTY macro</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>How to add details panel to Unreal Widget? <a href="https://codekittah.medium.com/custom-details-panels-in-unreal-engine-fpropertyeditormodule-6fe41ba7c339">Add details panel to Unreal widget</a></p>
+</li>
+<li>
+<p><a href="https://forums.unrealengine.com/t/getting-world-in-a-editor-plugin/324825">Get world in an editor window</a>? <code>GEditor&#8594;GetEditorWorldContext().World()</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_3_github_issues">Week 3 <a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-3">(Github Issues)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add combination generation.</p>
+</li>
+<li>
+<p>Refactors in the C&#43;&#43; engine.</p>
+</li>
+<li>
+<p>Add general documentation for the engine using asciidoc for the proposal submission.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/7230621/how-can-i-iterate-over-a-packed-variadic-template-argument-list">Iterate over variadic template</a>? <a href="https://stackoverflow.com/a/50892567">Stack Overflow answer</a><code>for(const auto p : {things&#8230;&#8203;})</code></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/17032310/how-to-make-a-variadic-is-same">Check variadic template types</a>? <a href="https://stackoverflow.com/a/39550575">Stack Overflow answer</a> <code>concept are_same = std::conjunction_v&lt;std::is_same&lt;T, Ts&gt;&#8230;&#8203;&gt;;</code></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/30101191/can-i-call-a-c-function-from-javascript">Call C&#43;&#43; function from JS</a>? <a href="https://stackoverflow.com/a/32237343">Stack Overflow answer</a> Wrap C&#43;&#43; to web service.</p>
+</li>
+<li>
+<p><a href="https://forums.unrealengine.com/t/what-versions-of-c-are-compatible-with-ue/657406/2">Unreal C&#43;&#43; standard</a>? C&#43;&#43; 17</p>
+</li>
+<li>
+<p><a href="https://forums.unrealengine.com/t/how-to-get-selected-objects-in-editor/320900/3">Get selected actors in Unreal</a>? <code>GEditor&#8594;GetSelectedActors()</code></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/252417/how-can-i-use-a-dll-file-from-python">Use C&#43;&#43; DLL with Python</a>? Using ctypes native DLL functions can be called.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_4_github_issues">Week 4 <a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-4">(Github Issues)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Implement the remaining algorithms from Jamis Buck presentation: <a href="https://www.jamisbuck.org/presentations/rubyconf2011/index.html">"Algorithm" is not a four letter word.</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/2999506/non-member-conversion-functions-casting-different-types-e-g-directx-vector-to">C&#43;&#43; conversion function</a>? <code>operator int() const</code></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/644629/base-enum-class-inheritance">C&#43;&#43; enum inheritance</a>? No.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_5_github_issues">Week 5 <a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-5">(Github Issues)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Implement new maze changes in Unity and Unreal</p>
+</li>
+<li>
+<p>Add a general documentation page for maze target.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-creation">.lib file importance</a>? The .lib file resolve external references to exported DLL functions.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_6_github_issues">Week 6 <a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-6">(Github Issues)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add golden value tests to the maze generation target to preserve the output after implementing new issues.</p>
+</li>
+<li>
+<p>Add the grid wave function collapse to the level generation target and implement it with Unity.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.sandordargo.com/blog/2019/04/24/parameterized-testing-with-gtest">How to create C&#43;&#43; parametrized tests</a>?</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Inherit from testing::TestWithParam&lt;T&gt;</p>
+</li>
+<li>
+<p>Use TEST_P(ClassName, TestName)</p>
+</li>
+<li>
+<p>INSTANTIATE_TEST_CASE_P(TestPrefix, ClassName, Values)</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/46023379/generate-suffix-for-test-according-to-parameter-in-gtest-frame-work">Generate suffix for C&#43;&#43; parametrized test</a>? Pass in functor as 4th argument to generate a string from the test&#8217;s argument.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_7_github_issues">Week 7 <a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-7">(Github Issues)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add golden value tests to level generation target to preserve the output after implementing new issues.</p>
+</li>
+<li>
+<p>Update the level generation documentation.</p>
+</li>
+<li>
+<p>Add sequence generation to C&#43;&#43; engine.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://discussions.unity.com/t/is-there-any-reason-to-use-unsafe-code-in-unity-in-2023/920022">Using unsafe in Unity</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/2415017/convert-from-double-array-to-pointer">Convert C# Array in to Pointer</a>? <code>fixed int* ptr = array</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_8_github_issues">Week 8 <a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-8">(Github Issues)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add sequence generation to Unity.</p>
+</li>
+<li>
+<p>Document sequence generation.</p>
+</li>
+<li>
+<p>Add a python wrapper for the combination target.</p>
+</li>
+<li>
+<p>Refactor sequence generation to facilitate the C# and Python implementation.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/3355014/structlayout-only-for-struct">Can StructLayout be used with classes</a>? Yes.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/55093619/marshaling-c-sharp-struct-with-array-of-structs-and-size-param-index">Marshal class containing a class Array</a>? Use byte arrays.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/20597006/how-to-pass-a-pointer-from-c-sharp-to-native-function-in-dll">Pass an IntPtr to C&#43;&#43;</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/8162994/why-arent-static-data-members-allowed-in-local-classes">Can local classes have static variables in C&#43;&#43;</a>? No because local classes have no linkage.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/5714616/usage-of-local-class-in-c-function">Local classes usage in C&#43;&#43;</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/5081875/ctypes-beginner">How to use ctypes in Python</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/40843039/how-can-i-write-a-simple-callback-function">Create lambda in Python</a>? <code>lambda x, y: add(x, y)</code></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/20309456/how-do-i-call-a-function-from-another-py-file">How to import functions from files in Python</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/6434482/python-function-overloading">Why overloading doesn&#8217;t work in Python</a>? Overloaded method is chosen at compile time the alternative in Python is Multiple Dispatch.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/4145775/how-do-i-convert-a-python-list-into-a-c-array-by-using-ctypes">How to pass an array using ctypes</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/1615813/how-to-use-c-classes-with-ctypes">Use C&#43;&#43; class in Python</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/27663205/passing-a-python-object-to-c-module">Define a C&#43;&#43; class in Python</a>? The class needs to inherit from <code>ctypes.Structure</code> and set the <code>_fields_</code> variable</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/72036758/unhashable-type-in-python">Ctypes Unhashable type error</a>? <code>ctypes.pointer</code> was used with a class type instead of class instance.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/33005127/python-ctypes-callback-function-gives-typeerror-invalid-result-type-for-callba">Ctypes type error invalid result type for function</a>? This is a bug in ctypes only primitive types can be returned from a function.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/1942298/wrapping-a-c-library-in-python-c-cython-or-ctypes">Ctypes vs Cython</a>? Cython sounds better if the library is being written from scratch.
+Since my library is already written and I just need to call the exposed functions using ctypes felt like a better choice.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_9_github_issues">Week 9 <a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-9">(Github Issues)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Fix the project structure.</p>
+</li>
+<li>
+<p>Update PCG Engine documentation.</p>
+</li>
+<li>
+<p>Change C# wrapper to a class library and use the generated DLL with Unity.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/49581761/dll-export-symbol-of-function-from-static-linked-library">Export symbols from static libraries</a>? Add the export macro the desired functions.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/2028264/visual-studio-with-doxygen-for-documentation-or-should-we-use-something-else">Setup doxygen documentation with C#</a>? Just use the XML comments since doxygen supports parsing XML.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/58950859/default-implementation-in-interface-is-not-seen-by-the-compiler">Use default interface implementation in C# class</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/4074585/attempted-to-read-or-write-protected-memory-this-is-often-an-indication-that-ot">How to enable native debugging in C# project</a>? Enable the option in the project settings.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/9577487/pointer-is-pointing-to-0x1-is-checking-for-null-valid">Pointer address is 0x1</a>? This means a null pointer is being dereferenced.</p>
+</li>
+<li>
+<p><a href="https://discussions.unity.com/t/unable-to-load-attribute-info-on-field-are-you-missing-a-reference/887696/4">Unity typecache error unable to load attribute error</a>? This means that either the DLL is compiled with a .net version that isn&#8217;t supported. Or the type used with in the editor window hasn&#8217;t been loaded from the DLL yet.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_10_github_issues">Week 10 <a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-10">(Github Issues)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Wrap the C&#43;&#43; library in python and added documentation.</p>
+</li>
+<li>
+<p>Add a <a href="https://youtu.be/-mJ4iyE9V8I">combination</a> and <a href="https://youtu.be/9M1DBgNr38Q">maze</a> demo using pygame to the python wrapper.</p>
+</li>
+<li>
+<p>Add C&#43;&#43; combination generation tests and fixed an issue where the test order would change the results because the RNG seed wasn&#8217;t reset between tests.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/49672264/cmake-add-d-suffix-for-debug-build-of-static-library">Add debug suffix to DLL/Lib with Cmake</a>? <code>set(CMAKE_DEBUG_POSTFIX d)</code> for all targets or <code>set_target_properties(&lt;target-name&gt; PROPERTIES DEBUG_POSTFIX "d")</code> for chosen targets.</p>
+</li>
+<li>
+<p><a href="https://docs.python.org/3/howto/enum.html">How to declare enums in Python</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/394809/does-python-have-a-ternary-conditional-operator">Ternary operator in Python</a>? <code>x if condition else y</code>.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/42127593/should-python-class-filenames-also-be-camelcased">Python naming conventions</a>?</p>
+</li>
+<li>
+<p><a href="https://www.digitalocean.com/community/tutorials/python-str-repr-functions">Override the 'toString()' method in Python</a>? Implement the <code>__str__</code> function.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/56129479/how-to-debug-a-dll-in-visual-studio-that-i-call-from-python-using-ctypes">Enable native debugging in Python project</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/17301091/python-lifetime-of-module-global-variables">Lifetime of module global variables</a>? The logging and rng callbacks are global variables who are either deleted manually or when the script exits.</p>
+</li>
+<li>
+<p><a href="https://www.w3schools.com/python/python_variables_global.asp">Assign global variable in function body</a>? <code>global x x = 1</code></p>
+</li>
+<li>
+<p><a href="https://www.geeksforgeeks.org/python-docstrings/">Python documentation conventions</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/6060813/how-to-document-fields-and-properties-in-python">Document a variable in Python</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/1995615/how-can-i-format-a-decimal-to-always-show-2-decimal-places">How to format a string in Python</a>?</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_11_github_issues">Week 11 <a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-11">(Github Issues)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Update Unity package.</p>
+</li>
+<li>
+<p>Add cyclic sequence generation to engine and wrappers.</p>
+</li>
+<li>
+<p>Maintain prefabs links when spawning from editor window.</p>
+</li>
+<li>
+<p>Add Unity maze game demo.</p>
+</li>
+<li>
+<p>Add python <a href="https://youtu.be/OtXPXMLDZlk">cyclic generation</a> demo.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/29932342/is-there-a-way-to-ignore-calculating-language-statistics-for-a-directory-on-gith">Ignore folder from language statistics</a>? Add folder in the .gitattributes as <code>linguist-vendored</code></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/2152077/is-it-possible-to-get-cmake-to-build-both-a-static-and-shared-library-at-the-sam">Make target both static and shared</a>? Create two target with different names with the same source files.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/32994598/how-to-include-documentation-in-dll-to-show-method-summary-in-unity3d#:~:text=Under%20the%20"Build"%20side%20tab,put%20the%20documentation%20into%20Intellisense">Import C# DLL documentation in Unity</a>? Add the .xml file in the same folder as the DLL.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/1096568/how-can-i-use-interface-as-a-c-sharp-generic-type-constraint">Constrain Template type to be an interface</a>? This is not possible.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/1339976/how-to-check-if-any-flags-of-a-flag-combination-are-set">Check if flag is active in a C# Enum</a>? Enums has the <code>HasFlag</code> method that is used to check flags.</p>
+</li>
+<li>
+<p><a href="https://forums.unrealengine.com/t/does-ue-4-10-support-uclass-ustruct-in-namespaces/352448/6">Why namespace aren&#8217;t supported in Unreal</a>?</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_12_github_issues">Week 12 <a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-12">(Github Issues)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Update the unreal plugin.</p>
+</li>
+<li>
+<p>Add unit tests to the C# and Python wrappers to make sure the output matches the golden values used with the C&#43;&#43; targets.</p>
+</li>
+<li>
+<p>Develop the PCG REST API and the PCG web app to preview the results of the web api using PlayCanvas.</p>
+</li>
+<li>
+<p>Add edge cases tests in non cyclic sequences and combination generations.</p>
+</li>
+<li>
+<p>Replace the simpleGeneration function to take a vector offset instead of the axis argument.</p>
+</li>
+<li>
+<p>Replace the return of the cyclic sequence generation from a vector to a callback. Because of corrupt values when returning vector in different DLL.</p>
+</li>
+<li>
+<p>Delete CallbackFunctor class that is basically a clone of std::function.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/75538025/restrictions-on-cast-unreal">Unreal dynamic_cast restrictions</a>? Unreal redefines dynamic_cast in a macro and forces the classes to inherit from UObject if it doesn&#8217;t a static_assert will fail.</p>
+</li>
+<li>
+<p><a href="https://forums.unrealengine.com/t/casting-c-syntax-and-ue-syntax/29652">Casting in Unreal using C Casts</a>? Since Unreal forces dynamic_cast to use classes inheriting from UObject I need to use C cast to cast from my DLL interface back to Unreal types.</p>
+</li>
+<li>
+<p><a href="https://www.codeproject.com/Questions/473616/Parameterplusvaluespluscorruptionpluswhenplusonepl">DLL value is corrupted when returned in calling DLL</a>? When two DLL are compiled differently values returned from one DLL can become corrupted when returned in second DLL.
+The returned vector containing the cyclic sequence had valid values in the pcg engine but when it reached the unreal stack it&#8217;s values where corrupted.</p>
+</li>
+<li>
+<p><a href="https://www.reddit.com/r/dotnet/comments/15qr7ew/nunit_xunit_or_mstest/">Which testing framework to use with C#</a>?</p>
+</li>
+<li>
+<p><a href="https://xunit.net/docs/shared-context">Test Fixutres with xUnit</a>?</p>
+</li>
+<li>
+<p><a href="https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/">Parametrized tests with xUnit</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/69219916/generics-passing-an-int-value-instead-of-type">C# pass int to template</a>? This is not possible in C#.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/10073319/returning-anonymous-type-in-c-sharp">C# return anonymous type</a>? This is not possible.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/8514816/tuples-and-unpacking-assignment-support-in-c">Unpack tuple in C#</a>? <code>(int x, int y) = Tuple&lt;int, int&gt;</code></p>
+</li>
+<li>
+<p><a href="https://www.reddit.com/r/Python/comments/18bjv0y/pytest_over_unittest/">Which test framework to use with Python</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/35998992/py-test-command-not-found-but-library-is-installed">Python module not found</a>? <code>python -m pytest</code>.</p>
+</li>
+<li>
+<p><a href="https://www.tutorialspoint.com/pytest/pytest_identifying_test_files_and_functions.htm">Pytest not found</a>?</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Test files need to have a test suffix</p>
+</li>
+<li>
+<p>Test functions need to have a test prefix</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><a href="https://www.tutorialspoint.com/pytest/pytest_conftest_py.htm">Python share fixtures with multiple files</a>? Define fixture in conftest.py.</p>
+</li>
+<li>
+<p><a href="https://www.tutorialspoint.com/pytest/pytest_parameterizing_tests.htm">Define parametrized test in pytest</a>? <code>@pytest.mark.parametrize</code></p>
+</li>
+<li>
+<p><a href="https://learn.microsoft.com/en-us/answers/questions/1003951/c-difference-between-record-and-class">C# Class vs Records</a>? Records are used for data only types.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/978061/http-get-with-request-body">Add request body to GET request</a>? It is possible to add a body but it breaks semantics and is not recommended. The better option is to use a POST request.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/78119582/what-is-api-http-file-in-net-8">HTTP file in ASP.NET Core project</a>? This file is used to test the api.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/69802631/cors-policy-in-javascript-and-net-minimal-api">How to fix CORS errors in REST API</a>? Add the cors service and allows any origin, method and headers.</p>
+</li>
+<li>
+<p><a href="https://nextjs.org/learn/react-foundations/updating-state">How to update NextJS UI when value changes</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/60457262/next-js-layout-component-pass-props-to-children">How to pass children to NextJS component</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/49701408/css-grid-auto-height-rows-sizing-to-content">Fix grid height with CSS</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/72946973/how-to-access-a-state-of-an-component-from-another-component-in-next-js">Modify state of child component using parent</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/90178/make-a-div-fill-the-height-of-the-remaining-screen-space">HTML use 100% height</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/68412819/how-to-persist-a-variable-between-renders-in-react-hooks">Fix variables being reset after useState value changes</a>? Moving the variables outside the function scope fixes this error and persist the current values.</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/69667313/make-a-new-div-element-for-each-element-in-an-array-with-jsx">Add elements in component based on array passed in</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/3549540/google-test-fixtures">Create TEST_F with gtest C&#43;&#43;</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/25461585/operator-overloading-equals" class="bare">https://stackoverflow.com/questions/25461585/operator-overloading-equals</a></p>
+</li>
+<li>
+<p><a href="https://www.reddit.com/r/react/comments/12m3uwu/comment/jg95r8p/?utm_source=share&amp;utm_medium=web3x&amp;utm_name=web3xcss&amp;utm_term=1&amp;utm_content=share_button">Hide element in component based on props</a>? <code>{isShown &amp;&amp; &lt;p&gt;Shown&lt;/p&gt;}</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_week_13_github_issues">Week 13 <a href="https://github.com/SpeedyE1780/PCG-Tool/issues?q=label%3Aweek-13">(Github Issues)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developments:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Small refactoring.</p>
+</li>
+<li>
+<p>Update the wrappers, web services and plugins engine implementation.</p>
+</li>
+<li>
+<p>Add documentation for Unity, Unreal, REST API and Web app.</p>
+</li>
+<li>
+<p>Add journal entries to repo.</p>
+</li>
+<li>
+<p>Add readme as a general overview for the repo.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Questions:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/68954850/how-to-specify-swagger-specification-extensions-via-code">Add extensions to swagger api info</a>?</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/58622/how-to-document-python-code-using-doxygen">How to use doxygen with Python docstrings</a>?</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_value_of_engine">Value of Engine</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_advantages">Advantages</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Diversity:</strong> Supports multiple types of procedural generation (Level Generation, Maze Generation, Combination Generation, Sequence Generation).</p>
+</li>
+<li>
+<p><strong>Support:</strong> Works with multiple languages/engines.
+If the engine does not support a programming language yet: The REST API or web app can return a JSON file representing the generated content.
+The game developer just need to parse the JSON file and decide what happens next.</p>
+</li>
+<li>
+<p><strong>Ease of Use:</strong> Equivalent of calling any functions and doesn&#8217;t need any knowledge of how the function works.
+All the user does is pass a callback that defines how the generated content is used / instantiated.</p>
+</li>
+<li>
+<p><strong>Lack of Dependency:</strong> Only the DLLs are needed to generate content. If the content is generated at runtime then the DLL will need to be shipped with the executable. If the content is generated at edit time there is no need to ship the DLL.</p>
+</li>
+<li>
+<p><strong>Web APP:</strong> This allows anyone to play with the engine if the result interest them they could integrate the engine in their projects or simply use the generated JSON.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_disadvantages">Disadvantages</h3>
+<div class="paragraph">
+<p>Looking at other procedural content generation tools:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/procedural-content-generation-overview">Unreal Procedural Content Generation Framework</a></p>
+</li>
+<li>
+<p><a href="https://sceelix.com">Sccelix</a></p>
+</li>
+<li>
+<p><a href="https://www.astrolog.org/labyrnth/daedalus.htm">Daedalus</a></p>
+</li>
+<li>
+<p><a href="https://www.world-machine.com">World Machine</a></p>
+</li>
+<li>
+<p><a href="https://dungeonarchitect.dev">Dungeon Architect</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The disadvantages are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Not as Advanced:</strong> These tools focus on one aspect of content generation and they do it well but most only support one engine / language (ex: Daedalus support all kind of maze generation).</p>
+</li>
+<li>
+<p><strong>No Visual Designer:</strong> Some of them use a visual designer to set up the rules of the algorithm and then generate the content. Having a designer is something that I would love to implement (ex: Dungeon Architect uses a visual designer to set the dungeon rules and themes).
+The designer gives the users more control over the behavior of the algorithm.
+On the other hand the game creator needs to learn how to use this designer and sometimes if this level of control isn&#8217;t needed this can be a waste of time.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_potential_for_future_work">Potential for Future Work</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Add graph rewriting for level generation and implement a visual designer to set the rules.</p>
+</li>
+<li>
+<p>Add a "4D" level generation the 4<sup>th</sup> dimension can be something like time for example a node can have a portal to the future and the corresponding node has a portal to the past similar to <a href="https://store.steampowered.com/app/2109770/Kingmakers/">Kingmakers</a></p>
+</li>
+<li>
+<p>Enable <a href="https://weblog.jamisbuck.org/2011/3/4/maze-generation-weave-mazes.html">Weaves</a> in mazes. Implement more maze algorithm from the <a href="https://pragprog.com/titles/jbmaze/mazes-for-programmers/">Maze for Programmers</a> book by Jamis Buck.</p>
+</li>
+<li>
+<p>Make the project open source and allow anyone to add new algorithms to the engine, optimizations, wrappers, etc&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. RUSSEL, Stuart and NORVIG, Peter. 2009. Artificial Intelligence a Modern Approach. 3^rd^ edn. NJ: Pearson.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. ROSEN, Kenneth H. 2011. Discrete Mathematics and Its Applications. 7^th^ edn. McGraw Hill
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-08-31 16:01:27 +0300
+</div>
+</div>
+</body>
+</html>

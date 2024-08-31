@@ -1,4 +1,4 @@
-# Friday 05/06/2024
+# Friday 05/07/2024
 
 [.LIB importance](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-creation)
 [Rename Actor Unreal](https://forums.unrealengine.com/t/change-actor-display-name-label-from-blueprint/74222/3)
