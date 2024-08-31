@@ -78,7 +78,7 @@ A second plugin was developed that adds editor window to generate content during
 
 - **Web Services:**
 
-[x] **PCG Web API:** The PCG Web API is an ASP.NET Core REST API.
+[x] **PCG Web API https://youtu.be/P_mNN8f9NCI[(Demo)]:** The PCG Web API is an ASP.NET Core REST API.
 It takes the parameters in the request body and uses the C# Wrapper to generate content and returns the result as JSON in the response.
 
 [x] **PCG Web APP:** The PCG Web APP is a web application that previews the engine's functionality on the web.
@@ -579,9 +579,11 @@ Looking at other procedural content generation tools:
     * https://www.world-machine.com[World Machine]
     * https://dungeonarchitect.dev[Dungeon Architect]
     
-- **Not as Advanced:** These tools focus on one aspect of content generation and they do it well but most only support one engine / language.
+The disadvantages are:
+    
+- **Not as Advanced:** These tools focus on one aspect of content generation and they do it well but most only support one engine / language (ex: Daedalus support all kind of maze generation).
 
-- **No Visual Designer:** Some of them use a visual designer to set up the rules of the algorithm and then generate the content. Having a designer is something that I would love to implement.
+- **No Visual Designer:** Some of them use a visual designer to set up the rules of the algorithm and then generate the content. Having a designer is something that I would love to implement (ex: Dungeon Architect uses a visual designer to set the dungeon rules and themes).
 The designer gives the users more control over the behavior of the algorithm.
 On the other hand the game creator needs to learn how to use this designer and sometimes if this level of control isn't needed this can be a waste of time.
 
