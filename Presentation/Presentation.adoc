@@ -598,3 +598,5 @@ On the other hand the game creator needs to learn how to use this designer and s
 - Enable https://weblog.jamisbuck.org/2011/3/4/maze-generation-weave-mazes.html[Weaves] in mazes. Implement more maze algorithm from the https://pragprog.com/titles/jbmaze/mazes-for-programmers/[Maze for Programmers] book by Jamis Buck.
 
 - Make the project open source and allow anyone to add new algorithms to the engine, optimizations, wrappers, etc...
+
+- Add a CI/CD pipeline to that validates all test still pass after new features and updates wrappers DLL/Lib.
