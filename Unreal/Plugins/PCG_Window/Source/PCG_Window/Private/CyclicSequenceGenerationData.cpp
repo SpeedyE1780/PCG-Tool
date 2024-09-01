@@ -6,6 +6,8 @@
 #include "MyPCG/SequenceGeneration/ISequenceNode.h"
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "UObject/SavePackage.h"
+#include "AssetToolsModule.h"
+#include "IAssetTools.h"
 
 void UCyclicSequenceGenerationData::GenerateSequence() const
 {
@@ -13,13 +15,26 @@ void UCyclicSequenceGenerationData::GenerateSequence() const
 
     if (auto* node = Cast<ISequenceNode>(sequenceNode))
     {
-        pcg::engine::cpp_api::generateSequence(node->getPCGSequenceNode(),
-            sequenceLength,
-            [this](pcg::engine::combination_generation::ISequenceNode* node)
-            {
-                sequence->AddNode((UDataAsset*)node);
-            });
+        IAssetTools& assetTools = FModuleManager::GetModuleChecked<FAssetToolsModule>("AssetTools").Get();;
+        FString name = "CyclicSequence";
+        name.Append(FString::FromInt(seed));
+        auto* sequence = Cast<USequenceList>(assetTools.CreateAsset(name, "/Game/DataAssets", USequenceList::StaticClass(), nullptr));
 
-        sequence->MarkPackageDirty();
+        if (sequence)
+        {
+            ISequenceNode* current = node;
+
+            pcg::engine::cpp_api::generateSequence(node->getPCGSequenceNode(),
+                sequenceLength,
+                [&current, sequence](pcg::engine::combination_generation::ISequenceNode* pcgNode, int nextNodeIndex)
+                {
+                    if (nextNodeIndex != -1)
+                    {
+                        current = Cast<ISequenceNode>(current->getNextUnrealObjectAt(nextNodeIndex));
+                    }
+
+                    sequence->AddNode(Cast<UDataAsset>(current));
+                });
+        }
     }
 }

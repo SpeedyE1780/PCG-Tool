@@ -22,8 +22,6 @@ class PCG_WINDOW_API UCyclicSequenceGenerationData : public UObject
     UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
     TObjectPtr<UDataAsset> sequenceNode;
     UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
-    TObjectPtr<USequenceList> sequence;
-    UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
     unsigned int seed;
     UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
     unsigned int sequenceLength;

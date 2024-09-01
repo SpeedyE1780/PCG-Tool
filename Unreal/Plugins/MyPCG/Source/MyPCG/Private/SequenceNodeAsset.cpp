@@ -18,6 +18,11 @@ pcg::engine::combination_generation::ISequenceNode* USequenceNodeAsset::getNextA
     return nextNodes[index];
 }
 
+UObject* USequenceNodeAsset::getNextUnrealObjectAt(int index) const
+{
+    return nextNodes[index];
+}
+
 int USequenceNodeAsset::getNextCount() const
 {
     return nextNodes.Num();

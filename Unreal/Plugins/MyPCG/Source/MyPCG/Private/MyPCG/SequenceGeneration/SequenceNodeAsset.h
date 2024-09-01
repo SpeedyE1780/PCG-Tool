@@ -19,6 +19,7 @@ public:
     virtual void setNext(pcg::engine::combination_generation::ISequenceNode* nextNode) override;
     virtual pcg::engine::combination_generation::ISequenceNode* getNext() const override;
     virtual pcg::engine::combination_generation::ISequenceNode* getNextAt(int index) const override;
+    virtual UObject* getNextUnrealObjectAt(int index) const override;
     virtual int getNextCount() const override;
     virtual void generateSequence() const override;
     virtual pcg::engine::combination_generation::ISequenceNode& getPCGSequenceNode() override { return *this; }
