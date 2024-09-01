@@ -5,8 +5,9 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "Engine/DataAsset.h"
-#include "MyPCG/SequenceGeneration/SequenceList.h"
 #include "CyclicSequenceGenerationData.generated.h"
+
+class USequenceList;
 
 /**
  *
@@ -22,7 +23,14 @@ class PCG_WINDOW_API UCyclicSequenceGenerationData : public UObject
     UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
     TObjectPtr<UDataAsset> sequenceNode;
     UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
+    FString sequenceName;
+    UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
+    FString folderPath;
+    UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
     unsigned int seed;
     UPROPERTY(EditAnywhere, Category = "Sequence Generation Data")
     unsigned int sequenceLength;
+
+private:
+    USequenceList* CreateSequenceListAsset() const;
 };

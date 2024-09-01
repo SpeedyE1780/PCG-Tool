@@ -4,10 +4,22 @@
 #include "PCG_Window/SequenceGeneration/CyclicSequenceGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
 #include "MyPCG/SequenceGeneration/ISequenceNode.h"
+#include "MyPCG/SequenceGeneration/SequenceList.h"
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "UObject/SavePackage.h"
 #include "AssetToolsModule.h"
 #include "IAssetTools.h"
+
+USequenceList* UCyclicSequenceGenerationData::CreateSequenceListAsset() const
+{
+    IAssetTools& assetTools = FModuleManager::GetModuleChecked<FAssetToolsModule>("AssetTools").Get();;
+    auto* sequenceAsset = assetTools.CreateAsset(FString(sequenceName).Append(FString::FromInt(seed)),
+        FString("/Game/").Append(folderPath),
+        USequenceList::StaticClass(),
+        nullptr);
+
+    return Cast<USequenceList>(sequenceAsset);
+}
 
 void UCyclicSequenceGenerationData::GenerateSequence() const
 {
@@ -15,10 +27,7 @@ void UCyclicSequenceGenerationData::GenerateSequence() const
 
     if (auto* node = Cast<ISequenceNode>(sequenceNode))
     {
-        IAssetTools& assetTools = FModuleManager::GetModuleChecked<FAssetToolsModule>("AssetTools").Get();;
-        FString name = "CyclicSequence";
-        name.Append(FString::FromInt(seed));
-        auto* sequence = Cast<USequenceList>(assetTools.CreateAsset(name, "/Game/DataAssets", USequenceList::StaticClass(), nullptr));
+        USequenceList* sequence = CreateSequenceListAsset();
 
         if (sequence)
         {
