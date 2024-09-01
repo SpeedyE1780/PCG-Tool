@@ -61,8 +61,8 @@ var NAVTREEINDEX =
 [
 "_aldous_broder_8cpp.html",
 "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#aa65faeec8b27cfaee33417dd30cb1b12",
-"math_2include_2pcg_2engine_2math_2enums_8hpp.html#a8baea8af717df5ea70816ad2b5fecec8a9dd4e461268c8034f5c8564e155c67a6",
-"structpcg_1_1engine_1_1math_1_1_vector3.html"
+"math_2include_2pcg_2engine_2math_2enums_8hpp_source.html",
+"structpcg_1_1engine_1_1maze__generation_1_1_node_coordinates.html#a46ed49074898c3ae17bb16e85bcf4140"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

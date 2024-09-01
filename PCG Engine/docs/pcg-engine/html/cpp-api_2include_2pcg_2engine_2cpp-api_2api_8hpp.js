@@ -31,7 +31,7 @@ var cpp_api_2include_2pcg_2engine_2cpp_api_2api_8hpp =
     [ "generateGrowingTreeWithCustomSelection", "cpp-api_2include_2pcg_2engine_2cpp-api_2api_8hpp.html#a2998f3fcdb8ae7ed3f4f4b30facfdfdb", null ],
     [ "generateMaze", "cpp-api_2include_2pcg_2engine_2cpp-api_2api_8hpp.html#a997db1aaf2546113971a54d2a6ff8b91", null ],
     [ "generateSequence", "cpp-api_2include_2pcg_2engine_2cpp-api_2api_8hpp.html#a5705f5c1c423be8a531067e5d2069ec1", null ],
-    [ "generateSequence", "cpp-api_2include_2pcg_2engine_2cpp-api_2api_8hpp.html#ae9967a67b0d9636e4e4d144b5601fbf8", null ],
+    [ "generateSequence", "cpp-api_2include_2pcg_2engine_2cpp-api_2api_8hpp.html#ad795ce1109ce778c27c3e3de548d8e0f", null ],
     [ "gridWaveFunctionCollapseGeneration", "cpp-api_2include_2pcg_2engine_2cpp-api_2api_8hpp.html#ac48e701ce3bfbb2eaa4531aeab25aed2", null ],
     [ "gridWaveFunctionCollapseGeneration", "cpp-api_2include_2pcg_2engine_2cpp-api_2api_8hpp.html#a616fb5f64d147b83f5d73ce2f6222c52", null ],
     [ "multiDimensionGeneration", "cpp-api_2include_2pcg_2engine_2cpp-api_2api_8hpp.html#af42bd987cb7dfb6d71d679916da82fda", null ],

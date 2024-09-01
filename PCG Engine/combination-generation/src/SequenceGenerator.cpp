@@ -33,23 +33,24 @@ namespace pcg::engine::combination_generation
         /// @param node First node in sequence
         /// @param count Max number of node in sequence
         /// @param callback Callback indicating which was the next node added
-        void generateSequence(ISequenceNode* node, int count, const std::function<void(ISequenceNode*)>& callback)
+        void generateSequence(ISequenceNode* node, int count, const std::function<void(ISequenceNode*, int)>& callback)
         {
             if (callback)
             {
-                callback(node);
+                callback(node, -1);
             }
 
             count -= 1;
 
             while (count > 0 && node->getNextCount() > 0)
             {
-                node = node->getNextAt(math::Random::number(node->getNextCount()));
+                int nextIndex = math::Random::number(node->getNextCount());
+                node = node->getNextAt(nextIndex);
                 count -= 1;
 
                 if (callback)
                 {
-                    callback(node);
+                    callback(node, nextIndex);
                 }
             }
         }
@@ -60,7 +61,7 @@ namespace pcg::engine::combination_generation
         generateSequence(&node);
     }
 
-    void generateSequence(ISequenceNode& node, int count, const std::function<void(ISequenceNode*)>& callback)
+    void generateSequence(ISequenceNode& node, int count, const std::function<void(ISequenceNode*, int)>& callback)
     {
         return generateSequence(&node, count, callback);
     }
