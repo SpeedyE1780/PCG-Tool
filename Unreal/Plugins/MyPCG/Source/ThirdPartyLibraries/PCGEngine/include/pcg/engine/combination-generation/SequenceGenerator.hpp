@@ -34,7 +34,7 @@ namespace pcg::engine::combination_generation
     /// @param node First node in sequence
     /// @param count Max number of node in sequence
     /// @param callback Callback indicating which was the next node added
-    void generateSequence(ISequenceNode& node, int count, const std::function<void(ISequenceNode*)>& callback);
+    void generateSequence(ISequenceNode& node, int count, const std::function<void(ISequenceNode*, int)>& callback);
 }
 
 #endif // PCG_ENGINE_COMBINATION_GENERATION_SEQUENCE_GENERATOR_HPP
