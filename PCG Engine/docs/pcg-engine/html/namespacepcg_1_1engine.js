@@ -87,7 +87,7 @@ var namespacepcg_1_1engine =
       [ "generateGrowingTreeWithCustomSelection", "namespacepcg_1_1engine_1_1cpp__api.html#a2998f3fcdb8ae7ed3f4f4b30facfdfdb", null ],
       [ "generateMaze", "namespacepcg_1_1engine_1_1cpp__api.html#a997db1aaf2546113971a54d2a6ff8b91", null ],
       [ "generateSequence", "namespacepcg_1_1engine_1_1cpp__api.html#a5705f5c1c423be8a531067e5d2069ec1", null ],
-      [ "generateSequence", "namespacepcg_1_1engine_1_1cpp__api.html#ae9967a67b0d9636e4e4d144b5601fbf8", null ],
+      [ "generateSequence", "namespacepcg_1_1engine_1_1cpp__api.html#ad795ce1109ce778c27c3e3de548d8e0f", null ],
       [ "gridWaveFunctionCollapseGeneration", "namespacepcg_1_1engine_1_1cpp__api.html#ac48e701ce3bfbb2eaa4531aeab25aed2", null ],
       [ "gridWaveFunctionCollapseGeneration", "namespacepcg_1_1engine_1_1cpp__api.html#a616fb5f64d147b83f5d73ce2f6222c52", null ],
       [ "multiDimensionGeneration", "namespacepcg_1_1engine_1_1cpp__api.html#af42bd987cb7dfb6d71d679916da82fda", null ],

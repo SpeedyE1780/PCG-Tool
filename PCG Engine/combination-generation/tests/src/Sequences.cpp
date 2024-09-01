@@ -116,10 +116,22 @@ namespace pcg::engine::combination_generation::tests
     TEST_F(Sequence, CyclicSequence)
     {
         std::vector<ISequenceNode*> sequence{};
-        generateSequence(red, 10, [&sequence](ISequenceNode* node) {sequence.emplace_back(node); });
+        std::vector<ISequenceNode*> indexSequence{};
+        ISequenceNode* current = &red;
+        generateSequence(red, 10, [&sequence, &indexSequence, &current](ISequenceNode* node, int nextIndex)
+            {
+                if (nextIndex != -1)
+                {
+                    current = current->getNextAt(nextIndex);
+                }
+
+                indexSequence.emplace_back(current);
+                sequence.emplace_back(node);
+            });
         const auto expected = std::vector<ISequenceNode*>{ &red, &blue, &yellow, &blue, &green, &yellow, &green, &green, &green, &blue };
 
         EXPECT_TRUE(std::ranges::equal(sequence, expected));
+        EXPECT_TRUE(std::ranges::equal(indexSequence, expected));
     }
 
     TEST_F(Sequence, EarlyExitFromSequence)

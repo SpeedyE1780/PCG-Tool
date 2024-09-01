@@ -220,7 +220,7 @@ namespace pcg::engine::cpp_api
         combination_generation::generateSequence(node);
     }
 
-    void generateSequence(combination_generation::ISequenceNode& node, int count, const std::function<void(combination_generation::ISequenceNode*)>& callback)
+    void generateSequence(combination_generation::ISequenceNode& node, int count, const std::function<void(combination_generation::ISequenceNode*, int)>& callback)
     {
         return combination_generation::generateSequence(node, count, callback);
     }

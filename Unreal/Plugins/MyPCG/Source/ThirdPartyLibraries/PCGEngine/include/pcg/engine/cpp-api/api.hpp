@@ -130,7 +130,7 @@ namespace pcg::engine::cpp_api
     /// @param node First node in sequence
     /// @param count Max number of node in sequence
     /// @param callback Callback when node is added to sequence
-    PCG_ENGINE_CPP_API_API void generateSequence(combination_generation::ISequenceNode& node, int count, const std::function<void(combination_generation::ISequenceNode*)>& callback);
+    PCG_ENGINE_CPP_API_API void generateSequence(combination_generation::ISequenceNode& node, int count, const std::function<void(combination_generation::ISequenceNode*, int)>& callback);
 }
 
 #endif // PCG_ENGINE_CPP_API_API_HPP

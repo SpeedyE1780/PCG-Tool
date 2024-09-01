@@ -11,17 +11,18 @@
 UINTERFACE(MinimalAPI)
 class USequenceNode : public UInterface
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 };
 
 /**
- * 
+ *
  */
 class MYPCG_API ISequenceNode
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
+    // Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual pcg::engine::combination_generation::ISequenceNode& getPCGSequenceNode() = 0;
+    virtual pcg::engine::combination_generation::ISequenceNode& getPCGSequenceNode() = 0;
+    virtual UObject* getNextUnrealObjectAt(int index) const = 0;
 };
