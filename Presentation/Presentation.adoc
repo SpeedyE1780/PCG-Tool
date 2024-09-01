@@ -546,6 +546,8 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * Add readme as a general overview for the repo.
 
+    * Pass index as argument for Cyclic sequence generation because of Unreal cast issues.
+
 - **Questions:**
 
     * https://stackoverflow.com/questions/68954850/how-to-specify-swagger-specification-extensions-via-code[Add extensions to swagger api info]?
