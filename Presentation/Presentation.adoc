@@ -432,7 +432,7 @@ The generated JSON can be copied from the text area where it is displayed.
 
     * Maintain prefabs links when spawning from editor window.
 
-    * Add Unity maze game demo.
+    * Add Unity https://youtu.be/HLoh0sluhWE[maze game] demo.
 
     * Add python https://youtu.be/OtXPXMLDZlk[cyclic generation] demo.
 
