@@ -8,11 +8,12 @@ target_sources(${PROJECT_NAME} PRIVATE
 #CPP
 "src/Random.cpp"
 "src/Vector3.cpp"
+"src/Vector4.cpp"
 
 #HPP
 "include/pcg/engine/math/Enums.hpp"
 "include/pcg/engine/math/Random.hpp"
-"include/pcg/engine/math/Vector3.hpp"
+"include/pcg/engine/math/Vector4.hpp"
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include/)
