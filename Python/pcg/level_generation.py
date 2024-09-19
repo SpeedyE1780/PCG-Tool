@@ -36,6 +36,10 @@ class Direction(Flag):
     """Node has an adjacent node up"""
     DOWN = 1 << 5
     """Node has an adjacent node down"""
+    PORTAL_IN = 1 << 6
+    """Node has a portal going in new dimension"""
+    PORTAL_OUT = 1 << 7
+    """Node has a portal going out of new dimension"""
 
 
 class GenerationData(ctypes.Structure):
@@ -57,6 +61,7 @@ class GenerationData(ctypes.Structure):
 
 addNode = ctypes.CFUNCTYPE(ctypes.c_void_p, math.Vector3)
 addWFCNode = ctypes.CFUNCTYPE(ctypes.c_void_p, math.Vector3, ctypes.c_int)
+addWFC4DNode = ctypes.CFUNCTYPE(ctypes.c_void_p, math.Vector4, ctypes.c_int)
 addGridWFCNode = ctypes.CFUNCTYPE(
     ctypes.c_void_p, ctypes.c_int, ctypes.c_int, ctypes.c_int
 )
@@ -123,6 +128,27 @@ def waveFunctionCollapseGeneration(
 
     pcgDLL.waveFunctionCollapseGeneration(
         ctypes.pointer(generationData), mode.value, axes.value, addWFCNode(callback)
+    )
+
+
+def waveFunctionCollapseGeneration4D(
+    generationData: GenerationData,
+    mode: ExpansionMode,
+    axes: math.Axes,
+    callback: Callable[[math.Vector4, Direction], None],
+) -> None:
+    """
+    Generate a 4D level using the wave function collapse algorithm
+
+    Args:
+        generationData (GenerationData): Data used to generate level
+        mode (ExpansionMode): Mode used to process pending nodes
+        axes (math.Axes): Axes that will be used to generate level
+        callback (Callable[[math.Vector4, Direction], None]): Callback used to add node to generated level
+    """
+
+    pcgDLL.waveFunctionCollapse4DGeneration(
+        ctypes.pointer(generationData), mode.value, axes.value, addWFC4DNode(callback)
     )
 
 

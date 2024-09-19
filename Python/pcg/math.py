@@ -27,6 +27,34 @@ class Vector3(ctypes.Structure):
         return "{0}, {1}, {2}".format(self.x, self.y, self.z)
 
 
+class Vector4(ctypes.Structure):
+    """
+    A class representing a 3D vector
+
+    Attributes:
+        x (float): The x component of the vector
+        y (float): The y component of the vector
+        z (float): The z component of the vector
+        w (float): The w component of the vector
+    """
+
+    _fields_ = [
+        ("x", ctypes.c_float),
+        ("y", ctypes.c_float),
+        ("z", ctypes.c_float),
+        ("w", ctypes.c_float),
+    ]
+
+    def __str__(self):
+        """
+        Return the string representation of the vector in the form of x, y, z, w
+
+        Returns:
+            String representation of the vector in the form of x, y, z, w
+        """
+        return "{0}, {1}, {2}, {3}".format(self.x, self.y, self.z, self.w)
+
+
 class Axes(Flag):
     """
     Axes represents the 3D axes in 3D space
