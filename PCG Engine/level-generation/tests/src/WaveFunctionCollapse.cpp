@@ -21,6 +21,36 @@ namespace pcg::engine::level_generation::tests
 
             GenerationData data{ 200, 1, math::Vector3::zero };
         };
+
+        void checkWFCData(std::ifstream& input, const math::Vector3& position, utility::enums::Direction adjacentNodes)
+        {
+            int x = 0;
+            int y = 0;
+            int z = 0;
+            int adjacent = 0;
+
+            input >> x >> y >> z >> adjacent;
+            EXPECT_EQ(x, position.x);
+            EXPECT_EQ(y, position.y);
+            EXPECT_EQ(z, position.z);
+            EXPECT_EQ(static_cast<utility::enums::Direction>(adjacent), adjacentNodes);
+        }
+
+        void checkWFCData(std::ifstream& input, const math::Vector4& position, utility::enums::Direction adjacentNodes)
+        {
+            int x = 0;
+            int y = 0;
+            int z = 0;
+            int w = 0;
+            int adjacent = 0;
+
+            input >> x >> y >> z >> w >> adjacent;
+            EXPECT_EQ(x, position.x);
+            EXPECT_EQ(y, position.y);
+            EXPECT_EQ(z, position.z);
+            EXPECT_EQ(w, position.w);
+            EXPECT_EQ(static_cast<utility::enums::Direction>(adjacent), adjacentNodes);
+        }
     }
 
     TEST_F(WaveFunctionCollapse, BFS)
@@ -29,16 +59,7 @@ namespace pcg::engine::level_generation::tests
 
         waveFunctionCollapse(data, ExpansionMode::BFS, math::Axis::xyz, [&input](math::Vector3 position, utility::enums::Direction adjacentNodes)
             {
-                int x = 0;
-                int y = 0;
-                int z = 0;
-                int adjacent = 0;
-
-                input >> x >> y >> z >> adjacent;
-                EXPECT_EQ(x, position.x);
-                EXPECT_EQ(y, position.y);
-                EXPECT_EQ(z, position.z);
-                EXPECT_EQ(static_cast<utility::enums::Direction>(adjacent), adjacentNodes);
+                checkWFCData(input, position, adjacentNodes);
             });
     }
 
@@ -48,16 +69,27 @@ namespace pcg::engine::level_generation::tests
 
         waveFunctionCollapse(data, ExpansionMode::DFS, math::Axis::xyz, [&input](math::Vector3 position, utility::enums::Direction adjacentNodes)
             {
-                int x = 0;
-                int y = 0;
-                int z = 0;
-                int adjacent = 0;
+                checkWFCData(input, position, adjacentNodes);
+            });
+    }
 
-                input >> x >> y >> z >> adjacent;
-                EXPECT_EQ(x, position.x);
-                EXPECT_EQ(y, position.y);
-                EXPECT_EQ(z, position.z);
-                EXPECT_EQ(static_cast<utility::enums::Direction>(adjacent), adjacentNodes);
+    TEST_F(WaveFunctionCollapse, BFS4D)
+    {
+        std::ifstream input("GoldenValues/WaveFunctionCollapse/4DBFS.txt");
+
+        waveFunctionCollapse4D(data, ExpansionMode::BFS, math::Axis::xyz, [&input](math::Vector4 position, utility::enums::Direction adjacentNodes)
+            {
+                checkWFCData(input, position, adjacentNodes);
+            });
+    }
+
+    TEST_F(WaveFunctionCollapse, DFS4D)
+    {
+        std::ifstream input("GoldenValues/WaveFunctionCollapse/4DDFS.txt");
+
+        waveFunctionCollapse4D(data, ExpansionMode::DFS, math::Axis::xyz, [&input](math::Vector4 position, utility::enums::Direction adjacentNodes)
+            {
+                checkWFCData(input, position, adjacentNodes);
             });
     }
 }
