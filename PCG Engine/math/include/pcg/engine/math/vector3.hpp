@@ -23,24 +23,24 @@ namespace pcg::engine::math
         static const Vector3 forward;
         static const Vector3 backward;
 
-        float x;
-        float y;
-        float z;
+        float x = 0;
+        float y = 0;
+        float z = 0;
+
+        /// @brief Get vector containing unit vectors of given axes
+        /// @param axes Bit flag representing enabled axes
+        /// @return Vector containing unit vectors of enabled axes
+        static std::vector<const Vector3*> getUnitVectors(Axis axes);
+
+        /// @brief Get a unit vector from a direction
+        /// @param direction Direction who's unit vector we need
+        /// @return The vector corresponding to the given direction
+        static const math::Vector3& getUnitVectorFromDirection(utility::enums::Direction direction);
     };
 
     Vector3 operator+(const Vector3& lhs, const Vector3& rhs);
     bool operator==(const Vector3& lhs, const Vector3& rhs);
     Vector3 operator*(const Vector3& vector, float scalar);
-
-    /// @brief Get vector containing unit vectors of given axes
-    /// @param axes Bit flag representing enabled axes
-    /// @return Vector containing unit vectors of enabled axes
-    std::vector<const Vector3*> getUnitVectors(Axis axes);
-
-    /// @brief Get a unit vector from a direction
-    /// @param direction Direction who's unit vector we need
-    /// @return The vector corresponding to the given direction
-    const math::Vector3& getUnitVectorFromDirection(utility::enums::Direction direction);
 }
 
 namespace std

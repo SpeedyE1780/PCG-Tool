@@ -47,7 +47,7 @@ namespace pcg::engine::math
         return scaledVector;
     }
 
-    std::vector<const Vector3*> getUnitVectors(Axis axes)
+    std::vector<const Vector3*> Vector3::getUnitVectors(Axis axes)
     {
         std::vector<const Vector3*> directions{};
 
@@ -89,7 +89,7 @@ namespace pcg::engine::math
         return directions;
     }
 
-    const Vector3& getUnitVectorFromDirection(utility::enums::Direction direction)
+    const Vector3& Vector3::getUnitVectorFromDirection(utility::enums::Direction direction)
     {
         switch (direction)
         {

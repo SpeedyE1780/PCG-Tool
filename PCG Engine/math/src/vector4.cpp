@@ -17,6 +17,18 @@ namespace pcg::engine::math
     const Vector4 Vector4::in{ 0, 0, 0, -1 };
     const Vector4 Vector4::out{ 0, 0, 0, -1 };
 
+    Vector4::Vector4(int x, int y, int z, int w) :
+        x(x),
+        y(y),
+        z(z),
+        w(w)
+    {
+    }
+
+    Vector4::Vector4(const Vector3& vector) : Vector4(vector.x, vector.y, vector.z, 0)
+    {
+    }
+
     Vector4& Vector4::operator+=(const Vector4& rhs)
     {
         x += rhs.x;
@@ -52,7 +64,7 @@ namespace pcg::engine::math
         return scaledVector;
     }
 
-    std::vector<const Vector4*> getUnitVectors(Axis axes)
+    std::vector<const Vector4*> Vector4::getUnitVectors(Axis axes)
     {
         std::vector<const Vector4*> directions{};
 
@@ -94,7 +106,7 @@ namespace pcg::engine::math
         return directions;
     }
 
-    const Vector4& getUnitVectorFromDirection(utility::enums::Direction direction)
+    const Vector4& Vector4::getUnitVectorFromDirection(utility::enums::Direction direction)
     {
         switch (direction)
         {

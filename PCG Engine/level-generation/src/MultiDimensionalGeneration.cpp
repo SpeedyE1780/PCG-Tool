@@ -44,7 +44,7 @@ namespace pcg::engine::level_generation
     {
         utility::logInfo("Multi-Dimension Generation Started");
 
-        std::vector<const math::Vector3*> directions = math::getUnitVectors(axes);
+        std::vector<const math::Vector3*> directions = math::Vector3::getUnitVectors(axes);
 
         if (directions.empty())
         {
