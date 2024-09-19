@@ -40,5 +40,6 @@ var cpp_api_2include_2pcg_2engine_2cpp_api_2api_8hpp =
     [ "setRandomGenerator", "cpp-api_2include_2pcg_2engine_2cpp-api_2api_8hpp.html#a8cc7294fc43edbfdd0e91c37681aa41a", null ],
     [ "setSeed", "cpp-api_2include_2pcg_2engine_2cpp-api_2api_8hpp.html#ad7a023f262d2f713f696a7e5a3a81904", null ],
     [ "simpleGeneration", "cpp-api_2include_2pcg_2engine_2cpp-api_2api_8hpp.html#a39908c6f2a92ea34a664deefb46216c6", null ],
+    [ "waveFunctionCollapse4DGeneration", "cpp-api_2include_2pcg_2engine_2cpp-api_2api_8hpp.html#a93271313ee928a44db8d93655dde2dd4", null ],
     [ "waveFunctionCollapseGeneration", "cpp-api_2include_2pcg_2engine_2cpp-api_2api_8hpp.html#ad302a7303ab89a3785fa8e0dd0d225e2", null ]
 ];

@@ -3,6 +3,7 @@ var c_api_2include_2pcg_2engine_2c_api_2api_8hpp =
     [ "addMazeNodeCallback", "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#a99fedbce83e0c43485b6313580dcb559", null ],
     [ "addNodeCallback", "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#a9a71ad616d4514a68a4226b4bdbfe58b", null ],
     [ "addWFC3DGridNodeCallback", "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#a582d5c8f008cb38b071799bb6ebdc6ae", null ],
+    [ "addWFC4DNodeCallback", "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#a70cc8f20d1f09b2d8645adfe15c2fc54", null ],
     [ "addWFCGridNodeCallback", "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#a53f15629730a3c911acca6a4a7a1220c", null ],
     [ "addWFCNodeCallback", "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#a3294c6694468c8f599a67415f1f0948d", null ],
     [ "generateCombinationCallback", "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#a61d180dea7cf463c50f3df17a5a0fe8c", null ],
@@ -50,6 +51,7 @@ var c_api_2include_2pcg_2engine_2c_api_2api_8hpp =
     [ "setSeed", "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#aa9d8c20c38a998f6ca59fd098ec5908a", null ],
     [ "simpleGeneration", "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#a0f99fa0e3abb9f4367612154e1ed9993", null ],
     [ "waveFunctionCollapse3DGridGeneration", "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#ad95f8202c1468ae11d2ef5a458b773ed", null ],
+    [ "waveFunctionCollapse4DGeneration", "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#a7e77569faa829d08a61a3eeea848491a", null ],
     [ "waveFunctionCollapseGeneration", "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#a66cc4763f2b7221b40196966bcbf7632", null ],
     [ "waveFunctionCollapseGridGeneration", "c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#a2add9cc10f224ad6f74b55ea89e03fa5", null ]
 ];

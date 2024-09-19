@@ -7,6 +7,7 @@
 
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/Vector3.hpp>
+#include <pcg/engine/math/Vector4.hpp>
 
 #include <pcg/engine/maze-generation/Common.hpp>
 
@@ -18,6 +19,8 @@ namespace pcg::engine::c_api
     typedef void (*addNodeCallback)(math::Vector3 position);
     /// @brief Callback to indicate that a node was spawned at this position and has these adjacent node
     typedef void (*addWFCNodeCallback)(math::Vector3 position, utility::enums::Direction adjacentNodes);
+    /// @brief Callback to indicate that a node was spawned at this position and has these adjacent node
+    typedef void (*addWFC4DNodeCallback)(math::Vector4 position, utility::enums::Direction adjacentNodes);
     /// @brief Callback to indicate that a node was spawned at x, y coordinates and has these adjacent node
     typedef void (*addWFCGridNodeCallback)(int x, int y, utility::enums::Direction adjacentNodes);
     /// @brief Callback to indicate that a node was spawned at x, y, z coordinates and has these adjacent node
@@ -93,6 +96,12 @@ namespace pcg::engine::c_api
     /// @param axes Axes flag indicating which axes are being used
     /// @param callback Callback when a node is generated
     PCG_ENGINE_C_API_API void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, addWFCNodeCallback callback);
+    /// @brief Generate a 4D level using the Wave Function Collapse Algorithm
+    /// @param data Object containing number of nodes that need to be generated, node size & starting position
+    /// @param mode If Breadth-First Search (BFS) or Depth-First Search (DFS) expansion should be used
+    /// @param axes Axes flag indicating which axes are being used
+    /// @param callback Callback when a node is generated
+    PCG_ENGINE_C_API_API void waveFunctionCollapse4DGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, addWFC4DNodeCallback callback);
     /// @brief Generate a grid using the Wave Function Collapse Algorithm
     /// @param width Grid width
     /// @param height Grid height

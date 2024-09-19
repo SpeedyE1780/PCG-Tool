@@ -4,6 +4,7 @@ var namespacepcg_1_1engine =
       [ "addMazeNodeCallback", "namespacepcg_1_1engine_1_1c__api.html#a99fedbce83e0c43485b6313580dcb559", null ],
       [ "addNodeCallback", "namespacepcg_1_1engine_1_1c__api.html#a9a71ad616d4514a68a4226b4bdbfe58b", null ],
       [ "addWFC3DGridNodeCallback", "namespacepcg_1_1engine_1_1c__api.html#a582d5c8f008cb38b071799bb6ebdc6ae", null ],
+      [ "addWFC4DNodeCallback", "namespacepcg_1_1engine_1_1c__api.html#a70cc8f20d1f09b2d8645adfe15c2fc54", null ],
       [ "addWFCGridNodeCallback", "namespacepcg_1_1engine_1_1c__api.html#a53f15629730a3c911acca6a4a7a1220c", null ],
       [ "addWFCNodeCallback", "namespacepcg_1_1engine_1_1c__api.html#a3294c6694468c8f599a67415f1f0948d", null ],
       [ "generateCombinationCallback", "namespacepcg_1_1engine_1_1c__api.html#a61d180dea7cf463c50f3df17a5a0fe8c", null ],
@@ -51,6 +52,7 @@ var namespacepcg_1_1engine =
       [ "setSeed", "namespacepcg_1_1engine_1_1c__api.html#aa9d8c20c38a998f6ca59fd098ec5908a", null ],
       [ "simpleGeneration", "namespacepcg_1_1engine_1_1c__api.html#a0f99fa0e3abb9f4367612154e1ed9993", null ],
       [ "waveFunctionCollapse3DGridGeneration", "namespacepcg_1_1engine_1_1c__api.html#ad95f8202c1468ae11d2ef5a458b773ed", null ],
+      [ "waveFunctionCollapse4DGeneration", "namespacepcg_1_1engine_1_1c__api.html#a7e77569faa829d08a61a3eeea848491a", null ],
       [ "waveFunctionCollapseGeneration", "namespacepcg_1_1engine_1_1c__api.html#a66cc4763f2b7221b40196966bcbf7632", null ],
       [ "waveFunctionCollapseGridGeneration", "namespacepcg_1_1engine_1_1c__api.html#a2add9cc10f224ad6f74b55ea89e03fa5", null ]
     ] ],
@@ -96,6 +98,7 @@ var namespacepcg_1_1engine =
       [ "setRandomGenerator", "namespacepcg_1_1engine_1_1cpp__api.html#a8cc7294fc43edbfdd0e91c37681aa41a", null ],
       [ "setSeed", "namespacepcg_1_1engine_1_1cpp__api.html#ad7a023f262d2f713f696a7e5a3a81904", null ],
       [ "simpleGeneration", "namespacepcg_1_1engine_1_1cpp__api.html#a39908c6f2a92ea34a664deefb46216c6", null ],
+      [ "waveFunctionCollapse4DGeneration", "namespacepcg_1_1engine_1_1cpp__api.html#a93271313ee928a44db8d93655dde2dd4", null ],
       [ "waveFunctionCollapseGeneration", "namespacepcg_1_1engine_1_1cpp__api.html#ad302a7303ab89a3785fa8e0dd0d225e2", null ]
     ] ],
     [ "level_generation", "namespacepcg_1_1engine_1_1level__generation.html", "namespacepcg_1_1engine_1_1level__generation" ],

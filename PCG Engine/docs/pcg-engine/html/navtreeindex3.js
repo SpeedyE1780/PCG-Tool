@@ -1,5 +1,13 @@
 var NAVTREEINDEX3 =
 {
+"structpcg_1_1engine_1_1math_1_1_random.html":[2,0,0,0,2,0],
+"structpcg_1_1engine_1_1math_1_1_vector3.html":[0,0,0,0,4,1],
+"structpcg_1_1engine_1_1math_1_1_vector3.html":[2,0,0,0,2,1],
+"structpcg_1_1engine_1_1math_1_1_vector3.html#a94c6759c6240ae9fe5aeb3d87e980e1b":[0,0,0,0,4,1,0],
+"structpcg_1_1engine_1_1math_1_1_vector3.html#a94c6759c6240ae9fe5aeb3d87e980e1b":[2,0,0,0,2,1,0],
+"structpcg_1_1engine_1_1math_1_1_vector3.html#aae709c6d21360913debba300c18e2a53":[0,0,0,0,4,1,1],
+"structpcg_1_1engine_1_1math_1_1_vector3.html#aae709c6d21360913debba300c18e2a53":[2,0,0,0,2,1,1],
+"structpcg_1_1engine_1_1math_1_1_vector3.html#abb9e0d4d99ae0857c67e9b6eb1093a80":[0,0,0,0,4,1,2],
 "structpcg_1_1engine_1_1math_1_1_vector3.html#abb9e0d4d99ae0857c67e9b6eb1093a80":[2,0,0,0,2,1,2],
 "structpcg_1_1engine_1_1math_1_1_vector3.html#afd0c880d7dbbb8bd0ac89eb4d9497766":[0,0,0,0,4,1,3],
 "structpcg_1_1engine_1_1math_1_1_vector3.html#afd0c880d7dbbb8bd0ac89eb4d9497766":[2,0,0,0,2,1,3],

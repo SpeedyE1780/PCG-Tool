@@ -15,6 +15,7 @@ var c_api_2src_2api_8cpp =
     [ "setSeed", "c-api_2src_2api_8cpp.html#aa9d8c20c38a998f6ca59fd098ec5908a", null ],
     [ "simpleGeneration", "c-api_2src_2api_8cpp.html#a0f99fa0e3abb9f4367612154e1ed9993", null ],
     [ "waveFunctionCollapse3DGridGeneration", "c-api_2src_2api_8cpp.html#ad95f8202c1468ae11d2ef5a458b773ed", null ],
+    [ "waveFunctionCollapse4DGeneration", "c-api_2src_2api_8cpp.html#a7e77569faa829d08a61a3eeea848491a", null ],
     [ "waveFunctionCollapseGeneration", "c-api_2src_2api_8cpp.html#a66cc4763f2b7221b40196966bcbf7632", null ],
     [ "waveFunctionCollapseGridGeneration", "c-api_2src_2api_8cpp.html#a2add9cc10f224ad6f74b55ea89e03fa5", null ],
     [ "next", "c-api_2src_2api_8cpp.html#acf9a91aef75e927475881451f46e2655", null ],
