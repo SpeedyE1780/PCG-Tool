@@ -57,9 +57,9 @@
         {
             List<Vector3> positions = [];
 
-            PCGEngine.SimpleGeneration(parameters.GenerationParameters, Vector3Helper.ToEngine(parameters.Offset), position =>
+            PCGEngine.SimpleGeneration(parameters.GenerationParameters, VectorHelper.ToEngine(parameters.Offset), position =>
             {
-                positions.Add(Vector3Helper.ToWebAPI(position));
+                positions.Add(VectorHelper.ToWebAPI(position));
             });
 
             return positions;
@@ -111,7 +111,7 @@
             GenerationParameters generationParameters = parameters.GenerationParameters;
             PCGEngine.MultiDimensionalGeneration(generationParameters, parameters.Axes, parameters.DisableOverlap, position =>
             {
-                positions.Add(Vector3Helper.ToWebAPI(position));
+                positions.Add(VectorHelper.ToWebAPI(position));
             });
 
             return positions;
@@ -136,7 +136,7 @@
         ///         "expansionMode": 1,
         ///         "axes": 63 (This is the result of combining the axes together using Bit wise or: 1 | 2 | 4 | 8 | 16 | 32 = 63)
         ///     }
-        ///     
+        /// 
         /// Sample Response:
         /// 
         ///     [
@@ -158,7 +158,7 @@
         ///         },
         ///         {
         ///           "position": {
-        ///               "x": 0,
+        ///             "x": 0,
         ///             "y": 0,
         ///             "z": -1
         ///           },
@@ -166,7 +166,7 @@
         ///         },
         ///         {
         ///           "position": {
-        ///               "x": -1,
+        ///             "x": -1,
         ///             "y": 0,
         ///             "z": 0
         ///           },
@@ -174,7 +174,7 @@
         ///         },
         ///         {
         ///           "position": {
-        ///               "x": 1,
+        ///             "x": 1,
         ///             "y": 0,
         ///             "z": 0
         ///           },
@@ -182,7 +182,7 @@
         ///         },
         ///         {
         ///           "position": {
-        ///               "x": 0,
+        ///             "x": 0,
         ///             "y": 1,
         ///             "z": 0
         ///           },
@@ -190,7 +190,7 @@
         ///         },
         ///         {
         ///           "position": {
-        ///               "x": 0,
+        ///             "x": 0,
         ///             "y": -1,
         ///             "z": 0
         ///           },
@@ -204,7 +204,206 @@
             GenerationParameters generationParameters = parameters.GenerationParameters;
             PCGEngine.WaveFunctionCollapseGeneration(generationParameters, parameters.ExpansionMode, parameters.Axes, (position, adjacentNodes) =>
             {
-                nodes.Add(new(Vector3Helper.ToWebAPI(position), adjacentNodes));
+                nodes.Add(new(VectorHelper.ToWebAPI(position), adjacentNodes));
+            });
+
+            return nodes;
+        }
+
+        /// <summary>
+        /// Generates a 4D level using the Wave Function Collapse Algorithm
+        /// </summary>
+        /// <param name="parameters">Parameters used to generate level</param>
+        /// <returns>List of node positions and adjacent nodes</returns>
+        /// <remarks>
+        /// Sample Request Body:
+        /// 
+        ///     {
+        ///         "nodeCount": 250,
+        ///         "nodeSize": 1,
+        ///         "startPosition": {
+        ///           "x": 0,
+        ///           "y": 0,
+        ///           "z": 0
+        ///         },
+        ///         "expansionMode": 1,
+        ///         "axes": 63 (This is the result of combining the axes together using Bit wise or: 1 | 2 | 4 | 8 | 16 | 32 = 63)
+        ///     }
+        /// 
+        /// Sample Response:
+        /// 
+        ///     [
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": 0,
+        ///                 "z": 0,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 12
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": 0,
+        ///                 "z": 1,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 13
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": 0,
+        ///                 "z": -1,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 255
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": 0,
+        ///                 "z": 2,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 253
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": -1,
+        ///                 "y": 0,
+        ///                 "z": 1,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 2
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": 0,
+        ///                 "z": -1,
+        ///                 "w": -1
+        ///             },
+        ///             "direction": 64
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": 1,
+        ///                 "z": -1,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 32
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": 0,
+        ///                 "z": -1,
+        ///                 "w": 1
+        ///             },
+        ///             "direction": 128
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": -1,
+        ///                 "y": 0,
+        ///                 "z": -1,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 2
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": -1,
+        ///                 "z": -1,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 16
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 1,
+        ///                 "y": 0,
+        ///                 "z": -1,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 1
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": 0,
+        ///                 "z": -2,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 4
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": 0,
+        ///                 "z": 2,
+        ///                 "w": -1
+        ///             },
+        ///             "direction": 64
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": 0,
+        ///                 "z": 2,
+        ///                 "w": 1
+        ///             },
+        ///             "direction": 128
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": 1,
+        ///                 "z": 2,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 32
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": -1,
+        ///                 "y": 0,
+        ///                 "z": 2,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 2
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": -1,
+        ///                 "z": 2,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 16
+        ///         },
+        ///         {
+        ///             "position": {
+        ///                 "x": 0,
+        ///                 "y": 0,
+        ///                 "z": 3,
+        ///                 "w": 0
+        ///             },
+        ///             "direction": 8
+        ///         }
+        ///     ]
+        /// </remarks>
+        public static List<WFC4DNode> WaveFunctionCollapse4DGeneration(WaveFunctionCollapseParameters parameters)
+        {
+            List<WFC4DNode> nodes = [];
+            GenerationParameters generationParameters = parameters.GenerationParameters;
+            PCGEngine.WaveFunctionCollapse4DGeneration(generationParameters, parameters.ExpansionMode, parameters.Axes, (position, adjacentNodes) =>
+            {
+                nodes.Add(new(VectorHelper.ToWebAPI(position), adjacentNodes));
             });
 
             return nodes;
