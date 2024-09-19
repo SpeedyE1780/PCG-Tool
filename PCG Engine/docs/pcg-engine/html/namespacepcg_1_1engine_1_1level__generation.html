@@ -138,6 +138,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a91f0f460324c59997d4e441f91e0be23" id="r_a91f0f460324c59997d4e441f91e0be23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91f0f460324c59997d4e441f91e0be23">waveFunctionCollapse</a> (const <a class="el" href="structpcg_1_1engine_1_1level__generation_1_1_generation_data.html">GenerationData</a> &amp;data, <a class="el" href="#aba50b7e433525a8691e58581a12c6d79">ExpansionMode</a> mode, <a class="el" href="namespacepcg_1_1engine_1_1math.html#a8baea8af717df5ea70816ad2b5fecec8">math::Axis</a> axes, const std::function&lt; void(<a class="el" href="structpcg_1_1engine_1_1math_1_1_vector3.html">math::Vector3</a>, <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a>)&gt; &amp;<a class="el" href="_grid_wave_function_collapse_8cpp.html#aa080fcd829f452f640455cd69cf1de22">callback</a>)</td></tr>
 <tr class="memdesc:a91f0f460324c59997d4e441f91e0be23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a level using the Wave Function Collapse Algorithm.  <br /></td></tr>
 <tr class="separator:a91f0f460324c59997d4e441f91e0be23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50250ace5432187ef31e89f182e45508" id="r_a50250ace5432187ef31e89f182e45508"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50250ace5432187ef31e89f182e45508">waveFunctionCollapse4D</a> (const <a class="el" href="structpcg_1_1engine_1_1level__generation_1_1_generation_data.html">GenerationData</a> &amp;data, <a class="el" href="#aba50b7e433525a8691e58581a12c6d79">ExpansionMode</a> mode, <a class="el" href="namespacepcg_1_1engine_1_1math.html#a8baea8af717df5ea70816ad2b5fecec8">math::Axis</a> axes, const std::function&lt; void(<a class="el" href="structpcg_1_1engine_1_1math_1_1_vector4.html">math::Vector4</a>, <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a>)&gt; &amp;<a class="el" href="_grid_wave_function_collapse_8cpp.html#aa080fcd829f452f640455cd69cf1de22">callback</a>)</td></tr>
+<tr class="memdesc:a50250ace5432187ef31e89f182e45508"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a 4D level using the Wave Function Collapse Algorithm.  <br /></td></tr>
+<tr class="separator:a50250ace5432187ef31e89f182e45508"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="aba50b7e433525a8691e58581a12c6d79" name="aba50b7e433525a8691e58581a12c6d79"></a>
@@ -375,6 +378,48 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Generate a level using the Wave Function Collapse Algorithm. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Object containing number of nodes that need to be generated, node size &amp; starting position </td></tr>
+    <tr><td class="paramname">mode</td><td>If Breadth-First Search (BFS) or Depth-First Search (DFS) should be used </td></tr>
+    <tr><td class="paramname">axes</td><td>Axes flag indicating which axes are being used </td></tr>
+    <tr><td class="paramname">callback</td><td>Callback when a node is generated </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a50250ace5432187ef31e89f182e45508" name="a50250ace5432187ef31e89f182e45508"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50250ace5432187ef31e89f182e45508">&#9670;&#160;</a></span>waveFunctionCollapse4D()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pcg::engine::level_generation::waveFunctionCollapse4D </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structpcg_1_1engine_1_1level__generation_1_1_generation_data.html">GenerationData</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#aba50b7e433525a8691e58581a12c6d79">ExpansionMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacepcg_1_1engine_1_1math.html#a8baea8af717df5ea70816ad2b5fecec8">math::Axis</a></td>          <td class="paramname"><span class="paramname"><em>axes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::function&lt; void(<a class="el" href="structpcg_1_1engine_1_1math_1_1_vector4.html">math::Vector4</a>, <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a>)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generate a 4D level using the Wave Function Collapse Algorithm. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>Object containing number of nodes that need to be generated, node size &amp; starting position </td></tr>

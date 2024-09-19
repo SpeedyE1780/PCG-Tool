@@ -10,5 +10,6 @@ var namespacepcg_1_1engine_1_1level__generation =
     [ "gridWaveFunctionCollapse", "namespacepcg_1_1engine_1_1level__generation.html#ab6d3a987f79a8a953125e3f38b744f1c", null ],
     [ "multiDimensionalGeneration", "namespacepcg_1_1engine_1_1level__generation.html#a0550b8ba69b860ed2d796113bf4f583d", null ],
     [ "simpleGeneration", "namespacepcg_1_1engine_1_1level__generation.html#a9ca6f2fb63f29e4483197d1206681129", null ],
-    [ "waveFunctionCollapse", "namespacepcg_1_1engine_1_1level__generation.html#a91f0f460324c59997d4e441f91e0be23", null ]
+    [ "waveFunctionCollapse", "namespacepcg_1_1engine_1_1level__generation.html#a91f0f460324c59997d4e441f91e0be23", null ],
+    [ "waveFunctionCollapse4D", "namespacepcg_1_1engine_1_1level__generation.html#a50250ace5432187ef31e89f182e45508", null ]
 ];

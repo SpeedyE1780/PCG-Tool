@@ -60,9 +60,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_aldous_broder_8cpp.html",
-"c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#aa65faeec8b27cfaee33417dd30cb1b12",
-"math_2include_2pcg_2engine_2math_2enums_8hpp_source.html",
-"structpcg_1_1engine_1_1maze__generation_1_1_node_coordinates.html#a46ed49074898c3ae17bb16e85bcf4140"
+"c-api_2include_2pcg_2engine_2c-api_2api_8hpp.html#a9a71ad616d4514a68a4226b4bdbfe58b",
+"math_2include_2pcg_2engine_2math_2enums_8hpp.html#af1b96967061c702b0cfc153bd933befea3e44107170a520582ade522fa73c1d15",
+"structpcg_1_1engine_1_1math_1_1_vector3.html#abb9e0d4d99ae0857c67e9b6eb1093a80"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

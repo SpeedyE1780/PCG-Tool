@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PCG Engine: pcg::engine::level_generation::Node Class Reference</title>
+<title>PCG Engine: pcg::engine::level_generation::Node&lt; Vector &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -100,7 +100,7 @@ $(function(){initNavTree('classpcg_1_1engine_1_1level__generation_1_1_node.html'
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classpcg_1_1engine_1_1level__generation_1_1_node-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">pcg::engine::level_generation::Node Class Reference</div></div>
+  <div class="headertitle"><div class="title">pcg::engine::level_generation::Node&lt; Vector &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -111,59 +111,70 @@ $(function(){initNavTree('classpcg_1_1engine_1_1level__generation_1_1_node.html'
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a56483ab1e22b6b681ea6b40665778103" id="r_a56483ab1e22b6b681ea6b40665778103"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56483ab1e22b6b681ea6b40665778103">Node</a> (const <a class="el" href="structpcg_1_1engine_1_1math_1_1_vector3.html">math::Vector3</a> &amp;<a class="el" href="#a631e4ce728c3338f04e4c7a6a01bcdaa">position</a>)</td></tr>
-<tr class="memdesc:a56483ab1e22b6b681ea6b40665778103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct <a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html" title="Class representing a node in the WFC level.">Node</a> with no adjcent nodes.  <br /></td></tr>
-<tr class="separator:a56483ab1e22b6b681ea6b40665778103"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64d7a82fa273181fde1fbcb50e589964" id="r_a64d7a82fa273181fde1fbcb50e589964"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpcg_1_1engine_1_1math_1_1_vector3.html">math::Vector3</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64d7a82fa273181fde1fbcb50e589964">getPosition</a> () const</td></tr>
-<tr class="memdesc:a64d7a82fa273181fde1fbcb50e589964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get node position.  <br /></td></tr>
-<tr class="separator:a64d7a82fa273181fde1fbcb50e589964"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65e5ed535b8593294f384d3e38fa365b" id="r_a65e5ed535b8593294f384d3e38fa365b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65e5ed535b8593294f384d3e38fa365b">hasAdjacentNode</a> (<a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> <a class="el" href="_grid_wave_function_collapse_8cpp.html#a5d3d166e3ca63032f0ac505722106b38">direction</a>) const</td></tr>
-<tr class="memdesc:a65e5ed535b8593294f384d3e38fa365b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if node has an adjacent node following the given direction.  <br /></td></tr>
-<tr class="separator:a65e5ed535b8593294f384d3e38fa365b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70e757ea399417772006d3abd41adcd4" id="r_a70e757ea399417772006d3abd41adcd4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70e757ea399417772006d3abd41adcd4">getAdjacentNodes</a> () const</td></tr>
-<tr class="memdesc:a70e757ea399417772006d3abd41adcd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get adjacent nodes bit flag.  <br /></td></tr>
-<tr class="separator:a70e757ea399417772006d3abd41adcd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e67d3d2708b0c1b64e3e9c4b335ee4a" id="r_a5e67d3d2708b0c1b64e3e9c4b335ee4a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e67d3d2708b0c1b64e3e9c4b335ee4a">getAdjacentNodesCount</a> () const</td></tr>
-<tr class="memdesc:a5e67d3d2708b0c1b64e3e9c4b335ee4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of adjacent nodes.  <br /></td></tr>
-<tr class="separator:a5e67d3d2708b0c1b64e3e9c4b335ee4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33ff23681965a83259d2cd7d52a67513" id="r_a33ff23681965a83259d2cd7d52a67513"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33ff23681965a83259d2cd7d52a67513">addAdjacentNode</a> (<a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> <a class="el" href="_grid_wave_function_collapse_8cpp.html#a5d3d166e3ca63032f0ac505722106b38">direction</a>)</td></tr>
-<tr class="memdesc:a33ff23681965a83259d2cd7d52a67513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add adjacent node following the direction.  <br /></td></tr>
-<tr class="separator:a33ff23681965a83259d2cd7d52a67513"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb87ede29613385fb30d007a4c66e9fb" id="r_aeb87ede29613385fb30d007a4c66e9fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb87ede29613385fb30d007a4c66e9fb">removeAdjacentNode</a> (<a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> <a class="el" href="_grid_wave_function_collapse_8cpp.html#a5d3d166e3ca63032f0ac505722106b38">direction</a>)</td></tr>
-<tr class="memdesc:aeb87ede29613385fb30d007a4c66e9fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove adjacent node following the direction.  <br /></td></tr>
-<tr class="separator:aeb87ede29613385fb30d007a4c66e9fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e82a938c605e1f451a2ef4e46a74950" id="r_a9e82a938c605e1f451a2ef4e46a74950"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e82a938c605e1f451a2ef4e46a74950">generateAdjacentNodes</a> (int additionalNodes, const std::vector&lt; <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> &gt; &amp;<a class="el" href="_grid_wave_function_collapse_8cpp.html#a3cb6aa59ddff53fa4ebe408990d7272c">directions</a>)</td></tr>
-<tr class="memdesc:a9e82a938c605e1f451a2ef4e46a74950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate adjacent nodes.  <br /></td></tr>
-<tr class="separator:a9e82a938c605e1f451a2ef4e46a74950"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17ae59f8a433cfbf341b8145792f516c" id="r_a17ae59f8a433cfbf341b8145792f516c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17ae59f8a433cfbf341b8145792f516c">Node</a> (const Vector &amp;<a class="el" href="#a5af63218b625af7cbf282f61934b4d80">position</a>)</td></tr>
+<tr class="memdesc:a17ae59f8a433cfbf341b8145792f516c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct <a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html" title="Class representing a node in the WFC level.">Node</a> with no adjcent nodes.  <br /></td></tr>
+<tr class="separator:a17ae59f8a433cfbf341b8145792f516c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdd1d052c3a367867afe45010be4bada" id="r_afdd1d052c3a367867afe45010be4bada"><td class="memItemLeft" align="right" valign="top">const Vector &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdd1d052c3a367867afe45010be4bada">getPosition</a> () const</td></tr>
+<tr class="memdesc:afdd1d052c3a367867afe45010be4bada"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get node position.  <br /></td></tr>
+<tr class="separator:afdd1d052c3a367867afe45010be4bada"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5db0541b73b749b0daf6421d3d6608fb" id="r_a5db0541b73b749b0daf6421d3d6608fb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5db0541b73b749b0daf6421d3d6608fb">hasAdjacentNode</a> (<a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> <a class="el" href="_grid_wave_function_collapse_8cpp.html#a5d3d166e3ca63032f0ac505722106b38">direction</a>) const</td></tr>
+<tr class="memdesc:a5db0541b73b749b0daf6421d3d6608fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if node has an adjacent node following the given direction.  <br /></td></tr>
+<tr class="separator:a5db0541b73b749b0daf6421d3d6608fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4299ab961d0f68b141ddcd897ca6c63" id="r_ad4299ab961d0f68b141ddcd897ca6c63"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4299ab961d0f68b141ddcd897ca6c63">getAdjacentNodes</a> () const</td></tr>
+<tr class="memdesc:ad4299ab961d0f68b141ddcd897ca6c63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get adjacent nodes bit flag.  <br /></td></tr>
+<tr class="separator:ad4299ab961d0f68b141ddcd897ca6c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac05efad48b4cad9180ad7e148f38d4ad" id="r_ac05efad48b4cad9180ad7e148f38d4ad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac05efad48b4cad9180ad7e148f38d4ad">getAdjacentNodesCount</a> () const</td></tr>
+<tr class="memdesc:ac05efad48b4cad9180ad7e148f38d4ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of adjacent nodes.  <br /></td></tr>
+<tr class="separator:ac05efad48b4cad9180ad7e148f38d4ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26c1d9a25243dcc74bf962726fc05238" id="r_a26c1d9a25243dcc74bf962726fc05238"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26c1d9a25243dcc74bf962726fc05238">addAdjacentNode</a> (<a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> <a class="el" href="_grid_wave_function_collapse_8cpp.html#a5d3d166e3ca63032f0ac505722106b38">direction</a>)</td></tr>
+<tr class="memdesc:a26c1d9a25243dcc74bf962726fc05238"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add adjacent node following the direction.  <br /></td></tr>
+<tr class="separator:a26c1d9a25243dcc74bf962726fc05238"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a269707177800d015039217f32f72e3b3" id="r_a269707177800d015039217f32f72e3b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a269707177800d015039217f32f72e3b3">removeAdjacentNode</a> (<a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> <a class="el" href="_grid_wave_function_collapse_8cpp.html#a5d3d166e3ca63032f0ac505722106b38">direction</a>)</td></tr>
+<tr class="memdesc:a269707177800d015039217f32f72e3b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove adjacent node following the direction.  <br /></td></tr>
+<tr class="separator:a269707177800d015039217f32f72e3b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bd1a53aafe0308218003e9f38df7936" id="r_a8bd1a53aafe0308218003e9f38df7936"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bd1a53aafe0308218003e9f38df7936">generateAdjacentNodes</a> (int additionalNodes, const std::vector&lt; <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> &gt; &amp;<a class="el" href="_grid_wave_function_collapse_8cpp.html#a3cb6aa59ddff53fa4ebe408990d7272c">directions</a>)</td></tr>
+<tr class="memdesc:a8bd1a53aafe0308218003e9f38df7936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate adjacent nodes.  <br /></td></tr>
+<tr class="separator:a8bd1a53aafe0308218003e9f38df7936"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a631e4ce728c3338f04e4c7a6a01bcdaa" id="r_a631e4ce728c3338f04e4c7a6a01bcdaa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpcg_1_1engine_1_1math_1_1_vector3.html">math::Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a631e4ce728c3338f04e4c7a6a01bcdaa">position</a> { 0, 0, 0 }</td></tr>
-<tr class="memdesc:a631e4ce728c3338f04e4c7a6a01bcdaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position in 3d world.  <br /></td></tr>
-<tr class="separator:a631e4ce728c3338f04e4c7a6a01bcdaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5007f3a304286aae2b767115e2f1172" id="r_af5007f3a304286aae2b767115e2f1172"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5007f3a304286aae2b767115e2f1172">adjacentNodesDirection</a> = <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32a334c4a4c42fdb79d7ebc3e73b517e6f8">utility::enums::Direction::none</a></td></tr>
-<tr class="memdesc:af5007f3a304286aae2b767115e2f1172"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit flag representing valid directions to reach adjacent nodes.  <br /></td></tr>
-<tr class="separator:af5007f3a304286aae2b767115e2f1172"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7640f9786410cf024b6dfef29b58ef60" id="r_a7640f9786410cf024b6dfef29b58ef60"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7640f9786410cf024b6dfef29b58ef60">adjacentNodeCount</a> = 0</td></tr>
-<tr class="memdesc:a7640f9786410cf024b6dfef29b58ef60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of adjacent nodes.  <br /></td></tr>
-<tr class="separator:a7640f9786410cf024b6dfef29b58ef60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5af63218b625af7cbf282f61934b4d80" id="r_a5af63218b625af7cbf282f61934b4d80"><td class="memItemLeft" align="right" valign="top">Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5af63218b625af7cbf282f61934b4d80">position</a> {}</td></tr>
+<tr class="memdesc:a5af63218b625af7cbf282f61934b4d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position in 3d world.  <br /></td></tr>
+<tr class="separator:a5af63218b625af7cbf282f61934b4d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92ca592157c2414f6470bc7d85d4e5b2" id="r_a92ca592157c2414f6470bc7d85d4e5b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92ca592157c2414f6470bc7d85d4e5b2">adjacentNodesDirection</a> = <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32a334c4a4c42fdb79d7ebc3e73b517e6f8">utility::enums::Direction::none</a></td></tr>
+<tr class="memdesc:a92ca592157c2414f6470bc7d85d4e5b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit flag representing valid directions to reach adjacent nodes.  <br /></td></tr>
+<tr class="separator:a92ca592157c2414f6470bc7d85d4e5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5de273e35c0210694096bd659cefdd62" id="r_a5de273e35c0210694096bd659cefdd62"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5de273e35c0210694096bd659cefdd62">adjacentNodeCount</a> = 0</td></tr>
+<tr class="memdesc:a5de273e35c0210694096bd659cefdd62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of adjacent nodes.  <br /></td></tr>
+<tr class="separator:a5de273e35c0210694096bd659cefdd62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class representing a node in the WFC level. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename Vector&gt;<br />
+class pcg::engine::level_generation::Node&lt; Vector &gt;</div><p>Class representing a node in the WFC level. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a56483ab1e22b6b681ea6b40665778103" name="a56483ab1e22b6b681ea6b40665778103"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56483ab1e22b6b681ea6b40665778103">&#9670;&#160;</a></span>Node()</h2>
+<a id="a17ae59f8a433cfbf341b8145792f516c" name="a17ae59f8a433cfbf341b8145792f516c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17ae59f8a433cfbf341b8145792f516c">&#9670;&#160;</a></span>Node()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vector &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">pcg::engine::level_generation::Node::Node </td>
+          <td class="memname"><a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html">pcg::engine::level_generation::Node</a>&lt; Vector &gt;::Node </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structpcg_1_1engine_1_1math_1_1_vector3.html">math::Vector3</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>position</em></span></td><td>)</td>
+          <td class="paramtype">const Vector &amp;</td>          <td class="paramname"><span class="paramname"><em>position</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Construct <a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html" title="Class representing a node in the WFC level.">Node</a> with no adjcent nodes. </p>
@@ -177,19 +188,29 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a33ff23681965a83259d2cd7d52a67513" name="a33ff23681965a83259d2cd7d52a67513"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33ff23681965a83259d2cd7d52a67513">&#9670;&#160;</a></span>addAdjacentNode()</h2>
+<a id="a26c1d9a25243dcc74bf962726fc05238" name="a26c1d9a25243dcc74bf962726fc05238"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26c1d9a25243dcc74bf962726fc05238">&#9670;&#160;</a></span>addAdjacentNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vector &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void pcg::engine::level_generation::Node::addAdjacentNode </td>
+          <td class="memname">void <a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html">pcg::engine::level_generation::Node</a>&lt; Vector &gt;::addAdjacentNode </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Add adjacent node following the direction. </p>
@@ -202,14 +223,19 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a9e82a938c605e1f451a2ef4e46a74950" name="a9e82a938c605e1f451a2ef4e46a74950"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e82a938c605e1f451a2ef4e46a74950">&#9670;&#160;</a></span>generateAdjacentNodes()</h2>
+<a id="a8bd1a53aafe0308218003e9f38df7936" name="a8bd1a53aafe0308218003e9f38df7936"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bd1a53aafe0308218003e9f38df7936">&#9670;&#160;</a></span>generateAdjacentNodes()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vector &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void pcg::engine::level_generation::Node::generateAdjacentNodes </td>
+          <td class="memname">void <a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html">pcg::engine::level_generation::Node</a>&lt; Vector &gt;::generateAdjacentNodes </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>additionalNodes</em></span>, </td>
         </tr>
@@ -219,6 +245,11 @@ Private Attributes</h2></td></tr>
           <td class="paramtype">const std::vector&lt; <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>directions</em></span>&#160;)</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Generate adjacent nodes. </p>
@@ -232,17 +263,19 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a70e757ea399417772006d3abd41adcd4" name="a70e757ea399417772006d3abd41adcd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70e757ea399417772006d3abd41adcd4">&#9670;&#160;</a></span>getAdjacentNodes()</h2>
+<a id="ad4299ab961d0f68b141ddcd897ca6c63" name="ad4299ab961d0f68b141ddcd897ca6c63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4299ab961d0f68b141ddcd897ca6c63">&#9670;&#160;</a></span>getAdjacentNodes()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vector &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> pcg::engine::level_generation::Node::getAdjacentNodes </td>
+          <td class="memname"><a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> <a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html">pcg::engine::level_generation::Node</a>&lt; Vector &gt;::getAdjacentNodes </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -260,17 +293,19 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a5e67d3d2708b0c1b64e3e9c4b335ee4a" name="a5e67d3d2708b0c1b64e3e9c4b335ee4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e67d3d2708b0c1b64e3e9c4b335ee4a">&#9670;&#160;</a></span>getAdjacentNodesCount()</h2>
+<a id="ac05efad48b4cad9180ad7e148f38d4ad" name="ac05efad48b4cad9180ad7e148f38d4ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac05efad48b4cad9180ad7e148f38d4ad">&#9670;&#160;</a></span>getAdjacentNodesCount()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vector &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int pcg::engine::level_generation::Node::getAdjacentNodesCount </td>
+          <td class="memname">int <a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html">pcg::engine::level_generation::Node</a>&lt; Vector &gt;::getAdjacentNodesCount </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -288,17 +323,19 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a64d7a82fa273181fde1fbcb50e589964" name="a64d7a82fa273181fde1fbcb50e589964"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64d7a82fa273181fde1fbcb50e589964">&#9670;&#160;</a></span>getPosition()</h2>
+<a id="afdd1d052c3a367867afe45010be4bada" name="afdd1d052c3a367867afe45010be4bada"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdd1d052c3a367867afe45010be4bada">&#9670;&#160;</a></span>getPosition()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vector &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structpcg_1_1engine_1_1math_1_1_vector3.html">math::Vector3</a> &amp; pcg::engine::level_generation::Node::getPosition </td>
+          <td class="memname">const Vector &amp; <a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html">pcg::engine::level_generation::Node</a>&lt; Vector &gt;::getPosition </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -316,17 +353,19 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a65e5ed535b8593294f384d3e38fa365b" name="a65e5ed535b8593294f384d3e38fa365b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65e5ed535b8593294f384d3e38fa365b">&#9670;&#160;</a></span>hasAdjacentNode()</h2>
+<a id="a5db0541b73b749b0daf6421d3d6608fb" name="a5db0541b73b749b0daf6421d3d6608fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5db0541b73b749b0daf6421d3d6608fb">&#9670;&#160;</a></span>hasAdjacentNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vector &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool pcg::engine::level_generation::Node::hasAdjacentNode </td>
+          <td class="memname">bool <a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html">pcg::engine::level_generation::Node</a>&lt; Vector &gt;::hasAdjacentNode </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span></td><td>)</td>
           <td> const</td>
@@ -350,19 +389,29 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aeb87ede29613385fb30d007a4c66e9fb" name="aeb87ede29613385fb30d007a4c66e9fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb87ede29613385fb30d007a4c66e9fb">&#9670;&#160;</a></span>removeAdjacentNode()</h2>
+<a id="a269707177800d015039217f32f72e3b3" name="a269707177800d015039217f32f72e3b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a269707177800d015039217f32f72e3b3">&#9670;&#160;</a></span>removeAdjacentNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vector &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void pcg::engine::level_generation::Node::removeAdjacentNode </td>
+          <td class="memname">void <a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html">pcg::engine::level_generation::Node</a>&lt; Vector &gt;::removeAdjacentNode </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Remove adjacent node following the direction. </p>
@@ -376,17 +425,19 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a7640f9786410cf024b6dfef29b58ef60" name="a7640f9786410cf024b6dfef29b58ef60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7640f9786410cf024b6dfef29b58ef60">&#9670;&#160;</a></span>adjacentNodeCount</h2>
+<a id="a5de273e35c0210694096bd659cefdd62" name="a5de273e35c0210694096bd659cefdd62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5de273e35c0210694096bd659cefdd62">&#9670;&#160;</a></span>adjacentNodeCount</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vector &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int pcg::engine::level_generation::Node::adjacentNodeCount = 0</td>
+          <td class="memname">int <a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html">pcg::engine::level_generation::Node</a>&lt; Vector &gt;::adjacentNodeCount = 0</td>
         </tr>
       </table>
   </td>
@@ -400,17 +451,19 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="af5007f3a304286aae2b767115e2f1172" name="af5007f3a304286aae2b767115e2f1172"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5007f3a304286aae2b767115e2f1172">&#9670;&#160;</a></span>adjacentNodesDirection</h2>
+<a id="a92ca592157c2414f6470bc7d85d4e5b2" name="a92ca592157c2414f6470bc7d85d4e5b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92ca592157c2414f6470bc7d85d4e5b2">&#9670;&#160;</a></span>adjacentNodesDirection</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vector &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> pcg::engine::level_generation::Node::adjacentNodesDirection = <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32a334c4a4c42fdb79d7ebc3e73b517e6f8">utility::enums::Direction::none</a></td>
+          <td class="memname"><a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> <a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html">pcg::engine::level_generation::Node</a>&lt; Vector &gt;::adjacentNodesDirection = <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32a334c4a4c42fdb79d7ebc3e73b517e6f8">utility::enums::Direction::none</a></td>
         </tr>
       </table>
   </td>
@@ -424,17 +477,19 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a631e4ce728c3338f04e4c7a6a01bcdaa" name="a631e4ce728c3338f04e4c7a6a01bcdaa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a631e4ce728c3338f04e4c7a6a01bcdaa">&#9670;&#160;</a></span>position</h2>
+<a id="a5af63218b625af7cbf282f61934b4d80" name="a5af63218b625af7cbf282f61934b4d80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5af63218b625af7cbf282f61934b4d80">&#9670;&#160;</a></span>position</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vector &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structpcg_1_1engine_1_1math_1_1_vector3.html">math::Vector3</a> pcg::engine::level_generation::Node::position { 0, 0, 0 }</td>
+          <td class="memname">Vector <a class="el" href="classpcg_1_1engine_1_1level__generation_1_1_node.html">pcg::engine::level_generation::Node</a>&lt; Vector &gt;::position {}</td>
         </tr>
       </table>
   </td>
@@ -448,9 +503,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>level-generation/include/pcg/engine/level-generation/<a class="el" href="_node_8hpp_source.html">Node.hpp</a></li>
-<li>level-generation/src/<a class="el" href="node_8cpp.html">node.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

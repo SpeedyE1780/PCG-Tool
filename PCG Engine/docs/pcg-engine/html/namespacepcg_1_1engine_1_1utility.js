@@ -9,7 +9,9 @@ var namespacepcg_1_1engine_1_1utility =
         [ "forward", "namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32a965dbaac085fc891bfbbd4f9d145bbc8", null ],
         [ "backward", "namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32a195fe59b6f103787a914aead0f3db502", null ],
         [ "up", "namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32a46c48bec0d282018b9d167eef7711b2c", null ],
-        [ "down", "namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32a74e8333ad11685ff3bdae589c8f6e34d", null ]
+        [ "down", "namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32a74e8333ad11685ff3bdae589c8f6e34d", null ],
+        [ "portalIn", "namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32ae780989158efd3cc2f4628e09b97fe9a", null ],
+        [ "portalOut", "namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32aed54b02974fca3909e6445ff42b144ef", null ]
       ] ],
       [ "getFlippedDirection", "namespacepcg_1_1engine_1_1utility_1_1enums.html#ac6594de569545ad654d8fc4728198e6d", null ],
       [ "hasFlag", "namespacepcg_1_1engine_1_1utility_1_1enums.html#a1b4b85a9e5c31b76dd4f94ce3b173b46", null ],
