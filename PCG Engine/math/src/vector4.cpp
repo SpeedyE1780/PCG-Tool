@@ -14,7 +14,7 @@ namespace pcg::engine::math
     const Vector4 Vector4::down{ 0, -1, 0, 0 };
     const Vector4 Vector4::forward{ 0, 0, 1, 0 };
     const Vector4 Vector4::backward{ 0, 0, -1, 0 };
-    const Vector4 Vector4::in{ 0, 0, 0, -1 };
+    const Vector4 Vector4::in{ 0, 0, 0, 1 };
     const Vector4 Vector4::out{ 0, 0, 0, -1 };
 
     Vector4::Vector4(int x, int y, int z, int w) :
@@ -133,6 +133,14 @@ namespace pcg::engine::math
         case utility::enums::Direction::backward:
         {
             return Vector4::backward;
+        }
+        case utility::enums::Direction::portalIn:
+        {
+            return Vector4::in;
+        }
+        case utility::enums::Direction::portalOut:
+        {
+            return Vector4::out;
         }
         case utility::enums::Direction::none:
         default:
