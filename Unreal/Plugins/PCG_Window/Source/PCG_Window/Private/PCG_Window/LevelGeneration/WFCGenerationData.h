@@ -8,13 +8,6 @@
 #include "MyPCG/PCGEnums.h"
 #include "WFCGenerationData.generated.h"
 
-UENUM(BlueprintType)
-enum class EExpansionMode
-{
-    BFS,
-    DFS
-};
-
 /**
  * 
  */

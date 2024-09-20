@@ -28,3 +28,10 @@ enum class EGenerationPlane : uint8
     XZ = math::Plane::xz,
     YZ = math::Plane::yz
 };
+
+UENUM(BlueprintType)
+enum class EExpansionMode
+{
+    BFS,
+    DFS
+};
