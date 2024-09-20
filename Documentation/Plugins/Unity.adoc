@@ -64,7 +64,7 @@ image:images/Unity/MultiDimension.png[]
 
 - **Frame by Frame:** Spawn one node per frame or entire level in one frame.
 
-==== Wave Function Collapse Generation
+=== Wave Function Collapse Generation
 
 image:images/Unity/WFCBFS.png[]
 
