@@ -37,4 +37,6 @@ class PCG_WINDOW_API UWFCGeneration4DData : public UObject
 private:
     void SpawnNode(pcg::engine::math::Vector4 position, pcg::engine::utility::enums::Direction adjacentNodes) const;
     FString GetFolderName() const;
+
+    mutable TMap<int, AActor*> dimensions{};
 };

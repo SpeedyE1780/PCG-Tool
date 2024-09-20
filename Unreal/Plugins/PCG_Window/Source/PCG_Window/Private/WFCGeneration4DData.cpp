@@ -49,9 +49,23 @@ void UWFCGeneration4DData::GenerateLevel() const
 void UWFCGeneration4DData::SpawnNode(pcg::engine::math::Vector4 position, pcg::engine::utility::enums::Direction adjacentNodes) const
 {
     UWorld* world = GEditor->GetEditorWorldContext().World();
+
+    if (dimensions.Find(position.w) == nullptr)
+    {
+        auto* dimension = world->SpawnActor<AActor>();
+        auto* sceneComponent = NewObject<USceneComponent>(dimension, USceneComponent::StaticClass());
+        sceneComponent->SetMobility(EComponentMobility::Static);
+        dimension->SetRootComponent(sceneComponent);
+        dimension->SetFolderPath(*GetFolderName());
+        dimensions.Add(position.w, dimension);
+    }
+
+    AActor* dimension = dimensions[position.w];
+    dimension->SetActorLabel("Dimension " + FString::FromInt(position.w));
     auto* spawnedBlock = world->SpawnActor<AActor>(block);
     spawnedBlock->SetActorLocation(PCGVectorToFVector(position));
     spawnedBlock->SetFolderPath(*GetFolderName());
+    spawnedBlock->AttachToActor(dimension, FAttachmentTransformRules::KeepWorldTransform);
     Cast<IWFCNode>(spawnedBlock)->SetAdjacentNodes(adjacentNodes);
 }
 
