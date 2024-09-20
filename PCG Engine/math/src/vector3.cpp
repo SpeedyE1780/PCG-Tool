@@ -38,7 +38,7 @@ namespace pcg::engine::math
         return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
     }
 
-    Vector3 operator*(const Vector3& vector, float scalar)
+    Vector3 operator*(const Vector3& vector, double scalar)
     {
         Vector3 scaledVector = vector;
         scaledVector.x *= scalar;

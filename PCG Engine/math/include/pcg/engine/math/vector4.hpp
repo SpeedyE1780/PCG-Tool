@@ -21,7 +21,7 @@ namespace pcg::engine::math
         Vector4& operator=(const Vector4& rhs) = default;
         Vector4& operator=(Vector4&& rhs) = default;
 
-        Vector4(int x, int y, int z, int w);
+        Vector4(double x, double y, double z, double w);
         Vector4(const Vector3& vector);
 
         Vector4& operator+=(const Vector4& rhs);
@@ -36,10 +36,10 @@ namespace pcg::engine::math
         static const Vector4 in;
         static const Vector4 out;
 
-        float x = 0;
-        float y = 0;
-        float z = 0;
-        float w = 0;
+        double x = 0;
+        double y = 0;
+        double z = 0;
+        double w = 0;
 
         /// @brief Get vector containing unit vectors of given axes
         /// @param axes Bit flag representing enabled axes
@@ -54,7 +54,7 @@ namespace pcg::engine::math
 
     Vector4 operator+(const Vector4& lhs, const Vector4& rhs);
     bool operator==(const Vector4& lhs, const Vector4& rhs);
-    Vector4 operator*(const Vector4& vector, float scalar);
+    Vector4 operator*(const Vector4& vector, double scalar);
 }
 
 namespace std
@@ -65,10 +65,10 @@ namespace std
     {
         size_t operator()(const pcg::engine::math::Vector4& vector) const
         {
-            std::size_t x = std::hash<float>{}(vector.x);
-            std::size_t y = std::hash<float>{}(vector.y);
-            std::size_t z = std::hash<float>{}(vector.z);
-            std::size_t w = std::hash<float>{}(vector.w);
+            std::size_t x = std::hash<double>{}(vector.x);
+            std::size_t y = std::hash<double>{}(vector.y);
+            std::size_t z = std::hash<double>{}(vector.z);
+            std::size_t w = std::hash<double>{}(vector.w);
 
             return x ^ (y << 1) ^ (z << 2) ^ (w << 3);
         }

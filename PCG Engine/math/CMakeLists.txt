@@ -13,6 +13,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 #HPP
 "include/pcg/engine/math/Enums.hpp"
 "include/pcg/engine/math/Random.hpp"
+"include/pcg/engine/math/Vector3.hpp"
 "include/pcg/engine/math/Vector4.hpp"
 )
 

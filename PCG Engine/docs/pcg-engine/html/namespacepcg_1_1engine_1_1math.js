@@ -25,8 +25,8 @@ var namespacepcg_1_1engine_1_1math =
       [ "xz", "namespacepcg_1_1engine_1_1math.html#af1b96967061c702b0cfc153bd933befeadbd69ee9ae289a85ea34dbef8435d7c1", null ],
       [ "yz", "namespacepcg_1_1engine_1_1math.html#af1b96967061c702b0cfc153bd933befea2151a2bc77807b81113febbf50c4bc95", null ]
     ] ],
-    [ "operator*", "namespacepcg_1_1engine_1_1math.html#ade01c2e59301da2d77dac8bb77ad77eb", null ],
-    [ "operator*", "namespacepcg_1_1engine_1_1math.html#a457f83d71c30cc5e2625cc9afc94837a", null ],
+    [ "operator*", "namespacepcg_1_1engine_1_1math.html#afe26f1b2ff3b540faaa19ad5e662de5f", null ],
+    [ "operator*", "namespacepcg_1_1engine_1_1math.html#ac308b7fd7b9ab33a515c72fbd1427d29", null ],
     [ "operator+", "namespacepcg_1_1engine_1_1math.html#ad2707911f283140376c24388205a85fa", null ],
     [ "operator+", "namespacepcg_1_1engine_1_1math.html#ac80023a84f5263f8c36705c1e35d4e9a", null ],
     [ "operator==", "namespacepcg_1_1engine_1_1math.html#af1262567e5b2d24a198b34cae70bb4b6", null ],

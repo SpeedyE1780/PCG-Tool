@@ -17,7 +17,7 @@ namespace pcg::engine::math
     const Vector4 Vector4::in{ 0, 0, 0, 1 };
     const Vector4 Vector4::out{ 0, 0, 0, -1 };
 
-    Vector4::Vector4(int x, int y, int z, int w) :
+    Vector4::Vector4(double x, double y, double z, double w) :
         x(x),
         y(y),
         z(z),
@@ -54,7 +54,7 @@ namespace pcg::engine::math
         return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w;
     }
 
-    Vector4 operator*(const Vector4& vector, float scalar)
+    Vector4 operator*(const Vector4& vector, double scalar)
     {
         Vector4 scaledVector = vector;
         scaledVector.x *= scalar;
