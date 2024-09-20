@@ -67,7 +67,7 @@ export default function WaveFunctionCollapse4DGeneration() {
           type="range"
           min={response.minDimension}
           max={response.maxDimension}
-          defaultValue="0"
+          value={response.currentDimension}
           onChange={(event) => {
             response.currentDimension = event.target.valueAsNumber;
             updateResponse();
