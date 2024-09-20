@@ -16,6 +16,7 @@
 #include "PCG_Window/LevelGeneration/SimpleGenerationWidget.h"
 #include "PCG_Window/LevelGeneration/MultiDimensionGenerationWidget.h"
 #include "PCG_Window/LevelGeneration/WFCGenerationWidget.h"
+#include "PCG_Window/LevelGeneration/WFCGeneration4DWidget.h"
 #include "PCG_Window/LevelGeneration/GridWFCGenerationWidget.h"
 #include "PCG_Window/LevelGeneration/Grid3DWFCGenerationWidget.h"
 
@@ -25,6 +26,7 @@
 static const FName SimpleGenerationID("SimpleGeneration");
 static const FName MultiDimensionID("MultiDimensionGeneration");
 static const FName WaveFunctionCollapseID("WaveFunctionCollapse");
+static const FName WaveFunctionCollapse4DID("WaveFunctionCollapse4D");
 static const FName Grid2DWaveFunctionCollapseID("Grid2DWaveFunctionCollapse");
 static const FName Grid3DWaveFunctionCollapseID("Grid3DWaveFunctionCollapse");
 
@@ -60,6 +62,11 @@ void FPCG_WindowModule::StartupModule()
     PluginCommands->MapAction(
         FPCG_WindowCommands::Get().OpenWaveFunctionCollapseGenerationWindow,
         FExecuteAction::CreateRaw(this, &FPCG_WindowModule::WaveFunctionCollapse),
+        FCanExecuteAction());
+
+    PluginCommands->MapAction(
+        FPCG_WindowCommands::Get().OpenWaveFunctionCollapse4DGenerationWindow,
+        FExecuteAction::CreateRaw(this, &FPCG_WindowModule::WaveFunctionCollapse4D),
         FCanExecuteAction());
 
     PluginCommands->MapAction(
@@ -106,6 +113,10 @@ void FPCG_WindowModule::StartupModule()
         .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Wave Function Collapse Generation"))
         .SetMenuType(ETabSpawnerMenuType::Hidden);
 
+    FGlobalTabmanager::Get()->RegisterNomadTabSpawner(WaveFunctionCollapse4DID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnWaveFunctionCollapse))
+        .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Wave Function Collapse 4D Generation"))
+        .SetMenuType(ETabSpawnerMenuType::Hidden);
+
     FGlobalTabmanager::Get()->RegisterNomadTabSpawner(Grid2DWaveFunctionCollapseID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnGrid2DWaveFunctionCollapse))
         .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Grid 2D Wave Function Collapse Generation"))
         .SetMenuType(ETabSpawnerMenuType::Hidden);
@@ -147,6 +158,7 @@ void FPCG_WindowModule::ShutdownModule()
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(SimpleGenerationID);
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(MultiDimensionID);
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(WaveFunctionCollapseID);
+    FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(WaveFunctionCollapse4DID);
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(Grid2DWaveFunctionCollapseID);
     FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(Grid3DWaveFunctionCollapseID);
 
@@ -181,6 +193,15 @@ TSharedRef<SDockTab> FPCG_WindowModule::OnWaveFunctionCollapse(const FSpawnTabAr
         .TabRole(ETabRole::NomadTab)
         [
             SNew(SWFCGenerationWidget)
+        ];
+}
+
+TSharedRef<SDockTab> FPCG_WindowModule::OnWaveFunctionCollapse4D(const FSpawnTabArgs& SpawnTabArgs)
+{
+    return SNew(SDockTab)
+        .TabRole(ETabRole::NomadTab)
+        [
+            SNew(SWFCGeneration4DWidget)
         ];
 }
 
@@ -253,6 +274,11 @@ void FPCG_WindowModule::WaveFunctionCollapse()
     FGlobalTabmanager::Get()->TryInvokeTab(WaveFunctionCollapseID);
 }
 
+void FPCG_WindowModule::WaveFunctionCollapse4D()
+{
+    FGlobalTabmanager::Get()->TryInvokeTab(WaveFunctionCollapse4DID);
+}
+
 void FPCG_WindowModule::Grid2DWaveFunctionCollapse()
 {
     FGlobalTabmanager::Get()->TryInvokeTab(Grid2DWaveFunctionCollapseID);
@@ -297,6 +323,7 @@ void FPCG_WindowModule::RegisterMenus()
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenSimpleGenerationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenMultiDimensionGenerationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenWaveFunctionCollapseGenerationWindow, PluginCommands);
+            Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenWaveFunctionCollapse4DGenerationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenGrid2DWaveFunctionCollapseGenerationWindow, PluginCommands);
             Section.AddMenuEntryWithCommandList(FPCG_WindowCommands::Get().OpenGrid3DWaveFunctionCollapseGenerationWindow, PluginCommands);
         }
