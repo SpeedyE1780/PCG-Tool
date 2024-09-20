@@ -9,6 +9,7 @@
 
 #include <pcg/engine/math/enums.hpp>
 #include <pcg/engine/math/Vector3.hpp>
+#include <pcg/engine/math/Vector4.hpp>
 
 #include <pcg/engine/maze-generation/Common.hpp>
 
@@ -74,6 +75,12 @@ namespace pcg::engine::cpp_api
     /// @param axes Axes flag indicating which axes are being used
     /// @param callback Callback when a node is generated
     PCG_ENGINE_CPP_API_API void waveFunctionCollapseGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, const std::function<void(math::Vector3, utility::enums::Direction)>& callback);
+    /// @brief Generate a 4D level using the Wave Function Collapse Algorithm
+    /// @param data Object containing number of nodes that need to be generated, node size & starting position
+    /// @param mode If Breadth-First Search (BFS) or Depth-First Search (DFS) expansion should be used
+    /// @param axes Axes flag indicating which axes are being used
+    /// @param callback Callback when a node is generated
+    PCG_ENGINE_CPP_API_API void waveFunctionCollapse4DGeneration(const level_generation::GenerationData& data, level_generation::ExpansionMode mode, math::Axis axes, const std::function<void(math::Vector4, utility::enums::Direction)>& callback);
     /// @brief Generate a grid using the Wave Function Collapse Algorithm
     /// @param width Grid width
     /// @param height Grid height

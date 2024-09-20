@@ -10,16 +10,19 @@
 namespace pcg::engine::level_generation
 {
     /// @brief Class representing a node in the WFC level
+    template<typename Vector>
     class Node
     {
     public:
         /// @brief Construct Node with no adjcent nodes
         /// @param position Node position
-        Node(const math::Vector3& position);
+        Node(const Vector& position) : position(position)
+        {
+        }
 
         /// @brief Get node position
         /// @return Node position
-        const math::Vector3& getPosition() const { return position; }
+        const Vector& getPosition() const { return position; }
         /// @brief Check if node has an adjacent node following the given direction
         /// @param direction The direction to reach adjacent node
         /// @return True if an adjacent node exists following the direction
@@ -33,18 +36,43 @@ namespace pcg::engine::level_generation
 
         /// @brief Add adjacent node following the direction
         /// @param direction Direction to reach adjacent node
-        void addAdjacentNode(utility::enums::Direction direction);
+        void addAdjacentNode(utility::enums::Direction direction)
+        {
+            adjacentNodesDirection |= direction;
+            adjacentNodeCount += 1;
+        }
+
         /// @brief Remove adjacent node following the direction
         /// @param direction Direction to reach adjacent node
-        void removeAdjacentNode(utility::enums::Direction direction);
+        void removeAdjacentNode(utility::enums::Direction direction)
+        {
+            adjacentNodesDirection &= ~direction;
+            adjacentNodeCount -= 1;
+        }
+
         /// @brief Generate adjacent nodes
         /// @param additionalNodes Number of adjacent nodes to spawn
         /// @param directions Possible directions used to reach adjacent nodes
-        void generateAdjacentNodes(int additionalNodes, const std::vector<utility::enums::Direction>& directions);
+        void generateAdjacentNodes(int additionalNodes, const std::vector<utility::enums::Direction>& directions)
+        {
+            for (utility::enums::Direction direction : directions)
+            {
+                if (!hasAdjacentNode(direction))
+                {
+                    addAdjacentNode(direction);
+                    additionalNodes -= 1;
+
+                    if (additionalNodes == 0)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
 
     private:
         /// @brief Position in 3d world
-        math::Vector3 position{ 0, 0, 0 };
+        Vector position{};
         /// @brief Bit flag representing valid directions to reach adjacent nodes
         utility::enums::Direction adjacentNodesDirection = utility::enums::Direction::none;
         /// @brief Number of adjacent nodes

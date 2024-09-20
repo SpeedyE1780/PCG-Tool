@@ -109,7 +109,9 @@ namespace pcg::engine::utility::enums
         forward = 1 << 2,
         backward = 1 << 3,
         up = 1 << 4,
-        down = 1 << 5
+        down = 1 << 5,
+        portalIn = 1 << 6,
+        portalOut = 1 << 7
     };
 
     /// @brief Get flipped direction of given direction
