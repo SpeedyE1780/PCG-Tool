@@ -200,7 +200,8 @@ function Spawn4DWFCNode(position, adjacentNodes, size, dimension) {
       position.z
     );
 
-    spawnWFCPortal(portalPosition, scale, dimension);
+    let portal = spawnWFCPortal(portalPosition, scale, dimension);
+    portal.setLocalEulerAngles(180, 0, 0);
   }
 }
 
