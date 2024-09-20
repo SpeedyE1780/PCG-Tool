@@ -9,7 +9,7 @@
 
 void UWFCGeneration4DData::GenerateLevel() const
 {
-    GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, "GENERATING Wave Function Collapse Level");
+    GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, "GENERATING 4D Wave Function Collapse Level");
 
     UWorld* world = GEditor->GetEditorWorldContext().World();
 
@@ -30,6 +30,7 @@ void UWFCGeneration4DData::GenerateLevel() const
     }
 
     pcg::engine::cpp_api::setSeed(seed);
+    dimensions.Empty(1);
 
     pcg::engine::level_generation::GenerationData data
     {
@@ -38,14 +39,14 @@ void UWFCGeneration4DData::GenerateLevel() const
         FVectorToPCGVector(startPosition)
     };
 
-    pcg::engine::cpp_api::waveFunctionCollapseGeneration(data, static_cast<pcg::engine::level_generation::ExpansionMode>(expansionMode), static_cast<pcg::engine::math::Axis>(axes),
-        [this](pcg::engine::math::Vector3 position, pcg::engine::utility::enums::Direction adjacentNodes)
+    pcg::engine::cpp_api::waveFunctionCollapse4DGeneration(data, static_cast<pcg::engine::level_generation::ExpansionMode>(expansionMode), static_cast<pcg::engine::math::Axis>(axes),
+        [this](pcg::engine::math::Vector4 position, pcg::engine::utility::enums::Direction adjacentNodes)
         {
             SpawnNode(position, adjacentNodes);
         });
 }
 
-void UWFCGeneration4DData::SpawnNode(pcg::engine::math::Vector3 position, pcg::engine::utility::enums::Direction adjacentNodes) const
+void UWFCGeneration4DData::SpawnNode(pcg::engine::math::Vector4 position, pcg::engine::utility::enums::Direction adjacentNodes) const
 {
     UWorld* world = GEditor->GetEditorWorldContext().World();
     auto* spawnedBlock = world->SpawnActor<AActor>(block);
@@ -56,7 +57,7 @@ void UWFCGeneration4DData::SpawnNode(pcg::engine::math::Vector3 position, pcg::e
 
 FString UWFCGeneration4DData::GetFolderName() const
 {
-    FString path = "WFC/";
+    FString path = "WFC 4D/";
     path.Append(GetEnumAsString(expansionMode));
     path.Append("/");
     path.Append(FString::FromInt(seed));

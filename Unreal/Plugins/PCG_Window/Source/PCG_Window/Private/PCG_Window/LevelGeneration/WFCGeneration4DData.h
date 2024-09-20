@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "pcg/engine/math/Vector3.hpp"
+#include "pcg/engine/math/Vector4.hpp"
 #include "MyPCG/PCGEnums.h"
 #include "WFCGeneration4DData.generated.h"
 
@@ -35,6 +35,6 @@ class PCG_WINDOW_API UWFCGeneration4DData : public UObject
     unsigned int seed;
 
 private:
-    void SpawnNode(pcg::engine::math::Vector3 position, pcg::engine::utility::enums::Direction adjacentNodes) const;
+    void SpawnNode(pcg::engine::math::Vector4 position, pcg::engine::utility::enums::Direction adjacentNodes) const;
     FString GetFolderName() const;
 };
