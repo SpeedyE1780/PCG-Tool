@@ -113,7 +113,7 @@ void FPCG_WindowModule::StartupModule()
         .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Wave Function Collapse Generation"))
         .SetMenuType(ETabSpawnerMenuType::Hidden);
 
-    FGlobalTabmanager::Get()->RegisterNomadTabSpawner(WaveFunctionCollapse4DID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnWaveFunctionCollapse))
+    FGlobalTabmanager::Get()->RegisterNomadTabSpawner(WaveFunctionCollapse4DID, FOnSpawnTab::CreateRaw(this, &FPCG_WindowModule::OnWaveFunctionCollapse4D))
         .SetDisplayName(LOCTEXT("FPCG_WindowTabTitle", "Wave Function Collapse 4D Generation"))
         .SetMenuType(ETabSpawnerMenuType::Hidden);
 
