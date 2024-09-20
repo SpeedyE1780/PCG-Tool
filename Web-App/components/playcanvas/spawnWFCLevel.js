@@ -6,112 +6,201 @@ const forward = 4;
 const backward = 8;
 const up = 16;
 const down = 32;
+const portalIn = 64;
+const portalOut = 128;
 const XY = 15;
 const XZ = 51;
 const YZ = 60;
 export const Planes = [XY, XZ, YZ];
 
-function SpawnWFCNode(position, adjacentNodes, size) {
-  let ground = new pc.Entity();
-  ground.setPosition(position);
-  ground.setLocalScale(size, size * 0.04, size);
-  ground.addComponent("model", {
+function spawnWFCEntity(position, scale) {
+  let entity = new pc.Entity();
+  entity.setPosition(position);
+  entity.setLocalScale(scale);
+  entity.addComponent("model", {
     type: "box",
   });
-  ground.addComponent("script");
-  ground.script.create("destroyNode");
-  pc.app.root.addChild(ground);
+  entity.addComponent("script");
+  entity.script.create("destroyNode");
+  pc.app.root.addChild(entity);
+
+  return entity;
+}
+
+function SpawnWFCNode(position, adjacentNodes, size) {
+  const groundScale = new pc.Vec3(size, size * 0.04, size);
+  spawnWFCEntity(position, groundScale);
 
   if ((adjacentNodes & left) == 0) {
-    let leftWall = new pc.Entity();
-    leftWall.setLocalScale(size * 0.02, size * 0.2, size);
-    leftWall.setPosition(
+    const wallPosition = new pc.Vec3(
       position.x - size * 0.5,
       position.y + size * 0.1,
       position.z
     );
-    leftWall.addComponent("model", {
-      type: "box",
-    });
-    leftWall.addComponent("script");
-    leftWall.script.create("destroyNode");
-    pc.app.root.addChild(leftWall);
+    const scale = new pc.Vec3(size * 0.02, size * 0.2, size);
+    spawnWFCEntity(wallPosition, scale);
   }
 
   if ((adjacentNodes & right) == 0) {
-    let rightWall = new pc.Entity();
-    rightWall.setLocalScale(size * 0.02, size * 0.2, size);
-    rightWall.setPosition(
+    const wallPosition = new pc.Vec3(
       position.x + size * 0.5,
       position.y + size * 0.1,
       position.z
     );
-    rightWall.addComponent("model", {
-      type: "box",
-    });
-    rightWall.addComponent("script");
-    rightWall.script.create("destroyNode");
-    pc.app.root.addChild(rightWall);
+    const scale = new pc.Vec3(size * 0.02, size * 0.2, size);
+    spawnWFCEntity(wallPosition, scale);
   }
 
   if ((adjacentNodes & forward) == 0) {
-    let forwardWall = new pc.Entity();
-    forwardWall.setLocalScale(size, size * 0.2, size * 0.02);
-    forwardWall.setPosition(
+    const wallPosition = new pc.Vec3(
       position.x,
       position.y + size * 0.1,
       position.z + size * 0.5
     );
-    forwardWall.addComponent("model", {
-      type: "box",
-    });
-    forwardWall.addComponent("script");
-    forwardWall.script.create("destroyNode");
-    pc.app.root.addChild(forwardWall);
+    const scale = new pc.Vec3(size, size * 0.2, size * 0.02);
+    spawnWFCEntity(wallPosition, scale);
   }
 
   if ((adjacentNodes & backward) == 0) {
-    let backwardWall = new pc.Entity();
-    backwardWall.setLocalScale(size, size * 0.2, size * 0.02);
-    backwardWall.setPosition(
+    const wallPosition = new pc.Vec3(
       position.x,
       position.y + size * 0.1,
       position.z - size * 0.5
     );
-    backwardWall.addComponent("model", {
-      type: "box",
-    });
-    backwardWall.addComponent("script");
-    backwardWall.script.create("destroyNode");
-    pc.app.root.addChild(backwardWall);
+    const scale = new pc.Vec3(size, size * 0.2, size * 0.02);
+    spawnWFCEntity(wallPosition, scale);
   }
 
   if ((adjacentNodes & up) != 0) {
-    let upConnection = new pc.Entity();
-    upConnection.setLocalScale(size * 0.2, size * 0.5, size * 0.2);
-    upConnection.setPosition(position.x, position.y + size * 0.25, position.z);
-    upConnection.addComponent("model", {
-      type: "box",
-    });
-    upConnection.addComponent("script");
-    upConnection.script.create("destroyNode");
-    pc.app.root.addChild(upConnection);
+    const wallPosition = new pc.Vec3(
+      position.x,
+      position.y + size * 0.25,
+      position.z
+    );
+    const scale = new pc.Vec3(size * 0.2, size * 0.5, size * 0.2);
+    spawnWFCEntity(wallPosition, scale);
   }
 
   if ((adjacentNodes & down) != 0) {
-    let downConnection = new pc.Entity();
-    downConnection.setLocalScale(size * 0.2, size * 0.5, size * 0.2);
-    downConnection.setPosition(
+    const wallPosition = new pc.Vec3(
       position.x,
       position.y - size * 0.25,
       position.z
     );
-    downConnection.addComponent("model", {
-      type: "box",
-    });
-    downConnection.addComponent("script");
-    downConnection.script.create("destroyNode");
-    pc.app.root.addChild(downConnection);
+    const scale = new pc.Vec3(size * 0.2, size * 0.5, size * 0.2);
+    spawnWFCEntity(wallPosition, scale);
+  }
+}
+
+function spawn4dWFCEntity(position, scale, dimension) {
+  let entity = spawnWFCEntity(position, scale);
+  entity.script.create("dimensionNode");
+  entity.script.dimensionNode.dimension = dimension;
+  pc.app.root.addChild(entity);
+}
+
+function spawnWFCPortal(position, scale, dimension) {
+  let entity = new pc.Entity();
+  entity.setPosition(position);
+  entity.setLocalScale(scale);
+  entity.addComponent("model", {
+    type: "cone",
+  });
+  entity.addComponent("script");
+  entity.script.create("destroyNode");
+  pc.app.root.addChild(entity);
+
+  entity.script.create("dimensionNode");
+  entity.script.dimensionNode.dimension = dimension;
+  pc.app.root.addChild(entity);
+
+  return entity;
+}
+
+function Spawn4DWFCNode(position, adjacentNodes, size, dimension) {
+  const groundScale = new pc.Vec3(size, size * 0.04, size);
+  spawn4dWFCEntity(position, groundScale, dimension);
+
+  if ((adjacentNodes & left) == 0) {
+    const wallPosition = new pc.Vec3(
+      position.x - size * 0.5,
+      position.y + size * 0.1,
+      position.z
+    );
+    const scale = new pc.Vec3(size * 0.02, size * 0.2, size);
+    spawn4dWFCEntity(wallPosition, scale, dimension);
+  }
+
+  if ((adjacentNodes & right) == 0) {
+    const wallPosition = new pc.Vec3(
+      position.x + size * 0.5,
+      position.y + size * 0.1,
+      position.z
+    );
+    const scale = new pc.Vec3(size * 0.02, size * 0.2, size);
+    spawn4dWFCEntity(wallPosition, scale, dimension);
+  }
+
+  if ((adjacentNodes & forward) == 0) {
+    const wallPosition = new pc.Vec3(
+      position.x,
+      position.y + size * 0.1,
+      position.z + size * 0.5
+    );
+    const scale = new pc.Vec3(size, size * 0.2, size * 0.02);
+    spawn4dWFCEntity(wallPosition, scale, dimension);
+  }
+
+  if ((adjacentNodes & backward) == 0) {
+    const wallPosition = new pc.Vec3(
+      position.x,
+      position.y + size * 0.1,
+      position.z - size * 0.5
+    );
+    const scale = new pc.Vec3(size, size * 0.2, size * 0.02);
+    spawn4dWFCEntity(wallPosition, scale, dimension);
+  }
+
+  if ((adjacentNodes & up) != 0) {
+    const wallPosition = new pc.Vec3(
+      position.x,
+      position.y + size * 0.25,
+      position.z
+    );
+    const scale = new pc.Vec3(size * 0.2, size * 0.5, size * 0.2);
+    spawn4dWFCEntity(wallPosition, scale, dimension);
+  }
+
+  if ((adjacentNodes & down) != 0) {
+    const wallPosition = new pc.Vec3(
+      position.x,
+      position.y - size * 0.25,
+      position.z
+    );
+    const scale = new pc.Vec3(size * 0.2, size * 0.5, size * 0.2);
+    spawn4dWFCEntity(wallPosition, scale, dimension);
+  }
+
+  if ((adjacentNodes & portalIn) != 0) {
+    const scale = new pc.Vec3(size * 0.2, size * 0.2, size * 0.2);
+    const portalPosition = new pc.Vec3(
+      position.x + size * 0.25,
+      position.y + size * 0.1,
+      position.z
+    );
+
+    spawnWFCPortal(portalPosition, scale, dimension);
+  }
+
+  if ((adjacentNodes & portalOut) != 0) {
+    const scale = new pc.Vec3(size * 0.2, size * 0.2, size * 0.2);
+    const portalPosition = new pc.Vec3(
+      position.x - size * 0.25,
+      position.y + size * 0.1,
+      position.z
+    );
+
+    spawnWFCPortal(portalPosition, scale, dimension);
   }
 }
 
@@ -126,6 +215,21 @@ export function SpawnWFCLevel(wfcNodes, size) {
     );
     SpawnWFCNode(position, node.direction, size);
   });
+}
+
+export function Spawn4DWFCLevel(wfcNodes, size) {
+  pc.app.fire("DestroyNode");
+
+  wfcNodes.forEach((node) => {
+    const position = new pc.Vec3(
+      node.position.x,
+      node.position.y,
+      node.position.z
+    );
+    Spawn4DWFCNode(position, node.direction, size, node.position.w);
+  });
+
+  pc.app.fire("SwitchDimension", 0);
 }
 
 export function SpawnWFCGrid(wfcNodes, plane) {
