@@ -1,4 +1,5 @@
 import * as pc from "playcanvas";
+import GetColor from "./materials";
 
 const left = 1;
 const right = 2;
@@ -92,11 +93,19 @@ function SpawnWFCNode(position, adjacentNodes, size) {
   }
 }
 
+function updateMeshMaterial(mesh, dimension) {
+  var material = mesh.material.clone();
+  material.diffuse = GetColor(dimension);
+  material.update();
+  mesh.material = material;
+}
+
 function spawn4dWFCEntity(position, scale, dimension) {
   let entity = spawnWFCEntity(position, scale);
   entity.script.create("dimensionNode");
   entity.script.dimensionNode.dimension = dimension;
   pc.app.root.addChild(entity);
+  return entity;
 }
 
 function spawnWFCPortal(position, scale, dimension) {
@@ -119,7 +128,10 @@ function spawnWFCPortal(position, scale, dimension) {
 
 function Spawn4DWFCNode(position, adjacentNodes, size, dimension) {
   const groundScale = new pc.Vec3(size, size * 0.04, size);
-  spawn4dWFCEntity(position, groundScale, dimension);
+  let ground = spawn4dWFCEntity(position, groundScale, dimension);
+  ground.model.meshInstances.forEach((mesh) =>
+    updateMeshMaterial(mesh, dimension)
+  );
 
   if ((adjacentNodes & left) == 0) {
     const wallPosition = new pc.Vec3(
@@ -189,7 +201,10 @@ function Spawn4DWFCNode(position, adjacentNodes, size, dimension) {
       position.z
     );
 
-    spawnWFCPortal(portalPosition, scale, dimension);
+    let portalIn = spawnWFCPortal(portalPosition, scale, dimension);
+    portalIn.model.meshInstances.forEach((mesh) =>
+      updateMeshMaterial(mesh, dimension + 1)
+    );
   }
 
   if ((adjacentNodes & portalOut) != 0) {
@@ -200,8 +215,11 @@ function Spawn4DWFCNode(position, adjacentNodes, size, dimension) {
       position.z
     );
 
-    let portal = spawnWFCPortal(portalPosition, scale, dimension);
-    portal.setLocalEulerAngles(180, 0, 0);
+    let portalOut = spawnWFCPortal(portalPosition, scale, dimension);
+    portalOut.model.meshInstances.forEach((mesh) =>
+      updateMeshMaterial(mesh, dimension - 1)
+    );
+    portalOut.setLocalEulerAngles(180, 0, 0);
   }
 }
 
