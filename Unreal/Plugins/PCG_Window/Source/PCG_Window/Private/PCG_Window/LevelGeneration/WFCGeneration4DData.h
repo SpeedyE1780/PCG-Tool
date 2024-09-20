@@ -16,22 +16,22 @@ class PCG_WINDOW_API UWFCGeneration4DData : public UObject
 {
 	GENERATED_BODY()
 	
-    UFUNCTION(BlueprintCallable, CallInEditor, Category = "WFC Dimension Generation Data")
+    UFUNCTION(BlueprintCallable, CallInEditor, Category = "WFC 4D Generation Data")
     void GenerateLevel() const;
 
-    UPROPERTY(EditAnywhere, Category = "WFC Dimension Generation Data")
+    UPROPERTY(EditAnywhere, Category = "WFC 4D Generation Data")
     int count;
-    UPROPERTY(EditAnywhere, Category = "WFC Dimension Generation Data")
+    UPROPERTY(EditAnywhere, Category = "WFC 4D Generation Data")
     TSubclassOf<AActor> block;
-    UPROPERTY(EditAnywhere, Category = "WFC Dimension Generation Data")
+    UPROPERTY(EditAnywhere, Category = "WFC 4D Generation Data")
     float nodeSize;
-    UPROPERTY(EditAnywhere, Category = "WFC Dimension Generation Data")
+    UPROPERTY(EditAnywhere, Category = "WFC 4D Generation Data")
     EExpansionMode expansionMode;
-    UPROPERTY(EditAnywhere, Category = "WFC Dimension Generation Data", meta = (Bitmask, BitmaskEnum = "EGenerationAxis"))
+    UPROPERTY(EditAnywhere, Category = "WFC 4D Generation Data", meta = (Bitmask, BitmaskEnum = "EGenerationAxis"))
     uint8 axes;
-    UPROPERTY(EditAnywhere, Category = "WFC Dimension Generation Data")
+    UPROPERTY(EditAnywhere, Category = "WFC 4D Generation Data")
     FVector startPosition;
-    UPROPERTY(EditAnywhere, Category = "WFC Dimension Generation Data")
+    UPROPERTY(EditAnywhere, Category = "WFC 4D Generation Data")
     unsigned int seed;
 
 private:
