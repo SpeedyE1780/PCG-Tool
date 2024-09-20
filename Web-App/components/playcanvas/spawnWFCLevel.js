@@ -217,7 +217,7 @@ export function SpawnWFCLevel(wfcNodes, size) {
   });
 }
 
-export function Spawn4DWFCLevel(wfcNodes, size) {
+export function Spawn4DWFCLevel(wfcNodes, size, response) {
   pc.app.fire("DestroyNode");
 
   wfcNodes.forEach((node) => {
@@ -226,6 +226,8 @@ export function Spawn4DWFCLevel(wfcNodes, size) {
       node.position.y,
       node.position.z
     );
+    response.minDimension = Math.min(node.position.w, response.minDimension);
+    response.maxDimension = Math.max(node.position.w, response.maxDimension);
     Spawn4DWFCNode(position, node.direction, size, node.position.w);
   });
 
