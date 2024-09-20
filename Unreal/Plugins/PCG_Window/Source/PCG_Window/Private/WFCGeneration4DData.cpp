@@ -57,6 +57,8 @@ void UWFCGeneration4DData::SpawnNode(pcg::engine::math::Vector4 position, pcg::e
         sceneComponent->SetMobility(EComponentMobility::Static);
         dimension->SetRootComponent(sceneComponent);
         dimension->SetFolderPath(*GetFolderName());
+        dimension->SetActorHiddenInGame(position.w != 0);
+        dimension->SetIsTemporarilyHiddenInEditor(position.w != 0);
         dimensions.Add(position.w, dimension);
     }
 
