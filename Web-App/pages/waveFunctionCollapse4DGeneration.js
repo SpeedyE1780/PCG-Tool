@@ -8,10 +8,18 @@ import * as pc from "playcanvas";
 
 let params = {};
 let expansion = 0;
-let currentDimension = 0;
 
 export default function WaveFunctionCollapse4DGeneration() {
   let [response, setResponse] = useState({});
+
+  function updateResponse() {
+    setResponse({
+      json: response.json,
+      minDimension: response.minDimension,
+      maxDimension: response.maxDimension,
+      currentDimension: response.currentDimension,
+    });
+  }
 
   function generateLevel() {
     const generationParameters = {
@@ -30,20 +38,16 @@ export default function WaveFunctionCollapse4DGeneration() {
       "https://localhost:7060/levelgeneration/wavefunctioncollapsegeneration/generate4D",
       generationParameters,
       (json) => {
+        response.json = json;
         response.minDimension = 0;
         response.maxDimension = 0;
+        response.currentDimension = 0;
         Spawn4DWFCLevel(
           JSON.parse(json),
           generationParameters.nodeSize,
           response
         );
-        setResponse({
-          json: json,
-          minDimension: response.minDimension,
-          maxDimension: response.maxDimension,
-        });
-
-        currentDimension = 0;
+        updateResponse();
       }
     );
   }
@@ -58,15 +62,16 @@ export default function WaveFunctionCollapse4DGeneration() {
           <option value="BFS">Breadth First Search</option>
           <option value="DFS">Depth First Search</option>
         </select>
-        <label>Dimension: {currentDimension}</label>
+        <label>Dimension: {response.currentDimension}</label>
         <input
           type="range"
           min={response.minDimension}
           max={response.maxDimension}
           defaultValue="0"
           onChange={(event) => {
-            currentDimension = event.target.valueAsNumber;
-            pc.app.fire("SwitchDimension", currentDimension);
+            response.currentDimension = event.target.valueAsNumber;
+            updateResponse();
+            pc.app.fire("SwitchDimension", response.currentDimension);
           }}
         ></input>
         <button onClick={generateLevel}>Generate</button>
