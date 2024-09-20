@@ -16,5 +16,6 @@ var cpp_api_2src_2api_8cpp =
     [ "setRandomGenerator", "cpp-api_2src_2api_8cpp.html#a8cc7294fc43edbfdd0e91c37681aa41a", null ],
     [ "setSeed", "cpp-api_2src_2api_8cpp.html#ad7a023f262d2f713f696a7e5a3a81904", null ],
     [ "simpleGeneration", "cpp-api_2src_2api_8cpp.html#a39908c6f2a92ea34a664deefb46216c6", null ],
+    [ "waveFunctionCollapse4DGeneration", "cpp-api_2src_2api_8cpp.html#a93271313ee928a44db8d93655dde2dd4", null ],
     [ "waveFunctionCollapseGeneration", "cpp-api_2src_2api_8cpp.html#ad302a7303ab89a3785fa8e0dd0d225e2", null ]
 ];

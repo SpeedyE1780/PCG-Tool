@@ -20,6 +20,12 @@ export default function PCGHeader() {
         Wave Function Collapse Generation
       </Link>
       <Link
+        href="/waveFunctionCollapse4DGeneration"
+        className={styles.pcgHeaderLink}
+      >
+        4D Wave Function Collapse Generation
+      </Link>
+      <Link
         href="/waveFunctionCollapseGrid2DGeneration"
         className={styles.pcgHeaderLink}
       >

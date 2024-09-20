@@ -88,6 +88,15 @@ namespace PCGAPI
         [DllImport(DLLName, EntryPoint = "waveFunctionCollapseGeneration")]
         public static extern void WaveFunctionCollapseGeneration(GenerationParameters generationParameters, ExpansionMode mode, Axis axis, AddWFCNode addNode);
         /// <summary>
+        /// Generate a 4D level using the Wave Function Collapse Algorithm
+        /// </summary>
+        /// <param name="generationParameters">Object containing number of nodes that need to be generated, node size and starting position</param>
+        /// <param name="mode">If Breadth-First Search (BFS) or Depth-First Search (DFS) expansion should be used</param>
+        /// <param name="axis">Axes flag indicating which axes are being used</param>
+        /// <param name="addNode">Callback when a node is generated</param>
+        [DllImport(DLLName, EntryPoint = "waveFunctionCollapse4DGeneration")]
+        public static extern void WaveFunctionCollapse4DGeneration(GenerationParameters generationParameters, ExpansionMode mode, Axis axis, AddWFC4DNode addNode);
+        /// <summary>
         ///  Generate a grid using the Wave Function Collapse Algorithm
         /// </summary>
         /// <param name="x">Grid width</param>

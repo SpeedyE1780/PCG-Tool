@@ -115,7 +115,15 @@
         /// <summary>
         /// Down adjacent node
         /// </summary>
-        down = 1 << 5
+        down = 1 << 5,
+        /// <summary>
+        /// Portal going in new dimension
+        /// </summary>
+        portalIn = 1 << 6,
+        /// <summary>
+        /// Portal going out of new dimension
+        /// </summary>
+        portalOut = 1 << 7
     }
 
     /// <summary>

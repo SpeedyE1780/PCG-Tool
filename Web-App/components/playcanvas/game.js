@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import * as pc from "playcanvas";
 import CreateFlyCamera from "./flyCamera";
 import createDestroyNode from "./destroyNode";
+import createDimensionNode from "./dimensionNode";
 
 export default function Game() {
   useEffect(() => {
@@ -17,6 +18,7 @@ export default function Game() {
 
     CreateFlyCamera();
     createDestroyNode();
+    createDimensionNode();
 
     // create a camera
     const camera = new pc.Entity();

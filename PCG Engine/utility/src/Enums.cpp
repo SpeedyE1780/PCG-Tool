@@ -31,6 +31,15 @@ namespace pcg::engine::utility::enums
         {
             return Direction::forward;
         }
+        case Direction::portalIn:
+        {
+            return Direction::portalOut;
+        }
+        case Direction::portalOut:
+        {
+            return Direction::portalIn;
+        }
+        case Direction::none:
         default:
         {
             utility::logError("Invalid direction passed to getFlippedDirection");

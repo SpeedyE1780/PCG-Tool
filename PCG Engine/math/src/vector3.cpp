@@ -12,7 +12,7 @@ namespace pcg::engine::math
     const Vector3 Vector3::left{ -1, 0, 0 };
     const Vector3 Vector3::up{ 0, 1, 0 };
     const Vector3 Vector3::down{ 0, -1, 0 };
-    const Vector3 Vector3::forward{ 0, 0 ,1 };
+    const Vector3 Vector3::forward{ 0, 0, 1 };
     const Vector3 Vector3::backward{ 0, 0, -1 };
 
     Vector3& Vector3::operator+=(const Vector3& rhs)
@@ -38,7 +38,7 @@ namespace pcg::engine::math
         return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
     }
 
-    Vector3 operator*(const Vector3& vector, float scalar)
+    Vector3 operator*(const Vector3& vector, double scalar)
     {
         Vector3 scaledVector = vector;
         scaledVector.x *= scalar;
@@ -47,7 +47,7 @@ namespace pcg::engine::math
         return scaledVector;
     }
 
-    std::vector<const Vector3*> getUnitVectors(Axis axes)
+    std::vector<const Vector3*> Vector3::getUnitVectors(Axis axes)
     {
         std::vector<const Vector3*> directions{};
 
@@ -89,7 +89,7 @@ namespace pcg::engine::math
         return directions;
     }
 
-    const Vector3& getUnitVectorFromDirection(utility::enums::Direction direction)
+    const Vector3& Vector3::getUnitVectorFromDirection(utility::enums::Direction direction)
     {
         switch (direction)
         {

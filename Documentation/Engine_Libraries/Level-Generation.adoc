@@ -34,7 +34,7 @@ The Level Generation library is used to generate levels using a simple generatio
         . Spawn new node on new position.
         . Repeat until node count is reached or all position are overlapping when overlap is disabled.
         
-* **Wave Function Collapse:**
+* ** 3D/4D Wave Function Collapse:**
     
     - Steps:
         . Choose expansion mode Breadth-First Search (**BFS**) / Depth-First Search (**DFS**)
@@ -50,6 +50,9 @@ The Level Generation library is used to generate levels using a simple generatio
         
 [NOTE]
 A **BFS** Expansion creates a more connected maze that expands in a rectangular like shape. A **DFS** Expansion creates a more linear maze that follows a main path and has some rooms alongside the path.
+
+[NOTE]
+4D Wave Function Collapse is like generating multiple 3D Wave Function Collapse level with at least one node connected to a different level.
 
 * **Grid 2D/3D Wave Function Collapse:**
 

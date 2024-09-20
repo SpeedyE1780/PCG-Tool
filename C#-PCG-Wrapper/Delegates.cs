@@ -12,6 +12,12 @@
     /// <param name="adjacentNodes">Spawned node adjacent nodes</param>
     public delegate void AddWFCNode(Vector3 position, LevelGenerationDirection adjacentNodes);
     /// <summary>
+    /// Notifies that a node was a spawned at position and has the following adjacent nodes
+    /// </summary>
+    /// <param name="position">Spawned node position</param>
+    /// <param name="adjacentNodes">Spawned node adjacent nodes</param>
+    public delegate void AddWFC4DNode(Vector4 position, LevelGenerationDirection adjacentNodes);
+    /// <summary>
     /// Notifies that a node was a spawned at (x, y) coordinates and has the following adjacent nodes
     /// </summary>
     /// <param name="x">X coordinate</param>

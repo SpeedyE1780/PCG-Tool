@@ -19,6 +19,10 @@ namespace PCGAPI.Demo
         private GameObject up;
         [SerializeField, Tooltip("Downward Stair")]
         private GameObject down;
+        [SerializeField, Tooltip("Portal In")]
+        private GameObject portalIn;
+        [SerializeField, Tooltip("Portal Out")]
+        private GameObject portalOut;
 
         /// <summary>
         /// Toggle node's Wall/Stair
@@ -32,6 +36,8 @@ namespace PCGAPI.Demo
             forward.SetActive(!adjacentNodes.HasFlag(LevelGenerationDirection.forward));
             up.SetActive(adjacentNodes.HasFlag(LevelGenerationDirection.up));
             down.SetActive(adjacentNodes.HasFlag(LevelGenerationDirection.down));
+            portalIn.SetActive(adjacentNodes.HasFlag(LevelGenerationDirection.portalIn));
+            portalOut.SetActive(adjacentNodes.HasFlag(LevelGenerationDirection.portalOut));
         }
     }
 }

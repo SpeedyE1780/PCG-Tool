@@ -89,6 +89,10 @@ app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/generate", LevelGen
 .WithName("LevelGenerationWaveFunctionCollapseGeneration")
 .WithOpenApi();
 
+app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/generate4D", LevelGeneration.WaveFunctionCollapse4DGeneration)
+.WithName("LevelGenerationWaveFunctionCollapse4DGeneration")
+.WithOpenApi();
+
 app.MapPost("/levelgeneration/wavefunctioncollapsegeneration/grid2d", LevelGeneration.Grid2DWaveFunctionCollapseGeneration)
 .WithName("LevelGenerationWaveFunctionCollapseGenerationGrid2D")
 .WithOpenApi();

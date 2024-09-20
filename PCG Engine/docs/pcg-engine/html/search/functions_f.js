@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['wavefunctioncollapse_0',['waveFunctionCollapse',['../namespacepcg_1_1engine_1_1level__generation.html#a91f0f460324c59997d4e441f91e0be23',1,'pcg::engine::level_generation']]],
-  ['wavefunctioncollapse3dgridgeneration_1',['waveFunctionCollapse3DGridGeneration',['../namespacepcg_1_1engine_1_1c__api.html#ad95f8202c1468ae11d2ef5a458b773ed',1,'pcg::engine::c_api']]],
-  ['wavefunctioncollapsegeneration_2',['waveFunctionCollapseGeneration',['../namespacepcg_1_1engine_1_1c__api.html#a66cc4763f2b7221b40196966bcbf7632',1,'pcg::engine::c_api::waveFunctionCollapseGeneration()'],['../namespacepcg_1_1engine_1_1cpp__api.html#ad302a7303ab89a3785fa8e0dd0d225e2',1,'pcg::engine::cpp_api::waveFunctionCollapseGeneration()']]],
-  ['wavefunctioncollapsegridgeneration_3',['waveFunctionCollapseGridGeneration',['../namespacepcg_1_1engine_1_1c__api.html#a2add9cc10f224ad6f74b55ea89e03fa5',1,'pcg::engine::c_api']]],
-  ['wilson_4',['wilson',['../namespacepcg_1_1engine_1_1maze__generation.html#accb954a2be7362e7e8d6fd33254ae0e1',1,'pcg::engine::maze_generation']]]
+  ['vector4_0',['Vector4',['../structpcg_1_1engine_1_1math_1_1_vector4.html#a072cd786c96df544c69ea036241b303b',1,'pcg::engine::math::Vector4::Vector4()=default'],['../structpcg_1_1engine_1_1math_1_1_vector4.html#a6d32e671093d5b0741cb759dfeb763aa',1,'pcg::engine::math::Vector4::Vector4(const Vector4 &amp;other)=default'],['../structpcg_1_1engine_1_1math_1_1_vector4.html#ae8a4c0a9cd72e0eabc044008e9a709a8',1,'pcg::engine::math::Vector4::Vector4(Vector4 &amp;&amp;other)=default'],['../structpcg_1_1engine_1_1math_1_1_vector4.html#abc11c49fe90a4040dcfd958752488e65',1,'pcg::engine::math::Vector4::Vector4(double x, double y, double z, double w)'],['../structpcg_1_1engine_1_1math_1_1_vector4.html#a14bf4fb7cb4f87f52aacf50658158dd6',1,'pcg::engine::math::Vector4::Vector4(const Vector3 &amp;vector)']]]
 ];

@@ -112,6 +112,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a3294c6694468c8f599a67415f1f0948d" id="r_a3294c6694468c8f599a67415f1f0948d"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3294c6694468c8f599a67415f1f0948d">addWFCNodeCallback</a>) (<a class="el" href="structpcg_1_1engine_1_1math_1_1_vector3.html">math::Vector3</a> position, <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> adjacentNodes)</td></tr>
 <tr class="memdesc:a3294c6694468c8f599a67415f1f0948d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback to indicate that a node was spawned at this position and has these adjacent node.  <br /></td></tr>
 <tr class="separator:a3294c6694468c8f599a67415f1f0948d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70cc8f20d1f09b2d8645adfe15c2fc54" id="r_a70cc8f20d1f09b2d8645adfe15c2fc54"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70cc8f20d1f09b2d8645adfe15c2fc54">addWFC4DNodeCallback</a>) (<a class="el" href="structpcg_1_1engine_1_1math_1_1_vector4.html">math::Vector4</a> position, <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> adjacentNodes)</td></tr>
+<tr class="memdesc:a70cc8f20d1f09b2d8645adfe15c2fc54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback to indicate that a node was spawned at this position and has these adjacent node.  <br /></td></tr>
+<tr class="separator:a70cc8f20d1f09b2d8645adfe15c2fc54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53f15629730a3c911acca6a4a7a1220c" id="r_a53f15629730a3c911acca6a4a7a1220c"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53f15629730a3c911acca6a4a7a1220c">addWFCGridNodeCallback</a>) (int <a class="el" href="_grid_wave_function_collapse_8cpp.html#a6150e0515f7202e2fb518f7206ed97dc">x</a>, int <a class="el" href="_grid_wave_function_collapse_8cpp.html#a0a2f84ed7838f07779ae24c5a9086d33">y</a>, <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> adjacentNodes)</td></tr>
 <tr class="memdesc:a53f15629730a3c911acca6a4a7a1220c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback to indicate that a node was spawned at x, y coordinates and has these adjacent node.  <br /></td></tr>
 <tr class="separator:a53f15629730a3c911acca6a4a7a1220c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -198,6 +201,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a66cc4763f2b7221b40196966bcbf7632" id="r_a66cc4763f2b7221b40196966bcbf7632"><td class="memItemLeft" align="right" valign="top"><a class="el" href="c-api_2include_2pcg_2engine_2c-api_2config_8hpp.html#ab16280982cf718ba19512dad271ae58b">PCG_ENGINE_C_API_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66cc4763f2b7221b40196966bcbf7632">waveFunctionCollapseGeneration</a> (const <a class="el" href="structpcg_1_1engine_1_1level__generation_1_1_generation_data.html">level_generation::GenerationData</a> &amp;data, <a class="el" href="namespacepcg_1_1engine_1_1level__generation.html#aba50b7e433525a8691e58581a12c6d79">level_generation::ExpansionMode</a> mode, <a class="el" href="namespacepcg_1_1engine_1_1math.html#a8baea8af717df5ea70816ad2b5fecec8">math::Axis</a> axes, <a class="el" href="#a3294c6694468c8f599a67415f1f0948d">addWFCNodeCallback</a> <a class="el" href="_grid_wave_function_collapse_8cpp.html#aa080fcd829f452f640455cd69cf1de22">callback</a>)</td></tr>
 <tr class="memdesc:a66cc4763f2b7221b40196966bcbf7632"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a level using the Wave Function Collapse Algorithm.  <br /></td></tr>
 <tr class="separator:a66cc4763f2b7221b40196966bcbf7632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e77569faa829d08a61a3eeea848491a" id="r_a7e77569faa829d08a61a3eeea848491a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="c-api_2include_2pcg_2engine_2c-api_2config_8hpp.html#ab16280982cf718ba19512dad271ae58b">PCG_ENGINE_C_API_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e77569faa829d08a61a3eeea848491a">waveFunctionCollapse4DGeneration</a> (const <a class="el" href="structpcg_1_1engine_1_1level__generation_1_1_generation_data.html">level_generation::GenerationData</a> &amp;data, <a class="el" href="namespacepcg_1_1engine_1_1level__generation.html#aba50b7e433525a8691e58581a12c6d79">level_generation::ExpansionMode</a> mode, <a class="el" href="namespacepcg_1_1engine_1_1math.html#a8baea8af717df5ea70816ad2b5fecec8">math::Axis</a> axes, <a class="el" href="#a70cc8f20d1f09b2d8645adfe15c2fc54">addWFC4DNodeCallback</a> <a class="el" href="_grid_wave_function_collapse_8cpp.html#aa080fcd829f452f640455cd69cf1de22">callback</a>)</td></tr>
+<tr class="memdesc:a7e77569faa829d08a61a3eeea848491a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a 4D level using the Wave Function Collapse Algorithm.  <br /></td></tr>
+<tr class="separator:a7e77569faa829d08a61a3eeea848491a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2add9cc10f224ad6f74b55ea89e03fa5" id="r_a2add9cc10f224ad6f74b55ea89e03fa5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="c-api_2include_2pcg_2engine_2c-api_2config_8hpp.html#ab16280982cf718ba19512dad271ae58b">PCG_ENGINE_C_API_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2add9cc10f224ad6f74b55ea89e03fa5">waveFunctionCollapseGridGeneration</a> (int <a class="el" href="_grid_wave_function_collapse_8cpp.html#a2474a5474cbff19523a51eb1de01cda4">width</a>, int <a class="el" href="_grid_wave_function_collapse_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534">height</a>, <a class="el" href="namespacepcg_1_1engine_1_1math.html#af1b96967061c702b0cfc153bd933befe">math::Plane</a> plane, bool invokeAfterGeneration, <a class="el" href="#a53f15629730a3c911acca6a4a7a1220c">addWFCGridNodeCallback</a> <a class="el" href="_grid_wave_function_collapse_8cpp.html#aa080fcd829f452f640455cd69cf1de22">callback</a>)</td></tr>
 <tr class="memdesc:a2add9cc10f224ad6f74b55ea89e03fa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a grid using the Wave Function Collapse Algorithm.  <br /></td></tr>
 <tr class="separator:a2add9cc10f224ad6f74b55ea89e03fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -275,6 +281,22 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Callback to indicate that a node was spawned at x, y, z coordinates and has these adjacent node. </p>
+
+</div>
+</div>
+<a id="a70cc8f20d1f09b2d8645adfe15c2fc54" name="a70cc8f20d1f09b2d8645adfe15c2fc54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70cc8f20d1f09b2d8645adfe15c2fc54">&#9670;&#160;</a></span>addWFC4DNodeCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* pcg::engine::c_api::addWFC4DNodeCallback) (<a class="el" href="structpcg_1_1engine_1_1math_1_1_vector4.html">math::Vector4</a> position, <a class="el" href="namespacepcg_1_1engine_1_1utility_1_1enums.html#af6e8c93938f72448eb29fb4aac1c1c32">utility::enums::Direction</a> adjacentNodes)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback to indicate that a node was spawned at this position and has these adjacent node. </p>
 
 </div>
 </div>
@@ -992,6 +1014,48 @@ Functions</h2></td></tr>
     <tr><td class="paramname">height</td><td>Grid height </td></tr>
     <tr><td class="paramname">depth</td><td>Grid depth </td></tr>
     <tr><td class="paramname">invokeAfterGeneration</td><td>If true callback will only be called after all nodes are generated </td></tr>
+    <tr><td class="paramname">callback</td><td>Callback when a node is generated </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7e77569faa829d08a61a3eeea848491a" name="a7e77569faa829d08a61a3eeea848491a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e77569faa829d08a61a3eeea848491a">&#9670;&#160;</a></span>waveFunctionCollapse4DGeneration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pcg::engine::c_api::waveFunctionCollapse4DGeneration </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structpcg_1_1engine_1_1level__generation_1_1_generation_data.html">level_generation::GenerationData</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacepcg_1_1engine_1_1level__generation.html#aba50b7e433525a8691e58581a12c6d79">level_generation::ExpansionMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacepcg_1_1engine_1_1math.html#a8baea8af717df5ea70816ad2b5fecec8">math::Axis</a></td>          <td class="paramname"><span class="paramname"><em>axes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a70cc8f20d1f09b2d8645adfe15c2fc54">addWFC4DNodeCallback</a></td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generate a 4D level using the Wave Function Collapse Algorithm. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Object containing number of nodes that need to be generated, node size &amp; starting position </td></tr>
+    <tr><td class="paramname">mode</td><td>If Breadth-First Search (BFS) or Depth-First Search (DFS) expansion should be used </td></tr>
+    <tr><td class="paramname">axes</td><td>Axes flag indicating which axes are being used </td></tr>
     <tr><td class="paramname">callback</td><td>Callback when a node is generated </td></tr>
   </table>
   </dd>

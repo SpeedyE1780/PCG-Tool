@@ -25,6 +25,10 @@ AWFCBlock::AWFCBlock()
     forward->SetupAttachment(RootComponent);
     backward = CreateDefaultSubobject<USceneComponent>("Backward");
     backward->SetupAttachment(RootComponent);
+    portalIn = CreateDefaultSubobject<USceneComponent>("Portal In");
+    portalIn->SetupAttachment(RootComponent);
+    portalOut = CreateDefaultSubobject<USceneComponent>("Portal Out");
+    portalOut->SetupAttachment(RootComponent);
 }
 
 void AWFCBlock::SetAdjacentNodes(pcgEnums::Direction adjacentNodes)
@@ -35,4 +39,6 @@ void AWFCBlock::SetAdjacentNodes(pcgEnums::Direction adjacentNodes)
     down->SetVisibility(pcgEnums::hasFlag(adjacentNodes, pcgEnums::Direction::down), true);
     forward->SetVisibility(!pcgEnums::hasFlag(adjacentNodes, pcgEnums::Direction::forward), true);
     backward->SetVisibility(!pcgEnums::hasFlag(adjacentNodes, pcgEnums::Direction::backward), true);
+    portalIn->SetVisibility(pcgEnums::hasFlag(adjacentNodes, pcgEnums::Direction::portalIn), true);
+    portalOut->SetVisibility(pcgEnums::hasFlag(adjacentNodes, pcgEnums::Direction::portalOut), true);
 }

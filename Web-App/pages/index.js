@@ -29,6 +29,11 @@ export default function Home() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="waveFunctionCollapse4DGeneration">
+                    <h3>4D Wave Function Collapse Generation</h3>
+                  </Link>
+                </li>
+                <li>
                   <Link href="waveFunctionCollapseGrid2DGeneration">
                     <h3>Wave Function Collapse Grid 2D Generation</h3>
                   </Link>

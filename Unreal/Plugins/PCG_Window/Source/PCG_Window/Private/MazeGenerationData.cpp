@@ -2,27 +2,12 @@
 
 
 #include "PCG_Window/MazeGeneration/MazeGenerationData.h"
+#include "PCG_Window/Utility/Utility.hpp"
 #include "MyPCG/MazeGeneration/IMazeNode.h"
 #include "pcg/engine/cpp-api/api.hpp"
 
 namespace maze_generation = pcg::engine::maze_generation;
 namespace pcg_api = pcg::engine::cpp_api;
-
-namespace
-{
-    FString GetMazeAlgorith(EMazeAlgorithm algorithm)
-    {
-        // Strip the namespace from the name.
-        FString EnumNameString = UEnum::GetValueAsString(algorithm);
-        int32 ScopeIndex = EnumNameString.Find(TEXT("::"), ESearchCase::CaseSensitive);
-        if (ScopeIndex != INDEX_NONE)
-        {
-            return EnumNameString.Mid(ScopeIndex + 2);
-        }
-
-        return FString();
-    }
-}
 
 void UMazeGenerationData::GenerateMaze() const
 {
@@ -67,7 +52,7 @@ void UMazeGenerationData::SpawnBlock(int x, int y, maze_generation::NodeValue ad
 FString UMazeGenerationData::GetFolderName() const
 {
     FString path = "Maze/";
-    path.Append(GetMazeAlgorith(mazeAlgorithm));
+    path.Append(GetEnumAsString(mazeAlgorithm));
     path.Append("/");
     path.Append(FString::FromInt(seed));
     return path;

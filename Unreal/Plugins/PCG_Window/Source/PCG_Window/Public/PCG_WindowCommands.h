@@ -22,6 +22,7 @@ public:
 	TSharedPtr< FUICommandInfo > OpenSimpleGenerationWindow;
 	TSharedPtr< FUICommandInfo > OpenMultiDimensionGenerationWindow;
 	TSharedPtr< FUICommandInfo > OpenWaveFunctionCollapseGenerationWindow;
+	TSharedPtr< FUICommandInfo > OpenWaveFunctionCollapse4DGenerationWindow;
 	TSharedPtr< FUICommandInfo > OpenGrid2DWaveFunctionCollapseGenerationWindow;
 	TSharedPtr< FUICommandInfo > OpenGrid3DWaveFunctionCollapseGenerationWindow;
 

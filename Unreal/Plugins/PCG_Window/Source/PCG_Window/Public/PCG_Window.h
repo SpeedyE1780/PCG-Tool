@@ -19,6 +19,7 @@ public:
 	void SimpleGeneration();
 	void MultiDimensionGeneration();
 	void WaveFunctionCollapse();
+	void WaveFunctionCollapse4D();
 	void Grid2DWaveFunctionCollapse();
 	void Grid3DWaveFunctionCollapse();
 
@@ -35,6 +36,7 @@ private:
 	TSharedRef<class SDockTab> OnSimpleGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnMultiDimensionGeneration(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnWaveFunctionCollapse(const class FSpawnTabArgs& SpawnTabArgs);
+	TSharedRef<class SDockTab> OnWaveFunctionCollapse4D(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnGrid2DWaveFunctionCollapse(const class FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<class SDockTab> OnGrid3DWaveFunctionCollapse(const class FSpawnTabArgs& SpawnTabArgs);
 

@@ -8,7 +8,6 @@ target_sources(${PROJECT_NAME} PRIVATE
 #CPP
 "src/GridWaveFunctionCollapse.cpp"
 "src/MultiDimensionalGeneration.cpp"
-"src/Node.cpp"
 "src/SimpleGeneration.cpp"
 "src/WaveFunctionCollapse.cpp"
 

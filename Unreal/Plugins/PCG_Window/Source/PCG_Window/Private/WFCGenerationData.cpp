@@ -4,23 +4,8 @@
 #include "PCG_Window/LevelGeneration/WFCGenerationData.h"
 #include "pcg/engine/cpp-api/api.hpp"
 #include "MyPCG/LevelGeneration/IWFCNode.h"
+#include "PCG_Window/Utility/Utility.hpp"
 #include "MyPCG/PCG2Unreal.h"
-
-namespace
-{
-    FString GetExpansionMode(EExpansionMode mode)
-    {
-        // Strip the namespace from the name.
-        FString EnumNameString = UEnum::GetValueAsString(mode);
-        int32 ScopeIndex = EnumNameString.Find(TEXT("::"), ESearchCase::CaseSensitive);
-        if (ScopeIndex != INDEX_NONE)
-        {
-            return EnumNameString.Mid(ScopeIndex + 2);
-        }
-
-        return FString();
-    }
-}
 
 void UWFCGenerationData::GenerateLevel() const
 {
@@ -72,7 +57,7 @@ void UWFCGenerationData::SpawnNode(pcg::engine::math::Vector3 position, pcg::eng
 FString UWFCGenerationData::GetFolderName() const
 {
     FString path = "WFC/";
-    path.Append(GetExpansionMode(expansionMode));
+    path.Append(GetEnumAsString(expansionMode));
     path.Append("/");
     path.Append(FString::FromInt(seed));
     return path;

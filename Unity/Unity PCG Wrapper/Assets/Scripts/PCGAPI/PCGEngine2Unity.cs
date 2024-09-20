@@ -24,5 +24,15 @@ namespace PCGAPI
         {
             return new UnityEngine.Vector3(vector.x, vector.y, vector.z);
         }
+
+        public static Vector4 UnityToPCGEngineVector(UnityEngine.Vector4 vector)
+        {
+            return new Vector4(vector.x, vector.y, vector.z, vector.w);
+        }
+
+        public static UnityEngine.Vector4 PCGEngineVectorToUnity(Vector4 vector)
+        {
+            return new UnityEngine.Vector4(vector.x, vector.y, vector.z, vector.w);
+        }
     }
 }

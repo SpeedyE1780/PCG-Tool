@@ -61,6 +61,69 @@
             <param name="rhs">Vector on the right side of !=</param>
             <returns>True if lhs != rhs</returns>
         </member>
+        <member name="T:PCGAPI.Vector4">
+            <summary>
+            Represents a Vector4
+            </summary>
+        </member>
+        <member name="F:PCGAPI.Vector4.x">
+            <summary>
+            Value of x axis
+            </summary>
+        </member>
+        <member name="F:PCGAPI.Vector4.y">
+            <summary>
+            Value of y axis
+            </summary>
+        </member>
+        <member name="F:PCGAPI.Vector4.z">
+            <summary>
+            Value of z axis
+            </summary>
+        </member>
+        <member name="F:PCGAPI.Vector4.w">
+            <summary>
+            Value of w axis
+            </summary>
+        </member>
+        <member name="M:PCGAPI.Vector4.#ctor(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Construct a Vector3
+            </summary>
+            <param name="x">Value of x axis</param>
+            <param name="y">Value of y axis</param>
+            <param name="z">Value of z axis</param>
+            <param name="w">Value of w axis</param>
+        </member>
+        <member name="M:PCGAPI.Vector4.Equals(System.Object)">
+            <summary>
+            Checks for equality between this and other
+            </summary>
+            <param name="other">Object being compared to this</param>
+            <returns>True if this == object</returns>
+        </member>
+        <member name="M:PCGAPI.Vector4.GetHashCode">
+            <summary>
+            Returns the instance hash code
+            </summary>
+            <returns>The instance hash code</returns>
+        </member>
+        <member name="M:PCGAPI.Vector4.op_Equality(PCGAPI.Vector4,PCGAPI.Vector4)">
+            <summary>
+            Checks for equality between lhs and rhs
+            </summary>
+            <param name="lhs">Vector on the left side of ==</param>
+            <param name="rhs">Vector on the right side of ==</param>
+            <returns>True if lhs == rhs</returns>
+        </member>
+        <member name="M:PCGAPI.Vector4.op_Inequality(PCGAPI.Vector4,PCGAPI.Vector4)">
+            <summary>
+            Checks for inequality between lhs and rhs
+            </summary>
+            <param name="lhs">Vector on the left side of !=</param>
+            <param name="rhs">Vector on the right side of !=</param>
+            <returns>True if lhs != rhs</returns>
+        </member>
         <member name="T:PCGAPI.GenerationParameters">
             <summary>
             Parameters used to generate levels
@@ -103,6 +166,13 @@
             <param name="position">Spawned node position</param>
         </member>
         <member name="T:PCGAPI.AddWFCNode">
+            <summary>
+            Notifies that a node was a spawned at position and has the following adjacent nodes
+            </summary>
+            <param name="position">Spawned node position</param>
+            <param name="adjacentNodes">Spawned node adjacent nodes</param>
+        </member>
+        <member name="T:PCGAPI.AddWFC4DNode">
             <summary>
             Notifies that a node was a spawned at position and has the following adjacent nodes
             </summary>
@@ -308,6 +378,16 @@
         <member name="F:PCGAPI.LevelGenerationDirection.down">
             <summary>
             Down adjacent node
+            </summary>
+        </member>
+        <member name="F:PCGAPI.LevelGenerationDirection.portalIn">
+            <summary>
+            Portal going in new dimension
+            </summary>
+        </member>
+        <member name="F:PCGAPI.LevelGenerationDirection.portalOut">
+            <summary>
+            Portal going out of new dimension
             </summary>
         </member>
         <member name="T:PCGAPI.MazeDirection">
@@ -549,6 +629,15 @@
         <member name="M:PCGAPI.PCGEngine.WaveFunctionCollapseGeneration(PCGAPI.GenerationParameters,PCGAPI.ExpansionMode,PCGAPI.Axis,PCGAPI.AddWFCNode)">
             <summary>
             Generate a level using the Wave Function Collapse Algorithm
+            </summary>
+            <param name="generationParameters">Object containing number of nodes that need to be generated, node size and starting position</param>
+            <param name="mode">If Breadth-First Search (BFS) or Depth-First Search (DFS) expansion should be used</param>
+            <param name="axis">Axes flag indicating which axes are being used</param>
+            <param name="addNode">Callback when a node is generated</param>
+        </member>
+        <member name="M:PCGAPI.PCGEngine.WaveFunctionCollapse4DGeneration(PCGAPI.GenerationParameters,PCGAPI.ExpansionMode,PCGAPI.Axis,PCGAPI.AddWFC4DNode)">
+            <summary>
+            Generate a 4D level using the Wave Function Collapse Algorithm
             </summary>
             <param name="generationParameters">Object containing number of nodes that need to be generated, node size and starting position</param>
             <param name="mode">If Breadth-First Search (BFS) or Depth-First Search (DFS) expansion should be used</param>

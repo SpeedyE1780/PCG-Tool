@@ -6,11 +6,15 @@
         {
             count = NodeCount,
             size = NodeSize,
-            startPoint = Vector3Helper.ToEngine(StartPosition),
+            startPoint = VectorHelper.ToEngine(StartPosition),
         };
     }
 
     public record WFCNode(Vector3 Position, LevelGenerationDirection Direction)
+    {
+    }
+
+    public record WFC4DNode(Vector4 Position, LevelGenerationDirection Direction)
     {
     }
 }

@@ -83,6 +83,23 @@ Accept: application/json
   "axes": 63
 }
 
+### LevelGenerationWaveFunctionCollapse4DGeneration
+POST {{Web_Api_HostAddress}}/levelgeneration/wavefunctioncollapsegeneration/generate4D
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nodeCount": 250,
+  "nodeSize": 1,
+  "startPosition": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "expansionMode": 1,
+  "axes": 63
+}
+
 ### LevelGenerationWaveFunctionCollapseGenerationGrid2D
 POST {{Web_Api_HostAddress}}/levelgeneration/wavefunctioncollapsegeneration/grid2d
 Content-Type: application/json
