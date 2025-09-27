@@ -7,9 +7,9 @@
   },
   "dependencies": {
     "next": "latest",
-    "playcanvas": "^2.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "playcanvas": "^2.11.8",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
   },
   "engines": {
     "node": ">=18"
